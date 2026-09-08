@@ -19,7 +19,7 @@ CMAT-research/
 ├── README.md
 ├── AGENTS.md
 ├── AI_HANDOFF.md
-├── code/                     # canonical Python pipeline + preserved historical outputs
+├── code/                     # canonical Python pipeline + preserved historical snapshots/outputs
 ├── analysis/                 # canonical aggregate empirical record
 ├── reports/                  # technical reports
 ├── papers/
@@ -29,7 +29,7 @@ CMAT-research/
 │   ├── paper4_degree_help_seeking/
 │   └── paper5_longitudinal_trajectories/
 ├── literature/
-│   ├── library/              # shared physical corpus
+│   ├── library/              # shared physical corpus/source layer
 │   ├── general/              # cross-project literature view
 │   └── papers/               # five paper-specific literature views
 ├── docs/                     # portfolio, protocol, roadmap, workflow, privacy, provenance
@@ -40,9 +40,9 @@ Each major folder contains or should contain a local README describing scope, in
 
 ## AI / agent entry points
 
-1. Read `AGENTS.md` for operating rules.
-2. Read `.ai_handoff.md` for scientific state, definitions, known results and unresolved methodology work.
-3. For literature work, read `literature/AGENTS.md` and the relevant thematic/paper index before opening article files.
+1. Read `AI_HANDOFF.md` for current scientific/project state.
+2. Read `AGENTS.md` for operating rules.
+3. For literature work, read `literature/AGENTS.md` and `literature/AI_HANDOFF.md` before opening article files.
 
 ## Five-paper publication programme
 
@@ -74,6 +74,8 @@ The master analysis and technical report retain all validated discoveries; manus
 
 Historical package labels such as `v8` and `v5_methodology` represent different development lines, not a simple chronological ordering. The repository contains longitudinal/PPA work and later methodological corrections that must be verified in the actual canonical `code/` implementation rather than inferred from version names or merged branch names.
 
+The exact later-methodology historical snapshot and technical report v2 are preserved under `code/snapshots/` and `reports/technical_report_methodology_v2/` for provenance. They do not by themselves imply that every correction has been ported into the active canonical pipeline.
+
 Before changing scientific code or relying on a historical result, read `docs/MIGRATION_STATUS.md`, current protocol/changelog files, tests, and the implementation itself.
 
 ## Literature
@@ -103,4 +105,4 @@ Scientific source fingerprints and controlled-source checksums document version 
 
 See `docs/BRANCH_STRATEGY.md` and `docs/GIT_WORKFLOW.md`.
 
-In short: create a branch for a concrete task, review the diff/tests, merge into `main`, then delete the branch. ZIP snapshots are optional offline backups, not project history.
+In short: create a branch only for a concrete task when useful, review the diff/tests, merge into `main`, then delete the branch. ZIP snapshots are optional offline backups, not project history.
