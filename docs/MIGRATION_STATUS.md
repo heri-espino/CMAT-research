@@ -12,8 +12,10 @@
 - historical literature source material imported and preserved;
 - historical v8 scientific snapshot imported into `code/` without administrative raw data;
 - historical v8 LaTeX report preserved in `reports/technical_report_v8/`;
+- later methodology-v5 snapshot and technical report v2 restored exactly for provenance;
 - legacy notebooks and aggregated study outputs preserved for reproducibility;
-- literature reorganized by scientific use rather than upload batch.
+- literature reorganized by scientific use rather than upload batch;
+- five-paper publication portfolio established under `docs/PUBLICATION_PORTFOLIO.md` and mirrored under root `papers/` and `literature/papers/`.
 
 The original automated heavy literature/v8 import commit is:
 
@@ -29,6 +31,9 @@ Current organization:
 - `literature/general/` — cross-project literature map;
 - `literature/papers/paper1_ppa_persistence/` — Paper 1 literature view;
 - `literature/papers/paper2_mu_performance/` — Paper 2 literature view;
+- `literature/papers/paper3_grading_heterogeneity/` — Paper 3 literature view;
+- `literature/papers/paper4_degree_help_seeking/` — Paper 4 literature view;
+- `literature/papers/paper5_longitudinal_trajectories/` — Paper 5 literature view;
 - `literature/AI_HANDOFF.md` and `literature/AGENTS.md` — future-AI/human operating rules.
 
 Historical source imports are preserved under:
@@ -36,33 +41,44 @@ Historical source imports are preserved under:
 - `literature/library/source_material/visual_corpus/` — 20 source PDFs, 20 extracted Markdown records, separated references and 136 visual assets;
 - `literature/library/source_material/pdf_markdown_corpus/` — 30 extracted Markdown records, 29 source PDFs, 24 separated reference files and no visual assets by design.
 
-These source-material folders preserve provenance only; general/Paper 1/Paper 2 indices determine scientific relevance.
+These source-material folders preserve provenance/storage. Scientific relevance is defined by the general and five paper-specific views.
 
 The `kahu_2018_student-engagement-educational-interface` record remains a documented exception with a Markdown source copy rather than a PDF in the PDF/Markdown source corpus.
 
 ## Current methodology status
 
-The later methodology snapshot (`CMAT_publication_study_v5_methodology_sanitized`) contains corrections made after the historical v8 snapshot, including classroom-level KDE imputation, complete 0/1/2/3/4+ pairwise contrasts, the 4,211-progressor sensitivity, population-specific periodicity, and expanded degree-programme analyses.
+The exact later methodology snapshot is preserved at:
 
-Recorded scientific-source fingerprint for that methodology snapshot:
+`code/snapshots/methodology_v5_2026-09-07/`
+
+with technical report v2 at:
+
+`reports/technical_report_methodology_v2/`.
+
+Recorded scientific-source fingerprint:
 
 `03dd3d4ddd31cc2263be54900e1b25749fab8a7beb2033fbe796bf240fd4c39f`
 
-These methodological changes still need to be reconciled with the v8 longitudinal/PPA code before `code/` can be treated as one fully unified canonical executable pipeline. A merged branch-status/PR by itself does not change the scientific code.
+Restoration verification is documented in `docs/snapshots/methodology_v5_2026-09-07/README.md`: all file-level manifests passed, 9/9 methodology helper tests passed, the Python function index contains 320 symbols, and the restored report PDF is 40 pages with its exact SHA-256 recorded.
+
+That later snapshot contains corrections/extensions made after the historical v8 line, including SciPy KDE/Scott imputation, complete 0/1/2/3/4+ pairwise contrasts, the 4,211-progressor sensitivity, population-specific periodicity and expanded degree-programme analyses.
+
+The refined longitudinal/PPA N=3,241 stage is later work and is not claimed to be covered by the methodology-v5 fingerprint.
+
+The historical v8 longitudinal/PPA logic and the later methodology corrections still need to be reconciled into one fully validated active canonical executable pipeline. A restored snapshot or merged PR does not by itself prove that the active `code/` implementation has absorbed every correction.
 
 ## Privacy boundary
 
-Never migrate:
+Never migrate or commit:
 
 - administrative Excel files;
 - row-level student/advising microdata;
 - direct identifiers;
-- HMAC keys or credentials;
+- HMAC keys, credentials or tokens;
 - unreviewed identifying free text.
 
 Literature PDFs are retained only because this repository is private and the owner explicitly requested internal research continuity. They are not automatically suitable for redistribution in a public release.
 
 ## Working rule
 
-Future substantive changes should be committed through short-lived feature branches and merged into `main`. ZIPs are optional offline backups, not the project history.
-Future substantive changes happen in this repository. ZIPs are optional offline backups. Literature should be added once to `literature/library/`; manuscripts reference it through paper-specific indexes rather than maintaining duplicated literature folders.
+Future substantive changes happen in this repository. `main` is the source of truth; temporary branches, when used, should be short-lived and deleted after merge. ZIPs are optional offline backups, not project history. Literature should be added once to the shared library source layer and referenced through general/paper-specific indexes rather than duplicated across manuscripts.
