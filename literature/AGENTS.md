@@ -28,11 +28,12 @@ For a literature question:
 
 1. identify whether the question is general, paper-specific, or cross-paper;
 2. open the corresponding `INDEX.md` first;
-3. use `library/CATALOG.md` and source-material indices to locate the canonical record;
-4. read only the relevant extracted Markdown sections;
-5. inspect `references/` only for citation chaining or bibliography verification;
-6. inspect the PDF for exact tables, figures, coefficients, confidence intervals, sample sizes, page-level wording, or extraction ambiguity;
-7. use Docling assets only where they actually exist and materially help.
+3. if a paper-specific `READING_GUIDE.md` exists, use it for rapid technical orientation;
+4. use `library/CATALOG.md` and source-material indices to locate the canonical record;
+5. read only the relevant extracted Markdown sections;
+6. inspect `references/` only for citation chaining or bibliography verification;
+7. inspect the PDF for exact tables, figures, coefficients, confidence intervals, sample sizes, page-level wording, or extraction ambiguity;
+8. use Docling assets only where they actually exist and materially help.
 
 Do not load the entire corpus into context when a targeted search is sufficient.
 
@@ -65,7 +66,28 @@ Paper views should annotate each source with a role such as:
 
 Where useful, also note `used_in` and `do_not_claim` boundaries.
 
-## 7. Five-paper routing rules
+## 7. Technical reading notes
+
+For active manuscript literature, technical reading notes are the evidence layer between the source and manuscript drafting. Paper 1 uses `papers/paper1_ppa_persistence/READING_GUIDE.md` and `reading_notes/`.
+
+A substantive reading note should capture, when the source actually reports them:
+
+- design and sample (`N`, group sizes, study/sample count `k`);
+- exposure/predictor and outcome definitions;
+- statistical/qualitative method;
+- individual important results rather than only an overall conclusion;
+- coefficients/correlations, SE, CI, p-values, test statistics, `R²`, effect sizes, heterogeneity and reliability where applicable;
+- short quotation anchors;
+- what the paper supports for CMAT and what it does not support;
+- exact local Markdown/PDF and page/table/figure anchors.
+
+Do **not** fabricate quantitative statistics for conceptual, narrative-review or qualitative papers. State `inferential statistics: not applicable` and document their actual methodology.
+
+Preserve null results. Do not selectively record only significant results.
+
+If a statistic is calculated by us rather than printed in the source, label it explicitly as a derived calculation and record the source quantities used.
+
+## 8. Five-paper routing rules
 
 ### Paper 1 — incentive-linked persistence
 Relevant families: incentives, incentive removal, persistence, engagement, academic help-seeking, first-year transitions and mathematics-support context.
@@ -92,19 +114,20 @@ Relevant families: longitudinal help-seeking, repeated support use, educational 
 
 Do not label trajectory classes as motivation/habit/need solely from visit patterns.
 
-## 8. Maintenance rule
+## 9. Maintenance rule
 
 When adding or materially changing literature:
 
 - update `library/CATALOG.md`;
 - update every relevant scientific view among general + Papers 1–5;
 - update the relevant `MISSING_LITERATURE.md` when a gap is filled or newly identified;
+- add/update a technical reading note when the source is substantive for an active manuscript;
 - update `AI_HANDOFF.md` if architecture, retrieval rules, portfolio status or major literature gaps changed;
 - update `../docs/PUBLICATION_PORTFOLIO.md` only when title/priority/journal strategy actually changes;
 - do not rename stable paper IDs casually;
 - keep manuscript `.bib` files with manuscripts, not inside this research-library folder.
 
-## 9. Portfolio consistency
+## 10. Portfolio consistency
 
 The manuscript folders under root `papers/` and the literature views under `literature/papers/` must use the same stable IDs:
 
@@ -116,6 +139,6 @@ The manuscript folders under root `papers/` and the literature views under `lite
 
 Do not create alternate IDs for the same paper.
 
-## 10. Privacy/copyright boundary
+## 11. Privacy/copyright boundary
 
 This is a private research repository. Literature PDFs and extraction artifacts are internal research materials and are not automatically redistributable in a public release. Administrative student data must never be added here.
