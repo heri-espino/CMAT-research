@@ -1,10 +1,19 @@
 # CMAT repository operating rules
 
+## Start here
+
+Before substantive work:
+
+1. read `.ai_handoff.md`;
+2. read the README/AGENTS file in the subsystem being changed;
+3. inspect current canonical outputs/protocol before quoting numerical results;
+4. use a short-lived branch for a concrete change unless the user explicitly requests otherwise.
+
 ## Canonical repository model
 
 `main` is the source of truth. Organize the project by subfolder; use branches only as short-lived workspaces for concrete changes.
 
-Read `docs/BRANCH_STRATEGY.md` before creating or reusing a branch.
+Read `docs/BRANCH_STRATEGY.md` and `docs/GIT_WORKFLOW.md` before creating or reusing a branch.
 
 ## Scientific dependency rule
 
@@ -30,7 +39,7 @@ Do not create alternate folder names for the same manuscript.
 
 ## Preservation rule
 
-Historical snapshots may be retained for provenance, but must be clearly labeled as historical and must not silently overwrite the canonical path.
+Historical snapshots may be retained for provenance, but must be clearly labeled historical and must not silently overwrite canonical paths. Historical `Bib/Bib2` names are preserved in Git history only and must not be recreated.
 
 ## Data/privacy boundary
 
@@ -43,14 +52,15 @@ Never commit:
 - credentials/tokens;
 - unreviewed identifying free text.
 
-Aggregated outputs may be committed after privacy review. Heavy literature PDFs and Docling assets are allowed in this private repository because the owner explicitly requested archival preservation; treat them as internal research material, not automatically redistributable content.
+Aggregated outputs may be committed after privacy review. Heavy literature PDFs/assets are internal research material in this private repository, not automatically redistributable content.
 
 ## Analysis/reporting rules
 
 - Preserve all validated discoveries in the master analysis and technical report, including null results and sensitivity analyses.
 - Keep causal language conservative for student-selected CMAT use.
+- Do not infer motivation, habit formation, or psychological states from administrative visits.
 - Classroom is `instructor × course × academic period` unless a later reviewed methodological change explicitly replaces it.
-- Scientific-code changes require updated tests, documentation and source fingerprint.
+- Scientific-code changes require tests, protocol/changelog/function-index updates, and a new source fingerprint.
 - Paper-specific selections happen after canonical outputs are stable.
 - Paper folders may select results; they may not redefine them independently.
 

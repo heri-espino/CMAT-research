@@ -36,7 +36,13 @@ CMAT-research/
 └── data/                     # documentation only; no administrative microdata
 ```
 
-Each major folder contains or should contain a local README describing scope, inputs, outputs and what is canonical.
+Each major folder contains or should contain a local README describing scope, inputs, outputs and canonical status.
+
+## AI / agent entry points
+
+1. Read `AGENTS.md` for operating rules.
+2. Read `.ai_handoff.md` for scientific state, definitions, known results and unresolved methodology work.
+3. For literature work, read `literature/AGENTS.md` and the relevant thematic/paper index before opening article files.
 
 ## Five-paper publication programme
 
@@ -87,7 +93,7 @@ Administrative microdata are not committed. Do not commit:
 - unreviewed row-level pseudonymised longitudinal data;
 - identifying free-text fields.
 
-Heavy literature PDFs and Docling assets are preserved only because this repository is private and the owner explicitly requested archival continuity.
+Heavy literature PDFs/assets are preserved only because this repository is private and the owner requested internal archival continuity; they are not automatically redistributable.
 
 ## Reproducibility
 

@@ -1,0 +1,3 @@
+population,specification,visit_min,visit_max,n_students,n_classrooms,spearman_rho,spearman_p,linear_slope_z_per_visit,cluster_robust_se,linear_p,r2_ols_point_estimate,interpretation
+All first-MU attempts with CMAT coverage,full_1_to_12,1,12,1207,176,0.04092191888004483,0.1553669005200378,0.023532351871619173,0.010864954484087988,0.030319202481901834,0.003863516025037539,descriptive trend only; no causal dose-response identification
+All first-MU attempts with CMAT coverage,stable_1_to_7,1,7,1158,176,0.026680467911443496,0.36435327040444665,0.014632658583833702,0.018203345999629753,0.42148681721968606,0.000849174081322901,descriptive trend only; no causal dose-response identification

@@ -1,0 +1,856 @@
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{csquotes}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[margin=2.25cm]{geometry}
+\usepackage{setspace}
+\setstretch{1.06}
+\emergencystretch=2em
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{threeparttable}
+\usepackage{siunitx}
+\sisetup{detect-all=true,round-mode=places,round-precision=3}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{enumitem}
+\usepackage{pdflscape}
+\usepackage{fancyhdr}
+\usepackage[hidelinks]{hyperref}
+\usepackage[backend=biber,style=authoryear,natbib=true,maxcitenames=2,maxbibnames=99]{biblatex}
+\addbibresource{referencias.bib}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{CMAT -- UDLAP}
+\rhead{Reporte técnico metodológico}
+\cfoot{\thepage}
+\setlength{\headheight}{14pt}
+
+\newcommand{\CMAT}{CMAT}
+\newcommand{\MU}{Matemáticas Universitarias}
+\newcommand{\Calc}{Cálculo I}
+\newcommand{\CI}{IC 95\%}
+\newcommand{\PPA}{PPA1}
+\newcommand{\code}[1]{\texttt{#1}}
+
+\begin{document}
+
+\begin{titlepage}
+\centering
+\vspace*{1.2cm}
+{\Large Universidad de las Américas Puebla\par}
+\vspace{0.25cm}
+{\Large Centro de Aprendizaje de Matemáticas (CMAT)\par}
+\vspace{1.45cm}
+{\Huge\bfseries Avances del proyecto de investigación CMAT\par}
+\vspace{0.4cm}
+{\LARGE Metodología estadística, resultados acumulados y reproducibilidad\par}
+\vspace{0.75cm}
+{\large Reporte técnico interno para revisión estadística\par}
+\vfill
+\begin{minipage}{0.88\textwidth}
+\small
+\textbf{Propósito del documento.} Presentar de forma continua todos los resultados obtenidos hasta esta etapa, documentar con detalle las definiciones matemáticas y los supuestos de cada procedimiento, distinguir con precisión análisis transversales de longitudinales y dejar un registro reproducible de código, datos y decisiones metodológicas. La propuesta de separación en manuscritos se presenta únicamente al final, una vez expuestos los descubrimientos.
+
+\medskip
+\textbf{Principio inferencial.} La utilización del CMAT es voluntaria. Salvo donde se indique explícitamente un diseño diferente, los resultados son observacionales y se interpretan como asociaciones o patrones descriptivos, no como efectos causales de las visitas ni del incentivo PPA.
+\end{minipage}
+\vfill
+{\large 7 de septiembre de 2026\par}
+\end{titlepage}
+
+\pagenumbering{roman}
+\begin{abstract}
+Este reporte consolida los resultados actuales del proyecto CMAT y corrige varias decisiones metodológicas de versiones anteriores. La cohorte principal contiene 6,627 primeros intentos de Matemáticas Universitarias (MU) en periodos con cobertura efectiva de asesorías. Los registros académicos y de visitas se enlazan mediante el identificador institucional del estudiante; la licenciatura utilizada en los modelos es la licenciatura oficial asociada al intento académico real. El outcome continuo se define como la posición estandarizada de la calificación dentro de su salón, donde salón significa profesor $\times$ materia $\times$ periodo. Los estados BV, RT y BA se conservan como outcomes adversos y se imputan, para el outcome continuo principal, desde la distribución observada de calificaciones numéricas menores a 7.5 dentro del mismo salón mediante \texttt{scipy.stats.gaussian\_kde} con el ancho de banda por defecto de SciPy (regla de Scott); solo cuando no existe ninguna nota numérica sub-7.5 se utiliza una distribución uniforme en $[0,7.5)$.
+
+La utilización se estudia con grupos exactos 0, 1, 2, 3 y 4+ visitas. El ANOVA de Welch confirma diferencias globales ($F(4,594.83)=43.46$, $p<10^{-30}$) y Brown--Forsythe rechaza homogeneidad de varianzas ($p<10^{-12}$). Las diez comparaciones Games--Howell y los diez contrastes ajustados por efectos fijos de salón y licenciatura, con errores agrupados por salón y corrección de Holm, muestran que las diferencias robustas se concentran entre cero visitas y cualquier nivel de uso positivo; las comparaciones 1--2, 1--3, 1--4+, 2--3, 2--4+ y 3--4+ no sobreviven el control de multiplicidad. El análisis exacto 0--12 confirma una cola muy escasa y no sustenta una dosis monotónica estable entre usuarios.
+
+La actividad temporal presenta picos separados aproximadamente un mes tanto en todos los registros disponibles del CMAT como en la cohorte de primer MU: el máximo de autocorrelación agrupada ocurre a 30 días en ambas poblaciones. La concentración de tres visitas en un mismo día es infrecuente. Los análisis por licenciatura se realizan en tres poblaciones explícitamente distintas: todos los intentos observados de materias matemáticas con cobertura, primeros intentos de MU y la cohorte enlazada de Cálculo. Las asociaciones ecológicas entre tasa de uso y desempeño medio por licenciatura dependen de la población y no se interpretan a nivel individual.
+
+Finalmente, el análisis longitudinal enlaza al mismo estudiante a través del tiempo. De los 6,627 estudiantes de MU, 4,211 tienen un primer Cálculo posterior con cobertura del CMAT. Este subconjunto se utiliza para estudiar continuidad de uso, pero no sustituye a la cohorte completa de MU para el análisis contemporáneo de desempeño, porque condicionar en haber llegado posteriormente a Cálculo cambia el estimando y selecciona académicamente a los estudiantes. La versión refinada de la transición, documentada en una etapa posterior, conserva 3,241 progresores al siguiente periodo regular y muestra un gradiente pronunciado de uso posterior según el patrón de visitas durante MU. Se proponen como siguientes mejoras obtener el resultado matemático de admisión y una encuesta prospectiva sobre motivos de uso del CMAT.
+\end{abstract}
+
+\tableofcontents
+\listoffigures
+\listoftables
+\clearpage
+\pagenumbering{arabic}
+
+\section{Objetivo, unidad de análisis y notación}
+
+El objetivo inmediato es describir con precisión qué patrones existen en los datos antes de decidir qué resultados deben convertirse en manuscritos separados. Se evita, por tanto, organizar los hallazgos en torno a publicaciones potenciales durante el desarrollo estadístico.
+
+\subsection{Unidades observacionales}
+
+La base académica y la base de visitas tienen unidades distintas:
+\begin{itemize}[leftmargin=*]
+\item una fila académica representa un registro de estudiante--materia--periodo, sujeto a depuración de duplicados administrativos, equivalencias y revalidaciones;
+\item una fila de asesoría representa un registro de visita al CMAT;
+\item el enlace entre ambas fuentes se realiza por el identificador institucional del estudiante;
+\item en la cohorte transversal principal existe una fila por estudiante: su primer intento real de MU;
+\item en el análisis longitudinal existe una fila por estudiante enlazando su observación temprana de MU con su primer Cálculo posterior elegible.
+\end{itemize}
+
+La licenciatura oficial se obtiene de la tabla académica y está asociada al intento real de la materia. El estudiante proporciona su ID al registrarse en el CMAT; ese ID permite vincular la visita con la tabla académica. El campo de carrera que pudiera aparecer en el formulario de visita no es necesario para definir la covariable principal de licenciatura.
+
+\subsection{Notación básica}
+
+Para un estudiante $i$ y un salón $c$:
+\begin{align*}
+V_i &= \text{número de registros CMAT en el periodo relevante},\\
+Y_i &= \text{calificación final numérica observada},\\
+Y_i^* &= \text{calificación final completada después de imputar outcomes adversos cuando procede},\\
+Z_i &= \frac{Y_i^*-\bar Y_c^*}{s_c},\\
+G_i &\in \{0,1,2,3,4+\}=\text{grupo de utilización},\\
+C_i &= \mathbf 1(V_{i,Calc}>0)=\text{indicador de uso posterior en Cálculo}.
+\end{align*}
+
+En un curso dado, el salón se define como profesor $\times$ periodo; conceptualmente se trata de profesor $\times$ materia $\times$ periodo. En los análisis que agrupan varias materias se incluye explícitamente la materia dentro del identificador de salón.
+
+\section{Contexto institucional y definiciones administrativas}
+
+\subsection{CMAT}
+
+El CMAT es un servicio universitario para estudiantes vigentes que ofrece asesoría de matemáticas y estadística con profesores. Cada registro del formulario se considera una visita. No se dispone de duración exacta. Varias visitas del mismo estudiante en un día pueden ser legítimas porque los profesores rotan por bloques horarios y una consulta puede continuar con otro asesor. Por esta razón, la concentración intradía se describe, pero no se etiqueta como manipulación.
+
+\subsection{PPA1 y el umbral de tres registros}
+
+Durante el contexto de primer año, tres registros de visita al CMAT constituyen el umbral operativo relevante para la actividad CMAT asociada a PPA1. El incentivo no forma parte de la calificación de MU. Para caracterizar el umbral se cuentan todas las visitas al CMAT realizadas durante el periodo de MU, independientemente del tema declarado en el formulario.
+
+Existe una suposición administrativa que debe verificarse mejor: se considera que PPA1 se completa normalmente en el primer semestre, de modo que el primer Cálculo posterior representa un contexto en el que ese incentivo específico ya no opera. No se utiliza esta suposición para clasificar motivaciones individuales. Exactamente tres visitas no significa ``solo vino por el punto'' y cuatro o más no significa ``motivación intrínseca''.
+
+\section{Datos, cobertura y reconstrucción de cohortes}
+
+\subsection{Fuentes y control de cobertura}
+
+La fuente académica original contiene 27,788 filas; después de limpieza quedan 26,335. Se eliminaron 1,048 filas sin profesor y se identificaron 809 duplicaciones estudiante--materia--periodo, con un grupo conflictivo. La base de asesorías contiene 13,500 registros y no se detectaron duplicados exactos. Los periodos sin archivo de asesorías no se convierten en ceros de uso: se excluyen de la inferencia de exposición.
+
+\begin{table}[H]
+\centering
+\caption{Flujo de cohortes del pipeline actual}
+\input{tables/latex_cohort_flow.tex}
+\end{table}
+
+Hay tres números que no deben confundirse. La cohorte completa de primer MU con cobertura contiene $N=6{,}627$. La cohorte independiente de primeros intentos de Cálculo con cobertura contiene $N=5{,}046$. Finalmente, $N=4{,}211$ son estudiantes de la cohorte de MU que pueden enlazarse con un primer Cálculo posterior que también tiene cobertura de asesorías. Este último número es una subcohorte longitudinal, no un reemplazo automático de los 6,627.
+
+\subsection{Qué significa un análisis longitudinal}
+
+Un análisis longitudinal observa a la misma unidad en momentos distintos. Si $t_i^{MU}$ es el periodo del primer intento de MU y $t_i^{Calc}>t_i^{MU}$ el primer Cálculo posterior, se construye la pareja
+\[
+\bigl(V_{i,MU},Z_{i,MU}\bigr) \longrightarrow \bigl(V_{i,Calc},Z_{i,Calc}\bigr).
+\]
+La flecha representa orden temporal, no causalidad. La ventaja es que la conducta de MU se conoce antes del outcome posterior. La limitación es que una característica estable no observada $U_i$ ---por ejemplo disposición a pedir ayuda, organización o necesidad académica--- puede producir simultáneamente $V_{i,MU}>0$ y $V_{i,Calc}>0$.
+
+Además, seleccionar únicamente a quienes llegan a Cálculo condiciona en una variable futura. Formalmente, si $S_i=1$ indica que el estudiante llega posteriormente a Cálculo con cobertura, entonces comparar desempeño en MU dentro de $S_i=1$ estima
+\[
+E[Z_{MU}\mid G,S=1],
+\]
+no el mismo objeto que
+\[
+E[Z_{MU}\mid G]
+\]
+en todos los primeros intentos de MU. Si $S$ depende de capacidad, carrera, aprobación, organización u otros factores relacionados con $Z$ y $G$, la restricción puede inducir selección. Por eso se reportan ambas poblaciones de forma explícita.
+
+\section{Construcción del outcome continuo}
+
+\subsection{Estados adversos y regla de imputación}
+
+Los códigos BV, RT y BA se interpretan administrativamente como outcomes adversos con desempeño inferior al umbral aprobatorio $a=7.5$. No se observa una calificación numérica exacta. Para no asignarles una constante arbitraria, el pipeline intenta preservar la distribución empírica subaprobatoria de su propio salón.
+
+Sea $\mathcal X_c=\{X_{1c},\dots,X_{n_c c}\}$ el conjunto de calificaciones numéricas observadas en el salón $c$ tales que $X_{jc}<7.5$. Cuando $n_c\ge2$ y la varianza es positiva, se estima una densidad kernel gaussiana
+\[
+\widehat f_h(x)=\frac{1}{n_c h}\sum_{j=1}^{n_c}\phi\!\left(\frac{x-X_{jc}}{h}\right),
+\]
+donde $\phi$ es la densidad normal estándar. En la implementación se utiliza \code{gaussian\_kde(pool, bw\_method=None)}. El argumento \code{bw\_method=None} es el comportamiento por defecto de SciPy y usa la regla de Scott \citep{scott1992}; en una dimensión el factor es
+\[
+q=n_c^{-1/5},
+\]
+y la escala de suavizamiento resulta de multiplicar la escala de covarianza muestral por ese factor. En SciPy la covarianza del kernel utiliza el factor al cuadrado, por lo que la desviación estándar efectiva del kernel es proporcional a $q$.
+
+Los valores se generan con semilla fija 42. Como un kernel gaussiano tiene soporte no acotado, se aplica rechazo: cualquier draw fuera de $[0,7.5)$ se descarta y se vuelve a muestrear. Por tanto, ningún outcome administrativamente adverso puede convertirse por imputación en aprobatorio.
+
+Si existe un pool sub-7.5 pero es degenerado ---un solo valor o varianza cero---, no puede invertirse una matriz de covarianza KDE; en ese caso se remuestrea empíricamente el pool. Solo si $\mathcal X_c$ está vacío se utiliza
+\[
+Y_i^*\sim U(0,7.5).
+\]
+Esta regla corrige la descripción de versiones anteriores donde la distribución uniforme parecía ser el mecanismo principal.
+
+\begin{table}[H]
+\centering
+\caption{Método de imputación efectivamente utilizado en los salones con outcomes adversos}
+\input{tables/latex_imputation_summary.tex}
+\end{table}
+
+En total se imputan 1,101 outcomes adversos en 178 salones: 852 mediante KDE en 121 salones, 172 mediante remuestreo empírico en 33 salones y 77 mediante el fallback uniforme en 24 salones. Entre los 121 KDE no degenerados, el factor de Scott observado tiene mediana 0.758, rango 0.574--0.871. El entorno reproducido usa SciPy 1.17.0, NumPy 2.3.5, pandas 2.2.3 y statsmodels 0.14.6.
+
+\subsection{Sensibilidades de imputación}
+
+Se calculan dos outcomes continuos de sensibilidad. El primero imputa todos los outcomes adversos mediante puntos interiores deterministas de una $U(0,7.5)$; el segundo usa únicamente calificaciones numéricas. El objetivo no es decidir qué imputación ``es verdadera'', sino evaluar cuánto depende la asociación de una decisión no identificable sobre la nota faltante exacta.
+
+Para el outcome binario de aprobación no se asigna una nota ficticia: una calificación numérica $\ge7.5$ se codifica 1, una numérica $<7.5$ se codifica 0 y BV/RT/BA se codifican directamente como 0.
+
+\subsection{Estandarización dentro de salón}
+
+Una vez construido $Y_i^*$, para cada salón $c$ con al menos cinco observaciones y desviación estándar positiva se calcula
+\[
+\bar Y_c^*=\frac{1}{n_c}\sum_{i\in c}Y_i^*,\qquad
+s_c=\sqrt{\frac{1}{n_c-1}\sum_{i\in c}(Y_i^*-\bar Y_c^*)^2},
+\]
+\[
+Z_i=\frac{Y_i^*-\bar Y_c^*}{s_c}.
+\]
+Así, $Z_i=1$ significa que el estudiante se encuentra una desviación estándar sobre la media de su propio contexto de evaluación; $Z_i=-1$ significa una desviación estándar debajo. Este outcome no mide conocimiento matemático absoluto. Su función es hacer comparaciones relativas en presencia de diferentes niveles, dispersiones y prácticas de evaluación entre profesor-periodo.
+
+\section{Métodos estadísticos}
+
+\subsection{Distribución de visitas y probabilidad de continuación}
+
+Sea $V_i$ el número de visitas. La probabilidad empírica de continuar desde $k$ hasta al menos $k+1$ visitas es
+\[
+\widehat p_k=\widehat P(V\ge k+1\mid V\ge k)
+=\frac{\sum_i\mathbf 1(V_i\ge k+1)}{\sum_i\mathbf 1(V_i\ge k)}.
+\]
+El denominador $N_k=\sum_i\mathbf 1(V_i\ge k)$ es el conjunto ``en riesgo'' de continuar. El intervalo de la figura utiliza la aproximación normal
+\[
+\widehat p_k\pm1.96\sqrt{\frac{\widehat p_k(1-\widehat p_k)}{N_k}},
+\]
+truncada a $[0,1]$. Para $k$ altos, donde $N_k$ es pequeño, el intervalo es solo descriptivo.
+
+\begin{table}[H]
+\centering
+\caption{Ejemplo numérico de la curva de continuación en MU}
+\input{tables/latex_continuation_examples.tex}
+\end{table}
+
+Por ejemplo, $k=0$ no significa ``dado que ya fue cero veces'' en un sentido selectivo: todos los 6,627 estudiantes satisfacen $V\ge0$, así que $18.62\%$ es la probabilidad empírica de realizar al menos una visita. Para $k=3$, el conditioning cambia: de los 472 que ya alcanzaron al menos tres visitas, 302 realizaron al menos una cuarta, por lo que $\widehat p_3=63.98\%$.
+
+El índice local de concentración alrededor de tres es
+\[
+B_3=\frac{\widehat P(V=3)}{\{\widehat P(V=2)+\widehat P(V=4)\}/2}.
+\]
+Un valor muy superior a uno sugeriría una acumulación local extraordinaria en tres. Es descriptivo, no una prueba de manipulación ni un diseño de discontinuidad.
+
+\subsection{ANOVA de Welch}
+
+Los grupos de visitas tienen tamaños y varianzas diferentes. Brown--Forsythe, equivalente a la prueba de Levene centrada en la mediana \citep{brownforsythe1974}, se utiliza como diagnóstico de igualdad de varianzas. Ante heterocedasticidad se evita el ANOVA clásico y se utiliza Welch \citep{welch1951}.
+
+Para grupos $j=1,\dots,K$, con tamaño $n_j$, media $\bar x_j$ y varianza muestral $s_j^2$, se define
+\[
+w_j=\frac{n_j}{s_j^2},\qquad W=\sum_jw_j,\qquad \bar x_w=\frac{\sum_jw_j\bar x_j}{W}.
+\]
+Sea
+\[
+A=\frac{1}{K-1}\sum_j w_j(\bar x_j-\bar x_w)^2,
+\]
+\[
+T=\sum_j\frac{(1-w_j/W)^2}{n_j-1},\qquad
+B=1+\frac{2(K-2)}{K^2-1}T.
+\]
+El estadístico es
+\[
+F_W=\frac{A}{B},
+\]
+con grados de libertad aproximados
+\[
+\nu_1=K-1,\qquad \nu_2=\frac{K^2-1}{3T}.
+\]
+Este procedimiento no exige igualdad de varianzas, pero sigue suponiendo observaciones independientes entre estudiantes y medias suficientemente bien comportadas para la aproximación asintótica.
+
+\subsection{Games--Howell para todas las comparaciones por pares}
+
+Después del Welch global se comparan los cinco grupos $0,1,2,3,4+$ mediante las $\binom52=10$ diferencias. Para grupos $i,j$,
+\[
+SE_{ij}^{GH}=\sqrt{\frac12\left(\frac{s_i^2}{n_i}+\frac{s_j^2}{n_j}\right)},
+\]
+\[
+q_{ij}=\frac{|\bar x_i-\bar x_j|}{SE_{ij}^{GH}},
+\]
+y los grados de libertad de Welch--Satterthwaite son
+\[
+\nu_{ij}=\frac{(s_i^2/n_i+s_j^2/n_j)^2}
+{(s_i^2/n_i)^2/(n_i-1)+(s_j^2/n_j)^2/(n_j-1)}.
+\]
+El $p$-value y el valor crítico se obtienen de la distribución del rango studentizado con $K=5$ grupos \citep{gameshowell1976}. A diferencia de hacer diez $t$-tests ordinarios, Games--Howell está diseñado para tamaños y varianzas diferentes y controla el error familiar mediante la distribución de rango.
+
+\subsection{Efectos fijos, errores agrupados y corrección de Holm}
+
+Como complemento ajustado se estima un único modelo
+\[
+Z_i=\alpha_{c(i)}+\lambda_{\ell(i)}+\sum_{g\in\{1,2,3,4+\}}\beta_g\mathbf1(G_i=g)+\varepsilon_i,
+\]
+donde $\alpha_c$ son efectos fijos de salón y $\lambda_\ell$ efectos fijos de licenciatura oficial. El grupo de cero visitas es referencia. El modelo controla cualquier característica común constante dentro del salón que afecte el nivel de evaluación, además de diferencias promedio entre carreras, pero no controla motivación individual, preparación previa no observada ni necesidad de apoyo.
+
+Los errores estándar se agrupan por salón. La forma conceptual de la covarianza sandwich es \citep{cameronmiller2015}
+\[
+\widehat{\mathrm{Var}}(\widehat\beta)=
+(X'X)^{-1}
+\left(\sum_cX_c'\widehat u_c\widehat u_c'X_c\right)
+(X'X)^{-1},
+\]
+permitiendo correlación arbitraria de residuos dentro de cada salón.
+
+Del mismo modelo se extraen las diez diferencias ajustadas. Sus $p$-values se corrigen por Holm \citep{holm1979}: si $p_{(1)}\le\cdots\le p_{(m)}$, se compara secuencialmente $p_{(j)}$ con $\alpha/(m-j+1)$. Este procedimiento controla el family-wise error sin asumir independencia entre los contrastes.
+
+\subsection{Tendencia exacta 1--12}
+
+Los conteos exactos se muestran para evitar que la agrupación 4+ oculte la cola. Se calcula Spearman entre $V$ y $Z$ entre usuarios y una pendiente OLS con errores agrupados por salón. La especificación 1--12 usa toda la cola; una sensibilidad 1--7 se considera más estable porque 8--12 tiene celdas muy pequeñas. Ninguna de estas pendientes identifica un efecto dosis--respuesta.
+
+\subsection{Detección de picos temporales}
+
+La detección se hace por periodo y por población. Primero se construye una serie diaria de estudiantes únicos y visitas, rellenando con cero los días sin registros. Sobre estudiantes únicos se calcula una suma móvil centrada de siete días:
+\[
+R_t=\sum_{s=t-3}^{t+3}U_s,
+\]
+donde $U_s$ es el número de estudiantes únicos del día. Los máximos locales se encuentran con \code{scipy.signal.find\_peaks}, imponiendo:
+\begin{itemize}[leftmargin=*]
+\item separación mínima de 21 días entre centros detectados;
+\item prominencia mínima $\max\{5,0.12\max_t R_t\}$.
+\end{itemize}
+La prominencia de un pico mide cuánto debe descender la serie a ambos lados antes de encontrar una elevación comparable; ayuda a ignorar ondulaciones pequeñas. Como la ventana es centrada, el máximo móvil puede caer en fin de semana o un día con cero visitas. Para hacer interpretable la fecha, cada centro detectado se mueve al día real más activo dentro de $\pm3$ días, priorizando estudiantes únicos, después visitas y finalmente la fecha más temprana.
+
+El método se aplica por separado a (a) todos los registros CMAT disponibles y (b) únicamente las visitas realizadas por la cohorte de primer MU durante su periodo de MU. Los intervalos de 24--38 días se etiquetan ``compatibles con ciclo mensual'', no ``exámenes'', porque no se observan calendarios de evaluación por profesor.
+
+\subsection{Autocorrelación y periodograma}
+
+Como diagnóstico independiente, para cada periodo se completa la serie diaria con ceros, se resta el promedio específico del día de la semana y se elimina una tendencia lineal. Sea $r_t$ la serie residual. Para rezago $h$ se calcula la correlación de Pearson entre $r_t$ y $r_{t+h}$ para $h=14,\dots,45$. La curva agrupada combina periodos ponderando por el número de pares disponibles a cada rezago.
+
+El periodograma se calcula con frecuencia de muestreo 1/día. Si $I(f)$ es la potencia espectral, se examinan únicamente frecuencias equivalentes a periodos de 21--42 días y se reporta
+\[
+T^*=\arg\max_{T\in[21,42]} I(1/T).
+\]
+ACF y periodograma detectan recurrencia; no identifican la causa académica de esa recurrencia.
+
+\subsection{Análisis por licenciatura}
+
+Las comparaciones por licenciatura utilizan siempre la licenciatura oficial del registro académico. Para evitar medias extremadamente inestables se muestran inferencias agregadas principales únicamente para carreras con al menos 30 observaciones dentro de cada población. Las carreras pequeñas no se eliminan del dataset y se listan en el apéndice.
+
+El scatterplot carrera--uso trabaja en nivel ecológico. Para carrera $\ell$ se calcula tasa $p_\ell=P(V>0\mid\ell)$ y media $\bar Z_\ell$. Se reportan Pearson $r$, Spearman $\rho$ y, como descripción adicional, una regresión ponderada por $n_\ell$:
+\[
+\bar Z_\ell=a+b p_\ell+e_\ell.
+\]
+No es válido convertir una asociación entre promedios de carreras en una afirmación individual; hacerlo sería una falacia ecológica.
+
+\subsection{Propensity score como sensibilidad observacional}
+
+El propensity score es $e(X)=P(T=1\mid X)$ \citep{rosenbaum1983,austin2011}. El pipeline actual lo usa únicamente como sensibilidad para $T=\mathbf1(V>3)$ con covariables observadas de carrera, año, sesión y profesor. Para ATT, los tratados pesan 1 y controles aproximadamente $e(X)/(1-e(X))$. Se examina balance mediante standardized mean differences. Al no existir todavía una medida pre-MU de habilidad matemática, esta ponderación no identifica el efecto causal de acudir al CMAT; solo muestra cuánto cambia el contraste después de balancear covariables disponibles.
+
+\section{Resultados: utilización del CMAT}
+
+\subsection{Distribución de visitas}
+
+En MU, 5,393 de 6,627 estudiantes (81.38\%) no registran visita; 517 tienen una, 245 dos, 170 tres y 302 cuatro o más. En el comparador descriptivo de Cálculo, 77.98\% no registra visita. La distribución completa se muestra en la Figura~\ref{fig:dist}.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.88\textwidth]{figures/01_visit_distribution_mu_vs_calculus.png}
+\caption{Distribución del número de visitas al CMAT en MU y Cálculo. Cálculo es un comparador descriptivo; no constituye un control causal del PPA.}
+\label{fig:dist}
+\end{figure}
+
+En MU, $P(V=3)=2.57\%$, $P(V=2)=3.70\%$ y $P(V=4)=1.45\%$. El índice local de concentración es $B_3=0.997$, muy cercano a uno. En Cálculo es 0.951. No aparece, por tanto, un exceso local extraordinario exactamente en tres visitas.
+
+\subsection{Probabilidad de continuar a una visita adicional}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.86\textwidth]{figures/02_continuation_probability.png}
+\caption{Probabilidad empírica de alcanzar al menos una visita adicional, condicionada a haber alcanzado ya $k$ visitas.}
+\label{fig:continuation}
+\end{figure}
+
+La Figura~\ref{fig:continuation} debe leerse condicionalmente. Entre todos los estudiantes, 18.62\% realiza al menos una visita. Entre quienes ya realizaron una, 58.10\% alcanza una segunda. Entre quienes ya llegaron a dos, 65.83\% alcanza tres. Entre quienes ya alcanzaron tres, 63.98\% alcanza cuatro. El patrón no es consistente con una mayoría que se detenga mecánicamente al llegar a tres.
+
+\section{Resultados: estructura temporal de las visitas}
+
+\subsection{Concentración intradía}
+
+De los 6,627 estudiantes, 1,234 tienen al menos una visita y 472 alcanzan al menos tres. Entre estos 472, 133 (28.18\%) tienen alguna fecha con dos o más visitas; 24 (5.08\%) alguna fecha con tres o más; solo 7 (1.48\%) concentran sus primeras tres visitas el mismo día. En 18 casos (3.81\%) la fecha de la tercera visita contiene tres o más registros.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.78\textwidth]{figures/07_same_day_ppa_behavior.png}
+\caption{Máximo número de visitas de un estudiante en un mismo día, separado por si alcanzó o no el umbral de tres.}
+\end{figure}
+
+Dado el funcionamiento operativo del centro, estas cifras describen concentración temporal; no permiten inferir intención estratégica.
+
+\subsection{Actividad diaria y picos: todos los registros CMAT}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth]{figures/05_daily_cmat_timeline.png}
+\caption{Serie diaria agregada de actividad del CMAT.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth]{figures/06a_term_temporal_peaks_all_cmat.png}
+\caption{Picos detectados por periodo utilizando todos los registros CMAT disponibles.}
+\end{figure}
+
+En 11 periodos se detecta una mediana de 5 picos; existen 38 intervalos entre picos, con mediana 30.5 días, IQR 28.0--33.75 días, y 73.7\% dentro de 24--38 días.
+
+\subsection{Actividad y picos: cohorte de primer MU durante su periodo}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth]{figures/06b_term_temporal_peaks_first_mu.png}
+\caption{Picos detectados usando exclusivamente visitas de estudiantes de primer MU durante su periodo de MU.}
+\end{figure}
+
+En esta población se analizan los mismos 11 periodos, con mediana de 3 picos; 23 intervalos tienen mediana 31.0 días, IQR 30.0--42.5, y 60.9\% caen dentro de 24--38 días.
+
+\begin{table}[H]
+\centering
+\caption{Resumen de separación entre picos por población}
+\input{tables/latex_peak_summary.tex}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{figures/08_peak_spacing_by_population.png}
+\caption{Distribución de días entre picos consecutivos en ambas poblaciones.}
+\end{figure}
+
+\subsection{ACF y periodograma en ambas poblaciones}
+
+\begin{table}[H]
+\centering
+\caption{Diagnósticos de periodicidad aproximadamente mensual}
+\input{tables/latex_periodicity_summary.tex}
+\end{table}
+
+La ACF agrupada alcanza su máximo a 30 días tanto en todos los registros ($r=0.210$) como en la cohorte de primer MU ($r=0.216$). El periodograma tiene mediana de periodo dominante de 27.0 y 25.8 días, respectivamente, aunque existe heterogeneidad entre términos. El acuerdo aproximado entre métodos es evidencia descriptiva de recurrencia, no evidencia de que la causa sean exámenes.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.85\textwidth]{figures/09_monthly_periodicity_acf_by_population.png}
+\caption{Autocorrelación de la carga diaria ajustada por día de semana y tendencia, para ambas poblaciones.}
+\end{figure}
+
+\section{Resultados: utilización y desempeño relativo en MU}
+
+\subsection{Cinco grupos exactos: 0, 1, 2, 3 y 4+}
+
+\begin{table}[H]
+\centering
+\caption{Desempeño continuo por grupo exacto de visitas en la cohorte completa de MU}
+\input{tables/latex_exact_groups_summary.tex}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{figures/11_exact_visit_groups_0_1_2_3_4plus.png}
+\caption{Media de $Z$ relativo al salón por grupo exacto 0, 1, 2, 3 y 4+ visitas.}
+\end{figure}
+
+Brown--Forsythe rechaza igualdad de varianzas entre los cinco grupos ($F=15.88$, $p=6.07\times10^{-13}$), por lo que la ruta Welch/Games--Howell es preferible al ANOVA clásico. El ANOVA de Welch es $F_W(4,594.83)=43.46$, $p=5.23\times10^{-32}$.
+
+\subsection{Todas las comparaciones por pares}
+
+La Tabla~\ref{tab:pairwise} presenta simultáneamente la diferencia cruda Games--Howell y la diferencia ajustada por efectos fijos de salón y carrera. La orientación es grupo 1 menos grupo 2, de modo que valores negativos en comparaciones 0--positivo significan que cero visitas tiene menor media.
+
+\begin{table}[H]
+\centering
+\caption{Diez comparaciones por pares: Games--Howell y modelo ajustado con Holm}
+\label{tab:pairwise}
+\small
+\input{tables/latex_pairwise_all.tex}
+\end{table}
+
+Los cuatro contrastes entre 0 y cada nivel positivo son estadísticamente claros en ambos enfoques. Ninguna comparación entre grupos positivos sobrevive la corrección de Holm. La diferencia ajustada 1 vs 4+ tiene $p$ crudo $\approx0.025$, pero $p_{Holm}=0.153$. La evidencia actual favorece, por tanto, una separación entre no uso y uso positivo más que una secuencia dosis--respuesta ordenada entre 1, 2, 3 y 4+.
+
+\subsection{Conteos exactos 0--12 y cola escasa}
+
+\begin{table}[H]
+\centering
+\caption{Desempeño por conteo exacto de visitas, 0--12}
+\small
+\input{tables/latex_exact_counts_0_12.tex}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.88\textwidth]{figures/13_exact_visit_counts_0_to_12.png}
+\caption{Media de $Z$ por número exacto de visitas. Las etiquetas muestran el tamaño de cada celda.}
+\end{figure}
+
+La cola se vuelve muy pequeña: $n=19,11,13,2,4$ para 8--12 visitas. Entre usuarios 1--12, Spearman es $\rho=0.041$, $p=.155$; una pendiente lineal con errores agrupados por salón es $0.0235Z$ por visita, $p=.030$, pero esta significancia depende de la cola escasa. Al restringir a 1--7, $\rho=0.027$, $p=.364$ y la pendiente es $0.0146Z$ por visita, $p=.421$. La especificación estable no respalda una dosis lineal.
+
+\subsection{Contrastes binarios históricos y sensibilidad del outcome}
+
+\begin{table}[H]
+\centering
+\caption{Contrastes binarios conservados como sensibilidad histórica}
+\input{tables/latex_binary_sensitivities.tex}
+\end{table}
+
+Para $V>3$ frente a $V\le3$, la diferencia cruda con la imputación KDE actual es $0.372Z$ (bootstrap \CI\ $[0.293,0.446]$), Welch $p=1.08\times10^{-17}$; el coeficiente con FE de salón es 0.403 y con salón+carrera 0.381. Para $V\ge3$ frente a $V<3$, la diferencia es $0.352Z$ (\CI\ $[0.284,0.422]$) y el coeficiente salón+carrera 0.366.
+
+Estos contrastes parecen grandes porque el grupo de referencia está dominado por estudiantes con cero visitas. La descomposición 0/1/2/3/4+ muestra que no deben interpretarse como un efecto específico de ``cruzar tres'' o ``superar tres''.
+
+Al reemplazar la imputación principal por uniforme, la diferencia $V>3$ vs $V\le3$ es 0.341$Z$; al usar únicamente calificaciones numéricas es 0.211$Z$. El signo se conserva, pero la magnitud depende parcialmente del tratamiento de los outcomes adversos, lo que debe informarse.
+
+\subsection{Outcome secundario: aprobación}
+
+\begin{table}[H]
+\centering
+\caption{Proporción de aprobación por grupo de utilización}
+\input{tables/latex_pass_rates.tex}
+\end{table}
+
+Las tasas son 72.11\%, 80.97\%, 81.76\% y 86.42\% para 0, 1--2, 3 y 4+. Un modelo lineal de probabilidad con FE de salón+carrera estima para $V>3$ una diferencia de 0.192 puntos de probabilidad (\CI\ 0.138--0.247). Por las mismas razones de autoselección, se trata como outcome secundario y no causal.
+
+\subsection{Sensibilidad con propensity score}
+
+La ponderación ATT basada únicamente en carrera, año, sesión y profesor reduce el máximo standardized mean difference de 0.443 a 0.116. El contraste ponderado es 0.382$Z$, similar a los FE. Esta estabilidad es útil, pero no resuelve la omisión de preparación matemática inicial, motivación o necesidad. El resultado se conserva como sensibilidad de selección observada, no como estimador causal final.
+
+\section{Resultados: regularidad temporal y desempeño}
+
+Para estudiantes con al menos tres visitas se construye
+\[
+R_i=\frac{\min(M_i,4)}{\min(V_i,4)},
+\]
+donde $M_i$ es el número de meses calendario activos. $R_i=1$ indica la máxima dispersión mensual posible dado el número de visitas hasta cuatro; valores menores indican concentración. También se calcula el número efectivo de semanas mediante entropía,
+\[
+H_i=-\sum_wp_{iw}\log p_{iw},\qquad N^{eff}_{weeks}=e^{H_i},
+\]
+y su razón por visita.
+
+\begin{table}[H]
+\centering
+\caption{Modelos de regularidad temporal y desempeño}
+\input{tables/latex_regularity_models.tex}
+\end{table}
+
+Ninguna especificación muestra evidencia estadística de que, condicionado por intensidad, una mayor dispersión temporal se asocie con mayor desempeño. El coeficiente principal complete-case es $-0.136$ ($p=.413$). Entre estudiantes con exactamente tres visitas, las medias de $Z$ son aproximadamente 0.291, 0.291 y 0.403 cuando las visitas se distribuyen en uno, dos o tres meses, respectivamente; los tamaños son 26, 73 y 45. La Figura~\ref{fig:reg} es descriptiva y las diferencias no deben sobreinterpretarse.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{figures/10_exact3_regularity_vs_performance.png}
+\caption{Desempeño entre estudiantes con exactamente tres visitas según número de meses activos.}
+\label{fig:reg}
+\end{figure}
+
+\section{Resultados: licenciatura oficial, uso y desempeño}
+
+\subsection{Tres poblaciones distintas}
+
+El análisis responde a la ambigüedad sobre ``uso por licenciatura'' separando tres poblaciones. La primera no es toda la universidad: el archivo académico disponible contiene siete materias matemáticas. Por tanto, la población amplia se llama \emph{todos los intentos observados de materias matemáticas con cobertura CMAT}; contiene 22,477 intentos de 9,047 estudiantes. La segunda es la cohorte de 6,627 primeros MU. La tercera son los 4,211 intentos de Cálculo enlazados longitudinalmente.
+
+\begin{table}[H]
+\centering
+\caption{Licenciaturas representadas y regla $n\ge30$ por población}
+\input{tables/latex_career_populations.tex}
+\end{table}
+
+En MU existen 77 códigos oficiales; 29 cumplen $n\ge30$ y concentran 6,374 estudiantes. Los 48 códigos restantes suman 253 estudiantes. No se borran: simplemente no se usan en las inferencias agregadas principales por carrera. La lista completa se encuentra en el Apéndice~\ref{app:omitted}.
+
+\subsection{Media de $Z$ por licenciatura}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth]{figures/career_mean_z_all_math_attempts.png}
+\caption{Media de $Z$ por licenciatura: todos los intentos observados de materias matemáticas con cobertura.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth]{figures/career_mean_z_first_mu.png}
+\caption{Media de $Z$ por licenciatura: cohorte de primer MU.}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth]{figures/career_mean_z_linked_calculus4211.png}
+\caption{Media de $Z$ por licenciatura: Cálculo enlazado, $N=4,211$.}
+\end{figure}
+
+La existencia de diferencias de medias por carrera no implica que el programa académico sea causa del desempeño. La carrera agrega selección de estudiantes, currículo, composición de profesores y otras variables.
+
+\subsection{Scatterplot: tasa de uso frente a desempeño medio}
+
+\begin{table}[H]
+\centering
+\caption{Asociación ecológica entre tasa de uso del CMAT y media $Z$ por licenciatura}
+\input{tables/latex_career_ecological.tex}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}{0.49\textwidth}
+\includegraphics[width=\textwidth]{figures/career_use_vs_z_all_math_attempts.png}
+\caption{Intentos matemáticos observados.}
+\end{subfigure}
+\begin{subfigure}{0.49\textwidth}
+\includegraphics[width=\textwidth]{figures/career_use_vs_z_first_mu.png}
+\caption{Primer MU.}
+\end{subfigure}
+\vspace{0.4cm}
+\begin{subfigure}{0.54\textwidth}
+\centering
+\includegraphics[width=\textwidth]{figures/career_use_vs_z_linked_calculus4211.png}
+\caption{Cálculo enlazado.}
+\end{subfigure}
+\caption{Uso y desempeño agregados por licenciatura oficial. El tamaño del punto refleja $n$ de la carrera.}
+\end{figure}
+
+En la población amplia, Pearson $r=.449$ y Spearman $\rho=.596$; ambas asociaciones son estadísticamente detectables. En primer MU, Pearson $r=.115$ ($p=.554$) y Spearman $\rho=.261$ ($p=.172$): no aparece una asociación ecológica clara. En la cohorte seleccionada de Cálculo, Pearson $r=.421$ ($p=.040$), pero Spearman es $\rho=.268$ ($p=.206$), mostrando sensibilidad al resumen. Estos resultados no sostienen una afirmación simple de que ``las carreras con mejor $Z$ van más al CMAT''; depende de población, métrica y selección.
+
+\section{Resultados: efecto de restringir MU a quienes posteriormente llegan a Cálculo}
+
+La sugerencia de analizar los 4,211 progresores es estadísticamente informativa y se implementa como una sensibilidad separada. El punto central es que sus $Z_{MU}$ se calculan \emph{antes} de seleccionar progresores, utilizando el salón completo de MU; así no se redefine la escala después de seleccionar.
+
+\begin{table}[H]
+\centering
+\caption{Desempeño en MU por visitas, restringido a los 4,211 estudiantes que posteriormente tienen Cálculo con cobertura}
+\input{tables/latex_progressor_groups_summary.tex}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.84\textwidth]{figures/12_progressor4211_exact_visit_groups.png}
+\caption{Desempeño en MU por grupo de visitas dentro de la cohorte seleccionada de futuros progresores a Cálculo.}
+\end{figure}
+
+Todas las medias son positivas: 0.315, 0.429, 0.459, 0.443 y 0.483$Z$ para 0,1,2,3,4+, respectivamente. Esto muestra directamente que los futuros progresores ya son una selección académica positiva respecto de sus salones. Welch sigue detectando diferencias globales, $F_W(4,446.65)=10.36$, $p=4.92\times10^{-8}$, pero Brown--Forsythe no rechaza igualdad de varianzas en esta subcohorte ($p=.360$).
+
+Las comparaciones ajustadas con Holm muestran diferencias 0--1, 0--2 y 0--4+, pero no 0--3 ni ninguna comparación positiva--positiva. La conclusión cualitativa permanece cercana a ``no uso frente a uso'', pero el tamaño y significancia cambian al condicionar en progresión. Por ello, para estudiar desempeño de todos los estudiantes de primer MU, $N=6,627$ es el estimando principal; $N=4,211$ responde a una pregunta distinta: desempeño dentro de quienes posteriormente llegan a Cálculo.
+
+\section{Resultados longitudinales MU $\rightarrow$ Cálculo}
+
+\subsection{Cohorte enlazada de 4,211 estudiantes}
+
+Aquí la restricción a progresores sí es parte de la pregunta: solo un estudiante que llega a Cálculo puede tener un outcome de uso en Cálculo. Las tasas de uso posterior aumentan marcadamente con el patrón previo.
+
+\begin{table}[H]
+\centering
+\caption{Uso posterior del CMAT en la cohorte longitudinal $N=4,211$}
+\input{tables/latex_longitudinal_4211.tex}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{figures/04_longitudinal_persistence_to_calculus.png}
+\caption{Uso posterior del CMAT en Cálculo según grupo de utilización durante MU, cohorte enlazada de 4,211.}
+\end{figure}
+
+El uso posterior es 16.89\%, 41.09\%, 51.16\% y 60.58\% para 0, 1--2, 3 y 4+. La mediana de visitas en Cálculo pasa de 0 en los dos primeros grupos a 1 en los grupos 3 y 4+.
+
+\subsection{Extensión longitudinal refinada documentada en una etapa posterior}
+
+Una etapa posterior del proyecto reconstruyó revalidaciones con mayor detalle, exigió aprobación numérica de MU, resultado numérico de Cálculo, cobertura y $Z$ válido en ambos cursos y progresión al siguiente periodo regular. El snapshot agregado conservado contiene $N=3,241$ y debe distinguirse del pipeline v5 actual, cuyo código reproducible se entrega por separado. Antes de una versión de envío, la lógica refinada debe reintegrarse a un único pipeline versionado.
+
+\begin{table}[H]
+\centering
+\caption{Cohorte longitudinal refinada conservada como snapshot agregado, $N=3,241$}
+\input{tables/latex_longitudinal_refined_3241.tex}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{figures/refined_longitudinal_persistence_3241.png}
+\caption{Persistencia observada en la cohorte longitudinal refinada. Esta figura proviene de la etapa posterior documentada y no del pipeline v5 actual.}
+\end{figure}
+
+La tasa posterior es 17.25\%, 43.43\%, 54.37\% y 66.84\%. La comparación 4+ frente a exactamente 3 arroja una diferencia de 12.47 puntos porcentuales (\CI\ 0.92--23.90), RR 1.229 y OR 1.691; Pearson $p=.0343$ y Fisher $p=.0440$. En modelos documentados de esa etapa, los OR ajustados frente a cero fueron aproximadamente 3.53, 4.84 y 9.82 para 1--2, 3 y 4+, y el desempeño posterior $Z_{Calc}$ siguió asociado a la utilización previa al ajustar por $Z_{MU}$.
+
+Estos resultados describen persistencia conductual. No identifican si el PPA creó la conducta, si el estudiante se familiarizó con el servicio o si ya era un help-seeker persistente antes de MU.
+
+\section{Síntesis de descubrimientos y límites actuales}
+
+\subsection{Hallazgos respaldados por los datos actuales}
+
+\begin{enumerate}[leftmargin=*]
+\item El uso del CMAT está muy concentrado en cero/pocas visitas; no existe un pico local extraordinario exactamente en tres.
+\item Una vez alcanzadas tres visitas, la mayoría de estudiantes continúa a una cuarta; las primeras tres visitas concentradas en un mismo día son raras.
+\item La demanda presenta recurrencia aproximadamente mensual tanto en todos los registros CMAT como en la cohorte de primer MU, mediante dos diagnósticos independientes: picos separados y ACF/periodograma.
+\item En la cohorte completa de MU existen diferencias de desempeño entre grupos de uso, con heterocedasticidad clara.
+\item Las diez comparaciones por pares muestran que las diferencias robustas se concentran entre cero visitas y uso positivo; no hay evidencia multiplicidad-ajustada de diferencias entre 1, 2, 3 y 4+.
+\item La cola exacta 8--12 es muy pequeña y una supuesta pendiente positiva 1--12 no es robusta a restringir el análisis a 1--7.
+\item Los contrastes binarios históricos siguen siendo positivos, pero su magnitud se explica en gran parte porque el grupo de comparación contiene a la gran mayoría de no usuarios.
+\item Las tasas de aprobación también aumentan con uso, sin que ello identifique causalidad.
+\item No se detecta una asociación robusta entre mayor dispersión temporal de las visitas y desempeño una vez controlada la intensidad.
+\item Las diferencias por licenciatura son reales como heterogeneidad descriptiva, pero la relación ecológica entre tasa de uso y $Z$ medio cambia según la población.
+\item Los 4,211 futuros progresores a Cálculo son académicamente seleccionados: aun sus no usuarios de CMAT tienen media $Z_{MU}>0$.
+\item En el análisis longitudinal, el uso previo de CMAT en MU predice fuertemente el uso posterior en Cálculo.
+\end{enumerate}
+
+\subsection{Afirmaciones que deben evitarse}
+
+\begin{enumerate}[leftmargin=*]
+\item ``El CMAT causa mejores calificaciones.'' La exposición es voluntaria y falta ajuste por preparación matemática pre-MU.
+\item ``El umbral de tres causa el salto.'' No existe asignación exógena alrededor de tres; las visitas son elegidas por el estudiante.
+\item ``Exactamente tres significa que vino solo por PPA.'' La motivación no está observada.
+\item ``Cuatro o más significa motivación genuina.'' Tampoco está observada.
+\item ``Más visitas producen linealmente más desempeño.'' El análisis exacto no respalda una dosis monotónica estable.
+\item ``Los picos son exámenes.'' Sin calendarios por profesor, solo puede hablarse de periodicidad compatible con ciclos académicos.
+\item ``La carrera causa mayor uso o desempeño.'' Los scatterplots son ecológicos y las carreras agregan múltiples mecanismos.
+\item ``El hash anonimiza.'' SHA-256 verifica integridad; HMAC pseudonimiza; ninguna de las dos operaciones garantiza anonimización absoluta.
+\end{enumerate}
+
+\section{Datos nuevos solicitados y mejoras metodológicas}
+
+\subsection{Prueba de admisión o diagnóstico matemático}
+
+Esta es la mejora cuantitativa de mayor prioridad. Si $A_i$ se mide antes de MU, puede incorporarse en
+\[
+Z_i=\alpha_{c(i)}+\lambda_{\ell(i)}+\sum_g\beta_g\mathbf1(G_i=g)+f(A_i)+\varepsilon_i.
+\]
+El propósito no es ``controlar hasta obtener significancia'', sino reducir una explicación rival concreta: que usuarios y no usuarios difieran desde antes de entrar a MU. Deben documentarse escala, versión del examen, año, missingness y posibles cambios de instrumento. Si la escala cambia por cohorte, una opción es estandarizar dentro de versión/año antes de usarla.
+
+En el análisis longitudinal puede entrar como covariable basal junto con $Z_{MU}$, carrera y periodo. Aun así, no eliminará autoselección por motivación o necesidad percibida.
+
+\subsection{Encuesta sobre motivos de uso}
+
+Una encuesta puede medir mecanismos que los registros administrativos no observan. Conviene separar preguntas sobre primera visita y visitas posteriores. Variables útiles incluyen: conocimiento previo de PPA1, importancia atribuida al incentivo, necesidad académica concreta, recomendación de profesor/compañeros, confianza matemática, ansiedad, conveniencia del horario, percepción de calidad, experiencia de la primera visita y disposición a volver sin incentivo.
+
+Idealmente, la encuesta debe ser prospectiva y aplicarse a una nueva cohorte con consentimiento explícito para enlace con registros. No es metodológicamente correcto aplicar una encuesta actual y usar sus respuestas para imputar retrospectivamente la motivación de estudiantes históricos.
+
+\subsection{Estado/fecha real de PPA1}
+
+Si existe un registro administrativo individual de cumplimiento de PPA1, recuperarlo permitiría verificar la suposición de que el incentivo deja de aplicar después del primer semestre y detectar excepciones. Esta variable fortalecería mucho la interpretación longitudinal.
+
+\section{Privacidad, anonimización y políticas editoriales de datos}
+
+\subsection{Hash, HMAC y anonimización son conceptos diferentes}
+
+Un SHA-256 de archivo es una función de integridad:
+\[
+h=\mathrm{SHA256}(\mathrm{bytes}).
+\]
+Si cambia un byte, cambia el hash con probabilidad prácticamente uno. Sirve para demostrar que el archivo analizado es el mismo, no para proteger identidades.
+
+Para pseudonimización, HMAC-SHA256 usa una llave secreta $K$:
+\[
+\mathrm{ID}^*=\mathrm{HMAC}_{SHA256}(K,\mathrm{ID}).
+\]
+Sin $K$ es difícil reconstruir directamente el ID original, pero el pseudónimo sigue permitiendo enlazar filas del mismo estudiante y, combinado con carrera, periodo y resultados raros, puede facilitar reidentificación. Es pseudonimización, no anonimización.
+
+En un panel longitudinal rico no es responsable prometer ``anonimato absoluto''. La estrategia de máximo resguardo para publicación es no liberar microdatos fila-a-fila. Para un release público se recomienda:
+\begin{enumerate}[leftmargin=*]
+\item publicar código, protocolo, diccionario, tablas agregadas y figuras;
+\item publicar un dataset sintético estructuralmente compatible para probar el código;
+\item no publicar pseudónimos persistentes de estudiantes/profesores;
+\item suprimir o agrupar carreras y combinaciones carrera--periodo con celdas pequeñas;
+\item reducir fechas exactas a periodo o mes si la fecha no es indispensable;
+\item top-codear conteos extremos de visitas;
+\item eliminar texto libre, profesor/asesor y cualquier atributo no necesario;
+\item si se autoriza microdato, hacer evaluación formal de riesgo de divulgación (por ejemplo criterios de $k$-anonimato como diagnóstico, no como garantía absoluta \citep{sweeney2002}) y preferir acceso controlado con convenio;
+\item considerar mecanismos formales como privacidad diferencial solo si existe una necesidad real de liberar estadísticas/microdatos y se puede definir un presupuesto de privacidad apropiado \citep{dwork2006}.
+\end{enumerate}
+
+\subsection{¿Es necesario entregar el Excel para publicar?}
+
+\paragraph{Teaching Mathematics and its Applications (TEAMAT).} La guía vigente de Oxford University Press, consultada el 7 de septiembre de 2026, indica que donde sea éticamente factible el journal \emph{strongly encourages} poner a disposición datos y código; sugiere manuscrito, archivos de soporte o repositorio ``whenever possible''. No lo formula como una obligación universal de subir el Excel crudo y, además, exige una descripción de estándares/ética de la investigación.\footnote{\url{https://academic.oup.com/teamat/pages/information_for_authors}} Por tanto, para datos administrativos identificables, la estrategia defendible es una Data Availability Statement que explique la restricción institucional y acompañar el artículo con código y productos agregados/sintéticos.
+
+\paragraph{Studies in Higher Education.} Taylor \& Francis mantiene políticas de datos con excepciones explícitas por protección de participantes, privacidad y seguridad.\footnote{\url{https://authorservices.taylorandfrancis.com/data-sharing-policies/}} Además, existen precedentes publicados en \emph{Studies in Higher Education} donde los datos no son públicos por confidencialidad, privacidad o restricciones legales: por ejemplo, datos de registros administrativos accesibles solo bajo autorización institucional,\footnote{\url{https://doi.org/10.1080/03075079.2023.2188397}} datos disponibles a solicitud pero no públicos por privacidad,\footnote{\url{https://doi.org/10.1080/03075079.2023.2203135}} y datasets no públicos porque contienen información que podría comprometer a participantes.\footnote{\url{https://doi.org/10.1080/03075079.2026.2669854}} Esto demuestra que la publicación sin adjuntar el Excel públicamente es compatible con prácticas reales de la revista. La política específica aplicable al journal debe volver a verificarse en el sistema de envío, porque Taylor \& Francis opera varios niveles de data-sharing.
+
+En ambos casos, ``no hacer público el Excel'' no significa que nunca pueda solicitarse información adicional durante peer review o una auditoría. Conviene acordar con la universidad qué nivel de acceso restringido podría ofrecerse si un editor lo pidiera.
+
+\section{Reproducibilidad, hashes y trazabilidad burocrática}
+
+El pipeline metodológico actualizado contiene 54 archivos Python en \code{config/}, \code{src/} y \code{tests/}. Su fingerprint conjunto es
+\begin{center}
+\small\ttfamily 03dd3d4ddd31cc2263be54900e1b25749fab8a7beb2033fbe796bf240fd4c39f
+\end{center}
+construido concatenando, en orden lexicográfico, ruta relativa, separador NUL, bytes de cada archivo y separador NUL. Los nueve tests del proyecto pasan antes de generar este reporte.
+
+Los archivos administrativos internos no se incluyen en el ZIP público del reporte. Sus hashes de procedencia son:
+\begin{itemize}[leftmargin=*]
+\item asesorías: \code{43a0fcd6f7f620b5b606a51efc9eac60761acdbb239d7ac839bf5c1e83bef295};
+\item registros académicos: \code{e2671767ed9a2daa14f5d08318113bfb0327539dde4cf12f4204584f28d367a1}.
+\end{itemize}
+Estos hashes permiten comprobar que un análisis futuro parte de los mismos insumos sin distribuir esos insumos.
+
+Debe distinguirse también la procedencia de la cohorte refinada $N=3,241$: se conserva como snapshot agregado de una etapa posterior y no está cubierta por el fingerprint del pipeline v5. Antes de enviar un manuscrito, esa lógica debe reunificarse y versionarse para que todos los números de la versión enviada sean producidos por un único pipeline.
+
+\section{Propuesta de separación para publicación}
+
+Solo después de revisar todos los descubrimientos conviene separar dos contribuciones. La razón principal es que utilizan distintos outcomes, poblaciones y conversaciones bibliográficas; juntarlas diluiría la pregunta científica y haría difícil distinguir resultados contemporáneos de resultados longitudinales.
+
+\subsection{Trabajo A: incentivo institucional y persistencia de búsqueda de apoyo}
+
+\textbf{Título de trabajo:} \emph{Beyond the Incentive Threshold: Academic Support Use and Persistence After a First-Year Participation Incentive}.
+
+El outcome primario sería uso posterior del CMAT en Cálculo. La unidad científica es la transición del mismo estudiante MU $\rightarrow$ Cálculo. La conversación general es institutional incentives, behavioural engagement y formal academic help-seeking, con Kahu, Fong, Angrist, Pugatch, Paloyo, Blondeel y literatura de persistencia/incentivos como base \citep{kahu2013,kahuNelson2018,fong2023,angrist2009,pugatch2018,paloyo2016,blondeel2024}. Hanushek y Woessmann puede funcionar como framing institucional secundario para la idea de que la provisión de recursos opera dentro de estructuras de incentivos \citep{hanushek2008}.
+
+La opción ambiciosa sigue siendo \emph{Studies in Higher Education}. El caso local debe presentarse como evidencia sobre una pregunta general de educación superior, no como evaluación institucional del CMAT. La encuesta, el score de admisión y el registro real de PPA1 fortalecerían especialmente este trabajo.
+
+\subsection{Trabajo B: uso de mathematics support y desempeño relativo al salón}
+
+\textbf{Título de trabajo:} \emph{Mathematics Support Use and Classroom-Relative Academic Performance in First-Year University Mathematics}.
+
+El outcome primario sería $Z_{MU}$ en los 6,627 primeros intentos, no el subconjunto seleccionado de progresores. La contribución metodológica combina curso homogéneo, exposición en el mismo periodo, outcome estandarizado dentro de profesor-periodo, tratamiento explícito de outcomes adversos, inferencia heterocedástica y análisis completo 0/1/2/3/4+. La literatura central es mathematics and statistics support y evaluación de learning support \citep{mullen2024,lawson2020,matthews2013,macanbhaird2009,jacob2019,pell2008,buchele2024}.
+
+La primera opción editorial sería \emph{Teaching Mathematics and its Applications}; una segunda opción sería IJMEST. TEAMAT encaja porque exige una justificación educativa explícita y favorece trabajos directamente conectados con enseñanza/aprendizaje matemático. La nueva prueba de admisión sería una mejora particularmente importante para reducir confusión por preparación basal.
+
+\subsection{Por qué no deben fusionarse}
+
+El primer trabajo pregunta por una conducta posterior y tiene estructura longitudinal; el segundo pregunta por desempeño contemporáneo y tiene estructura transversal de cohorte. En símbolos:
+\[
+\text{A: }P(C_i=1\mid G_{i,MU},\ldots),
+\qquad
+\text{B: }E(Z_{i,MU}\mid G_{i,MU},\ldots).
+\]
+Son estimandos distintos. Compartir una institución y un archivo no los convierte en el mismo estudio.
+
+\section{Roadmap inmediato}
+
+\begin{enumerate}[leftmargin=*]
+\item Obtener resultados de admisión/diagnóstico matemático y documentar escala, año, cobertura y missingness.
+\item Diseñar la encuesta prospectiva con énfasis en primera visita, PPA, necesidad, recomendación, confianza y experiencia del servicio.
+\item Solicitar, si existe, fecha/estado individual de cumplimiento PPA1.
+\item Reintegrar la lógica refinada de revalidaciones y cohorte $N=3,241$ al pipeline único versionado.
+\item Recalcular todos los resultados finales de ambos manuscritos desde ese pipeline congelado.
+\item Para el estudio de desempeño, mantener la cohorte completa $N=6,627$ como estimando principal y reportar $N=4,211$ como sensibilidad seleccionada por progresión.
+\item Para el estudio longitudinal, usar la cohorte que corresponda al riesgo real de observar Cálculo y declarar explícitamente el condicionamiento en progresión.
+\item Preparar Data Availability Statements que no prometan publicar microdatos administrativos sin autorización institucional.
+\item Solicitar determinación ética/IRB o documento institucional equivalente antes del envío.
+\end{enumerate}
+
+\section{Conclusión}
+
+La actualización metodológica cambia la lectura de varios resultados. La imputación principal de BV/RT/BA se basa ahora correctamente en la distribución subaprobatoria observada por salón mediante KDE, no en una uniforme general. La comparación completa 0/1/2/3/4+ muestra que la señal de desempeño está concentrada en la separación entre no uso y uso positivo, mientras que una dosis incremental entre usuarios no está respaldada de forma robusta. La periodicidad mensual aparece en todos los registros CMAT y también dentro de la cohorte de primer MU. La heterogeneidad por licenciatura debe interpretarse de forma específica a la población y sin inferencia ecológica a individuos. Finalmente, el subconjunto de 4,211 progresores es indispensable para preguntas longitudinales, pero no debe sustituir silenciosamente a los 6,627 primeros MU cuando la pregunta es desempeño contemporáneo en MU. Esta separación de estimandos, junto con la próxima incorporación de una medida pre-MU de habilidad matemática y datos prospectivos de motivación, coloca el proyecto en una posición metodológica más defendible para revisión estadística y eventual publicación.
+
+\appendix
+\section{Licenciaturas de MU con $n<30$ en la inferencia agregada}
+\label{app:omitted}
+
+Los siguientes códigos no fueron eliminados de la base; únicamente quedan fuera de las pruebas agregadas por carrera que exigen $n\ge30$. En conjunto suman 253 de 6,627 estudiantes.
+
+\small
+\input{tables/latex_omitted_careers.tex}
+\normalsize
+
+\section{Archivos de resultados incluidos en el paquete}
+
+El directorio \code{tables/} contiene los CSV completos generados por el pipeline. Entre los outputs principales se encuentran: flujo de cohorte; distribución y continuación; métricas de bunching; concentración intradía; picos y periodicidad; auditoría de imputación; resultados 0/1/2/3/4+; diez comparaciones Games--Howell; diez contrastes FE+Holm; análisis de progresores $N=4,211$; tres poblaciones de carrera; lista de carreras $n<30$; asociación ecológica; exactos 0--12; regularidad temporal; aprobación; propensity score y análisis longitudinal. Los CSV constituyen la fuente numérica inmediata de este reporte.
+
+\section{Checklist estadístico antes de congelar una versión de envío}
+
+\begin{enumerate}[leftmargin=*]
+\item verificar que cada resultado citado se regenere desde el mismo commit/fingerprint;
+\item congelar la regla final de revalidaciones y primer intento;
+\item documentar faltantes del examen de admisión y decidir su tratamiento antes de modelar;
+\item revisar leverage, residuos y número efectivo de clusters de los modelos FE principales;
+\item si se añaden nuevas familias de contrastes, predefinir su control de multiplicidad;
+\item mantener el análisis de exactos 8--12 como descriptivo por celdas pequeñas;
+\item no interpretar significancia ecológica de carreras como asociación individual;
+\item verificar la política editorial de datos nuevamente el día de envío;
+\item obtener aprobación institucional para cualquier material de datos que salga del entorno interno.
+\end{enumerate}
+
+\printbibliography
+\end{document}

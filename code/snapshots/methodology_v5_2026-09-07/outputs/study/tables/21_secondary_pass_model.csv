@@ -1,0 +1,2 @@
+model,term,estimate,std_error,p_value,ci95_low,ci95_high,n,interpretation
+pass_LPM_classroom_FE_plus_career,PERSISTENT_GT3_PERIOD,0.1922814967177521,0.027908084235875583,5.586556300670841e-12,0.1375826567379259,0.2469803366975783,6627,absolute probability-point difference; secondary outcome

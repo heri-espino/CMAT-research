@@ -1,0 +1,11 @@
+metric,count,denominator,proportion
+primary_cohort_students,6627,6627,1.0
+students_with_any_visit,1234,6627,0.18620793722649767
+students_reaching_ppa_ge3,472,6627,0.07122378149992455
+visitors_with_any_2plus_same_day,155,1234,0.12560777957860617
+visitors_with_any_3plus_same_day,24,1234,0.019448946515397084
+ppa_achievers_with_any_2plus_same_day,133,472,0.2817796610169492
+ppa_achievers_with_any_3plus_same_day,24,472,0.05084745762711865
+ppa_achievers_first_3_visits_same_day,7,472,0.014830508474576272
+ppa_achievers_completion_day_2plus,68,472,0.1440677966101695
+ppa_achievers_completion_day_3plus,18,472,0.038135593220338986

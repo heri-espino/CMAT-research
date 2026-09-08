@@ -1,10 +1,10 @@
-# Migration status
+# Migration and canonicalisation status
 
 ## Canonical repository
 
-`heri-espino/CMAT-research` is the canonical GitHub repository for the CMAT research/publication project.
+`heri-espino/CMAT-research` is the canonical private repository for the CMAT research/publication project.
 
-## Completed
+## Completed repository migration
 
 - private repository verified;
 - monorepo structure and operating rules documented;
@@ -57,10 +57,12 @@ Never migrate:
 - administrative Excel files;
 - row-level student/advising microdata;
 - direct identifiers;
-- HMAC keys or other secrets/credentials.
+- HMAC keys or credentials;
+- unreviewed identifying free text.
 
 Literature PDFs are retained only because this repository is private and the owner explicitly requested internal research continuity. They are not automatically suitable for redistribution in a public release.
 
 ## Working rule
 
 Future substantive changes should be committed through short-lived feature branches and merged into `main`. ZIPs are optional offline backups, not the project history.
+Future substantive changes happen in this repository. ZIPs are optional offline backups. Literature should be added once to `literature/library/`; manuscripts reference it through paper-specific indexes rather than maintaining duplicated literature folders.

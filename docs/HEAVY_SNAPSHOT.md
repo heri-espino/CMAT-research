@@ -1,4 +1,4 @@
-# Heavy private snapshot inventory
+# Heavy private snapshot provenance
 
 This private repository preserves the CMAT research code/report history and an internal literature corpus. Heavy binaries are configured for Git LFS where applicable.
 
@@ -57,21 +57,15 @@ The source-material paths above are provenance/storage layers. Scientific retrie
 
 The old upload-batch names are retained only in historical Git commits and archive/checksum descriptions, not as the current scientific organization.
 
-## Current methodology/report snapshots
+Historical sanitised scientific-code snapshot SHA-256:
 
-- Sanitized scientific-code snapshot ZIP SHA-256: `d86a301278b37bcf7300fac3b12eaa200c948e4fbaa0016d049a734fba23d0b7`
-- Technical methodology report ZIP SHA-256: `68a872de5cd348e0304945c66adb581bb95192ea2547fd3aaebcb258584941be`
-- Combined methodology bundle ZIP SHA-256: `4a6e5400bef7574b375c9c03479d4353cf377129c536bc36feef704e5b33d69a`
+`d86a301278b37bcf7300fac3b12eaa200c948e4fbaa0016d049a734fba23d0b7`
 
-## Privacy boundary
+Historical technical methodology report ZIP SHA-256:
 
 The repository must **not** include:
 
-- administrative Excel workbooks;
-- row-level student/advising microdata;
-- direct student or professor identifiers;
-- HMAC/secret keys;
-- credentials or tokens.
+Historical combined methodology bundle ZIP SHA-256:
 
 ## Rights / release boundary
 
