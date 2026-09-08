@@ -2,9 +2,9 @@
 
 This private repository preserves the CMAT research code/report history and an internal literature corpus. Heavy binaries are configured for Git LFS where applicable.
 
-## Literature Batch 1
+## Historical literature source set with visual assets
 
-Source archive: `Bib.zip`
+Original source archive: `Bib.zip`
 
 - SHA-256: `84ef1c01a85db38ef6b5413621480eba1332f800dddc2523f098209e0745a237`
 - original expanded size: approximately 42 MB;
@@ -13,11 +13,13 @@ Source archive: `Bib.zip`
 - 136 Docling visual assets;
 - separated reference files and technical index files.
 
-Canonical repository path: `literature/Bib/`.
+Current repository path:
 
-Batch 1 is preserved with its visual assets.
+`literature/library/source_material/visual_corpus/`
 
-## Literature Batch 2
+This source set is preserved with its visual assets.
+
+## Historical PDF/Markdown source set
 
 Original source archive: `339dc703-470e-407c-bb54-97ab069e4ce7.zip`
 
@@ -25,22 +27,35 @@ Original source archive: `339dc703-470e-407c-bb54-97ab069e4ce7.zip`
 - original expanded size: approximately 99 MB;
 - original archive included 29 source PDFs and hundreds of Docling visual assets.
 
-Canonical repository path: `literature/Bib2/`.
+Current repository path:
+
+`literature/library/source_material/pdf_markdown_corpus/`
 
 ### Curated GitHub representation
 
-The repository intentionally does **not** reproduce the full original Batch 2 asset directory. The current checked-in representation contains:
+The repository intentionally does **not** reproduce the full original visual-asset directory. The current checked-in representation contains:
 
 - 30 extracted Markdown records;
 - 29 source PDFs;
 - 24 separated reference files;
 - 0 Docling PNG/table/figure assets.
 
-The additional Markdown record reflects retained/versioned source material in the curated corpus. `kahu_2018_student-engagement-educational-interface` has a Markdown source copy rather than a PDF in this batch.
+The additional Markdown record reflects retained/versioned source material in the curated corpus. `kahu_2018_student-engagement-educational-interface` has a Markdown source copy rather than a PDF in this source set.
 
-The visual assets were intentionally omitted because they were large and largely redundant with the retained source PDFs. For Bib2, exact table/figure verification therefore falls back directly to the PDF.
+The visual assets were intentionally omitted because they were large and largely redundant with the retained source PDFs. Exact table/figure verification therefore falls back directly to the PDF.
 
 The original archive checksum above remains the provenance reference for the uncurated source package; the GitHub representation is a deliberate derivative and should not be expected to reproduce the original archive byte-for-byte.
+
+## Scientific literature interface
+
+The source-material paths above are provenance/storage layers. Scientific retrieval should start from:
+
+- `literature/library/CATALOG.md`;
+- `literature/general/INDEX.md`;
+- `literature/papers/paper1_ppa_persistence/INDEX.md`;
+- `literature/papers/paper2_mu_performance/INDEX.md`.
+
+The old upload-batch names are retained only in historical Git commits and archive/checksum descriptions, not as the current scientific organization.
 
 ## Current methodology/report snapshots
 
