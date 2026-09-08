@@ -53,12 +53,11 @@ Thumbs.db
 !outputs/aggregated/**/*.csv
 !reports/**/tables/*.csv
 
-# Literature binaries / copyrighted source material
-literature/pdf/
-literature/Bib/pdf/
-*.pdf
-!reports/**/*.pdf
-!papers/**/*.pdf
+# Heavy private literature snapshot
+# The repository is private and the user explicitly requested preservation of
+# local literature PDFs and Docling PNG assets. These files may be committed
+# under literature/Bib*/. Do not redistribute them publicly without checking
+# the applicable rights/licences.
 
 # Local raw-data directories
 data/raw/
