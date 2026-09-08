@@ -1,0 +1,98 @@
+name: Restore methodology v5 snapshot
+
+on:
+  push:
+    branches:
+      - restore/methodology-v5-report-v2
+    paths:
+      - '.github/workflows/restore-methodology-v5-snapshot.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  restore:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout branch and full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Recover the original staged methodology patch from repository history
+        shell: bash
+        run: |
+          set -euo pipefail
+          git show a1badecf897a7426725212e3c646e3003d8371e9:scripts/patches/methodology_v5.tar.gz.b64 > /tmp/methodology_v5.tar.gz.b64
+          base64 -d /tmp/methodology_v5.tar.gz.b64 > /tmp/methodology_v5.tar.gz
+          echo '236eb57438eb88a0ddd126f3914f1d5fe9131deb69d53a50e51d2cc9f7f85211  /tmp/methodology_v5.tar.gz' | sha256sum -c -
+
+      - name: Build a navigable sanitized methodology-v5 code snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          SNAP='code/snapshots/methodology_v5_2026-09-07'
+          TMP='/tmp/cmat_methodology_v5_code'
+          rm -rf "$TMP" "$SNAP"
+          mkdir -p "$TMP" "$SNAP"
+
+          # Reconstruct the sanitized scientific code base from the imported project,
+          # excluding historical notebooks, binary/manual material and generated outputs.
+          rsync -a code/ "$TMP/" \
+            --exclude 'snapshots/' \
+            --exclude 'outputs/' \
+            --exclude 'legacy/' \
+            --exclude 'manual/' \
+            --exclude '__pycache__/' \
+            --exclude '*.pyc'
+
+          # Overlay the exact later methodology patch that was staged in repository history.
+          tar -xzf /tmp/methodology_v5.tar.gz -C "$TMP"
+
+          rsync -a "$TMP/" "$SNAP/" \
+            --exclude '__pycache__/' \
+            --exclude '*.pyc'
+
+          cat > "$SNAP/README_RECOVERY.md" <<'EOF'
+          # Recovered methodology v5 code snapshot
+
+          This directory reconstructs the sanitized scientific-code state associated with the 2026-09-07 methodology update.
+
+          Recovery method:
+          1. start from the imported CMAT scientific code base;
+          2. remove historical notebooks/manual/generated outputs from the snapshot;
+          3. overlay the original methodology patch preserved in repository history at commit `a1badecf897a7426725212e3c646e3003d8371e9`;
+          4. verify the original patch SHA-256 `236eb57438eb88a0ddd126f3914f1d5fe9131deb69d53a50e51d2cc9f7f85211`;
+          5. run the methodology helper tests.
+
+          Declared scientific-source fingerprint for the original sanitized methodology snapshot: `03dd3d4ddd31cc2263be54900e1b25749fab8a7beb2033fbe796bf240fd4c39f`.
+
+          The refined `N=3,241` longitudinal stage is intentionally not claimed to be covered by that fingerprint.
+          EOF
+
+      - name: Privacy and test checks
+        shell: bash
+        run: |
+          set -euo pipefail
+          SNAP='code/snapshots/methodology_v5_2026-09-07'
+          if find "$SNAP" -type f \( -iname '*.xlsx' -o -iname '*.xls' -o -iname '*.parquet' -o -iname '*.feather' -o -iname '*.sav' -o -iname '*.dta' -o -iname '*.sas7bdat' \) | grep -q .; then
+            echo 'ERROR: raw-data file detected in recovered snapshot' >&2
+            exit 1
+          fi
+          test -f "$SNAP/src/visitas_analysis/study/extended_methodology.py"
+          test -f "$SNAP/src/visitas_analysis/study/extended_plots.py"
+          test -f "$SNAP/PYTHON_FUNCTION_INDEX.md"
+          test -f "$SNAP/.ai_handoff.md"
+          python -m pip install --quiet pytest numpy pandas scipy statsmodels matplotlib pingouin scikit-learn openpyxl
+          PYTHONPATH="$SNAP/src:$SNAP" python -m pytest -q "$SNAP/tests/test_study_helpers.py"
+
+      - name: Commit recovered snapshot
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'CMAT research restoration bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add -f code/snapshots/methodology_v5_2026-09-07
+          git rm -f .github/workflows/restore-methodology-v5-snapshot.yml
+          git commit -m 'restore: recover sanitized methodology v5 code snapshot'
+          git push origin HEAD:restore/methodology-v5-report-v2
