@@ -4,11 +4,13 @@ This file is the starting point for future AI sessions working on CMAT literatur
 
 ## Purpose
 
-The literature subsystem is organized by scientific use, not by upload batch. The repository should expose one research library and lightweight paper-specific views over it.
+The literature subsystem is organized by scientific use, not by upload batch. The repository exposes one research library plus lightweight scientific views for the overall project and each paper.
 
 ## Canonical layout
 
-- `literature/library/`: canonical source material and master catalogue.
+- `literature/library/`: source layer and master catalogue.
+- `literature/library/source_material/visual_corpus/`: historical source set with PDFs, extracted Markdown, references and visual assets.
+- `literature/library/source_material/pdf_markdown_corpus/`: historical source set with PDFs/Markdown/references and no visual assets by design.
 - `literature/general/`: cross-project literature map and thematic notes.
 - `literature/papers/paper1_ppa_persistence/`: literature view for the persistence-after-incentive paper.
 - `literature/papers/paper2_mu_performance/`: literature view for the MU performance paper.
@@ -19,7 +21,7 @@ Do not recreate `Bib`, `Bib2`, `Bib3`, or other upload-batch folders as user-fac
 
 1. Read `literature/README.md`.
 2. Read the relevant paper/general `INDEX.md`.
-3. Use the library catalogue to locate the canonical source.
+3. Use `literature/library/CATALOG.md` and source-material indices to locate the canonical record.
 4. Read targeted extracted Markdown first.
 5. Read separated references only for citation chaining or bibliography verification.
 6. Open the source PDF when an exact table, figure, coefficient, wording, page, or extraction ambiguity matters.
@@ -53,10 +55,12 @@ Working question: association between CMAT use and classroom-relative academic p
 When adding a paper:
 
 1. choose a stable ID such as `author_year_short-topic`;
-2. place or register the source in the library source material;
-3. update the master catalogue;
+2. place or register the source in the library source-material layer;
+3. update `literature/library/CATALOG.md`;
 4. add it to one or more scientific views (`general`, `paper1`, `paper2`) with a short role/priority note;
-5. update missing-literature lists if the new paper fills a known gap;
+5. update the relevant `MISSING_LITERATURE.md` if the new paper fills a known gap;
 6. avoid physical duplication solely because a paper supports multiple manuscripts.
+
+When true duplicates are discovered, verify title/authors/year/DOI/content before collapsing them. Historical import provenance can remain documented in Git history and `docs/HEAVY_SNAPSHOT.md` even after duplicate working copies are removed.
 
 When changing the literature architecture, update this handoff and `literature/AGENTS.md` in the same PR.
