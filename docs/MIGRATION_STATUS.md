@@ -9,15 +9,36 @@
 - private repository verified;
 - monorepo structure and operating rules documented;
 - privacy-first `.gitignore` and raw-data exclusion policy added;
-- Batch 1 literature imported into `literature/Bib/`;
+- historical literature source material imported and preserved;
 - historical v8 scientific snapshot imported into `code/` without administrative raw data;
 - historical v8 LaTeX report preserved in `reports/technical_report_v8/`;
 - legacy notebooks and aggregated study outputs preserved for reproducibility;
-- **Batch 2 literature curated into `literature/Bib2/`** with text/PDF fallback and no visual assets.
+- literature reorganized by scientific use rather than upload batch.
 
-The original automated heavy Batch 1 import commit is:
+The original automated heavy literature/v8 import commit is:
 
 `d7e8db74253ef1cc1227b2a0bb4373ad94bed66a` — `migration: import heavy bibliography and v8 research snapshot`.
+
+## Literature architecture
+
+The former top-level `Bib/` and `Bib2/` names are no longer the scientific interface.
+
+Current organization:
+
+- `literature/library/` — source layer and master catalogue;
+- `literature/general/` — cross-project literature map;
+- `literature/papers/paper1_ppa_persistence/` — Paper 1 literature view;
+- `literature/papers/paper2_mu_performance/` — Paper 2 literature view;
+- `literature/AI_HANDOFF.md` and `literature/AGENTS.md` — future-AI/human operating rules.
+
+Historical source imports are preserved under:
+
+- `literature/library/source_material/visual_corpus/` — 20 source PDFs, 20 extracted Markdown records, separated references and 136 visual assets;
+- `literature/library/source_material/pdf_markdown_corpus/` — 30 extracted Markdown records, 29 source PDFs, 24 separated reference files and no visual assets by design.
+
+These source-material folders preserve provenance only; general/Paper 1/Paper 2 indices determine scientific relevance.
+
+The `kahu_2018_student-engagement-educational-interface` record remains a documented exception with a Markdown source copy rather than a PDF in the PDF/Markdown source corpus.
 
 ## Current methodology status
 
@@ -28,34 +49,6 @@ Recorded scientific-source fingerprint for that methodology snapshot:
 `03dd3d4ddd31cc2263be54900e1b25749fab8a7beb2033fbe796bf240fd4c39f`
 
 These methodological changes still need to be reconciled with the v8 longitudinal/PPA code before `code/` can be treated as one fully unified canonical executable pipeline. A merged branch-status/PR by itself does not change the scientific code.
-
-## Literature batches
-
-### Batch 1 — complete
-
-Target: `literature/Bib/`
-
-- 20 source PDFs;
-- 20 article Markdown extractions;
-- 136 retained Docling visual assets;
-- separated reference files and index metadata.
-
-### Batch 2 — complete, curated asset-free representation
-
-Canonical target: `literature/Bib2/`
-
-Current GitHub inventory:
-
-- 30 extracted Markdown records;
-- 29 source PDFs;
-- 24 separated reference files;
-- 0 Docling visual assets by design.
-
-The original Batch 2 archive contained visual assets, but they were intentionally omitted from the GitHub representation because the PDFs are retained as the visual/source-of-truth fallback and the assets were large/redundant.
-
-`kahu_2018_student-engagement-educational-interface` is the documented exception: the local source copy is Markdown rather than PDF.
-
-The accidental upload path `literature/Bib2-2/` is removed in the curation branch; `literature/Bib2/` is the only canonical path.
 
 ## Privacy boundary
 
