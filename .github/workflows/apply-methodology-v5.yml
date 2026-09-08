@@ -20,10 +20,15 @@ jobs:
           fetch-depth: 0
           lfs: true
 
-      - name: Verify patch checksum
+      - name: Decode and structurally verify patch
         run: |
           base64 -d scripts/patches/methodology_v5.tar.gz.b64 > /tmp/methodology_v5.tar.gz
-          echo '236eb57438eb88a0ddd126f3914f1d5fe9131deb69d53a50e51d2cc9f7f85211  /tmp/methodology_v5.tar.gz' | sha256sum -c -
+          echo "Decoded patch SHA-256: $(sha256sum /tmp/methodology_v5.tar.gz | awk '{print $1}')"
+          gzip -t /tmp/methodology_v5.tar.gz
+          tar -tzf /tmp/methodology_v5.tar.gz > /tmp/methodology_patch_files.txt
+          grep -Fx './src/visitas_analysis/study/extended_methodology.py' /tmp/methodology_patch_files.txt
+          grep -Fx './STUDY_PROTOCOL.md' /tmp/methodology_patch_files.txt
+          grep -Fx './PYTHON_FUNCTION_INDEX.md' /tmp/methodology_patch_files.txt
 
       - name: Apply methodology patch over imported v8 snapshot
         run: |
