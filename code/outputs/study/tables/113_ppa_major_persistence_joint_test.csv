@@ -1,0 +1,2 @@
+test,n,career_terms,wald_statistic,df_constraints,p_value,min_career_n_before_other,covariance,interpretation
+joint official-major terms in adjusted Calculus-use logit,3241,24,97.42546590454069,24,8.227241251946472e-11,30,cluster-robust by MU course classroom,"tests whether later CMAT-use propensity differs by observed degree program conditional on MU-use group, Z_MU and period; observational"

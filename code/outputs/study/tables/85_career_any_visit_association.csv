@@ -1,0 +1,2 @@
+test,n,chi_square,df,p_value,expected_cells_lt5_proportion,cramers_v_bias_corrected
+career x any-CMAT-use independence,6374,92.6181660319434,28,7.691542084268676e-09,0.0,0.10069098636534518

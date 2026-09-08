@@ -1,0 +1,2 @@
+test,n,chi_square,df,p_value,cramers_v,min_expected_cell,assumption_note
+Pearson chi-square: MU 0/1-2/3/4+ x any Calculus use,3241,392.468138383707,3,9.47482564321081e-85,0.3479867332938221,25.99629743906202,Pearson asymptotic inference is adequate when expected cells are not sparse; unit is one student.

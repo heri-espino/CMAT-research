@@ -1,0 +1,2 @@
+status,groups,n_total,n_groups,welch_F,df_num,df_denom,p_value,brown_forsythe_stat,brown_forsythe_p,equal_variance_assumption_supported_at_005
+ok,0|1-2|3|4+,6627,4,56.21136374033918,3.0,546.4003194734902,1.1117176901651059e-31,20.73526831519166,2.285152738884767e-13,False

@@ -1,0 +1,2 @@
+test,n,groups_tested,wald_statistic,df_constraints,p_value,covariance
+joint visit-group coefficients with professor-period FE,6627,3,153.1933245761196,3,5.39336623745298e-33,cluster-robust by professor-period classroom

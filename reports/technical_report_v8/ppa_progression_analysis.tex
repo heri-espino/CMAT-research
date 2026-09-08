@@ -1,0 +1,289 @@
+\clearpage
+\section{Nueva arquitectura longitudinal: PPA1, adopción, persistencia y trayectoria hacia Cálculo I}
+\label{sec:ppa_progression_v8}
+
+Esta sección se agrega como un capítulo de trabajo independiente. No sustituye ni corrige silenciosamente los análisis anteriores del borrador: los conserva como antecedentes exploratorios y formula una arquitectura longitudinal más estrecha a partir de información administrativa adicional sobre el funcionamiento del CMAT, el Programa de Primer Año (PPA) y las revalidaciones entre licenciaturas. La intención es acumular evidencia y decisiones de diseño antes de reorganizar el manuscrito definitivo para publicación.
+
+\subsection{Contexto institucional del CMAT y del PPA1}
+
+De acuerdo con la descripción institucional proporcionada para este proyecto, el Centro de Aprendizaje de Matemáticas (CMAT) atiende a estudiantes de licenciatura desde matemáticas básicas hasta cursos avanzados y ofrece apoyo en matemáticas y estadística. El portal institucional describe además diagnóstico, materiales de refuerzo, asesorías, talleres y conferencias, y señala como cursos atendidos principalmente Precálculo, Cálculo I, Cálculo II, Matemáticas I, Matemáticas II, distintas asignaturas de Estadística y Matemáticas Universitarias.\footnote{Centro de Aprendizaje de Matemáticas, UDLAP: \url{https://www.udlap.mx/centrodeMatematicas/conocenos.aspx}. La página pública actual también indica que actividades del CMAT pueden otorgar puntos PPA1. El presente estudio no utiliza como variable el número total de puntos otorgados por esa actividad; utiliza el umbral operacional de tres registros de visita que forma parte del diseño administrativo analizado.}
+
+Cada asesoría genera un registro mediante Google Forms. El registro es capturado por estudiantes que realizan servicio social o servicio becario e incluye, entre otros campos, identificador del estudiante, licenciatura declarada, profesor consultado, materia y tema. Para este estudio se asume que dichos registros representan visitas reales, reconociendo que se trata de captura humana y que no existe un mecanismo independiente para garantizar ausencia absoluta de duplicados. Un mismo estudiante puede registrar más de una visita en el mismo día: los profesores trabajan por bloques horarios y un estudiante puede continuar sus dudas con otro profesor cuando termina el horario del primero. Por ello, varias visitas en una misma fecha se interpretan como \emph{concentración intradía}, no como evidencia automática de manipulación del sistema.
+
+Todos los asesores del CMAT son profesores y cualquier estudiante vigente puede acudir libremente. El centro no se limita a MU: un estudiante avanzado podría solicitar apoyo para Cálculo, Ecuaciones Diferenciales, Probabilidad, Procesos Estocásticos u otra asignatura matemática/estadística mientras continúe inscrito. La restricción a Matemáticas Universitarias y Cálculo I es, por tanto, una decisión del diseño científico de este estudio y no una restricción de operación del CMAT.
+
+Administrativamente, el PPA funciona como un requisito institucional de participación del primer año. Se distingue PPA1, asociado al primer semestre, y PPA2, asociado al segundo semestre. El estudiante acredita PPA1 acumulando puntos mediante distintas actividades universitarias, que pueden incluir organizaciones estudiantiles, eventos y actividades del CMAT. PPA1 no es parte de la calificación de Matemáticas Universitarias. Aunque teóricamente un estudiante podría completar obligaciones PPA1 de manera tardía, el análisis adopta explícitamente la siguiente suposición de trabajo:
+
+\begin{cautionbox}[title=Suposición administrativa central del capítulo]
+Se trata a Matemáticas Universitarias como el contexto típico de primer semestre/PPA1 y se asume que los estudiantes cumplen PPA1 durante ese primer semestre. En consecuencia, el umbral de tres registros de CMAT durante MU se interpreta como un umbral de utilización potencialmente influido por PPA1. Cálculo I se trata como el curso posterior en el que ese mismo incentivo PPA1 del CMAT ya no opera. Esta es una suposición del diseño y no una variable individual observada: no se conoce la motivación psicológica de cada estudiante ni se observa directamente qué punto PPA buscaba obtener en cada visita.
+\end{cautionbox}
+
+Esta precisión cambia la pregunta. No se intenta etiquetar a un estudiante como ``motivado por PPA'' o ``motivado académicamente''. Se observan patrones compatibles con diferentes conductas:
+\[
+\text{incentivo PPA1}\longrightarrow\text{adopción del CMAT}\longrightarrow
+\text{continuación o abandono cuando desaparece el mismo incentivo}.
+\]
+
+\subsection{Dos fuentes de licenciatura y el problema de las revalidaciones}
+
+Existen dos fuentes distintas para la licenciatura. La base académica oficial contiene un código de carrera asociado a cada registro de materia; el Google Form de asesorías contiene la licenciatura declarada por el estudiante en el momento de la visita. Estas variables no deben considerarse equivalentes de forma automática.
+
+Un estudiante puede acumular más de una licenciatura. Además, cuando una materia previamente aprobada se revalida para un segundo programa, el sistema académico puede crear una fila nueva en un periodo posterior con la misma calificación histórica, aun cuando el estudiante no haya vuelto a cursar la materia. De esta manera,
+\[
+\boxed{\text{fila académica}\neq\text{nuevo intento real de la materia}.}
+\]
+
+El audit administrativo del archivo original identifica 10,080 estudiantes con una sola licenciatura oficial registrada, 448 con dos y 3 con tres. También identifica 537 filas posteriores a una aprobación previa del mismo curso, correspondientes a 263 estudiantes, que cumplen la regla conservadora de \emph{likely post-pass revalidation}; las 537 reproducen la misma calificación del primer aprobado observado. Se detectan además 405 filas redundantes dentro del mismo estudiante--materia--periodo con múltiples carreras, correspondientes a 231 estudiantes. Finalmente, 1,048 filas del extracto original carecen de profesor registrado. Esta última característica es coherente con el problema de revalidación: una acreditación administrativa puede conservar la calificación pero no representar un salón realmente cursado.
+
+El código no borra estas observaciones del audit. Las clasifica. Para construir resultados académicos, una observación posterior al primer aprobado del mismo curso se marca como probable revalidación y no se usa como nuevo intento. Para construir el $Z$ de salón, se utilizan únicamente intentos reales candidatos con calificación numérica y profesor observado.
+
+La licenciatura oficial de los modelos corresponde al registro del \emph{intento académico real} de MU o Cálculo, no a una fila posterior de revalidación. La licenciatura declarada en Google Forms se conserva como variable descriptiva contemporánea a la asesoría. No puede utilizarse como ajuste basal para comparar usuarios con no usuarios, porque un estudiante que nunca acudió al CMAT no tiene, por definición, un formulario de asesoría del cual recuperar esa licenciatura.
+
+\subsection{Cohorte PPA1--Cálculo y definición estricta del Z-score}
+
+Para las preguntas de este capítulo se adopta una cohorte más estrecha que la cohorte general del borrador. El estudiante debe:
+
+\begin{enumerate}[label=\arabic*.,leftmargin=*]
+\item tener un primer intento real observado de Matemáticas Universitarias;
+\item aprobar ese primer intento con calificación numérica $Y_{MU}\geq7.5$;
+\item cursar posteriormente un primer intento real de Cálculo I;
+\item disponer de calificación numérica final en Cálculo I;
+\item tener cobertura efectiva del archivo de asesorías en ambos periodos;
+\item disponer de un salón con al menos cinco calificaciones numéricas y desviación estándar positiva en ambas materias;
+\item para la especificación primaria de PPA1, avanzar a Cálculo en el siguiente periodo regular Primavera/Otoño.
+\end{enumerate}
+
+El flujo es:
+
+\begin{table}[H]
+\centering
+\caption{Construcción de la cohorte longitudinal PPA1--Cálculo.}
+\label{tab:ppa_v8_flow}
+\begin{tabularx}{0.92\textwidth}{@{}Xr@{}}
+\toprule
+Etapa & $N$ \\
+\midrule
+Primer intento real candidato de MU & 7,777 \\
+Primer intento de MU con aprobación numérica $\geq7.5$ & 5,769 \\
+Existe un primer Cálculo I posterior & 4,556 \\
+Cálculo I posterior con calificación numérica & 4,055 \\
+Pares con cobertura CMAT y $Z$ válido en ambas materias & 3,389 \\
+\textbf{Cohorte primaria: Cálculo en el siguiente periodo regular} & \textbf{3,241} \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+El análisis conserva además los 3,389 pares como sensibilidad que permite retrasos entre MU y Cálculo. Los resultados de persistencia cambian poco al permitir esos retrasos.
+
+En este capítulo el $Z$ se calcula literalmente respecto al salón en el sentido administrativo acordado:
+\[
+\boxed{c=\text{profesor}\times\text{misma materia}\times\text{mismo periodo}.}
+\]
+Por tanto,
+\[
+Z_{i,MU}=\frac{Y_{i,MU}-\bar Y_{c,MU}}{s_{c,MU}},
+\qquad
+Z_{i,Calc}=\frac{Y_{i,Calc}-\bar Y_{c,Calc}}{s_{c,Calc}}.
+\]
+La media y desviación estándar de referencia se calculan usando las calificaciones numéricas de los intentos reales candidatos del salón, no únicamente los estudiantes que terminaron entrando a la cohorte longitudinal. Así, $Z$ representa posición relativa dentro del salón realmente observado y no dentro de una submuestra seleccionada posteriormente.
+
+También se define
+\[
+\Delta Z_i=Z_{i,Calc}-Z_{i,MU},
+\]
+que describe un cambio de \emph{posición académica relativa}. No es un cambio de puntos de calificación y tampoco es, por sí mismo, un efecto causal del CMAT.
+
+\subsection{Perfiles observables: uso limitado al contexto PPA y uso persistente}
+
+Durante MU se utilizan las categorías ya establecidas:
+\[
+G_i\in\{0,\;1\text{--}2,\;3,\;4+\},
+\]
+y se define
+\[
+C_i=1(V_{i,Calc}>0).
+\]
+El cruce genera ocho perfiles observables. Las expresiones siguientes describen conductas registradas; no son diagnósticos de motivación interna.
+
+\begin{table}[H]
+\centering
+\caption{Perfiles de utilización en la cohorte primaria PPA1--Cálculo ($N=3{,}241$).}
+\label{tab:ppa_v8_profiles}
+\begin{tabular}{@{}llr@{}}
+\toprule
+Uso en MU & Uso posterior en Cálculo & $n$ \\
+\midrule
+0 & No & 2,044 \\
+0 & Sí: adopción tardía & 426 \\
+1--2 & No & 267 \\
+1--2 & Sí & 205 \\
+Exactamente 3 & No: patrón compatible con uso limitado al umbral & 47 \\
+Exactamente 3 & Sí: alcanza umbral y continúa después & 56 \\
+4+ & No: uso por encima del umbral sin continuidad posterior & 65 \\
+4+ & Sí: uso persistente por encima del umbral & 131 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+El grupo ``exactamente 3 y no Cálculo'' es el patrón más cercano a la hipótesis de utilización limitada al requisito, pero incluso aquí no se puede afirmar que el estudiante haya acudido \emph{solo} por los puntos. Del mismo modo, $4+$ no equivale a motivación intrínseca. Los nombres apropiados son \emph{threshold-limited pattern}, \emph{late adoption} y \emph{persistent use}.
+
+\subsection{¿La utilización persiste cuando desaparece el mismo incentivo PPA1?}
+
+\begin{questionbox}
+Entre estudiantes que aprobaron MU y cursaron Cálculo I en el siguiente periodo regular, ¿la probabilidad de volver al CMAT en Cálculo cambia según el nivel de utilización observado durante MU?
+\end{questionbox}
+
+La probabilidad de cualquier visita durante Cálculo aumenta de manera marcada a través de los cuatro grupos de MU:
+
+\begin{table}[H]
+\centering
+\caption{Probabilidad de utilizar el CMAT en Cálculo I según utilización previa durante MU.}
+\label{tab:ppa_v8_persistence}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+Visitas MU & $N$ & Usuarios en Cálculo & Probabilidad & IC95\% Wilson \\
+\midrule
+0 & 2,470 & 426 & 17.25\% & [15.81\%, 18.79\%] \\
+1--2 & 472 & 205 & 43.43\% & [39.03\%, 47.94\%] \\
+3 & 103 & 56 & 54.37\% & [44.77\%, 63.66\%] \\
+4+ & 196 & 131 & 66.84\% & [59.98\%, 73.05\%] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+La asociación global $4\times2$ es fuerte: $\chi^2(3)=392.47$, $p=9.47\times10^{-85}$, con $V$ de Cramér $=0.348$. La menor frecuencia esperada es 26.0, por lo que la aproximación asintótica de Pearson no presenta un problema de celdas escasas en esta tabla.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.78\textwidth]{figures/15_ppa_persistence_by_mu_group.png}
+\caption{Persistencia de uso del CMAT durante Cálculo I según número de visitas durante MU en la cohorte primaria de progresión. Los intervalos son Wilson al 95\%.}
+\label{fig:ppa_v8_persistence}
+\end{figure}
+
+La comparación preespecificada más cercana a la pregunta ``cumplió exactamente el umbral'' versus ``continuó después del umbral'' es $V_{MU}=3$ frente a $V_{MU}\geq4$. La probabilidad observada de uso posterior es 54.37\% para exactamente tres visitas y 66.84\% para cuatro o más. La diferencia es
+\[
+RD=0.1247,
+\qquad IC_{95\%}^{Newcombe}=[0.0092,0.2390].
+\]
+El riesgo relativo es
+\[
+RR=1.229,
+\qquad IC_{95\%}=[1.004,1.505],
+\]
+y la razón de momios es $OR=1.691$ (IC95\% $[1.038,2.757]$). Pearson da $p=0.0343$ y Fisher bilateral $p=0.0440$.
+
+\begin{answerbox}
+Dentro de esta cohorte, quienes continúan más allá de tres visitas durante MU tienen una probabilidad posterior de volver al CMAT aproximadamente 12.5 puntos porcentuales mayor que quienes se detienen exactamente en tres. El resultado es compatible con una diferencia entre utilización limitada al umbral y utilización más persistente, pero no identifica por qué existe esa diferencia.
+\end{answerbox}
+
+Un modelo logístico con errores estándar agrupados por salón de MU conserva el gradiente. Tomando $V_{MU}=0$ como referencia y ajustando además por $Z_{MU}$, licenciatura oficial contemporánea al intento real de MU y periodo, los odds ratios estimados para utilizar CMAT posteriormente en Cálculo son:
+\[
+OR_{1-2}=3.53,
+\qquad
+OR_{3}=4.84,
+\qquad
+OR_{4+}=9.82.
+\]
+Los tres coeficientes son estadísticamente distintos de cero ($p<10^{-12}$ para 3 y 4+, y $p<10^{-28}$ para 1--2). Estos odds ratios no son riesgos relativos y no deben leerse como multiplicadores causales del PPA; muestran que la información contenida en el patrón previo de uso sigue siendo muy predictiva después de condicionar por desempeño relativo previo, carrera y periodo.
+
+\subsubsection{¿Existe un cambio de comportamiento justo después de tres visitas?}
+
+Como análisis descriptivo de forma funcional, se estima un logit por tramos:
+\[
+\operatorname{logit}P(C_i=1)
+=\alpha+\beta_1\min(V_{MU},3)+\beta_2\max(V_{MU}-3,0),
+\]
+con el conteo truncado a 12 para que una cola muy escasa no domine la pendiente. Este modelo \textbf{no es una regresión discontinua}: el estudiante controla su número de visitas y no existe asignación exógena alrededor de $V=3$.
+
+Hasta el umbral, el odds ratio por una visita adicional es $1.994$ (IC95\% $[1.807,2.200]$, $p=5.93\times10^{-43}$). Después del umbral, el odds ratio por visita adicional es $1.063$ (IC95\% $[0.982,1.150]$, $p=0.131$). La combinación de ambos resultados sugiere una relación muy pronunciada entre pasar de no uso/uso mínimo hacia el umbral y la persistencia futura, seguida por un aplanamiento de la pendiente. El contraste específico 3 versus 4+ todavía detecta una diferencia, pero los datos no respaldan una interpretación de incremento constante por cada visita posterior.
+
+\subsection{Sensibilidad pedagógica: visitas específicamente etiquetadas como MU y Cálculo}
+
+El PPA se relaciona con cualquier registro del CMAT durante el semestre, sin importar qué materia declaró el estudiante. Esa es la exposición correcta para estudiar el entorno del incentivo. Sin embargo, el Google Form permite una segunda pregunta más pedagógica: ¿buscar apoyo específicamente para MU predice buscar apoyo específicamente para Cálculo?
+
+En la cohorte primaria, 660 estudiantes registraron al menos una asesoría etiquetada específicamente como MU. De ellos, 276 (41.82\%) registraron posteriormente al menos una asesoría etiquetada como Cálculo. Entre los 2,581 que no tuvieron asesoría etiquetada como MU, 365 (14.14\%) registraron apoyo específico de Cálculo. La diferencia es 27.68 puntos porcentuales (IC95\% $[23.72,31.69]$), con
+\[
+RR=2.957\;[2.594,3.371],
+\qquad
+OR=4.364\;[3.608,5.278].
+\]
+Pearson obtiene $\chi^2(1)=253.75$, $p=3.96\times10^{-57}$, con frecuencia esperada mínima 130.5; Fisher confirma el resultado ($p=3.33\times10^{-50}$).
+
+Esta sensibilidad reduce la ambigüedad de que un estudiante haya visitado el CMAT por otra materia durante el semestre. El patrón de persistencia se mantiene cuando la exposición y el outcome se restringen a las materias específicas.
+
+\subsection{¿Los patrones previos de uso se relacionan con desempeño posterior en Cálculo?}
+
+La pregunta académica más defendible temporalmente no es si las visitas de Cálculo ``explican'' la nota de Cálculo, porque ambas ocurren durante el mismo curso y la dificultad experimentada puede aumentar simultáneamente las visitas. En cambio, el uso durante MU ocurre antes del outcome de Cálculo. Por ello se estima
+\[
+Z_{Calc,i}
+=\beta_0+\beta_1Z_{MU,i}+\beta_2G^{MU}_i+\gamma L_{Calc,i}+\lambda_t+\varepsilon_i,
+\]
+con errores estándar agrupados por salón de Cálculo. No se incluye $V_{Calc}$ en la especificación principal.
+
+Sin ajuste de licenciatura/periodo, pero controlando $Z_{MU}$, los coeficientes asociados a patrones previos de uso son $0.154Z$ para 1--2, $0.207Z$ para exactamente 3 y $0.200Z$ para 4+, todos respecto de cero visitas. Al añadir licenciatura contemporánea a Cálculo y periodo, las estimaciones son:
+\[
+\widehat\beta_{1-2}=0.122\;[0.051,0.194],\quad p=0.00081,
+\]
+\[
+\widehat\beta_{3}=0.153\;[0.037,0.269],\quad p=0.00958,
+\]
+\[
+\widehat\beta_{4+}=0.172\;[0.070,0.274],\quad p=0.000915.
+\]
+El coeficiente de desempeño previo es $\widehat\beta_{Z_{MU}}=0.578$ (IC95\% $[0.495,0.661]$).
+
+\begin{answerbox}
+El patrón de utilización observado durante MU contiene información sobre desempeño relativo posterior. Incluso entre estudiantes con $Z_{MU}$ similar, los grupos que habían utilizado el CMAT durante MU muestran, en promedio, un $Z_{Calc}$ posterior entre aproximadamente 0.12 y 0.17 desviaciones estándar mayor que el grupo de cero visitas después de ajustar por licenciatura y periodo. Este es un resultado longitudinal temporalmente ordenado, pero sigue siendo observacional: organización, motivación, preparación no medida y otras diferencias estables pueden explicar parte o toda la asociación.
+\end{answerbox}
+
+Los ocho perfiles muestran además diferencias descriptivas en $\Delta Z$. La Figura~\ref{fig:ppa_v8_delta} se conserva como exploración y no como prueba causal, porque la utilización durante Cálculo es contemporánea al segundo outcome.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.84\textwidth]{figures/16_ppa_academic_trajectory_profiles.png}
+\caption{Cambio medio en posición relativa $\Delta Z=Z_{Calc}-Z_{MU}$ por perfil observable de uso. La figura es descriptiva; el uso durante Cálculo puede ser respuesta a la dificultad experimentada en el propio curso.}
+\label{fig:ppa_v8_delta}
+\end{figure}
+
+\subsection{La licenciatura sí forma parte de la heterogeneidad observada}
+
+La carrera importa por dos razones distintas. Primero, diferentes programas tienen distinta exposición curricular a matemáticas y pueden generar diferente demanda de apoyo. Segundo, el archivo académico puede replicar materias aprobadas cuando un estudiante agrega o cambia de licenciatura, de modo que el programa debe vincularse al intento real y no a una revalidación posterior.
+
+En la cohorte primaria, solo 11 de 3,241 pares (0.34\%) muestran un código oficial de licenciatura distinto entre el intento real de MU y el intento real posterior de Cálculo. No obstante, las tasas de uso y persistencia varían entre programas. Un logit ajustado por grupo de uso en MU, $Z_{MU}$ y periodo produce una prueba conjunta de los términos de licenciatura de
+\[
+W=97.43,\qquad df=24,\qquad p=8.23\times10^{-11},
+\]
+con errores estándar agrupados por salón de MU. Por tanto, la licenciatura contiene información adicional sobre la probabilidad de utilizar el CMAT durante Cálculo, incluso después de controlar el patrón previo de uso y el desempeño relativo de MU.
+
+También existen diferencias en trayectoria académica relativa por licenciatura. Para $\Delta Z=Z_{Calc}-Z_{MU}$, Brown--Forsythe rechaza homogeneidad de varianzas entre las 24 licenciaturas con al menos 30 estudiantes ($p=2.43\times10^{-5}$). Por esa razón se utiliza ANOVA de Welch, que obtiene
+\[
+F_W(23,782.71)=6.246,\qquad p=1.39\times10^{-17}.
+\]
+Este resultado no significa que la licenciatura ``cause'' cambios de desempeño. Indica que el desplazamiento relativo entre MU y Cálculo no es homogéneo entre programas y justifica mantener la carrera como fuente de heterogeneidad observable en los modelos.
+
+La licenciatura declarada en Google Forms se conserva como fuente paralela para estudiar la identidad académica reportada al momento de la asesoría. En esta cohorte aparece únicamente entre usuarios del CMAT (23.79\% durante MU y 25.24\% durante Cálculo, exactamente porque un formulario existe solo cuando hay visita). Por esta razón es inapropiado imputarla como si fuese un covariable basal para los no usuarios. El pipeline genera un cruce descriptivo entre código oficial y nombre declarado para futuras tareas de depuración/crosswalk.
+
+\subsection{Tesis, hipótesis rival y síntesis de la nueva arquitectura}
+
+\paragraph{Tesis compatible con los datos.}
+El incentivo PPA1 puede reducir la barrera de entrada al CMAT durante el primer semestre. Una vez que el estudiante conoce el servicio, una parte de los usuarios continúa recurriendo al centro cuando llega a Cálculo I, aun cuando el mismo incentivo PPA1 ya no sea el motivo institucional relevante. La fuerte asociación entre uso previo y uso posterior, junto con la persistencia de apoyo específico MU $\rightarrow$ Cálculo, es compatible con un mecanismo de adopción y familiarización.
+
+\paragraph{Hipótesis rival.}
+La persistencia puede existir sin que el PPA haya creado el hábito. Estudiantes con una propensión estable a pedir ayuda, mayor organización, distinta preparación previa, diferentes exigencias de licenciatura o necesidades académicas recurrentes podrían utilizar el CMAT en ambos semestres. El incremento de persistencia desde 0 hasta 4+ visitas puede reflejar esa heterogeneidad individual. Los datos actuales no observan diagnóstico inicial, promedio de preparatoria ni motivación individual, por lo que no separan estos mecanismos.
+
+\paragraph{Síntesis.}
+La evidencia más útil no es una afirmación psicológica del tipo ``los de tres visitas solo querían puntos''. Los datos permiten una formulación operacional más precisa:
+\[
+\boxed{
+\begin{aligned}
+V_{MU}=3,\;V_{Calc}=0 &\quad\Rightarrow\quad \text{patrón compatible con uso limitado al umbral},\\
+V_{MU}\geq4,\;V_{Calc}>0 &\quad\Rightarrow\quad \text{uso persistente más allá del contexto incentivado},\\
+V_{MU}=0,\;V_{Calc}>0 &\quad\Rightarrow\quad \text{adopción tardía}.
+\end{aligned}}
+\]
+
+Tres hallazgos deben conservarse para la futura reorganización del paper. Primero, la probabilidad de volver al CMAT aumenta de 17.25\% entre no usuarios de MU a 66.84\% entre usuarios de 4+. Segundo, exactamente 3 frente a 4+ presenta una diferencia posterior de 12.5 puntos porcentuales, compatible con una distinción conductual alrededor del umbral, aunque no causal. Tercero, el patrón de uso previo sigue asociado con desempeño relativo posterior en Cálculo aun después de condicionar por $Z_{MU}$, licenciatura y periodo.
+
+\begin{cautionbox}[title=Alcance inferencial del capítulo]
+Ninguno de estos resultados identifica el efecto causal de PPA1 ni el efecto causal de las asesorías. El número de visitas es elegido por el estudiante; el umbral $V=3$ no es una variable de asignación exógena y no justifica un diseño de regresión discontinua. La selección de la cohorte también condiciona en haber aprobado MU y haber llegado a Cálculo, de modo que las conclusiones longitudinales se refieren a progresores, no a todos los estudiantes que iniciaron Matemáticas Universitarias.
+\end{cautionbox}

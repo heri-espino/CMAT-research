@@ -1,0 +1,5 @@
+mu_any_visit,calc_any_visit,pattern,n,proportion
+0,0,no MU / no Cálculo,2721,0.6461648064592733
+0,1,no MU / sí Cálculo,553,0.13132272619330326
+1,0,sí MU / no Cálculo,492,0.11683685585371646
+1,1,sí MU / sí Cálculo,445,0.10567561149370695

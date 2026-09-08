@@ -1,0 +1,2 @@
+test,statistic,df_num,df_denom,p_value,brown_forsythe_levene_stat,brown_forsythe_p,variance_assumption,independence_assumption
+Welch one-way ANOVA,56.21136374033918,3.0,546.4003194734902,1.1117176901651059e-31,20.73526831519166,2.285152738884767e-13,Welch ANOVA does not require homoscedasticity; Brown-Forsythe is diagnostic only,one first-attempt observation per student; residual dependence within professor-period remains and is handled in FE models elsewhere

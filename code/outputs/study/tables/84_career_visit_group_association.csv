@@ -1,0 +1,2 @@
+test,n,careers_included,min_career_n,chi_square,df,asymptotic_p,expected_cells_lt5_proportion,permutation_reps,permutation_p,cramers_v_bias_corrected,primary_p_for_sparse_table
+career x visit-group independence,6374,29,30,144.98333748547944,84,4.0844647452839454e-05,0.20689655172413793,3000,0.0003332222592469177,0.05647994204248013,permutation_p

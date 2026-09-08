@@ -1,0 +1,3 @@
+term,coef_log_odds,cluster_se,p_value,odds_ratio_per_one_visit,or_ci95_low,or_ci95_high,n,cap_visits,note
+VISITS_TO_THRESHOLD,0.690162106470042,0.050233909226508326,5.931467274629999e-43,1.9940387536277941,1.8070676589124588,2.2003551064393814,3241,12,"piecewise descriptive association; V is student-controlled, so this is not regression discontinuity"
+VISITS_AFTER_THRESHOLD,0.060817921086240734,0.040275886753785954,0.13103498501036084,1.0627054003253957,0.982041838246155,1.1499945561358889,3241,12,"piecewise descriptive association; V is student-controlled, so this is not regression discontinuity"

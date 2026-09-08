@@ -1,0 +1,384 @@
+% Esta sección se agrega de forma aditiva al borrador principal.
+% No sustituye ni acorta las secciones anteriores.
+\section{Experimentos adicionales: agrupación 1--2, licenciatura y ANOVA de Welch}
+\label{sec:experimentos_adicionales}
+
+\subsection{Convención del outcome y unidad de comparación}
+
+En todos los análisis de esta sección se conserva exactamente la definición de desempeño continuo utilizada en el resto del proyecto. Para el estudiante $i$ perteneciente al salón $c$,
+\[
+Z_{ic}=\frac{Y_{ic}-\bar Y_c}{s_c},
+\]
+donde $Y_{ic}$ es la calificación final bajo la especificación primaria del outcome, $\bar Y_c$ y $s_c$ son la media y la desviación estándar del salón, y un \emph{salón} se define como un profesor impartiendo la misma materia en el mismo periodo académico. Como la cohorte primaria de esta sección contiene solamente el primer intento de \textit{Matemáticas Universitarias}, en la práctica $c$ equivale a profesor $\times$ periodo. Por construcción, $Z>0$ significa desempeño por encima del promedio del propio contexto de evaluación y $Z<0$ significa desempeño por debajo de ese promedio.
+
+La unidad primaria sigue siendo un estudiante en su primer intento. Por tanto, cada estudiante contribuye una sola observación a estas comparaciones. Esta restricción elimina la dependencia mecánica que surgiría si un mismo estudiante aportara varios intentos de la misma materia.
+
+\subsection{Por qué se agrupan una y dos visitas en la cohorte \texorpdfstring{$1$--$2$}{1--2}}
+
+\subsubsection{Razón académica}
+
+La razón institucional es directa: tanto una visita como dos visitas permanecen por debajo del umbral de tres visitas necesario para alcanzar el PPA. En consecuencia, $V=1$ y $V=2$ representan dos niveles de uso limitado que todavía no satisfacen el incentivo institucional. Esta similitud sustantiva justifica considerar su agrupación, pero por sí sola no demuestra que sus resultados académicos sean estadísticamente comparables.
+
+\subsubsection{Prueba estadística de equivalencia}
+
+No se utiliza la ausencia de significancia de una prueba de diferencia como evidencia de igualdad. En su lugar, se preespecifica una prueba de equivalencia TOST (\emph{two one-sided tests}) con margen práctico de $\pm0.20$ unidades $Z$. Si
+\[
+\Delta=\mu_{V=2}-\mu_{V=1},
+\]
+la hipótesis de no equivalencia se descompone en
+\[
+H_{01}:\Delta\leq -0.20,
+\qquad
+H_{02}:\Delta\geq 0.20.
+\]
+Se concluye equivalencia práctica de medias únicamente si ambas hipótesis se rechazan al nivel $\alpha=0.05$. El margen de $0.20Z$ debe interpretarse como una diferencia estandarizada pequeña elegida como \emph{smallest effect size of interest} para este borrador; no constituye una constante universal.
+
+En los datos observados, el grupo con exactamente una visita contiene $n_1=517$ estudiantes y tiene media $\bar Z_1=0.222$, mientras que el grupo con exactamente dos visitas contiene $n_2=245$ y tiene media $\bar Z_2=0.209$. La diferencia estimada, orientada como $V=2$ menos $V=1$, es
+\[
+\widehat{\Delta}=-0.013Z,
+\qquad IC_{95\%}=[-0.135,0.108].
+\]
+La prueba $t$ de Welch no detecta una diferencia de medias ($t=-0.216$, $\nu=511.6$, $p=0.8293$). Como comprobaciones distributivas, Mann--Whitney produce $p=0.6460$ y Brunner--Munzel $p=0.6423$; el delta de Cliff es -0.021, cercano a cero. La prueba de Brown--Forsythe para dispersión también es compatible con varianzas semejantes entre estos dos grupos ($p=0.6043$), aunque ninguna de las pruebas principales depende de suponer varianzas iguales.
+
+La evidencia relevante para justificar la agrupación proviene del TOST: $p_{\mathrm{TOST}}=0.0013$. Por tanto, con el margen preespecificado $\pm0.20Z$, se rechaza que la diferencia verdadera de medias sea de magnitud igual o mayor a $0.20Z$ en cualquiera de las dos direcciones. En este sentido preciso, $V=1$ y $V=2$ son estadísticamente equivalentes en media para el objetivo operativo del estudio.
+
+\begin{answerbox}
+La cohorte \textbf{1--2 visitas} queda justificada por dos argumentos independientes: (i) ambas intensidades permanecen por debajo del umbral institucional de tres visitas y, por tanto, comparten una interpretación académica; y (ii) una prueba formal de equivalencia respalda que sus medias de desempeño difieren en menos de $0.20$ desviaciones estándar de salón. Esta conclusión se refiere a equivalencia práctica de la media, no a identidad completa de las distribuciones ni a equivalencia causal de los estudiantes que integran ambos grupos.
+\end{answerbox}
+
+\subsection{ANOVA de Welch entre las cuatro cohortes de visitas}
+
+La comparación global utiliza las cohortes $0$, $1$--$2$, $3$ y $4+$. La hipótesis nula es
+\[
+H_0:\mu_0=\mu_{1-2}=\mu_3=\mu_{4+}.
+\]
+No se usa ANOVA clásico porque las varianzas empíricas de los grupos no son iguales. La prueba de Brown--Forsythe, centrada en la mediana, se utiliza como diagnóstico de heterocedasticidad. Dado que las varianzas y los tamaños de grupo son distintos, la prueba principal es el ANOVA de Welch, que reemplaza la varianza común por estimaciones específicas de cada grupo y ajusta los grados de libertad. Las comparaciones post hoc se realizan con Games--Howell, método compatible con varianzas y tamaños muestrales desiguales y que controla el error familiar de las comparaciones por pares.
+
+El diagnóstico de Brown--Forsythe rechaza homogeneidad de varianzas ($W=20.735$, $p=2.29\times10^{-13}$), por lo que la elección de Welch es substantivamente pertinente. El ANOVA de Welch muestra diferencias globales claras entre las cuatro cohortes,
+\[
+F_W(3,546.4)=56.211,\qquad p=1.11\times10^{-31}.
+\]
+
+\begin{table}[H]
+\centering
+\caption{Desempeño continuo por cohorte de visitas para el ANOVA de Welch.}
+\begin{tabular}{lrrrr}
+\toprule
+Grupo & $n$ & Media $Z$ & DE & Mediana $Z$ \\
+\midrule
+0 & 5393 & -0.060 & 1.017 & 0.315 \\
+1-2 & 762 & 0.218 & 0.817 & 0.453 \\
+3 & 170 & 0.325 & 0.724 & 0.543 \\
+4+ & 302 & 0.342 & 0.712 & 0.535 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Las comparaciones Games--Howell se muestran a continuación. Una diferencia negativa significa que la media del primer grupo es menor que la del segundo.
+
+\begin{table}[H]
+\centering
+\caption{Comparaciones post hoc Games--Howell entre cohortes de visitas.}
+\begin{tabular}{llrrr}
+\toprule
+Grupo A & Grupo B & $\Delta_{A-B}$ & $p_{GH}$ & IC95\% \\
+\midrule
+0 & 1-2 & -0.278 & $<0.001$ & [-0.362, -0.194] \\
+0 & 3 & -0.385 & $<0.001$ & [-0.534, -0.237] \\
+0 & 4+ & -0.402 & $<0.001$ & [-0.514, -0.291] \\
+1-2 & 3 & -0.107 & 0.327 & [-0.269, 0.056] \\
+1-2 & 4+ & -0.124 & 0.069 & [-0.254, 0.006] \\
+3 & 4+ & -0.017 & 0.900 & [-0.195, 0.161] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Los tres contrastes que involucran al grupo de cero visitas frente a $1$--$2$, $3$ o $4+$ son significativos después del ajuste Games--Howell. En cambio, no se detectan diferencias post hoc entre $1$--$2$ y $3$ ($p=0.327$), entre $1$--$2$ y $4+$ ($p=0.069$), ni entre $3$ y $4+$ ($p\geq0.90$). Este patrón es compatible con que una parte importante de la separación global ocurra entre no utilizar el servicio y utilizarlo, mientras que las diferencias adicionales entre niveles positivos de uso son menores e imprecisas.
+
+Como el ANOVA de Welch es una comparación marginal y trata a los estudiantes como observaciones independientes, se añade una comprobación que reconoce la estructura compartida de salón. Un modelo lineal con efectos fijos profesor--periodo y matriz de covarianza robusta agrupada por el mismo salón produce un contraste Wald conjunto de los tres términos de cohorte de $W=153.193$ con $3$ restricciones y $p=5.39\times10^{-33}$ sobre 190 salones. La conclusión global, por tanto, no depende exclusivamente de ignorar la agrupación profesor--periodo.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.72\textwidth]{figures/03_primary_outcome_by_visit_group.png}
+\caption{Media de desempeño estandarizado por cohorte de visitas. El ANOVA de Welch evalúa la igualdad global de estas medias sin asumir varianzas iguales.}
+\end{figure}
+
+\subsection{Licenciatura, uso del CMAT y desempeño relativo al salón}
+
+La licenciatura puede ser relevante por dos mecanismos distintos. Primero, estudiantes de programas distintos pueden tener distinta propensión a utilizar el CMAT. Segundo, aun después de expresar la calificación respecto al salón mediante $Z$, las distribuciones de desempeño pueden diferir entre licenciaturas. Si ambas asociaciones están presentes, la licenciatura es una covariable observada relevante para el análisis del vínculo entre asesorías y desempeño.
+
+Para evitar inferencia dominada por programas con tamaños extremadamente pequeños, la comparación omnibus primaria conserva las licenciaturas con al menos 30 estudiantes con outcome continuo válido. Esta regla retiene 29 licenciaturas y 6,374 estudiantes, es decir, aproximadamente 96.2\% de la cohorte primaria. Las licenciaturas de menor tamaño permanecen en los archivos descriptivos completos, pero no se utilizan en el ANOVA principal.
+
+\subsubsection{Licenciatura y desempeño estandarizado}
+
+La prueba de Brown--Forsythe vuelve a mostrar heterogeneidad de varianzas entre licenciaturas ($W=2.091$, $p=0.0006$). El ANOVA de Welch rechaza igualdad global de medias de $Z$,
+\[
+F_W(28,1239.4)=4.308,\qquad p=9.89\times10^{-13}.
+\]
+Por tanto, incluso después de definir el desempeño relativamente al profesor y periodo del estudiante, la posición promedio dentro del salón no es idéntica entre licenciaturas.
+
+Como sensibilidad frente a dependencia residual dentro de salón, un modelo con efectos fijos profesor--periodo y errores estándar agrupados por salón realiza un contraste Wald conjunto sobre 28 términos de licenciatura. El resultado es $W=165.211$, $p=2.11\times10^{-21}$. La incorporación de licenciatura aumenta $R^2$ de 0.0016 a 0.0247, un incremento de 0.0232. La magnitud explicada es modesta, aunque estadísticamente detectable en esta muestra grande; por ello la licenciatura debe tratarse como una fuente de heterogeneidad real pero no como explicación dominante del desempeño individual.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.86\textwidth]{figures/12_career_classroom_z_means.png}
+\caption{Media de desempeño $Z$ respecto al salón por licenciatura. Se muestran únicamente licenciaturas con $n\geq30$ en la figura inferencial.}
+\end{figure}
+
+\subsubsection{Licenciatura y probabilidad de utilizar el CMAT}
+
+Para una primera prueba con supuestos clásicos manejables, se reduce la exposición a ``al menos una visita'' frente a ninguna visita. La tabla licenciatura $\times$ uso tiene conteos esperados mayores que cinco en todas sus celdas. El contraste de Pearson obtiene $\chi^2(28)=92.618$, $p=7.69\times10^{-9}$, con $V$ de Cramér corregido por sesgo igual a 0.101. La asociación es estadísticamente clara pero de magnitud pequeña.
+
+Al utilizar las cuatro cohortes $0$, $1$--$2$, $3$ y $4+$, 20.7\% de las celdas esperadas quedan por debajo de cinco, de modo que la aproximación asintótica de $\chi^2$ ya no es ideal. Por esta razón se conserva el estadístico de Pearson como descriptivo, pero el $p$ principal se obtiene por permutación de las etiquetas de cohorte manteniendo los márgenes observados. Con 3000 permutaciones se obtiene $p_{perm}=0.0003$ y $V$ de Cramér corregido igual a 0.056.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.86\textwidth]{figures/14_career_any_visit_rates.png}
+\caption{Proporción de estudiantes con al menos una visita al CMAT por licenciatura, restringida a programas con $n\geq30$.}
+\end{figure}
+
+Estos dos resultados justifican mantener la licenciatura como covariable observada en los modelos ajustados: está asociada tanto con la exposición (uso del CMAT) como con el outcome (posición estandarizada dentro del salón). Esto no elimina autoselección no observada, pero evita atribuir al uso del CMAT diferencias que sean explicables por composición de licenciaturas.
+
+\begin{longtable}{lrrrrr}
+\caption{Resumen por licenciatura para programas con al menos 30 estudiantes.}\label{tab:career_summary_extended}\\
+\toprule
+Lic. & $n$ & Media $Z$ & DE $Z$ & Uso $\geq1$ & Media visitas \\
+\midrule
+\endfirsthead
+\toprule
+Lic. & $n$ & Media $Z$ & DE $Z$ & Uso $\geq1$ & Media visitas \\
+\midrule
+\endhead
+LBM & 199 & 0.246 & 0.885 & 21.1\% & 0.528 \\
+LNM & 249 & 0.190 & 0.933 & 17.3\% & 0.494 \\
+LII & 361 & 0.183 & 0.805 & 19.1\% & 0.640 \\
+LBC & 118 & 0.168 & 0.816 & 23.7\% & 0.644 \\
+LDS & 87 & 0.165 & 0.985 & 26.4\% & 1.092 \\
+LMT & 320 & 0.146 & 0.899 & 14.4\% & 0.347 \\
+LCS & 86 & 0.134 & 1.005 & 24.4\% & 0.558 \\
+LAT & 368 & 0.114 & 0.964 & 30.4\% & 0.918 \\
+LEC & 174 & 0.098 & 0.934 & 16.1\% & 0.580 \\
+LNI & 550 & 0.089 & 0.885 & 19.8\% & 0.582 \\
+LBN & 281 & 0.060 & 0.988 & 16.0\% & 0.555 \\
+LQI & 151 & 0.051 & 1.038 & 22.5\% & 0.801 \\
+LNA & 53 & 0.050 & 1.005 & 22.6\% & 0.509 \\
+LIN & 64 & 0.043 & 0.966 & 20.3\% & 0.406 \\
+LFA & 138 & 0.029 & 0.948 & 24.6\% & 0.659 \\
+LIC & 222 & 0.021 & 0.995 & 14.4\% & 0.432 \\
+LIM & 201 & -0.004 & 1.049 & 12.4\% & 0.393 \\
+LIS & 271 & -0.005 & 1.054 & 16.2\% & 0.443 \\
+LRT & 96 & -0.010 & 1.049 & 16.7\% & 1.000 \\
+LBI & 152 & -0.013 & 1.002 & 18.4\% & 0.414 \\
+LAR & 445 & -0.024 & 0.960 & 9.7\% & 0.234 \\
+LFP & 343 & -0.032 & 1.009 & 19.8\% & 0.551 \\
+LCN & 160 & -0.063 & 0.907 & 18.8\% & 0.438 \\
+LFB & 131 & -0.075 & 0.997 & 23.7\% & 0.641 \\
+LMK & 350 & -0.080 & 1.002 & 20.0\% & 0.597 \\
+LHR & 178 & -0.131 & 1.075 & 15.2\% & 0.534 \\
+LIY & 34 & -0.202 & 1.251 & 14.7\% & 0.147 \\
+LAD & 562 & -0.266 & 0.999 & 20.8\% & 0.523 \\
+LPM & 30 & -0.631 & 1.383 & 23.3\% & 0.600 \\
+\bottomrule
+\end{longtable}
+
+
+\subsection{Heterogeneidad exploratoria de la asociación por licenciatura}
+
+La existencia simultánea de diferencias de uso y de desempeño entre licenciaturas sugiere una pregunta adicional: ¿la asociación entre cohorte de visitas y $Z$ es numéricamente homogénea entre programas? Este análisis se considera exploratorio y no se utiliza para redefinir el estimando primario.
+
+Para evitar interacciones sustentadas en celdas casi vacías, se conservaron únicamente licenciaturas con al menos 100 estudiantes y al menos cinco observaciones en cada cohorte $0$, $1$--$2$, $3$ y $4+$. Quedan 19 programas y $N=5{,}481$. Se estima un modelo sobre el outcome ya estandarizado por salón,
+\[
+Z_i = \alpha + \beta_{G(i)} + \gamma_{L(i)} + (\beta\gamma)_{G(i),L(i)} + \varepsilon_i,
+\]
+con matriz de covarianza robusta agrupada por profesor--periodo. El contraste Wald conjunto de los 54 términos de interacción produce $W=443.96$ y $p=1.12\times10^{-62}$.
+
+\begin{interpretbox}
+La asociación entre utilización y desempeño no parece numéricamente idéntica entre todas las licenciaturas. Sin embargo, este resultado es de alta dimensión y debe tratarse como evidencia de heterogeneidad a investigar, no como prueba de que una licenciatura específica ``se beneficia más'' del CMAT. La versión final deberá preespecificar qué contrastes por programa tienen justificación académica antes de interpretar efectos particulares.
+\end{interpretbox}
+
+\subsection{Supuestos, alcance y precauciones de estas pruebas}
+
+\begin{enumerate}[label=\arabic*.]
+\item \textbf{Independencia entre estudiantes.} La cohorte contiene un único primer intento por alumno, por lo que no existen repeticiones del mismo individuo dentro de estas comparaciones. Sin embargo, alumnos del mismo profesor--periodo comparten contexto de evaluación. Por ello, los ANOVA de Welch se interpretan como pruebas marginales y se acompañan de contrastes Wald con covarianza agrupada por salón.
+\item \textbf{Heterocedasticidad.} No se asume igualdad de varianzas. Brown--Forsythe se reporta como diagnóstico; Welch y Games--Howell son precisamente las versiones seleccionadas para trabajar bajo dispersión desigual y tamaños de grupo muy diferentes.
+\item \textbf{Forma de las distribuciones.} Welch requiere medias con distribución muestral suficientemente regular y varianzas finitas, no normalidad exacta de cada observación. Los tamaños grandes de las cohortes principales favorecen la aproximación asintótica. En la comparación $1$ frente a $2$ se añaden Mann--Whitney y Brunner--Munzel como comprobaciones menos dependientes de la forma paramétrica.
+\item \textbf{Equivalencia.} El TOST no afirma que los grupos $V=1$ y $V=2$ sean idénticos. Afirma que la diferencia de medias es compatible con una banda de equivalencia preespecificada de $\pm0.20Z$. Cambiar ese margen cambiaría la pregunta científica.
+\item \textbf{Comparaciones múltiples.} Después del ANOVA de Welch, los pares se evalúan con Games--Howell; no se realizan seis pruebas $t$ independientes sin corrección.
+\item \textbf{Licenciaturas pequeñas.} La inferencia entre programas se restringe a $n\geq30$. Los programas pequeños se conservan descriptivamente en los CSV, pero sus estimaciones no deben interpretarse con la misma estabilidad.
+\item \textbf{Chi-cuadrada y celdas esperadas.} Para cualquier visita vs. ninguna, las celdas esperadas satisfacen el criterio clásico de al menos cinco. Para la tabla de cuatro cohortes, donde ese supuesto se incumple en una fracción de celdas, el $p$ principal se obtiene por permutación.
+\item \textbf{No causalidad.} Ninguna de estas pruebas convierte la asistencia voluntaria en tratamiento aleatorio. Motivación, preparación matemática, percepción de dificultad y organización personal permanecen potencialmente no observadas.
+\end{enumerate}
+
+\paragraph{Síntesis.}
+Los experimentos adicionales fortalecen tres decisiones del borrador. Primero, la categoría $1$--$2$ tiene una justificación institucional y una justificación estadística formal de equivalencia. Segundo, las cuatro cohortes no tienen la misma media global, aun permitiendo varianzas distintas; la diferencia más clara se concentra entre cero visitas y cualquier nivel positivo de uso. Tercero, la licenciatura está asociada tanto con la utilización del CMAT como con la posición académica relativa dentro del salón, por lo que debe conservarse como covariable de ajuste y como dimensión de heterogeneidad en análisis posteriores.
+
+% -----------------------------------------------------------------------------
+% Extensiones añadidas en v7. Se conservan intactos los análisis anteriores.
+% -----------------------------------------------------------------------------
+\subsection{Índice de rendimiento por número exacto de asesorías: 1 a 12 visitas}
+\label{subsec:indice_exacto_1_12}
+
+\subsubsection{Motivación y definición del índice}
+
+El análisis anterior utiliza cohortes amplias ($0$, $1$--$2$, $3$ y $4+$) porque son apropiadas para responder preguntas ligadas al umbral PPA y evitan celdas excesivamente pequeñas. Sin embargo, esa agrupación oculta la forma detallada de la relación entre intensidad de uso y desempeño. Como extensión descriptiva se reconstruyen cohortes por número \emph{exacto} de visitas al CMAT durante el mismo semestre de Matemáticas Universitarias,
+\[
+V_i\in\{1,2,\ldots,12\}.
+\]
+No se incluyen en esta figura los estudiantes con cero visitas porque el objetivo de este índice es describir la variación de desempeño entre usuarios con distintas intensidades observadas. Los estudiantes con más de 12 visitas permanecen en la base y en los análisis principales; simplemente quedan fuera de esta visualización de dosis exacta para evitar una cola de conteos extremadamente dispersa.
+
+El punto de partida sigue siendo el outcome principal estandarizado dentro del salón,
+\[
+Z_{ic}=\frac{Y_{ic}-\bar Y_c}{s_c},
+\qquad
+c=\text{profesor}\times\text{misma materia}\times\text{mismo periodo}.
+\]
+Como el análisis por licenciatura mostró diferencias estadísticamente detectables en la media de $Z$ entre programas, se añade una segunda normalización para expresar el desempeño de cada estudiante respecto a su propia licenciatura. Para la licenciatura $\ell$ se define
+\[
+R_i=\frac{Z_i-\bar Z_{\ell(i)}}{s_{\ell(i)}}.
+\]
+Así, $R_i=0.30$ significa que el estudiante se encuentra aproximadamente 0.30 desviaciones estándar por encima del promedio de estudiantes de su misma licenciatura, \emph{después} de haber expresado primero su calificación respecto al salón. Esta segunda estandarización no sustituye al $Z$ de salón; funciona como un índice complementario para evitar que las diferencias de composición entre licenciaturas dominen la comparación de conteos exactos de visitas.
+
+Para estabilizar la media y desviación estándar utilizadas en esta segunda normalización, se conservan las licenciaturas con al menos 30 estudiantes con outcome válido. Son las mismas 29 licenciaturas utilizadas en el análisis inferencial anterior. El índice por número exacto de visitas es entonces
+\[
+I_v=E(R_i\mid V_i=v),\qquad v=1,\ldots,12.
+\]
+Se reporta una versión ponderada por estudiante y, como sensibilidad descriptiva, una versión balanceada por licenciatura en la que cada programa con al menos dos estudiantes dentro de la celda de visitas recibe el mismo peso. La primera responde a ``¿cómo se desempeña el estudiante promedio observado con $v$ visitas respecto a su licenciatura?''; la segunda reduce el dominio mecánico de las licenciaturas más grandes.
+
+\subsubsection{Resultados del índice exacto}
+
+\begin{table}[H]
+\centering
+\caption{Índice de rendimiento por número exacto de visitas. $Z$ se define respecto al salón e $I_v$ respecto a la licenciatura. Los IC95\% de $I_v$ son intervalos $t$ descriptivos.}
+\label{tab:exact_visit_index}
+\begin{tabular}{rrrrr}
+\toprule
+Visitas & $n$ & Media $Z$ salón & $I_v$ licenciatura & IC95\% de $I_v$ \\
+\midrule
+1  & 500 & 0.233 & 0.220 & [0.145, 0.295] \\
+2  & 239 & 0.229 & 0.217 & [0.119, 0.314] \\
+3  & 168 & 0.322 & 0.304 & [0.200, 0.409] \\
+4  & 94  & 0.261 & 0.241 & [0.091, 0.391] \\
+5  & 53  & 0.343 & 0.354 & [0.150, 0.559] \\
+6  & 48  & 0.311 & 0.311 & [0.059, 0.563] \\
+7  & 25  & 0.184 & 0.165 & [-0.189, 0.520] \\
+8  & 19  & 0.322 & 0.284 & [-0.085, 0.652] \\
+9  & 11  & 0.507 & 0.546 & [0.234, 0.858] \\
+10 & 13  & 0.442 & 0.453 & [0.198, 0.708] \\
+11 & 2   & 0.669 & 0.686 & [-0.471, 1.844] \\
+12 & 4   & 0.815 & 0.762 & [0.207, 1.318] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.88\textwidth]{figures/11_exact_visit_career_relative_index.png}
+\caption{Índice de rendimiento relativo a la licenciatura según el número exacto de visitas al CMAT durante el semestre. Las barras son IC95\% $t$ descriptivos; los tamaños muestrales aparecen junto a cada punto.}
+\label{fig:exact_visit_index}
+\end{figure}
+
+Los primeros seis conteos presentan índices promedio positivos de aproximadamente $0.22$ a $0.35$ desviaciones estándar relativas a la licenciatura. A partir de siete visitas la incertidumbre aumenta rápidamente debido a la reducción del tamaño muestral. En particular, las cohortes de 8 a 12 visitas contienen 19, 11, 13, 2 y 4 estudiantes, respectivamente. Los valores altos observados en 9--12 visitas no deben interpretarse como evidencia de un aumento sistemático del rendimiento con cada asesoría adicional: esos puntos tienen gran incertidumbre y pueden ser sensibles a pocos estudiantes.
+
+La ausencia de una relación monotónica clara se confirma con dos análisis de tendencia preespecificados como exploratorios. Utilizando todos los estudiantes con 1--12 visitas y el índice individual $R_i$, la correlación de Spearman es
+\[
+\rho=0.033,\qquad p=0.255,
+\]
+y una regresión lineal de $R_i$ sobre el número exacto de visitas, con errores estándar agrupados por salón, estima
+\[
+\widehat\beta=0.0225\;\text{DE por visita},
+\qquad IC_{95\%}=[-0.0005,0.0455],
+\qquad p=0.055.
+\]
+Como sensibilidad frente a la cola de conteos escasos, se repite el análisis utilizando únicamente las cohortes exactas con al menos 20 observaciones. Esta regla conserva 1--7 visitas ($N=1{,}127$). La correlación de Spearman es entonces $\rho=0.022$ ($p=0.461$) y la pendiente lineal agrupada es $0.0151$ DE por visita (IC95\% $[-0.0225,0.0527]$, $p=0.431$).
+
+\begin{answerbox}
+El índice exacto muestra que los usuarios del CMAT se ubican, en promedio, por encima de la media de su propia licenciatura en varios niveles de intensidad. Sin embargo, los datos no muestran una relación monotónica o lineal estadísticamente clara entre 1 y 12 visitas. Esto es consistente con el resultado previo de una posible meseta después de niveles bajos/moderados de uso y evita interpretar el conteo de asesorías como una ``dosis'' con retorno marginal constante.
+\end{answerbox}
+
+\subsubsection{Supuestos y límites del índice}
+
+\begin{enumerate}[label=\arabic*.]
+\item \textbf{Dos niveles de estandarización.} El primer nivel ($Z$) controla escala y dispersión del contexto profesor--materia--periodo; el segundo ($R$) expresa la posición de ese $Z$ dentro de la licenciatura. Por ello $R$ no es una calificación original ni una medida causal del efecto del CMAT.
+\item \textbf{Comparación con la licenciatura.} La media y desviación estándar de cada licenciatura se calculan usando la cohorte primaria completa de esa licenciatura, no solamente a quienes acudieron al CMAT. Esto permite interpretar cero como el promedio del programa en la métrica $Z$ de salón.
+\item \textbf{Tamaños pequeños.} Los intervalos de la tabla son $t$ de Student para la media porque la aproximación normal de 1.96 es especialmente inadecuada en las cohortes más pequeñas. Aun así, con $n=2$ o $n=4$ los intervalos son necesariamente inestables y se consideran descriptivos.
+\item \textbf{Dependencia por salón.} Los intervalos por punto son descriptivos y no corrigen agrupación. La prueba de tendencia complementaria sí utiliza errores estándar robustos agrupados por profesor--periodo.
+\item \textbf{No linealidad.} La pendiente lineal no se interpreta como modelo estructural de ``ganancia por visita''. Se reporta junto con Spearman y con una sensibilidad que excluye celdas escasas precisamente porque la forma de la relación puede ser no lineal.
+\item \textbf{Autoselección.} Estudiantes que acuden muchas veces pueden diferir en necesidad, motivación, disponibilidad, organización o preparación previa. Por ello $I_v$ es un índice de asociación entre intensidad observada y desempeño relativo, no una curva causal dosis--respuesta.
+\end{enumerate}
+
+\subsection{Persistencia individual de uso de Matemáticas Universitarias a Cálculo I}
+\label{subsec:mu_calc_2x2}
+
+El análisis longitudinal anterior mostró un gradiente de utilización posterior según las cohortes $0$, $1$--$2$, $3$ y $4+$. Aquí se formula una pregunta más elemental y directamente interpretable: entre estudiantes que progresan posteriormente a Cálculo I y para quienes existe cobertura de asesorías en ambos periodos, ¿haber utilizado alguna vez el CMAT durante Matemáticas Universitarias está asociado con volver a utilizarlo durante Cálculo I?
+
+Se definen dos indicadores binarios,
+\[
+M_i=1(V^{MU}_i>0),
+\qquad
+C_i=1(V^{Calc}_i>0).
+\]
+La cohorte longitudinal analizable contiene $N=4{,}211$ estudiantes y produce las cuatro combinaciones de la Tabla~\ref{tab:mu_calc_2x2}.
+
+\begin{table}[H]
+\centering
+\caption{Combinaciones individuales de cualquier utilización del CMAT en Matemáticas Universitarias y Cálculo I.}
+\label{tab:mu_calc_2x2}
+\begin{tabular}{lrr}
+\toprule
+Patrón & $n$ & Proporción de la cohorte \\
+\midrule
+No MU / no Cálculo & 2721 & 64.62\% \\
+No MU / sí Cálculo & 553 & 13.13\% \\
+Sí MU / no Cálculo & 492 & 11.68\% \\
+Sí MU / sí Cálculo & 445 & 10.57\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+La probabilidad observada de utilizar el CMAT en Cálculo entre quienes ya lo habían utilizado en MU es
+\[
+P(C_i=1\mid M_i=1)=0.4749,
+\qquad IC_{95\%}^{Wilson}=[0.4431,0.5069],
+\]
+mientras que entre quienes no lo habían utilizado es
+\[
+P(C_i=1\mid M_i=0)=0.1689,
+\qquad IC_{95\%}^{Wilson}=[0.1565,0.1821].
+\]
+La diferencia absoluta de riesgos es de 0.306, es decir, 30.6 puntos porcentuales, con IC95\% de Newcombe--Wilson $[0.272,0.340]$. El riesgo relativo es
+\[
+RR=2.812,
+\qquad IC_{95\%}=[2.540,3.112],
+\]
+y la razón de momios es
+\[
+OR=4.450,
+\qquad IC_{95\%}=[3.802,5.209].
+\]
+La prueba de Pearson para la tabla $2\times2$ obtiene $\chi^2(1)=377.26$ con $p=4.91\times10^{-84}$; el coeficiente $\phi=0.299$. Todas las frecuencias esperadas son grandes (mínimo $=222.1$), por lo que la aproximación asintótica es apropiada. Como comprobación exacta, Fisher produce $p=3.58\times10^{-76}$ y la misma razón de momios puntual.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.78\textwidth]{figures/13_any_visit_mu_to_calculus_transition.png}
+\caption{Probabilidad observada de utilizar el CMAT durante Cálculo I según utilización previa durante Matemáticas Universitarias.}
+\label{fig:mu_calc_transition}
+\end{figure}
+
+Hay una distinción importante entre \emph{persistencia individual} y \emph{cambio en la prevalencia total}. En esta misma cohorte, 22.25\% utilizó el CMAT durante MU y 23.70\% lo utilizó durante Cálculo. La prueba de McNemar, que compara específicamente los dos tipos de estudiantes discordantes (553 que comienzan a utilizarlo en Cálculo frente a 492 que dejan de utilizarlo), produce $\chi^2_{McN}=3.445$ y $p=0.0634$. Por tanto, no se detecta al 5\% un cambio marginal claro en la proporción total de usuarios entre ambos cursos. Esto no contradice la asociación longitudinal: la prevalencia agregada puede permanecer aproximadamente estable y, al mismo tiempo, el uso concentrarse fuertemente en estudiantes que ya tenían experiencia previa con el servicio.
+
+\begin{answerbox}
+Entre estudiantes que llegan posteriormente a Cálculo I, quienes utilizaron el CMAT durante Matemáticas Universitarias tienen aproximadamente 2.8 veces la probabilidad observada de utilizarlo de nuevo. El hallazgo describe una fuerte persistencia individual del patrón de \emph{help-seeking}. Al mismo tiempo, McNemar muestra que la proporción total de usuarios no cambia de forma estadísticamente clara entre ambos cursos; la señal principal está en \emph{quién} utiliza el servicio, no simplemente en cuántos lo utilizan.
+\end{answerbox}
+
+\subsubsection{Supuestos y alcance de la transición MU--Cálculo}
+
+\begin{enumerate}[label=\arabic*.]
+\item \textbf{Condicionamiento por progresión.} El análisis incluye únicamente estudiantes que posteriormente cursan Cálculo I y tienen cobertura de asesorías. No representa a todos los estudiantes que comenzaron MU; progresar a Cálculo depende de la trayectoria académica previa.
+\item \textbf{Asociación, no causalidad.} $RR$, $OR$ y la diferencia de riesgos cuantifican persistencia observada. No demuestran que utilizar el CMAT en MU \emph{cause} la utilización posterior. Una propensión estable a pedir ayuda, la necesidad académica u otras características individuales pueden explicar parte de la asociación.
+\item \textbf{Prueba de Pearson/Fisher.} Estas pruebas evalúan asociación entre uso previo y posterior. La unidad es el estudiante y cada persona aparece una sola vez en la tabla.
+\item \textbf{McNemar responde otra pregunta.} McNemar aprovecha el carácter pareado para evaluar si cambia la prevalencia marginal de uso de MU a Cálculo. No es una prueba de la asociación $M_i\leftrightarrow C_i$, por lo que su $p=0.0634$ no invalida el $RR$ ni el $OR$.
+\item \textbf{Cobertura temporal.} Un cero significa ausencia de visitas únicamente en periodos para los que existe registro efectivo de asesorías; los periodos sin cobertura no se codifican como no uso.
+\end{enumerate}
+
+\paragraph{Síntesis de las extensiones.}
+El índice exacto 1--12 y la tabla longitudinal $2\times2$ añaden dos piezas complementarias. Primero, la ventaja relativa de los usuarios respecto a su propia licenciatura no se traduce en una pendiente monotónica convincente por cada visita adicional: la intensidad exacta debe interpretarse con cautela, especialmente en la cola de 8--12 visitas. Segundo, el comportamiento de búsqueda de apoyo es fuertemente persistente a nivel individual entre MU y Cálculo, aun cuando la prevalencia total de usuarios de ambos cursos sea similar. En conjunto, estos resultados favorecen una descripción del CMAT en términos de adopción, utilización recurrente y heterogeneidad estudiantil, más que una narrativa simple de ``más visitas implican linealmente mayor desempeño''.

@@ -1,0 +1,2 @@
+status,test,n,careers_included,min_career_n,classrooms,constraints,wald_statistic,p_value,r_squared_classroom_only,r_squared_classroom_plus_career,delta_r_squared_career,fixed_effects,covariance
+ok,joint Wald test of career terms,6374,29,30,190,28,165.21137361505902,2.1129735883323383e-21,0.0015571458472269928,0.024742086830295995,0.023184940983069002,professor x period classroom,cluster-robust by professor x period classroom

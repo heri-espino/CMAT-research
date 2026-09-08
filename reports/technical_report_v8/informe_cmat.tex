@@ -1,0 +1,777 @@
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{geometry}
+\geometry{margin=2.45cm}
+\usepackage{setspace}
+\setstretch{1.08}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{longtable}
+\usepackage{multirow}
+\usepackage{siunitx}
+\sisetup{detect-all=true,round-mode=places,round-precision=3}
+\usepackage{amsmath,amssymb,mathtools}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{float}
+\usepackage{placeins}
+\usepackage{xcolor}
+\usepackage[most]{tcolorbox}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+\usepackage{pdflscape}
+
+\definecolor{cmatblue}{RGB}{31,78,121}
+\definecolor{cmatlight}{RGB}{238,245,250}
+\definecolor{cmatgray}{RGB}{245,245,245}
+\definecolor{cmatgreen}{RGB}{235,247,238}
+\definecolor{cmatorange}{RGB}{253,243,229}
+
+\hypersetup{
+  colorlinks=true,
+  linkcolor=cmatblue,
+  citecolor=cmatblue,
+  urlcolor=cmatblue,
+  pdftitle={Del uso incentivado a la búsqueda persistente de apoyo: resultados preliminares CMAT},
+  pdfauthor={Centro de Aprendizaje de Matemáticas, UDLAP}
+}
+
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{CMAT -- UDLAP}
+\rhead{Borrador de resultados}
+\cfoot{\thepage}
+\setlength{\headheight}{14pt}
+
+\titleformat{\section}{\Large\bfseries\color{cmatblue}}{\thesection}{0.7em}{}
+\titleformat{\subsection}{\large\bfseries}{\thesubsection}{0.7em}{}
+\titleformat{\subsubsection}{\normalsize\bfseries}{\thesubsubsection}{0.7em}{}
+
+\newtcolorbox{questionbox}[1][]{
+  enhanced,
+  breakable,
+  colback=cmatlight,
+  colframe=cmatblue,
+  boxrule=0.6pt,
+  arc=1.5mm,
+  title=Pregunta,
+  fonttitle=\bfseries,
+  #1
+}
+\newtcolorbox{answerbox}[1][]{
+  enhanced,
+  breakable,
+  colback=cmatgreen,
+  colframe=green!45!black,
+  boxrule=0.6pt,
+  arc=1.5mm,
+  title=Respuesta empírica,
+  fonttitle=\bfseries,
+  #1
+}
+\newtcolorbox{interpretbox}[1][]{
+  enhanced,
+  breakable,
+  colback=cmatorange,
+  colframe=orange!60!black,
+  boxrule=0.6pt,
+  arc=1.5mm,
+  title=Qué significa y qué podría estar pasando,
+  fonttitle=\bfseries,
+  #1
+}
+\newtcolorbox{cautionbox}[1][]{
+  enhanced,
+  breakable,
+  colback=cmatgray,
+  colframe=black!45,
+  boxrule=0.5pt,
+  arc=1.5mm,
+  title=Precaución inferencial,
+  fonttitle=\bfseries,
+  #1
+}
+
+\newcommand{\CI}{IC\,95\%}
+\newcommand{\zscore}{Z}
+\newcommand{\ppa}{PPA}
+\newcommand{\CMAT}{CMAT}
+\newcommand{\MU}{Matemáticas Universitarias}
+
+\begin{document}
+
+\begin{titlepage}
+\centering
+\vspace*{1.5cm}
+{\Large Universidad de las Américas Puebla\par}
+\vspace{0.35cm}
+{\Large Centro de Aprendizaje de Matemáticas (CMAT)\par}
+\vspace{1.8cm}
+{\Huge\bfseries Del uso incentivado a la búsqueda persistente de apoyo\par}
+\vspace{0.5cm}
+{\LARGE Utilización longitudinal del CMAT y desempeño académico\par}
+\vspace{0.8cm}
+{\large Borrador de resultados y discusión del estudio orientado a publicación\par}
+\vfill
+\begin{tcolorbox}[colback=cmatlight,colframe=cmatblue,width=0.88\textwidth,boxrule=0.7pt]
+\centering
+\textbf{Outcome principal:} desempeño académico continuo estandarizado por profesor y periodo.\\[0.2cm]
+\textbf{Cohorte principal:} primer intento de Matemáticas Universitarias.\\[0.2cm]
+\textbf{Exposición:} cualquier visita al CMAT durante el mismo semestre del primer intento.\\[0.2cm]
+\textbf{Regla institucional:} el punto PPA se obtiene al alcanzar tres visitas al CMAT.
+\end{tcolorbox}
+\vfill
+{\large Agosto de 2026\par}
+\end{titlepage}
+
+\pagenumbering{roman}
+\begin{abstract}
+Este trabajo analiza la relación entre la utilización del Centro de Aprendizaje de Matemáticas (CMAT), el desempeño académico continuo y la persistencia posterior de la búsqueda de apoyo. A diferencia del reporte exploratorio previo, la exposición se reconstruye temporalmente: para cada estudiante se cuentan únicamente las visitas al CMAT realizadas durante el mismo periodo de su primer intento de Matemáticas Universitarias. La cohorte primaria contiene 6,627 estudiantes en periodos con cobertura de asesorías. El 18.6\% registró al menos una visita, el 7.1\% alcanzó el umbral institucional de tres visitas requerido para obtener un punto PPA y el 4.6\% continuó más allá de ese umbral.
+
+El outcome principal es la calificación final estandarizada dentro de profesor por periodo. El desempeño medio aumenta de $-0.060$ desviaciones estándar entre quienes no visitan el CMAT a $0.218$ entre quienes registran 1--2 visitas, $0.325$ entre quienes registran exactamente 3 y $0.342$ entre quienes registran 4 o más. El contraste $V>3$ frente a $V\leq3$ produce una diferencia no ajustada de $0.359$ desviaciones estándar (\CI\ $[0.277,0.439]$); con efectos fijos profesor-periodo y ajuste por carrera, la asociación estimada es $0.375$ (\CI\ $[0.257,0.493]$). Sin embargo, la comparación por cuatro grupos muestra una posible meseta: el contraste adicional entre 3 y 4+ visitas es pequeño descriptivamente, por lo que la evidencia respalda con mayor claridad una asociación entre utilización del servicio y desempeño que un beneficio incremental específico de exceder el umbral PPA.
+
+El análisis temporal muestra que el comportamiento no parece dominado por estudiantes que realizan tres visitas en un solo día: solo 1.48\% de quienes alcanzan PPA concentra sus primeras tres visitas en la misma fecha. A nivel agregado, la demanda presenta una periodicidad aproximadamente mensual: la mediana entre picos detectados es 30.5 días y la máxima autocorrelación agrupada aparece a 30 días. Este patrón es compatible con el ciclo institucional aproximado de cuatro evaluaciones por semestre, aunque las fechas de examen por profesor no están observadas y no puede atribuirse causalmente cada pico a una evaluación. La regularidad temporal individual, una vez controlado el número de visitas, no muestra una asociación adicional clara con desempeño ($\hat\beta=-0.136$, $p=0.413$). Finalmente, entre 4,211 estudiantes que progresan posteriormente a Cálculo I con cobertura de asesorías, la probabilidad de volver a usar el CMAT aumenta de 16.9\% entre no usuarios iniciales a 60.6\% entre quienes habían realizado 4 o más visitas en Matemáticas Universitarias.
+
+En conjunto, los resultados describen una asociación robusta entre uso del CMAT y desempeño, una fuerte persistencia conductual posterior y un patrón temporal compatible con el ritmo de evaluación. No establecen causalidad: la ausencia de medidas individuales pretratamiento impide descartar autoselección por motivación, preparación previa, organización o necesidad académica.
+\end{abstract}
+
+\noindent\textbf{Palabras clave:} apoyo matemático universitario; help-seeking; tutoría; desempeño académico; PPA; autoselección; persistencia; análisis longitudinal.
+
+\tableofcontents
+\listoffigures
+\listoftables
+\clearpage
+\pagenumbering{arabic}
+
+\section{Introducción}
+
+Los centros universitarios de apoyo matemático buscan complementar la enseñanza formal mediante asesorías voluntarias, resolución de dudas y acompañamiento académico. La literatura internacional sobre \emph{mathematics and statistics support} ha crecido considerablemente y, en términos generales, documenta asociaciones favorables entre utilización de estos servicios y desempeño; al mismo tiempo, las revisiones recientes subrayan que gran parte de la evidencia está limitada por autoselección, heterogeneidad en la definición de asistencia y diseños observacionales difíciles de comparar \citep{mullen2024,lawson2020}. Estudios directamente relacionados con calificaciones de cursos matemáticos han encontrado asociaciones positivas entre asistencia y desempeño \citep{rickard2018,macanbhaird2009,jacob2019}, mientras que diseños más rigurosos han mostrado resultados más matizados y recuerdan que una asociación favorable no equivale a un efecto causal \citep{buchele2024}.
+
+El contexto del CMAT permite estudiar una dimensión adicional. Durante el primer intento de Matemáticas Universitarias, los estudiantes pueden obtener un punto de participación institucional (PPA) al alcanzar tres visitas cualesquiera al CMAT durante el semestre. Este punto no modifica la calificación de la materia; funciona como incentivo externo para participar en actividades universitarias de primer año. Por tanto, el umbral $V=3$ tiene significado administrativo, mientras que $V>3$ representa utilización observada después de haber satisfecho el requisito. Incentivos de baja intensidad y diseños de \emph{encouragement} han sido utilizados en educación superior para estudiar adopción de servicios de apoyo y hábitos de estudio \citep{paloyo2016,pugatch2018}.
+
+El propósito de este documento es presentar de forma integrada los resultados del nuevo diseño analítico. No se limita a reportar pruebas estadísticas: para cada pregunta se explicita qué se pregunta, qué responde la evidencia, qué puede deducirse razonablemente, qué no puede deducirse y qué mecanismos alternativos podrían producir el patrón observado.
+
+\begin{cautionbox}
+El estudio es observacional. Las expresiones ``asociación'', ``diferencia'', ``persistencia'' y ``patrón compatible con'' se utilizan deliberadamente. No se interpreta que una visita al CMAT cause automáticamente un aumento de calificación. Las decisiones de acudir al servicio pueden depender de variables no observadas, como motivación, preparación matemática previa, disciplina, percepción de dificultad o disponibilidad de tiempo.
+\end{cautionbox}
+
+\section{Preguntas de investigación y lógica del estudio}
+
+La contribución del proyecto se organiza alrededor de cinco preguntas relacionadas pero conceptualmente distintas.
+
+\begin{table}[H]
+\centering
+\caption{Mapa de preguntas de investigación.}
+\label{tab:rqmap}
+\begin{tabularx}{\textwidth}{@{}p{1.25cm}X X@{}}
+\toprule
+\textbf{RQ} & \textbf{Pregunta} & \textbf{Resultado que la responde} \\
+\midrule
+RQ1a & ¿Cómo se distribuye el uso alrededor del umbral PPA de tres visitas? & Distribución exacta de visitas, proporción en $V=3$, continuación $P(V\geq k+1\mid V\geq k)$ y comparación descriptiva con Cálculo I. \\
+RQ1b & ¿Cuándo se utiliza el CMAT y existe concentración temporal compatible con el ciclo de evaluaciones? & Visitas por día, picos por periodo, separación entre picos, autocorrelación y concentración de tres visitas en un mismo día. \\
+RQ2a & ¿El uso del CMAT se asocia con mayor desempeño continuo en el primer intento de MU? & Medias por grupo, pruebas robustas, efectos fijos profesor-periodo, dosis por grupos y sensibilidades. \\
+RQ2b & A igual intensidad aproximada, ¿una utilización más distribuida en el tiempo se asocia con mayor desempeño? & Métrica de regularidad mensual y modelos que controlan el número total de visitas. \\
+RQ3 & ¿El patrón de uso persiste posteriormente en Cálculo I, donde el PPA ya no aplica? & Probabilidad de cualquier visita en Cálculo y número posterior de visitas, condicionado a progresar al curso. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+La secuencia conceptual puede expresarse como
+\[
+\begin{aligned}
+\text{PPA}&\longrightarrow\text{adopción del CMAT}\longrightarrow\text{uso más allá del umbral}\\
+&\longleftrightarrow\text{desempeño}\longrightarrow\text{trayectoria posterior}.
+\end{aligned}
+\]
+pero las flechas no deben interpretarse causalmente. Desde la perspectiva de \emph{academic help-seeking}, acudir a asesorías puede ser una conducta autorregulatoria, pero la misma conducta está relacionada con características del estudiante que también predicen desempeño \citep{fong2023}.
+
+\section{Datos y diseño analítico}
+
+\subsection{Cohorte primaria y reconstrucción temporal}
+
+La unidad primaria es el estudiante en su \textbf{primer intento estándar} de Matemáticas Universitarias. Los intentos posteriores se excluyen, pero un estudiante que posteriormente repite conserva su primer intento. Los códigos EQV, REV y AC se eliminan porque corresponden a acreditaciones externas o equivalentes cuyo profesor y aula no están observados. Los estados BV, RT y BA se mantienen como resultados académicos adversos.
+
+La construcción de la cohorte se resume en la Tabla~\ref{tab:cohort}.
+
+\begin{table}[H]
+\centering
+\caption{Flujo de construcción de las cohortes.}
+\label{tab:cohort}
+\begin{tabular}{@{}lr@{}}
+\toprule
+\textbf{Etapa} & \textbf{$N$} \\
+\midrule
+Primeros intentos elegibles de MU, todos los periodos & 7,777 \\
+Cohorte primaria de MU con cobertura de asesorías & 6,627 \\
+Primeros intentos de Cálculo I con cobertura, comparador descriptivo & 5,046 \\
+Estudiantes que progresan de MU a Cálculo posterior & 5,048 \\
+Pares longitudinales con cobertura de asesorías en Cálculo & 4,211 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+La exposición primaria para el estudiante $i$ es
+\[
+\begin{aligned}
+V_i=\#\{\,&\text{visitas cualesquiera al CMAT durante el mismo año y periodo}\\
+&\text{del primer intento de Matemáticas Universitarias}\}.
+\end{aligned}
+\]
+Esta definición corrige un problema del análisis exploratorio previo, en el cual las visitas podían acumularse a lo largo de varios años y asignarse posteriormente a observaciones académicas de periodos diferentes.
+
+\subsection{Grupos de exposición y significado del PPA}
+
+Se construyen cuatro grupos:
+\[
+G_i=\begin{cases}
+0, & V_i=0,\\
+1, & V_i\in\{1,2\},\\
+2, & V_i=3,\\
+3, & V_i\geq4.
+\end{cases}
+\]
+Además,
+\[
+\text{PPA\_REACHED}_i=1(V_i\geq3),\qquad
+\text{BEYOND\_PPA}_i=1(V_i>3).
+\]
+El grupo $V>3$ no se interpreta como ``motivación intrínseca''; únicamente describe uso que continúa después del mínimo requerido.
+
+\subsection{Outcome primario: desempeño continuo}
+
+La respuesta principal es la calificación final estandarizada dentro de un contexto profesor-periodo:
+\[
+Z_i=\frac{Y_i-\mu_{p,t}}{\sigma_{p,t}},
+\]
+donde $Y_i$ es la calificación del estudiante, $p$ el profesor y $t$ el periodo. Esta transformación reduce la confusión producida por diferencias persistentes de nivel y dispersión entre contextos de evaluación.
+
+Para BV, RT y BA se asume institucionalmente que el desempeño subyacente es inferior a 7.5. El análisis primario continuo utiliza imputación adversa por debajo de ese umbral y después estandariza. Se preespecifican dos sensibilidades: imputación uniforme bajo 7.5 y análisis de casos con calificación numérica observada.
+
+El outcome secundario es aprobación:
+\[
+PASS_i=1(Y_i\geq7.5),
+\]
+con BV, RT y BA clasificados como no aprobación. Este outcome es importante porque no requiere asignar una calificación numérica a las bajas.
+
+\subsection{Modelos y alcance inferencial}
+
+La especificación principal para el contraste $V>3$ es
+\[
+Z_i=\beta\,1(V_i>3)+\alpha_{p,t}+\gamma_{c(i)}+\varepsilon_i,
+\]
+donde $\alpha_{p,t}$ son efectos fijos profesor-periodo y $\gamma_{c(i)}$ representa carrera. Los errores estándar se agrupan por profesor-periodo. Además se reportan pruebas de Welch, Mann--Whitney, Brunner--Munzel, probabilidad de superioridad y delta de Cliff.
+
+Se calcula también una sensibilidad con ponderación por propensity score basada en carrera, año, periodo y profesor. Los métodos de propensity score pueden mejorar balance sobre variables observadas \citep{rosenbaum1983,austin2011}, pero no eliminan confusión por variables individuales no observadas \citep{hernan2020}. En este dataset no existen diagnóstico matemático, promedio de preparatoria ni otras covariables individuales pretratamiento.
+
+\section{Resultados}
+
+\subsection{RQ1a: uso alrededor del umbral PPA}
+
+\begin{questionbox}
+¿La obligación de alcanzar tres visitas parece producir una acumulación mecánica de estudiantes exactamente en $V=3$? ¿Y qué ocurre con la probabilidad de continuar después de alcanzar el umbral?
+\end{questionbox}
+
+De 6,627 estudiantes, 5,393 (81.4\%) no registraron ninguna visita durante el semestre de MU. Hubo 517 con una visita, 245 con dos, 170 con exactamente tres y 302 con cuatro o más. En total, 1,234 estudiantes (18.6\%) utilizaron el CMAT al menos una vez; 472 (7.1\% de la cohorte y 38.2\% de los usuarios) alcanzaron el PPA y 302 (4.6\% de la cohorte) continuaron más allá del umbral.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth]{figures/01_visit_distribution_mu_vs_calculus.png}
+\caption{Distribución de visitas al CMAT durante el periodo académico para Matemáticas Universitarias y Cálculo I. La línea vertical indica el umbral PPA en tres visitas.}
+\label{fig:visitdist}
+\end{figure}
+
+La Figura~\ref{fig:visitdist} muestra dos hechos. Primero, la distribución está fuertemente concentrada en cero y en conteos bajos. Segundo, no aparece una acumulación excepcional en $V=3$. El índice local de \emph{bunching}, definido como
+\[
+B=\frac{P(V=3)}{[P(V=2)+P(V=4)]/2},
+\]
+es $B=0.997$ en MU. Un valor cercano a uno significa que la masa en tres visitas es aproximadamente la esperada por interpolación local entre dos y cuatro, no un pico extraordinario.
+
+La comparación con Cálculo I refuerza esta lectura descriptiva: aunque en Cálculo no existe PPA, el 22.0\% registra al menos una visita y la media de visitas es 0.667, frente a 18.6\% y 0.539 en MU. El índice local de bunching de Cálculo también es cercano a uno ($0.951$). Esta comparación no identifica el efecto del PPA porque cambian dificultad, composición y semestre; sí muestra que el uso del CMAT no desaparece cuando el incentivo deja de estar presente.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.92\textwidth]{figures/02_continuation_probability.png}
+\caption{Probabilidad de continuar a una visita adicional, $P(V\geq k+1\mid V\geq k)$, para MU y Cálculo I.}
+\label{fig:continuation}
+\end{figure}
+
+Entre quienes alcanzaron tres visitas, 63.98\% continuaron a una cuarta. En términos simples, casi dos tercios de quienes obtienen el PPA no se detienen exactamente al cumplir el requisito. La probabilidad de continuación no presenta una caída abrupta en $k=3$: en MU pasa de 65.8\% al ir de dos a tres visitas a 64.0\% al ir de tres a cuatro.
+
+\begin{answerbox}
+La evidencia no muestra un pico especial en exactamente tres visitas ni un abandono masivo inmediatamente después del PPA. De los 472 estudiantes que alcanzan tres visitas, 302 continúan a cuatro o más.
+\end{answerbox}
+
+\begin{interpretbox}
+El PPA probablemente funciona como una puerta de entrada para algunos estudiantes, pero el patrón observado no es consistente con una historia puramente mecánica de ``voy exactamente tres veces y dejo de asistir''. También es posible que los estudiantes que alcanzan tres sean ya una población más proclive a buscar ayuda. La comparación con Cálculo, donde el uso es incluso más frecuente pese a no existir PPA, sugiere que dificultad académica, familiaridad con el servicio y una propensión estable a pedir ayuda pueden ser mecanismos importantes.
+\end{interpretbox}
+
+\subsection{RQ1b: cuándo se utiliza el CMAT}
+
+\begin{questionbox}
+¿Los estudiantes concentran las tres visitas del PPA en una sola fecha? ¿Y la demanda agregada del CMAT presenta un ciclo temporal compatible con aproximadamente cuatro evaluaciones mensuales por semestre?
+\end{questionbox}
+
+\subsubsection{Concentración de visitas en un mismo día}
+
+Entre los 1,234 usuarios de la cohorte de MU, 155 tuvieron al menos un día con dos o más visitas y 24 tuvieron algún día con tres o más. Restringiendo a los 472 que alcanzaron PPA, 133 (28.2\%) registraron algún día con dos o más visitas, 24 (5.1\%) algún día con tres o más, y solo 7 (1.48\%) realizaron sus \emph{primeras tres visitas} en la misma fecha.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.82\textwidth]{figures/07_same_day_ppa_behavior.png}
+\caption{Máximo número de visitas en un mismo día entre quienes alcanzaron el PPA. El 71.8\% nunca tuvo más de una visita diaria.}
+\label{fig:sameday}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{Concentración intradía entre estudiantes que alcanzaron el PPA ($N=472$).}
+\label{tab:sameday}
+\begin{tabular}{@{}lrr@{}}
+\toprule
+\textbf{Indicador} & \textbf{Estudiantes} & \textbf{Proporción} \\
+\midrule
+Algún día con 2+ visitas & 133 & 28.2\% \\
+Algún día con 3+ visitas & 24 & 5.1\% \\
+Primeras tres visitas el mismo día & 7 & 1.48\% \\
+Día de completar PPA con 2+ visitas & 68 & 14.4\% \\
+Día de completar PPA con 3+ visitas & 18 & 3.8\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{answerbox}
+La estrategia extrema de acumular las tres visitas necesarias en un solo día existe, pero es rara. La gran mayoría de quienes alcanzan el PPA distribuye las visitas en más de una fecha.
+\end{answerbox}
+
+\begin{interpretbox}
+Este resultado ayuda a descartar una explicación trivial del uso observado: el grupo $V\geq3$ no está compuesto principalmente por estudiantes que ``fabrican'' tres registros en una sola jornada. No obstante, no sabemos la motivación individual; distribuir tres visitas en días distintos tampoco demuestra interés académico intrínseco.
+\end{interpretbox}
+
+\subsubsection{Ciclo de demanda aproximadamente mensual}
+
+Las fechas exactas de los exámenes dependen del profesor y no están disponibles. Institucionalmente, la mayoría de los cursos realiza aproximadamente cuatro evaluaciones, una por mes, con fechas de inicio y fin de semestre comunes. Por ello, la inferencia posible es sobre \emph{periodicidad}, no sobre coincidencia con un examen específico.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.98\textwidth]{figures/06_term_temporal_peaks.png}
+\caption{Actividad diaria del CMAT por periodo y picos detectados sobre una ventana móvil de siete días. La repetición aproximada de máximos a intervalos mensuales es visible en varios periodos.}
+\label{fig:termpeaks}
+\end{figure}
+
+En 11 periodos analizados, el algoritmo detecta una mediana de 5 picos por periodo en toda la población del CMAT. Entre 38 intervalos consecutivos entre picos, la mediana es 30.5 días, con rango intercuartil 28.0--33.75 días. Veintiocho de los 38 intervalos (73.7\%) caen entre 24 y 38 días.
+
+\begin{figure}[H]
+\centering
+\begin{subfigure}[t]{0.49\textwidth}
+\centering
+\includegraphics[width=\linewidth]{figures/08_peak_spacing_days.png}
+\caption{Separación entre picos detectados.}
+\end{subfigure}
+\hfill
+\begin{subfigure}[t]{0.49\textwidth}
+\centering
+\includegraphics[width=\linewidth]{figures/09_monthly_periodicity_acf.png}
+\caption{Autocorrelación de la serie diaria ajustada.}
+\end{subfigure}
+\caption{Dos diagnósticos independientes de periodicidad temporal. La máxima autocorrelación agrupada se observa a 30 días ($\rho\approx0.210$).}
+\label{fig:periodicity}
+\end{figure}
+
+Después de remover el promedio por día de la semana y una tendencia lineal, la autocorrelación agrupada alcanza su máximo a 30 días, $\rho(30)=0.210$. El periodograma restringido a ciclos de 21--42 días produce una mediana de periodo dominante de aproximadamente 27 días entre los periodos con longitud suficiente. Aunque la señal no es idéntica en todos los semestres, tres diagnósticos diferentes --picos, autocorrelación y frecuencia-- apuntan a una escala temporal cercana a un mes.
+
+\begin{answerbox}
+La demanda presenta una estructura temporal recurrente cercana a cuatro semanas. La mediana entre picos es 30.5 días y la máxima autocorrelación agrupada aparece a 30 días.
+\end{answerbox}
+
+\begin{interpretbox}
+El patrón es coherente con un calendario en el que la mayoría de los profesores evalúa aproximadamente una vez al mes: estudiantes de cursos distintos pueden tener parciales en días diferentes, pero al agregarlos aparece una ``onda'' de demanda alrededor de cada ciclo. Esta explicación es plausible, no demostrada. También podrían contribuir fechas de entrega, semanas de mayor carga académica, periodos de bajas o campañas internas del CMAT. La interpretación correcta es ``compatible con el ritmo de evaluación'', no ``causado por los exámenes''.
+\end{interpretbox}
+
+\subsection{RQ2a: utilización y desempeño continuo}
+
+\begin{questionbox}
+Entre estudiantes que cursan MU por primera vez, ¿quienes utilizan más el CMAT se ubican en mejores posiciones relativas dentro de su contexto profesor-periodo?
+\end{questionbox}
+
+La Figura~\ref{fig:primaryoutcome} presenta el resultado descriptivo central.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.88\textwidth]{figures/03_primary_outcome_by_visit_group.png}
+\caption{Desempeño estandarizado medio por grupo de visitas, con intervalos de confianza al 95\%.}
+\label{fig:primaryoutcome}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{Outcome continuo por grupo de visitas.}
+\label{tab:primarydesc}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+\textbf{Visitas} & \textbf{$N$} & \textbf{Media $Z$} & \textbf{Mediana $Z$} & \textbf{\CI\ de la media} \\
+\midrule
+0 & 5,393 & -0.060 & 0.315 & $[-0.087,-0.033]$ \\
+1--2 & 762 & 0.218 & 0.453 & $[0.160,0.276]$ \\
+3 & 170 & 0.325 & 0.543 & $[0.216,0.434]$ \\
+4+ & 302 & 0.342 & 0.535 & $[0.262,0.423]$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+El patrón es monotónico en la media, pero no lineal. El salto principal ocurre al pasar de cero visitas a alguna utilización. Los coeficientes del modelo de dosis, siempre respecto del grupo de cero visitas y con efectos fijos profesor-periodo, son:
+\[
+\hat\beta_{1-2}=0.318,\qquad
+\hat\beta_{3}=0.443,\qquad
+\hat\beta_{4+}=0.468.
+\]
+La diferencia entre los coeficientes de 3 y 4+ es pequeña en comparación con el salto inicial. Esto sugiere una posible meseta descriptiva después de tres visitas; el análisis disponible no prueba un retorno marginal positivo de cada visita adicional.
+
+\subsubsection{Contraste principal $V>3$ frente a $V\leq3$}
+
+El grupo con cuatro o más visitas tiene media $0.342$ frente a $-0.016$ en el grupo con tres o menos. La diferencia es
+\[
+\Delta\bar Z=0.359,\qquad \CI=[0.277,0.439],
+\]
+con Welch $t=8.37$ y $p=1.32\times10^{-15}$. La diferencia de medianas es $0.198$ (\CI\ $[0.115,0.241]$). Mann--Whitney y Brunner--Munzel también rechazan igualdad distributiva ($p<10^{-11}$).
+
+La probabilidad de superioridad es
+\[
+CL=0.616,
+\]
+lo que significa que, al seleccionar aleatoriamente una observación de cada grupo, la del grupo $V>3$ tiene una probabilidad aproximada de 61.6\% de tener mayor $Z$. El delta de Cliff es $0.233$, una separación positiva de magnitud no trivial.
+
+\begin{table}[H]
+\centering
+\caption{Modelos principales con efectos fijos profesor-periodo.}
+\label{tab:femodels}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+\textbf{Modelo} & \textbf{Estimación} & \textbf{EE} & \textbf{\CI} & \textbf{$p$} \\
+\midrule
+Profesor-periodo FE & 0.388 & 0.060 & $[0.270,0.506]$ & $1.10\times10^{-10}$ \\
+Profesor-periodo FE + carrera & 0.375 & 0.060 & $[0.257,0.493]$ & $4.08\times10^{-10}$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+El ajuste por contexto de evaluación y carrera reduce poco la estimación. Una sensibilidad de propensity score basada únicamente en carrera, año, periodo y profesor produce un efecto ATT ponderado de $0.373$ y reduce el máximo desequilibrio estandarizado observado de 0.443 a 0.116. Esta estabilidad es útil como prueba de robustez sobre variables disponibles, pero no resuelve autoselección individual.
+
+\begin{answerbox}
+La utilización del CMAT está fuertemente asociada con mejor desempeño relativo. El resultado aparece en medias, medianas, pruebas robustas, modelos profesor-periodo y ajuste por carrera. Sin embargo, la desagregación en 0, 1--2, 3 y 4+ muestra que la evidencia más clara es ``usar el servicio versus no usarlo o usarlo poco'', no un beneficio incremental grande de 4+ frente a exactamente 3.
+\end{answerbox}
+
+\begin{interpretbox}
+Hay al menos cuatro explicaciones compatibles con los datos. (1) Las asesorías pueden mejorar comprensión y desempeño. (2) Estudiantes más organizados o motivados pueden ser simultáneamente más proclives a asistir y a obtener mejores notas. (3) Estudiantes con mayor dificultad pueden asistir más, generando confusión en sentido contrario y atenuando una posible asociación favorable. (4) Una o pocas visitas podrían resolver dudas importantes, de modo que los retornos adicionales sean decrecientes. La meseta entre 3 y 4+ es consistente con (4), pero también con mezcla de perfiles de necesidad; no permite elegir entre mecanismos.
+\end{interpretbox}
+
+\subsubsection{Sensibilidad al tratamiento de BV, RT y BA}
+
+La imputación uniforme bajo 7.5 produce una diferencia media de $0.343$ y Cliff $\delta=0.227$, muy cercana al análisis primario. En cambio, al analizar únicamente estudiantes con calificación numérica, la diferencia media se reduce a $0.211$ y Cliff $\delta=0.075$.
+
+Esta atenuación es substantivamente importante. Parte de la separación entre grupos está asociada a la presencia de resultados adversos no numéricos. Esto no significa que la imputación sea un artefacto necesariamente: evitar una baja o un retiro podría ser un resultado académico relevante. Pero sí implica que la magnitud del outcome continuo depende parcialmente de cómo se incorpora ese tipo de resultado y que el outcome secundario de aprobación es necesario como verificación independiente.
+
+\subsubsection{Outcome secundario: aprobación}
+
+Las tasas de aprobación son 72.1\% para cero visitas, 81.0\% para 1--2, 81.8\% para exactamente 3 y 86.4\% para 4+. El modelo lineal de probabilidad con efectos fijos profesor-periodo y carrera estima para $V>3$ una diferencia de 0.192 puntos de probabilidad (\CI\ $[0.138,0.247]$, $p=5.59\times10^{-12}$).
+
+\begin{cautionbox}
+La magnitud del modelo de aprobación es secundaria y no debe interpretarse como ``el CMAT aumenta 19 puntos porcentuales la probabilidad de aprobar''. Es una diferencia ajustada observacional. Variables individuales no observadas podrían explicar parte sustancial de ella.
+\end{cautionbox}
+
+\subsection{RQ2b: regularidad temporal y desempeño}
+
+\begin{questionbox}
+A igual número aproximado de visitas, ¿es mejor distribuirlas a lo largo del semestre que concentrarlas en pocos meses?
+\end{questionbox}
+
+Se define
+\[
+R_i=\frac{\min(M_i,4)}{\min(V_i,4)},
+\]
+donde $M_i$ es el número de meses calendario distintos con al menos una visita. Entre estudiantes que alcanzan PPA, la cantidad de visitas y la dispersión temporal están fuertemente relacionadas: quienes aparecen en un solo mes tienen 3.53 visitas en promedio; quienes aparecen en cuatro meses, 9.07. Por ello no basta con comparar $R_i$ sin controlar intensidad.
+
+La especificación primaria se restringe a estudiantes con $V\geq3$ y calificación numérica final ($N=413$), controla conteos de visitas 3, 4, 5, 6, 7 y 8+, efectos fijos profesor-periodo y carrera. El coeficiente de regularidad es
+\[
+\hat\beta_R=-0.136,\qquad \CI=[-0.462,0.190],\qquad p=0.413.
+\]
+Una sensibilidad con outcomes adversos imputados da $-0.166$ ($p=0.489$), y el número efectivo de semanas por visita da $-0.049$ ($p=0.800$).
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.80\textwidth]{figures/10_exact3_regularity_vs_performance.png}
+\caption{Análisis exploratorio entre estudiantes con exactamente tres visitas: desempeño según número de meses calendario activos.}
+\label{fig:regularity}
+\end{figure}
+
+Entre quienes tienen exactamente tres visitas, la media de $Z$ es 0.291 si las visitas se concentran en un mes, 0.291 en dos meses y 0.403 en tres meses. La diferencia visual del tercer grupo es sugestiva pero los intervalos se superponen y el tamaño muestral es reducido (26, 73 y 45 estudiantes, respectivamente).
+
+\begin{answerbox}
+No se detecta evidencia clara de que la regularidad temporal aporte información adicional sobre desempeño una vez controlada la intensidad de uso. La hipótesis preespecificada $\beta_R>0$ no recibe apoyo estadístico con la métrica actual.
+\end{answerbox}
+
+\begin{interpretbox}
+Un resultado nulo también es informativo. Puede significar que la cantidad de exposición es más relevante que su dispersión temporal, pero también puede reflejar potencia limitada, una métrica mensual demasiado gruesa o heterogeneidad en las fechas de evaluación. Además, concentrar visitas antes de un examen puede ser una estrategia racional, no necesariamente una conducta académica inferior. Por tanto, el resultado no autoriza afirmar que ``la regularidad no importa''; solo indica que no se observa una asociación independiente clara con los datos y definición actuales.
+\end{interpretbox}
+
+\subsection{RQ3: persistencia hacia Cálculo I}
+
+\begin{questionbox}
+Entre estudiantes que posteriormente progresan a Cálculo I, ¿el uso previo del CMAT durante MU predice que vuelvan a utilizar el servicio cuando el incentivo PPA ya no está disponible?
+\end{questionbox}
+
+La cohorte longitudinal contiene 4,211 estudiantes con cobertura de asesorías durante su primer Cálculo posterior. De ellos, 3,842 cursan Cálculo en el semestre académico inmediatamente siguiente; el resto presenta distintos rezagos.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.86\textwidth]{figures/04_longitudinal_persistence_to_calculus.png}
+\caption{Probabilidad de registrar al menos una visita al CMAT durante Cálculo I según patrón de uso previo en Matemáticas Universitarias.}
+\label{fig:persistence}
+\end{figure}
+
+\begin{table}[H]
+\centering
+\caption{Persistencia de utilización en Cálculo I.}
+\label{tab:persistence}
+\begin{tabular}{@{}lrrrr@{}}
+\toprule
+\textbf{Grupo MU} & \textbf{$N$} & \textbf{Alguna visita en Cálculo} & \textbf{Media visitas Cálculo} & \textbf{Mediana} \\
+\midrule
+0 & 3,274 & 16.9\% & 0.43 & 0 \\
+1--2 & 567 & 41.1\% & 1.28 & 0 \\
+3 & 129 & 51.2\% & 1.78 & 1 \\
+4+ & 241 & 60.6\% & 3.12 & 1 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+La relación es monotónica: cuanto mayor es la utilización durante MU, mayor es la probabilidad y la intensidad de utilización posterior. Un estudiante del grupo 4+ tiene una probabilidad observada de volver al CMAT en Cálculo aproximadamente 3.6 veces la del grupo que no había acudido en MU ($60.6/16.9\approx3.59$).
+
+\begin{answerbox}
+El uso del CMAT muestra una fuerte persistencia longitudinal. La probabilidad de volver a utilizar el servicio en Cálculo aumenta sistemáticamente con el nivel de uso previo en MU, incluso cuando el PPA ya no aplica.
+\end{answerbox}
+
+\begin{interpretbox}
+Existen al menos dos mecanismos principales. Uno es aprendizaje conductual: el PPA o el primer contacto puede reducir barreras, familiarizar al estudiante con el centro y convertir la búsqueda de ayuda en una estrategia disponible. El otro es selección estable: estudiantes con mayor propensión a pedir ayuda, mayor disciplina o necesidades académicas recurrentes podrían utilizar el centro en ambos semestres sin que la primera experiencia cause la segunda. Con los datos actuales no es posible separar estos mecanismos. No obstante, la persistencia es un hallazgo sustantivo porque muestra que el comportamiento no termina con el incentivo inicial.
+\end{interpretbox}
+
+\section{Síntesis de respuestas y deducciones}
+
+\begin{table}[H]
+\centering
+\caption{Resumen integrado de hallazgos.}
+\label{tab:summary}
+\begin{tabularx}{\textwidth}{@{}p{1.25cm}X X@{}}
+\toprule
+\textbf{RQ} & \textbf{Respuesta empírica} & \textbf{Deducción prudente} \\
+\midrule
+RQ1a & No hay bunching claro en $V=3$; 64\% de quienes llegan a 3 continúan a 4+. & El PPA no parece generar un patrón dominante de cumplimiento exacto y abandono inmediato. \\
+RQ1b & Primeras tres visitas el mismo día: 1.48\%; mediana entre picos: 30.5 días; ACF máxima a 30 días. & El uso está distribuido en el tiempo y la demanda agregada tiene un ciclo compatible con evaluaciones aproximadamente mensuales. \\
+RQ2a & $V>3$ se asocia con $+0.375Z$ ajustado; gradiente 0 $<$ 1--2 $<$ 3 $\approx$ 4+. & Hay asociación robusta entre uso y desempeño; la evidencia de beneficio incremental después de 3 es mucho más débil que la diferencia entre no uso y uso. \\
+RQ2b & $\hat\beta_R=-0.136$, $p=0.413$. & No se detecta un valor predictivo adicional claro de distribuir visitas entre más meses una vez controlada intensidad. \\
+RQ3 & Visita posterior en Cálculo: 16.9\%, 41.1\%, 51.2\%, 60.6\% según grupo previo. & Existe una fuerte persistencia de help-seeking, compatible tanto con aprendizaje conductual como con heterogeneidad estable entre estudiantes. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\subsection{Qué parece ser la historia principal de los datos}
+
+Los resultados son más coherentes con una historia de \textbf{adopción y persistencia} que con una historia de simple cumplimiento administrativo. Tres observaciones sostienen esta lectura. Primero, no aparece una acumulación extraordinaria exactamente en tres visitas. Segundo, casi dos tercios de quienes alcanzan el umbral continúan a una cuarta visita. Tercero, la utilización previa predice fuertemente la utilización posterior en Cálculo, donde el PPA ya no aplica.
+
+Sin embargo, el outcome de desempeño obliga a una interpretación más cuidadosa. El contraste binario $V>3$ frente a $V\leq3$ es fuerte, pero el modelo por grupos muestra que $V=3$ y $V=4+$ tienen niveles de desempeño muy parecidos. Por tanto, el mensaje científico más sólido no es ``más allá de tres visitas produce una ganancia adicional grande'', sino:
+\begin{tcolorbox}[colback=cmatlight,colframe=cmatblue,boxrule=0.6pt]
+\centering
+\textbf{La utilización del CMAT está asociada con mejor desempeño relativo,}\par
+\textbf{con una separación observada que parece aplanarse alrededor de tres visitas.}
+\end{tcolorbox}
+La palabra ``rendimientos'' aquí es descriptiva, no causal.
+
+\subsection{Tesis, explicación rival y síntesis}
+
+\paragraph{Tesis.} Las asesorías proporcionan apoyo académico útil, reducen dudas y ayudan a los estudiantes a ubicarse en posiciones más altas dentro de su contexto de evaluación. La consistencia entre outcome continuo, aprobación, pruebas robustas y seguimiento longitudinal es compatible con esta interpretación.
+
+\paragraph{Explicación rival.} Los usuarios del CMAT son distintos antes de acudir. Podrían ser más disciplinados, más conscientes de sus dificultades o más motivados. También puede ocurrir selección por necesidad: estudiantes con mayor dificultad buscan más asesorías, lo que puede ocultar parte de un posible beneficio. Sin covariables individuales pretratamiento, ambos tipos de selección permanecen abiertos.
+
+\paragraph{Síntesis.} La evidencia actual justifica afirmar que el CMAT identifica y acompaña una población cuyo comportamiento académico y de búsqueda de ayuda es sistemáticamente distinto. La estabilidad de la asociación tras controlar profesor-periodo, carrera y variables administrativas observadas hace menos probable que el resultado se deba únicamente a heterogeneidad de aula; no elimina heterogeneidad individual. En términos de publicación, este es un estudio observacional longitudinal con mecanismos plausibles y limitaciones explícitas, no una evaluación causal definitiva.
+
+\section{Implicaciones institucionales}
+
+Los resultados sugieren tres aplicaciones inmediatas para el CMAT.
+
+\begin{enumerate}[leftmargin=*]
+\item \textbf{Planeación de capacidad.} La periodicidad cercana a 30 días permite anticipar ventanas de mayor demanda. Aunque las fechas de examen varíen entre profesores, la agregación institucional genera ciclos suficientemente visibles para planear disponibilidad de asesores.
+\item \textbf{El PPA como mecanismo de exposición.} El hecho de que muchos estudiantes continúen después de la tercera visita y vuelvan en Cálculo sugiere que el primer contacto puede tener valor más allá del cumplimiento administrativo. Esto debe estudiarse como mecanismo de adopción, no asumirse causalmente.
+\item \textbf{Seguimiento longitudinal.} Los estudiantes con uso recurrente constituyen un grupo identificable para estudiar trayectorias posteriores, necesidades de apoyo y potenciales intervenciones de seguimiento.
+\end{enumerate}
+
+\section{Limitaciones}
+
+\begin{enumerate}[leftmargin=*]
+\item \textbf{Autoselección no observada.} No existen medidas individuales previas a MU como diagnóstico matemático, promedio de preparatoria o examen de admisión. Esta es la limitación inferencial principal.
+\item \textbf{Bajas sin fecha exacta.} BV, RT y BA se conocen por periodo, pero no por fecha. Esto limita el análisis de exposición temporal y explica por qué RQ2b usa casos con calificación numérica como población primaria.
+\item \textbf{Imputación del outcome continuo.} El análisis completo muestra que la magnitud de la asociación se atenúa cuando se excluyen resultados adversos no numéricos. El outcome de aprobación ayuda a mostrar que el patrón no depende únicamente de asignarles un número.
+\item \textbf{Fechas de examen no observadas.} El ciclo de 30 días es compatible con evaluaciones aproximadamente mensuales, pero no puede vincularse a parciales específicos por profesor.
+\item \textbf{Comparación MU--Cálculo no causal.} Los estudiantes que llegan a Cálculo son una población seleccionada por progresión académica y el curso tiene distinta dificultad; no es un grupo control del PPA.
+\item \textbf{Cobertura de asesorías.} La inferencia primaria se restringe a periodos con registros efectivos de asesoría; periodos académicos sin cobertura no se interpretan como cero visitas.
+\end{enumerate}
+
+\section{Próximos análisis recomendados}
+
+La siguiente fase debería priorizar profundidad antes que añadir pruebas indiscriminadamente.
+
+\begin{enumerate}[leftmargin=*]
+\item Estimar modelos de dosis no lineales o splines para evaluar formalmente si existe meseta después de 2--3 visitas.
+\item Comparar directamente $V=3$ frente a $V=4+$ dentro de contextos profesor-periodo, evitando que el gran grupo $V=0$ domine el contraste binario principal.
+\item Modelar la probabilidad de persistencia en Cálculo con ajuste por desempeño de MU y semestre de progresión, dejando claro que condicionar por desempeño cambia el estimando.
+\item Explorar heterogeneidad del efecto asociativo por profesor, carrera y periodo únicamente con hipótesis preespecificadas y corrección por múltiples comparaciones.
+\item Si en el futuro se recuperan covariables pretratamiento, reestimar con métodos doblemente robustos o ponderación de propensity score más informativa.
+\item Para RQ1b, construir modelos de conteo diarios con efectos de día de semana y componentes armónicos de 28--31 días para cuantificar la periodicidad en lugar de depender solo de detección de picos.
+\end{enumerate}
+
+\section{Conclusión}
+
+El rediseño del estudio modifica de manera importante la interpretación del reporte exploratorio original. Al restringir el análisis al primer intento de una misma materia, enlazar las visitas exclusivamente con el semestre correspondiente y estandarizar el desempeño dentro de profesor-periodo, se obtiene una comparación mucho más coherente temporal y académicamente.
+
+La asociación principal permanece: los estudiantes que utilizan más el CMAT se ubican, en promedio, en posiciones relativas superiores y presentan mayores tasas de aprobación. La evidencia no muestra un pico artificial exactamente en tres visitas; la mayoría de quienes alcanzan el PPA distribuye sus visitas entre distintas fechas y 64\% continúa más allá del mínimo. Además, la demanda diaria presenta un ciclo cercano a un mes, compatible con el ritmo institucional de evaluaciones, y el comportamiento de uso persiste de manera marcada en Cálculo I después de que el PPA desaparece.
+
+Dos resultados moderan una interpretación simplista. Primero, el desempeño de quienes tienen exactamente tres visitas es muy parecido al de quienes tienen cuatro o más, lo que sugiere que el contraste más fuerte está entre no uso/uso limitado y uso efectivo, no necesariamente en cada visita adicional. Segundo, la regularidad temporal de las visitas no predice desempeño de forma independiente una vez controlada la intensidad.
+
+En términos científicos, el hallazgo central puede sintetizarse como
+\[
+\boxed{
+\text{uso del CMAT}\;\longleftrightarrow\;\text{mejor desempeño}
+\quad+\quad
+\text{uso inicial}\;\longleftrightarrow\;\text{persistencia posterior},
+}
+\]
+con una reserva esencial:
+\[
+\boxed{\text{asociación observacional}\neq\text{efecto causal identificado}.}
+\]
+La contribución potencial del trabajo consiste precisamente en mostrar la estructura temporal, académica y longitudinal de esa asociación con datos administrativos reales, mientras se explicitan los mecanismos rivales que la evidencia disponible todavía no puede separar.
+
+\input{new_section}
+\input{ppa_progression_analysis}
+
+\clearpage
+\appendix
+\section{Resultados estadísticos complementarios}
+
+\subsection{Contraste PPA alcanzado: $V\geq3$ frente a $V<3$}
+
+El contraste alternativo que pregunta por alcanzar el umbral --en vez de continuar más allá de él-- produce una diferencia media no ajustada de $0.362Z$ (\CI\ $[0.290,0.429]$), probabilidad de superioridad $0.617$ y Cliff $\delta=0.234$. Con profesor-periodo y carrera, el coeficiente es $0.382$ (\CI\ $[0.287,0.476]$). La similitud con el contraste $V>3$ confirma que ambos indicadores capturan, en gran medida, la separación entre usuarios recurrentes y la mayoría de estudiantes con cero o pocas visitas.
+
+\subsection{Tabla de sensibilidad del outcome continuo}
+
+\begin{table}[H]
+\centering
+\caption{Sensibilidad del contraste $V>3$ frente a $V\leq3$.}
+\begin{tabular}{@{}lrrr@{}}
+\toprule
+\textbf{Outcome} & \textbf{Diferencia media} & \textbf{\CI} & \textbf{Cliff $\delta$} \\
+\midrule
+Imputación primaria adversa & 0.359 & $[0.277,0.439]$ & 0.233 \\
+Imputación uniforme bajo 7.5 & 0.343 & $[0.257,0.424]$ & 0.227 \\
+Solo calificaciones numéricas & 0.211 & $[0.137,0.281]$ & 0.075 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Regularidad temporal entre quienes alcanzan PPA}
+
+\begin{table}[H]
+\centering
+\caption{Meses activos entre estudiantes con $V\geq3$.}
+\begin{tabular}{@{}rrrr@{}}
+\toprule
+\textbf{Meses activos} & \textbf{$N$} & \textbf{Visitas medias} & \textbf{Semanas efectivas medias} \\
+\midrule
+1 & 43 & 3.53 & 2.08 \\
+2 & 156 & 3.85 & 2.89 \\
+3 & 154 & 4.77 & 3.74 \\
+4 & 119 & 9.07 & 6.43 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Figura temporal completa}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figures/05_daily_cmat_timeline.png}
+\caption{Serie diaria completa de actividad del CMAT. La línea suavizada de siete días muestra periodos recurrentes de aumento y descenso de demanda.}
+\end{figure}
+
+
+\begin{thebibliography}{99}
+\bibitem[Mullen et~al.(2024)Mullen, Howard, and Cronin]{mullen2024}
+Mullen, C., Howard, E., and Cronin, A. (2024).
+\newblock A scoping literature review of the impact and evaluation of mathematics and statistics support in higher education.
+\newblock \emph{Educational Studies in Mathematics}, 117, 1--22. doi:10.1007/s10649-024-10332-6.
+
+\bibitem[Lawson et~al.(2020)Lawson, Grove, and Croft]{lawson2020}
+Lawson, D., Grove, M., and Croft, T. (2020).
+\newblock The evolution of mathematics support: a literature review.
+\newblock \emph{International Journal of Mathematical Education in Science and Technology}, 51(8), 1224--1254.
+
+\bibitem[Rickard and Mills(2018)]{rickard2018}
+Rickard, B., and Mills, M. (2018).
+\newblock The effect of attending tutoring on course grades in Calculus I.
+\newblock \emph{International Journal of Mathematical Education in Science and Technology}, 49(3), 341--354.
+
+\bibitem[Mac an Bhaird et~al.(2009)Mac an Bhaird, Morgan, and O'Shea]{macanbhaird2009}
+Mac an Bhaird, C., Morgan, T., and O'Shea, A. (2009).
+\newblock The impact of the mathematics support centre on the grades of first year students at the National University of Ireland Maynooth.
+\newblock \emph{Teaching Mathematics and its Applications}, 28(3), 117--122.
+
+\bibitem[Jacob and N\'{i} Fhloinn(2019)]{jacob2019}
+Jacob, M., and N\'{i} Fhloinn, E. (2019).
+\newblock A quantitative, longitudinal analysis of the impact of mathematics support in an Irish university.
+\newblock \emph{Teaching Mathematics and its Applications}, 38(4), 216--229.
+
+\bibitem[B\"uchele and Sch\"urmann(2024)]{buchele2024}
+B\"uchele, S., and Sch\"urmann, M. (2024).
+\newblock Causal evidence of the effect of a course specific mathematical learning and support center on economics students' performance and affective variables.
+\newblock \emph{Studies in Higher Education}, 49(9), 1569--1587.
+
+\bibitem[Paloyo et~al.(2016)Paloyo, Rogan, and Siminski]{paloyo2016}
+Paloyo, A. R., Rogan, S., and Siminski, P. (2016).
+\newblock The effect of supplemental instruction on academic performance: An encouragement design experiment.
+\newblock \emph{Economics of Education Review}, 55, 57--69.
+
+\bibitem[Pugatch and Wilson(2018)]{pugatch2018}
+Pugatch, T., and Wilson, N. (2018).
+\newblock Nudging study habits: A field experiment on peer tutoring in higher education.
+\newblock \emph{Economics of Education Review}, 62, 151--161.
+
+\bibitem[Fong et~al.(2023)Fong, Gonzales, Hill-Troglin Cox, and Shinn]{fong2023}
+Fong, C. J., Gonzales, C., Hill-Troglin Cox, C., and Shinn, H. B. (2023).
+\newblock Academic help-seeking and achievement of postsecondary students: A meta-analytic investigation.
+\newblock \emph{Journal of Educational Psychology}, 115(1), 1--21.
+
+\bibitem[Rosenbaum and Rubin(1983)]{rosenbaum1983}
+Rosenbaum, P. R., and Rubin, D. B. (1983).
+\newblock The central role of the propensity score in observational studies for causal effects.
+\newblock \emph{Biometrika}, 70(1), 41--55.
+
+\bibitem[Austin(2011)]{austin2011}
+Austin, P. C. (2011).
+\newblock An Introduction to Propensity Score Methods for Reducing the Effects of Confounding in Observational Studies.
+\newblock \emph{Multivariate Behavioral Research}, 46(3), 399--424.
+
+\bibitem[Hern\'{a}n and Robins(2020)]{hernan2020}
+Hern\'{a}n, M. A., and Robins, J. M. (2020).
+\newblock \emph{Causal Inference: What If}.
+\newblock Chapman \& Hall/CRC.
+\end{thebibliography}
+
+\end{document}

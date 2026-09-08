@@ -1,0 +1,2 @@
+status,model,n,careers_included,min_career_n,min_cell_n_each_visit_group,interaction_terms,wald_statistic,df_constraints,p_value,covariance,interpretation
+ok,classroom-standardized Z ~ visit group x career,5481,19,100,5,54,443.9614022122199,54,1.1153070240715988e-62,cluster-robust by professor-period classroom,omnibus heterogeneity of association; not causal effect modification

@@ -1,0 +1,7 @@
+ACADEMIC_EVENT_TYPE,rows,students
+administrative_non_attempt,131,74
+likely_post_pass_revalidation,537,263
+likely_same_period_career_replication,405,231
+real_attempt_candidate,26715,10519
+likely_revalidation_same_grade_as_first_pass,537,263
+rows_with_missing_professor_in_raw_extract,1048,456

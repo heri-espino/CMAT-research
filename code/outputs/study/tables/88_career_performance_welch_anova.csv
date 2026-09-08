@@ -1,0 +1,2 @@
+test,n,careers_included,min_career_n,welch_F,df_num,df_denom,p_value,brown_forsythe_stat,brown_forsythe_p,interpretation_of_z
+Welch ANOVA of classroom-standardized Z across careers,6374,29,30,4.308429924920377,28.0,1239.3913918180167,9.890548263347511e-13,2.091258103888978,0.0006482386471679026,"positive mean means the career's students are, on average, above their professor-period classroom mean in classroom SD units"

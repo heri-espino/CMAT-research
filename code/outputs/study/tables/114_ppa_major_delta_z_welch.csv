@@ -1,0 +1,2 @@
+status,test,n,careers_included,min_career_n,welch_F,df_num,df_denom,p_value,brown_forsythe_stat,brown_forsythe_p,interpretation
+ok,Welch ANOVA of Delta Z = Z_Calculus - Z_MU across official MU majors,3164,24,30,6.245612645896117,23.0,782.7085046115458,1.3862607196532033e-17,2.684648054513312,2.4306013095464756e-05,Delta Z compares relative classroom position across two courses; it is not a raw-grade change and not a causal CMAT effect
