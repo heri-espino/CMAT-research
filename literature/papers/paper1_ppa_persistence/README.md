@@ -17,4 +17,11 @@ Does support-seeking observed in the incentive-linked MU/PPA1 context persist in
 - mathematics-support context;
 - observational selection and alternative explanations.
 
-Start with `INDEX.md`. Use `MISSING_LITERATURE.md` to track gaps that still require targeted searching.
+## How to read this folder
+
+1. `INDEX.md` — which sources matter and their role in the manuscript.
+2. `READING_GUIDE.md` — rapid technical guide with the most important methods/results to remember.
+3. `reading_notes/` — article-level evidence cards with sample, methods, coefficients/tests, uncertainty, quotations, claim boundaries and local verification anchors.
+4. `MISSING_LITERATURE.md` — targeted literature gaps still requiring search.
+
+The first completed reading-note batch covers general/foundational literature. Incentive-specific technical notes are the next planned batch.
