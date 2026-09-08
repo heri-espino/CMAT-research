@@ -60,7 +60,7 @@ Statistics and quotations should be verified against the local source PDF/Markdo
 
 Subfolders under `reading_notes/` are **scientific retrieval views**, not storage batches. Each substantive source should normally have one canonical technical note. If a source serves several functions, keep the note in its best-fitting scientific home and cross-reference it from the relevant guide/index rather than creating duplicate note files.
 
-### `general/` — current default
+### `general/` — foundational and cross-cutting literature
 
 Use `general/` for foundational or cross-cutting Paper 1 literature that is not primarily about a specific intervention mechanism. Typical functions include:
 
@@ -72,9 +72,11 @@ Use `general/` for foundational or cross-cutting Paper 1 literature that is not 
 
 A paper should remain in `general/` when its main contribution is broad framing even if it contains a secondary discussion of incentives.
 
-### future: `incentives/` — incentive/removal/behavioural-intervention evidence
+### `incentives/` — incentive/removal/behavioural-intervention evidence
 
-Create `reading_notes/incentives/` when the incentive-specific Paper 1 review is developed. Its scientific function is to isolate evidence that helps interpret the CMAT/PPA setting as a **change in incentive context**, not merely as generic help-seeking.
+This is now an active Paper 1 reading-note stream. Its scientific function is to isolate evidence that helps interpret the CMAT/PPA setting as a **change in incentive context**, not merely as generic help-seeking.
+
+Current notes cover Gneezy et al. (2011), Angrist et al. (2009), Leuven et al. (2010), Agnew et al. (2021), Oreopoulos & Petronijevic (2019), Blondeel et al. (2023), and Damgaard & Nielsen (2018).
 
 Include sources whose central design or argument involves one or more of the following:
 
@@ -102,8 +104,6 @@ For incentive-specific notes, capture these fields whenever the source reports t
 - a short **CMAT relevance** statement explaining whether the source is a direct comparator, theoretical mechanism, or contrast case.
 
 Important Paper 1 boundary: the CMAT data do not contain exogenous PPA treatment variation. Incentive literature can motivate competing explanations and interpretation, but it does not convert the observational CMAT design into a causal estimate of PPA.
-
-Initial candidate sources already identified for this future folder include Gneezy et al. (2011), Angrist et al. (2009), Agnew et al. (2021), Leuven et al. (2010), Oreopoulos/Petronijevic, Blondeel et al., and selected behavioural-economics reviews. Their exact role should be decided from the source content, not from the filename alone.
 
 ### future: additional scientific-function subfolders
 
