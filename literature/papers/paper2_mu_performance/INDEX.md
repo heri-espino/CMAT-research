@@ -1,138 +1,103 @@
 # Paper 2 literature index — MU performance
 
-This index prioritizes literature directly relevant to mathematics-support use and academic performance in first-year MU.
+This index prioritizes literature directly relevant to mathematics-support use and academic performance in first-attempt MU. Use `../../library/CATALOG.md` to locate preferred source records and exact source-material paths.
 
-## Core mathematics-support literature
+## Core mathematics-support evidence
 
 ### `mullen_2024_mathematics-statistics-support-review`
-- Priority: **core**
-- Role: broad evidence review of mathematics/statistics support.
-- Used in: Introduction, literature review, limitations.
+- Priority: **core**.
+- Role: broad current review of mathematics/statistics support impact/evaluation; principal field anchor.
 
 ### `lawson_2019_mathematics-support-literature-review`
-- Priority: **core**
-- Role: field review; useful for positioning CMAT relative to mathematics-support scholarship.
-
-### `matthews_2013_evaluation-mathematics-support-centres`
-- Priority: **core**
-- Role: evaluation of mathematics-support centres and common assessment approaches.
-
-### `pell_2008_mathematics-support-for-all`
-- Priority: **core**
-- Role: mathematics-support participation and outcomes.
-
-### `berry_2015_mathematics-learning-support-at-risk-students`
-- Priority: **core**
-- Role: direct relationship between mathematics-support usage and performance among at-risk students.
-- Use carefully: compare design/population before drawing parallels to CMAT.
-
-### `jacob_2018_mathematics-support-impact-irish-university`
-- Priority: **core**
-- Role: mathematics-support impact evidence in university context.
+- Priority: **core**.
+- Role: field review and institutional context.
 
 ### `mac-an-bhaird_2009_mathematics-support-centre-grades`
-- Priority: **core**
-- Role: centre use and grades; useful comparator for CMAT’s performance analysis.
+- Priority: **core**.
+- Role: direct support-centre attendance/grade comparator.
 
-### `johns_2026_performance-assessment-mathematics-tutoring-centres`
-- Priority: supporting
-- Role: contemporary tutoring-centre performance assessment framework.
+### `jacob_2018_mathematics-support-impact-irish-university`
+- Priority: **core**.
+- Role: longitudinal mathematics-support/outcome evidence.
 
-### `ni-fhloinn_2016_gender-engagement-mathematics-support`
-- Priority: supporting
-- Role: heterogeneity in engagement with mathematics support.
+### `berry_2015_mathematics-learning-support-at-risk-students`
+- Priority: **core**.
+- Role: use/performance among at-risk students; relevant for selection and heterogeneous need.
 
-## Academic help-seeking
+### `matthews_2013_evaluation-mathematics-support-centres`
+- Priority: **core**.
+- Role: evaluation approaches for mathematics-support centres.
+
+### `pell_2008_mathematics-support-for-all`
+- Priority: **core**.
+- Role: participation/outcome context.
+
+### `navarra-madsen_2010_mathematics-tutoring-student-success`
+- Priority: supporting/core comparator.
+- Role: mathematics tutoring and student success.
+
+### Additional support-setting sources
+
+- `mac-an-bhaird_2013_non-engagement-mathematics-support` — non-engagement/barriers to support use.
+- `ni-fhloinn_2016_gender-engagement-mathematics-support` — heterogeneity in mathematics-support engagement.
+- `johns_2026_performance-assessment-mathematics-tutoring-centres` — recent tutoring-centre assessment/evaluation context.
+- `tinsley_2018_math-help-centers-student-perceptions` — student perceptions/help-centre context.
+
+## Academic help-seeking / selection context
 
 ### `fong_2023_academic-help-seeking-achievement`
-- Priority: **core**
+- Priority: **core**.
 - Role: meta-analytic anchor linking academic help-seeking and achievement.
-- Important limitation: help-seeking is endogenous; the CMAT analysis must not interpret attendance as randomized treatment.
+- Limitation: help-seeking is endogenous; attendance is not randomized treatment.
 
-### `karabenick_1991_academic-help-seeking-learning-strategies`
-### `karabenick_2001_help-large-college-classes`
-### `karabenick_2011_self-regulated-help-seeking`
-- Priority: supporting
-- Role: theory and empirical background on who seeks help, why, and how help-seeking relates to learning strategies.
+### Supporting help-seeking theory/evidence
+
+- `karabenick_1991_academic-help-seeking-learning-strategies` — help-seeking and learning strategies.
+- `karabenick_2001_help-large-college-classes` — heterogeneity in who seeks help and from whom.
+- `karabenick_2011_self-regulated-help-seeking` — formal/self-regulated help-seeking framework.
+- `kahu_2013_student-engagement-framework` — broader engagement framing; secondary in Paper 2.
+
+## Encouragement / intervention comparators
+
+- `pugatch_2018_nudging-peer-tutoring-higher-education` — encouragement toward peer tutoring; useful for uptake/outcome contrast.
+- `paloyo_2016_supplemental-instruction-academic-performance` — randomized encouragement design; useful causal contrast to observational CMAT use.
+
+These comparators help distinguish what stronger identification can estimate; their causal estimates should not be mapped onto CMAT.
 
 ## Selection / observational methods
 
 ### `austin_2011_propensity-score-confounding`
-- Priority: **methods**
-- Role: propensity-score/confounding guidance for observational sensitivity analyses.
+- Priority: **methods**.
+- Role: practical propensity-score/confounding guidance for observational sensitivity analyses.
 
 ### `rosenbaum_1983_propensity-score-causal-effects`
-- Priority: **methods**
+- Priority: **methods**.
 - Role: foundational propensity-score methodology.
 
-These sources support adjustment/sensitivity language. They do **not** turn the primary CMAT design into a causal estimate because important pre-treatment variables, including baseline mathematics proficiency, are currently incomplete.
+These sources support adjustment/sensitivity language. They do **not** turn the primary CMAT design into a causal estimate because important pre-treatment variables, including baseline mathematics proficiency, are incomplete in the current administrative data.
 
 ## Measurement and classroom heterogeneity
 
-The paper’s distinctive measurement choice is classroom-relative performance:
+Paper 2 uses classroom-relative performance:
 
 `Z = (grade - classroom mean) / classroom sample SD`
 
-with classroom defined by professor × subject × period and a minimum valid classroom size. Literature directly motivating this exact standardisation remains a targeted gap; statistical references for heteroskedastic inference and clustered uncertainty belong in the manuscript methods bibliography rather than being treated as substantive mathematics-support literature.
+with classroom defined as professor × subject × period and a minimum valid classroom size.
 
-## Main empirical contrast to prior work
+- `kjaergaard_2024_gradeless-learning-academic-performance` — secondary assessment/performance context.
 
-CMAT’s exact visit-group analysis should be used to distinguish two empirical patterns:
-
-1. **use vs non-use**: robust separation between zero visits and positive use;
-2. **dose among users**: no robust monotone ordering among 1, 2, 3 and 4+ after multiplicity correction.
-
-Literature should be reviewed for whether prior mathematics-support studies explicitly separate these two questions. Do not describe CMAT’s observational pattern as a dose-response effect without stronger identification.
-# Paper 2 literature index
-
-All IDs resolve to `../../library/articles/<id>.md`.
-
-## Core mathematics-support evidence
-
-| Literature ID | Role in Paper 2 |
-|---|---|
-| `mullen_2024_mathematics-statistics-support-review` | Broad current review of MSS impact and evaluation; principal field anchor. |
-| `lawson_2019_mathematics-support-literature-review` | Mathematics-support literature synthesis and institutional context. |
-| `mac-an-bhaird_2009_mathematics-support-centre-grades` | Direct support-centre attendance/grade comparator. |
-| `jacob_2018_mathematics-support-impact-irish-university` | Longitudinal support/outcome evidence. |
-| `berry_2015_mathematics-learning-support-at-risk-students` | Use/performance among at-risk students; relevant for selection and heterogeneous need. |
-| `matthews_2013_evaluation-mathematics-support-centres` | Evaluation of mathematics-support centres. |
-| `pell_2008_mathematics-support-for-all` | Participation/outcome context. |
-| `navarra-madsen_2010_mathematics-tutoring-student-success` | Mathematics tutoring and student success. |
-| `mac-an-bhaird_2013_non-engagement-mathematics-support` | Non-engagement and barriers to support use. |
-| `ni-fhloinn_2016_gender-engagement-mathematics-support` | Heterogeneity in mathematics-support engagement. |
-| `johns_2026_performance-assessment-mathematics-tutoring-centres` | Recent evaluation/assessment framework for tutoring centres. |
-| `tinsley_2018_math-help-centers-student-perceptions` | Student perceptions and help-centre context. |
-
-## Help-seeking / selection context
-
-- `fong_2023_academic-help-seeking-achievement` — meta-analytic anchor; useful for discussing why support users are a selected group.
-- `karabenick_1991_academic-help-seeking-learning-strategies` — help-seeking and learning strategies.
-- `karabenick_2001_help-large-college-classes` — heterogeneity in who seeks help and from whom.
-- `karabenick_2011_self-regulated-help-seeking` — formal help-seeking framework.
-- `kahu_2013_student-engagement-framework` — broader engagement framing; secondary in Paper 2.
-
-## Encouragement/intervention comparators
-
-- `pugatch_2018_nudging-peer-tutoring-higher-education` — encouragement toward peer tutoring; important comparator for support uptake and outcomes.
-- `paloyo_2016_supplemental-instruction-academic-performance` — randomized encouragement design; useful causal contrast to the observational CMAT design.
-
-## Statistical / design references
-
-- `rosenbaum_1983_propensity-score-causal-effects` — propensity-score foundation if propensity-based sensitivity/adjustment is retained.
-- `austin_2011_propensity-score-confounding` — practical propensity-score guidance.
-
-These references support methodology, not a claim that the current CMAT estimates are causal.
-
-## Assessment/performance context
-
-- `kjaergaard_2024_gradeless-learning-academic-performance` — assessment/performance context; secondary.
+Literature directly motivating this exact standardisation remains a targeted gap. Statistical references for heteroskedastic inference, clustered uncertainty and multiple comparisons belong in the manuscript methods bibliography rather than being treated as substantive mathematics-support evidence.
 
 ## Current empirical interpretation to protect
 
-The strongest reproducible separation in the current work is approximately `0 visits` versus `any positive use`; the evidence does not support describing 1, 2, 3, and 4+ visits as a clean monotone causal dose-response.
+The exact visit-group analysis distinguishes two questions:
+
+1. **use vs non-use** — robust separation between zero visits and positive use;
+2. **dose among users** — no robust monotone ordering among 1, 2, 3 and 4+ after multiplicity-aware comparisons.
 
 Paper 2 should distinguish:
 
 - complete first-MU cohort (`N=6,627` in the current documented snapshot) for contemporaneous MU performance;
-- the later-Calculus progressor subset (`N=4,211`) as a selected future-conditioned sensitivity/population, not a replacement estimand.
+- later-Calculus progressor subset (`N=4,211`) as a selected future-conditioned sensitivity/population, not a replacement estimand.
+
+Do not describe the observational pattern as a causal dose-response without stronger identification.
