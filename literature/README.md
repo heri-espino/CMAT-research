@@ -1,23 +1,33 @@
 # Literature
 
-Private literature corpus, technical indices and citation notes for the CMAT research project.
+This directory is organized by **scientific use**, not by upload batch.
 
-## Heavy corpus
+## Structure
 
-- `Bib/`: Batch 1. Includes PDFs, Docling Markdown, separated references and retained PNG/table/figure assets.
-- `Bib2/`: Batch 2. Includes 30 extracted Markdown records, 29 source PDFs and 24 separated reference files. **No visual assets are retained in Bib2 by design.**
+- `library/`: canonical research library and source-material catalogue.
+- `general/`: cross-project literature map for concepts shared by the CMAT research programme.
+- `papers/paper1_ppa_persistence/`: literature view for the persistence-after-incentive manuscript.
+- `papers/paper2_mu_performance/`: literature view for the MU performance manuscript.
+- `AI_HANDOFF.md`: state and operating guidance for future AI sessions.
+- `AGENTS.md`: maintenance and retrieval rules for humans and automated agents.
 
-## Retrieval rule
+## Core rule
 
-Always start with the batch `INDEX.md`, then read only targeted Markdown. Use separated references only for citation chaining or bibliographic checks. If an exact value, formula, graph or table is ambiguous, use the source PDF as the fallback.
+A paper may be relevant to several scientific views, but it should not be physically duplicated solely for that reason. Paper-specific folders contain indices, cards and synthesis notes that point back to the library source material.
 
-The retrieval chains therefore differ slightly:
+## Source material
 
-- `Bib/`: index -> Markdown -> targeted asset when useful -> PDF.
-- `Bib2/`: index -> Markdown -> references when needed -> PDF.
+Historical imports are preserved under `library/source_material/` for provenance:
 
-Do not load either full corpus unnecessarily.
+- `visual_corpus/`: source set with PDFs, extracted Markdown, references and Docling visual assets.
+- `pdf_markdown_corpus/`: source set with PDFs/Markdown/references and no visual assets by design.
 
-## Publication rule
+These are storage/provenance layers, not the scientific organization of the literature.
 
-This repository is private. Literature PDFs and any retained Docling assets are preserved for internal research continuity; they are not automatically redistributable in a public release.
+## Retrieval order
+
+Start from the relevant scientific `INDEX.md`, locate the source in the library catalogue, read targeted extracted Markdown, then use separated references for citation chaining and the PDF for exact/visual verification.
+
+## Publication boundary
+
+The repository is private. Source PDFs and extraction artifacts are internal research materials and are not automatically redistributable in a public release.
