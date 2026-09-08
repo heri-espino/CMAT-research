@@ -54,16 +54,41 @@ Do not recreate `Bib`, `Bib2`, `Bib3`, or other upload-batch folders as user-fac
 **Journal route:** not frozen; TEAMAT/IJMEST for substantive mathematics-support framing, Journal of Learning Analytics for a genuine trace/sequence-method contribution, International Journal of STEM Education as an ambitious STEM-progression route.  
 **Boundary:** full-degree data coverage/missingness and revalidation logic must be audited before method selection.
 
+## Paper 1 technical reading-note layer
+
+Paper 1 now has a human-readable technical evidence layer:
+
+- `literature/papers/paper1_ppa_persistence/READING_GUIDE.md` — rapid overview;
+- `literature/papers/paper1_ppa_persistence/reading_notes/README.md` — required schema;
+- `literature/papers/paper1_ppa_persistence/reading_notes/general/` — article-level technical notes.
+
+### Completed general/foundational notes
+
+- Kahu (2013) — conceptual engagement framework;
+- Kahu & Nelson (2018) — educational-interface framework;
+- Fong et al. (2023) — postsecondary help-seeking meta-analysis;
+- Mullen et al. (2024) — systematic scoping review of MSS evaluation;
+- Lawson, Grove & Croft (2020) — mathematics-support literature review;
+- Wilcox, Winn & Fyvie-Gauld (2005) — qualitative first-year social-support/retention study;
+- van Herpen et al. (2020) — quasi-experimental first-year transition intervention.
+
+These notes record methods, sample sizes, individual important findings, effect sizes/test statistics/p-values/CI where genuinely reported, brief quotation anchors, claim boundaries and local verification paths. Conceptual/qualitative papers are explicitly labelled as having no applicable inferential statistics instead of being forced into a quantitative template.
+
+### Next Paper 1 batch
+
+Create `reading_notes/incentives/` and technical notes for the incentive-specific literature, beginning with Gneezy et al. (2011), Angrist et al. (2009), Agnew et al. (2021), Leuven et al. (2010), Oreopoulos/Petronijevic, Blondeel et al., and the most useful behavioural-economics reviews.
+
 ## Retrieval order
 
 1. Read `literature/README.md`.
 2. Read `docs/PUBLICATION_PORTFOLIO.md` if the task concerns manuscript strategy.
 3. Read the relevant paper/general `INDEX.md`.
-4. Use `literature/library/CATALOG.md` and source-material indices to locate the canonical record.
-5. Read targeted extracted Markdown first.
-6. Read separated references only for citation chaining or bibliography verification.
-7. Open the source PDF when an exact table, figure, coefficient, wording, page, or extraction ambiguity matters.
-8. Visual assets exist only for part of the historical corpus; never assume they exist for every paper.
+4. For Paper 1, read `READING_GUIDE.md` and relevant article note before reopening the full source.
+5. Use `literature/library/CATALOG.md` and source-material indices to locate the canonical record.
+6. Read targeted extracted Markdown first.
+7. Read separated references only for citation chaining or bibliography verification.
+8. Open the source PDF when an exact table, figure, coefficient, wording, page, or extraction ambiguity matters.
+9. Visual assets exist only for part of the historical corpus; never assume they exist for every paper.
 
 ## Important interpretation rules
 
@@ -72,6 +97,8 @@ Do not recreate `Bib`, `Bib2`, `Bib3`, or other upload-batch folders as user-fac
 - Keep published and working-paper versions separate when they are genuinely distinct scholarly versions.
 - Prefer the most complete/high-fidelity extracted Markdown when true duplicates are discovered, but preserve provenance in the catalogue.
 - Do not infer numerical results from corrupted extraction; verify against the PDF.
+- Never invent p-values, coefficients, R², effect sizes or sample sizes for a source that does not report them.
+- Preserve null results in technical reading notes.
 - Literature PDFs are internal research materials in this private repository and are not automatically redistributable in a public release.
 - Literature organization must not dictate scientific results; all papers consume canonical outputs from the shared analysis pipeline.
 
@@ -82,7 +109,8 @@ Do not recreate `Bib`, `Bib2`, `Bib3`, or other upload-batch folders as user-fac
 3. update `literature/library/CATALOG.md`;
 4. add it to every relevant scientific view (`general` and/or Papers 1–5) with a short role/priority note;
 5. update the relevant `MISSING_LITERATURE.md` if the source fills a known gap;
-6. avoid physical duplication solely because a source supports multiple manuscripts.
+6. if the source is substantive for an active paper, create/update its technical reading note using that paper's reading-note protocol;
+7. avoid physical duplication solely because a source supports multiple manuscripts.
 
 ## Maintenance when the publication plan changes
 
