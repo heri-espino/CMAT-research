@@ -1,16 +1,28 @@
 # Literature
 
-Private literature corpus, technical cards, indices and citation notes.
+The active literature architecture is organized by scientific use, not by ingestion batch.
 
-## Heavy corpus
+```text
+literature/
+├── library/          # one physical canonical copy of each work/version
+├── general/          # cross-project thematic map
+└── papers/
+    ├── paper1_ppa_persistence/
+    └── paper2_mu_performance/
+```
 
-- `Bib/`: heavy Batch 1 currently present, including PDFs, Docling Markdown, references and PNG assets via Git LFS.
-- `Bib2/`: reserved for heavy Batch 2; provenance/checksum documented in `docs/HEAVY_SNAPSHOT.md`.
+Historical folders named `Bib`, `Bib2`, and `Bib2-2` are migration artifacts preserved in Git history only. Future work must not recreate them.
 
-## Retrieval rule
+## Key principle
 
-Use indices/cards first, then targeted Markdown, then source PDF only when exact wording, tables or figures need verification. Do not load the entire corpus unnecessarily.
+**Store once, index many times.** A paper relevant to both manuscripts stays once in `library/` and is referenced from both paper-specific indices.
 
-## Publication rule
+## Retrieval
 
-This repository is private. Literature PDFs and Docling assets are preserved here for internal research continuity; they are not automatically redistributable in a public release.
+1. Start with `general/INDEX.md` for a broad project question, or a paper-specific `papers/.../INDEX.md` for manuscript work.
+2. Resolve the stable literature ID in `library/articles/`.
+3. Use separated references only for citation chaining/metadata verification.
+4. Use a targeted archived asset if it exists and materially helps; otherwise consult the PDF for exact/visual verification.
+5. Do not load the whole corpus into context.
+
+See `AGENTS.md` and `AI_HANDOFF.md` before restructuring or adding literature.
