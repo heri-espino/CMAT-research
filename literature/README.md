@@ -6,14 +6,23 @@ This directory is organized by **scientific use**, not by upload batch.
 
 - `library/`: canonical research library and source-material catalogue.
 - `general/`: cross-project literature map for concepts shared by the CMAT research programme.
-- `papers/paper1_ppa_persistence/`: literature view for the persistence-after-incentive manuscript.
-- `papers/paper2_mu_performance/`: literature view for the MU performance manuscript.
+- `papers/`: five manuscript-specific literature views.
 - `AI_HANDOFF.md`: state and operating guidance for future AI sessions.
 - `AGENTS.md`: maintenance and retrieval rules for humans and automated agents.
 
+## Five paper views
+
+1. `papers/paper1_ppa_persistence/` — incentive-linked first-year support use and later persistence.
+2. `papers/paper2_mu_performance/` — CMAT use and classroom-relative first-MU performance.
+3. `papers/paper3_grading_heterogeneity/` — instructor-by-term grading heterogeneity and assessment comparability.
+4. `papers/paper4_degree_help_seeking/` — disciplinary/degree-programme heterogeneity in support use and persistence.
+5. `papers/paper5_longitudinal_trajectories/` — full-degree longitudinal mathematics-support trajectories.
+
+Canonical title/priority/journal plan: `../docs/PUBLICATION_PORTFOLIO.md`.
+
 ## Core rule
 
-A paper may be relevant to several scientific views, but it should not be physically duplicated solely for that reason. Paper-specific folders contain indices, cards and synthesis notes that point back to the library source material.
+A source may be relevant to several scientific views, but it should not be physically duplicated solely for that reason. Paper-specific folders contain indices and synthesis/gap notes that point back to the shared library source material.
 
 ## Source material
 
@@ -26,7 +35,7 @@ These are storage/provenance layers, not the scientific organization of the lite
 
 ## Retrieval order
 
-Start from the relevant scientific `INDEX.md`, locate the source in the library catalogue, read targeted extracted Markdown, then use separated references for citation chaining and the PDF for exact/visual verification.
+Start from the relevant scientific `INDEX.md`, locate the source in the library catalogue, read targeted extracted Markdown, then use separated references for citation chaining and the PDF for exact/visual verification. Use assets only where they exist and materially help.
 
 ## Publication boundary
 
