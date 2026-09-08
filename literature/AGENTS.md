@@ -8,26 +8,31 @@ Do not organize literature by upload batch. The user-facing structure is:
 
 - `library/` — canonical source material and master catalogue;
 - `general/` — cross-project conceptual literature;
-- `papers/paper1_ppa_persistence/` — Paper 1 literature view;
-- `papers/paper2_mu_performance/` — Paper 2 literature view.
+- `papers/paper1_ppa_persistence/` — incentive-context persistence;
+- `papers/paper2_mu_performance/` — CMAT use and MU performance;
+- `papers/paper3_grading_heterogeneity/` — grading/assessment comparability;
+- `papers/paper4_degree_help_seeking/` — disciplinary heterogeneity in support use;
+- `papers/paper5_longitudinal_trajectories/` — full-degree support trajectories.
 
 Historical source imports may remain nested under `library/source_material/` for provenance, but their storage boundaries must not dictate scientific interpretation.
 
+The canonical five-paper title/priority/journal plan is `../docs/PUBLICATION_PORTFOLIO.md`.
+
 ## 2. One physical source, many views
 
-A paper can support several research questions. Do not copy the same PDF/Markdown into general + Paper 1 + Paper 2. Instead, add references to the canonical source from multiple indices/cards.
+A paper can support several research questions. Do not copy the same PDF/Markdown into general + multiple paper folders. Instead, add references to the canonical source from multiple indices/cards.
 
 ## 3. Retrieval protocol
 
 For a literature question:
 
-1. identify whether the question is general, Paper 1, Paper 2, or cross-paper;
+1. identify whether the question is general, paper-specific, or cross-paper;
 2. open the corresponding `INDEX.md` first;
 3. use `library/CATALOG.md` and source-material indices to locate the canonical record;
 4. read only the relevant extracted Markdown sections;
 5. inspect `references/` only for citation chaining or bibliography verification;
 6. inspect the PDF for exact tables, figures, coefficients, confidence intervals, sample sizes, page-level wording, or extraction ambiguity;
-7. use Docling assets only where they actually exist; the PDF/Markdown corpus intentionally has no assets.
+7. use Docling assets only where they actually exist and materially help.
 
 Do not load the entire corpus into context when a targeted search is sufficient.
 
@@ -58,29 +63,58 @@ Paper views should annotate each source with a role such as:
 - `context` — institutional/domain background;
 - `contrast` — competing explanation or alternative interpretation.
 
-Where useful, also note `used_in` (Introduction, Methods, Discussion) and `do_not_claim` boundaries.
+Where useful, also note `used_in` and `do_not_claim` boundaries.
 
-## 7. Paper 1 scope
+## 7. Five-paper routing rules
 
-Paper 1 studies persistence of CMAT support-seeking after an incentive-linked first-year context. Relevant literature families include incentives, removal of incentives, persistence, engagement, academic help-seeking, first-year transitions and mathematics-support context.
+### Paper 1 — incentive-linked persistence
+Relevant families: incentives, incentive removal, persistence, engagement, academic help-seeking, first-year transitions and mathematics-support context.
 
-Do not describe PPA as an exogenous treatment and do not identify a causal PPA effect from the observational CMAT data.
+Do not describe PPA as an exogenous treatment and do not identify a causal PPA effect from observational CMAT data.
 
-## 8. Paper 2 scope
-
-Paper 2 studies CMAT use and classroom-relative MU academic performance. Relevant literature families include mathematics/statistics support, tutoring/help-seeking, selection into support, usage intensity, academic performance, classroom adjustment and observational robustness.
+### Paper 2 — MU performance
+Relevant families: mathematics/statistics support, tutoring/help-seeking, selection into support, usage intensity, academic performance, classroom adjustment and observational robustness.
 
 Do not convert association into a causal tutoring effect without an identified design.
 
-## 9. Maintenance rule
+### Paper 3 — grading heterogeneity
+Relevant families: higher-education assessment, grading severity/leniency, instructor/section comparability, multilevel variation, measurement, standardization and mathematics-assessment context.
+
+Do not treat classroom-relative `Z` as latent mathematical proficiency; it is contextual relative position.
+
+### Paper 4 — disciplinary help-seeking heterogeneity
+Relevant families: academic help-seeking, engagement, disciplinary/major differences, support access, mathematics-support non-engagement, programme context and ecological inference.
+
+Do not infer individual mechanisms from programme-level averages or scatterplots.
+
+### Paper 5 — longitudinal trajectories
+Relevant families: longitudinal help-seeking, repeated support use, educational transitions, sequence/state models, learning analytics, STEM progression, longitudinal missingness and data ethics.
+
+Do not label trajectory classes as motivation/habit/need solely from visit patterns.
+
+## 8. Maintenance rule
 
 When adding or materially changing literature:
 
 - update `library/CATALOG.md`;
-- update every relevant scientific view;
-- update `AI_HANDOFF.md` if architecture, retrieval rules or major literature gaps changed;
+- update every relevant scientific view among general + Papers 1–5;
+- update the relevant `MISSING_LITERATURE.md` when a gap is filled or newly identified;
+- update `AI_HANDOFF.md` if architecture, retrieval rules, portfolio status or major literature gaps changed;
+- update `../docs/PUBLICATION_PORTFOLIO.md` only when title/priority/journal strategy actually changes;
 - do not rename stable paper IDs casually;
 - keep manuscript `.bib` files with manuscripts, not inside this research-library folder.
+
+## 9. Portfolio consistency
+
+The manuscript folders under root `papers/` and the literature views under `literature/papers/` must use the same stable IDs:
+
+- `paper1_ppa_persistence`
+- `paper2_mu_performance`
+- `paper3_grading_heterogeneity`
+- `paper4_degree_help_seeking`
+- `paper5_longitudinal_trajectories`
+
+Do not create alternate IDs for the same paper.
 
 ## 10. Privacy/copyright boundary
 
