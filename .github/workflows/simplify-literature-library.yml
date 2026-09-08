@@ -18,7 +18,18 @@ jobs:
           lfs: false
 
       - name: Prepare verified migration
-        run: python .github/scripts/simplify_literature.py
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('.github/scripts/simplify_literature.py')
+          text = p.read_text()
+          old = """            for p in d.iterdir():\n                if p.is_file():\n                    candidates.setdefault(p.name, []).append(p)\n"""
+          new = """            suffix = '.pdf' if kind == 'pdf' else '.md'\n            for p in d.iterdir():\n                if p.is_file() and p.suffix.lower() == suffix:\n                    candidates.setdefault(p.name, []).append(p)\n"""
+          if old not in text:
+              raise SystemExit('expected verifier block not found')
+          p.write_text(text.replace(old, new))
+          PY
+          python .github/scripts/simplify_literature.py
 
       - name: Remove redundant hierarchy
         run: |
