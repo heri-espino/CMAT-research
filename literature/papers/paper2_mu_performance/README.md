@@ -2,11 +2,27 @@
 
 Working manuscript: **Mathematics Support Use and Classroom-Relative Academic Performance in First-Year University Mathematics**.
 
-This folder is a scientific view over the shared library, not a separate physical corpus.
+This folder is a manuscript-specific scientific/editorial view over the shared literature library. It contains no article copies.
 
 ## Core question
 
-How is CMAT use associated with classroom-relative academic performance in first Mathematics University (MU), after accounting for classroom structure, degree programme and observational-selection concerns?
+How is contemporaneous CMAT use associated with classroom-relative academic performance in first-attempt Matemáticas Universitarias (MU), after accounting for classroom structure, degree programme and observational-selection concerns?
+
+## Target
+
+TEAMAT first; IJMEST second; IJRUME ambitious.
+
+## Literature logic
+
+Paper 2 should be mathematics-support heavy, with methodological emphasis on:
+
+- a homogeneous first-attempt MU cohort;
+- contemporaneous support exposure;
+- classroom-relative standardisation;
+- heteroscedastic inference;
+- all-pair visit-group contrasts;
+- selection into support;
+- the absence of a robust monotone dose-response among positive users.
 
 ## Literature families
 
@@ -18,18 +34,7 @@ How is CMAT use associated with classroom-relative academic performance in first
 - observational robustness and propensity-score sensitivity.
 
 Start with `INDEX.md`. Use `MISSING_LITERATURE.md` for targeted gaps.
-# Paper 2 literature — CMAT use and classroom-relative MU performance
 
-This directory is a manuscript-specific retrieval/editorial layer over the shared canonical literature library. It contains no article copies.
+## Interpretation boundary
 
-## Manuscript question
-
-How is contemporaneous CMAT use associated with classroom-relative academic performance in first-attempt Matemáticas Universitarias (MU)?
-
-## Target
-
-TEAMAT first; IJMEST second.
-
-## Literature logic
-
-Paper 2 should be mathematics-support heavy, with a clear methodological contribution around cohort definition, contemporaneous exposure, classroom-relative standardisation, heteroscedastic inference, all-pair visit-group contrasts, and the absence of a robust monotone dose-response.
+The primary documented first-MU cohort is `N=6,627`. The future-Calculus `N=4,211` population is a selected future-conditioned sensitivity and must not replace the contemporaneous estimand. CMAT use is observational; do not describe group differences as causal tutoring effects or a causal dose-response.
