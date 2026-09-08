@@ -48,6 +48,12 @@ jobs:
           text = p.read_text()
           text = text.replace('\n`literature/library/source_material/visual_corpus/assets/fong_2023_academic-help-seeking-achievement/`\n', '\n')
           p.write_text(text)
+
+          for fn in ['docs/HEAVY_SNAPSHOT.md', 'docs/MIGRATION_STATUS.md']:
+              p = Path(fn)
+              text = p.read_text()
+              text = text.replace('and redundant `library/INDEX.md` were removed', 'and the redundant former secondary inventory were removed')
+              p.write_text(text)
           PY
 
       - name: Remove redundant hierarchy
