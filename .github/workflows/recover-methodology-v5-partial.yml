@@ -1,0 +1,56 @@
+name: Recover methodology v5 partial archive
+
+on:
+  push:
+    branches:
+      - restore/methodology-v5-report-v2-finalize
+    paths:
+      - '.github/workflows/recover-methodology-v5-partial.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  recover:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout full history
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Recover complete members before corrupt gzip block
+        shell: bash
+        run: |
+          set -euo pipefail
+          git show a1badecf897a7426725212e3c646e3003d8371e9:scripts/patches/methodology_v5.tar.gz.b64 > /tmp/methodology_v5.tar.gz.b64
+          base64 -d /tmp/methodology_v5.tar.gz.b64 > /tmp/methodology_v5.tar.gz
+          mkdir -p /tmp/recovered
+          set +e
+          gzip -cd /tmp/methodology_v5.tar.gz > /tmp/methodology_v5.partial.tar
+          GZIP_RC=$?
+          set -e
+          echo "gzip rc=$GZIP_RC"
+          tar -xf /tmp/methodology_v5.partial.tar -C /tmp/recovered --ignore-zeros || true
+          echo 'Recovered files:'
+          find /tmp/recovered -type f -printf '%P\t%s bytes\n' | sort
+          echo 'Candidate hashes:'
+          for f in \
+            src/visitas_analysis/study/pipeline.py \
+            PYTHON_FUNCTION_INDEX.md \
+            SOURCE_MANIFEST_SHA256.txt \
+            STUDY_PROTOCOL.md \
+            METHODOLOGY_CHANGELOG.md \
+            .ai_handoff.md; do
+            if [ -f "/tmp/recovered/$f" ]; then
+              sha256sum "/tmp/recovered/$f"
+            fi
+          done
+
+      - name: Save recovered candidates for inspection
+        uses: actions/upload-artifact@v4
+        with:
+          name: methodology-v5-partial-recovery
+          path: /tmp/recovered
+          if-no-files-found: warn
+          retention-days: 7
