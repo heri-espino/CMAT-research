@@ -361,7 +361,7 @@ def build_all_math_attempts_with_outcomes(data, config) -> pd.DataFrame:
     """
     d = data.academics.loc[data.academics["GRADE_CLASS"].isin(["numeric", "adverse"])].copy()
     cov = _coverage_set(data)
-    d = d.loc[[(int(y), s) in cov for y, s in zip(d["YEAR"], d["SESSION"])]] .copy()
+    d = d.loc[[(int(y), s) in cov for y, s in zip(d["YEAR"], d["SESSION"])]].copy()
     d = attach_visits(d, data.advisories, threshold=config.ppa_threshold)
     d["CLASSROOM_ID"] = (
         d["CLAVEPROFESOR"].astype(str)

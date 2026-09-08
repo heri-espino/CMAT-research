@@ -85,6 +85,7 @@ def plot_peak_spacing_by_population(intervals: pd.DataFrame, out: Path, filename
         return
     populations = list(intervals["population"].dropna().unique())
     fig, ax = plt.subplots(figsize=(8.0, 5.0))
+    positions = np.arange(len(populations))
     data = [intervals.loc[intervals["population"] == p, "gap_days"].dropna().to_numpy(float) for p in populations]
     ax.boxplot(data, tick_labels=populations, showmeans=True)
     ax.axhspan(24, 38, alpha=0.10, label="Ventana 24–38 días")
