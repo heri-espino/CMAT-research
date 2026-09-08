@@ -1,34 +1,46 @@
 # Heavy private snapshot inventory
 
-This repository is intended to preserve the full internal CMAT research snapshot. Heavy binaries are configured for Git LFS in `.gitattributes`.
+This private repository preserves the CMAT research code/report history and an internal literature corpus. Heavy binaries are configured for Git LFS where applicable.
 
-## Literature corpus available for migration
+## Literature Batch 1
 
-Two local source archives were preserved during the research workflow:
-
-### Batch 1 — `Bib.zip`
+Source archive: `Bib.zip`
 
 - SHA-256: `84ef1c01a85db38ef6b5413621480eba1332f800dddc2523f098209e0745a237`
-- Expanded directory size: approximately 42 MB
-- 20 source PDFs
-- 20 Docling Markdown article extractions
-- 136 Docling visual assets (PNG/table/figure files)
-- separated reference files and technical index files
+- original expanded size: approximately 42 MB;
+- 20 source PDFs;
+- 20 Docling Markdown article extractions;
+- 136 Docling visual assets;
+- separated reference files and technical index files.
 
-Target path in this repository: `literature/Bib/`
+Canonical repository path: `literature/Bib/`.
 
-### Batch 2 — literature expansion
+Batch 1 is preserved with its visual assets.
 
-Source archive: `339dc703-470e-407c-bb54-97ab069e4ce7.zip`
+## Literature Batch 2
 
-- SHA-256: `cfa14830138c970027a9bf730eab2e62b5bf84fe072ddb3c82c206a5c242478c`
-- Expanded directory size: approximately 99 MB
-- 29 source PDFs
-- 29 Docling Markdown article extractions
-- 322 Docling visual assets
-- separated reference files and technical index files
+Original source archive: `339dc703-470e-407c-bb54-97ab069e4ce7.zip`
 
-Target path in this repository: `literature/Bib2/` during raw archival preservation. A later consolidation may canonicalize duplicate papers into `literature/Bib/`, but the raw imported batches should remain traceable by checksum.
+- SHA-256: `cfa14830138c970027a9bf730eab2e62b5bf84fe072ddb3c82c206a5c242478c`;
+- original expanded size: approximately 99 MB;
+- original archive included 29 source PDFs and hundreds of Docling visual assets.
+
+Canonical repository path: `literature/Bib2/`.
+
+### Curated GitHub representation
+
+The repository intentionally does **not** reproduce the full original Batch 2 asset directory. The current checked-in representation contains:
+
+- 30 extracted Markdown records;
+- 29 source PDFs;
+- 24 separated reference files;
+- 0 Docling PNG/table/figure assets.
+
+The additional Markdown record reflects retained/versioned source material in the curated corpus. `kahu_2018_student-engagement-educational-interface` has a Markdown source copy rather than a PDF in this batch.
+
+The visual assets were intentionally omitted because they were large and largely redundant with the retained source PDFs. For Bib2, exact table/figure verification therefore falls back directly to the PDF.
+
+The original archive checksum above remains the provenance reference for the uncurated source package; the GitHub representation is a deliberate derivative and should not be expected to reproduce the original archive byte-for-byte.
 
 ## Current methodology/report snapshots
 
@@ -38,7 +50,7 @@ Target path in this repository: `literature/Bib2/` during raw archival preservat
 
 ## Privacy boundary
 
-The heavy snapshot may include literature PDFs and Docling-generated visual assets because this GitHub repository is private and the owner explicitly requested preservation. It must **not** include:
+The repository must **not** include:
 
 - administrative Excel workbooks;
 - row-level student/advising microdata;
@@ -46,10 +58,6 @@ The heavy snapshot may include literature PDFs and Docling-generated visual asse
 - HMAC/secret keys;
 - credentials or tokens.
 
-## Git LFS
+## Rights / release boundary
 
-`*.pdf`, literature `*.png`/images, report/paper binaries, and archive ZIPs are configured for Git LFS. This is deliberate: committing roughly 140 MB of already-compressed PDF/PNG material directly into ordinary Git history would make the repository unnecessarily difficult to clone and maintain.
-
-## Important connector limitation
-
-The ChatGPT GitHub connector can create/update GitHub files and individual Git objects, but it does not expose a local-directory `git push`/Git-LFS streaming operation. Therefore the repository can be prepared and maintained here, while the initial transfer of the ~140 MB binary corpus requires a Git/LFS client capable of streaming local files. Once those binaries exist in the repository, future text/code/document changes can continue through the connected GitHub workflow.
+Literature PDFs and retained extraction artifacts are stored for internal research continuity in this private repository. Their presence here does not imply permission for redistribution in a public data/code release.
