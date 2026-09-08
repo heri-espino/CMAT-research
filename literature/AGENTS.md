@@ -49,11 +49,11 @@ Do not load the whole corpus when targeted retrieval is sufficient.
 2. add the canonical Markdown record to `library/articles/`;
 3. add the source PDF to `library/pdf/` when available and appropriate for this private repository;
 4. add separated references to `library/references/` when useful;
-5. 6. update `library/CATALOG.md`;
-7. update every relevant scientific view among `general/` and Papers 1–5;
-8. update a relevant `MISSING_LITERATURE.md` when a gap is filled or newly identified;
-9. create/update a technical reading note when the source is substantive for an active manuscript;
-10. update `AI_HANDOFF.md` if architecture, retrieval rules, portfolio status or major gaps changed.
+5. update `library/CATALOG.md`;
+6. update every relevant scientific view among `general/` and Papers 1–5;
+7. update a relevant `MISSING_LITERATURE.md` when a gap is filled or newly identified;
+8. create/update a technical reading note when the source is substantive for an active manuscript;
+9. update `AI_HANDOFF.md` if architecture, retrieval rules, portfolio status or major gaps changed.
 
 Do not recreate upload-batch folders (`Bib`, `Bib2`, `Bib3`, etc.), `source_material/`, extracted asset trees, or paper-specific physical source copies.
 
@@ -97,6 +97,21 @@ A substantive note should capture, when actually reported:
 Do **not** fabricate quantitative statistics for conceptual, narrative-review or qualitative papers. State `inferential statistics: not applicable` and document the actual method.
 
 If a statistic is calculated by us rather than printed in the source, label it explicitly as derived and record the source quantities used.
+
+### Reading-note subfolders
+
+Reading-note subfolders are scientific retrieval categories, not mini-libraries and not provenance folders. Keep one canonical technical note per source; when a source serves several scientific functions, cross-reference it rather than duplicating the note.
+
+For Paper 1:
+
+- `reading_notes/general/` is the default home for foundational and cross-cutting engagement, help-seeking, mathematics-support, first-year-transition and persistence literature.
+- future `reading_notes/incentives/` is reserved for sources whose central scientific contribution concerns incentives, incentive removal/expiration, participation contingencies, thresholds, or behavioural interventions that help interpret the PPA change in incentive context.
+- an incentive-specific note should record intervention type, target behaviour, assignment/exposure, magnitude/threshold when applicable, timing and removal, follow-up horizon, compliance/take-up, identification strategy, post-incentive behaviour, mechanism evidence, and transportability to CMAT when reported.
+- mentioning motivation, tutoring, attendance or engagement is not enough to route a source to `incentives/`; the incentive/behavioural mechanism must be substantive.
+
+Create any additional reading-note subfolder only when it has a distinct scientific purpose, a recurring set of substantive sources or committed review stream, a stable inclusion/exclusion rule, and clear manuscript-retrieval value. Do not create folders by upload batch, provider, extraction method, file type, processing status or arbitrary chronology.
+
+The detailed Paper 1 routing policy lives in `papers/paper1_ppa_persistence/reading_notes/README.md`. Update that file when a new scientific-function subfolder is introduced.
 
 ## 9. Five-paper routing rules
 
