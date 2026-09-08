@@ -104,10 +104,12 @@ Reading-note subfolders are scientific retrieval categories, not mini-libraries 
 
 For Paper 1:
 
-- `reading_notes/general/` is the default home for foundational and cross-cutting engagement, help-seeking, mathematics-support, first-year-transition and persistence literature.
-- future `reading_notes/incentives/` is reserved for sources whose central scientific contribution concerns incentives, incentive removal/expiration, participation contingencies, thresholds, or behavioural interventions that help interpret the PPA change in incentive context.
-- an incentive-specific note should record intervention type, target behaviour, assignment/exposure, magnitude/threshold when applicable, timing and removal, follow-up horizon, compliance/take-up, identification strategy, post-incentive behaviour, mechanism evidence, and transportability to CMAT when reported.
+- `reading_notes/general/` is the home for foundational and cross-cutting engagement, help-seeking, mathematics-support, first-year-transition and persistence literature.
+- `reading_notes/incentives/` is now active and contains sources whose central scientific contribution concerns incentives, incentive removal/expiration, participation contingencies, thresholds, or behavioural interventions that help interpret the PPA change in incentive context.
+- incentive-specific notes should record intervention type, target behaviour, assignment/exposure, magnitude/threshold when applicable, timing and removal, follow-up horizon, compliance/take-up, identification strategy, post-incentive behaviour, mechanism evidence, and transportability to CMAT when reported.
 - mentioning motivation, tutoring, attendance or engagement is not enough to route a source to `incentives/`; the incentive/behavioural mechanism must be substantive.
+
+Current Paper 1 incentive-note anchors include Gneezy et al. (2011), Angrist et al. (2009), Leuven et al. (2010), Agnew et al. (2021), Oreopoulos & Petronijevic (2019), Blondeel et al. (2023), and Damgaard & Nielsen (2018).
 
 Create any additional reading-note subfolder only when it has a distinct scientific purpose, a recurring set of substantive sources or committed review stream, a stable inclusion/exclusion rule, and clear manuscript-retrieval value. Do not create folders by upload batch, provider, extraction method, file type, processing status or arbitrary chronology.
 
