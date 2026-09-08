@@ -2,7 +2,7 @@
 
 This folder is the cross-project conceptual map for literature that informs the CMAT research programme as a whole.
 
-It is not a separate physical library. Sources remain under `../library/source_material/`; this folder contains scientific indices and synthesis/retrieval notes.
+It is not a separate physical library. Sources remain under `../library/`; this folder contains scientific indices and synthesis/retrieval notes.
 
 Primary themes:
 

@@ -80,10 +80,10 @@ Use as a field-level summary, not as proof that CMAT causes positive outcomes.
 
 Preferred source:
 
-`literature/library/source_material/visual_corpus/extracted/mullen_2024_mathematics-statistics-support-review.md`
+`literature/library/articles/mullen_2024_mathematics-statistics-support-review.md`
 
 Source PDF:
 
-`literature/library/source_material/visual_corpus/pdf/mullen_2024_mathematics-statistics-support-review.pdf`
+`literature/library/pdf/mullen_2024_mathematics-statistics-support-review.pdf`
 
 Useful anchors: abstract; Methods section; PRISMA flow; Results §3.4 on analysis methods and reported results.

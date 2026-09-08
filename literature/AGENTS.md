@@ -14,8 +14,6 @@ Do not organize literature by upload batch. The user-facing structure is:
 - `papers/paper4_degree_help_seeking/` — disciplinary heterogeneity in support use;
 - `papers/paper5_longitudinal_trajectories/` — full-degree support trajectories.
 
-Historical source imports remain nested under `library/source_material/` for provenance. Their storage boundaries must not dictate scientific interpretation.
-
 Canonical title/priority/journal plan: `../docs/PUBLICATION_PORTFOLIO.md`.
 
 ## 2. One physical source, many views
@@ -29,11 +27,11 @@ For a literature question:
 1. identify whether it is general, paper-specific, or cross-paper;
 2. open the corresponding `INDEX.md` first;
 3. if a paper-specific `READING_GUIDE.md` exists, use it for rapid technical orientation;
-4. use `library/CATALOG.md` and the source-material indices to locate the canonical record;
+4. use `library/CATALOG.md` to locate the canonical record;
 5. read only relevant extracted Markdown sections;
 6. inspect `references/` only for citation chaining/bibliography verification;
 7. inspect the source PDF for exact tables, figures, coefficients, confidence intervals, sample sizes, page-level wording, or extraction ambiguity;
-8. use Docling assets only where they actually exist and materially help.
+8. use the source PDF for exact visual verification; extracted Docling assets are not retained in the active library.
 
 Do not load the whole corpus when targeted retrieval is sufficient.
 
@@ -42,23 +40,22 @@ Do not load the whole corpus when targeted retrieval is sufficient.
 - Source PDFs are the final verification layer.
 - Extracted Markdown is the primary efficient reading layer.
 - Separated references are secondary metadata.
-- Docling assets are optional visual fallbacks.
+- The source PDF is the visual verification layer.
 - Never infer a material numerical value from visibly corrupted extraction.
 
 ## 5. Adding a new work
 
 1. choose a stable ID such as `author_year_short-topic`;
-2. place/register the work in the appropriate canonical source-material layer under `library/source_material/`;
-3. retain the source PDF when available and appropriate for this private repository;
-4. retain separated references when useful;
-5. add visual assets only when they already exist or are genuinely needed—do not regenerate hundreds of images for archival completeness;
-6. update `library/CATALOG.md`;
+2. add the canonical Markdown record to `library/articles/`;
+3. add the source PDF to `library/pdf/` when available and appropriate for this private repository;
+4. add separated references to `library/references/` when useful;
+5. 6. update `library/CATALOG.md`;
 7. update every relevant scientific view among `general/` and Papers 1–5;
 8. update a relevant `MISSING_LITERATURE.md` when a gap is filled or newly identified;
 9. create/update a technical reading note when the source is substantive for an active manuscript;
 10. update `AI_HANDOFF.md` if architecture, retrieval rules, portfolio status or major gaps changed.
 
-Do not create `library/articles/`, `Bib3`, `Bib4`, or paper-specific physical source copies unless the architecture is intentionally changed and documented first.
+Do not recreate upload-batch folders (`Bib`, `Bib2`, `Bib3`, etc.), `source_material/`, extracted asset trees, or paper-specific physical source copies.
 
 ## 6. Duplicate/version handling
 

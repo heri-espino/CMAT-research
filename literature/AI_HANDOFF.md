@@ -10,9 +10,7 @@ Canonical publication plan: `../docs/PUBLICATION_PORTFOLIO.md`.
 
 ## Canonical layout
 
-- `literature/library/`: source layer and master catalogue.
-- `literature/library/source_material/visual_corpus/`: historical source set with PDFs, extracted Markdown, references and visual assets.
-- `literature/library/source_material/pdf_markdown_corpus/`: historical source set with PDFs/Markdown/references and no visual assets by design.
+- `literature/library/`: canonical flat source layer with `articles/`, `pdf/`, `references/` and `CATALOG.md`.
 - `literature/general/`: cross-project literature map and thematic notes.
 - `literature/papers/paper1_ppa_persistence/`: incentive-linked persistence literature view.
 - `literature/papers/paper2_mu_performance/`: MU performance literature view.
@@ -20,7 +18,7 @@ Canonical publication plan: `../docs/PUBLICATION_PORTFOLIO.md`.
 - `literature/papers/paper4_degree_help_seeking/`: disciplinary help-seeking literature view.
 - `literature/papers/paper5_longitudinal_trajectories/`: full-degree trajectory literature view.
 
-Do not recreate `Bib`, `Bib2`, `Bib3`, other upload-batch folders, or a parallel `library/articles/` hierarchy.
+Do not recreate `Bib`, `Bib2`, `Bib3`, `source_material/`, extracted asset trees, or paper-specific physical source copies.
 
 ## Five-paper portfolio snapshot
 
@@ -86,11 +84,11 @@ Highest-priority missing comparator currently tracked for Papers 1–2: Büchele
 2. read `docs/PUBLICATION_PORTFOLIO.md` if manuscript strategy matters;
 3. read the relevant general/paper `INDEX.md`;
 4. for Paper 1, read `READING_GUIDE.md` and the relevant article note before reopening the full source;
-5. use `literature/library/CATALOG.md` and source-material indices to locate the canonical record;
+5. use `literature/library/CATALOG.md` to locate the canonical record;
 6. read targeted extracted Markdown first;
 7. read separated references only for citation chaining or bibliography verification;
 8. open the source PDF when an exact table, figure, coefficient, wording, page, or extraction ambiguity matters;
-9. use visual assets only where they exist and materially help.
+9. use the source PDF for visual verification; extracted asset trees are not retained.
 
 ## Important interpretation rules
 
@@ -107,7 +105,7 @@ Highest-priority missing comparator currently tracked for Papers 1–2: Büchele
 ## Maintenance when adding a source
 
 1. choose a stable ID such as `author_year_short-topic`;
-2. place/register the source once in `library/source_material/`;
+2. place the Markdown record once in `library/articles/`, the PDF in `library/pdf/` when available, and separated references in `library/references/` when useful;
 3. update `literature/library/CATALOG.md`;
 4. add it to every relevant scientific view (`general` and/or Papers 1–5) with a short role/priority note;
 5. update the relevant `MISSING_LITERATURE.md` if it fills a known gap;

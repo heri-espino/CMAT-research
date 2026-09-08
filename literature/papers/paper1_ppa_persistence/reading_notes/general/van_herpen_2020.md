@@ -102,10 +102,10 @@ Conclusion/discussion anchor.
 
 Preferred source:
 
-`literature/library/source_material/visual_corpus/extracted/van-herpen_2020_head-start-higher-education.md`
+`literature/library/articles/van-herpen_2020_head-start-higher-education.md`
 
 Source PDF:
 
-`literature/library/source_material/visual_corpus/pdf/van-herpen_2020_head-start-higher-education.pdf`
+`literature/library/pdf/van-herpen_2020_head-start-higher-education.pdf`
 
 Useful anchors: Table 1 baseline characteristics; Table 3 interaction/belonging MANOVA; Table 4 academic performance; Table 5 pass/retention tests.

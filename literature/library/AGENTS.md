@@ -4,15 +4,19 @@ This is the physical source library, not a manuscript-specific bibliography.
 
 ## Required behavior
 
-- Never duplicate an article simply because it is relevant to more than one paper.
-- Resolve literature through the stable file stem/ID.
-- Prefer Markdown first; open the PDF only for exact critical verification or when extraction is ambiguous.
-- Search `references/` only for citation chaining, forward/backward bibliography work, or metadata checks.
-- Assets are optional fallbacks. Do not assume every article has `assets/`.
-- Preserve distinct bibliographic versions when scientifically meaningful (for example, a working paper and its published version). Do not silently collapse them.
-- Do not infer missing coefficients, p-values, confidence intervals, sample sizes, effect sizes, or quotations from corrupted extraction text.
-- When changing article IDs or paths, update `INDEX.md`, all thematic/paper indices, and the repository AI handoff in the same change.
+- Never duplicate an article because it is relevant to more than one paper.
+- Resolve works through the stable file stem/ID and `CATALOG.md`.
+- Prefer `articles/<id>.md` for efficient reading; open `pdf/<id>.pdf` for exact critical verification or extraction ambiguity.
+- Use `references/` for citation chaining and bibliographic verification.
+- Do not regenerate or archive extracted figure/table assets by default; the source PDF is the visual authority.
+- Preserve distinct scholarly versions when scientifically meaningful.
+- Never infer missing coefficients, p-values, confidence intervals, sample sizes, effect sizes, or quotations from corrupted extraction text.
+- When changing IDs or canonical paths, update `CATALOG.md`, every affected thematic/paper view, reading-note anchors, and the literature AI handoff.
+
+## Adding a work
+
+Add the canonical Markdown record to `articles/`, the source PDF to `pdf/` when available/appropriate, and a separated reference list to `references/` when useful. Then update `CATALOG.md` and every relevant scientific view.
 
 ## Relationship to manuscripts
 
-The paper-specific literature folders contain indexes and editorial roles only. They must point back here. LaTeX `.bib` files belong with the manuscript under `papers/`, not inside this library.
+Paper-specific literature folders contain indices, gap tracking and technical reading notes only. LaTeX `.bib` files belong with manuscripts under root `papers/`.

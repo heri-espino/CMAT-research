@@ -64,10 +64,10 @@ Abstract anchor.
 
 Preferred source:
 
-`literature/library/source_material/visual_corpus/extracted/wilcox_2005_social-support-first-year-experience.md`
+`literature/library/articles/wilcox_2005_social-support-first-year-experience.md`
 
 Source PDF:
 
-`literature/library/source_material/visual_corpus/pdf/wilcox_2005_social-support-first-year-experience.pdf`
+`literature/library/pdf/wilcox_2005_social-support-first-year-experience.pdf`
 
 Useful anchors: abstract; Methodology section around page 5; Table 1 sample characteristics; Findings section.

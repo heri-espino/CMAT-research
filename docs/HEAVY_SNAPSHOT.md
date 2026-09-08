@@ -15,7 +15,7 @@ Original source archive: `Bib.zip`
 
 Current repository path:
 
-`literature/library/source_material/visual_corpus/`
+`literature/library/` (consolidated)
 
 This source set is preserved with its visual assets.
 
@@ -29,7 +29,7 @@ Original source archive: `339dc703-470e-407c-bb54-97ab069e4ce7.zip`
 
 Current repository path:
 
-`literature/library/source_material/pdf_markdown_corpus/`
+`literature/library/` (consolidated)
 
 ### Curated GitHub representation
 
@@ -104,3 +104,8 @@ The restored methodology/report snapshot was audited as containing no original E
 ## Rights / release boundary
 
 Literature PDFs and retained extraction artifacts are stored for internal research continuity in this private repository. Their presence here does not imply permission for redistribution in a public data/code release.
+
+
+## Literature consolidation update — 2026-09-08
+
+The active literature tree was simplified after verification that all historical Markdown/PDF/reference filenames were represented byte-for-byte in the flat canonical library. The historical `source_material/` hierarchy, duplicate Docling `assets/` tree, and the redundant former secondary inventory were removed. The single master inventory is now `literature/library/CATALOG.md`; original batch checksums and former layout remain documented in provenance and Git history.

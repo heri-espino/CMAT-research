@@ -38,8 +38,8 @@ Current organization:
 
 Historical source imports are preserved under:
 
-- `literature/library/source_material/visual_corpus/` — 20 source PDFs, 20 extracted Markdown records, separated references and 136 visual assets;
-- `literature/library/source_material/pdf_markdown_corpus/` — 30 extracted Markdown records, 29 source PDFs, 24 separated reference files and no visual assets by design.
+- `literature/library/` (consolidated) — 20 source PDFs, 20 extracted Markdown records, separated references and 136 visual assets;
+- `literature/library/` (consolidated) — 30 extracted Markdown records, 29 source PDFs, 24 separated reference files and no visual assets by design.
 
 These source-material folders preserve provenance/storage. Scientific relevance is defined by the general and five paper-specific views.
 
@@ -82,3 +82,8 @@ Literature PDFs are retained only because this repository is private and the own
 ## Working rule
 
 Future substantive changes happen in this repository. `main` is the source of truth; temporary branches, when used, should be short-lived and deleted after merge. ZIPs are optional offline backups, not project history. Literature should be added once to the shared library source layer and referenced through general/paper-specific indexes rather than duplicated across manuscripts.
+
+
+## Literature consolidation update — 2026-09-08
+
+The active literature tree was simplified after verification that all historical Markdown/PDF/reference filenames were represented byte-for-byte in the flat canonical library. The historical `source_material/` hierarchy, duplicate Docling `assets/` tree, and the redundant former secondary inventory were removed. The single master inventory is now `literature/library/CATALOG.md`; original batch checksums and former layout remain documented in provenance and Git history.

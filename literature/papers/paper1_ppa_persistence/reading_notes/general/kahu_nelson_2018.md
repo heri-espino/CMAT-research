@@ -57,6 +57,6 @@ Local extraction anchor: opening sections, approximately pages 2–3.
 
 Preferred source:
 
-`literature/library/source_material/pdf_markdown_corpus/extracted/kahu_2018_student-engagement-educational-interface.md`
+`literature/library/articles/kahu_2018_student-engagement-educational-interface.md`
 
 The local source is a post-print extraction; verify exact quotations against the PDF/source version before final manuscript quotation.

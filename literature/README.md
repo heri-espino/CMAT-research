@@ -1,14 +1,14 @@
 # Literature
 
-This directory is organized by **scientific use**, not by upload batch.
+This subsystem has one shared physical library plus scientific views.
 
 ## Structure
 
-- `library/`: canonical research library and source-material catalogue.
-- `general/`: cross-project literature map for concepts shared by the CMAT research programme.
-- `papers/`: five manuscript-specific literature views.
-- `AI_HANDOFF.md`: state and operating guidance for future AI sessions.
-- `AGENTS.md`: maintenance and retrieval rules for humans and automated agents.
+- `library/` — canonical Markdown/PDF/reference library and master catalogue.
+- `general/` — cross-project conceptual literature map.
+- `papers/` — five manuscript-specific literature views, gap trackers and technical reading notes.
+- `AI_HANDOFF.md` — literature continuity for future sessions.
+- `AGENTS.md` — maintenance/retrieval rules.
 
 ## Five paper views
 
@@ -18,24 +18,17 @@ This directory is organized by **scientific use**, not by upload batch.
 4. `papers/paper4_degree_help_seeking/` — disciplinary/degree-programme heterogeneity in support use and persistence.
 5. `papers/paper5_longitudinal_trajectories/` — full-degree longitudinal mathematics-support trajectories.
 
-Canonical title/priority/journal plan: `../docs/PUBLICATION_PORTFOLIO.md`.
+Canonical publication strategy: `../docs/PUBLICATION_PORTFOLIO.md`.
 
 ## Core rule
 
-A source may be relevant to several scientific views, but it should not be physically duplicated solely for that reason. Paper-specific folders contain indices and synthesis/gap notes that point back to the shared library source material.
-
-## Source material
-
-Historical imports are preserved under `library/source_material/` for provenance:
-
-- `visual_corpus/`: source set with PDFs, extracted Markdown, references and Docling visual assets.
-- `pdf_markdown_corpus/`: source set with PDFs/Markdown/references and no visual assets by design.
-
-These are storage/provenance layers, not the scientific organization of the literature.
+One scholarly source/version has one physical library record. It may be referenced by general and several paper views without duplication.
 
 ## Retrieval order
 
-Start from the relevant scientific `INDEX.md`, locate the source in the library catalogue, read targeted extracted Markdown, then use separated references for citation chaining and the PDF for exact/visual verification. Use assets only where they exist and materially help.
+Start from the relevant scientific `INDEX.md` or Paper 1 `READING_GUIDE.md`, resolve the ID in `library/CATALOG.md`, read targeted Markdown in `library/articles/`, use `library/references/` for citation chaining, and consult the source PDF for exact or visual verification.
+
+Extracted figure/table assets are intentionally not retained in the active library; the PDF is the visual authority.
 
 ## Publication boundary
 

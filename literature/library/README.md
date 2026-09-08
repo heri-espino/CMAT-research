@@ -1,35 +1,32 @@
 # Canonical research library
 
-`literature/library/` is the shared source layer for the CMAT literature system.
+`literature/library/` is the single shared physical source layer for the CMAT literature system.
 
 ## Contents
 
-- `CATALOG.md` — master scientific catalogue and preferred retrieval entry point.
-- `source_material/visual_corpus/` — historical source set containing PDFs, extracted Markdown, separated references and Docling visual assets.
-- `source_material/pdf_markdown_corpus/` — historical source set containing PDFs, extracted Markdown and separated references; visual assets are intentionally omitted.
+- `CATALOG.md` — master inventory and preferred lookup entry point.
+- `articles/` — extracted/searchable Markdown, one canonical record per literature ID/version.
+- `pdf/` — retained source PDFs when available.
+- `references/` — separated reference lists when available.
+- `PROVENANCE.md` — history of the original literature imports and consolidation.
+- `AGENTS.md` — maintenance rules for this library.
 
-The two source-material folders preserve provenance of the original imports. They are not separate scientific bibliographies.
-
-## Canonical-use rule
-
-Use `CATALOG.md` and the paper/general indices to decide which source matters. If the same scholarly work appears in more than one source-material location, treat one record as preferred/canonical in the catalogue and preserve the alternate copy only for provenance until a later deduplication pass confirms it is safe to remove.
-
-Do not create a parallel `articles/`, `pdf/`, or `references/` hierarchy without an intentional documented migration. The current canonical physical paths are under `source_material/`.
+There are no paper-specific source copies. General and manuscript-specific folders under `literature/` are scientific views over this shared library.
 
 ## Retrieval order
 
 1. start from `../general/INDEX.md` or a paper-specific index under `../papers/`;
-2. use `CATALOG.md` to locate the preferred record and source-material path;
-3. read only the relevant extracted Markdown sections;
-4. use separated references only for citation chaining or bibliographic verification;
-5. if an exact numerical value, table, figure, or wording is uncertain, consult the source PDF;
-6. use visual assets only where available and necessary;
-7. do not load the whole library into context.
+2. use `CATALOG.md` to resolve the stable literature ID;
+3. read `articles/<id>.md` for efficient targeted retrieval;
+4. use `references/` for citation chaining or metadata checks;
+5. use the PDF for exact numbers, tables, figures, quotations, page anchors, or extraction ambiguity.
 
-## Identifiers and versions
+The PDF is the authoritative visual source. Extracted Docling PNG/table assets are not retained in the active library.
 
-File stems function as stable literature IDs such as `author_year_short-topic`. Keep genuinely distinct scholarly versions (for example working paper vs published article) separately when analytically useful, while recording which is preferred for citation.
+## Versions
+
+Preserve genuinely distinct scholarly versions when analytically useful. Prefer the published version for citation unless documented otherwise.
 
 ## Publication boundary
 
-The repository is private. Source PDFs and extraction artifacts are internal research materials and are not automatically cleared for redistribution. Public releases should normally expose manuscript bibliography/DOIs/metadata rather than this private PDF corpus.
+This is a private research repository. Source PDFs and extraction artifacts are internal research materials and are not automatically cleared for redistribution.

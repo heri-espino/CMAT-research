@@ -12,7 +12,7 @@ Canonical publication plan: `../../docs/PUBLICATION_PORTFOLIO.md`.
 4. `paper4_degree_help_seeking/` — disciplinary/degree-programme heterogeneity in support use, engagement and persistence.
 5. `paper5_longitudinal_trajectories/` — full-degree trajectories, repeated support use, educational transitions, sequence/state modelling and learning analytics.
 
-A source may appear in several indices when it legitimately serves several manuscripts. Physical source material remains under `../library/source_material/`.
+A source may appear in several indices when it legitimately serves several manuscripts. Physical source material remains under `../library/`.
 
 ## Required files per paper view
 

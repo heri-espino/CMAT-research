@@ -68,10 +68,10 @@ This concise phrase captures the field definition that makes CMAT recognisable a
 
 Preferred source:
 
-`literature/library/source_material/visual_corpus/extracted/lawson_2019_mathematics-support-literature-review.md`
+`literature/library/articles/lawson_2019_mathematics-support-literature-review.md`
 
 Source PDF:
 
-`literature/library/source_material/visual_corpus/pdf/lawson_2019_mathematics-support-literature-review.pdf`
+`literature/library/pdf/lawson_2019_mathematics-support-literature-review.pdf`
 
 Note on ID/year: the repository ID uses `2019` because the article appeared online in 2019; the journal volume is 2020. Keep the stable repository ID unchanged.

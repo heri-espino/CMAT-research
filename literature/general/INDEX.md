@@ -1,6 +1,6 @@
 # General literature index
 
-This index groups sources by cross-project scientific function. It is a retrieval/thematic layer over the shared source material under `../library/source_material/`.
+This index groups sources by cross-project scientific function. It is a retrieval/thematic layer over the shared canonical library under `../library/`.
 
 Categories are not mutually exclusive. Use `../library/CATALOG.md` to locate the preferred canonical record and exact source path.
 

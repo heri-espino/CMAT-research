@@ -1,48 +1,83 @@
 # Master literature catalogue
 
-This catalogue is the scientific entry point to source material. It intentionally does not mirror historical upload batches.
+This is the single canonical inventory for the CMAT research library.
 
-## Source-material inventories
+The active physical library is intentionally simple:
 
-The full item-by-item inventories remain available inside the preserved source sets:
+- `articles/<id>.md` — extracted/searchable article text;
+- `pdf/<id>.pdf` — source PDF when available;
+- `references/<id>.references.md` — separated reference list when available.
 
-- [Visual corpus index](source_material/visual_corpus/INDEX.md) — PDFs + extracted Markdown + references + visual assets.
-- [PDF/Markdown corpus index](source_material/pdf_markdown_corpus/INDEX.md) — PDFs + extracted Markdown + references; no visual assets by design.
+Historical upload-batch folders and Docling figure/table assets were removed from the active tree after verified consolidation. Their provenance remains in `PROVENANCE.md`, `docs/HEAVY_SNAPSHOT.md`, and Git history. The source PDF is the authoritative visual verification layer.
 
-Use those inventories for exhaustive file lookup. Use the scientific views below for research relevance.
+Legend: `M` = Markdown article record; `P` = source PDF available; `R` = separated reference list available.
 
-## Cross-project anchors
+## Inventory
 
-| ID | Main role | Main view(s) | Preferred source |
-|---|---|---|---|
-| `kahu_2013_student-engagement-framework` | engagement framework | General, Paper 1 | `source_material/visual_corpus/extracted/` |
-| `kahu_2018_student-engagement-educational-interface` | engagement at educational interface | General, Paper 1 | `source_material/pdf_markdown_corpus/extracted/` |
-| `fong_2023_academic-help-seeking-achievement` | help-seeking meta-analysis | General, Paper 1, Paper 2 | `source_material/visual_corpus/extracted/` |
-| `mullen_2024_mathematics-statistics-support-review` | MSS evidence review | General, Paper 2 | `source_material/visual_corpus/extracted/` |
-| `lawson_2019_mathematics-support-literature-review` | mathematics-support review | General, Paper 2 | `source_material/visual_corpus/extracted/` |
-| `matthews_2013_evaluation-mathematics-support-centres` | mathematics-support evaluation | Paper 2 | `source_material/pdf_markdown_corpus/extracted/` |
-| `pell_2008_mathematics-support-for-all` | mathematics-support participation/performance | Paper 2 | `source_material/pdf_markdown_corpus/extracted/` |
-| `berry_2015_mathematics-learning-support-at-risk-students` | usage and performance | Paper 2 | `source_material/pdf_markdown_corpus/extracted/` |
-| `jacob_2018_mathematics-support-impact-irish-university` | mathematics-support impact | Paper 2 | `source_material/visual_corpus/extracted/` |
-| `mac-an-bhaird_2009_mathematics-support-centre-grades` | centre use and grades | Paper 2 | `source_material/visual_corpus/extracted/` |
-| `gneezy_2011_when-incentives-dont-work` | incentive mechanisms/removal | Paper 1 | `source_material/pdf_markdown_corpus/extracted/` |
-| `angrist_2009_incentives-services-college-achievement` | randomized incentives/services | Paper 1 | `source_material/pdf_markdown_corpus/extracted/` |
-| `agnew_2021_removing-incentives-online-formative-assessments` | removing academic incentives | Paper 1 | `source_material/pdf_markdown_corpus/extracted/` |
-| `leuven_2010_effect-financial-rewards-student-achievement` | financial incentives in education | Paper 1 | `source_material/pdf_markdown_corpus/extracted/` |
-| `oreopoulos_2019_unresponsiveness-college-students-nudging` | behavioural interventions in college | Paper 1 | `source_material/pdf_markdown_corpus/extracted/` |
-| `blondeel_2023_nudging-procrastination-attendance-preparation` | attendance/preparation intervention | Paper 1 | `source_material/visual_corpus/extracted/` |
-| `hanushek_2008_cognitive-skills-economic-development` | broad institutional/human-capital framing | General, Paper 1 supporting only | `source_material/pdf_markdown_corpus/extracted/` |
-| `austin_2011_propensity-score-confounding` | observational adjustment methods | General, Paper 2 methods | `source_material/visual_corpus/extracted/` |
-| `rosenbaum_1983_propensity-score-causal-effects` | propensity-score foundation | General, Paper 2 methods | `source_material/visual_corpus/extracted/` |
+| Literature ID | Availability |
+|---|---|
+| `agnew_2021_removing-incentives-online-formative-assessments` | M P R |
+| `angrist_2009_incentives-services-college-achievement` | M P R |
+| `austin_2011_propensity-score-confounding` | M P |
+| `barrow_2018_financial-incentives-educational-investment` | M P R |
+| `berry_2015_mathematics-learning-support-at-risk-students` | M P R |
+| `blondeel_2023_nudging-procrastination-attendance-preparation` | M P R |
+| `bowden_2021_four-pillars-tertiary-engagement-success` | M P R |
+| `charness_2009_incentives-exercise` | M P |
+| `damgaard_2018_nudging-education-alternate-copy` | M P R |
+| `damgaard_2018_nudging-education-published` | M P R |
+| `dominguez-whitehead_2017_non-academic-support-university-students` | M P R |
+| `felby_2026_relationships-first-year-student-access` | M P R |
+| `fong_2023_academic-help-seeking-achievement` | M P R |
+| `gilani_2026_dynamic-belonging-first-generation-students` | M P R |
+| `gneezy_2011_when-incentives-dont-work` | M P R |
+| `hanushek_2008_cognitive-skills-economic-development` | M P R |
+| `hanushek_2012_better-schools-economic-growth` | M P R |
+| `hanushek_2017_knowledge-capital-aggregate-income-differences` | M P R |
+| `hanushek_2021_education-economic-growth` | M P R |
+| `jacob_2018_mathematics-support-impact-irish-university` | M P |
+| `johns_2026_performance-assessment-mathematics-tutoring-centres` | M P R |
+| `kahu_2013_student-engagement-framework` | M P R |
+| `kahu_2018_student-engagement-educational-interface` | M |
+| `karabenick_1991_academic-help-seeking-learning-strategies` | M P R |
+| `karabenick_2001_help-large-college-classes` | M P |
+| `karabenick_2011_self-regulated-help-seeking` | M P R |
+| `kjaergaard_2024_gradeless-learning-academic-performance` | M P R |
+| `koch_2015_behavioral-economics-education` | M P R |
+| `lavecchia_2014_behavioral-economics-education` | M P |
+| `lawson_2019_mathematics-support-literature-review` | M P R |
+| `leuven_2010_effect-financial-rewards-student-achievement` | M P R |
+| `lintner_2024_performance-based-financial-incentives-higher-education` | M P R |
+| `mac-an-bhaird_2009_mathematics-support-centre-grades` | M P R |
+| `mac-an-bhaird_2013_non-engagement-mathematics-support` | M P R |
+| `matthews_2013_evaluation-mathematics-support-centres` | M P R |
+| `mitchell_2013_financial-incentives-exercise-adherence` | M P R |
+| `mullen_2024_mathematics-statistics-support-review` | M P R |
+| `navarra-madsen_2010_mathematics-tutoring-student-success` | M P R |
+| `ni-fhloinn_2016_gender-engagement-mathematics-support` | M P R |
+| `oreopoulos_2019_unresponsiveness-college-students-nudging` | M P |
+| `oreopoulos_2019_unresponsiveness-college-students-nudging-working-paper` | M P R |
+| `paloyo_2016_supplemental-instruction-academic-performance` | M P |
+| `pell_2008_mathematics-support-for-all` | M P |
+| `pugatch_2018_nudging-peer-tutoring-higher-education` | M P R |
+| `rolbina_2026_digital-peer-support-language-self-efficacy` | M P R |
+| `rosenbaum_1983_propensity-score-causal-effects` | M P |
+| `tinsley_2018_math-help-centers-student-perceptions` | M P R |
+| `van-der-zanden_2019_patterns-of-first-year-success` | M P R |
+| `van-herpen_2020_head-start-higher-education` | M P R |
+| `wilcox_2005_social-support-first-year-experience` | M P R |
 
 ## Version rules
 
-The catalogue keeps genuinely distinct scholarly versions separate when useful. In particular, working-paper and published versions should not be collapsed automatically. Exact duplicate copies may be deduplicated after title/author/year/DOI and content verification.
+Keep genuinely distinct scholarly versions separate when analytically useful (for example a working paper and its published article). Do not collapse versions solely because titles are similar. Prefer the published version for manuscript citation unless there is a documented reason not to.
 
 ## Scientific views
 
 - [General literature](../general/INDEX.md)
 - [Paper 1 — PPA persistence](../papers/paper1_ppa_persistence/INDEX.md)
 - [Paper 2 — MU performance](../papers/paper2_mu_performance/INDEX.md)
+- [Paper 3 — grading heterogeneity](../papers/paper3_grading_heterogeneity/INDEX.md)
+- [Paper 4 — degree/help-seeking heterogeneity](../papers/paper4_degree_help_seeking/INDEX.md)
+- [Paper 5 — longitudinal trajectories](../papers/paper5_longitudinal_trajectories/INDEX.md)
 
-The views above may reference the same source. That is intentional and does not imply physical duplication.
+A work may appear in several scientific views without physical duplication.

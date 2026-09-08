@@ -37,4 +37,4 @@ For each candidate source, record:
 
 Prioritize papers that help interpret CMAT's actual estimand rather than generic tutoring studies from incomparable settings.
 
-When acquired, place/register a work once in the shared `../../library/source_material/` layer, update `../../library/CATALOG.md`, then update this paper view. Do not create Paper-2-only physical copies.
+When acquired, place/register a work once in the shared `../../library/` layer, update `../../library/CATALOG.md`, then update this paper view. Do not create Paper-2-only physical copies.

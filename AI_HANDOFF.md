@@ -154,7 +154,7 @@ Degree-programme analyses use official academic programme. Programme-level corre
 
 Read `literature/AI_HANDOFF.md` and `literature/AGENTS.md` for literature work.
 
-The physical corpus is shared under `literature/library/source_material/`. Scientific views exist for general literature and each of the five papers. Do not duplicate PDFs solely because a source supports multiple manuscripts and do not recreate upload-batch folders such as `Bib`, `Bib2`, `Bib3`, etc.
+The physical corpus is shared under `literature/library/` (`articles/`, `pdf/`, and `references/`). Scientific views exist for general literature and each of the five papers. Do not duplicate PDFs solely because a source supports multiple manuscripts and do not recreate upload-batch folders such as `Bib`, `Bib2`, `Bib3`, etc.
 
 Paper 1 has a technical reading layer under `literature/papers/paper1_ppa_persistence/reading_notes/` with source-specific design, sample, methods, statistics, quotations and claim boundaries.
 
