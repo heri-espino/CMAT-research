@@ -1,0 +1,12 @@
+# Heavy research binaries are tracked with Git LFS.
+# This keeps the repository history usable while preserving the full private snapshot.
+
+literature/**/*.pdf filter=lfs diff=lfs merge=lfs -text
+literature/**/*.png filter=lfs diff=lfs merge=lfs -text
+literature/**/*.jpg filter=lfs diff=lfs merge=lfs -text
+literature/**/*.jpeg filter=lfs diff=lfs merge=lfs -text
+archives/**/*.zip filter=lfs diff=lfs merge=lfs -text
+reports/**/*.pdf filter=lfs diff=lfs merge=lfs -text
+reports/**/*.png filter=lfs diff=lfs merge=lfs -text
+papers/**/*.pdf filter=lfs diff=lfs merge=lfs -text
+papers/**/*.png filter=lfs diff=lfs merge=lfs -text
