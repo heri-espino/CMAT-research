@@ -7,85 +7,67 @@
 ## Completed
 
 - private repository verified;
-- root README and canonical structure documented;
-- privacy-first `.gitignore` added;
-- repository operating rules added in `AGENTS.md`;
-- raw-data exclusion policy added in `data/README.md`;
-- heavy private literature policy enabled;
-- Git LFS configuration documented for literature/report/paper binaries;
-- heavy snapshot inventory and source checksums recorded in `docs/HEAVY_SNAPSHOT.md`;
-- **heavy literature Batch 1 imported into `literature/Bib/`**, including PDFs, Docling Markdown, separated references and 136 PNG/table/figure assets;
-- **historical v8 scientific snapshot imported into `code/`**, excluding administrative raw data;
-- **historical v8 LaTeX report imported into `reports/technical_report_v8/`**;
-- legacy notebooks and existing aggregated study outputs from that snapshot preserved for reproducibility.
+- monorepo structure and operating rules documented;
+- privacy-first `.gitignore` and raw-data exclusion policy added;
+- Batch 1 literature imported into `literature/Bib/`;
+- historical v8 scientific snapshot imported into `code/` without administrative raw data;
+- historical v8 LaTeX report preserved in `reports/technical_report_v8/`;
+- legacy notebooks and aggregated study outputs preserved for reproducibility;
+- **Batch 2 literature curated into `literature/Bib2/`** with text/PDF fallback and no visual assets.
 
-The automated heavy import commit is:
+The original automated heavy Batch 1 import commit is:
 
 `d7e8db74253ef1cc1227b2a0bb4373ad94bed66a` — `migration: import heavy bibliography and v8 research snapshot`.
 
-## Current methodology snapshot still to reconcile
+## Current methodology status
 
-The most recent sanitised methodology work available locally was labelled `CMAT_publication_study_v5_methodology_sanitized`, together with the methodology-focused LaTeX report. It contains methodological changes made after the historical v8 snapshot was created, including the corrected classroom-level KDE imputation logic, the 0/1/2/3/4+ all-pairs analysis, the 4,211-progressor sensitivity, periodicity by population and the three-population degree-programme analyses.
+The later methodology snapshot (`CMAT_publication_study_v5_methodology_sanitized`) contains corrections made after the historical v8 snapshot, including classroom-level KDE imputation, complete 0/1/2/3/4+ pairwise contrasts, the 4,211-progressor sensitivity, population-specific periodicity, and expanded degree-programme analyses.
 
-Scientific-source fingerprint recorded for that methodology snapshot:
+Recorded scientific-source fingerprint for that methodology snapshot:
 
 `03dd3d4ddd31cc2263be54900e1b25749fab8a7beb2033fbe796bf240fd4c39f`
 
-The refined longitudinal PPA cohort/results were developed in another analytical stage and must remain provenance-labelled separately until the latest methodological and longitudinal code paths are reconciled into one canonical pipeline and assigned a new source fingerprint.
+These methodological changes still need to be reconciled with the v8 longitudinal/PPA code before `code/` can be treated as one fully unified canonical executable pipeline. A merged branch-status/PR by itself does not change the scientific code.
 
-## Heavy literature snapshot requested by repository owner
+## Literature batches
 
-The repository owner explicitly requested preservation of the heavy private bibliography snapshot, including source PDFs and Docling PNG assets.
-
-### Batch 1 — COMPLETE
-
-Source: `Bib.zip`
+### Batch 1 — complete
 
 Target: `literature/Bib/`
 
-- 20 PDFs;
+- 20 source PDFs;
 - 20 article Markdown extractions;
-- 136 Docling visual assets;
-- separated reference files and technical index files.
+- 136 retained Docling visual assets;
+- separated reference files and index metadata.
 
-This batch is now physically present in GitHub.
+### Batch 2 — complete, curated asset-free representation
 
-### Batch 2 — PENDING BINARY TRANSFER
+Canonical target: `literature/Bib2/`
 
-Source archive: `339dc703-470e-407c-bb54-97ab069e4ce7.zip`
+Current GitHub inventory:
 
-Target archival path: `literature/Bib2/`
+- 30 extracted Markdown records;
+- 29 source PDFs;
+- 24 separated reference files;
+- 0 Docling visual assets by design.
 
-- 29 PDFs;
-- 29 article Markdown extractions;
-- 322 Docling visual assets;
-- separated reference files and technical index files.
+The original Batch 2 archive contained visual assets, but they were intentionally omitted from the GitHub representation because the PDFs are retained as the visual/source-of-truth fallback and the assets were large/redundant.
 
-SHA-256 and local inventory are recorded in `docs/HEAVY_SNAPSHOT.md`. This second archive was supplied directly in the research session and was never committed to `CMAT2`, so the GitHub Action that cloned `CMAT2` could not import it. The current connector cannot stream a 78 MB local binary archive or hundreds of PNG/PDF files by local path. A one-time Git/LFS upload from a local Git client is therefore still required for Batch 2.
+`kahu_2018_student-engagement-educational-interface` is the documented exception: the local source copy is Markdown rather than PDF.
 
-## Migration policy
+The accidental upload path `literature/Bib2-2/` is removed in the curation branch; `literature/Bib2/` is the only canonical path.
 
-Migrate and preserve:
-
-- Python source and configuration;
-- tests;
-- study protocol;
-- Python function index;
-- methodology changelog;
-- AI handoff;
-- technical-report LaTeX source;
-- manuscript LaTeX sources;
-- privacy-reviewed aggregated output tables/figures;
-- literature metadata, cards, indices and citation notes;
-- in this private repository only: literature PDFs and Docling visual assets.
+## Privacy boundary
 
 Never migrate:
 
 - administrative Excel files;
-- row-level student/advising data;
+- row-level student/advising microdata;
 - direct identifiers;
 - HMAC keys or other secrets/credentials.
 
+Literature PDFs are retained only because this repository is private and the owner explicitly requested internal research continuity. They are not automatically suitable for redistribution in a public release.
+
 ## Working rule
 
-Future substantive changes should be committed directly to this repository. ZIPs are optional offline backups, not the project history. The next repository-level task is to reconcile the current methodology overlay with the imported v8 code before treating `code/` as a single canonical executable pipeline.
+Future substantive changes should be committed through short-lived feature branches and merged into `main`. ZIPs are optional offline backups, not the project history.
