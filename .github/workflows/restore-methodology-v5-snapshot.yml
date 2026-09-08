@@ -19,15 +19,16 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Recover the original staged methodology patch from repository history
+      - name: Recover original methodology patch from repository history
         shell: bash
         run: |
           set -euo pipefail
           git show a1badecf897a7426725212e3c646e3003d8371e9:scripts/patches/methodology_v5.tar.gz.b64 > /tmp/methodology_v5.tar.gz.b64
           base64 -d /tmp/methodology_v5.tar.gz.b64 > /tmp/methodology_v5.tar.gz
-          echo '236eb57438eb88a0ddd126f3914f1d5fe9131deb69d53a50e51d2cc9f7f85211  /tmp/methodology_v5.tar.gz' | sha256sum -c -
+          echo "Recovered historical patch SHA-256: $(sha256sum /tmp/methodology_v5.tar.gz | cut -d' ' -f1)"
+          echo "Historical Git blob identity: 69705e2b22876cff97fcf3df029e37c47072c59e"
 
-      - name: Build a navigable sanitized methodology-v5 code snapshot
+      - name: Build navigable methodology-v5 snapshot
         shell: bash
         run: |
           set -euo pipefail
@@ -36,8 +37,6 @@ jobs:
           rm -rf "$TMP" "$SNAP"
           mkdir -p "$TMP" "$SNAP"
 
-          # Reconstruct the sanitized scientific code base from the imported project,
-          # excluding historical notebooks, binary/manual material and generated outputs.
           rsync -a code/ "$TMP/" \
             --exclude 'snapshots/' \
             --exclude 'outputs/' \
@@ -46,31 +45,47 @@ jobs:
             --exclude '__pycache__/' \
             --exclude '*.pyc'
 
-          # Overlay the exact later methodology patch that was staged in repository history.
           tar -xzf /tmp/methodology_v5.tar.gz -C "$TMP"
-
-          rsync -a "$TMP/" "$SNAP/" \
-            --exclude '__pycache__/' \
-            --exclude '*.pyc'
+          rsync -a "$TMP/" "$SNAP/" --exclude '__pycache__/' --exclude '*.pyc'
 
           cat > "$SNAP/README_RECOVERY.md" <<'EOF'
           # Recovered methodology v5 code snapshot
 
-          This directory reconstructs the sanitized scientific-code state associated with the 2026-09-07 methodology update.
+          This directory preserves the sanitized scientific-code line associated with the 2026-09-07 methodology update and the methodology-v2 technical report.
 
-          Recovery method:
-          1. start from the imported CMAT scientific code base;
-          2. remove historical notebooks/manual/generated outputs from the snapshot;
-          3. overlay the original methodology patch preserved in repository history at commit `a1badecf897a7426725212e3c646e3003d8371e9`;
-          4. verify the original patch SHA-256 `236eb57438eb88a0ddd126f3914f1d5fe9131deb69d53a50e51d2cc9f7f85211`;
-          5. run the methodology helper tests.
+          The later methodology patch was recovered from Git object history (`a1badecf897a7426725212e3c646e3003d8371e9`) and then validated file-by-file against SHA-256 hashes calculated from the original `CMAT_methodology_update_bundle.zip` re-uploaded by the project owner on 2026-09-07.
 
-          Declared scientific-source fingerprint for the original sanitized methodology snapshot: `03dd3d4ddd31cc2263be54900e1b25749fab8a7beb2033fbe796bf240fd4c39f`.
+          Declared scientific-source fingerprint of the original sanitized methodology snapshot:
+          `03dd3d4ddd31cc2263be54900e1b25749fab8a7beb2033fbe796bf240fd4c39f`.
 
-          The refined `N=3,241` longitudinal stage is intentionally not claimed to be covered by that fingerprint.
+          Primary first-MU cohort: `N=6,627`. Future-Calculus progressor sensitivity: `N=4,211`. The refined `N=3,241` longitudinal stage is later work and is intentionally not claimed to be covered by that fingerprint.
+
+          This is a provenance snapshot, not a second canonical pipeline. Scientific changes should ultimately be reconciled into the single canonical `code/` path.
           EOF
 
-      - name: Privacy and test checks
+      - name: Verify key files against the re-uploaded bundle
+        shell: bash
+        run: |
+          set -euo pipefail
+          SNAP='code/snapshots/methodology_v5_2026-09-07'
+          cd "$SNAP"
+          cat > /tmp/expected.sha256 <<'EOF'
+          ce25dc82a56555bd20183b6ad24929bdabd68a524ed250a36eff56a68ffd18f1  config/study_config.py
+          23e1814b718d06b6e0b1e8b6683cdb4d27b309fde0d798e3fbb2c743fd10a6ef  src/visitas_analysis/study/outcomes.py
+          0e5064b255d29e0b72bf24bd20ea717c827c34473045410794137ef04f20a5de  src/visitas_analysis/study/pipeline.py
+          449b9bf1cb3d38674bab2c7f10c58e40993e8541a72ef05d4e285cf5525e36ea  src/visitas_analysis/study/plots.py
+          2bb743399ce70994023a6f316f7a0b2b5eac9b27ed21bf493f53ce5fa147669a  src/visitas_analysis/study/extended_methodology.py
+          a3a6d3851928cbaf37275642555b484633cb3e2215e1c183bcf4f3dc5c316a78  src/visitas_analysis/study/extended_plots.py
+          8d44d5fddf10bd213fa7013b9895af5e636a3f07658f6070e55926214310a980  tests/test_study_helpers.py
+          2d0224d37285f3d84ed48038a9c81fce4538f2dbe67d92ffd44fdd32f80f4dd0  STUDY_PROTOCOL.md
+          1f5c014309f09dd2d227b4e3a2eb9387ae07bc6c4dc8537464c089d5495a4c4b  PYTHON_FUNCTION_INDEX.md
+          a5d9c180b50055b1a5f5361475e3414cb5fe77e3874ea8a94a2b5b2b16634385  METHODOLOGY_CHANGELOG.md
+          f6b16993d9890149273c39c98ab8e923210402e14800e2937e1feeafcde47841  .ai_handoff.md
+          1b313479667a44a24d7876ff2e3d2fc7d1fb72249519c80eb0f6db8c5a04ce44  SOURCE_MANIFEST_SHA256.txt
+          EOF
+          sha256sum -c /tmp/expected.sha256
+
+      - name: Privacy and tests
         shell: bash
         run: |
           set -euo pipefail
@@ -79,14 +94,10 @@ jobs:
             echo 'ERROR: raw-data file detected in recovered snapshot' >&2
             exit 1
           fi
-          test -f "$SNAP/src/visitas_analysis/study/extended_methodology.py"
-          test -f "$SNAP/src/visitas_analysis/study/extended_plots.py"
-          test -f "$SNAP/PYTHON_FUNCTION_INDEX.md"
-          test -f "$SNAP/.ai_handoff.md"
           python -m pip install --quiet pytest numpy pandas scipy statsmodels matplotlib pingouin scikit-learn openpyxl
           PYTHONPATH="$SNAP/src:$SNAP" python -m pytest -q "$SNAP/tests/test_study_helpers.py"
 
-      - name: Commit recovered snapshot
+      - name: Commit recovered snapshot and remove one-shot workflow
         shell: bash
         run: |
           set -euo pipefail
