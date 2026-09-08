@@ -1,36 +1,44 @@
-# Repository operating rules
+# CMAT repository operating rules
 
-This is the canonical CMAT research repository.
+## Canonical repository model
 
-## Before changing code
+`main` is the source of truth. Organize the project by subfolder; use branches only as short-lived workspaces for concrete changes.
 
-1. Read `docs/AI_HANDOFF.md` and `docs/STUDY_PROTOCOL.md`.
-2. Search `docs/PYTHON_FUNCTION_INDEX.md` before creating a new function.
-3. Preserve observational/associational language unless a design explicitly identifies a causal estimand.
-4. If scientific Python changes, update the function index, handoff, methodology changelog, tests, and source fingerprint in the same commit.
+Read `docs/BRANCH_STRATEGY.md` before creating or reusing a branch.
 
-## Data/privacy
+## Scientific dependency rule
 
-Never commit administrative microdata, student IDs, raw Google Forms exports, direct identifiers, HMAC keys, secrets, or row-level linked student records. Keep source data outside GitHub. Aggregated outputs must be reviewed for disclosure risk before commit.
+Maintain one scientific chain:
 
-SHA-256 is for integrity/version identity, not anonymisation. HMAC pseudonymisation is not anonymity.
+`controlled data -> code/ -> analysis/ -> reports/ and papers/`.
 
-## Current core definitions
+Do not create manuscript-specific scientific pipelines. If Paper 1 or Paper 2 needs a methodological change, implement and validate it in the canonical code first.
 
-- Classroom = instructor × course × academic period.
-- Pass threshold = 7.5.
-- Primary continuous outcome is classroom-relative performance.
-- Non-numeric adverse outcomes BV/RT/BA are handled in the continuous analysis using within-classroom KDE based on observed numeric grades below 7.5; uniform fallback is used only when no sub-7.5 numeric grade exists in the classroom. Exact implementation details belong in the study protocol.
-- CMAT visit count is student-selected. Threshold/piecewise analyses are descriptive, not regression discontinuity designs.
-- Same-day multiple visits are administratively plausible and must not be labelled manipulation without evidence.
+## Preservation rule
 
-## Manuscript separation
+Historical snapshots may be retained for provenance, but must be clearly labeled as historical and must not silently overwrite the canonical path.
 
-Do not organise the technical discovery report around papers. The report should present all findings continuously, then propose publication splits at the end.
+## Data/privacy boundary
 
-- Paper 1: first-year participation incentive / persistence of formal academic help-seeking.
-- Paper 2: contemporaneous CMAT use / classroom-relative performance in MU.
+Never commit:
 
-## Git workflow
+- administrative Excel workbooks;
+- row-level student/advising microdata;
+- direct student or professor identifiers;
+- HMAC/secret keys;
+- credentials/tokens;
+- unreviewed identifying free text.
 
-Prefer small descriptive commits. Use branches/PRs for substantive methodological changes when useful. Do not upload ZIP snapshots to GitHub as the primary source of truth.
+Aggregated outputs may be committed after privacy review. Heavy literature PDFs and Docling assets are allowed in this private repository because the owner explicitly requested archival preservation; treat them as internal research material, not automatically redistributable content.
+
+## Analysis/reporting rules
+
+- Preserve all validated discoveries in the master analysis and technical report, including null results and sensitivity analyses.
+- Keep causal language conservative for student-selected CMAT use.
+- Classroom is `instructor × course × academic period` unless a later reviewed methodological change explicitly replaces it.
+- Scientific-code changes require updated tests, documentation and source fingerprint.
+- Paper-specific selections happen after canonical outputs are stable.
+
+## Documentation
+
+Major folders should have a README explaining scope, inputs, outputs, canonical status and dependencies. Update the project handoff/changelog whenever code or estimands change.

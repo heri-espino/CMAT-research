@@ -1,64 +1,73 @@
-# CMAT branch strategy
+# Branch strategy
 
-`main` is the stable, reviewable source of truth. Scientific or manuscript work should not be developed directly on `main`; it should enter through a focused branch and a pull request once its scope is complete.
+## Principle
 
-## Working branches
+This project uses **`main` as the canonical monorepo**. Branches are temporary workspaces for concrete changes, not permanent homes for Paper 1, Paper 2, analysis, privacy, literature, or reports.
 
-| Branch | Purpose | What ChatGPT is doing there | Merge condition |
-|---|---|---|---|
-| `method/reconcile-v8-v5` | Reconcile the historical v8 longitudinal pipeline with the later methodology-v5 corrections | Compare both code paths function by function; preserve PPA longitudinal logic; port corrected KDE imputation, all-pair 0/1/2/3/4+ contrasts, 4,211-progressor sensitivity, population-specific periodicity, and degree-programme analyses; update tests and fingerprint | One canonical pipeline, all tests passing, no lost v8 functionality, new function index/protocol/handoff/fingerprint |
-| `analysis/all-discoveries` | Master empirical analysis independent of publication framing | Preserve **all** validated discoveries, tables, figures, sensitivities, cohort definitions, null results and caveats; avoid organizing findings around Paper 1 or Paper 2 | Every retained result is reproducible from the canonical pipeline and its provenance is documented |
-| `report/technical-methodology` | Continuous technical report for statistical review | Rewrite the report as one methodological/results narrative with detailed mathematics, assumptions, formulas, estimands and diagnostics; the paper split appears only at the end | Report compiles cleanly, every numerical claim maps to an output, no causal overstatement, methodology fully specified |
-| `paper1/ppa-persistence` | Paper 1 manuscript | Develop the PPA1 / formal-help-seeking persistence manuscript after the canonical pipeline is stable; later integrate survey and pre-MU mathematics measures if obtained | RQs, estimands and tables are frozen; literature gap closed; results reproduced from canonical outputs; submission checks completed |
-| `paper2/mu-performance` | Paper 2 manuscript | Develop the CMAT-use / classroom-relative MU performance manuscript, TEAMAT-first, using the final contemporaneous analysis | Canonical MU analysis frozen; exact visit-group and sensitivity results finalized; journal framing and supplement plan complete |
-| `literature/heavy-batch2` | Preserve second heavy bibliography batch | Import the 29-PDF / 322-asset second Docling batch into `literature/Bib2/` with checksum/provenance, then update indices/cards as needed | Binary transfer complete, counts/checksums verified, no administrative microdata introduced |
-| `privacy/release-controls` | Privacy, governance and release rules | Audit tracked files, define what can be public/private, distinguish hashing/pseudonymization/anonymization, document journal data-sharing constraints and safe release procedure | No raw identifiers or administrative microdata tracked; release checklist and data-availability language ready |
-| `integration/reproducible-pipeline` | Final integration/staging branch | Merge tested methodology, analysis, report, privacy and manuscript-ready outputs in dependency order before promotion to `main` | CI/tests/LaTeX builds pass; fingerprints and manifests updated; branch diffs reviewed |
+Everything that is conceptually part of the project lives together on `main` in explicit subfolders with local READMEs.
 
-## Dependency order
+## Why
 
-The intended dependency chain is:
+The CMAT project is highly interdependent:
 
-`method/reconcile-v8-v5`
-→ `analysis/all-discoveries`
-→ `report/technical-methodology`
-→ `paper1/ppa-persistence` and `paper2/mu-performance`
-→ `integration/reproducible-pipeline`
-→ `main`.
+`controlled data -> canonical code -> canonical outputs -> report / Paper 1 / Paper 2`.
 
-`privacy/release-controls` applies across every stage. `literature/heavy-batch2` can proceed independently, but literature indices used by a manuscript should be refreshed before that manuscript is frozen.
+Long-lived thematic branches would force repeated merges and create multiple competing versions of the same scientific result. Short-lived feature branches reduce that risk.
 
-## Important separation
+## Normal workflow
 
-The **master analysis must not be pruned to fit the papers**. All validated discoveries remain in `analysis/all-discoveries` and the technical report. Paper branches select a defensible subset only after the empirical record is complete.
+1. Start from current `main`.
+2. Create one short-lived branch for one concrete task.
+3. Make the change and document it.
+4. Run relevant tests/builds.
+5. Open and review a Pull Request.
+6. Merge into `main`.
+7. Delete the branch.
 
-Likewise, a manuscript branch must not silently change scientific methodology. If a paper exposes a methodological problem, the correction returns first to `method/reconcile-v8-v5` (or a new method branch), is tested, and only then flows back into the paper.
+Example:
 
-## Privacy boundary
+`method/reconcile-v8-v5 -> PR -> main`
 
-No branch may add administrative Excel files, row-level student/advising microdata, direct identifiers, HMAC keys, credentials, or unreviewed free-text fields. Heavy literature PDFs/Docling assets are allowed only because this repository is private and the owner explicitly requested archival preservation.
+Then a later task starts from the updated `main`, for example:
 
-## Pull-request rule
+`report/rebuild-statistical-report -> PR -> main`.
 
-Each substantive branch should eventually open a PR documenting:
+## Current active scientific branch
 
-1. what changed;
-2. which estimand/result/document is affected;
-3. tests/builds run;
-4. source fingerprint before/after if scientific code changed;
-5. privacy implications;
-6. unresolved questions.
+`method/reconcile-v8-v5` is the only branch that should be treated as active scientific development. It exists to reconcile the historical longitudinal v8 pipeline with the later methodology-v5 corrections without losing functionality.
 
-## Auxiliary branches not to use
+## Deprecated thematic branches
 
-Several empty organizational branches were created while setting up this strategy. They are **not part of the working model** and should receive no substantive commits:
+The following branches were created before this policy was simplified. They should receive no new work:
 
-- `docs/branch-strategy`
-- `docs/repository-governance`
-- `archive/heavy-snapshot`
-- `tmp/noop`
-- `cleanup/branch-plan`
-- `notes/branch-status`
-- `work/status-docs`
+- `analysis/all-discoveries`
+- `report/technical-methodology`
+- `paper1/ppa-persistence`
+- `paper2/mu-performance`
+- `literature/heavy-batch2`
+- `privacy/release-controls`
+- `integration/reproducible-pipeline`
 
-The current connector does not expose deletion of Git refs, so these branches remain visible for now but are intentionally abandoned. Only the eight branches in the Working branches table should be used.
+Their subject matter now belongs in subfolders on `main`. They can be deleted later after confirming they contain no unique scientific changes.
+
+## Scientific rule
+
+There must be one canonical scientific chain. Papers and reports consume canonical aggregate outputs; they must not silently recalculate alternative versions of the study.
+
+## Privacy rule
+
+No branch may add administrative Excel files, row-level student/advising microdata, direct identifiers, HMAC keys, credentials, or unreviewed free-text fields.
+
+## Commit style
+
+Use descriptive prefixes such as:
+
+- `method:` statistical-method changes
+- `analysis:` result/output changes
+- `report:` technical report changes
+- `paper1:` / `paper2:` manuscript changes
+- `literature:` bibliography/index changes
+- `privacy:` release/governance changes
+- `docs:` documentation
+- `test:` tests
+- `chore:` maintenance

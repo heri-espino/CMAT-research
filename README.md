@@ -1,106 +1,71 @@
 # CMAT Research
 
-Canonical **private** repository for the research and publication work based on the Centro de Aprendizaje de Matemáticas (CMAT) at UDLAP.
+Canonical private monorepo for the research and publication programme based on the **Centro de Aprendizaje de Matemáticas (CMAT)** at UDLAP.
 
-## Purpose
+## Repository philosophy
 
-This repository consolidates the statistical-analysis code, reproducibility documentation, technical reports, publication drafts, aggregated outputs, and the private research literature corpus that were previously distributed across several snapshots and ZIP archives.
+`main` is the source of truth. The project is organized by subfolder, while Git branches are short-lived workspaces for concrete changes. There should not be separate long-lived scientific realities for the report, Paper 1, Paper 2, or exploratory analysis.
 
-The current empirical programme includes two main publication lines:
+The scientific flow is:
 
-1. **Paper 1 — first-year participation incentive and persistence of formal academic help-seeking**: longitudinal transition from Matemáticas Universitarias (MU) to Calculus I.
-2. **Paper 2 — CMAT use and classroom-relative academic performance**: contemporaneous CMAT exposure in MU, continuous classroom-standardised outcomes, heteroskedasticity-robust inference, exact visit-count analyses, and programme heterogeneity.
+`controlled data -> canonical code -> canonical aggregate outputs -> technical report / manuscripts`.
 
-Other exploratory analyses are retained for reproducibility but are not automatically part of either manuscript.
-
-## Canonical structure
+## Structure
 
 ```text
 CMAT-research/
 ├── README.md
 ├── AGENTS.md
-├── .gitignore
-├── code/                    # scientific Python snapshot, config, scripts, tests, legacy notebooks
-├── docs/                    # protocol, migration status, privacy/reproducibility documentation
-├── reports/                 # technical LaTeX report snapshots and aggregated figures/tables
-├── papers/                  # manuscript-specific projects as they are consolidated
-├── literature/
-│   ├── Bib/                 # heavy Batch 1: PDFs + Markdown + references + Docling PNG assets
-│   └── Bib2/                # target archival path for heavy Batch 2 (pending binary transfer)
-├── outputs/                 # aggregated/releasable outputs when promoted from code snapshots
-└── data/
-    └── README.md            # no administrative microdata in Git
+├── code/                     # canonical Python pipeline + preserved historical v8 outputs
+├── analysis/                 # canonical aggregate empirical record
+├── reports/                  # technical reports
+├── papers/
+│   ├── paper1_ppa_persistence/
+│   └── paper2_mu_performance/
+├── literature/               # heavy private Bib corpus + notes/indices
+├── docs/                     # protocol, roadmap, changelog, branch policy, privacy
+└── data/                     # documentation only; no administrative microdata
 ```
 
-## Heavy private literature corpus
+Each major folder contains or should contain a local README describing scope, inputs, outputs and what is canonical.
 
-The repository owner explicitly requested preservation of the **heavy** literature version in this private repository.
+## Current scientific work
 
-### Batch 1 — present in GitHub
+The immediate methodological task is to reconcile:
 
-`literature/Bib/` currently contains the complete first heavy corpus imported from the historical `CMAT2` repository:
+1. historical **v8**, which contains the refined longitudinal PPA progression pipeline; and
+2. the later methodology snapshot that introduced corrected classroom-level KDE imputation, all-pair `0/1/2/3/4+` contrasts, the 4,211-progressor sensitivity, population-specific periodicity, and expanded degree-programme analyses.
 
-- 20 source PDFs;
-- 20 Docling Markdown article extractions;
-- 136 Docling PNG/table/figure assets;
-- separated reference files;
-- technical retrieval/index files.
+This work should occur on the short-lived branch `method/reconcile-v8-v5`, then return to `main` after tests and review.
 
-### Batch 2 — source inventoried, binary transfer pending
+## Publication programme
 
-The second archive is tracked in `docs/HEAVY_SNAPSHOT.md` by SHA-256 and contains:
+Two publication lines are currently prioritized:
 
-- 29 PDFs;
-- 29 Markdown extractions;
-- 322 Docling visual assets;
-- separated references/index files.
+1. **Paper 1 — PPA1 and persistence of formal academic help-seeking**, targeted at *Studies in Higher Education*.
+2. **Paper 2 — CMAT use and classroom-relative MU performance**, TEAMAT-first.
 
-It was supplied directly during the research session and never existed in `CMAT2`, so the automated GitHub import could not recover it. The canonical target path is `literature/Bib2/` until the two archival batches are intentionally consolidated.
+The master analysis and technical report retain all validated discoveries; manuscripts select defensible subsets only after the empirical record is stable.
 
-Because these literature files may have different redistribution rights, **their presence in this private repository must not be interpreted as permission to make them public**.
+## Privacy
 
-## Privacy rule
-
-**Administrative microdata are not committed to this repository.** In particular, do not commit:
+Administrative microdata are not committed. Do not commit:
 
 - student IDs or direct identifiers;
-- raw CMAT Google Forms exports;
-- official grade spreadsheets containing student-level rows;
-- HMAC keys, salts, passwords, tokens, or other secrets;
-- row-level pseudonymised longitudinal data unless separately reviewed and approved;
-- free-text fields that could identify students or advisers.
+- raw CMAT Forms exports;
+- official row-level grade spreadsheets;
+- HMAC keys, salts, credentials or tokens;
+- unreviewed row-level pseudonymised longitudinal data;
+- identifying free-text fields.
 
-The repository may contain aggregated tables and figures, reproducibility code, hashes of controlled internal source files, and privacy/release documentation.
+Heavy literature PDFs and Docling assets are preserved only because this repository is private and the owner explicitly requested archival continuity.
 
 ## Reproducibility
 
-Scientific-source fingerprints are documented in the project handoff and methodology changelog. A SHA-256 fingerprint establishes file integrity/version identity; it does **not** anonymise data.
+Scientific source fingerprints and controlled-source checksums document version identity and provenance. SHA-256 establishes integrity; it does not anonymise data.
 
-The current methodological work defines classroom as:
+## Git workflow
 
-`instructor × course × academic period`
+See `docs/BRANCH_STRATEGY.md`.
 
-and treats causal claims conservatively because CMAT use is student-selected.
-
-The historical v8 scientific/report snapshot is already present in `code/` and `reports/technical_report_v8/`. A later methodology overlay contains additional corrections and analyses and still needs to be reconciled with that historical snapshot before `code/` can be treated as one final canonical executable pipeline. See `docs/MIGRATION_STATUS.md`.
-
-## Workflow
-
-This GitHub repository is now the source of truth. Changes should be made as descriptive commits rather than delivered as a sequence of ZIP snapshots.
-
-Suggested commit prefixes:
-
-- `analysis:` statistical analysis or estimand changes
-- `method:` methodology changes
-- `report:` technical report updates
-- `paper1:` Paper 1 manuscript changes
-- `paper2:` Paper 2 manuscript changes
-- `literature:` bibliography/index updates
-- `docs:` protocol/handoff/documentation
-- `privacy:` release/privacy controls
-- `test:` test-suite changes
-- `chore:` repository maintenance
-
-## Migration status
-
-Heavy Batch 1, the historical v8 scientific snapshot, legacy notebooks, aggregated v8 outputs, and the v8 LaTeX report are already in GitHub. Heavy Batch 2 and reconciliation with the latest methodology snapshot remain explicit pending tasks; they are documented rather than silently omitted.
+In short: create a branch for a concrete task, review the diff/tests, merge into `main`, then delete the branch. ZIP snapshots are optional offline backups, not project history.
