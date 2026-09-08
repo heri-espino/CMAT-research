@@ -1,6 +1,6 @@
 # AI handoff — literature subsystem
 
-This file is the starting point for future AI sessions working on CMAT literature.
+This is the starting point for future AI sessions working on CMAT literature.
 
 ## Purpose
 
@@ -20,14 +20,14 @@ Canonical publication plan: `../docs/PUBLICATION_PORTFOLIO.md`.
 - `literature/papers/paper4_degree_help_seeking/`: disciplinary help-seeking literature view.
 - `literature/papers/paper5_longitudinal_trajectories/`: full-degree trajectory literature view.
 
-Do not recreate `Bib`, `Bib2`, `Bib3`, or other upload-batch folders as user-facing organization.
+Do not recreate `Bib`, `Bib2`, `Bib3`, other upload-batch folders, or a parallel `library/articles/` hierarchy.
 
 ## Five-paper portfolio snapshot
 
 ### Paper 1
 **Working title:** *Beyond the Incentive Threshold: Academic Support Use and Persistence After a First-Year Participation Incentive*  
 **Priority:** highest / active.  
-**Journal route:** Studies in Higher Education first/ambitious; IJMEST, TEAMAT and Journal of Further and Higher Education as alternatives.  
+**Journal route:** *Studies in Higher Education* first/ambitious; IJMEST, TEAMAT and *Journal of Further and Higher Education* as alternatives.  
 **Boundary:** observational persistence across a change in incentive context; no causal PPA claim.
 
 ### Paper 2
@@ -39,24 +39,24 @@ Do not recreate `Bib`, `Bib2`, `Bib3`, or other upload-batch folders as user-fac
 ### Paper 3
 **Working title:** *When the Same Grade Does Not Mean the Same Performance: Instructor-by-Term Heterogeneity in Undergraduate Mathematics Assessment*  
 **Priority:** high but requires dedicated re-analysis.  
-**Journal route:** Assessment & Evaluation in Higher Education first; Studies in Educational Evaluation second; IJRUME ambitious.  
+**Journal route:** *Assessment & Evaluation in Higher Education* first; *Studies in Educational Evaluation* second; IJRUME ambitious.  
 **Boundary:** classroom-relative `Z` is contextual relative position, not latent mathematical proficiency.
 
 ### Paper 4
 **Working title:** *Who Keeps Seeking Mathematics Help? Disciplinary Heterogeneity in University Mathematics Support Use*  
 **Priority:** later / conditional on stronger programme-level design.  
-**Journal route:** IJMEST first; Journal of Further and Higher Education second; HERD ambitious.  
+**Journal route:** IJMEST first; *Journal of Further and Higher Education* second; HERD ambitious.  
 **Boundary:** programme-level results are ecological; official academic `CLAVECARRERA` is the primary programme variable.
 
 ### Paper 5
 **Working title:** *Longitudinal Trajectories of Mathematics Support Use Across the Undergraduate Degree*  
 **Priority:** future project.  
-**Journal route:** not frozen; TEAMAT/IJMEST for substantive mathematics-support framing, Journal of Learning Analytics for a genuine trace/sequence-method contribution, International Journal of STEM Education as an ambitious STEM-progression route.  
+**Journal route:** not frozen; TEAMAT/IJMEST for substantive mathematics-support framing, *Journal of Learning Analytics* for a genuine trace/sequence-method contribution, *International Journal of STEM Education* as an ambitious STEM-progression route.  
 **Boundary:** full-degree data coverage/missingness and revalidation logic must be audited before method selection.
 
 ## Paper 1 technical reading-note layer
 
-Paper 1 now has a human-readable technical evidence layer:
+Paper 1 has a human-readable technical evidence layer:
 
 - `literature/papers/paper1_ppa_persistence/READING_GUIDE.md` — rapid overview;
 - `literature/papers/paper1_ppa_persistence/reading_notes/README.md` — required schema;
@@ -72,45 +72,47 @@ Paper 1 now has a human-readable technical evidence layer:
 - Wilcox, Winn & Fyvie-Gauld (2005) — qualitative first-year social-support/retention study;
 - van Herpen et al. (2020) — quasi-experimental first-year transition intervention.
 
-These notes record methods, sample sizes, individual important findings, effect sizes/test statistics/p-values/CI where genuinely reported, brief quotation anchors, claim boundaries and local verification paths. Conceptual/qualitative papers are explicitly labelled as having no applicable inferential statistics instead of being forced into a quantitative template.
+These notes record methods, sample sizes, important findings, effect sizes/test statistics/p-values/CI where genuinely reported, brief quotation anchors, claim boundaries and local verification paths. Conceptual/qualitative papers are explicitly labelled as having no applicable inferential statistics instead of being forced into a quantitative template.
 
 ### Next Paper 1 batch
 
 Create `reading_notes/incentives/` and technical notes for the incentive-specific literature, beginning with Gneezy et al. (2011), Angrist et al. (2009), Agnew et al. (2021), Leuven et al. (2010), Oreopoulos/Petronijevic, Blondeel et al., and the most useful behavioural-economics reviews.
 
+Highest-priority missing comparator currently tracked for Papers 1–2: Büchele & Schürmann (2024), *Studies in Higher Education*, DOI `10.1080/03075079.2023.2271029`.
+
 ## Retrieval order
 
-1. Read `literature/README.md`.
-2. Read `docs/PUBLICATION_PORTFOLIO.md` if the task concerns manuscript strategy.
-3. Read the relevant paper/general `INDEX.md`.
-4. For Paper 1, read `READING_GUIDE.md` and relevant article note before reopening the full source.
-5. Use `literature/library/CATALOG.md` and source-material indices to locate the canonical record.
-6. Read targeted extracted Markdown first.
-7. Read separated references only for citation chaining or bibliography verification.
-8. Open the source PDF when an exact table, figure, coefficient, wording, page, or extraction ambiguity matters.
-9. Visual assets exist only for part of the historical corpus; never assume they exist for every paper.
+1. read `literature/README.md`;
+2. read `docs/PUBLICATION_PORTFOLIO.md` if manuscript strategy matters;
+3. read the relevant general/paper `INDEX.md`;
+4. for Paper 1, read `READING_GUIDE.md` and the relevant article note before reopening the full source;
+5. use `literature/library/CATALOG.md` and source-material indices to locate the canonical record;
+6. read targeted extracted Markdown first;
+7. read separated references only for citation chaining or bibliography verification;
+8. open the source PDF when an exact table, figure, coefficient, wording, page, or extraction ambiguity matters;
+9. use visual assets only where they exist and materially help.
 
 ## Important interpretation rules
 
-- One source may be indexed in general and several papers without duplicating the physical PDF/Markdown.
+- One source may be indexed in general and several papers without physical duplication.
 - Paper-specific folders are views/notes, not separate libraries.
-- Keep published and working-paper versions separate when they are genuinely distinct scholarly versions.
-- Prefer the most complete/high-fidelity extracted Markdown when true duplicates are discovered, but preserve provenance in the catalogue.
+- Keep published and working-paper versions separate when genuinely distinct.
+- Prefer the most complete/high-fidelity extracted Markdown when true duplicates are discovered, while preserving provenance.
 - Do not infer numerical results from corrupted extraction; verify against the PDF.
-- Never invent p-values, coefficients, R², effect sizes or sample sizes for a source that does not report them.
+- Never invent p-values, coefficients, `R²`, effect sizes or sample sizes for a source that does not report them.
 - Preserve null results in technical reading notes.
-- Literature PDFs are internal research materials in this private repository and are not automatically redistributable in a public release.
+- Literature PDFs are internal research materials in this private repository and are not automatically redistributable.
 - Literature organization must not dictate scientific results; all papers consume canonical outputs from the shared analysis pipeline.
 
 ## Maintenance when adding a source
 
 1. choose a stable ID such as `author_year_short-topic`;
-2. place or register the source in the library source-material layer;
+2. place/register the source once in `library/source_material/`;
 3. update `literature/library/CATALOG.md`;
 4. add it to every relevant scientific view (`general` and/or Papers 1–5) with a short role/priority note;
-5. update the relevant `MISSING_LITERATURE.md` if the source fills a known gap;
-6. if the source is substantive for an active paper, create/update its technical reading note using that paper's reading-note protocol;
-7. avoid physical duplication solely because a source supports multiple manuscripts.
+5. update the relevant `MISSING_LITERATURE.md` if it fills a known gap;
+6. if substantive for an active paper, create/update its technical reading note;
+7. avoid physical duplication solely because the source supports multiple manuscripts.
 
 ## Maintenance when the publication plan changes
 
@@ -118,49 +120,5 @@ If a working title, paper boundary, priority or journal strategy changes:
 
 1. update `docs/PUBLICATION_PORTFOLIO.md` first;
 2. update the matching root `papers/<paper_id>/README.md`;
-3. update the matching `literature/papers/<paper_id>/README.md` if the literature scope changes;
+3. update the matching `literature/papers/<paper_id>/README.md` if literature scope changes;
 4. update this handoff and `literature/AGENTS.md` if routing rules or portfolio structure changed.
-
-When true duplicates are discovered, verify title/authors/year/DOI/content before collapsing them. Historical import provenance can remain documented in Git history and `docs/HEAVY_SNAPSHOT.md` even after duplicate working copies are removed.
-# AI handoff — literature
-
-Read this file before literature searches, manuscript bibliography work, or adding new papers.
-
-## Current architecture
-
-The old migration-oriented `Bib/Bib2` organization has been replaced by a single canonical `library/`. Historical batch names remain only in Git history.
-
-- `library/`: one physical copy of each article/version.
-- `general/`: broad thematic navigation.
-- `papers/paper1_ppa_persistence/`: editorial roles and missing literature for Paper 1.
-- `papers/paper2_mu_performance/`: editorial roles and missing literature for Paper 2.
-
-The current canonical library contains 50 Markdown article/version records and 49 PDFs. Docling assets are retained only for the original archived subset; the later expansion intentionally omitted its redundant PNG assets. `kahu_2018_student-engagement-educational-interface` currently has Markdown but no source PDF in the consolidated library.
-
-## Paper 1
-
-Question: whether formal academic-support use observed under the PPA1-linked first-year MU context persists into subsequent Calculus support use after that specific incentive is treated as no longer applying.
-
-Target: *Studies in Higher Education*.
-
-Literature balance: broad higher-education incentive/help-seeking/engagement framing first; mathematics support is the empirical setting rather than the entire theoretical contribution. Core anchors include Kahu, Fong, Karabenick, Agnew, Gneezy, Angrist, Pugatch, Paloyo and Blondeel. Hanushek & Woessmann (2008) is secondary institutional framing only.
-
-Highest-priority missing comparator: Büchele & Schürmann (2024), *Studies in Higher Education*, DOI 10.1080/03075079.2023.2271029.
-
-## Paper 2
-
-Question: association between contemporaneous CMAT use and classroom-relative performance in first-attempt MU.
-
-Target: TEAMAT first; IJMEST second.
-
-Literature should be mathematics-support heavy. Current empirical interpretation to protect: the strongest separation is `0 visits` versus positive use; there is not robust evidence for a simple monotone 1→2→3→4+ dose-response. Core field anchors include Mullen, Lawson, Mac an Bhaird, Jacob, Berry, Matthews, Pell and Navarra-Madsen. Pugatch/Paloyo provide useful causal contrasts to the observational CMAT design.
-
-Highest-priority missing items include Büchele & Schürmann (2024), Rickard & Mills (2018), and MacGillivray (2009 exact metadata/source).
-
-## Retrieval policy
-
-Do not rediscover a local paper on the web before checking the paper-specific index and `library/INDEX.md`. Read only relevant Markdown. Use the PDF when exact table/figure/numerical verification is necessary. Use the web for absent/current literature or metadata verification.
-
-## Non-negotiable scientific language
-
-CMAT visits are observational and student-selected. Do not infer causality, habits, intrinsic motivation, or psychological mechanisms from administrative visits. Use association/predictive association/pattern-consistent language.
