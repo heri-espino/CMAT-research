@@ -1,0 +1,10 @@
+{
+  "raw_academic_rows": 27788,
+  "clean_academic_rows": 26335,
+  "academic_rows_missing_professor_removed": 1048,
+  "same_student_course_period_duplicate_rows": 809,
+  "same_student_course_period_conflict_groups": 1,
+  "raw_advisory_rows": 13500,
+  "exact_duplicate_advisory_rows_removed": 0,
+  "unknown_non_numeric_grade_tokens": {}
+}

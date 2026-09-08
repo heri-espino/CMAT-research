@@ -1,0 +1,6 @@
+PDF: /mnt/data/CMAT_latex_report_v2_methodology/informe_cmat.pdf
+Pages: 40
+Encrypted: False
+Openable (PyMuPDF): True
+Likely scanned: False
+XFA present: False
