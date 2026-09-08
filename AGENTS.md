@@ -21,18 +21,21 @@ Maintain one scientific chain:
 
 `controlled data -> code/ -> analysis/ -> reports/ and papers/`.
 
-Do not create manuscript-specific scientific pipelines. If Paper 1 or Paper 2 needs a methodological change, implement and validate it in canonical code first.
+Do not create manuscript-specific scientific pipelines. If any of the five planned papers needs a methodological change, implement and validate it in the canonical code first, regenerate aggregate outputs, and only then update the manuscript.
 
-## Literature dependency rule
+The canonical five-paper publication plan is `docs/PUBLICATION_PORTFOLIO.md`.
 
-Maintain one literature chain:
+## Stable paper IDs
 
-`literature/library/ -> literature/general/ and literature/papers/ -> manuscript references.bib`.
+Use these IDs consistently across `papers/`, `literature/papers/`, documentation, branches and issue/PR descriptions:
 
-- `literature/library/` is the only physical article store.
-- Never duplicate an article because it belongs to multiple papers.
-- Paper-specific literature folders contain roles/indexes only.
-- Read `literature/AGENTS.md` before literature changes.
+- `paper1_ppa_persistence`
+- `paper2_mu_performance`
+- `paper3_grading_heterogeneity`
+- `paper4_degree_help_seeking`
+- `paper5_longitudinal_trajectories`
+
+Do not create alternate folder names for the same manuscript.
 
 ## Preservation rule
 
@@ -59,8 +62,23 @@ Aggregated outputs may be committed after privacy review. Heavy literature PDFs/
 - Classroom is `instructor × course × academic period` unless a later reviewed methodological change explicitly replaces it.
 - Scientific-code changes require tests, protocol/changelog/function-index updates, and a new source fingerprint.
 - Paper-specific selections happen after canonical outputs are stable.
-- Do not silently substitute the `N=4,211` future-Calculus progressor subset for the full first-MU cohort; they answer different questions.
+- Paper folders may select results; they may not redefine them independently.
 
-## Documentation rule
+## Literature rules
 
-Major folders should have a README explaining scope, inputs, outputs, canonical status and dependencies. Update `.ai_handoff.md` whenever methodology, estimands, cohort definitions, core results, literature architecture, or publication strategy materially change.
+The physical literature corpus is shared under `literature/library/`. General and paper-specific folders are scientific views over that library. Read `literature/AGENTS.md` before reorganizing or adding literature.
+
+Do not recreate upload-batch folders such as `Bib3`, `Bib4`, etc. New sources belong in the shared library and are then indexed into every relevant paper view.
+
+## Documentation / handoff
+
+Major folders should have a README explaining scope, inputs, outputs, canonical status and dependencies.
+
+Future AI sessions should start with:
+
+1. `AI_HANDOFF.md` — global project state;
+2. `docs/PUBLICATION_PORTFOLIO.md` — five-paper plan;
+3. `literature/AI_HANDOFF.md` — literature-specific state when relevant;
+4. current methodological protocol/changelog before changing scientific code.
+
+Update the project handoff/changelog whenever code, estimands, portfolio boundaries or major architecture changes.

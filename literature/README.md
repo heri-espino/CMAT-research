@@ -1,28 +1,42 @@
 # Literature
 
-The active literature architecture is organized by scientific use, not by ingestion batch.
+This directory is organized by **scientific use**, not by upload batch.
 
-```text
-literature/
-├── library/          # one physical canonical copy of each work/version
-├── general/          # cross-project thematic map
-└── papers/
-    ├── paper1_ppa_persistence/
-    └── paper2_mu_performance/
-```
+## Structure
 
-Historical folders named `Bib`, `Bib2`, and `Bib2-2` are migration artifacts preserved in Git history only. Future work must not recreate them.
+- `library/`: canonical research library and source-material catalogue.
+- `general/`: cross-project literature map for concepts shared by the CMAT research programme.
+- `papers/`: five manuscript-specific literature views.
+- `AI_HANDOFF.md`: state and operating guidance for future AI sessions.
+- `AGENTS.md`: maintenance and retrieval rules for humans and automated agents.
 
-## Key principle
+## Five paper views
 
-**Store once, index many times.** A paper relevant to both manuscripts stays once in `library/` and is referenced from both paper-specific indices.
+1. `papers/paper1_ppa_persistence/` — incentive-linked first-year support use and later persistence.
+2. `papers/paper2_mu_performance/` — CMAT use and classroom-relative first-MU performance.
+3. `papers/paper3_grading_heterogeneity/` — instructor-by-term grading heterogeneity and assessment comparability.
+4. `papers/paper4_degree_help_seeking/` — disciplinary/degree-programme heterogeneity in support use and persistence.
+5. `papers/paper5_longitudinal_trajectories/` — full-degree longitudinal mathematics-support trajectories.
 
-## Retrieval
+Canonical title/priority/journal plan: `../docs/PUBLICATION_PORTFOLIO.md`.
 
-1. Start with `general/INDEX.md` for a broad project question, or a paper-specific `papers/.../INDEX.md` for manuscript work.
-2. Resolve the stable literature ID in `library/articles/`.
-3. Use separated references only for citation chaining/metadata verification.
-4. Use a targeted archived asset if it exists and materially helps; otherwise consult the PDF for exact/visual verification.
-5. Do not load the whole corpus into context.
+## Core rule
 
-See `AGENTS.md` and `AI_HANDOFF.md` before restructuring or adding literature.
+A source may be relevant to several scientific views, but it should not be physically duplicated solely for that reason. Paper-specific folders contain indices and synthesis/gap notes that point back to the shared library source material.
+
+## Source material
+
+Historical imports are preserved under `library/source_material/` for provenance:
+
+- `visual_corpus/`: source set with PDFs, extracted Markdown, references and Docling visual assets.
+- `pdf_markdown_corpus/`: source set with PDFs/Markdown/references and no visual assets by design.
+
+These are storage/provenance layers, not the scientific organization of the literature.
+
+## Retrieval order
+
+Start from the relevant scientific `INDEX.md`, locate the source in the library catalogue, read targeted extracted Markdown, then use separated references for citation chaining and the PDF for exact/visual verification. Use assets only where they exist and materially help.
+
+## Publication boundary
+
+The repository is private. Source PDFs and extraction artifacts are internal research materials and are not automatically redistributable in a public release.
