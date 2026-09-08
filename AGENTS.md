@@ -4,14 +4,14 @@
 
 Before substantive work:
 
-1. read `.ai_handoff.md`;
+1. read `AI_HANDOFF.md`;
 2. read the README/AGENTS file in the subsystem being changed;
 3. inspect current canonical outputs/protocol before quoting numerical results;
 4. use a short-lived branch for a concrete change unless the user explicitly requests otherwise.
 
 ## Canonical repository model
 
-`main` is the source of truth. Organize the project by subfolder; use branches only as short-lived workspaces for concrete changes.
+`main` is the source of truth. Organize the project by subfolder; use branches only as short-lived workspaces for concrete changes and delete them after merge.
 
 Read `docs/BRANCH_STRATEGY.md` and `docs/GIT_WORKFLOW.md` before creating or reusing a branch.
 
@@ -21,13 +21,13 @@ Maintain one scientific chain:
 
 `controlled data -> code/ -> analysis/ -> reports/ and papers/`.
 
-Do not create manuscript-specific scientific pipelines. If any of the five planned papers needs a methodological change, implement and validate it in the canonical code first, regenerate aggregate outputs, and only then update the manuscript.
+Do not create manuscript-specific scientific pipelines. If any of the five planned papers needs a methodological change, implement and validate it in canonical code first, regenerate aggregate outputs, and only then update the manuscript.
 
 The canonical five-paper publication plan is `docs/PUBLICATION_PORTFOLIO.md`.
 
 ## Stable paper IDs
 
-Use these IDs consistently across `papers/`, `literature/papers/`, documentation, branches and issue/PR descriptions:
+Use these IDs consistently across `papers/`, `literature/papers/`, documentation and issue/PR descriptions:
 
 - `paper1_ppa_persistence`
 - `paper2_mu_performance`
