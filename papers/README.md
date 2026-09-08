@@ -1,32 +1,31 @@
 # Papers
 
-Publication-specific manuscript projects.
+Publication-specific manuscript projects for the five-paper CMAT research programme.
 
-## Rule
+## Core rule
 
-Papers consume the canonical analysis; they do not maintain independent scientific pipelines.
+Papers consume the canonical scientific pipeline and aggregate outputs; they do **not** maintain independent versions of cohorts, estimands, models, or numerical results.
 
-Each paper folder should contain:
+The canonical portfolio plan is `docs/PUBLICATION_PORTFOLIO.md`. Use that document as the source of truth for working titles, priority, target journals, and paper boundaries.
 
-- `README.md` with scope, RQs, target journal and status;
-- LaTeX source;
-- manuscript-specific bibliography;
-- only the figures/tables needed for that manuscript, sourced from canonical aggregate outputs.
+## Planned manuscripts
 
-## Planned papers
+1. `paper1_ppa_persistence/` — persistence of formal mathematics-support use after the first-year incentive-linked context.
+2. `paper2_mu_performance/` — contemporaneous CMAT use and classroom-relative MU performance.
+3. `paper3_grading_heterogeneity/` — instructor-by-term grading heterogeneity and assessment comparability.
+4. `paper4_degree_help_seeking/` — disciplinary/degree-programme heterogeneity in support use and persistence.
+5. `paper5_longitudinal_trajectories/` — full-degree longitudinal trajectories of mathematics-support use.
 
-### Paper 1 — PPA1 and persistence of formal academic help-seeking
+## Expected contents of each paper folder
 
-Primary outcome: later CMAT use in Calculus after the first-year incentive-linked MU context.
-
-Target: *Studies in Higher Education*.
-
-### Paper 2 — CMAT use and classroom-relative MU performance
-
-Primary outcome: classroom-standardised performance in MU as a function of contemporaneous CMAT use.
-
-Target: *Teaching Mathematics and its Applications* (TEAMAT), with IJMEST as an alternative.
+- `README.md` with scope, RQs, contribution, target journals, status and dependencies;
+- LaTeX manuscript source when drafting begins;
+- manuscript-specific `references.bib`;
+- only the figures/tables needed for that manuscript, sourced from canonical aggregate outputs;
+- no paper-specific copy of the scientific analysis pipeline.
 
 ## Scientific boundary
 
-If a manuscript exposes a methodological problem, fix it first in `code/` through a short-lived feature branch, regenerate canonical outputs, and only then update the manuscript.
+If a manuscript exposes a methodological problem, fix it first in `code/` through a short-lived feature branch, regenerate canonical outputs, verify changed numbers, and only then update the manuscript.
+
+Paper-specific literature maps live separately under `literature/papers/`; the physical literature corpus remains shared under `literature/library/`.
