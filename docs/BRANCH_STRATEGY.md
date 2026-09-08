@@ -48,3 +48,17 @@ Each substantive branch should eventually open a PR documenting:
 4. source fingerprint before/after if scientific code changed;
 5. privacy implications;
 6. unresolved questions.
+
+## Auxiliary branches not to use
+
+Several empty organizational branches were created while setting up this strategy. They are **not part of the working model** and should receive no substantive commits:
+
+- `docs/branch-strategy`
+- `docs/repository-governance`
+- `archive/heavy-snapshot`
+- `tmp/noop`
+- `cleanup/branch-plan`
+- `notes/branch-status`
+- `work/status-docs`
+
+The current connector does not expose deletion of Git refs, so these branches remain visible for now but are intentionally abandoned. Only the eight branches in the Working branches table should be used.
