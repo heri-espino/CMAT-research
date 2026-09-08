@@ -57,8 +57,34 @@ Do not recreate `Bib`, `Bib2`, `Bib3`, `source_material/`, extracted asset trees
 Paper 1 has a human-readable technical evidence layer:
 
 - `literature/papers/paper1_ppa_persistence/READING_GUIDE.md` — rapid overview;
-- `literature/papers/paper1_ppa_persistence/reading_notes/README.md` — required schema;
-- `literature/papers/paper1_ppa_persistence/reading_notes/general/` — article-level technical notes.
+- `literature/papers/paper1_ppa_persistence/reading_notes/README.md` — required schema and subfolder-routing policy;
+- `literature/papers/paper1_ppa_persistence/reading_notes/general/` — article-level foundational/cross-cutting technical notes.
+
+### Reading-note taxonomy
+
+The reading-note tree is organized by **scientific function**. It must never reproduce upload batches, providers, file types, extraction stages or arbitrary chronology.
+
+Current/default category:
+
+- `general/` — engagement, help-seeking, mathematics-support, first-year-transition, persistence and other broad/foundational literature whose primary contribution is cross-cutting rather than intervention-specific.
+
+Planned category:
+
+- future `incentives/` — sources whose central contribution concerns incentives, incentive removal/expiration, participation contingencies, thresholds, or behavioural interventions that help interpret the PPA change in incentive context.
+
+For `incentives/`, prioritize extraction of intervention type, target behaviour, assignment/exposure, incentive magnitude or threshold when applicable, timing, removal/expiration, follow-up horizon, compliance/take-up, post-incentive behaviour, identification strategy, mechanism evidence, and transportability to the CMAT/PPA setting. Do not route a source there merely because it mentions motivation or engagement.
+
+Keep **one canonical technical note per source**. If a source serves multiple functions, cross-reference it from guides/indices rather than duplicating note files.
+
+Only create another reading-note subfolder when it has:
+
+1. a distinct manuscript-relevant scientific purpose;
+2. several substantive sources or a clearly committed review stream;
+3. a stable inclusion/exclusion rule;
+4. clear retrieval/synthesis value;
+5. no need to duplicate sources already represented elsewhere.
+
+When a new scientific-function folder is introduced, document it first in `reading_notes/README.md` and then update this handoff plus `literature/AGENTS.md` when the routing rule is important for future sessions.
 
 ### Completed general/foundational notes
 
@@ -74,7 +100,7 @@ These notes record methods, sample sizes, important findings, effect sizes/test 
 
 ### Next Paper 1 batch
 
-Create `reading_notes/incentives/` and technical notes for the incentive-specific literature, beginning with Gneezy et al. (2011), Angrist et al. (2009), Agnew et al. (2021), Leuven et al. (2010), Oreopoulos/Petronijevic, Blondeel et al., and the most useful behavioural-economics reviews.
+Create `reading_notes/incentives/` only when beginning the actual incentive-specific note set, not as an empty organizational placeholder. Start with Gneezy et al. (2011), Angrist et al. (2009), Agnew et al. (2021), Leuven et al. (2010), Oreopoulos/Petronijevic, Blondeel et al., and the most useful behavioural-economics reviews. Confirm from each source that the incentive/behavioural mechanism is substantive before routing it there.
 
 Highest-priority missing comparator currently tracked for Papers 1–2: Büchele & Schürmann (2024), *Studies in Higher Education*, DOI `10.1080/03075079.2023.2271029`.
 
