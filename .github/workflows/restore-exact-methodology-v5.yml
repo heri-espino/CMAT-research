@@ -47,20 +47,27 @@ jobs:
           echo "Code root:   $(cat /tmp/code_root.txt)"
           echo "Report root: $(cat /tmp/report_root.txt)"
 
+      - name: Restore hidden handoff omitted by browser repackaging
+        shell: bash
+        run: |
+          set -euo pipefail
+          CODE_ROOT=$(cat /tmp/code_root.txt)
+          if [ ! -f "$CODE_ROOT/.ai_handoff.md" ]; then
+            FALLBACK='code/snapshots/methodology_v5_2026-09-07/.ai_handoff.md'
+            test -f "$FALLBACK"
+            echo 'f6b16993d9890149273c39c98ab8e923210402e14800e2937e1feeafcde47841  '"$FALLBACK" | sha256sum -c -
+            cp "$FALLBACK" "$CODE_ROOT/.ai_handoff.md"
+            echo 'Restored exact .ai_handoff.md omitted from the uploaded repackaged ZIP.'
+          fi
+
       - name: Verify every archived file against embedded manifests
         shell: bash
         run: |
           set -euo pipefail
           CODE_ROOT=$(cat /tmp/code_root.txt)
           REPORT_ROOT=$(cat /tmp/report_root.txt)
-          (
-            cd "$CODE_ROOT"
-            sha256sum -c SOURCE_MANIFEST_SHA256.txt
-          )
-          (
-            cd "$REPORT_ROOT"
-            sha256sum -c provenance/SHA256SUMS.txt
-          )
+          (cd "$CODE_ROOT" && sha256sum -c SOURCE_MANIFEST_SHA256.txt)
+          (cd "$REPORT_ROOT" && sha256sum -c provenance/SHA256SUMS.txt)
 
       - name: Materialize exact snapshots
         shell: bash
@@ -75,7 +82,7 @@ jobs:
           cp -a "$CODE_ROOT"/. "$CODE_DST"/
           cp -a "$REPORT_ROOT"/. "$REPORT_DST"/
 
-      - name: Verify scientific identity, privacy, tests, and PDF
+      - name: Verify scientific identity privacy tests and PDF
         shell: bash
         run: |
           set -euo pipefail
@@ -123,14 +130,16 @@ jobs:
           cat > docs/snapshots/methodology_v5_2026-09-07/README.md <<EOF
           # Methodology v5 / technical report v2 exact restoration
 
-          Restored on 2026-09-08 from the two archives uploaded by the project owner to the temporary restoration branch.
+          Restored on 2026-09-08 from archives uploaded by the project owner.
 
-          The outer ZIP containers were allowed to differ from earlier ZIP hashes because ZIP metadata/compression can change when an archive is repackaged. Fidelity was instead verified at the file level:
+          The uploaded ZIP containers had been repackaged. The code ZIP omitted the hidden file \`.ai_handoff.md\`; that single file was restored from the already-staged exact copy after verifying its SHA-256 against the embedded source manifest.
 
-          - every file listed in \`SOURCE_MANIFEST_SHA256.txt\` passed SHA-256 verification before commit;
-          - every file listed in \`provenance/SHA256SUMS.txt\` for the technical report passed SHA-256 verification;
-          - \`informe_cmat.pdf\` independently matched SHA-256 \`1e52d36809924df4bc84db65f6cb6669fe33d1f402076e8930b3a173f550595f\` and has 40 pages;
-          - the methodology helper suite passed 9/9 tests;
+          Fidelity was verified at the file level before commit:
+
+          - every entry in \`SOURCE_MANIFEST_SHA256.txt\` passed SHA-256 verification;
+          - every entry in \`provenance/SHA256SUMS.txt\` passed SHA-256 verification;
+          - \`informe_cmat.pdf\` matched SHA-256 \`1e52d36809924df4bc84db65f6cb6669fe33d1f402076e8930b3a173f550595f\` and has 40 pages;
+          - the methodology test suite passed 9/9 tests;
           - \`PYTHON_FUNCTION_INDEX.md\` declares 320 symbols;
           - no Excel or other prohibited raw microdata formats were present.
 
@@ -139,7 +148,7 @@ jobs:
           - code ZIP: \`$CODE_CONTAINER_SHA\`
           - report ZIP: \`$REPORT_CONTAINER_SHA\`
 
-          Historical scientific-source fingerprint documented by the exact snapshot:
+          Historical scientific-source fingerprint documented by the restored snapshot:
 
           \`03dd3d4ddd31cc2263be54900e1b25749fab8a7beb2033fbe796bf240fd4c39f\`
 
