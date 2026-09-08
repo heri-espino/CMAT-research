@@ -6,7 +6,7 @@ This file defines how humans and automated agents should operate inside `literat
 
 Do not organize literature by upload batch. The user-facing structure is:
 
-- `library/` — canonical source material and master catalogue;
+- `library/` — canonical source layer and master catalogue;
 - `general/` — cross-project conceptual literature;
 - `papers/paper1_ppa_persistence/` — incentive-context persistence;
 - `papers/paper2_mu_performance/` — CMAT use and MU performance;
@@ -14,28 +14,28 @@ Do not organize literature by upload batch. The user-facing structure is:
 - `papers/paper4_degree_help_seeking/` — disciplinary heterogeneity in support use;
 - `papers/paper5_longitudinal_trajectories/` — full-degree support trajectories.
 
-Historical source imports may remain nested under `library/source_material/` for provenance, but their storage boundaries must not dictate scientific interpretation.
+Historical source imports remain nested under `library/source_material/` for provenance. Their storage boundaries must not dictate scientific interpretation.
 
-The canonical five-paper title/priority/journal plan is `../docs/PUBLICATION_PORTFOLIO.md`.
+Canonical title/priority/journal plan: `../docs/PUBLICATION_PORTFOLIO.md`.
 
 ## 2. One physical source, many views
 
-A paper can support several research questions. Do not copy the same PDF/Markdown into general + multiple paper folders. Instead, add references to the canonical source from multiple indices/cards.
+A work can support several research questions. Do not copy the same PDF/Markdown into general + multiple paper folders. Instead, register/refer to the canonical source from multiple scientific indices or reading notes.
 
 ## 3. Retrieval protocol
 
 For a literature question:
 
-1. identify whether the question is general, paper-specific, or cross-paper;
+1. identify whether it is general, paper-specific, or cross-paper;
 2. open the corresponding `INDEX.md` first;
 3. if a paper-specific `READING_GUIDE.md` exists, use it for rapid technical orientation;
-4. use `library/CATALOG.md` and source-material indices to locate the canonical record;
-5. read only the relevant extracted Markdown sections;
-6. inspect `references/` only for citation chaining or bibliography verification;
-7. inspect the PDF for exact tables, figures, coefficients, confidence intervals, sample sizes, page-level wording, or extraction ambiguity;
+4. use `library/CATALOG.md` and the source-material indices to locate the canonical record;
+5. read only relevant extracted Markdown sections;
+6. inspect `references/` only for citation chaining/bibliography verification;
+7. inspect the source PDF for exact tables, figures, coefficients, confidence intervals, sample sizes, page-level wording, or extraction ambiguity;
 8. use Docling assets only where they actually exist and materially help.
 
-Do not load the entire corpus into context when a targeted search is sufficient.
+Do not load the whole corpus when targeted retrieval is sufficient.
 
 ## 4. Source reliability
 
@@ -45,18 +45,34 @@ Do not load the entire corpus into context when a targeted search is sufficient.
 - Docling assets are optional visual fallbacks.
 - Never infer a material numerical value from visibly corrupted extraction.
 
-## 5. Duplicate/version handling
+## 5. Adding a new work
+
+1. choose a stable ID such as `author_year_short-topic`;
+2. place/register the work in the appropriate canonical source-material layer under `library/source_material/`;
+3. retain the source PDF when available and appropriate for this private repository;
+4. retain separated references when useful;
+5. add visual assets only when they already exist or are genuinely needed—do not regenerate hundreds of images for archival completeness;
+6. update `library/CATALOG.md`;
+7. update every relevant scientific view among `general/` and Papers 1–5;
+8. update a relevant `MISSING_LITERATURE.md` when a gap is filled or newly identified;
+9. create/update a technical reading note when the source is substantive for an active manuscript;
+10. update `AI_HANDOFF.md` if architecture, retrieval rules, portfolio status or major gaps changed.
+
+Do not create `library/articles/`, `Bib3`, `Bib4`, or paper-specific physical source copies unless the architecture is intentionally changed and documented first.
+
+## 6. Duplicate/version handling
 
 When apparent duplicates are found:
 
 - compare title, authors, year, DOI and scholarly version;
 - collapse exact duplicate copies in the scientific catalogue;
-- retain genuinely different versions (e.g. working paper vs published article) when analytically relevant;
-- record the preferred canonical source and provenance rather than silently deleting useful history.
+- retain genuinely different versions (for example working paper vs published article) when analytically relevant;
+- prefer the published version for manuscript citation unless there is a reason not to;
+- preserve provenance rather than silently destroying useful history.
 
-## 6. Paper-specific role tagging
+## 7. Paper-specific role tagging
 
-Paper views should annotate each source with a role such as:
+Paper views should annotate each source with roles such as:
 
 - `core` — directly supports theory/design/contribution;
 - `supporting` — useful framing or interpretation;
@@ -64,30 +80,28 @@ Paper views should annotate each source with a role such as:
 - `context` — institutional/domain background;
 - `contrast` — competing explanation or alternative interpretation.
 
-Where useful, also note `used_in` and `do_not_claim` boundaries.
+Where useful, also record `used_in` and `do_not_claim` boundaries.
 
-## 7. Technical reading notes
+## 8. Technical reading notes
 
-For active manuscript literature, technical reading notes are the evidence layer between the source and manuscript drafting. Paper 1 uses `papers/paper1_ppa_persistence/READING_GUIDE.md` and `reading_notes/`.
+For active manuscript literature, technical reading notes are the evidence layer between source and manuscript drafting. Paper 1 currently uses `papers/paper1_ppa_persistence/READING_GUIDE.md` and `reading_notes/`.
 
-A substantive reading note should capture, when the source actually reports them:
+A substantive note should capture, when actually reported:
 
 - design and sample (`N`, group sizes, study/sample count `k`);
 - exposure/predictor and outcome definitions;
-- statistical/qualitative method;
-- individual important results rather than only an overall conclusion;
+- statistical or qualitative method;
+- individual important results, including null findings;
 - coefficients/correlations, SE, CI, p-values, test statistics, `R²`, effect sizes, heterogeneity and reliability where applicable;
 - short quotation anchors;
 - what the paper supports for CMAT and what it does not support;
 - exact local Markdown/PDF and page/table/figure anchors.
 
-Do **not** fabricate quantitative statistics for conceptual, narrative-review or qualitative papers. State `inferential statistics: not applicable` and document their actual methodology.
+Do **not** fabricate quantitative statistics for conceptual, narrative-review or qualitative papers. State `inferential statistics: not applicable` and document the actual method.
 
-Preserve null results. Do not selectively record only significant results.
+If a statistic is calculated by us rather than printed in the source, label it explicitly as derived and record the source quantities used.
 
-If a statistic is calculated by us rather than printed in the source, label it explicitly as a derived calculation and record the source quantities used.
-
-## 8. Five-paper routing rules
+## 9. Five-paper routing rules
 
 ### Paper 1 — incentive-linked persistence
 Relevant families: incentives, incentive removal, persistence, engagement, academic help-seeking, first-year transitions and mathematics-support context.
@@ -114,22 +128,9 @@ Relevant families: longitudinal help-seeking, repeated support use, educational 
 
 Do not label trajectory classes as motivation/habit/need solely from visit patterns.
 
-## 9. Maintenance rule
-
-When adding or materially changing literature:
-
-- update `library/CATALOG.md`;
-- update every relevant scientific view among general + Papers 1–5;
-- update the relevant `MISSING_LITERATURE.md` when a gap is filled or newly identified;
-- add/update a technical reading note when the source is substantive for an active manuscript;
-- update `AI_HANDOFF.md` if architecture, retrieval rules, portfolio status or major literature gaps changed;
-- update `../docs/PUBLICATION_PORTFOLIO.md` only when title/priority/journal strategy actually changes;
-- do not rename stable paper IDs casually;
-- keep manuscript `.bib` files with manuscripts, not inside this research-library folder.
-
 ## 10. Portfolio consistency
 
-The manuscript folders under root `papers/` and the literature views under `literature/papers/` must use the same stable IDs:
+The manuscript folders under root `papers/` and literature views under `literature/papers/` must use the same stable IDs:
 
 - `paper1_ppa_persistence`
 - `paper2_mu_performance`
@@ -137,41 +138,8 @@ The manuscript folders under root `papers/` and the literature views under `lite
 - `paper4_degree_help_seeking`
 - `paper5_longitudinal_trajectories`
 
-Do not create alternate IDs for the same paper.
+Paper-specific `.bib` files belong with manuscript source under root `papers/`, not in this research-library subsystem.
 
 ## 11. Privacy/copyright boundary
 
 This is a private research repository. Literature PDFs and extraction artifacts are internal research materials and are not automatically redistributable in a public release. Administrative student data must never be added here.
-# Agent instructions — literature subsystem
-
-## Architecture
-
-`library/` is the only physical literature store. `general/` and `papers/` are semantic/editorial indexes. Never duplicate source Markdown/PDFs across those layers.
-
-## Adding a new work
-
-1. Choose a stable ID: `author_year_short-topic`.
-2. Add the article Markdown to `library/articles/<id>.md`.
-3. Add a source PDF to `library/pdf/<id>.pdf` when available/appropriate for this private repository.
-4. Add `library/references/<id>.references.md` if a separated reference list is available.
-5. Add assets only when they already exist or are genuinely needed; do not regenerate hundreds of images merely for archival completeness.
-6. Update `library/INDEX.md`.
-7. Classify the work in `general/INDEX.md`.
-8. If relevant, add its editorial role to Paper 1 and/or Paper 2 index. Never make a paper-specific physical copy.
-9. Update `AI_HANDOFF.md` if the new work materially changes the literature gap, target-journal fit, or manuscript logic.
-
-## Reading order
-
-Use `INDEX -> targeted Markdown -> separated references if needed -> targeted asset/PDF for exact verification`.
-
-## Bibliographic versions
-
-Keep genuinely distinct versions when scientifically useful (e.g. working paper vs published paper). Prefer the published version for manuscript citation unless there is a specific reason to cite the working paper. Document alternate copies rather than silently merging them.
-
-## Claims
-
-Do not make a claim stronger than the source supports. In particular, literature on incentives, nudges, tutoring, engagement, or support must not be used to convert the observational CMAT design into a causal one.
-
-## Publication vs internal archive
-
-The GitHub repository is private. Source PDFs are internal research material and are not automatically cleared for redistribution. A public release should normally publish manuscript bibliography/DOIs/metadata, not this private PDF library.
