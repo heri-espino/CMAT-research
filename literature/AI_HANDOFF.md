@@ -58,19 +58,17 @@ Paper 1 has a human-readable technical evidence layer:
 
 - `literature/papers/paper1_ppa_persistence/READING_GUIDE.md` — rapid overview;
 - `literature/papers/paper1_ppa_persistence/reading_notes/README.md` — required schema and subfolder-routing policy;
-- `literature/papers/paper1_ppa_persistence/reading_notes/general/` — article-level foundational/cross-cutting technical notes.
+- `literature/papers/paper1_ppa_persistence/reading_notes/general/` — foundational/cross-cutting technical notes;
+- `literature/papers/paper1_ppa_persistence/reading_notes/incentives/` — incentive/removal/behavioural-intervention technical notes.
 
 ### Reading-note taxonomy
 
 The reading-note tree is organized by **scientific function**. It must never reproduce upload batches, providers, file types, extraction stages or arbitrary chronology.
 
-Current/default category:
+Active categories:
 
 - `general/` — engagement, help-seeking, mathematics-support, first-year-transition, persistence and other broad/foundational literature whose primary contribution is cross-cutting rather than intervention-specific.
-
-Planned category:
-
-- future `incentives/` — sources whose central contribution concerns incentives, incentive removal/expiration, participation contingencies, thresholds, or behavioural interventions that help interpret the PPA change in incentive context.
+- `incentives/` — sources whose central contribution concerns incentives, incentive removal/expiration, participation contingencies, thresholds, or behavioural interventions that help interpret the PPA change in incentive context.
 
 For `incentives/`, prioritize extraction of intervention type, target behaviour, assignment/exposure, incentive magnitude or threshold when applicable, timing, removal/expiration, follow-up horizon, compliance/take-up, post-incentive behaviour, identification strategy, mechanism evidence, and transportability to the CMAT/PPA setting. Do not route a source there merely because it mentions motivation or engagement.
 
@@ -96,11 +94,21 @@ When a new scientific-function folder is introduced, document it first in `readi
 - Wilcox, Winn & Fyvie-Gauld (2005) — qualitative first-year social-support/retention study;
 - van Herpen et al. (2020) — quasi-experimental first-year transition intervention.
 
-These notes record methods, sample sizes, important findings, effect sizes/test statistics/p-values/CI where genuinely reported, brief quotation anchors, claim boundaries and local verification paths. Conceptual/qualitative papers are explicitly labelled as having no applicable inferential statistics instead of being forced into a quantitative template.
+### Completed incentive/removal/behavioural notes
 
-### Next Paper 1 batch
+- Gneezy, Meier & Rey-Biel (2011) — direct incentive effects, crowd-out and post-removal mechanisms;
+- Angrist, Lang & Oreopoulos (2009) — randomized services/incentives experiment; offer versus uptake; persistent female academic differences;
+- Leuven, Oosterbeek & van der Klaauw (2010) — randomized financial rewards; average null with ability/background heterogeneity;
+- Agnew, Kerr & Watt (2021) — removal of 1%-per-quiz incentives; sharp participation/intensity decline and historical-cohort achievement comparison;
+- Oreopoulos & Petronijevic (2019) — multi-year RCT program of low-touch college nudges/coaching with precise academic nulls and some intermediate behavioural effects;
+- Blondeel, Everaert & Opdecam (2023) — randomized nudge assignment with null group effects but selected click-intensity associations; direct *Studies in Higher Education* comparator;
+- Damgaard & Nielsen (2018) — education-nudging review/typology; mechanism, targeting, heterogeneity, and nudge-versus-material-incentive distinction.
 
-Create `reading_notes/incentives/` only when beginning the actual incentive-specific note set, not as an empty organizational placeholder. Start with Gneezy et al. (2011), Angrist et al. (2009), Agnew et al. (2021), Leuven et al. (2010), Oreopoulos/Petronijevic, Blondeel et al., and the most useful behavioural-economics reviews. Confirm from each source that the incentive/behavioural mechanism is substantive before routing it there.
+These notes record methods, sample sizes, important findings, effect sizes/test statistics/p-values/CI where genuinely reported, claim boundaries and local verification paths. Conceptual/review papers are not forced into a false primary-study statistical template.
+
+### Next Paper 1 literature expansion
+
+Do not create another folder automatically. Expand `incentives/` only when a source fills a concrete scientific role not already covered well. Candidate existing-library sources include Barrow et al. (2018), Lavecchia et al. (2014/2016), Koch et al. (2015), Lintner et al. (2024), and the alternate Damgaard version. Highest priority should go to evidence on post-incentive persistence/decay, explicit participation thresholds, and incentive-linked academic-support use rather than adding redundant general behavioural-economics reviews.
 
 Highest-priority missing comparator currently tracked for Papers 1–2: Büchele & Schürmann (2024), *Studies in Higher Education*, DOI `10.1080/03075079.2023.2271029`.
 
@@ -125,6 +133,7 @@ Highest-priority missing comparator currently tracked for Papers 1–2: Büchele
 - Do not infer numerical results from corrupted extraction; verify against the PDF.
 - Never invent p-values, coefficients, `R²`, effect sizes or sample sizes for a source that does not report them.
 - Preserve null results in technical reading notes.
+- For interventions, separate randomized offer/exposure from voluntary uptake/intensity; post-treatment intensity does not inherit randomization.
 - Literature PDFs are internal research materials in this private repository and are not automatically redistributable.
 - Literature organization must not dictate scientific results; all papers consume canonical outputs from the shared analysis pipeline.
 
