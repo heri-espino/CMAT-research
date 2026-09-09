@@ -11,8 +11,8 @@
 - privacy-first `.gitignore` and raw-data exclusion policy added;
 - historical literature source material imported and preserved;
 - historical v8 scientific snapshot imported into `code/` without administrative raw data;
-- historical v8 LaTeX report preserved in `reports/technical_report_v8/`;
-- later methodology-v5 snapshot and technical report v2 restored exactly for provenance;
+- cumulative historical LaTeX research record preserved in `reports/research_compendium/`;
+- later methodology snapshot and its statistical report restored for provenance under `code/snapshots/methodology_v5_2026-09-07/` and `reports/methodology_report/`;
 - legacy notebooks and aggregated study outputs preserved for reproducibility;
 - literature reorganized by scientific use rather than upload batch;
 - five-paper publication portfolio established under `docs/PUBLICATION_PORTFOLIO.md` and mirrored under root `papers/` and `literature/papers/`.
@@ -51,21 +51,21 @@ The exact later methodology snapshot is preserved at:
 
 `code/snapshots/methodology_v5_2026-09-07/`
 
-with technical report v2 at:
+with its report at:
 
-`reports/technical_report_methodology_v2/`.
+`reports/methodology_report/`.
 
 Recorded scientific-source fingerprint:
 
 `03dd3d4ddd31cc2263be54900e1b25749fab8a7beb2033fbe796bf240fd4c39f`
 
-Restoration verification is documented in `docs/snapshots/methodology_v5_2026-09-07/README.md`: all file-level manifests passed, 9/9 methodology helper tests passed, the Python function index contains 320 symbols, and the restored report PDF is 40 pages with its exact SHA-256 recorded.
+Restoration verification is documented in `docs/snapshots/methodology_v5_2026-09-07/README.md`: all file-level manifests passed, 9/9 methodology helper tests passed, the Python function index contains 320 symbols, and the restored `methodology_report.pdf` is 40 pages with its exact SHA-256 recorded.
 
 That later snapshot contains corrections/extensions made after the historical v8 line, including SciPy KDE/Scott imputation, complete 0/1/2/3/4+ pairwise contrasts, the 4,211-progressor sensitivity, population-specific periodicity and expanded degree-programme analyses.
 
 The refined longitudinal/PPA N=3,241 stage is later work and is not claimed to be covered by the methodology-v5 fingerprint.
 
-The historical v8 longitudinal/PPA logic and the later methodology corrections still need to be reconciled into one fully validated active canonical executable pipeline. A restored snapshot or merged PR does not by itself prove that the active `code/` implementation has absorbed every correction.
+The historical longitudinal/PPA logic preserved in `reports/research_compendium/` and the later methodology corrections still need to be reconciled into one fully validated active canonical executable pipeline. A restored snapshot or merged PR does not by itself prove that the active `code/` implementation has absorbed every correction.
 
 ## Privacy boundary
 
@@ -83,6 +83,9 @@ Literature PDFs are retained only because this repository is private and the own
 
 Future substantive changes happen in this repository. `main` is the source of truth; temporary branches, when used, should be short-lived and deleted after merge. ZIPs are optional offline backups, not project history. Literature should be added once to the shared library source layer and referenced through general/paper-specific indexes rather than duplicated across manuscripts.
 
+## Naming rule for reports
+
+Active report paths describe purpose rather than version. Historical labels such as `v8`, `v5`, or `v2` remain only when needed to identify imported snapshots, fingerprints, archive hashes, or dated provenance records.
 
 ## Literature consolidation update — 2026-09-08
 
