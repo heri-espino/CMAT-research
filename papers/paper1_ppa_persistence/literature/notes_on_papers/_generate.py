@@ -131,7 +131,7 @@ SOURCES: tuple[SourceSpec, ...] = (
         (
             Annotation("idea", ("nudge", "no significant", "performance"), 2),
             Annotation("numeric", ("0.30", "0.417", "performance"), 2),
-            Annotation("method", ("ANCOVA", "regression", "mediation"), 2),
+            Annotation("method", ("Repeated measures ANCOVA", "procrastination", "211"), 2),
         ),
     ),
     SourceSpec(
