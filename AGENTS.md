@@ -6,8 +6,9 @@ Before substantive work:
 
 1. read `AI_HANDOFF.md`;
 2. read the README/AGENTS file in the subsystem being changed;
-3. inspect current canonical outputs/protocol before quoting numerical results;
-4. use a short-lived branch for a concrete change unless the user explicitly requests otherwise.
+3. **for any Python/code task, search `code/FUNCTION_INDEX.md` before proposing or writing a new function**;
+4. inspect current canonical outputs/protocol before quoting numerical results;
+5. use a short-lived branch for a concrete change unless the user explicitly requests otherwise.
 
 ## Canonical repository model
 
@@ -24,6 +25,21 @@ Maintain one scientific chain:
 Do not create manuscript-specific scientific pipelines. If any of the five planned papers needs a methodological change, implement and validate it in canonical code first, regenerate aggregate outputs, and only then update the manuscript.
 
 The canonical five-paper publication plan is `docs/PUBLICATION_PORTFOLIO.md`.
+
+## Code reuse / token-efficiency rule
+
+`code/FUNCTION_INDEX.md` is the canonical searchable inventory of the active Python tree. It is generated from the AST and includes reusable/source symbols plus a separate test-symbol section.
+
+Before implementing functionality:
+
+1. search the index by concept, likely function name, and tags;
+2. inspect the referenced implementation;
+3. reuse or extend an existing function whenever scientifically equivalent;
+4. do not create a parallel estimator, cleaner, cohort builder, plotting helper, or transformation only because its location was not immediately obvious;
+5. if a new reusable symbol is truly needed, add a concise docstring so the generated index explains it;
+6. regenerate the index in the same code change (`python code/scripts/generate_function_index.py`).
+
+GitHub automatically refreshes the index after Python changes under `code/`, but code authors should still verify that the generated description is useful.
 
 ## Stable paper IDs
 
@@ -77,8 +93,9 @@ Major folders should have a README explaining scope, inputs, outputs, canonical 
 Future AI sessions should start with:
 
 1. `AI_HANDOFF.md` — global project state;
-2. `docs/PUBLICATION_PORTFOLIO.md` — five-paper plan;
-3. `literature/AI_HANDOFF.md` — literature-specific state when relevant;
-4. current methodological protocol/changelog before changing scientific code.
+2. `code/FUNCTION_INDEX.md` — before any code work;
+3. `docs/PUBLICATION_PORTFOLIO.md` — five-paper plan;
+4. `literature/AI_HANDOFF.md` — literature-specific state when relevant;
+5. current methodological protocol/changelog before changing scientific code.
 
 Update the project handoff/changelog whenever code, estimands, portfolio boundaries or major architecture changes.
