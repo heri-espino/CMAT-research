@@ -1,4 +1,0 @@
-specification,model,term,estimate,std_error,p_value,ci95_low,ci95_high,n,population,visit_intensity_control
-primary_complete_case_monthly_spread,regularity_ge3_classroom_FE_plus_career,REGULARITY_MONTHLY_4,-0.13587276779017002,0.16614277211574777,0.4134672430994697,-0.46150661742868115,0.18976108184834115,413,students with VISITS_CMAT_PERIOD>=3,categorical exact counts 3-7; 8+ capped
-sensitivity_imputed_adverse_monthly_spread,regularity_ge3_classroom_FE_plus_career,REGULARITY_MONTHLY_4,-0.16560780821875432,0.2508666187021706,0.5091621537215538,-0.6572973457983511,0.3260817293608424,472,students with VISITS_CMAT_PERIOD>=3,categorical exact counts 3-7; 8+ capped
-sensitivity_complete_case_effective_weeks,regularity_ge3_classroom_FE_plus_career,EFFECTIVE_WEEKS_PER_VISIT,-0.04887062235986085,0.1927863196890168,0.7998847054494033,-0.4267248656623589,0.3289836209426372,413,students with VISITS_CMAT_PERIOD>=3,categorical exact counts 3-7; 8+ capped

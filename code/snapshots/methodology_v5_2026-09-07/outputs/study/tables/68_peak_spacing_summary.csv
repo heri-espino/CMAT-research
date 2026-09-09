@@ -1,3 +1,0 @@
-population,periods_analyzed,median_detected_peaks_per_period,periods_with_3_peaks,periods_with_4_peaks,periods_with_5_peaks,peak_intervals_n,peak_gap_median_days,peak_gap_q25_days,peak_gap_q75_days,monthly_like_gap_low_days,monthly_like_gap_high_days,monthly_like_intervals,monthly_like_interval_proportion
-All CMAT,11,5.0,1,4,6,38,30.5,28.0,33.75,24,38,28,0.7368421052631579
-First-MU cohort during MU term,11,3.0,2,5,0,23,31.0,30.0,42.5,24,38,14,0.6086956521739131
