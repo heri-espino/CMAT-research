@@ -60,15 +60,15 @@ The source-material paths above are provenance/storage layers. Scientific retrie
 
 The old upload-batch names are retained only in historical Git commits and archive/checksum descriptions, not as the current scientific organization.
 
-## Methodology v5 / technical report v2 restoration
+## Historical methodology snapshot restoration
 
 The exact historical methodology snapshot is preserved under:
 
 `code/snapshots/methodology_v5_2026-09-07/`
 
-The exact technical report v2 is preserved under:
+Its restored statistical report is preserved under:
 
-`reports/technical_report_methodology_v2/`
+`reports/methodology_report/`
 
 Historical scientific-source fingerprint recorded by that snapshot:
 
@@ -84,10 +84,12 @@ The browser-uploaded ZIP containers used during restoration were repackaged; the
 
 Verified report artifact:
 
-- `informe_cmat.pdf` — 40 pages;
+- `reports/methodology_report/methodology_report.pdf` — 40 pages;
 - SHA-256: `1e52d36809924df4bc84db65f6cb6669fe33d1f402076e8930b3a173f550595f`.
 
 Verified methodology helper suite: **9/9 tests passed**. `PYTHON_FUNCTION_INDEX.md` declares **320 symbols**.
+
+The `methodology_v5` label remains in the code snapshot path because it identifies a frozen historical provenance object. The active report path itself is versionless and purpose-based.
 
 ## Data/privacy boundary
 
@@ -104,7 +106,6 @@ The restored methodology/report snapshot was audited as containing no original E
 ## Rights / release boundary
 
 Literature PDFs and retained extraction artifacts are stored for internal research continuity in this private repository. Their presence here does not imply permission for redistribution in a public data/code release.
-
 
 ## Literature consolidation update — 2026-09-08
 
