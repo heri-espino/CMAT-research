@@ -45,13 +45,13 @@ jobs:
             /tmp/CMAT2/CMAT_publication_draft_updated_v8/python/CMAT_publication_study/ \
             code/
 
-      - name: Import v8 LaTeX report snapshot
+      - name: Import cumulative LaTeX research compendium
         run: |
-          mkdir -p reports/technical_report_v8
+          mkdir -p reports/research_compendium
           rsync -a --delete \
             --exclude '.DS_Store' \
             /tmp/CMAT2/CMAT_publication_draft_updated_v8/latex/CMAT_latex_report_v1/ \
-            reports/technical_report_v8/
+            reports/research_compendium/
 
       - name: Remove any accidental raw-data files
         run: |
@@ -72,10 +72,10 @@ jobs:
         run: |
           git config user.name 'CMAT research migration bot'
           git config user.email 'actions@users.noreply.github.com'
-          git add -f literature/Bib code reports/technical_report_v8 .gitattributes docs/HEAVY_SNAPSHOT.md
+          git add -f literature/Bib code reports/research_compendium .gitattributes docs/HEAVY_SNAPSHOT.md
           if git diff --cached --quiet; then
             echo 'No changes to commit.'
             exit 0
           fi
-          git commit -m 'migration: import heavy bibliography and v8 research snapshot'
+          git commit -m 'migration: import heavy bibliography and historical research compendium'
           git push origin HEAD:main
