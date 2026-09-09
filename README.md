@@ -15,6 +15,8 @@ Two ownership rules organize the repository:
 1. **one paper = one home** — everything specific to a manuscript belongs under `papers/<paper_id>/`;
 2. **one physical literature source = one library record** — PDFs/Markdown/reference records live once under `literature/library/` and may be annotated by several papers.
 
+Execution/reproduction instructions: `REPRODUCING.md`.
+
 Future AI sessions should start with `AI_HANDOFF.md` and `AGENTS.md`.
 
 ## Structure
@@ -22,6 +24,7 @@ Future AI sessions should start with `AI_HANDOFF.md` and `AGENTS.md`.
 ```text
 CMAT-research/
 ├── README.md
+├── REPRODUCING.md
 ├── AGENTS.md
 ├── AI_HANDOFF.md
 │
@@ -31,6 +34,7 @@ CMAT-research/
 │   ├── config/
 │   ├── experiments/              # stable report/paper runners
 │   ├── src/                      # reusable scientific functions
+│   ├── scripts/                  # code maintenance utilities
 │   └── tests/
 │
 ├── analysis/
@@ -57,7 +61,6 @@ CMAT-research/
 │   └── general/                  # cross-project literature view
 │
 ├── docs/                         # portfolio, workflow, privacy, migration/provenance
-├── scripts/                      # repository-level maintenance utilities
 └── data/                         # documentation only; no administrative microdata
 ```
 
@@ -97,10 +100,11 @@ A source used by several papers is stored once in the library and can be referen
 
 1. `AI_HANDOFF.md` — current scientific/project state and routing.
 2. `AGENTS.md` — repository operating rules.
-3. `code/.ai_handoff.md` + `code/FUNCTION_INDEX.md` — mandatory before code changes.
-4. `docs/PUBLICATION_PORTFOLIO.md` — cross-paper boundaries/priorities.
-5. `papers/<paper_id>/README.md` — detailed paper-specific source of truth.
-6. `literature/AGENTS.md` and `literature/AI_HANDOFF.md` — shared-library/retrieval rules.
+3. `REPRODUCING.md` — environment, tests and canonical execution commands.
+4. `code/.ai_handoff.md` + `code/FUNCTION_INDEX.md` — mandatory before code changes.
+5. `docs/PUBLICATION_PORTFOLIO.md` — cross-paper boundaries/priorities.
+6. `papers/<paper_id>/README.md` — detailed paper-specific source of truth.
+7. `literature/AGENTS.md` and `literature/AI_HANDOFF.md` — shared-library/retrieval rules.
 
 ## Five-paper publication programme
 
@@ -125,7 +129,7 @@ The portfolio document provides cross-paper strategy; detailed manuscript inform
 
 ## Historical scientific provenance
 
-Historical package labels such as `v8`, `methodology_v5`, and `v2` identify imported scientific states; they are not active folder names. The duplicate historical code snapshots were removed from the active tree once restoration was verified because Git is the provenance layer.
+Historical package labels such as `v8`, `methodology_v5`, and `v2` identify imported scientific states; they are not active folder names. Duplicate historical code/import scripts are removed from the active tree once their provenance is recorded because Git is the history layer.
 
 The complete pre-code-cleanup working tree remains available at commit `20a993d92e8cc197a9060180d8cb6a6caf2607a7`. Additional restoration details live under `docs/snapshots/`, `docs/MIGRATION_STATUS.md`, and `docs/HEAVY_SNAPSHOT.md`.
 
@@ -145,6 +149,8 @@ Administrative microdata are not committed. Do not commit:
 Heavy literature PDFs/assets are preserved only because this repository is private and the owner requested internal research continuity; they are not automatically redistributable.
 
 ## Reproducibility
+
+See `REPRODUCING.md` for installation, tests, controlled-input handling and exact runner commands.
 
 Generated local outputs under `code/outputs/` are ignored by Git. Retained aggregate outputs must be privacy-reviewed and traceable to code/configuration.
 
