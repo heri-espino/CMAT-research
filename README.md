@@ -4,7 +4,7 @@ Canonical private monorepo for the research and publication programme based on t
 
 ## Repository philosophy
 
-`main` is the source of truth. The project is organized by subfolder, while Git branches are short-lived workspaces for concrete changes. There should not be separate long-lived scientific realities for exploratory analysis, reports, or individual manuscripts.
+`main` is the source of truth. The project is organized by scientific function, while Git branches are short-lived workspaces for concrete changes. Historical working copies should live in Git history rather than as versioned folders inside the active tree.
 
 The scientific flow is:
 
@@ -19,8 +19,9 @@ CMAT-research/
 ├── README.md
 ├── AGENTS.md
 ├── AI_HANDOFF.md
-├── code/                     # canonical Python pipeline + preserved historical snapshots/outputs
-├── analysis/                 # canonical aggregate empirical record
+├── code/                     # active canonical Python pipeline only
+├── analysis/                 # retained aggregate empirical record
+│   └── historical_outputs/   # previously committed pipeline outputs awaiting canonical freeze
 ├── reports/
 │   ├── methodology_report/   # methodology/statistical review report
 │   └── research_compendium/  # cumulative historical research record
@@ -72,16 +73,16 @@ Canonical plan: `docs/PUBLICATION_PORTFOLIO.md`.
 
 The master analysis and methodology report retain all validated discoveries; manuscripts select defensible subsets only after the empirical record is stable.
 
-## Historical scientific-version caution
+## Historical scientific provenance
 
-Historical package labels such as `v8` and `methodology_v5` represent different development lines, not a simple chronological ordering. They remain useful only for provenance. Active report paths are purpose-based:
+Historical package labels such as `v8`, `methodology_v5`, and `v2` identify imported scientific states; they are not active folder names. The reports are purpose-based:
 
 - `reports/methodology_report/` — later methodology-focused statistical report;
-- `reports/research_compendium/` — cumulative historical report containing the refined longitudinal/PPA chapter.
+- `reports/research_compendium/` — cumulative report containing the earlier performance work and refined longitudinal/PPA chapter.
 
-The exact later-methodology historical code snapshot remains under `code/snapshots/methodology_v5_2026-09-07/`. Preserving a historical snapshot does not imply that every correction has already been ported into the active canonical pipeline.
+The duplicate historical code snapshot that had lived under `code/snapshots/` was removed from the active tree once its restoration was verified. Git remains the provenance layer: the complete pre-cleanup working tree is available at commit `20a993d92e8cc197a9060180d8cb6a6caf2607a7`, with additional restoration details under `docs/snapshots/` and `docs/HEAVY_SNAPSHOT.md`.
 
-Before changing scientific code or relying on a historical result, read `docs/MIGRATION_STATUS.md`, current protocol/changelog files, tests, and the implementation itself.
+Removing that duplicate directory does **not** mean the active pipeline has already reconciled every later methodology correction with the refined longitudinal work. Before changing scientific code or relying on a historical result, read `docs/MIGRATION_STATUS.md`, current protocol files, tests, and the implementation itself.
 
 ## Literature
 
@@ -106,8 +107,10 @@ Heavy literature PDFs/assets are preserved only because this repository is priva
 
 Scientific source fingerprints and controlled-source checksums document version identity and provenance. SHA-256 establishes integrity; it does not anonymise data.
 
+Generated local outputs under `code/outputs/` are ignored by Git. Aggregate outputs selected for retention belong under `analysis/` with their scientific provenance.
+
 ## Git workflow
 
 See `docs/BRANCH_STRATEGY.md` and `docs/GIT_WORKFLOW.md`.
 
-In short: create a branch only for a concrete task when useful, review the diff/tests, merge into `main`, then delete the branch. ZIP snapshots are optional offline backups, not project history.
+In short: create a branch only for a concrete task when useful, review the diff/tests, merge into `main`, then delete the branch. ZIP snapshots and duplicate source folders are not project history; Git is.
