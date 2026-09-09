@@ -8,6 +8,7 @@ This is the single canonical starting point for future AI sessions working in `h
 - Branches are short-lived task workspaces, not permanent scientific realities; delete them after merge.
 - Scientific chain: `controlled institutional data -> code/ -> canonical aggregate outputs -> reports/ and papers/`.
 - Literature chain: `literature/library/ -> general/paper-specific views -> manuscript bibliography`.
+- Git history, not duplicate versioned folders, is the provenance layer for historical code states.
 - ZIPs are backups/provenance packages, not version history.
 
 Read `AGENTS.md` before repository changes and the subsystem README/AGENTS before editing that subsystem.
@@ -87,31 +88,35 @@ Historical refined snapshot: **N=3,241** primary next-regular-term paired cohort
 
 This refined stage is later work and is not claimed to be covered by the methodology-v5 scientific-source fingerprint.
 
-## 7. Reports and historical methodology provenance
+## 7. Reports, code layout, and historical methodology provenance
 
 Active report paths are named by scientific purpose rather than by version:
 
-- `reports/methodology_report/` — methodology/statistical review report associated with the later methodology snapshot;
+- `reports/methodology_report/` — methodology/statistical review report associated with the later methodology work;
 - `reports/research_compendium/` — cumulative historical research record containing the earlier performance work and refined longitudinal/PPA chapter.
 
-The exact later-methodology historical code snapshot remains preserved at:
+`code/` now contains only the active executable pipeline and its immediate technical documentation. The duplicate historical folders `code/snapshots/`, `code/legacy/`, `code/manual/`, and `code/reporte/` were intentionally removed from the working tree. The former `code/LITERATURE_STARTER.md` was also removed because literature has its own canonical subsystem.
 
-`code/snapshots/methodology_v5_2026-09-07/`
+Historical code remains recoverable through Git. The complete working tree immediately before the code cleanup is commit:
 
-Restoration verification is documented at `docs/snapshots/methodology_v5_2026-09-07/README.md`.
+`20a993d92e8cc197a9060180d8cb6a6caf2607a7`.
 
-Key verified properties of that historical methodology snapshot:
+Restoration verification remains documented under `docs/snapshots/methodology_v5_2026-09-07/` and `docs/HEAVY_SNAPSHOT.md`.
+
+Key verified properties of the historical methodology state:
 
 - scientific-source fingerprint: `03dd3d4ddd31cc2263be54900e1b25749fab8a7beb2033fbe796bf240fd4c39f`;
 - every source-manifest entry passed SHA-256 verification;
 - methodology helper suite: **9/9 tests passed**;
-- `PYTHON_FUNCTION_INDEX.md`: **320 symbols**;
+- historical `PYTHON_FUNCTION_INDEX.md`: **320 symbols**;
 - `reports/methodology_report/methodology_report.pdf`: **40 pages**, SHA-256 `1e52d36809924df4bc84db65f6cb6669fe33d1f402076e8930b3a173f550595f`;
 - no original Excel/raw administrative microdata were included.
 
-The restored methodology snapshot includes the intended SciPy Gaussian KDE/Scott imputation logic, expanded `0/1/2/3/4+` comparisons, periodicity, degree-programme work and the N=4,211 sensitivity. The cumulative research compendium contains the refined later longitudinal/PPA work. Historical labels such as `v8`, `methodology_v5`, and `v2` remain only where needed to identify provenance objects; they are not active report names.
+The historical methodology work includes the intended SciPy Gaussian KDE/Scott imputation logic, expanded `0/1/2/3/4+` comparisons, periodicity, degree-programme work and the N=4,211 sensitivity. The cumulative research compendium contains the refined later longitudinal/PPA work. Historical labels such as `v8`, `methodology_v5`, and `v2` remain only when needed to identify provenance objects; they are not active folder names.
 
-Do not assume restoration means the active canonical `code/` pipeline is fully reconciled. Inspect implementation/tests before making that claim.
+**Important:** removing duplicate snapshots from the working tree does not mean the active `code/` pipeline is fully reconciled. Inspect implementation/tests before making that claim. If a historical implementation is needed, retrieve it from Git history rather than recreating a permanent snapshot folder.
+
+Generated local pipeline outputs may appear under `code/outputs/`, but that path is ignored by Git. Previously committed outputs were moved to `analysis/historical_outputs/` until a reconciled canonical output set is frozen.
 
 ## 8. Paper 1 longitudinal anchors
 
@@ -195,7 +200,8 @@ Avoid unsupported claims such as: PPA caused use, CMAT caused grades, incentive 
 
 1. read this file;
 2. read `AGENTS.md`;
-3. read `docs/PUBLICATION_PORTFOLIO.md` if manuscript strategy is relevant;
-4. read `docs/MIGRATION_STATUS.md` and current methodology docs if code/results are relevant;
-5. read `literature/AI_HANDOFF.md` if literature is relevant;
-6. inspect `main` and any current PR before writing or modifying artifacts.
+3. read `code/README.md` if code/results are relevant;
+4. read `docs/PUBLICATION_PORTFOLIO.md` if manuscript strategy is relevant;
+5. read `docs/MIGRATION_STATUS.md` and current methodology docs if code/results are relevant;
+6. read `literature/AI_HANDOFF.md` if literature is relevant;
+7. inspect `main` and any current PR before writing or modifying artifacts.
