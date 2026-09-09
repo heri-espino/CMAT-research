@@ -1,0 +1,16 @@
+cff-version: 1.2.0
+message: >-
+  If you use this research compendium, please cite it using the metadata below.
+  Paper-specific publications should be cited separately once they are published.
+title: "CMAT Research"
+type: software
+authors:
+  - family-names: "Espino Montelongo"
+    given-names: "Heriberto"
+repository-code: "https://github.com/heri-espino/CMAT-research"
+keywords:
+  - mathematics support
+  - higher education
+  - academic help-seeking
+  - reproducible research
+  - research compendium
