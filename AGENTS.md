@@ -6,7 +6,7 @@ Before substantive work:
 
 1. read `AI_HANDOFF.md`;
 2. read the README/AGENTS file in the subsystem being changed;
-3. **for any Python/code task, search `code/FUNCTION_INDEX.md` before proposing or writing a new function**;
+3. **for any Python/code task, read `code/.ai_handoff.md` and search `code/FUNCTION_INDEX.md` before proposing or writing a new function**;
 4. inspect current canonical outputs/protocol before quoting numerical results;
 5. use a short-lived branch for a concrete change unless the user explicitly requests otherwise.
 
@@ -26,18 +26,22 @@ Do not create manuscript-specific scientific pipelines. If any of the five plann
 
 The canonical five-paper publication plan is `docs/PUBLICATION_PORTFOLIO.md`.
 
-## Code reuse / token-efficiency rule
+## Code reuse / token-efficiency / reproducibility rule
 
-`code/FUNCTION_INDEX.md` is the canonical searchable inventory of the active Python tree. It is generated from the AST and includes reusable/source symbols plus a separate test-symbol section.
+`code/.ai_handoff.md` is the architectural contract for Python work. `code/FUNCTION_INDEX.md` is the canonical searchable inventory of the active Python tree. It is generated from the AST and includes reusable/source symbols plus a separate test-symbol section.
 
 Before implementing functionality:
 
-1. search the index by concept, likely function name, and tags;
-2. inspect the referenced implementation;
-3. reuse or extend an existing function whenever scientifically equivalent;
-4. do not create a parallel estimator, cleaner, cohort builder, plotting helper, or transformation only because its location was not immediately obvious;
-5. if a new reusable symbol is truly needed, add a concise docstring so the generated index explains it;
-6. regenerate the index in the same code change (`python code/scripts/generate_function_index.py`).
+1. read `code/.ai_handoff.md`;
+2. search the index by concept, likely function name, and tags;
+3. inspect the referenced implementation;
+4. reuse or extend an existing function whenever scientifically equivalent;
+5. do not create a parallel estimator, cleaner, cohort builder, plotting helper, or transformation only because its location was not immediately obvious;
+6. if a new reusable symbol is truly needed, place it in the appropriate importable module, add a concise docstring/tests, and do **not** hide the scientific logic inside an experiment runner;
+7. import the reusable function into the stable runner that reproduces the relevant scientific question;
+8. regenerate the index in the same code change (`python code/scripts/generate_function_index.py`).
+
+Paper/question-specific runners belong under `code/experiments/` and must have stable descriptive names rather than `v2`, `final`, `new`, or date suffixes. A new data vintage normally means rerunning the same stable runner, not writing a new script. Git is the provenance/history layer.
 
 GitHub automatically refreshes the index after Python changes under `code/`, but code authors should still verify that the generated description is useful.
 
@@ -79,6 +83,7 @@ Aggregated outputs may be committed after privacy review. Heavy literature PDFs/
 - Scientific-code changes require tests, protocol/changelog/function-index updates, and a new source fingerprint.
 - Paper-specific selections happen after canonical outputs are stable.
 - Paper folders may select results; they may not redefine them independently.
+- Reported results should be reproducible from stable runners; do not make notebooks or hand-edited output files the canonical computational source.
 
 ## Literature rules
 
@@ -93,9 +98,10 @@ Major folders should have a README explaining scope, inputs, outputs, canonical 
 Future AI sessions should start with:
 
 1. `AI_HANDOFF.md` — global project state;
-2. `code/FUNCTION_INDEX.md` — before any code work;
-3. `docs/PUBLICATION_PORTFOLIO.md` — five-paper plan;
-4. `literature/AI_HANDOFF.md` — literature-specific state when relevant;
-5. current methodological protocol/changelog before changing scientific code.
+2. `code/.ai_handoff.md` — code architecture/reproducibility contract before any code work;
+3. `code/FUNCTION_INDEX.md` — locate existing capabilities before writing code;
+4. `docs/PUBLICATION_PORTFOLIO.md` — five-paper plan;
+5. `literature/AI_HANDOFF.md` — literature-specific state when relevant;
+6. current methodological protocol/changelog before changing scientific code.
 
 Update the project handoff/changelog whenever code, estimands, portfolio boundaries or major architecture changes.
