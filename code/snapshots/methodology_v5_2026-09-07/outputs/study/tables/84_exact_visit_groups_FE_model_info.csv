@@ -1,2 +1,0 @@
-population,formula,n,n_classrooms,n_careers,covariance,multiple_testing
-All first-MU attempts with CMAT coverage,"Z_GRADE_PRIMARY ~ C(EXACT_VISIT_GROUP_0_1_2_3_4P, Treatment(reference='0')) + C(CLASSROOM_ID) + C(CLAVECARRERA)",6627,190,77,cluster-robust by CLASSROOM_ID,Holm adjustment across 10 pre-specified pairwise visit-group contrasts
