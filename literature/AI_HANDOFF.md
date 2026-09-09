@@ -1,161 +1,136 @@
 # AI handoff — literature subsystem
 
-This is the starting point for future AI sessions working on CMAT literature.
+Compact routing guide for CMAT literature work. Detailed paper scope belongs in `papers/<paper_id>/README.md`; this file should not duplicate the publication portfolio.
 
-## Purpose
+## 1. Canonical ownership
 
-The literature subsystem is organized by scientific use, not by upload batch. The repository exposes one shared research library plus a cross-project view. Paper-specific literature work is co-located with each paper rather than mirrored inside `literature/`.
+Shared physical corpus:
 
-Canonical publication plan: `../docs/PUBLICATION_PORTFOLIO.md`.
+```text
+literature/library/
+├── CATALOG.md
+├── articles/
+├── pdf/
+├── references/
+└── PROVENANCE.md
+```
 
-## Canonical layout
+Cross-project interpretation:
 
-- `literature/library/`: canonical flat source layer with `articles/`, `pdf/`, `references/` and `CATALOG.md`.
-- `literature/general/`: cross-project literature map and thematic notes.
-- `papers/paper1_ppa_persistence/literature/`: incentive-linked persistence literature view.
-- `papers/paper2_mu_performance/literature/`: MU performance literature view.
-- `papers/paper3_grading_heterogeneity/literature/`: grading/assessment literature view.
-- `papers/paper4_degree_help_seeking/literature/`: disciplinary help-seeking literature view.
-- `papers/paper5_longitudinal_trajectories/literature/`: full-degree trajectory literature view.
+`literature/general/`
 
-There is intentionally no `literature/papers/` mirror. Each paper has one canonical home under `papers/<paper_id>/`.
+Paper-specific interpretation:
 
-Do not recreate `Bib`, `Bib2`, `Bib3`, `source_material/`, extracted asset trees, or paper-specific physical source copies.
+`papers/<paper_id>/literature/`
 
-## Five-paper portfolio snapshot
+There is intentionally no `literature/papers/` hierarchy.
 
-The detailed source of truth for each paper is its root `papers/<paper_id>/README.md`; `docs/PUBLICATION_PORTFOLIO.md` is the cross-paper planning summary. The snapshot below is retained for literature routing, not as a second editorial source of truth.
+### Core rule
 
-### Paper 1
-**Working title:** *Beyond the Incentive Threshold: Academic Support Use and Persistence After a First-Year Participation Incentive*  
-**Priority:** highest / active.  
-**Journal route:** *Studies in Higher Education* first/ambitious; IJMEST, TEAMAT and *Journal of Further and Higher Education* as alternatives.  
-**Boundary:** observational persistence across a change in incentive context; no causal PPA claim.
+**One scholarly source/version has one physical library record.** A source can be referenced by general notes and several papers without copying its PDF/Markdown into those folders.
 
-### Paper 2
-**Working title:** *Mathematics Support Use and Classroom-Relative Academic Performance in First-Year University Mathematics*  
-**Priority:** high / active after methodology freeze.  
-**Journal route:** TEAMAT first; IJMEST second; IJRUME ambitious.  
-**Boundary:** primary cohort is first-MU `N=6,627`; future-Calculus `N=4,211` is a selected sensitivity.
+Do not recreate `Bib`, `Bib2`, upload-batch folders, extracted asset trees, or paper-specific physical source copies.
 
-### Paper 3
-**Working title:** *When the Same Grade Does Not Mean the Same Performance: Instructor-by-Term Heterogeneity in Undergraduate Mathematics Assessment*  
-**Priority:** high but requires dedicated re-analysis.  
-**Journal route:** *Assessment & Evaluation in Higher Education* first; *Studies in Educational Evaluation* second; IJRUME ambitious.  
-**Boundary:** classroom-relative `Z` is contextual relative position, not latent mathematical proficiency.
+## 2. Retrieval order
 
-### Paper 4
-**Working title:** *Who Keeps Seeking Mathematics Help? Disciplinary Heterogeneity in University Mathematics Support Use*  
-**Priority:** later / conditional on stronger programme-level design.  
-**Journal route:** IJMEST first; *Journal of Further and Higher Education* second; HERD ambitious.  
-**Boundary:** programme-level results are ecological; official academic `CLAVECARRERA` is the primary programme variable.
+For a paper-specific literature task:
 
-### Paper 5
-**Working title:** *Longitudinal Trajectories of Mathematics Support Use Across the Undergraduate Degree*  
-**Priority:** future project.  
-**Journal route:** not frozen; TEAMAT/IJMEST for substantive mathematics-support framing, *Journal of Learning Analytics* for a genuine trace/sequence-method contribution, *International Journal of STEM Education* as an ambitious STEM-progression route.  
-**Boundary:** full-degree data coverage/missingness and revalidation logic must be audited before method selection.
+1. read `papers/<paper_id>/README.md`;
+2. read `papers/<paper_id>/literature/INDEX.md`;
+3. use `READING_GUIDE.md` / `reading_notes/` when present;
+4. resolve source IDs in `literature/library/CATALOG.md`;
+5. read targeted `literature/library/articles/*.md` sections;
+6. use `literature/library/references/` only for citation chaining/bibliography verification;
+7. inspect the source PDF when exact wording, table/figure values, page anchors, or extraction ambiguity matters.
 
-## Paper 1 technical reading-note layer
+For cross-project questions, start from `literature/general/INDEX.md` instead.
 
-Paper 1 has a human-readable technical evidence layer:
+Do not load the whole corpus when targeted retrieval is sufficient.
 
-- `papers/paper1_ppa_persistence/literature/READING_GUIDE.md` — rapid overview;
-- `papers/paper1_ppa_persistence/literature/reading_notes/README.md` — required schema and subfolder-routing policy;
-- `papers/paper1_ppa_persistence/literature/reading_notes/general/` — foundational/cross-cutting technical notes;
-- `papers/paper1_ppa_persistence/literature/reading_notes/incentives/` — incentive/removal/behavioural-intervention technical notes.
+## 3. Source reliability
 
-### Reading-note taxonomy
+- Extracted Markdown is the efficient reading layer.
+- Source PDF is the final exact/visual verification layer.
+- Separated references are secondary metadata/citation-chaining material.
+- Never infer an important number from visibly corrupted extraction.
+- Never invent coefficients, p-values, confidence intervals, effect sizes, sample sizes, or methods that a source does not report.
+- Preserve null findings.
 
-The reading-note tree is organized by **scientific function**. It must never reproduce upload batches, providers, file types, extraction stages or arbitrary chronology.
+If a statistic is calculated by us rather than printed by the source, label it as derived and record the quantities used.
 
-Active categories:
-
-- `general/` — engagement, help-seeking, mathematics-support, first-year-transition, persistence and other broad/foundational literature whose primary contribution is cross-cutting rather than intervention-specific.
-- `incentives/` — sources whose central contribution concerns incentives, incentive removal/expiration, participation contingencies, thresholds, or behavioural interventions that help interpret the PPA change in incentive context.
-
-For `incentives/`, prioritize extraction of intervention type, target behaviour, assignment/exposure, incentive magnitude or threshold when applicable, timing, removal/expiration, follow-up horizon, compliance/take-up, post-incentive behaviour, identification strategy, mechanism evidence, and transportability to the CMAT/PPA setting. Do not route a source there merely because it mentions motivation or engagement.
-
-Keep **one canonical technical note per source**. If a source serves multiple functions, cross-reference it from guides/indices rather than duplicating note files.
-
-Only create another reading-note subfolder when it has:
-
-1. a distinct manuscript-relevant scientific purpose;
-2. several substantive sources or a clearly committed review stream;
-3. a stable inclusion/exclusion rule;
-4. clear retrieval/synthesis value;
-5. no need to duplicate sources already represented elsewhere.
-
-When a new scientific-function folder is introduced, document it first in `papers/paper1_ppa_persistence/literature/reading_notes/README.md` and then update this handoff plus `literature/AGENTS.md` when the routing rule is important for future sessions.
-
-### Completed general/foundational notes
-
-- Kahu (2013) — conceptual engagement framework;
-- Kahu & Nelson (2018) — educational-interface framework;
-- Fong et al. (2023) — postsecondary help-seeking meta-analysis;
-- Mullen et al. (2024) — systematic scoping review of MSS evaluation;
-- Lawson, Grove & Croft (2020) — mathematics-support literature review;
-- Wilcox, Winn & Fyvie-Gauld (2005) — qualitative first-year social-support/retention study;
-- van Herpen et al. (2020) — quasi-experimental first-year transition intervention.
-
-### Completed incentive/removal/behavioural notes
-
-- Gneezy, Meier & Rey-Biel (2011) — direct incentive effects, crowd-out and post-removal mechanisms;
-- Angrist, Lang & Oreopoulos (2009) — randomized services/incentives experiment; offer versus uptake; persistent female academic differences;
-- Leuven, Oosterbeek & van der Klaauw (2010) — randomized financial rewards; average null with ability/background heterogeneity;
-- Agnew, Kerr & Watt (2021) — removal of 1%-per-quiz incentives; sharp participation/intensity decline and historical-cohort achievement comparison;
-- Oreopoulos & Petronijevic (2019) — multi-year RCT program of low-touch college nudges/coaching with precise academic nulls and some intermediate behavioural effects;
-- Blondeel, Everaert & Opdecam (2023) — randomized nudge assignment with null group effects but selected click-intensity associations; direct *Studies in Higher Education* comparator;
-- Damgaard & Nielsen (2018) — education-nudging review/typology; mechanism, targeting, heterogeneity, and nudge-versus-material-incentive distinction.
-
-These notes record methods, sample sizes, important findings, effect sizes/test statistics/p-values/CI where genuinely reported, claim boundaries and local verification paths. Conceptual/review papers are not forced into a false primary-study statistical template.
-
-### Next Paper 1 literature expansion
-
-Do not create another folder automatically. Expand `incentives/` only when a source fills a concrete scientific role not already covered well. Candidate existing-library sources include Barrow et al. (2018), Lavecchia et al. (2014/2016), Koch et al. (2015), Lintner et al. (2024), and the alternate Damgaard version. Highest priority should go to evidence on post-incentive persistence/decay, explicit participation thresholds, and incentive-linked academic-support use rather than adding redundant general behavioural-economics reviews.
-
-Highest-priority missing comparator currently tracked for Papers 1–2: Büchele & Schürmann (2024), *Studies in Higher Education*, DOI `10.1080/03075079.2023.2271029`.
-
-## Retrieval order
-
-1. read `literature/README.md`;
-2. read `docs/PUBLICATION_PORTFOLIO.md` if cross-paper manuscript strategy matters;
-3. for a specific manuscript, read `papers/<paper_id>/README.md` then `papers/<paper_id>/literature/INDEX.md`;
-4. for Paper 1, read `READING_GUIDE.md` and the relevant article note before reopening the full source;
-5. use `literature/library/CATALOG.md` to locate the canonical record;
-6. read targeted extracted Markdown first;
-7. read separated references only for citation chaining or bibliography verification;
-8. open the source PDF when an exact table, figure, coefficient, wording, page, or extraction ambiguity matters;
-9. use the source PDF for visual verification; extracted asset trees are not retained.
-
-## Important interpretation rules
-
-- One source may be indexed in general and several papers without physical duplication.
-- Paper-specific folders are views/notes, not separate libraries.
-- Keep published and working-paper versions separate when genuinely distinct.
-- Prefer the most complete/high-fidelity extracted Markdown when true duplicates are discovered, while preserving provenance.
-- Do not infer numerical results from corrupted extraction; verify against the PDF.
-- Never invent p-values, coefficients, `R²`, effect sizes or sample sizes for a source that does not report them.
-- Preserve null results in technical reading notes.
-- For interventions, separate randomized offer/exposure from voluntary uptake/intensity; post-treatment intensity does not inherit randomization.
-- Literature PDFs are internal research materials in this private repository and are not automatically redistributable.
-- Literature organization must not dictate scientific results; all papers consume canonical outputs from the shared analysis pipeline.
-
-## Maintenance when adding a source
+## 4. Adding a source
 
 1. choose a stable ID such as `author_year_short-topic`;
-2. place the Markdown record once in `literature/library/articles/`, the PDF in `literature/library/pdf/` when available, and separated references in `literature/library/references/` when useful;
-3. update `literature/library/CATALOG.md`;
-4. add it to every relevant scientific view (`literature/general/` and/or `papers/<paper_id>/literature/`) with a short role/priority note;
-5. update the relevant `MISSING_LITERATURE.md` if it fills a known gap;
-6. if substantive for an active paper, create/update its technical reading note;
-7. avoid physical duplication solely because the source supports multiple manuscripts.
+2. add canonical Markdown once to `literature/library/articles/`;
+3. add the source PDF once to `literature/library/pdf/` when available/appropriate;
+4. add separated references when useful;
+5. update `literature/library/CATALOG.md`;
+6. update every relevant view: `literature/general/` and/or `papers/<paper_id>/literature/`;
+7. update relevant `MISSING_LITERATURE.md` files;
+8. create/update a technical reading note when the source materially supports an active manuscript;
+9. update this handoff only if routing/library architecture materially changes.
 
-## Maintenance when the publication plan changes
+## 5. Paper-specific literature roles
 
-If a working title, paper boundary, priority or journal strategy changes:
+Use concise role tags where helpful:
 
-1. update `docs/PUBLICATION_PORTFOLIO.md` for cross-paper implications;
-2. update the matching `papers/<paper_id>/README.md` as the detailed paper source of truth;
-3. update `papers/<paper_id>/literature/README.md` only if literature routing/scope changes;
-4. update this handoff and `literature/AGENTS.md` if routing rules or portfolio structure changed.
+- `core`
+- `supporting`
+- `methods`
+- `context`
+- `contrast`
+
+Also record `used_in` and `do_not_claim` when those boundaries prevent overinterpretation.
+
+Paper-specific scientific/editorial details should remain in the paper's own README and literature files, not here.
+
+## 6. Paper 1 technical reading layer
+
+Paper 1 currently has the most developed evidence-card system:
+
+- `papers/paper1_ppa_persistence/literature/READING_GUIDE.md`
+- `papers/paper1_ppa_persistence/literature/reading_notes/README.md`
+- `papers/paper1_ppa_persistence/literature/reading_notes/general/`
+- `papers/paper1_ppa_persistence/literature/reading_notes/incentives/`
+
+Reading-note folders are organized by **scientific function**, never upload batch, provider, extraction method, file type, or arbitrary date.
+
+Keep one canonical technical note per source. Cross-reference rather than duplicating a note when a source serves several conceptual roles.
+
+Only create another reading-note category when it has a distinct manuscript-relevant purpose, several substantive sources or a committed review stream, a stable inclusion rule, and clear retrieval value.
+
+## 7. Scientific interpretation guardrails
+
+Across the literature subsystem:
+
+- distinguish randomized offer/exposure from voluntary uptake/intensity;
+- do not transfer causal estimates from experimental comparators onto observational CMAT attendance;
+- do not infer motivation, habit, need, or psychological state solely from visit patterns;
+- classroom-relative `Z` is contextual relative position, not latent mathematical proficiency;
+- programme-level patterns are ecological and do not establish individual mechanisms;
+- PPA is not an exogenous treatment in the current CMAT data.
+
+Paper-specific claim boundaries belong in each paper's literature index/notes.
+
+## 8. Publication/library separation
+
+Paper-specific `.bib`, manuscript text, cover letters, and submission files belong under `papers/<paper_id>/`, not in `literature/`.
+
+The literature subsystem owns source records and retrieval infrastructure; paper folders own manuscript-specific interpretation and writing.
+
+## 9. Privacy/copyright boundary
+
+This is a private research repository. Source PDFs are internal research materials and are not automatically redistributable in a public release.
+
+Administrative student data must never be added to the literature subsystem.
+
+## 10. Maintenance rule
+
+Keep this handoff compact. When a paper title, question, target journal, empirical result, or status changes, update the owning paper/portfolio file instead of copying the change here.
+
+Use:
+
+- `docs/PUBLICATION_PORTFOLIO.md` — cross-paper strategy;
+- `papers/<paper_id>/README.md` — detailed paper source of truth;
+- `papers/<paper_id>/literature/` — paper-specific evidence view;
+- `literature/library/CATALOG.md` — physical-source catalogue.
