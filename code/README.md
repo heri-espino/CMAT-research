@@ -11,6 +11,7 @@ Canonical scientific-analysis code for the CMAT project.
 ```text
 code/
 ├── README.md
+├── FUNCTION_INDEX.md
 ├── README_STUDY.md
 ├── STUDY_PROTOCOL.md
 ├── ADMINISTRATIVE_QUESTIONS.md
@@ -25,6 +26,26 @@ code/
 ├── run_study.bat
 └── run_study.sh
 ```
+
+## Function index — read before adding code
+
+`FUNCTION_INDEX.md` is the canonical low-cost search layer for the active Python tree. It is generated from the Python AST and indexes functions, classes, methods, nested helpers, signatures, line numbers, docstring summaries, and search tags. Test symbols are included separately so existing coverage can be found without treating tests as production utilities.
+
+**Required workflow before creating a new function:**
+
+1. search `FUNCTION_INDEX.md` by capability, keyword, or likely symbol name;
+2. inspect the most relevant existing implementation and nearby helpers;
+3. reuse or extend existing code where scientifically appropriate;
+4. create a new symbol only when existing functionality does not cover the need;
+5. give new reusable functions/classes a useful docstring.
+
+The index is regenerated with:
+
+```bash
+python scripts/generate_function_index.py
+```
+
+GitHub also regenerates it automatically after changes to Python files under `code/`. Do not hand-edit the generated symbol tables; improve docstrings or `scripts/generate_function_index.py` instead.
 
 ## What was intentionally removed from the working tree
 
@@ -41,7 +62,7 @@ The complete pre-cleanup working tree is preserved by Git at commit `20a993d92e8
 
 The active pipeline still needs a deliberate reconciliation between the refined longitudinal/PPA work and later methodology corrections documented in project provenance. Removing duplicate snapshots from the working tree does **not** imply that this reconciliation is complete.
 
-Before changing scientific logic, inspect the implementation, tests, `STUDY_PROTOCOL.md`, `ADMINISTRATIVE_QUESTIONS.md`, `docs/MIGRATION_STATUS.md`, and the methodology report/provenance.
+Before changing scientific logic, inspect `FUNCTION_INDEX.md`, the implementation, tests, `STUDY_PROTOCOL.md`, `ADMINISTRATIVE_QUESTIONS.md`, `docs/MIGRATION_STATUS.md`, and the methodology report/provenance.
 
 ## Scientific rules
 
@@ -49,6 +70,7 @@ Before changing scientific logic, inspect the implementation, tests, `STUDY_PROT
 - Student-selected CMAT use is observational; do not use causal language without an identification design that supports it.
 - Paper-specific code should not diverge from this canonical pipeline.
 - Scientific code changes require tests and corresponding methodology/protocol documentation.
+- Search `FUNCTION_INDEX.md` before introducing new scientific helpers; avoid parallel implementations of the same estimand or transformation.
 
 ## Data boundary
 
