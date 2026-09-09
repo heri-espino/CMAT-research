@@ -50,6 +50,39 @@ When the institutional data are updated, the normal operation is to **rerun the 
 
 `code/experiments/README.md` defines the contract for future paper/question-specific runners. Reusable cohort logic, statistics, models, transformations, and plotting logic must remain in the importable package rather than being duplicated inside those runners.
 
+## Runner-first rule: do not over-engineer reproduction tasks
+
+When the task is to reproduce an existing report, paper, figure set, or prior analysis, **the first objective is to reconstruct the existing recipe, not redesign the architecture**.
+
+Use this order:
+
+1. identify the report/paper/analysis that must be reproduced;
+2. if a prior ZIP, snapshot, script, or report-producing codebase is available, treat it as the implementation reference;
+3. inspect `FUNCTION_INDEX.md` and the referenced code to identify the functions that already perform each calculation;
+4. preserve those reusable functions in `src/visitas_analysis/...`;
+5. create or update one thin stable runner in `code/experiments/` that imports those functions and executes them in the required order;
+6. verify that the runner regenerates the expected tables/figures;
+7. only after exact reproduction works should broader refactors, reconciliation between historical branches, staging automation, or architectural cleanup be considered.
+
+Do **not** turn a simple runner task into a redesign of provenance, report architecture, branch reconciliation, or compilation unless the user explicitly requests that work or exact reproduction requires it.
+
+`code/experiments/methodology_report.py` is the canonical example: the scientific functions live in importable modules, while the runner is the stable recipe for rebuilding the methodology report when the controlled data change.
+
+The practical distinction is:
+
+```text
+FUNCTION
+= how a calculation is performed
+
+RUNNER
+= which existing functions are executed, with which configuration and in which order
+
+REPORT
+= how the generated outputs are presented
+```
+
+For a data update, the default action is **rerun the existing runner**. Do not recreate the methodology from scratch.
+
 ## Function index — read before adding code
 
 `FUNCTION_INDEX.md` is the canonical low-cost search layer for the active Python tree. It is generated from the Python AST and indexes functions, classes, methods, nested helpers, signatures, line numbers, docstring summaries, and search tags. Test symbols are included separately so existing coverage can be found without treating tests as production utilities.
@@ -76,6 +109,7 @@ GitHub also regenerates it automatically after changes to Python files under `co
 
 - `src/run_study.py` — broad publication-oriented study runner; imports `visitas_analysis.study.run_study_pipeline`.
 - `src/run_analysis.py` — general/report pipeline runner; imports `visitas_analysis.pipeline.main_pipeline.run_visitas_pipeline`.
+- `experiments/methodology_report.py` — stable report-specific recipe for rebuilding the methodology report from controlled inputs.
 
 These remain canonical until a deliberate, tested refactor. New paper-specific runners should be thin importers under `experiments/`, not copies of these pipelines.
 
@@ -94,6 +128,8 @@ The complete pre-cleanup working tree is preserved by Git at commit `20a993d92e8
 
 The active pipeline still needs a deliberate reconciliation between the refined longitudinal/PPA work and later methodology corrections documented in project provenance. Removing duplicate snapshots from the working tree does **not** imply that this reconciliation is complete.
 
+That reconciliation is a separate scientific-maintenance task. It must **not** block a narrower request whose goal is simply to reproduce a known report from its existing functions and historical implementation reference.
+
 Before changing scientific logic, inspect `.ai_handoff.md`, `FUNCTION_INDEX.md`, the implementation, tests, `STUDY_PROTOCOL.md`, `ADMINISTRATIVE_QUESTIONS.md`, `docs/MIGRATION_STATUS.md`, and the methodology report/provenance.
 
 ## Scientific rules
@@ -105,6 +141,7 @@ Before changing scientific logic, inspect `.ai_handoff.md`, `FUNCTION_INDEX.md`,
 - Search `FUNCTION_INDEX.md` before introducing new scientific helpers; avoid parallel implementations of the same estimand or transformation.
 - Stable experiment runners must import reusable functions rather than reimplement them.
 - A new data vintage is not a reason to create a new function, runner, or version-suffixed file.
+- When reproducing an existing analysis, prefer the smallest correct runner implementation before considering wider refactors.
 
 ## Data boundary
 
