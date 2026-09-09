@@ -1,14 +1,19 @@
 # CMAT Research
 
-Canonical private monorepo for the research and publication programme based on the **Centro de Aprendizaje de Matemáticas (CMAT)** at UDLAP.
+Canonical private monorepo / research compendium for the research and publication programme based on the **Centro de Aprendizaje de Matemáticas (CMAT)** at UDLAP.
 
 ## Repository philosophy
 
-`main` is the source of truth. The project is organized by scientific function, while Git branches are short-lived workspaces for concrete changes. Historical working copies should live in Git history rather than as versioned folders inside the active tree.
+`main` is the source of truth. The project is organized by scientific ownership and function, while Git branches are short-lived workspaces for concrete changes. Historical working copies live in Git history rather than as versioned folders inside the active tree.
 
 The scientific flow is:
 
-`controlled data -> canonical code -> canonical aggregate outputs -> reports / manuscripts`.
+`controlled data -> reusable code -> stable runners -> aggregate outputs -> reports / papers`.
+
+Two ownership rules organize the repository:
+
+1. **one paper = one home** — everything specific to a manuscript belongs under `papers/<paper_id>/`;
+2. **one physical literature source = one library record** — PDFs/Markdown/reference records live once under `literature/library/` and may be annotated by several papers.
 
 Future AI sessions should start with `AI_HANDOFF.md` and `AGENTS.md`.
 
@@ -19,76 +24,112 @@ CMAT-research/
 ├── README.md
 ├── AGENTS.md
 ├── AI_HANDOFF.md
-├── code/                     # active canonical Python pipeline only
-├── analysis/                 # retained aggregate empirical record
-│   └── historical_outputs/   # previously committed pipeline outputs awaiting canonical freeze
+│
+├── code/                         # active canonical Python pipeline
+│   ├── .ai_handoff.md
+│   ├── FUNCTION_INDEX.md
+│   ├── config/
+│   ├── experiments/              # stable report/paper runners
+│   ├── src/                      # reusable scientific functions
+│   └── tests/
+│
+├── analysis/
+│   └── shared/
+│       └── historical_outputs/   # retained shared aggregates awaiting canonical freeze
+│
 ├── reports/
-│   ├── methodology_report/   # methodology/statistical review report
-│   └── research_compendium/  # cumulative historical research record
+│   ├── methodology_report/       # methodology/statistical review report
+│   └── research_compendium/      # cumulative historical research record
+│
 ├── papers/
 │   ├── paper1_ppa_persistence/
+│   │   ├── README.md             # detailed Paper 1 source of truth
+│   │   └── literature/           # Paper 1 literature interpretation/notes
 │   ├── paper2_mu_performance/
+│   │   ├── README.md
+│   │   └── literature/
 │   ├── paper3_grading_heterogeneity/
 │   ├── paper4_degree_help_seeking/
 │   └── paper5_longitudinal_trajectories/
+│
 ├── literature/
-│   ├── library/              # shared physical corpus/source layer
-│   ├── general/              # cross-project literature view
-│   └── papers/               # five paper-specific literature views
-├── docs/                     # portfolio, protocol, roadmap, workflow, privacy, provenance
-└── data/                     # documentation only; no administrative microdata
+│   ├── library/                  # shared physical corpus/source layer
+│   └── general/                  # cross-project literature view
+│
+├── docs/                         # portfolio, workflow, privacy, migration/provenance
+├── scripts/                      # repository-level maintenance utilities
+└── data/                         # documentation only; no administrative microdata
 ```
 
-Each major folder contains or should contain a local README describing scope, inputs, outputs and canonical status.
+Within a paper, create `manuscript/`, `results/`, and `submission/` only when they contain real files. Do not add empty scaffolding merely for symmetry.
+
+## Ownership map
+
+### Code
+
+Reusable estimators, cleaning, cohort construction, statistical tests and plotting logic belong in `code/src/visitas_analysis/`. Before writing a function, read `code/.ai_handoff.md` and search `code/FUNCTION_INDEX.md`.
+
+A reproducible scientific/report recipe belongs in `code/experiments/` and imports the reusable functions. A new data extract normally means rerunning the same stable runner, not creating `*_v2.py`.
+
+### Analysis outputs
+
+`analysis/shared/` contains retained aggregate empirical objects with project-wide or multi-paper relevance. The current historical aggregate set is under `analysis/shared/historical_outputs/`.
+
+If a reviewed output eventually has a clear single-paper owner, it may be retained under `papers/<paper_id>/results/`, but it must still originate from the canonical code/runners. Avoid duplicate retained copies without a documented reason.
+
+### Papers
+
+Each paper has exactly one canonical directory under `papers/<paper_id>/`. Its `README.md` is the detailed source of truth for that paper's question, estimand, contribution, journal route, status and interpretation boundaries.
+
+Paper-specific literature indices, reading guides, gap trackers and evidence notes live under `papers/<paper_id>/literature/`. There is intentionally no `literature/papers/` mirror.
+
+### Literature
+
+`literature/library/` is the canonical shared physical corpus: extracted article Markdown, source PDFs, separated references and the catalogue/provenance layer. `literature/general/` contains cross-project thematic views.
+
+A source used by several papers is stored once in the library and can be referenced/annotated by several paper-local literature views.
+
+### Reports
+
+`reports/methodology_report/` and `reports/research_compendium/` are project-level products rather than manuscript homes. Report names describe scientific purpose, not version.
 
 ## AI / agent entry points
 
-1. Read `AI_HANDOFF.md` for current scientific/project state.
-2. Read `AGENTS.md` for operating rules.
-3. For literature work, read `literature/AGENTS.md` and `literature/AI_HANDOFF.md` before opening article files.
+1. `AI_HANDOFF.md` — current scientific/project state and routing.
+2. `AGENTS.md` — repository operating rules.
+3. `code/.ai_handoff.md` + `code/FUNCTION_INDEX.md` — mandatory before code changes.
+4. `docs/PUBLICATION_PORTFOLIO.md` — cross-paper boundaries/priorities.
+5. `papers/<paper_id>/README.md` — detailed paper-specific source of truth.
+6. `literature/AGENTS.md` and `literature/AI_HANDOFF.md` — shared-library/retrieval rules.
 
 ## Five-paper publication programme
 
-Canonical plan: `docs/PUBLICATION_PORTFOLIO.md`.
+Canonical cross-paper plan: `docs/PUBLICATION_PORTFOLIO.md`.
 
 1. **Paper 1 — incentive-linked persistence**  
-   *Beyond the Incentive Threshold: Academic Support Use and Persistence After a First-Year Participation Incentive*  
-   Current route: *Studies in Higher Education* first/ambitious; IJMEST, TEAMAT and *Journal of Further and Higher Education* as alternatives.
+   *Beyond the Incentive Threshold: Academic Support Use and Persistence After a First-Year Participation Incentive*.
 
 2. **Paper 2 — CMAT use and MU performance**  
-   *Mathematics Support Use and Classroom-Relative Academic Performance in First-Year University Mathematics*  
-   Current route: TEAMAT first; IJMEST second; IJRUME ambitious.
+   *Mathematics Support Use and Classroom-Relative Academic Performance in First-Year University Mathematics*.
 
 3. **Paper 3 — grading heterogeneity**  
-   *When the Same Grade Does Not Mean the Same Performance: Instructor-by-Term Heterogeneity in Undergraduate Mathematics Assessment*  
-   Current route: *Assessment & Evaluation in Higher Education* first; *Studies in Educational Evaluation* second; IJRUME ambitious. Requires dedicated re-analysis before drafting.
+   *When the Same Grade Does Not Mean the Same Performance: Instructor-by-Term Heterogeneity in Undergraduate Mathematics Assessment*.
 
 4. **Paper 4 — disciplinary help-seeking heterogeneity**  
-   *Who Keeps Seeking Mathematics Help? Disciplinary Heterogeneity in University Mathematics Support Use*  
-   Current route: IJMEST first; *Journal of Further and Higher Education* second; HERD ambitious.
+   *Who Keeps Seeking Mathematics Help? Disciplinary Heterogeneity in University Mathematics Support Use*.
 
 5. **Paper 5 — full-degree trajectories**  
-   *Longitudinal Trajectories of Mathematics Support Use Across the Undergraduate Degree*  
-   Future route depends on final design: TEAMAT/IJMEST for substantive mathematics-support work, *Journal of Learning Analytics* for a genuine trace/sequence-analysis contribution, and *International Journal of STEM Education* as an ambitious STEM-progression option.
+   *Longitudinal Trajectories of Mathematics Support Use Across the Undergraduate Degree*.
 
-The master analysis and methodology report retain all validated discoveries; manuscripts select defensible subsets only after the empirical record is stable.
+The portfolio document provides cross-paper strategy; detailed manuscript information should be maintained in each paper rather than repeatedly copied into unrelated subsystem documentation.
 
 ## Historical scientific provenance
 
-Historical package labels such as `v8`, `methodology_v5`, and `v2` identify imported scientific states; they are not active folder names. The reports are purpose-based:
+Historical package labels such as `v8`, `methodology_v5`, and `v2` identify imported scientific states; they are not active folder names. The duplicate historical code snapshots were removed from the active tree once restoration was verified because Git is the provenance layer.
 
-- `reports/methodology_report/` — later methodology-focused statistical report;
-- `reports/research_compendium/` — cumulative report containing the earlier performance work and refined longitudinal/PPA chapter.
+The complete pre-code-cleanup working tree remains available at commit `20a993d92e8cc197a9060180d8cb6a6caf2607a7`. Additional restoration details live under `docs/snapshots/`, `docs/MIGRATION_STATUS.md`, and `docs/HEAVY_SNAPSHOT.md`.
 
-The duplicate historical code snapshot that had lived under `code/snapshots/` was removed from the active tree once its restoration was verified. Git remains the provenance layer: the complete pre-cleanup working tree is available at commit `20a993d92e8cc197a9060180d8cb6a6caf2607a7`, with additional restoration details under `docs/snapshots/` and `docs/HEAVY_SNAPSHOT.md`.
-
-Removing that duplicate directory does **not** mean the active pipeline has already reconciled every later methodology correction with the refined longitudinal work. Before changing scientific code or relying on a historical result, read `docs/MIGRATION_STATUS.md`, current protocol files, tests, and the implementation itself.
-
-## Literature
-
-Literature is organized by scientific use, not upload batch. The physical corpus is shared under `literature/library/`; general and Papers 1–5 maintain curated views over that corpus without duplicating sources solely for manuscript relevance.
-
-See `literature/README.md`, `literature/AGENTS.md`, and `literature/AI_HANDOFF.md`.
+Removing duplicate historical directories does **not** imply that every historical methodological branch has been scientifically reconciled. Read `docs/MIGRATION_STATUS.md`, the current protocol, tests and implementation before making that claim.
 
 ## Privacy
 
@@ -101,16 +142,16 @@ Administrative microdata are not committed. Do not commit:
 - unreviewed row-level pseudonymised longitudinal data;
 - identifying free-text fields.
 
-Heavy literature PDFs/assets are preserved only because this repository is private and the owner requested internal archival continuity; they are not automatically redistributable.
+Heavy literature PDFs/assets are preserved only because this repository is private and the owner requested internal research continuity; they are not automatically redistributable.
 
 ## Reproducibility
 
-Scientific source fingerprints and controlled-source checksums document version identity and provenance. SHA-256 establishes integrity; it does not anonymise data.
+Generated local outputs under `code/outputs/` are ignored by Git. Retained aggregate outputs must be privacy-reviewed and traceable to code/configuration.
 
-Generated local outputs under `code/outputs/` are ignored by Git. Aggregate outputs selected for retention belong under `analysis/` with their scientific provenance.
+The central reproducibility rule is simple: **functions define calculations; runners define reproducible scientific recipes; reports and papers present the resulting outputs.**
 
 ## Git workflow
 
 See `docs/BRANCH_STRATEGY.md` and `docs/GIT_WORKFLOW.md`.
 
-In short: create a branch only for a concrete task when useful, review the diff/tests, merge into `main`, then delete the branch. ZIP snapshots and duplicate source folders are not project history; Git is.
+Use Git for history. Do not create permanent `v2`, `final`, dated, or ZIP-derived copies of active code/reports/papers solely for version control.
