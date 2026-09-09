@@ -30,14 +30,14 @@ The curated GitHub representation is consolidated under `literature/library/`. T
 Scientific retrieval should start from:
 
 - `literature/library/CATALOG.md`;
-- `literature/general/INDEX.md`;
-- `literature/papers/paper1_ppa_persistence/INDEX.md`;
-- `literature/papers/paper2_mu_performance/INDEX.md`;
-- `literature/papers/paper3_grading_heterogeneity/INDEX.md`;
-- `literature/papers/paper4_degree_help_seeking/INDEX.md`;
-- `literature/papers/paper5_longitudinal_trajectories/INDEX.md`.
+- `literature/general/INDEX.md` for cross-project questions;
+- `papers/paper1_ppa_persistence/literature/INDEX.md`;
+- `papers/paper2_mu_performance/literature/INDEX.md`;
+- `papers/paper3_grading_heterogeneity/literature/INDEX.md`;
+- `papers/paper4_degree_help_seeking/literature/INDEX.md`;
+- `papers/paper5_longitudinal_trajectories/literature/INDEX.md`.
 
-Old upload-batch names remain only in historical commits and archive/checksum descriptions.
+The former `literature/papers/` mirror and old upload-batch names remain only in historical commits/archive descriptions.
 
 ## Historical methodology restoration
 

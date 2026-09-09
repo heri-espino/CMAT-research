@@ -1,12 +1,14 @@
 # CMAT publication portfolio
 
-Canonical planning document for the five-paper CMAT research programme.
+Canonical cross-paper planning document for the five-paper CMAT research programme.
 
 Last journal-fit review: 2026-09-07. Journal targets are strategic rather than commitments; re-check aims, scope, data policies, and article types immediately before submission.
 
 ## Portfolio rule
 
 All papers consume the same canonical scientific pipeline and aggregate outputs. Manuscripts must not maintain independent versions of cohorts, estimands, models, or numerical results. If a manuscript exposes a methodological problem, fix it in `code/`, regenerate canonical outputs, and only then update the manuscript.
+
+Each paper has one canonical home under `papers/<paper_id>/`. This document summarizes cross-paper boundaries and priorities; detailed paper-specific scope lives in that paper's `README.md`, and paper-specific literature work lives in `papers/<paper_id>/literature/`.
 
 ## Paper 1 — incentive-linked support use and persistence
 
@@ -183,15 +185,15 @@ The target is intentionally not frozen because Paper 5 depends on the final data
 
 ## Literature architecture
 
-The shared physical corpus lives in `literature/library/`. Manuscript-specific literature views live in:
+The shared physical corpus lives in `literature/library/`. Cross-project literature lives in `literature/general/`. Manuscript-specific literature views live inside each paper:
 
-- `literature/papers/paper1_ppa_persistence/`
-- `literature/papers/paper2_mu_performance/`
-- `literature/papers/paper3_grading_heterogeneity/`
-- `literature/papers/paper4_degree_help_seeking/`
-- `literature/papers/paper5_longitudinal_trajectories/`
+- `papers/paper1_ppa_persistence/literature/`
+- `papers/paper2_mu_performance/literature/`
+- `papers/paper3_grading_heterogeneity/literature/`
+- `papers/paper4_degree_help_seeking/literature/`
+- `papers/paper5_longitudinal_trajectories/literature/`
 
-A source may be indexed in several views without duplicating the underlying PDF/Markdown.
+A source may be indexed in several paper views without duplicating the underlying PDF/Markdown. Do not recreate a parallel `literature/papers/` hierarchy.
 
 ## Journal-fit sources reviewed
 

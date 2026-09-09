@@ -14,7 +14,8 @@
 - cumulative LaTeX research record preserved in `reports/research_compendium/`;
 - methodology/statistical report preserved in `reports/methodology_report/`;
 - literature reorganized by scientific use rather than upload batch;
-- five-paper publication portfolio established under `docs/PUBLICATION_PORTFOLIO.md` and mirrored under root `papers/` and `literature/papers/`;
+- five-paper publication portfolio established under `docs/PUBLICATION_PORTFOLIO.md`;
+- paper-specific literature views consolidated into each canonical `papers/<paper_id>/literature/` home; the former parallel `literature/papers/` hierarchy was removed;
 - active `code/` cleaned so it contains only the executable pipeline and immediate technical documentation;
 - duplicate code snapshots, legacy notebooks, old manuals/reports, and the obsolete migration workflow removed from the working tree;
 - previously committed pipeline outputs moved from `code/outputs/` to `analysis/historical_outputs/`.
@@ -31,20 +32,24 @@ The code-cleanup commit is:
 
 `d4647083e9e45fec9113bee2b9ad798c1df87658`.
 
+The paper/literature co-location refactor is:
+
+`0508f847faff280c4013bfc4173ee7ddce1cfc18` — `refactor: co-locate paper-specific literature with papers`.
+
 ## Literature architecture
 
 Current organization:
 
-- `literature/library/` — source layer and master catalogue;
+- `literature/library/` — physical/shared source layer and master catalogue;
 - `literature/general/` — cross-project literature map;
-- `literature/papers/paper1_ppa_persistence/` — Paper 1 literature view;
-- `literature/papers/paper2_mu_performance/` — Paper 2 literature view;
-- `literature/papers/paper3_grading_heterogeneity/` — Paper 3 literature view;
-- `literature/papers/paper4_degree_help_seeking/` — Paper 4 literature view;
-- `literature/papers/paper5_longitudinal_trajectories/` — Paper 5 literature view;
-- `literature/AI_HANDOFF.md` and `literature/AGENTS.md` — future-AI/human operating rules.
+- `papers/paper1_ppa_persistence/literature/` — Paper 1 literature view;
+- `papers/paper2_mu_performance/literature/` — Paper 2 literature view;
+- `papers/paper3_grading_heterogeneity/literature/` — Paper 3 literature view;
+- `papers/paper4_degree_help_seeking/literature/` — Paper 4 literature view;
+- `papers/paper5_longitudinal_trajectories/literature/` — Paper 5 literature view;
+- `literature/AI_HANDOFF.md` and `literature/AGENTS.md` — shared-library/retrieval operating rules.
 
-The old upload-batch names are provenance only and are not the scientific interface.
+The old upload-batch names and the former `literature/papers/` mirror are provenance only and are not the scientific interface.
 
 ## Current methodology status
 

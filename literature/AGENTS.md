@@ -1,20 +1,23 @@
 # AGENTS.md — literature subsystem
 
-This file defines how humans and automated agents should operate inside `literature/`.
+This file defines how humans and automated agents should operate inside `literature/` and how shared literature is routed into paper-local literature workspaces.
 
 ## 1. Scientific organization is primary
 
-Do not organize literature by upload batch. The user-facing structure is:
+Do not organize literature by upload batch. The physical/shared literature subsystem is:
 
 - `library/` — canonical source layer and master catalogue;
-- `general/` — cross-project conceptual literature;
-- `papers/paper1_ppa_persistence/` — incentive-context persistence;
-- `papers/paper2_mu_performance/` — CMAT use and MU performance;
-- `papers/paper3_grading_heterogeneity/` — grading/assessment comparability;
-- `papers/paper4_degree_help_seeking/` — disciplinary heterogeneity in support use;
-- `papers/paper5_longitudinal_trajectories/` — full-degree support trajectories.
+- `general/` — cross-project conceptual literature.
 
-Canonical title/priority/journal plan: `../docs/PUBLICATION_PORTFOLIO.md`.
+Paper-specific literature is **not mirrored inside `literature/`**. It is co-located with the corresponding manuscript:
+
+- `../papers/paper1_ppa_persistence/literature/` — incentive-context persistence;
+- `../papers/paper2_mu_performance/literature/` — CMAT use and MU performance;
+- `../papers/paper3_grading_heterogeneity/literature/` — grading/assessment comparability;
+- `../papers/paper4_degree_help_seeking/literature/` — disciplinary heterogeneity in support use;
+- `../papers/paper5_longitudinal_trajectories/literature/` — full-degree support trajectories.
+
+Canonical title/priority/journal plan: `../docs/PUBLICATION_PORTFOLIO.md`. Detailed paper-specific scope lives in `../papers/<paper_id>/README.md`.
 
 ## 2. One physical source, many views
 
@@ -25,11 +28,11 @@ A work can support several research questions. Do not copy the same PDF/Markdown
 For a literature question:
 
 1. identify whether it is general, paper-specific, or cross-paper;
-2. open the corresponding `INDEX.md` first;
+2. open `general/INDEX.md` or the corresponding `../papers/<paper_id>/literature/INDEX.md` first;
 3. if a paper-specific `READING_GUIDE.md` exists, use it for rapid technical orientation;
 4. use `library/CATALOG.md` to locate the canonical record;
 5. read only relevant extracted Markdown sections;
-6. inspect `references/` only for citation chaining/bibliography verification;
+6. inspect `library/references/` only for citation chaining/bibliography verification;
 7. inspect the source PDF for exact tables, figures, coefficients, confidence intervals, sample sizes, page-level wording, or extraction ambiguity;
 8. use the source PDF for exact visual verification; extracted Docling assets are not retained in the active library.
 
@@ -50,12 +53,12 @@ Do not load the whole corpus when targeted retrieval is sufficient.
 3. add the source PDF to `library/pdf/` when available and appropriate for this private repository;
 4. add separated references to `library/references/` when useful;
 5. update `library/CATALOG.md`;
-6. update every relevant scientific view among `general/` and Papers 1–5;
+6. update every relevant scientific view among `general/` and `../papers/<paper_id>/literature/`;
 7. update a relevant `MISSING_LITERATURE.md` when a gap is filled or newly identified;
 8. create/update a technical reading note when the source is substantive for an active manuscript;
 9. update `AI_HANDOFF.md` if architecture, retrieval rules, portfolio status or major gaps changed.
 
-Do not recreate upload-batch folders (`Bib`, `Bib2`, `Bib3`, etc.), `source_material/`, extracted asset trees, or paper-specific physical source copies.
+Do not recreate upload-batch folders (`Bib`, `Bib2`, `Bib3`, etc.), `source_material/`, extracted asset trees, a `literature/papers/` mirror, or paper-specific physical source copies.
 
 ## 6. Duplicate/version handling
 
@@ -81,7 +84,7 @@ Where useful, also record `used_in` and `do_not_claim` boundaries.
 
 ## 8. Technical reading notes
 
-For active manuscript literature, technical reading notes are the evidence layer between source and manuscript drafting. Paper 1 currently uses `papers/paper1_ppa_persistence/READING_GUIDE.md` and `reading_notes/`.
+For active manuscript literature, technical reading notes are the evidence layer between source and manuscript drafting. Paper 1 currently uses `../papers/paper1_ppa_persistence/literature/READING_GUIDE.md` and `../papers/paper1_ppa_persistence/literature/reading_notes/`.
 
 A substantive note should capture, when actually reported:
 
@@ -113,7 +116,7 @@ Current Paper 1 incentive-note anchors include Gneezy et al. (2011), Angrist et 
 
 Create any additional reading-note subfolder only when it has a distinct scientific purpose, a recurring set of substantive sources or committed review stream, a stable inclusion/exclusion rule, and clear manuscript-retrieval value. Do not create folders by upload batch, provider, extraction method, file type, processing status or arbitrary chronology.
 
-The detailed Paper 1 routing policy lives in `papers/paper1_ppa_persistence/reading_notes/README.md`. Update that file when a new scientific-function subfolder is introduced.
+The detailed Paper 1 routing policy lives in `../papers/paper1_ppa_persistence/literature/reading_notes/README.md`. Update that file when a new scientific-function subfolder is introduced.
 
 ## 9. Five-paper routing rules
 
@@ -142,9 +145,9 @@ Relevant families: longitudinal help-seeking, repeated support use, educational 
 
 Do not label trajectory classes as motivation/habit/need solely from visit patterns.
 
-## 10. Portfolio consistency
+## 10. Portfolio consistency and ownership
 
-The manuscript folders under root `papers/` and literature views under `literature/papers/` must use the same stable IDs:
+Stable paper IDs are:
 
 - `paper1_ppa_persistence`
 - `paper2_mu_performance`
@@ -152,7 +155,9 @@ The manuscript folders under root `papers/` and literature views under `literatu
 - `paper4_degree_help_seeking`
 - `paper5_longitudinal_trajectories`
 
-Paper-specific `.bib` files belong with manuscript source under root `papers/`, not in this research-library subsystem.
+Each paper has one canonical home at `../papers/<paper_id>/`. Its literature view is `../papers/<paper_id>/literature/`. Do not mirror these directories under `literature/`.
+
+Paper-specific `.bib` files belong with manuscript source under the relevant paper directory, not in this research-library subsystem.
 
 ## 11. Privacy/copyright boundary
 

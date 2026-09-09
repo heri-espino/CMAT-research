@@ -7,7 +7,8 @@ This is the single canonical starting point for future AI sessions working in `h
 - `main` is the canonical source of truth.
 - Branches are short-lived task workspaces, not permanent scientific realities; delete them after merge.
 - Scientific chain: `controlled institutional data -> code/ -> canonical aggregate outputs -> reports/ and papers/`.
-- Literature chain: `literature/library/ -> general/paper-specific views -> manuscript bibliography`.
+- Literature chain: `literature/library/ -> literature/general/ + papers/<paper_id>/literature/ -> manuscript bibliography`.
+- **One paper = one canonical home:** all paper-specific editorial material belongs under `papers/<paper_id>/`; do not recreate a parallel `literature/papers/` hierarchy.
 - Git history, not duplicate versioned folders, is the provenance layer for historical code states.
 - ZIPs are backups/provenance packages, not version history.
 
@@ -30,7 +31,7 @@ The key reproducibility invariant is: **new data should normally be processed by
 
 ## 2. Publication portfolio
 
-Canonical source: `docs/PUBLICATION_PORTFOLIO.md`.
+Canonical cross-paper planning source: `docs/PUBLICATION_PORTFOLIO.md`. The detailed source of truth for a particular paper is `papers/<paper_id>/README.md`; paper-specific literature work is under `papers/<paper_id>/literature/`.
 
 Stable paper IDs:
 
@@ -40,7 +41,7 @@ Stable paper IDs:
 4. `paper4_degree_help_seeking` — *Who Keeps Seeking Mathematics Help? Disciplinary Heterogeneity in University Mathematics Support Use*.
 5. `paper5_longitudinal_trajectories` — *Longitudinal Trajectories of Mathematics Support Use Across the Undergraduate Degree*.
 
-Do not rename these IDs casually. Change working titles/journal strategy in `docs/PUBLICATION_PORTFOLIO.md` first.
+Do not rename these IDs casually. Portfolio-wide changes belong in `docs/PUBLICATION_PORTFOLIO.md`; paper-specific detail belongs in the corresponding paper README rather than being duplicated across multiple subsystem documents.
 
 ## 3. Administrative data interpretation
 
@@ -186,9 +187,9 @@ Degree-programme analyses use official academic programme. Programme-level corre
 
 Read `literature/AI_HANDOFF.md` and `literature/AGENTS.md` for literature work.
 
-The physical corpus is shared under `literature/library/` (`articles/`, `pdf/`, and `references/`). Scientific views exist for general literature and each of the five papers. Do not duplicate PDFs solely because a source supports multiple manuscripts and do not recreate upload-batch folders such as `Bib`, `Bib2`, `Bib3`, etc.
+The physical corpus is shared under `literature/library/` (`articles/`, `pdf/`, and `references/`). Cross-project literature maps live under `literature/general/`. Paper-specific literature views live with each paper under `papers/<paper_id>/literature/`. Do not duplicate PDFs solely because a source supports multiple manuscripts and do not recreate upload-batch folders such as `Bib`, `Bib2`, `Bib3`, etc.
 
-Paper 1 has a technical reading layer under `literature/papers/paper1_ppa_persistence/reading_notes/` with source-specific design, sample, methods, statistics, quotations and claim boundaries.
+Paper 1 has a technical reading layer under `papers/paper1_ppa_persistence/literature/reading_notes/` with source-specific design, sample, methods, statistics, quotations and claim boundaries.
 
 ## 12. Privacy / release boundary
 
@@ -230,6 +231,7 @@ Avoid unsupported claims such as: PPA caused use, CMAT caused grades, incentive 
 4. **search `code/FUNCTION_INDEX.md`;**
 5. read `code/README.md`, `code/STUDY_PROTOCOL.md`, and `code/ADMINISTRATIVE_QUESTIONS.md` if code/results are relevant;
 6. read `docs/PUBLICATION_PORTFOLIO.md` if manuscript strategy is relevant;
-7. read `docs/MIGRATION_STATUS.md` and current methodology docs if code/results are relevant;
-8. read `literature/AI_HANDOFF.md` if literature is relevant;
-9. inspect `main` and any current PR before writing or modifying artifacts.
+7. when working on a specific paper, read `papers/<paper_id>/README.md` and then its `literature/`, manuscript/results/submission material as relevant;
+8. read `docs/MIGRATION_STATUS.md` and current methodology docs if code/results are relevant;
+9. read `literature/AI_HANDOFF.md` if literature-library maintenance is relevant;
+10. inspect `main` and any current PR before writing or modifying artifacts.

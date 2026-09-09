@@ -45,9 +45,9 @@ Paper/question-specific runners belong under `code/experiments/` and must have s
 
 GitHub automatically refreshes the index after Python changes under `code/`, but code authors should still verify that the generated description is useful.
 
-## Stable paper IDs
+## Stable paper IDs and single-home rule
 
-Use these IDs consistently across `papers/`, `literature/papers/`, documentation and issue/PR descriptions:
+Use these IDs consistently across `papers/`, documentation, runners and issue/PR descriptions:
 
 - `paper1_ppa_persistence`
 - `paper2_mu_performance`
@@ -55,7 +55,7 @@ Use these IDs consistently across `papers/`, `literature/papers/`, documentation
 - `paper4_degree_help_seeking`
 - `paper5_longitudinal_trajectories`
 
-Do not create alternate folder names for the same manuscript.
+Each paper has exactly one canonical home: `papers/<paper_id>/`. Paper-specific literature belongs in `papers/<paper_id>/literature/`; do not recreate a parallel `literature/papers/` hierarchy or alternate folder names for the same manuscript.
 
 ## Preservation rule
 
@@ -87,9 +87,9 @@ Aggregated outputs may be committed after privacy review. Heavy literature PDFs/
 
 ## Literature rules
 
-The physical literature corpus is shared under `literature/library/`. General and paper-specific folders are scientific views over that library. Read `literature/AGENTS.md` before reorganizing or adding literature.
+The physical literature corpus is shared under `literature/library/`. Cross-project literature maps live under `literature/general/`. Paper-specific literature indices, reading notes and gap trackers live with their paper under `papers/<paper_id>/literature/`. Read `literature/AGENTS.md` before reorganizing or adding literature.
 
-Do not recreate upload-batch folders such as `Bib3`, `Bib4`, etc. New sources belong in the shared library and are then indexed into every relevant paper view.
+Do not recreate upload-batch folders such as `Bib3`, `Bib4`, etc. New sources belong in the shared library and are then indexed into every relevant general or paper-local view.
 
 ## Documentation / handoff
 
@@ -102,6 +102,7 @@ Future AI sessions should start with:
 3. `code/FUNCTION_INDEX.md` — locate existing capabilities before writing code;
 4. `docs/PUBLICATION_PORTFOLIO.md` — five-paper plan;
 5. `literature/AI_HANDOFF.md` — literature-specific state when relevant;
-6. current methodological protocol/changelog before changing scientific code.
+6. the relevant `papers/<paper_id>/README.md` and `papers/<paper_id>/literature/` when working on a manuscript;
+7. current methodological protocol/changelog before changing scientific code.
 
 Update the project handoff/changelog whenever code, estimands, portfolio boundaries or major architecture changes.

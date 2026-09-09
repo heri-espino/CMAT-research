@@ -4,7 +4,7 @@ This is the starting point for future AI sessions working on CMAT literature.
 
 ## Purpose
 
-The literature subsystem is organized by scientific use, not by upload batch. The repository exposes one shared research library plus lightweight views for the overall project and five planned papers.
+The literature subsystem is organized by scientific use, not by upload batch. The repository exposes one shared research library plus a cross-project view. Paper-specific literature work is co-located with each paper rather than mirrored inside `literature/`.
 
 Canonical publication plan: `../docs/PUBLICATION_PORTFOLIO.md`.
 
@@ -12,15 +12,19 @@ Canonical publication plan: `../docs/PUBLICATION_PORTFOLIO.md`.
 
 - `literature/library/`: canonical flat source layer with `articles/`, `pdf/`, `references/` and `CATALOG.md`.
 - `literature/general/`: cross-project literature map and thematic notes.
-- `literature/papers/paper1_ppa_persistence/`: incentive-linked persistence literature view.
-- `literature/papers/paper2_mu_performance/`: MU performance literature view.
-- `literature/papers/paper3_grading_heterogeneity/`: grading/assessment literature view.
-- `literature/papers/paper4_degree_help_seeking/`: disciplinary help-seeking literature view.
-- `literature/papers/paper5_longitudinal_trajectories/`: full-degree trajectory literature view.
+- `papers/paper1_ppa_persistence/literature/`: incentive-linked persistence literature view.
+- `papers/paper2_mu_performance/literature/`: MU performance literature view.
+- `papers/paper3_grading_heterogeneity/literature/`: grading/assessment literature view.
+- `papers/paper4_degree_help_seeking/literature/`: disciplinary help-seeking literature view.
+- `papers/paper5_longitudinal_trajectories/literature/`: full-degree trajectory literature view.
+
+There is intentionally no `literature/papers/` mirror. Each paper has one canonical home under `papers/<paper_id>/`.
 
 Do not recreate `Bib`, `Bib2`, `Bib3`, `source_material/`, extracted asset trees, or paper-specific physical source copies.
 
 ## Five-paper portfolio snapshot
+
+The detailed source of truth for each paper is its root `papers/<paper_id>/README.md`; `docs/PUBLICATION_PORTFOLIO.md` is the cross-paper planning summary. The snapshot below is retained for literature routing, not as a second editorial source of truth.
 
 ### Paper 1
 **Working title:** *Beyond the Incentive Threshold: Academic Support Use and Persistence After a First-Year Participation Incentive*  
@@ -56,10 +60,10 @@ Do not recreate `Bib`, `Bib2`, `Bib3`, `source_material/`, extracted asset trees
 
 Paper 1 has a human-readable technical evidence layer:
 
-- `literature/papers/paper1_ppa_persistence/READING_GUIDE.md` — rapid overview;
-- `literature/papers/paper1_ppa_persistence/reading_notes/README.md` — required schema and subfolder-routing policy;
-- `literature/papers/paper1_ppa_persistence/reading_notes/general/` — foundational/cross-cutting technical notes;
-- `literature/papers/paper1_ppa_persistence/reading_notes/incentives/` — incentive/removal/behavioural-intervention technical notes.
+- `papers/paper1_ppa_persistence/literature/READING_GUIDE.md` — rapid overview;
+- `papers/paper1_ppa_persistence/literature/reading_notes/README.md` — required schema and subfolder-routing policy;
+- `papers/paper1_ppa_persistence/literature/reading_notes/general/` — foundational/cross-cutting technical notes;
+- `papers/paper1_ppa_persistence/literature/reading_notes/incentives/` — incentive/removal/behavioural-intervention technical notes.
 
 ### Reading-note taxonomy
 
@@ -82,7 +86,7 @@ Only create another reading-note subfolder when it has:
 4. clear retrieval/synthesis value;
 5. no need to duplicate sources already represented elsewhere.
 
-When a new scientific-function folder is introduced, document it first in `reading_notes/README.md` and then update this handoff plus `literature/AGENTS.md` when the routing rule is important for future sessions.
+When a new scientific-function folder is introduced, document it first in `papers/paper1_ppa_persistence/literature/reading_notes/README.md` and then update this handoff plus `literature/AGENTS.md` when the routing rule is important for future sessions.
 
 ### Completed general/foundational notes
 
@@ -115,8 +119,8 @@ Highest-priority missing comparator currently tracked for Papers 1–2: Büchele
 ## Retrieval order
 
 1. read `literature/README.md`;
-2. read `docs/PUBLICATION_PORTFOLIO.md` if manuscript strategy matters;
-3. read the relevant general/paper `INDEX.md`;
+2. read `docs/PUBLICATION_PORTFOLIO.md` if cross-paper manuscript strategy matters;
+3. for a specific manuscript, read `papers/<paper_id>/README.md` then `papers/<paper_id>/literature/INDEX.md`;
 4. for Paper 1, read `READING_GUIDE.md` and the relevant article note before reopening the full source;
 5. use `literature/library/CATALOG.md` to locate the canonical record;
 6. read targeted extracted Markdown first;
@@ -140,9 +144,9 @@ Highest-priority missing comparator currently tracked for Papers 1–2: Büchele
 ## Maintenance when adding a source
 
 1. choose a stable ID such as `author_year_short-topic`;
-2. place the Markdown record once in `library/articles/`, the PDF in `library/pdf/` when available, and separated references in `library/references/` when useful;
+2. place the Markdown record once in `literature/library/articles/`, the PDF in `literature/library/pdf/` when available, and separated references in `literature/library/references/` when useful;
 3. update `literature/library/CATALOG.md`;
-4. add it to every relevant scientific view (`general` and/or Papers 1–5) with a short role/priority note;
+4. add it to every relevant scientific view (`literature/general/` and/or `papers/<paper_id>/literature/`) with a short role/priority note;
 5. update the relevant `MISSING_LITERATURE.md` if it fills a known gap;
 6. if substantive for an active paper, create/update its technical reading note;
 7. avoid physical duplication solely because the source supports multiple manuscripts.
@@ -151,7 +155,7 @@ Highest-priority missing comparator currently tracked for Papers 1–2: Büchele
 
 If a working title, paper boundary, priority or journal strategy changes:
 
-1. update `docs/PUBLICATION_PORTFOLIO.md` first;
-2. update the matching root `papers/<paper_id>/README.md`;
-3. update the matching `literature/papers/<paper_id>/README.md` if literature scope changes;
+1. update `docs/PUBLICATION_PORTFOLIO.md` for cross-paper implications;
+2. update the matching `papers/<paper_id>/README.md` as the detailed paper source of truth;
+3. update `papers/<paper_id>/literature/README.md` only if literature routing/scope changes;
 4. update this handoff and `literature/AGENTS.md` if routing rules or portfolio structure changed.
