@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'code/scripts/generate_function_index.py'
+      - '.github/workflows/generate-function-index.yml'
 
 permissions:
   contents: write
@@ -20,7 +21,7 @@ jobs:
         run: python code/scripts/generate_function_index.py
       - name: Commit generated index
         run: |
-          if git diff --quiet -- code/FUNCTION_INDEX.md && test -f code/FUNCTION_INDEX.md; then
+          if test -z "$(git status --porcelain -- code/FUNCTION_INDEX.md)"; then
             echo 'Index is already current.'
             exit 0
           fi
