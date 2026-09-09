@@ -8,7 +8,7 @@ Canonical private monorepo for the research and publication programme based on t
 
 The scientific flow is:
 
-`controlled data -> canonical code -> canonical aggregate outputs -> technical report / manuscripts`.
+`controlled data -> canonical code -> canonical aggregate outputs -> reports / manuscripts`.
 
 Future AI sessions should start with `AI_HANDOFF.md` and `AGENTS.md`.
 
@@ -21,7 +21,9 @@ CMAT-research/
 ├── AI_HANDOFF.md
 ├── code/                     # canonical Python pipeline + preserved historical snapshots/outputs
 ├── analysis/                 # canonical aggregate empirical record
-├── reports/                  # technical reports
+├── reports/
+│   ├── methodology_report/   # methodology/statistical review report
+│   └── research_compendium/  # cumulative historical research record
 ├── papers/
 │   ├── paper1_ppa_persistence/
 │   ├── paper2_mu_performance/
@@ -68,13 +70,16 @@ Canonical plan: `docs/PUBLICATION_PORTFOLIO.md`.
    *Longitudinal Trajectories of Mathematics Support Use Across the Undergraduate Degree*  
    Future route depends on final design: TEAMAT/IJMEST for substantive mathematics-support work, *Journal of Learning Analytics* for a genuine trace/sequence-analysis contribution, and *International Journal of STEM Education* as an ambitious STEM-progression option.
 
-The master analysis and technical report retain all validated discoveries; manuscripts select defensible subsets only after the empirical record is stable.
+The master analysis and methodology report retain all validated discoveries; manuscripts select defensible subsets only after the empirical record is stable.
 
-## Current scientific-version caution
+## Historical scientific-version caution
 
-Historical package labels such as `v8` and `v5_methodology` represent different development lines, not a simple chronological ordering. The repository contains longitudinal/PPA work and later methodological corrections that must be verified in the actual canonical `code/` implementation rather than inferred from version names or merged branch names.
+Historical package labels such as `v8` and `methodology_v5` represent different development lines, not a simple chronological ordering. They remain useful only for provenance. Active report paths are purpose-based:
 
-The exact later-methodology historical snapshot and technical report v2 are preserved under `code/snapshots/` and `reports/technical_report_methodology_v2/` for provenance. They do not by themselves imply that every correction has been ported into the active canonical pipeline.
+- `reports/methodology_report/` — later methodology-focused statistical report;
+- `reports/research_compendium/` — cumulative historical report containing the refined longitudinal/PPA chapter.
+
+The exact later-methodology historical code snapshot remains under `code/snapshots/methodology_v5_2026-09-07/`. Preserving a historical snapshot does not imply that every correction has already been ported into the active canonical pipeline.
 
 Before changing scientific code or relying on a historical result, read `docs/MIGRATION_STATUS.md`, current protocol/changelog files, tests, and the implementation itself.
 
