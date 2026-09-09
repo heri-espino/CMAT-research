@@ -25,6 +25,8 @@ Future AI sessions should start with `AI_HANDOFF.md` and `AGENTS.md`.
 CMAT-research/
 ├── README.md
 ├── REPRODUCING.md
+├── CITATION.cff
+├── LICENSE
 ├── AGENTS.md
 ├── AI_HANDOFF.md
 │
@@ -145,6 +147,12 @@ See `REPRODUCING.md` for installation, tests, controlled-input handling and exac
 Generated local outputs under `code/outputs/` are ignored by Git. Retained aggregate outputs must be privacy-reviewed and traceable to code/configuration.
 
 The central reproducibility rule is: **functions define calculations; runners define reproducible scientific recipes; reports and papers present the resulting outputs.**
+
+## Citation and rights
+
+Repository-level citation metadata is in `CITATION.cff`. Once individual papers are published, cite those papers separately for their scientific claims/results.
+
+`LICENSE` intentionally does **not** grant a blanket open license over the private repository. Third-party literature and institutional data remain subject to their own rights/controls; future public code/data releases can apply explicit licenses to the materials they actually cover.
 
 ## Git workflow
 
