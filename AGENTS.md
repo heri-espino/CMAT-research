@@ -8,13 +8,13 @@ Before substantive work:
 2. read the README/AGENTS file in the subsystem being changed;
 3. **for any Python/code task, read `code/.ai_handoff.md` and search `code/FUNCTION_INDEX.md` before proposing or writing a new function**;
 4. inspect current canonical outputs/protocol before quoting numerical results;
-5. use a short-lived branch for a concrete change unless the user explicitly requests otherwise.
+5. use a short-lived branch for a concrete change when useful unless the user explicitly requests otherwise.
 
 ## Canonical repository model
 
-`main` is the source of truth. Organize the project by subfolder; use branches only as short-lived workspaces for concrete changes and delete them after merge.
+`main` is the source of truth. Organize the project by subfolder; branches are temporary workspaces for concrete changes, not permanent scientific states.
 
-Read `docs/BRANCH_STRATEGY.md` and `docs/GIT_WORKFLOW.md` before creating or reusing a branch.
+Read `docs/GIT_WORKFLOW.md` before creating or reusing a branch. Git itself is the authority for current branch state; do not maintain manual branch-status files.
 
 ## Scientific dependency rule
 
@@ -22,13 +22,13 @@ Maintain one scientific chain:
 
 `controlled data -> code/ -> analysis/ -> reports/ and papers/`.
 
-Do not create manuscript-specific scientific pipelines. If any of the five planned papers needs a methodological change, implement and validate it in canonical code first, regenerate aggregate outputs, and only then update the manuscript.
+Do not create manuscript-specific scientific pipelines. If any planned paper needs a methodological change, implement and validate it in canonical code first, regenerate aggregate outputs, and only then update the manuscript.
 
 The canonical five-paper publication plan is `docs/PUBLICATION_PORTFOLIO.md`.
 
 ## Code reuse / token-efficiency / reproducibility rule
 
-`code/.ai_handoff.md` is the architectural contract for Python work. `code/FUNCTION_INDEX.md` is the canonical searchable inventory of the active Python tree. It is generated from the AST and includes reusable/source symbols plus a separate test-symbol section.
+`code/.ai_handoff.md` is the architectural contract for Python work. `code/FUNCTION_INDEX.md` is the canonical searchable inventory of the active Python tree.
 
 Before implementing functionality:
 
@@ -37,7 +37,7 @@ Before implementing functionality:
 3. inspect the referenced implementation;
 4. reuse or extend an existing function whenever scientifically equivalent;
 5. do not create a parallel estimator, cleaner, cohort builder, plotting helper, or transformation only because its location was not immediately obvious;
-6. if a new reusable symbol is truly needed, place it in the appropriate importable module, add a concise docstring/tests, and do **not** hide the scientific logic inside an experiment runner;
+6. if a new reusable symbol is truly needed, place it in the appropriate importable module, add a concise docstring/tests, and do **not** hide scientific logic inside an experiment runner;
 7. import the reusable function into the stable runner that reproduces the relevant scientific question;
 8. regenerate the index in the same code change (`python code/scripts/generate_function_index.py`).
 
@@ -57,9 +57,13 @@ Use these IDs consistently across `papers/`, documentation, runners and issue/PR
 
 Each paper has exactly one canonical home: `papers/<paper_id>/`. Paper-specific literature belongs in `papers/<paper_id>/literature/`; do not recreate a parallel `literature/papers/` hierarchy or alternate folder names for the same manuscript.
 
-## Preservation rule
+## Preservation / provenance rule
 
-Historical snapshots may be retained for provenance, but must be clearly labeled historical and must not silently overwrite canonical paths. Historical `Bib/Bib2` names are preserved in Git history only and must not be recreated.
+Git history is the canonical storage for historical source states. Do not keep duplicate active code/report trees merely for version history.
+
+Dated/version-labelled identifiers may remain inside `docs/provenance/`, report provenance folders, archive hashes, fingerprints, or other records whose purpose is to identify a historical state. They must be clearly historical and must not silently overwrite canonical paths.
+
+Historical `Bib/Bib2` names are provenance only and must not be recreated.
 
 ## Data/privacy boundary
 
@@ -76,14 +80,14 @@ Aggregated outputs may be committed after privacy review. Heavy literature PDFs/
 
 ## Analysis/reporting rules
 
-- Preserve all validated discoveries in the master analysis and technical report, including null results and sensitivity analyses.
+- Preserve validated discoveries in the master empirical record, including null results and sensitivity analyses.
 - Keep causal language conservative for student-selected CMAT use.
 - Do not infer motivation, habit formation, or psychological states from administrative visits.
-- Classroom is `instructor × course × academic period` unless a later reviewed methodological change explicitly replaces it.
-- Scientific-code changes require tests, protocol/changelog/function-index updates, and a new source fingerprint.
+- Classroom is `instructor × course × academic period` unless a reviewed methodological change explicitly replaces it.
+- Scientific-code changes require tests, protocol/changelog/function-index updates, and a new source fingerprint when applicable.
 - Paper-specific selections happen after canonical outputs are stable.
 - Paper folders may select results; they may not redefine them independently.
-- Reported results should be reproducible from stable runners; do not make notebooks or hand-edited output files the canonical computational source.
+- Reported results should be reproducible from stable runners; notebooks or hand-edited outputs are not the canonical computational source.
 
 ## Literature rules
 
@@ -97,12 +101,13 @@ Major folders should have a README explaining scope, inputs, outputs, canonical 
 
 Future AI sessions should start with:
 
-1. `AI_HANDOFF.md` — global project state;
-2. `code/.ai_handoff.md` — code architecture/reproducibility contract before any code work;
-3. `code/FUNCTION_INDEX.md` — locate existing capabilities before writing code;
-4. `docs/PUBLICATION_PORTFOLIO.md` — five-paper plan;
-5. `literature/AI_HANDOFF.md` — literature-specific state when relevant;
-6. the relevant `papers/<paper_id>/README.md` and `papers/<paper_id>/literature/` when working on a manuscript;
-7. current methodological protocol/changelog before changing scientific code.
+1. `AI_HANDOFF.md` — global project routing/state;
+2. `REPRODUCING.md` — execution environment and canonical commands when reproduction matters;
+3. `code/.ai_handoff.md` — code architecture/reproducibility contract before code work;
+4. `code/FUNCTION_INDEX.md` — locate existing capabilities before writing code;
+5. `docs/PUBLICATION_PORTFOLIO.md` — five-paper plan;
+6. `literature/AI_HANDOFF.md` — literature-specific state when relevant;
+7. the relevant `papers/<paper_id>/README.md` and `papers/<paper_id>/literature/` when working on a manuscript;
+8. current methodological protocol/changelog before changing scientific code.
 
-Update the project handoff/changelog whenever code, estimands, portfolio boundaries or major architecture changes.
+Update the appropriate owning document whenever code, estimands, portfolio boundaries or major architecture changes. Keep the root handoff compact rather than duplicating subsystem detail.

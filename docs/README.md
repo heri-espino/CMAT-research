@@ -1,24 +1,30 @@
 # Documentation
 
-Cross-cutting project documentation.
+Cross-cutting project documentation. Keep active operating guidance separate from historical provenance.
 
-## Canonical planning / continuity documents
+## Canonical active documents
 
-- `PUBLICATION_PORTFOLIO.md` — source of truth for the five-paper plan, working titles, priorities, journal routes and paper boundaries.
-- `BRANCH_STRATEGY.md` — branch policy.
-- `GIT_WORKFLOW.md` — practical Git workflow.
-- `MIGRATION_STATUS.md` — repository/scientific migration state and version cautions.
-- `HEAVY_SNAPSHOT.md` — provenance of preserved heavy snapshots and literature corpora.
-- root `AI_HANDOFF.md` — global future-AI entrypoint.
-- `literature/AI_HANDOFF.md` — literature-specific future-AI entrypoint.
+- `PUBLICATION_PORTFOLIO.md` — cross-paper plan, boundaries, priorities and journal routes.
+- `GIT_WORKFLOW.md` — the single branch/Git workflow policy; Git itself is the authority for current branch state.
+- `MIGRATION_STATUS.md` — current canonicalisation/scientific-migration status and unresolved reconciliation cautions.
+- root `AI_HANDOFF.md` — compact global router for future AI sessions.
+- root `REPRODUCING.md` — installation, tests and canonical execution entry points.
 
-Canonical documentation should also cover, as the project evolves:
+## Historical provenance
 
-- study protocol and estimands;
-- methodology changelog;
-- Python function index;
-- research roadmap;
-- privacy and release controls;
-- scientific source fingerprints.
+- `ARCHIVE_PROVENANCE.md` — archive hashes and high-level provenance for imported literature/methodology packages.
+- `provenance/methodology_restoration_2026-09-07/README.md` — consolidated validation record for the historical methodology restoration previously identified as `methodology_v5`.
 
-Documentation should describe the current canonical state and clearly label historical snapshots. When a working title, paper boundary, priority or journal strategy changes, update `PUBLICATION_PORTFOLIO.md` first and then synchronize the corresponding paper/literature README files.
+Historical version labels are allowed inside provenance records when they identify a specific imported state. They should not become active folder/report/code names.
+
+## Ownership rule
+
+Do not turn `docs/` into a second copy of subsystem documentation:
+
+- study protocol / estimands / code architecture -> `code/`;
+- paper-specific scope/status -> `papers/<paper_id>/README.md`;
+- paper-specific literature -> `papers/<paper_id>/literature/`;
+- shared literature retrieval rules -> `literature/`;
+- report-specific build/provenance -> the relevant `reports/<report>/` directory.
+
+When a working title, paper boundary, priority or journal strategy changes, update `PUBLICATION_PORTFOLIO.md` for the cross-paper view and the relevant paper README for detail. Do not duplicate the same detailed paper state across multiple handoffs.

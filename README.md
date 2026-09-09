@@ -47,8 +47,8 @@ CMAT-research/
 │
 ├── papers/
 │   ├── paper1_ppa_persistence/
-│   │   ├── README.md             # detailed Paper 1 source of truth
-│   │   └── literature/           # Paper 1 literature interpretation/notes
+│   │   ├── README.md
+│   │   └── literature/
 │   ├── paper2_mu_performance/
 │   │   ├── README.md
 │   │   └── literature/
@@ -60,7 +60,13 @@ CMAT-research/
 │   ├── library/                  # shared physical corpus/source layer
 │   └── general/                  # cross-project literature view
 │
-├── docs/                         # portfolio, workflow, privacy, migration/provenance
+├── docs/
+│   ├── PUBLICATION_PORTFOLIO.md
+│   ├── GIT_WORKFLOW.md
+│   ├── MIGRATION_STATUS.md
+│   ├── ARCHIVE_PROVENANCE.md
+│   └── provenance/               # historical restoration records only
+│
 └── data/                         # documentation only; no administrative microdata
 ```
 
@@ -72,13 +78,13 @@ Within a paper, create `manuscript/`, `results/`, and `submission/` only when th
 
 Reusable estimators, cleaning, cohort construction, statistical tests and plotting logic belong in `code/src/visitas_analysis/`. Before writing a function, read `code/.ai_handoff.md` and search `code/FUNCTION_INDEX.md`.
 
-A reproducible scientific/report recipe belongs in `code/experiments/` and imports the reusable functions. A new data extract normally means rerunning the same stable runner, not creating `*_v2.py`.
+A reproducible scientific/report recipe belongs in `code/experiments/` and imports reusable functions. A new data extract normally means rerunning the same stable runner, not creating `*_v2.py`.
 
 ### Analysis outputs
 
 `analysis/shared/` contains retained aggregate empirical objects with project-wide or multi-paper relevance. The current historical aggregate set is under `analysis/shared/historical_outputs/`.
 
-If a reviewed output eventually has a clear single-paper owner, it may be retained under `papers/<paper_id>/results/`, but it must still originate from the canonical code/runners. Avoid duplicate retained copies without a documented reason.
+If a reviewed output eventually has a clear single-paper owner, it may be retained under `papers/<paper_id>/results/`, but it must still originate from canonical code/runners. Avoid duplicate retained copies without a documented reason.
 
 ### Papers
 
@@ -110,20 +116,11 @@ A source used by several papers is stored once in the library and can be referen
 
 Canonical cross-paper plan: `docs/PUBLICATION_PORTFOLIO.md`.
 
-1. **Paper 1 — incentive-linked persistence**  
-   *Beyond the Incentive Threshold: Academic Support Use and Persistence After a First-Year Participation Incentive*.
-
-2. **Paper 2 — CMAT use and MU performance**  
-   *Mathematics Support Use and Classroom-Relative Academic Performance in First-Year University Mathematics*.
-
-3. **Paper 3 — grading heterogeneity**  
-   *When the Same Grade Does Not Mean the Same Performance: Instructor-by-Term Heterogeneity in Undergraduate Mathematics Assessment*.
-
-4. **Paper 4 — disciplinary help-seeking heterogeneity**  
-   *Who Keeps Seeking Mathematics Help? Disciplinary Heterogeneity in University Mathematics Support Use*.
-
-5. **Paper 5 — full-degree trajectories**  
-   *Longitudinal Trajectories of Mathematics Support Use Across the Undergraduate Degree*.
+1. **Paper 1 — incentive-linked persistence** — *Beyond the Incentive Threshold: Academic Support Use and Persistence After a First-Year Participation Incentive*.
+2. **Paper 2 — CMAT use and MU performance** — *Mathematics Support Use and Classroom-Relative Academic Performance in First-Year University Mathematics*.
+3. **Paper 3 — grading heterogeneity** — *When the Same Grade Does Not Mean the Same Performance: Instructor-by-Term Heterogeneity in Undergraduate Mathematics Assessment*.
+4. **Paper 4 — disciplinary help-seeking heterogeneity** — *Who Keeps Seeking Mathematics Help? Disciplinary Heterogeneity in University Mathematics Support Use*.
+5. **Paper 5 — full-degree trajectories** — *Longitudinal Trajectories of Mathematics Support Use Across the Undergraduate Degree*.
 
 The portfolio document provides cross-paper strategy; detailed manuscript information should be maintained in each paper rather than repeatedly copied into unrelated subsystem documentation.
 
@@ -131,22 +128,15 @@ The portfolio document provides cross-paper strategy; detailed manuscript inform
 
 Historical package labels such as `v8`, `methodology_v5`, and `v2` identify imported scientific states; they are not active folder names. Duplicate historical code/import scripts are removed from the active tree once their provenance is recorded because Git is the history layer.
 
-The complete pre-code-cleanup working tree remains available at commit `20a993d92e8cc197a9060180d8cb6a6caf2607a7`. Additional restoration details live under `docs/snapshots/`, `docs/MIGRATION_STATUS.md`, and `docs/HEAVY_SNAPSHOT.md`.
+The complete pre-code-cleanup working tree remains available at commit `20a993d92e8cc197a9060180d8cb6a6caf2607a7`. Consolidated methodology-restoration details live at `docs/provenance/methodology_restoration_2026-09-07/README.md`; broader import/archive provenance lives in `docs/MIGRATION_STATUS.md` and `docs/ARCHIVE_PROVENANCE.md`.
 
 Removing duplicate historical directories does **not** imply that every historical methodological branch has been scientifically reconciled. Read `docs/MIGRATION_STATUS.md`, the current protocol, tests and implementation before making that claim.
 
 ## Privacy
 
-Administrative microdata are not committed. Do not commit:
+Administrative microdata are not committed. Do not commit student/direct identifiers, raw CMAT exports, official row-level grade spreadsheets, HMAC keys/salts, credentials/tokens, unreviewed row-level pseudonymised longitudinal data, or identifying free text.
 
-- student IDs or direct identifiers;
-- raw CMAT Forms exports;
-- official row-level grade spreadsheets;
-- HMAC keys, salts, credentials or tokens;
-- unreviewed row-level pseudonymised longitudinal data;
-- identifying free-text fields.
-
-Heavy literature PDFs/assets are preserved only because this repository is private and the owner requested internal research continuity; they are not automatically redistributable.
+Heavy literature PDFs/assets are preserved only because this repository is private and the owner requested internal archival continuity; they are not automatically redistributable.
 
 ## Reproducibility
 
@@ -154,10 +144,10 @@ See `REPRODUCING.md` for installation, tests, controlled-input handling and exac
 
 Generated local outputs under `code/outputs/` are ignored by Git. Retained aggregate outputs must be privacy-reviewed and traceable to code/configuration.
 
-The central reproducibility rule is simple: **functions define calculations; runners define reproducible scientific recipes; reports and papers present the resulting outputs.**
+The central reproducibility rule is: **functions define calculations; runners define reproducible scientific recipes; reports and papers present the resulting outputs.**
 
 ## Git workflow
 
-See `docs/BRANCH_STRATEGY.md` and `docs/GIT_WORKFLOW.md`.
+See `docs/GIT_WORKFLOW.md`.
 
 Use Git for history. Do not create permanent `v2`, `final`, dated, or ZIP-derived copies of active code/reports/papers solely for version control.

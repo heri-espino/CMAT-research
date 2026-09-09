@@ -8,7 +8,7 @@ The active physical library is intentionally simple:
 - `pdf/<id>.pdf` — source PDF when available;
 - `references/<id>.references.md` — separated reference list when available.
 
-Historical upload-batch folders and Docling figure/table assets were removed from the active tree after verified consolidation. Their provenance remains in `PROVENANCE.md`, `docs/HEAVY_SNAPSHOT.md`, and Git history. The source PDF is the authoritative visual verification layer.
+Historical upload-batch folders and Docling figure/table assets were removed from the active tree after verified consolidation. Their provenance remains in `PROVENANCE.md`, `../../docs/ARCHIVE_PROVENANCE.md`, and Git history. The source PDF is the authoritative visual verification layer.
 
 Legend: `M` = Markdown article record; `P` = source PDF available; `R` = separated reference list available.
 
@@ -74,10 +74,10 @@ Keep genuinely distinct scholarly versions separate when analytically useful (fo
 ## Scientific views
 
 - [General literature](../general/INDEX.md)
-- [Paper 1 — PPA persistence](../papers/paper1_ppa_persistence/INDEX.md)
-- [Paper 2 — MU performance](../papers/paper2_mu_performance/INDEX.md)
-- [Paper 3 — grading heterogeneity](../papers/paper3_grading_heterogeneity/INDEX.md)
-- [Paper 4 — degree/help-seeking heterogeneity](../papers/paper4_degree_help_seeking/INDEX.md)
-- [Paper 5 — longitudinal trajectories](../papers/paper5_longitudinal_trajectories/INDEX.md)
+- [Paper 1 — PPA persistence](../../papers/paper1_ppa_persistence/literature/INDEX.md)
+- [Paper 2 — MU performance](../../papers/paper2_mu_performance/literature/INDEX.md)
+- [Paper 3 — grading heterogeneity](../../papers/paper3_grading_heterogeneity/literature/INDEX.md)
+- [Paper 4 — degree/help-seeking heterogeneity](../../papers/paper4_degree_help_seeking/literature/INDEX.md)
+- [Paper 5 — longitudinal trajectories](../../papers/paper5_longitudinal_trajectories/literature/INDEX.md)
 
 A work may appear in several scientific views without physical duplication.

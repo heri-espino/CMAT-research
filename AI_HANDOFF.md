@@ -2,7 +2,7 @@
 
 Canonical entry point for future AI sessions working in `heri-espino/CMAT-research`.
 
-This file is intentionally a **router, not a duplicate project encyclopedia**. Detailed scientific/editorial information belongs in the subsystem that owns it. Follow the links below instead of expanding this handoff with copied paper content or result tables.
+This file is intentionally a **router, not a duplicate project encyclopedia**. Detailed scientific/editorial information belongs in the subsystem that owns it.
 
 ## 1. Repository model
 
@@ -35,14 +35,15 @@ papers/<paper_id>/literature/    paper-specific interpretation
 papers/<paper_id>/manuscript/
 ```
 
-### Ownership rules
+Ownership rules:
 
-- **One paper = one home:** `papers/<paper_id>/`.
-- Do not recreate `literature/papers/`.
-- **One physical literature source = one library record:** `literature/library/`.
-- Reusable scientific functions belong in `code/src/visitas_analysis/`, not in paper/report folders.
-- A runner defines an execution recipe; it does not reimplement estimators.
-- Reports are project-level products; papers are manuscript-level products.
+- **one paper = one home:** `papers/<paper_id>/`;
+- do not recreate `literature/papers/`;
+- **one physical literature source = one library record:** `literature/library/`;
+- reusable scientific functions belong in `code/src/visitas_analysis/`;
+- runners define execution recipes and import reusable functions;
+- reports are project-level products; papers are manuscript-level products;
+- historical source states belong in Git history; detailed restoration records may live under `docs/provenance/`.
 
 ## 2. Mandatory startup by task
 
@@ -53,6 +54,10 @@ papers/<paper_id>/manuscript/
 3. this file
 4. README/AGENTS for the subsystem being changed
 
+### Reproduction / execution
+
+Read `REPRODUCING.md` first.
+
 ### Code / numerical analysis
 
 1. `code/.ai_handoff.md`
@@ -61,7 +66,7 @@ papers/<paper_id>/manuscript/
 4. `code/ADMINISTRATIVE_QUESTIONS.md`
 5. only then open the relevant module/runner
 
-For an existing report/analysis reproduction task, follow the runner-first rule in `code/.ai_handoff.md`: use the existing implementation/reference, reuse functions, create or edit one thin runner, verify reproduction, and do not broaden scope unnecessarily.
+For an existing report/analysis reproduction task, follow the runner-first rule: use the existing implementation/reference, reuse functions, create/edit one thin runner, verify reproduction, and do not broaden scope unnecessarily.
 
 ### Specific paper
 
@@ -79,17 +84,13 @@ For an existing report/analysis reproduction task, follow the runner-first rule 
 
 ## 3. Stable paper IDs
 
-Do not create alternate directories for these manuscripts:
-
 - `paper1_ppa_persistence`
 - `paper2_mu_performance`
 - `paper3_grading_heterogeneity`
 - `paper4_degree_help_seeking`
 - `paper5_longitudinal_trajectories`
 
-Cross-paper strategy: `docs/PUBLICATION_PORTFOLIO.md`.
-
-Detailed scope/status: each `papers/<paper_id>/README.md`.
+Cross-paper strategy: `docs/PUBLICATION_PORTFOLIO.md`. Detailed scope/status: each `papers/<paper_id>/README.md`.
 
 Do not duplicate full paper descriptions here.
 
@@ -112,17 +113,13 @@ Current report-specific canonical runner:
 python code/experiments/methodology_report.py
 ```
 
-Use `--check` for a structure/import check without loading controlled data. Do not recreate the methodology report calculation sequence manually when the runner/reference implementation already exists.
+Do not recreate the methodology calculation sequence manually when the runner/reference implementation already exists.
 
 ## 5. Global scientific invariants
-
-These are project-wide and belong here because violating them can affect several papers/reports.
 
 ### Observational interpretation
 
 CMAT attendance is student-selected. Do not claim CMAT, PPA, tutoring, visit frequency, or threshold crossing causally changes grades, persistence, motivation, or habit without an identification design that supports that claim.
-
-Use language such as `association`, `predictive association`, `behavioural persistence`, `formal academic help-seeking`, `institutional participation incentive`, and `pattern consistent with`.
 
 ### CMAT visit records
 
@@ -130,11 +127,7 @@ One Google Forms row is one recorded advisory visit. There is no duration measur
 
 ### PPA context
 
-Operational study threshold: **3 CMAT visit records during the MU period**. Do not equate three visit records with three PPA points.
-
-The current PPA interpretation treats MU as the first-year incentive-linked context and later Calculus as generally outside that same PPA1-linked CMAT incentive. Individual PPA1 completion timing is not directly observed.
-
-The threshold is student-controlled; it is **not a regression-discontinuity design**.
+Operational study threshold: **3 CMAT visit records during the MU period**. Do not equate three visit records with three PPA points. The threshold is student-controlled; it is **not a regression-discontinuity design**.
 
 ### Academic outcomes
 
@@ -149,85 +142,57 @@ Classroom for classroom-relative performance is `professor × same course × sam
 
 An academic row is not automatically a new real attempt. Degree changes/revalidations can repeat previously passed courses. Preserve the real-attempt/revalidation rules in canonical code.
 
-Official academic programme (`CLAVECARRERA`) is the primary programme field. The CMAT-form self-reported programme cannot be used as a baseline covariate for non-users.
+Official academic programme (`CLAVECARRERA`) is the primary programme field.
 
 ### Cohort discipline
 
-Do not silently substitute one cohort for another. First-MU, later-Calculus progressor, and stricter longitudinal/PPA populations answer different questions. Before quoting a sample size or result, trace it to the current runner/output/report and state the population.
+Do not silently substitute one cohort for another. First-MU, later-Calculus progressor, and stricter longitudinal/PPA populations answer different questions. Trace quoted sample sizes/results to their runner/output/report.
 
-## 6. Reports and retained outputs
+## 6. Reports, retained outputs and provenance
 
 Active reports:
 
 - `reports/methodology_report/`
 - `reports/research_compendium/`
 
-Purpose-based names are canonical. Historical `v*` labels may remain only in provenance objects.
-
-Retained shared historical aggregates currently live under:
+Retained shared historical aggregates:
 
 `analysis/shared/historical_outputs/`
 
-They are provenance/comparison artifacts until a reconciled canonical output set is explicitly frozen. Do not infer that `historical` means invalid; identify the generating code state before reuse.
-
-Historical restoration/provenance details:
+Historical restoration/import records:
 
 - `docs/MIGRATION_STATUS.md`
-- `docs/HEAVY_SNAPSHOT.md`
-- `docs/snapshots/`
+- `docs/ARCHIVE_PROVENANCE.md`
+- `docs/provenance/`
+
+Detailed methodology-restoration record:
+
+`docs/provenance/methodology_restoration_2026-09-07/README.md`
 
 Do not re-create permanent snapshot source trees merely because an old implementation is needed; retrieve it from Git history.
 
-## 7. Literature ownership and retrieval
+## 7. Data/privacy boundary
 
-Physical/shared corpus:
-
-`literature/library/`
-
-Cross-project view:
-
-`literature/general/`
-
-Paper-specific views:
-
-`papers/<paper_id>/literature/`
-
-A source may support multiple papers without physical duplication. PDFs in this private repository are internal research materials and are not automatically redistributable.
-
-For exact numerical/visual claims from a source, verify against the source PDF when extracted Markdown is insufficient or ambiguous.
-
-## 8. Data/privacy boundary
-
-Never commit:
-
-- administrative Excel/raw exports;
-- row-level student/advisory microdata;
-- direct identifiers;
-- HMAC keys/salts;
-- credentials/tokens;
-- unreviewed identifying free text;
-- unreviewed row-level pseudonymised longitudinal datasets.
+Never commit administrative Excel/raw exports, row-level student/advisory microdata, direct identifiers, HMAC keys/salts, credentials/tokens, unreviewed identifying free text, or unreviewed row-level pseudonymised longitudinal datasets.
 
 Aggregate outputs may be retained only after disclosure/privacy review.
 
-## 9. Current unresolved scientific maintenance
+## 8. Current unresolved scientific maintenance
 
-The later methodology corrections and the refined longitudinal/PPA work still require deliberate scientific reconciliation before claiming one fully unified canonical study pipeline. This is documented in `docs/MIGRATION_STATUS.md`.
+The later methodology corrections and the refined longitudinal/PPA work still require deliberate scientific reconciliation before claiming one fully unified canonical study pipeline. See `docs/MIGRATION_STATUS.md`.
 
 That unresolved maintenance item must **not** block narrower reproduction tasks when an existing validated implementation/runner already defines the requested artifact.
 
-## 10. Handoff maintenance rule
+## 9. Handoff maintenance rule
 
 Keep this file short and routing-oriented.
 
-When something changes:
-
-- paper detail -> update `papers/<paper_id>/README.md`;
-- portfolio boundary/priority -> update `docs/PUBLICATION_PORTFOLIO.md`;
-- code architecture/reproducibility -> update `code/.ai_handoff.md`;
-- function inventory -> regenerate `code/FUNCTION_INDEX.md`;
-- literature routing/library state -> update `literature/AI_HANDOFF.md` / `literature/AGENTS.md`;
-- migration/provenance -> update `docs/MIGRATION_STATUS.md`;
-- only update this root handoff when the change affects project-wide routing or invariants.
+- paper detail -> `papers/<paper_id>/README.md`
+- portfolio boundary/priority -> `docs/PUBLICATION_PORTFOLIO.md`
+- code architecture/reproducibility -> `code/.ai_handoff.md`
+- function inventory -> regenerate `code/FUNCTION_INDEX.md`
+- literature routing/library state -> `literature/AI_HANDOFF.md` / `literature/AGENTS.md`
+- migration/current provenance -> `docs/MIGRATION_STATUS.md` / `docs/provenance/`
+- root handoff -> only project-wide routing/invariants
 
 Do not paste paper-specific result tables, long literature lists, or detailed journal strategies into this file; link to their canonical homes instead.

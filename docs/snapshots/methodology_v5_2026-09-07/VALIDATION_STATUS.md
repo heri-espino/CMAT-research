@@ -1,1 +1,0 @@
-Validated: internal code/report manifests pass; methodology helper tests 9/9; report PDF hash and 40-page count verified; privacy format checks pass.

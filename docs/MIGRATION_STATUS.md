@@ -4,97 +4,76 @@
 
 `heri-espino/CMAT-research` is the canonical private repository for the CMAT research/publication project.
 
-## Completed repository migration
+## Completed repository canonicalisation
 
-- private repository verified;
-- monorepo structure and operating rules documented;
-- privacy-first `.gitignore` and raw-data exclusion policy added;
-- historical literature source material imported and consolidated;
+- private monorepo and privacy-first raw-data exclusion policy established;
+- historical literature source material imported and consolidated under `literature/library/`;
 - historical scientific code/report states imported and verified;
-- cumulative LaTeX research record preserved in `reports/research_compendium/`;
+- cumulative research record preserved in `reports/research_compendium/`;
 - methodology/statistical report preserved in `reports/methodology_report/`;
-- literature reorganized by scientific use rather than upload batch;
-- five-paper publication portfolio established under `docs/PUBLICATION_PORTFOLIO.md`;
-- paper-specific literature views consolidated into each canonical `papers/<paper_id>/literature/` home; the former parallel `literature/papers/` hierarchy was removed;
-- active `code/` cleaned so it contains only the executable pipeline and immediate technical documentation;
-- duplicate code snapshots, legacy notebooks, old manuals/reports, and the obsolete migration workflow removed from the working tree;
-- previously committed pipeline outputs moved out of `code/outputs/` and classified as shared historical aggregates under `analysis/shared/historical_outputs/`.
+- five-paper portfolio established under `docs/PUBLICATION_PORTFOLIO.md`;
+- each paper made a single canonical home under `papers/<paper_id>/`, including its paper-specific literature view;
+- former parallel `literature/papers/` hierarchy removed;
+- active `code/` cleaned to executable pipeline + immediate technical documentation;
+- duplicate code snapshots, legacy notebooks, old manuals/reports, stale branch-status file and obsolete root migration scripts removed from the active tree;
+- previously committed pipeline outputs classified as shared historical aggregates under `analysis/shared/historical_outputs/`;
+- branch policy consolidated into `docs/GIT_WORKFLOW.md`;
+- historical methodology-restoration documentation consolidated under `docs/provenance/methodology_restoration_2026-09-07/`.
 
-The original automated heavy literature/scientific import commit is:
+Important historical commits remain available through Git, including:
 
-`d7e8db74253ef1cc1227b2a0bb4373ad94bed66a` — `migration: import heavy bibliography and v8 research snapshot`.
+- `d7e8db74253ef1cc1227b2a0bb4373ad94bed66a` — original automated heavy literature/scientific import;
+- `20a993d92e8cc197a9060180d8cb6a6caf2607a7` — complete tree immediately before the active-code cleanup;
+- `0508f847faff280c4013bfc4173ee7ddce1cfc18` — paper/literature co-location refactor.
 
-The complete tree immediately before the code cleanup remains available through Git at:
+## Current literature architecture
 
-`20a993d92e8cc197a9060180d8cb6a6caf2607a7`.
-
-The code-cleanup commit is:
-
-`d4647083e9e45fec9113bee2b9ad798c1df87658`.
-
-The paper/literature co-location refactor is:
-
-`0508f847faff280c4013bfc4173ee7ddce1cfc18` — `refactor: co-locate paper-specific literature with papers`.
-
-## Literature architecture
-
-Current organization:
-
-- `literature/library/` — physical/shared source layer and master catalogue;
+- `literature/library/` — physical/shared source layer and catalogue;
 - `literature/general/` — cross-project literature map;
-- `papers/paper1_ppa_persistence/literature/` — Paper 1 literature view;
-- `papers/paper2_mu_performance/literature/` — Paper 2 literature view;
-- `papers/paper3_grading_heterogeneity/literature/` — Paper 3 literature view;
-- `papers/paper4_degree_help_seeking/literature/` — Paper 4 literature view;
-- `papers/paper5_longitudinal_trajectories/literature/` — Paper 5 literature view;
-- `literature/AI_HANDOFF.md` and `literature/AGENTS.md` — shared-library/retrieval operating rules.
+- `papers/<paper_id>/literature/` — paper-specific interpretation, reading notes and gap tracking.
 
-The old upload-batch names and the former `literature/papers/` mirror are provenance only and are not the scientific interface.
+Old upload-batch names and the former `literature/papers/` mirror are provenance only.
 
-## Current methodology status
+## Historical methodology state
 
-A later methodology code state was restored and verified during migration, with historical scientific-source fingerprint:
+A later methodology code state was restored and verified during migration with historical scientific-source fingerprint:
 
-`03dd3d4ddd31cc2263be54900e1b25749fab8a7beb2033fbe796bf240fd4c39f`.
+`03dd3d4ddd31cc2263be54900e1b25749fab8a7beb2033fbe796bf240fd4c39f`
 
-Its restoration verification remains documented in `docs/snapshots/methodology_v5_2026-09-07/README.md`. The duplicate source tree that had been retained under `code/snapshots/` was later removed from the active working tree because Git already preserves it.
+Detailed validation/archive identity is now consolidated at:
 
-That historical methodology state includes corrections/extensions such as SciPy KDE/Scott imputation, complete `0/1/2/3/4+` pairwise contrasts, the 4,211-progressor sensitivity, population-specific periodicity and expanded degree-programme analyses.
+`docs/provenance/methodology_restoration_2026-09-07/README.md`
 
-The refined longitudinal/PPA N=3,241 stage is later work and is not claimed to be covered by that fingerprint.
+That state covers the `N=6,627` first-MU analysis and `N=4,211` future-progressor sensitivity, including SciPy KDE/Scott imputation, complete `0/1/2/3/4+` comparisons, periodicity extensions and expanded degree-programme analyses.
 
-The historical longitudinal/PPA logic documented in `reports/research_compendium/` and the later methodology corrections still need to be reconciled into one fully validated active executable pipeline. Removing the duplicate snapshot folder does not change that scientific requirement.
+The refined longitudinal/PPA `N=3,241` stage is later work and is not claimed to be covered by that fingerprint.
 
-If historical implementation details are needed during reconciliation, retrieve the relevant state from Git history rather than recreating a permanent `code/snapshots/` hierarchy.
+## Current unresolved scientific maintenance
+
+The later methodology corrections and the refined longitudinal/PPA logic documented in the cumulative research record still require deliberate reconciliation into one fully validated canonical executable study pipeline.
+
+Repository cleanup does **not** resolve that scientific question. Removing duplicate snapshots only changes storage/architecture.
+
+If historical implementation details are needed, retrieve the relevant state from Git history rather than recreating `code/snapshots/` or another version-numbered source tree.
 
 ## Analysis/output architecture
 
 `code/` is source code. Generated local outputs under `code/outputs/` are ignored by Git.
 
-Shared/privacy-reviewed retained aggregates belong under `analysis/shared/`. The aggregate outputs already present in repository history are currently retained at:
+Shared privacy-reviewed retained aggregates belong under `analysis/shared/`. Existing historical aggregate outputs are retained at:
 
-`analysis/shared/historical_outputs/`.
+`analysis/shared/historical_outputs/`
 
-They remain useful for provenance and comparison, but a new canonical aggregate output set should be frozen only after the active scientific pipeline is reconciled and validated.
+They remain useful for provenance/comparison. A new canonical aggregate output set should be frozen only after the relevant active pipeline is validated.
 
-When a reviewed output has a clear single-paper owner, it may instead be retained under `papers/<paper_id>/results/`; it must still originate from canonical code/runners and should not be duplicated in both locations without a documented reason.
+A reviewed output with a clear single-paper owner may be retained under `papers/<paper_id>/results/`, but it must originate from canonical code/runners and should not be duplicated elsewhere without reason.
 
 ## Privacy boundary
 
-Never migrate or commit:
+Never migrate or commit administrative Excel files, row-level student/advising microdata, direct identifiers, HMAC keys/salts, credentials/tokens, or unreviewed identifying free text.
 
-- administrative Excel files;
-- row-level student/advising microdata;
-- direct identifiers;
-- HMAC keys, credentials or tokens;
-- unreviewed identifying free text.
-
-Literature PDFs are retained only because this repository is private and the owner explicitly requested internal research continuity. They are not automatically suitable for redistribution in a public release.
+Literature PDFs are retained for internal research continuity in this private repository and are not automatically suitable for redistribution.
 
 ## Working rule
 
-Future substantive changes happen in this repository. `main` is the source of truth; temporary branches, when used, should be short-lived and deleted after merge. Git is project history. Do not create permanent version-numbered code folders or ZIP-derived snapshots inside the active tree unless there is a specific scientific reason that cannot be served by Git provenance.
-
-## Naming rule for reports
-
-Active report paths describe purpose rather than version. Historical labels such as `v8`, `v5`, or `v2` remain only when needed to identify imported states, fingerprints, archive hashes, or dated provenance records.
+`main` is the source of truth. Git is project history. Active paths are named by scientific purpose rather than versions; historical labels such as `v8`, `v5`, or `v2` remain only where needed to identify provenance objects, archive hashes, fingerprints or historical records.

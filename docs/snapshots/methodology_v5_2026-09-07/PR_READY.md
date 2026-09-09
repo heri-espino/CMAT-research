@@ -1,1 +1,0 @@
-PR-ready restoration state. See `README.md` and `MERGE_NOTES.md` in this directory for validation and provenance.
