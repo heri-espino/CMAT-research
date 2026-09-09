@@ -1,6 +1,6 @@
 # Paper 1 literature index — PPA persistence
 
-This index is intentionally selective. It identifies the literature that most directly supports the persistence-after-incentive manuscript. Use `../../library/CATALOG.md` to locate preferred source records and exact source-material paths.
+This index is intentionally selective. It identifies the literature that most directly supports the persistence-after-incentive manuscript. Use `../../../literature/library/CATALOG.md` to locate preferred source records and exact source-material paths.
 
 ## Core theoretical / behavioural anchors
 

@@ -36,4 +36,4 @@ For every candidate/addition, record:
 
 Do not add papers merely because they contain the words `nudge`, `engagement` or `incentive`.
 
-When an item is acquired, place/register it once in the shared `../../library/` layer, update `../../library/CATALOG.md`, then update this paper view. Do not create a Paper-1-only physical copy.
+When an item is acquired, place/register it once in the shared `../../../literature/library/` layer, update `../../../literature/library/CATALOG.md`, then update this paper view. Do not create a Paper-1-only physical copy.

@@ -4,6 +4,8 @@
 
 Canonical portfolio: `../../docs/PUBLICATION_PORTFOLIO.md`.
 
+This directory is the **single canonical home** for Paper 5. Paper-specific manuscript material, literature notes, results and submission files belong here; shared source PDFs remain in `../../literature/library/`.
+
 ## Research question
 
 What recurring trajectories of formal mathematics-support use appear across students’ full undergraduate course sequences, beyond the MU→Calculus transition?
@@ -33,4 +35,9 @@ The target is intentionally not frozen because it depends on the final analytica
 
 Future project. It should not be started as a manuscript until full-degree course/CMAT coverage, temporal ordering, revalidation handling, and missingness are audited.
 
-Literature view: `../../literature/papers/paper5_longitudinal_trajectories/`.
+## Paper-local structure
+
+- `literature/` — paper-specific literature index and targeted gaps; no duplicate source PDFs.
+- `manuscript/`, `results/`, and `submission/` should be created only when real files exist.
+
+Paper-specific literature is in `literature/`; physical source records remain in `../../literature/library/`.

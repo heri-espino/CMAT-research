@@ -4,6 +4,8 @@
 
 Canonical portfolio: `../../docs/PUBLICATION_PORTFOLIO.md`.
 
+This directory is the **single canonical home** for Paper 3. Paper-specific manuscript material, literature notes, results and submission files belong here; shared source PDFs remain in `../../literature/library/`.
+
 ## Research question
 
 How much do grading distributions differ across instructors, mathematics courses and academic periods, and what do those differences imply for comparisons based on raw university grades?
@@ -39,4 +41,9 @@ Requires a dedicated re-analysis before drafting. Current grade-distribution plo
 - evaluate variance-component / multilevel approaches versus descriptive standardization;
 - establish robustness to course and period restrictions.
 
-Literature view: `../../literature/papers/paper3_grading_heterogeneity/`.
+## Paper-local structure
+
+- `literature/` — paper-specific literature index and targeted gaps; no duplicate source PDFs.
+- `manuscript/`, `results/`, and `submission/` should be created only when real files exist.
+
+Paper-specific literature is in `literature/`; physical source records remain in `../../literature/library/`.

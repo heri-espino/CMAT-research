@@ -4,6 +4,8 @@
 
 Canonical portfolio: `../../docs/PUBLICATION_PORTFOLIO.md`.
 
+This directory is the **single canonical home** for Paper 1. Paper-specific manuscript material, literature notes, results and submission files belong here; shared source PDFs remain in `../../literature/library/`.
+
 ## Research question
 
 Does formal academic-support use observed in an incentive-linked first-year MU context persist into later Calculus use after that specific PPA1-linked incentive is treated as generally no longer applying?
@@ -36,6 +38,15 @@ Persistence of formal academic help-seeking across a change in incentive context
 
 This is observational. Visit counts are student-chosen. The analysis does **not** identify a causal PPA effect, a tutoring effect, motivation, or habit formation.
 
+## Paper-local structure
+
+- `literature/` — paper-specific literature index, reading guides, gaps and reading notes; no duplicate source PDFs.
+- `manuscript/` — LaTeX/manuscript source when present.
+- `results/` — paper-specific reviewed tables/figures when retained.
+- `submission/` — journal-specific submission material when needed.
+
+Create the latter three directories only when they contain real files; do not add empty scaffolding solely for symmetry.
+
 ## Dependencies
 
-Uses the canonical longitudinal logic in `code/` and canonical aggregate outputs from `analysis/`. The literature view is `../../literature/papers/paper1_ppa_persistence/`.
+Uses the canonical longitudinal logic in `../../code/` and canonical aggregate outputs from `../../analysis/`. Paper-specific literature is in `literature/`; physical source records remain in `../../literature/library/`.

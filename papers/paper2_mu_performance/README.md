@@ -4,6 +4,8 @@
 
 Canonical portfolio: `../../docs/PUBLICATION_PORTFOLIO.md`.
 
+This directory is the **single canonical home** for Paper 2. Paper-specific manuscript material, literature notes, results and submission files belong here; shared source PDFs remain in `../../literature/library/`.
+
 ## Research question
 
 How is contemporaneous CMAT use associated with classroom-relative academic performance in first-attempt MU?
@@ -34,6 +36,15 @@ The strongest reproducible separation appears to be between `0 visits` and `any 
 
 Observational association only; do not present CMAT attendance as a randomized tutoring treatment.
 
+## Paper-local structure
+
+- `literature/` — paper-specific literature index and targeted gaps; no duplicate source PDFs.
+- `manuscript/` — LaTeX/manuscript source when present.
+- `results/` — paper-specific reviewed tables/figures when retained.
+- `submission/` — journal-specific submission material when needed.
+
+Create the latter three directories only when they contain real files; do not add empty scaffolding solely for symmetry.
+
 ## Dependencies
 
-Uses canonical MU outputs from `analysis/`; it does not maintain a separate scientific pipeline. Literature view: `../../literature/papers/paper2_mu_performance/`.
+Uses canonical MU outputs from `../../analysis/` and reusable scientific logic from `../../code/`; it does not maintain a separate scientific pipeline. Paper-specific literature is in `literature/`; physical source records remain in `../../literature/library/`.

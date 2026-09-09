@@ -1,16 +1,10 @@
 # Paper 1 literature — PPA persistence
 
-Working manuscript: **Beyond the Incentive Threshold: Academic Support Use and Persistence After a First-Year Participation Incentive**.
+Paper-specific literature workspace for `paper1_ppa_persistence`.
 
-This folder is a scientific/editorial view over the shared literature library, not a separate physical corpus.
+The canonical paper scope, research question, outcomes, journal strategy and status live in `../README.md`. This directory contains only the literature-specific layer: source priorities, reading guidance, evidence notes, gaps and claim boundaries.
 
-## Core question
-
-Does formal academic-support use observed in the incentive-linked MU/PPA1 context persist into later Calculus, when the specific PPA1-linked CMAT incentive is generally no longer present?
-
-## Target
-
-Primary ambitious target: *Studies in Higher Education*.
+The physical source corpus remains shared in `../../../literature/library/`; do not duplicate PDFs here.
 
 ## Literature logic
 
@@ -38,8 +32,6 @@ Do not let mathematics-support literature dominate the broader higher-education 
 2. `READING_GUIDE.md` — rapid technical guide with the most important methods/results to remember.
 3. `reading_notes/` — article-level evidence cards with sample, methods, coefficients/tests, uncertainty, quotations, claim boundaries and local verification anchors.
 4. `MISSING_LITERATURE.md` — targeted gaps still requiring search/acquisition.
-
-The first completed reading-note batch covers general/foundational literature. Incentive-specific technical notes are the next planned batch.
 
 ## Interpretation boundary
 
