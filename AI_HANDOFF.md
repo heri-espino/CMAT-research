@@ -143,7 +143,7 @@ The historical methodology work includes the intended SciPy Gaussian KDE/Scott i
 
 **Important:** removing duplicate snapshots from the working tree does not mean the active `code/` pipeline is fully reconciled. Inspect implementation/tests before making that claim. If a historical implementation is needed, retrieve it from Git history rather than recreating a permanent snapshot folder.
 
-Generated local pipeline outputs may appear under `code/outputs/`, but that path is ignored by Git. Previously committed outputs were moved to `analysis/historical_outputs/` until a reconciled canonical output set is frozen.
+Generated local pipeline outputs may appear under `code/outputs/`, but that path is ignored by Git. Previously committed outputs live under `analysis/shared/historical_outputs/` until a reconciled canonical output set is frozen.
 
 ## 8. Paper 1 longitudinal anchors
 

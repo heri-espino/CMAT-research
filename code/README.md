@@ -120,7 +120,7 @@ The repository previously mixed active code with `snapshots/`, `legacy/`, `manua
 - historical source states remain recoverable through Git;
 - methodology-restoration provenance remains documented under `docs/` and `reports/methodology_report/`;
 - legacy notebooks/manual reports remain available in Git history if ever needed;
-- the previously committed aggregate outputs now live under `analysis/historical_outputs/`.
+- the previously committed aggregate outputs now live under `analysis/shared/historical_outputs/`.
 
 The complete pre-cleanup working tree is preserved by Git at commit `20a993d92e8cc197a9060180d8cb6a6caf2607a7`.
 
@@ -149,4 +149,4 @@ Raw administrative data and row-level linked student records remain outside GitH
 
 ## Outputs
 
-Local executions may generate `code/outputs/`; that directory is ignored by Git. Privacy-reviewed aggregate artifacts intended to be retained belong under `analysis/`.
+Local executions may generate `code/outputs/`; that directory is ignored by Git. Privacy-reviewed aggregate artifacts intended to be retained belong under `analysis/shared/` or, when they have a clear single-paper owner, the corresponding `papers/<paper_id>/results/` directory.

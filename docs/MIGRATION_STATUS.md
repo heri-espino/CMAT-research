@@ -18,7 +18,7 @@
 - paper-specific literature views consolidated into each canonical `papers/<paper_id>/literature/` home; the former parallel `literature/papers/` hierarchy was removed;
 - active `code/` cleaned so it contains only the executable pipeline and immediate technical documentation;
 - duplicate code snapshots, legacy notebooks, old manuals/reports, and the obsolete migration workflow removed from the working tree;
-- previously committed pipeline outputs moved from `code/outputs/` to `analysis/historical_outputs/`.
+- previously committed pipeline outputs moved out of `code/outputs/` and classified as shared historical aggregates under `analysis/shared/historical_outputs/`.
 
 The original automated heavy literature/scientific import commit is:
 
@@ -71,11 +71,13 @@ If historical implementation details are needed during reconciliation, retrieve 
 
 `code/` is source code. Generated local outputs under `code/outputs/` are ignored by Git.
 
-The aggregate outputs that were already part of repository history were moved to:
+Shared/privacy-reviewed retained aggregates belong under `analysis/shared/`. The aggregate outputs already present in repository history are currently retained at:
 
-`analysis/historical_outputs/`.
+`analysis/shared/historical_outputs/`.
 
 They remain useful for provenance and comparison, but a new canonical aggregate output set should be frozen only after the active scientific pipeline is reconciled and validated.
+
+When a reviewed output has a clear single-paper owner, it may instead be retained under `papers/<paper_id>/results/`; it must still originate from canonical code/runners and should not be duplicated in both locations without a documented reason.
 
 ## Privacy boundary
 

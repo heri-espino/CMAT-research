@@ -12,20 +12,26 @@ Canonical empirical-analysis layer for the CMAT project.
 
 ## Canonical rule
 
-The analysis layer is **not organized around Paper 1 or Paper 2**. It preserves the full validated empirical record. Manuscripts select subsets from here; they do not recompute independent scientific versions.
+The analysis layer preserves the full validated empirical record. Manuscripts select subsets from it; they do not recompute independent scientific versions.
 
 ## Inputs
 
-- `code/` canonical scientific pipeline;
+- `../code/` canonical scientific pipeline;
 - controlled administrative data outside GitHub;
 - optional approved pre-MU covariates when available.
 
-## Current layout
+## Organization
 
-`analysis/historical_outputs/` contains the aggregate outputs that were previously committed under `code/outputs/`. They were moved here because generated results are not source code.
+- `shared/` — retained aggregate outputs or empirical objects that support the project globally or more than one paper.
+- paper-specific reviewed outputs may later be promoted into `../papers/<paper_id>/results/` when they have a clear single manuscript owner; they must still originate from canonical code/runners.
+- exploratory analysis folders should be created only when real exploratory work exists; do not add empty scaffolding.
 
-These files remain historical until the active pipeline is fully reconciled and a new canonical output set is explicitly frozen. Do not silently treat the directory name `historical_outputs` as evidence that the results are wrong; it means their generating scientific state must be identified before reuse.
+## Current retained outputs
+
+`analysis/shared/historical_outputs/` contains aggregate outputs that were previously committed under `code/outputs/`. They are shared provenance/comparison artifacts, not paper-specific ownership.
+
+These files remain historical until the active pipeline is fully reconciled and a new canonical output set is explicitly frozen. `historical_outputs` does not mean the results are known to be wrong; it means the generating scientific state must be identified before reuse.
 
 ## Output policy
 
-Local pipeline runs may write to `code/outputs/`, which is ignored by Git. Only outputs selected for the shared empirical record, reviewed for disclosure/privacy, should be copied or promoted into `analysis/` with provenance documentation.
+Local pipeline runs may write to `code/outputs/`, which is ignored by Git. Only outputs selected for the empirical record, reviewed for disclosure/privacy, should be promoted into `analysis/shared/` or a paper-local `results/` directory with provenance documentation.
