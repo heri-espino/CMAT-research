@@ -87,29 +87,28 @@ Historical refined snapshot: **N=3,241** primary next-regular-term paired cohort
 
 This refined stage is later work and is not claimed to be covered by the methodology-v5 scientific-source fingerprint.
 
-## 7. Reports and historical methodology provenance
+## 7. Historical methodology snapshot and restoration
 
-Active report paths are named by scientific purpose rather than by version:
-
-- `reports/methodology_report/` — methodology/statistical review report associated with the later methodology snapshot;
-- `reports/research_compendium/` — cumulative historical research record containing the earlier performance work and refined longitudinal/PPA chapter.
-
-The exact later-methodology historical code snapshot remains preserved at:
+An exact later-methodology historical snapshot is preserved at:
 
 `code/snapshots/methodology_v5_2026-09-07/`
 
+and its technical report v2 at:
+
+`reports/technical_report_methodology_v2/`.
+
 Restoration verification is documented at `docs/snapshots/methodology_v5_2026-09-07/README.md`.
 
-Key verified properties of that historical methodology snapshot:
+Key verified properties:
 
 - scientific-source fingerprint: `03dd3d4ddd31cc2263be54900e1b25749fab8a7beb2033fbe796bf240fd4c39f`;
 - every source-manifest entry passed SHA-256 verification;
 - methodology helper suite: **9/9 tests passed**;
 - `PYTHON_FUNCTION_INDEX.md`: **320 symbols**;
-- `reports/methodology_report/methodology_report.pdf`: **40 pages**, SHA-256 `1e52d36809924df4bc84db65f6cb6669fe33d1f402076e8930b3a173f550595f`;
+- `informe_cmat.pdf`: **40 pages**, SHA-256 `1e52d36809924df4bc84db65f6cb6669fe33d1f402076e8930b3a173f550595f`;
 - no original Excel/raw administrative microdata were included.
 
-The restored methodology snapshot includes the intended SciPy Gaussian KDE/Scott imputation logic, expanded `0/1/2/3/4+` comparisons, periodicity, degree-programme work and the N=4,211 sensitivity. The cumulative research compendium contains the refined later longitudinal/PPA work. Historical labels such as `v8`, `methodology_v5`, and `v2` remain only where needed to identify provenance objects; they are not active report names.
+The restored snapshot includes the intended SciPy Gaussian KDE/Scott imputation logic, expanded `0/1/2/3/4+` comparisons, periodicity, degree-programme work and the N=4,211 sensitivity. Historical v8 and later methodology labels are different development lines, not a simple chronological ranking.
 
 Do not assume restoration means the active canonical `code/` pipeline is fully reconciled. Inspect implementation/tests before making that claim.
 

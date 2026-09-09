@@ -1,43 +1,41 @@
-# Informe LaTeX CMAT - resultados v4
+# CMAT research compendium
 
-Este directorio contiene un borrador académico en LaTeX construido a partir de los resultados del pipeline `CMAT_publication_study_v4`.
+This directory preserves the cumulative LaTeX research record built during the exploratory and manuscript-development stages of the CMAT project.
 
-Archivos principales:
-- `informe_cmat.tex`: fuente LaTeX.
-- `informe_cmat.pdf`: PDF compilado (26 páginas).
-- `referencias.bib`: bibliografía inicial del proyecto en formato BibTeX para reutilización futura.
-- `figures/`: figuras generadas por el pipeline v4 e incluidas en el informe.
+It is intentionally broader than any single paper and should be read as a research compendium rather than as the current methodological authority.
 
-El PDF actual usa una bibliografía manual dentro del `.tex` para poder compilar sin BibTeX. `referencias.bib` se conserva como archivo de trabajo para una versión futura del manuscrito.
+## Main files
 
-Compilación:
+- `research_compendium.tex` — main LaTeX source.
+- `research_compendium.pdf` — compiled cumulative report.
+- `referencias.bib` — working bibliography retained for reuse.
+- `figures/` — figures inherited from the corresponding historical analysis outputs.
+- `new_section.tex` — additive analyses on visit-group pooling, robust comparisons and degree-programme heterogeneity.
+- `ppa_progression_analysis.tex` — additive longitudinal PPA1 → Calculus chapter.
+
+## Scientific role
+
+The compendium preserves important historical results and reasoning, including:
+
+- the original RQ structure for CMAT use and academic performance;
+- the additive 1–2 visit pooling/equivalence work;
+- Welch ANOVA, Games–Howell and classroom-clustered robustness;
+- degree-programme use/performance analyses;
+- the refined PPA1 → MU → Calculus longitudinal analysis, including the N=3,241 primary progression cohort and the 3-versus-4+ persistence contrast.
+
+A classroom is professor × same course × same academic period. In the MU cohort the course is fixed, so operationally this is professor × period.
+
+## Historical provenance
+
+This material originated from the development line formerly labelled `v8`. That label is useful only when tracing provenance and should not be used as the active report name now that Git provides version history.
+
+The later methodology-focused corrections and extensions are documented separately in `../methodology_report/`. The two historical development lines still require scientific reconciliation in the active canonical pipeline before journal submission.
+
+## Compilation
+
 ```bash
-pdflatex informe_cmat.tex
-pdflatex informe_cmat.tex
+pdflatex research_compendium.tex
+pdflatex research_compendium.tex
 ```
 
-El texto distingue explícitamente asociación de causalidad y presenta RQ1a, RQ1b, RQ2a, RQ2b y RQ3 con pregunta, respuesta empírica e interpretación.
-
-## Sección aditiva de experimentos
-
-El borrador principal se conserva sin recortar. Los experimentos añadidos en esta iteración están aislados en `new_section.tex` y se incorporan desde `informe_cmat.tex` mediante:
-
-```tex
-\input{new_section}
-```
-
-La sección documenta formalmente: (1) la justificación académica y estadística para agrupar exactamente 1 y 2 visitas, incluyendo TOST de equivalencia; (2) ANOVA de Welch de las cohortes `0`, `1--2`, `3`, `4+`, diagnóstico Brown--Forsythe, post hoc Games--Howell y una sensibilidad con errores agrupados por salón; y (3) la relación de licenciatura con uso del CMAT y con el desempeño Z relativo al salón, incluyendo una comprobación cluster-robust por profesor-periodo.
-
-En todo el documento, un **salón** es profesor × misma materia × mismo periodo. En la cohorte de Matemáticas Universitarias la materia está fija, por lo que operacionalmente corresponde a profesor × periodo.
-
-## Capítulo longitudinal PPA1 → Cálculo (v8)
-
-El borrador sigue siendo acumulativo. No se eliminó `new_section.tex`. Se añadió un segundo archivo:
-
-```tex
-\input{ppa_progression_analysis}
-```
-
-`ppa_progression_analysis.tex` documenta el contexto administrativo PPA1/PPA2, la diferencia entre licenciatura oficial y licenciatura declarada en Google Forms, la auditoría de revalidaciones, la cohorte estricta MU-aprobado → Cálculo con calificación numérica, persistencia por grupos `0`, `1--2`, `3`, `4+`, el contraste `3` vs `4+`, modelos de persistencia, sensibilidad por materia específica, desempeño posterior `Z_Cálculo ~ Z_MU + patrón MU` y heterogeneidad por licenciatura.
-
-El PDF compilado actual contiene 50 páginas. Para QA rutinario se valida compilación/log; no se requiere inspección visual página por página salvo problema de layout o petición explícita.
+For routine QA, compilation/log validation is sufficient unless a layout problem or explicit visual-review request requires page inspection.
