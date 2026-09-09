@@ -1,0 +1,274 @@
+---
+id: "gneezy_2011_when-incentives-dont-work"
+source_pdf: "../pdf/gneezy_2011_when-incentives-dont-work.pdf"
+source_filename: "gneezy_2011_when-incentives-dont-work.pdf"
+format: "academic-paper"
+extraction_profile: "token-efficient-high-fidelity"
+extraction_mode: "hybrid"
+extraction_quality: "excellent"
+extraction_score: 108.0
+formula_enrichment: "codeformulav2"
+table_structure: "accurate"
+tables_png: 0
+figures_png: 0
+assets_dir: "../assets/gneezy_2011_when-incentives-dont-work"
+references_file: "../references/gneezy_2011_when-incentives-dont-work.references.md"
+---
+
+> [!CAUTION]
+> **COPIA ANOTADA PARA PAPER 1 — DERIVADO DE LECTURA, NO FUENTE CANÓNICA**
+>
+> Fuente canónica: `../../../../literature/library/articles/gneezy_2011_when-incentives-dont-work.md`
+>
+> Nota técnica: `../reading_notes/incentives/gneezy_2011.md`
+>
+> SHA-256 del Markdown fuente al generar esta copia: `5d41fe3d2895287245774429ccc168621a2a3ef874d8b2cbfeea4dfc5a3fed1a`
+>
+> `IMPORTANT` = **1. Idea principal** · `TIP` = **2. Resultado numérico** · `NOTE` = **3. Metodología / prueba / supuesto**
+>
+> El texto científico se conserva; las únicas adiciones son esta cabecera y los callouts/subrayados. Para citas o verificación exacta, volver siempre al Markdown/PDF canónico.
+
+
+<!-- p:1 -->
+
+## When and Why Incentives (Don't) Work to Modify Behavior
+
+Uri Gneezy, Stephan Meier, and Pedro Rey-Biel
+
+E conomists  often  emphasize  that  'incentives  matter.'  The  basic  'law  of behavior'  is  that  higher  incentives  will  lead  to  more  effort  and  higher performance.  Employers,  for  example,  often  use  extrinsic  incentives  to motivate their employees. In recent years, the use of incentives in behavioral interventions  has  become  more  popular.  Should  students  be  provided  with  fi  nancial incentives for increased school attendance, for reading, or for better grades? Will fi  nancial  incentives  encourage  higher  contributions  to  public  goods,  like  blood donations? Should programs to reduce smoking or to encourage exercise include a monetary incentive? These applications of incentives have provoked heated debate. Proponents of using incentives in behavioral interventions argue, for example, that monetary incentives can be helpful in getting people to study or exercise more. Opponents  believe  that  using  incentives  in  those  areas  could  backfi  re,  because extrinsic incentives may in some way crowd out intrinsic motivations that are important to producing the desired behavior.
+
+This  paper  proceeds  by  discussing  some  general  aspects  of  how  extrinsic incentives may come into confl  ict with other motivations. For example, monetary incentives from principals may change how tasks are perceived by agents. If incentives are not large enough, this change in perception can lead to undesired effects on behavior. In other cases, incentives might have the desired effects in the short term,  but  they  still  weaken  intrinsic  motivations.  Thus,  once  the  incentives  are
+
+■ Uri  Gneezy  is  Professor  of  Economics  and  Strategy,  Rady  School  of  Management, University  of  California-San  Diego,  La  Jolla,  California.  Stephan  Meier  is  Associate Professor, Columbia Business School, New York City, New York. Pedro Rey-Biel is Associate Professor, Universitat Autònoma de Barcelona, Barcelona, Spain. Their e-mail addresses are 〈 ugneezy@ucsd.edu 〉 , 〈 sm3087@columbia.edu 〉 , and 〈 pedro.rey@uab.es 〉 .
+
+doi=10.1257/jep.25.4.191
+
+
+<!-- p:2 -->
+
+
+removed, people may pursue the desired outcome less eagerly. To put it in concrete terms, an incentive for a child to read more might achieve that goal in the short term, but then be counterproductive as an incentive for students to enjoy reading and seek it out over their lifetimes. The following sections of the paper then discuss the research literature on three important examples in which monetary incentives have been used in a nonemployment context to foster the desired behavior: education;  increasing contributions to public goods; and helping people change their lifestyles. The conclusion sums up some lessons on when extrinsic incentives are more or less likely to alter such behaviors in the desired directions.
+
+### The Potential Crowding-Out Effect versus Extrinsic Incentives
+
+<!-- PAPER1-ANNOTATION:METHOD-START -->
+> [!NOTE]
+> **3 · METODOLOGÍA / PRUEBA / SUPUESTO**
+>
+> <u>Monetary incentives have two kinds of effects: the standard direct price effect, which makes the incentivized behavior more attractive, and an indirect psychological effect. In some cases, the psychological effect works in an opposite direction to the price effect and can crowd out the incentivized behavior. Several papers in recent years have shown that such crowding-out effects can be handled with fairly standard economic modeling of principal-agent problems that use nonstandard assumptions.</u>
+<!-- PAPER1-ANNOTATION:METHOD-END -->
+
+In the model of Benabou and Tirole (2006), for example, individuals have a utility  function  with  three  main  components:  they  value  extrinsic  rewards,  enjoy doing  an  activity,  and  care  about  their  image  vis-à-vis  themselves  or  others.  The image component depends on the value they or someone else attributes to their intrinsic and extrinsic motivation as a function of their effort level and incentives. This image motivation depends on how much individuals care for their reputation and may be affected by how public such an image is. Individual preferences for the enjoyment of tasks and for the image component of their utility may differ between people and are assumed to be private information.
+
+This type of model illustrates some principal channels through which incentives  can  affect  agents'  decisions  about  effort.  One  channel  is  information.  In  a private-good context without image concerns and in which the principal is better informed  than  the  agent,  the  principal  chooses  a  reward  level  based  on  several factors, including how the principal views the diffi  culty or attractiveness of the task to be performed and how the principal views the intrinsic motivation or ability of the agent. For example, offering incentives for improved academic performance in schools may signal that achieving a specifi  c goal is diffi  cult, that the task is not attractive, or that the agent is not well-suited for it (and thus needs the additional incentive of a reward). Alternatively, offering incentives could signal that the principal does not trust the agent's intrinsic motivation. This signal will be 'bad news' for the agent and can lower the intrinsic motivation of the agent to undertake the task.
+
+A second channel for crowding out appears when extrinsic incentives reduce other motives for undertaking the task, for example, if a higher personal benefi  t associated with a certain level of prosocial behavior affects the reputational value attributed to a person's intrinsic and extrinsic motivation. That is, decreasing the signal  about  a  person's  prosocial  preferences  and  increasing  the  signal  about  a person's greediness may result in lower image motivation. In such cases, offering higher material rewards may backfi  re if the effect on image motivation is stronger than the standard price effect. This effect may depend on the extent to which these signals are public.
+
+
+<!-- p:3 -->
+
+
+These channels illustrate possible behavioral effects of incentives and create implications for the design of incentives.
+
+#### Crowding Out in the Short Run when Incentives Are in Place
+
+The psychology literature contains many examples of incentives that reduce effort or motivation to undertake a task during the short run when such incentives are in place. Early attempts to understand what motivates people tended to focus on two areas: 1) basic biological needs of survival and procreation, and 2) extrinsic rewards or punishment. However, in the early 1970s, psychologists began exploring the nature of intrinsic and extrinsic motivation, particularly the assumption that intrinsic  motivation  always  pushes  behavior  in  the  same  direction  as  extrinsic motivation (see the survey of this literature in Deci, Koestner, and Ryan, 1999). Economists' interest in crowding out started around the same time as in psychology due to Titmuss (1970), who argued that paying people to donate blood broke established social norms about voluntary contribution and could result in a reduction of the fraction of people who wish to donate.
+
+A general theme of this work was that incentives contain information relayed from the principal to the agent, and such information can provoke unexpected effects  on  behavior.  For  example,  Frey  and  Oberholzer-Gee  (1997)  show  that  in offering members of a community a large monetary compensation for a nuclear waste site's presence, the principal signals that the risks involved are high, and thus community members may be less willing to accept the plant. Agents will draw inferences from both the existence and size of the offered incentives.
+
+The defi  nition of what constitutes 'small' and 'large' incentives depends on the case, but the message seems to be clear: as Gneezy and Rustichini's (2000a) title suggests, 'Pay enough-or don't pay at all.' In one of their experiments, Gneezy and Rustichini (2000a) present fi  eld evidence that high school students who collected donations  for  a  charity  in  a  door-to-door  fund-raising  campaign  invested  more effort  when  they  were  not  compensated  for  it  than  when  a  small  compensation was offered to them. Once compensation for effort was offered, higher payment resulted in higher effort. For most tasks, if incentives are large enough, their direct price effect will be larger than the crowding-out effect in the short run-although an interesting exception arises when incentives are so high that people may 'choke under pressure' (Ariely, Gneezy, Lowenstein, and Mazar, 2009). However, incentives can backfi  re even in the short run in many situations.
+
+#### Crowding Out after Incentives Are Removed
+
+<!-- PAPER1-ANNOTATION:IDEA-START -->
+> [!IMPORTANT]
+> **1 · IDEA PRINCIPAL**
+>
+> <u>If incentives signal some form of 'bad news,' agents who receive incentives will update their beliefs about the task, their own type, or their assessment of their  principal.  As  a  result,  their  motivation  to  perform  the  task  without  the additional incentive can be reduced permanently. Because the standard incentive effect is gone in the long run (we defi  ne the long run as after the incentives are removed), effort will be lower than it was before extrinsic incentives were offered.  In  educational  settings,  negative  long-run  effects  on  students'  joy  of learning might be troublesome, as incentive programs are often only temporary and are restricted to certain tests or tasks. In providing incentives for contribution to public goods, negative long-run effects on (intrinsic) motivation could also  backfi  re.  For  example,  Meier  (2007a)  shows  in  a  fi  eld  experiment  that although a matching incentive (a 25 or 50 percent match rate) increases donations in the short run, donations decrease below the pre-incentive period in the long run. The net effect over time of providing the matching incentive is even negative.</u>
+<!-- PAPER1-ANNOTATION:IDEA-END -->
+
+
+<!-- p:4 -->
+
+
+Gneezy  and  Rustichini  (2000b)  provide  an  example  in  which  behavior  is not just a function of the current incentives, but may be affected by the incentives offered in previous periods. In their experiment, a daycare began charging late-coming parents a small fi  ne of 10 New Israeli shekels (about $3 at the time). This  resulted  in  an  increase  in  the  number  of  late  pick-ups  even  in  the  short run, that is, while the incentives were present. One interpretation of this result is  information: the parents did not initially know how important it was to arrive on time. The contract specifi  ed that they should pick their children up on time but failed to specify the penalty if they did not. The distribution of the parents' beliefs regarding how bad it was to be late may have included bad scenarios (for example, 'the teacher will make my child suffer'). Once a small fi  ne was imposed, the contract was complete in that being late was priced. The relatively small fi  ne signaled to parents that arriving late was not that important. This new piece of information-that it was not so bad to be late-did not disappear once the fi  ne was removed. Indeed, Gneezy and Rustichini (2000b) found that even in the long run, after the fi  ne was removed, parents who had faced the fi  ne were more likely to pick up their children late than were those in the control group. Once the message has been sent that being on time is not that important, it is hard to revert back to the original level of arriving late.
+
+Of course the crowding-out evidence discussed does not mean that using incentives to obtain behavioral changes will always be counterproductive. Sometimes it is enough that the incentives work in the short run. Even in the long run, sometimes incentives  will  foster  good  habits.  For  example,  incentive  programs  may  provide the initial motivation for a healthy lifestyle. Once individuals experience the positive aspects of a healthy lifestyle, perhaps their motivation will increase enough to help them continue their improved habits even without the extrinsic motivation, and thus incentives may kick-start the intended behavior. The following sections use three examples to discuss the tension between positive and negative effects of incentives. Whereas most empirical studies analyze whether incentives backfi  re, the empirical and theoretical literature now offers a clearer picture as to when incentives do and do not work.
+
+
+<!-- p:5 -->
+
+
+### Incentives in Education
+
+It  may  seem  that  designing  incentive  mechanisms  to  improve  education should be relatively straightforward. Students may invest too little effort in their own  education  because  they  overly  discount  the  future,  have  time-inconsistent preferences, or underestimate the return on education. Extrinsic incentives can then provide immediate returns that give an extra motivation to study. Similarly, incentives can give parents and teachers additional reasons to put more effort into educating children or simply making sure the kids get to school (Glewwe, Ilias, and Kremer, 2010).
+
+However,  empirical  results  suggest  that  positive  effects  from  these  kinds  of incentives are far from certain. Opponents of extrinsic incentives emphasize that fi  nancial incentives may crowd out other underlying reasons for educational decisions. An extreme view is given by Kohn (1999), who refers to incentives provided in education as 'bribes.' Many educators believe paying students is morally wrong. One way to rephrase this claim is to argue that one of the goals of schools is to increase the importance of intrinsic motivation. We do not discuss this argument in this paper.
+
+A  number  of  recent  studies  have  evaluated  extrinsic  incentives  using  fi  eld experiments  in  schools.  Although  it  is  still  early  to  reach  rock-solid  conclusions about whether and how incentives work in education, the evidence provides important  insights  about  when  such  incentives  are  more  likely  to  work.  The  empirical evidence from large-scale fi  eld experiments seems to show: 1) incentives work well in increasing attendance and enrollment; 2) incentives have mixed results on effort and achievements; and 3) incentives seem to work for some students but not for others. When reviewing the evidence obtained from these fi  eld studies, keep in mind that most incentive schemes in the fi  eld are already designed to mitigate possible detrimental effects. In particular, most incentives are relatively large, with the goal of ensuring the price effect is larger than a potential negative crowding-out effect.
+
+#### Incentives for Attendance and Enrollment
+
+An important cause of poor families' underinvestment in education for children is the high opportunity cost of sending kids to school. Transfers to such relatively poor families, contingent on regular attendance at school, can offset such opportunity costs. The program PROGRESA in Mexico is an example (Behrman, Sengupta, and Todd, 2005; Schultz, 2004). The program paid on average $55 a month (over one-fi  fth of the average family income) for families whose children attended school. The evaluation of the fi  rst years of the program shows school entry at earlier ages, less grade repetition, better grade progression, lower drop-out rates, and higher school reentry among drop-outs. Particularly noteworthy are the reduction of drop-out rates during the transition from primary to secondary school, and that grade progression occurred even with younger siblings who do not receive educational incentives through the program. This last fi  nding suggests a forward-looking behavior on the part of the parents.
+
+
+<!-- p:6 -->
+
+
+Two programs in Colombia, PACES and Familias en Acción, randomly assigned vouchers  covering  half  the  cost  of  secondary  school  in  exchange  for  adequate academic progress (although the requisites were so low that 'progress' essentially meant  school  attendance).  Angrist,  Bettinger,  and  Kremer  (2006)  and  Angrist, Bettinger, Bloom, King, and Kremer (2002) fi  nd that winners of the voucher were about 10 percent more likely to fi  nish the eighth grade and scored 0.2 standard deviations  higher  on  achievement  tests.  They  also  fi  nd  evidence  that  subsidized students worked less outside the school and were less likely to cohabit or marry as  teenagers.  In  another  examination  of  these  programs  in  Colombia,  BarreraOsorio, Bertrand, Linden, and Perez-Calle (2008) compare the effects of subsidies conditional on school attendance to those conditional on graduation. In both cases, they  fi  nd  increases  in  attendance,  pass  rates,  enrollment,  graduation  rates,  and matriculation to tertiary institutions. Most interestingly, they also fi  nd evidence that subsidies can create peer effects among siblings not receiving the subsidy, but, at the same time, some level of responsibility reallocation occurs within households since siblings of children receiving the subsidy tend to work more and attend school less.
+
+Overall,  the  evaluation  of  programs  using  incentives  to  reward  enrollment and  school  attendance  in  the  short  run  is  positive.  These  incentives  combine two characteristics that offset most of the worries of opponents of incentives in education. First, the programs offer incentives for concrete tasks. Students either attend school and receive the reward, or not. These programs do not involve a complicated objective that students may not know how to achieve, and neither are there diffi  culties  in  measuring  and  rewarding the achievement of the objective. Second, incentives are offered to families and not to the children specifi  cally, and thus the incentives do not directly affect the motivation of those being educated. Therefore, the possibility that children may substitute their desire to learn for their desire to receive the reward is of less concern.
+
+#### Incentives for Academic Achievement
+
+Compared  with  the  evidence  on  attendance  and  enrollment,  the  evidence on incentives offered for academic performance is more mixed and depends on the  characteristics  of  the  task  being  rewarded.  Bettinger  (2010)  studies  direct incentives  for  higher  grades  in  primary  schools  in  Coshocton,  Ohio,  in  which  a foundation sponsored a study so that students could receive as much as $100. The randomization was such that all students in a given grade at a given school either were eligible for the incentive, or not. His evidence shows that incentives offered for higher grades increased math scores but not those of other subjects, such as reading or social science. One possible interpretation of these results, compatible with research in psychology, suggests that external incentives may be more effective in concrete subjects, such as primary school math, than in more conceptual topics, such as reading and social sciences (Rouse, 1998).
+
+Fryer (2010) conducted randomized incentive experiments in public schools in  four  urban school districts-Chicago, Dallas, New York City, and Washington, D.C.-during  the  2007-2008  and  2008-2009  school  years.  There  was  variation in  what educational inputs (like attendance or reading a book) or outputs (like grades) were rewarded, and how often and how much students were paid. Overall, the study distributed $6.3 million in incentive payments to roughly 38,000 students in  261  schools.  One  fi  nding  was  that  incentives  offered  for  educational  outputs, such as better grades, are less effective than incentives for educational inputs, such as attendance, good behavior, or wearing uniforms. Again, one possible reason is that students can control inputs directly but, even if they are motivated by rewards, may not know how to turn their efforts into success. Overall, while the results point in  some interesting directions, they seem to show that the use of these kinds of incentives in education is not (yet) cost effective.
+
+
+<!-- p:7 -->
+
+
+Rodriguez-Planas  (2010)  analyzes  the  effects  of  the  Quantum  Opportunity Program, whose objective was to increase the likelihood of adolescents completing high  school  and  enrolling  in  postsecondary  school  through  a  combination  of extrinsic  rewards  and  mentoring.  The  program  assigned  students  to  mentors who were paid for the enrollment of students in program activities. The requirements combined educational, cultural, and community service activities. Enrolled students were paid $1.25 for every hour they spent on such activities, as well as a matching amount if they earned a diploma and enrolled in college. The original pilot version of this program was done in fi  ve U.S. locations and lasted for four years. Canada, the United Kingdom, France, Spain, and Italy have all run or are running similar programs (Angrist, Lang, and Oreopoulos, 2006). Early evaluation of these programs shows that incentives can be effective in improving some measures of academic performance, but that they are most effi  cient when combined with mentoring measures, perhaps because the mentoring helps to make the goals more concrete.
+
+In a fi  eld experiment, Levitt, List, and Sadoff (2010a, b) tested the effect of performance-based incentives on educational achievement in a low-performing school  district  in  Chicago.  They  implemented  a  randomized  fi  eld  experiment among  high  school  freshmen  that  provided  monthly  fi  nancial  incentives  for meeting an achievement standard based on multiple measures of performance (no more than one unexcused absence in the month, no all-day suspensions in the month, and letter grades of C or higher in all classes). Within the design, they compared the effectiveness of varying the reward recipient (students or parents) and the incentive structure (piece rate or lottery). In the piece rate treatments, students who meet the monthly achievement standards qualifi  ed for a $50 reward. In the lottery treatments, students who meet the monthly achievement standards qualifi  ed for a lottery in which they had about a 10 percent probability of winning $500. If a student met the achievement standards every month, that student (or the parents of the student) received an expected value of $400 over the course of the eight-month program.
+
+Overall  effects  of  the  incentives  were  modest,  with  a  signifi  cant  effect  for students on the threshold of meeting the achievement standard. These students continued to outperform their control-group peers in the long run after the incentives ended in the students' sophomore year. Levitt, List, and Sadoff (2010a, b)
+
+
+<!-- p:8 -->
+
+
+suggest  that  incentives  that  induce  sustained  effort  on  multiple  performance measures can lead to gains in human capital that have lasting returns.
+
+The results of these experiments are somewhat disappointing: given the relatively small effect sizes it is not clear that these programs represent the best return on investment. Yet these are pioneering attempts that did achieve some changes in the investment in education. We see this as encouraging future research which should concentrate on making the incentives more cost effective.
+
+#### Variation across Subgroups in the Effects of Incentives
+
+The Levitt, List, and Sadoff (2010a, b) study brings us to another important parameter  in  the  provision  of  incentives:  variations  in  the  effectiveness  of  the incentives for different subgroups. Angrist and Lavy (2009) discuss a school-based randomized experiment in Israel in which students received a step-by-step series of rewards, which could total as much as $2,400, for completion of the bagrutthe offi  - cial matriculation certifi  cate and a prerequisite for post-secondary schooling-and for performance on the bagrut exams. They fi  nd that the provision of incentives led to a substantial increase in certifi  cation rates and in college attendance for girls, but had no effect on boys. They argue that female matriculation rates increased partly because girls who received the incentives devoted extra time to exam preparation. Other studies have also shown such gender differences in the reaction to incentives (Croson and Gneezy, 2009).
+
+The effect of incentives also seems to depend on prior academic achievement. Leuven,  Osteerbeck,  and  van  der  Klauw  (2010)  found  that  providing  incentives to fi  rst-year  economics and business students at the University of Amsterdam for passing  all  fi  rst-year  requirements  within  one  year  had  a  positive  effect  on  the academic performance of the most able, but a negative impact on the achievement of  low-ability  students.  Moreover,  after  three  years,  these  effects  had  increased, suggesting the presence of dynamic spillovers. The Bettinger (2010) study of incentives for higher grades discussed above reports similar results, showing that math scores improve only for students at the top of the distribution.
+
+#### What Happens When the Incentives Are Removed?
+
+Evaluating the long-run effects of incentives on education is a complicated issue, and because many incentives programs in education are still quite recent, we  may  still  lack  good  data.  Early  studies,  such  as  the  Cornwell,  Mustard,  and Sridhar (2006) study of merit-based scholarships for students entering colleges and  technical  schools  in  Georgia,  argue  that  merit  scholarships  may  produce higher grades but that when students can choose their academic curriculum, such scholarships also lead to the selection of easier courses. This shifting of attention from the desired outcome to the measurable outputs is not unique to the meritbased  scholarship  programs  and  should  receive  attention  when  implementing any intervention.
+
+It does seem clear that the removal of incentives need not necessarily decrease academic performance. For example, Jackson (2010) found that in a Texas program in which students could receive incentives of $100-$500 for high scores on advanced placement examinations in the 11 th and 12 th grade (and another component of the program paid for teacher training and extra prep classes), the students who were paid for passing advanced placement exams attended college in greater numbers, had a higher college grade point average, and were more likely to remain in college beyond their freshman year.
+
+
+<!-- p:9 -->
+
+
+The  current  evidence  on  the  effects  of  fi  nancial  incentives  in  education indicates moderate short-run positive effects on some subgroups of students, at least while the incentives are in place. In some cases, these short-run effects are important. For example, if keeping kids in school and off the streets is important, or  if  the  goal  is  to  teach  a  particular  skill  (learning  to  read),  short-run  success may be enough. We need more studies to better understand who should be incentivized in the education system-students, parents, teachers, schools?-and what tasks should be rewarded, with particular attention paid to the distinction between concrete and abstract tasks. The extent to which crowding out after incentives are removed should be a concern in the area of education still requires further and more systematic research.
+
+### Incentives for Prosocial Behavior
+
+Prosocial behavior includes voluntary contributions to public goods, such as donating blood, volunteering, or protecting the environment. Although a standard selfi  sh individual would not contribute to a public good, even nonstandard, prosocial preferences (such as altruism or reciprocity) are often not enough to reach a socially optimal level of contributions (for example, Meier, 2007b). Can incentives foster  people's  willingness  to  make  such  contributions?  Going  back  to  the  work of  Titmuss  (1970)  on  the  issue  of  whether  explicit  incentives  should  be  used  to encourage blood donations, some economists argue that (monetary) incentives do not necessarily increase contributions to public goods but, in fact, may crowd out such donations.
+
+The Gneezy and Rustichini (2000a) study discussed above shows that offering a small monetary incentive to children who voluntarily collect money for a charity actually lowers their efforts. But often incentives do not backfi  re (even if they do not increase compliance by much), as in the case of pricing garbage collection by the bag as a way to encourage recycling and reduced waste (Kinnaman, 2006). Hence, we  believe  that  the  discussion  should  not  be whether incentives  negatively  affect contributions to public goods, but when incentives do and do not work.
+
+#### Incentives Can Break Social Norms of Trust
+
+Prosocial  behavior  often  involves  trust.  In  principal-agent  relationships, agents put in higher than the enforceable levels of effort if principals are trusting (Ellingsen and Johannesson, 2007). Trust relationships are delicate, however, and explicit incentives can signal distrust.
+
+
+<!-- p:10 -->
+
+
+A  number  of  laboratory  experiments  show  the  effect  of  incentives  on  trust relationships. Fehr and List (2004) carry out a variant of the 'trust game' with both chief  executive  offi  cers  and  students  in  Costa  Rica.  In  the  original  game  (Berg, Dickhaut, and McCabe, 1995), player 1 chooses how much out of an endowment to send to player 2. This amount is multiplied by the experimenter by a factor larger than 1, and given to player 2 who is then asked to decide how much to give back to player 1. If players are selfi  sh, player 1 would expect no back transfer, and thus would transfer nothing in the fi  rst step. But a trusting player will send some money to the other player, trusting that the original transfer will be rewarded. In the Fehr and List (2004) modifi  cation, player 1 can impose a fi  ne on player 2 if that player does not return a high enough amount. In the experiment, this fi  ne crowds out the voluntary contributions. It appears that individuals can perceive incentives as either hostile or kind; when perceived negatively, incentives can potentially have detrimental effects on behavior.
+
+In  a  different  kind  of  gift-exchange  experiment,  Fehr  and  Gächter  (2002) designed a multistage game in which 1) buyers make a contract offer, which consists of a fi  xed price and a desired quality; 2) sellers decide whether to accept the offer; and then 3) sellers choose a quality level and deliver. In this  third  stage,  sellers sometimes  can  choose  the  quality  without  constraint  and  thus  have  the  ability to  underperform their contract. In other cases, buyers have some probability of detecting and fi  ning sellers who underperform on quality. Adding this possibility of  detection  and  fi  ning  causes  fewer  cooperative  offers  to  be  accepted  and completed. Gächter, Kessler, and Koenigstein (2010) extend the framework to show that even if a short-run crowding-out effect does not occur, voluntary cooperation in the long run is lower than in a pure trust relationship.
+
+Although  people  may  not  view  certain  incentives  as  a  sign  of  distrust,  they often see explicit control or monitoring in this way. Falk and Kosfeld (2006) use a game in which a player decides how much money from an endowment to pass to another player. Because passing part of the endowment is costly, no self-interested party should pass anything. They fi  nd that if the receiving player enforces a minimal level of transfer, which can be very low, the initial player's willingness to cooperate decreases. Again, many agents experience control as a signal of distrust and react negatively to it.
+
+Thus, the effectiveness of using incentives to encourage contributions to public goods, like volunteering, depends on whether those incentives affect the trust relationship between the parties involved.
+
+#### Incentives Frame Social Interactions and Affect Social Norms
+
+The framing of the decision situation critically infl  uences prosocial behavior. For example, whether a prisoner's dilemma game is labeled as a 'Wall Street Game' or a 'Community Game' can change behavior substantially (Liberman, Samuels, and Ross, 2004). Moving from no incentive to a positive incentive can dramatically change the framing of the interaction and shift an individual's decision frame from social  to  monetary. In their daycare study, Gneezy and Rustichini (2000b) argue that a possible explanation of the behavior change in the long run is a change in the social norm. Heyman and Ariely (2004) look at whether individuals frame a situation as social or as monetary. In questionnaire evidence about whether students would  help  with  a  move,  they  fi  nd  that  monetary  incentives  often  diminish  the perception of the interaction as social and thus reduce the amount of help received. In an experiment that involved students dragging a computerized ball to different parts of a screen, they fi  nd that those paid in candy do better than those paid in cash, presumably because candy is a social reward rather than a monetary one. The differences between a social and a monetary reward may also change individuals' beliefs about the behavior of others: for example, people may believe incentives are in place because the social norm is that people do not contribute.
+
+
+<!-- p:11 -->
+
+
+Bohnet,  Frey,  and  Huck  (2001)  investigate  experimentally  whether  agents are  less  likely  to  breach  a  contract  when  enforcement  probability  is  low  (0.1), medium (0.5), or high (0.9). Consistent with the argument that incentives change the framing of the situation, a medium enforcement probability, relative to a low probability,  increases  contract  breaches  after  the  increased  enforcement  probabilities  are  removed.  As  shown  in  other  contexts,  the  high  incentive  does  not produce the same detrimental effect. In an experiment described in Fuster and Meier  (2010),  adding  incentives  seems  to  change  norms:  in  a  game  involving contributions  to  a  public  good,  introducing  private  incentives  (in  this  case,  a centrally provided small monetary prize for every contribution) changes the social norm of contributions,  making  free-riding  more  acceptable.  As  a  result,  norm enforcement in the form of peer punishment of free-riding is reduced, which can reduce overall contribution rates.
+
+Depending on their nature, incentives can shift a situation from a social to a monetary frame. Consider a thought experiment: You meet an attractive person, and in due time you tell that person, 'I like you very much and would like to have sex with you.' Alternatively, consider the same situation, but now you say, 'I like you very much and would like to have sex with you, and , to sweeten the deal, I'm also willing to pay you $20!' Only a certain kind of economist would expect your partner to be happier in the second scenario. However, offering $20 worth of (unconditional) fl  owers might indeed make the desired partner happier.
+
+#### Incentives Reduce Image Motivation
+
+Image concerns are another important motivation for contributing to public goods:  people  volunteer,  recycle,  donate  blood,  or  behave  prosocially  to  show others that they are 'nice.' Extrinsic rewards can crowd out image motivation by diluting the signal to oneself or others of a voluntary contribution: it becomes unclear whether a person is undertaking a social activity to 'do good' or to 'do well.'
+
+Ariely,  Bracha,  and  Meier  (2009)  use  an  experiment  in  which  individuals can make donations to charitable organizations but those donations can be made either publicly or privately, and incentivized or not. They fi  nd that if individuals decide to behave prosocially in private, incentives work well. However, in cases in which the desire to behave prosocially is due to image motivation, being paid in public crowds out prosocial behavior. These fi  ndings indicate that monetary incentives for prosocial behavior work better when contributions to the public goods are not as visible (perhaps like investments in an energy-saving or pollution-reducing water boiler) than when they are visible and presumably done partly due to image concerns (like buying a hybrid car). It also implies that incentives for voluntary contributions  should  be  provided  privately  rather  than  publicly,  to  reduce  the effect on image motivation.
+
+
+<!-- p:12 -->
+
+
+Incentives for blood donations, as mentioned above, provide another illustration of the importance of context. Although recent evidence is mixed, it seems to show that noncash material incentives do not have detrimental effects on blood supply. Goette and Stutzer (2010) and Lacetera, Macis, and Slonim (forthcoming) show in large-scale fi  eld experiments in collaboration with the Red Cross that lottery tickets,  gift  cards,  or  noncash  incentives  such  as  T-shirts  have  neutral  or  positive effects on the number of donors, particularly on infrequent donors. This fi  nding indicates that incentives can be close substitutes for money and not negatively affect donations in the short run.
+
+Due to moral objections to performing blood donation experiments involving cash, few fi  eld studies have tested monetary incentives in this area, with the exception  of  Mellström  and  Johannesson  (2008).  In  one  condition  using  subjects  in Sweden, they offered $7 for donating blood; in another condition, they offered $7 with the option to donate the money to charity. Interestingly, they fi  nd evidence of  a  detrimental  effect  on  blood  donations  of  the  payment  without  the  charity option. However, the drop in blood supply is only statistically signifi  cant for women, decreasing from 52 to 30 percent when only cash incentives are offered. Consistent  with  the  fi  nding  that  incentives  interact  with  individuals'  image  motivation, blood supply goes back to 'normal' in their study when the monetary incentive is combined with an option to donate to charity.
+
+### Incentives and Lifestyle Habits
+
+We focus on two current prominent health issues in this section: exercising and smoking. We chose these two examples because they involve enormous costs, and because they represent the two 'faces' of habit formation: good and bad habits.
+
+The classic model of habit formation in economics defi  nes habitual behavior as displaying a positive relation between past and current consumption (Becker and Murphy, 1988). According to this approach, habits may be harmful or benefi  cial to the extent that they decrease or increase future utility. In the model, marginal utility  today  is  correlated  with  historical  consumption;  changes  today  may  have only a small effect in the short run but increasingly large effects in the long run. If exercising is habitual behavior, providing incentives to go to the gym for a while may increase future utility from exercising. Similarly, giving people high enough incentives to not smoke in the short run could infl  uence long-run consumption by  changing  the  habit. 1 Similar  predictions  come  from  the  behaviorist  view  in psychology known as 'operant conditioning' (Skinner, 1972), which argues that rewards and punishment can infl  uence voluntary behavioral adaptations and, in particular, that extrinsic incentives can change habitual behavior. The alternative hypothesis, based on the crowding-out literature, suggests that paying people for an activity may help in the short run but reduce their intrinsic motivation to perform the task in the long run, once the incentives are removed.
+
+
+<!-- p:13 -->
+
+
+#### Cigarette Smoking: A Bad Habit
+
+Smoking and smoking-related illnesses account for billions in direct healthcare costs, with an additional economic cost in lost productivity or wages-along with  the  physical  costs  of  illness  and  reduced  life  expectancy.  Researchers  have tried  different  methods  to  motivate  quitting:  individual  and  group  counseling, pharmacological  interventions,  inpatient  and  outpatient  treatments,  support groups, workplace interventions, and family therapies. Many of these efforts use punishment  or  rewards  (Donatelle,  Hudson,  Dobie,  Goodall,  Hunsberger,  and Oswald, 2004).
+
+Some of the incentives regarding smoking cessation would already seem to be in place. Most people are aware that, in the words of the warning on packs of cigarettes, 'smoking can be hazardous to your health.' Indeed, 70 percent of smokers report wanting to quit smoking, but only 2.5 percent to 3 percent succeed each year (Volpp et al., 2006). Incentives are already in place for many of the behaviors we try to change, but cigarettes offer an even stronger case. While many times, the incentives are in the future (weight loss, exercising, the medical aspects of not smoking), some people spend a large portion of their immediate income on cigarettes. In some places in the United States the cost of a pack of cigarettes is over $10-which is higher than the minimum hourly wage. If you work for minimum wage and smoke a pack a day, you are consuming over 10 percent of your income now . It is hard to top such strong incentives with standard approaches. This is why we believe that behavioral approaches that offer some kind of change in the mental accounts are the right way to go (Thaler, 1999; Thaler and Sunstein, 2008).
+
+The two main diffi  culties for people to stop smoking may be impulsiveness, meaning the inability to delay gratifi  cation and the inability to withhold a response (Loewenstein, 1987; Laibson, 1997), and drug-induced euphoria, that is, subjective  or  mood states that correspond to feelings of well-being that are commonly associated with behavioral preferences for drugs (de Wit and Phan, 2009). To help those who wish to quit overcome these obstacles, it is possible to use either a direct payment for a successful reduction in smoking, or a payment for participation in a cessation program.
+
+1 A different view is presented in Bernheim and Rangel (2004). In their model, drug use among addicts may be a mistake triggered by environmental cues, which addicts may then try to avoid. According to this model, smoking and other substance addictions are qualitatively different from other 'negative habits.'
+
+
+<!-- p:14 -->
+
+
+There  is  a  considerable  public  health  literature  on  incentives  for  smoking cessation.  Many  of  these  programs  involve  a  relatively  small  number  of  regular smokers-perhaps a few dozen-who self-select into a program in an academic, healthcare, or workplace setting. Especially in the earlier studies, the smokers often self-reported their level of smoking, rather than using objective biological markers (like the level of carbon monoxide in the bloodstream). In a survey of this literature, Donatelle, Hudson, Dobie, Goodall, Hunsberger, and Oswald (2004, p. S167) conclude that the smoking-cessation literature has not fully explored the effect of incentives in terms of magnitude, frequency, and the effect of bonuses and resets, and that  more  research  must  be  done.  In  particular,  'these  studies  suggest  that extrinsic motivation can enhance short-term cessation and reduction, particularly if the magnitude and frequency of rewards are suffi  cient. The durability or long-term maintenance of these effects is unknown.'
+
+Our sense of this literature is that studies that do measure long-term effects often  fi  nd  disappointing  results.  For  an  example  of  a  longer-term  study  done after  the  Donatelle  et  al.  (2004)  review  of  the  literature,  participants  in  Volpp et al.  (2006) were smokers at the Philadelphia Veterans Affairs Medical Center who  were  randomized  into  incentive  and  non-incentive  treatments.  The  study combined incentives to participate in a fi  ve-class smoking-cessation program with incentives for smoking cessation. The incentive group was offered $20 for each class attended and $100 if they quit smoking for 30 days post-program completion. As expected, the incentivized participants were more likely to complete the classes (26 versus 12 percent) and to quit in the short run (16 versus 5 percent). However, after six months, quit rates between the treatments were not signifi  cantly different (6 versus 5 percent).
+
+Of course, sometimes short-run success can be important in itself. For example, it may be useful to pay pregnant women not to smoke, even if after pregnancy most of them relapse (Donatelle, Prows, Champeau, and Hudson, 2000). In other cases, extending the incentives could extend the short-run benefi  ts over six months or a year. For example, in the Volpp et al. (2009) study, participants received incentives ($100) to participate in a smoking-cessation program. The incentivized group also received $250 for cessation of smoking within six months of study enrollment, and $400 for abstinence for an additional six months after the initial cessation (as confi  rmed by biochemical tests). Incentivized participants were signifi  cantly more likely  to  have  stopped  smoking  for  9  or  12  months  after  enrollment  (15  versus 5  percent)  and  15  or  18  months  after  enrollment  (9  versus  4  percent).  Thus, 'stretching the short run' could help in keeping people away from the bad habit; yet the long-term success rate in this study was only 9 percent.
+
+In recent years, economists have been testing behavioral commitment devices (Ashraf,  Karlan,  and  Yin,  2006).  Gine,  Karlan,  and  Zinman  (2010)  created  a voluntary  commitment product to help smokers quit smoking (for a theoretical discussion, see Gruber and Koszegi, 2001). They offered smokers savings accounts into  which  the  smokers  deposited  funds  for  six  months:  if  the  participants  quit smoking  by  the  end  of  this  period,  their  money  was  returned;  otherwise,  their money went to charity. The authors found that 11 percent of smokers were willing to use this commitment device; of that group, those who were randomly assigned to  this  treatment were 3 percent more likely to pass the six-month test than the control group, and this difference carried on six months later. But although these commitment devices show some success for those who choose them, the majority of people in these studies and in life do not choose to use such commitment devices, and from those participants who did choose to use them, the majority failed to quit smoking. Many open questions in this area await future research.
+
+
+<!-- p:15 -->
+
+
+#### Exercising and Diet: Good Habits
+
+The benefi  ts of physical exercise and a good diet are associated with better health  in  many  respects,  such  as  reducing  obesity  and  heart-related  sicknesses. Many people want to exercise more, but fail to do so. Can we construct incentives schemes that will convince people to exercise more? DellaVigna and Malmendier (2006) offer a vivid example of people's inconsistency in their choices about exercise. They show that many people choose to pay a fl  at monthly fee for membership in a gym and then end up paying more than if they had chosen to pay a fi  xed cost per visit.  One interpretation of this result is that people choose to pay more in advance as a self-control mechanism because doing so reduces the marginal cost of attending to zero, and people believe that this reduction in marginal cost will encourage them to attend the gym in the future.
+
+To  test  the  effect  of  incentives  on  exercise  habits,  Charness  and  Gneezy (2009) conducted two fi  eld experiments in which university students were offered incentives to attend the university's gym. In the fi  rst study, one group received no incentives, whereas two other groups were promised $25 to attend the gym at least once during the next week (and all students received literature on the benefi  ts of exercise). Upon their return to the laboratory, students in one of the latter two groups were promised an additional $100 (paid upon completion) to attend the gym eight more times during the next four weeks. The authors were able to observe attendance before, during, and after the intervention. A second study added some variations of these treatments and included measurement of biometric parameters such as weight and blood-pressure. The main result of these experiments is that requiring people to visit the gym at least eight times, in order to be paid, signifi  cantly improved attendance rates during and, more importantly, after the  intervention. The improvement in gym attendance was entirely driven by the change for those people who had not previously been regular attendees.
+
+Acland  and  Levy  (2010)  replicated  the  results  of  the  Charness  and  Gneezy (2009) gym experiments. They also found that people overestimated the chance that  they  will  exercise.  However,  observing  behavior  over  a  longer  period,  they found  a  substantial  decay  after  students  went  on  a  winter  break.  Babcock  and Hartman (2010) focus on the social effects of exercise incentives. They randomly incentivized  students  to  go  to  the  gym.  Prior  to  the  experiment,  they  elicited  a detailed friendship network from the participants, all of whom lived in the same residence hall. They then looked at how variation in the numbers of treated and untreated peers to which the participant was exposed infl  uenced the effectiveness of the incentives. Replicating the results of Charness and Gneezy (2009), they also found that participants who had been incentivized to exercise increased their gym usage more if they had more friends who had been incentivized, and less if they had more friends in the control group. This fi  nding shows the importance of the social network in enhancing the effect of incentives for habit change-a topic with an increasing current interest.
+
+
+<!-- p:16 -->
+
+
+In the case of exercise, establishing a habit by requiring multiple and frequent visits seems necessary-especially for those who have little or no previous habit of exercising. A self-commitment device, or even just a decision that would impel us to go to the gym for a month before evaluating the cost and benefi  t of exercising, may result in a different assessment of the net value of the activity.
+
+### Conclusion
+
+When explicit incentives seek to change behavior in areas like education, contributions  to  public  goods,  and  forming  habits,  a  potential  confl  ict  arises  between the  direct  extrinsic  effect  of  the  incentives  and  how  these  incentives  can  crowd out  intrinsic  motivations  in  the  short  run  and  the  long  run.  In  education,  such incentives  seem  to  have  moderate  success  when  the  incentives  are  well-specifi  ed and well-targeted ('read these books' rather than 'read books'), although the jury is still out regarding the long-term success of these incentive programs. In encouraging contributions to public goods, one must be very careful when designing the incentives to prevent adverse changes in social norms, image concerns, or trust. In the emerging literature on the use of incentives for lifestyle changes, large enough incentives  clearly  work  in  the  short  run  and  even  in  the  middle  run,  but  in  the longer run the desired change in habits can again disappear.
+
+Incentives to modify behavior can in some cases be cost effective. The medical and health economics literature intensely investigates whether, and when, prevention  is  cheaper  than  treatment  (for  example,  Russell,  1986).  The  question  is economic rather than moral: certain prevention activities can cost more than they save, as seems to be the case with mammograms for young women. Medical interventions can be very costly. In some cases, relatively cheap and potentially more cost-effective incentives might be applied to achieve the same goal. For example, cholesterol-reducing drugs can cost hundreds of dollars a month; simple exercising could, in some borderline cases, replace these drugs. Unlike the side effects of the drugs, the side effects of exercising are positive.
+
+Our message is that when economists discuss incentives, they should broaden their focus. A considerable and growing body of evidence suggests that the effects of incentives depend on how they are designed, the form in which they are given (especially monetary or nonmonetary), how they interact with intrinsic motivations and social motivations, and what happens after they are withdrawn. Incentives do matter, but in various and sometimes unexpected ways.
+
+
+<!-- p:17 -->
+
+
+- ■ We thank David Autor, Chad Jones, John List, Timothy Taylor, and Richard Thaler for excellent  comments.  Pedro  Rey-Biel  acknowledges  fi  nancial  support  from  Ministerio  de Educación  (ECO2009-07616),  Barcelona  GSE  Research  Network,  and  the  Government of Catalonia.
