@@ -32,10 +32,10 @@
 
 ## Inventory summary
 
-- Python files scanned: **57**
-- Reusable/source symbols: **369**
-- Test symbols: **12**
-- Total functions/classes/methods/nested functions: **381**
+- Python files scanned: **63**
+- Reusable/source symbols: **406**
+- Test symbols: **14**
+- Total functions/classes/methods/nested functions: **420**
 
 Private helpers whose names begin with `_` are included because they often contain reusable project logic even when they are not part of the public API.
 
@@ -52,8 +52,19 @@ Private helpers whose names begin with `_` are included because they often conta
 
 | Symbol | Kind | Line | Signature | Purpose | Search tags |
 |---|---|---:|---|---|---|
-| `CMATStudyConfig` | class | 8 | `class CMATStudyConfig` | Pre-specified choices for the redesigned CMAT study. | `config study_config py cmatstudyconfig pre-specified choices redesigned cmat study` |
-| `get_study_config` | function | 75 | `def get_study_config(project_root: Path \| None=None) -> CMATStudyConfig` | No docstring; inspect implementation before reuse. | `config study_config py get_study_config no` |
+| `CMATStudyConfig` | class | 8 | `class CMATStudyConfig` | Pre-specified choices shared by the reproducible CMAT study runners. | `config study_config py cmatstudyconfig pre-specified choices shared by reproducible cmat study runners` |
+| `get_study_config` | function | 57 | `def get_study_config(project_root: Path \| None=None) -> CMATStudyConfig` | No docstring; inspect implementation before reuse. | `config study_config py get_study_config no` |
+
+### `experiments/methodology_report.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `_sha256` | function | 36 | `def _sha256(path: Path) -> str` | No docstring; inspect implementation before reuse. | `experiments methodology_report py sha256 no` |
+| `_stage_generated_assets` | function | 44 | `def _stage_generated_assets(output_dir: Path, report_dir: Path) -> dict[str, list[str]]` | Stage generated aggregate assets without touching the external 3,241 snapshot. | `experiments methodology_report py stage_generated_assets stage generated aggregate assets without touching external snapshot` |
+| `_compile_report` | function | 69 | `def _compile_report(report_dir: Path) -> Path` | Compile methodology_report.tex; scientific calculations happen upstream. | `experiments methodology_report py compile_report compile tex scientific calculations happen upstream` |
+| `_check_structure` | function | 90 | `def _check_structure() -> list[str]` | No docstring; inspect implementation before reuse. | `experiments methodology_report py check_structure no` |
+| `_parse_args` | function | 109 | `def _parse_args() -> argparse.Namespace` | No docstring; inspect implementation before reuse. | `experiments methodology_report py parse_args no` |
+| `main` | function | 121 | `def main() -> int` | No docstring; inspect implementation before reuse. | `experiments methodology_report py main no` |
 
 ### `scripts/generate_function_index.py`
 
@@ -391,6 +402,18 @@ Private helpers whose names begin with `_` are included because they often conta
 | `enrich_materias_with_visits` | function | 185 | `def enrich_materias_with_visits(materias_cleaned: pd.DataFrame, asesorias_raw: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]` | No docstring; inspect implementation before reuse. | `src visitas_analysis reporting descriptive_pipeline py enrich_materias_with_visits no` |
 | `build_analytical_bundle` | function | 233 | `def build_analytical_bundle(project_root: Path, materias_path: Path, asesorias_path: Path) -> AnalyticalBundle` | No docstring; inspect implementation before reuse. | `src visitas_analysis reporting descriptive_pipeline py build_analytical_bundle no` |
 
+### `src/visitas_analysis/reporting/methodology_report.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `_esc` | function | 9 | `def _esc(x: object) -> str` | No docstring; inspect implementation before reuse. | `src visitas_analysis reporting methodology_report py esc no` |
+| `_f` | function | 18 | `def _f(x: object, digits: int=3, pct: bool=False) -> str` | No docstring; inspect implementation before reuse. | `src visitas_analysis reporting methodology_report py f no` |
+| `_tab` | function | 33 | `def _tab(headers: list[str], rows: list[list[str]], align: str) -> str` | No docstring; inspect implementation before reuse. | `src visitas_analysis reporting methodology_report py tab no` |
+| `_read` | function | 40 | `def _read(root: Path, name: str) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src visitas_analysis reporting methodology_report py read no` |
+| `write_methodology_table_snippets` | function | 47 | `def write_methodology_table_snippets(generated_tables_dir: Path, report_tables_dir: Path) -> list[Path]` | Render report table snippets from already-computed aggregate CSV files. | `src visitas_analysis reporting methodology_report py write_methodology_table_snippets render report table snippets already-computed aggregate csv files` |
+| `write_methodology_table_snippets.<locals>.w` | function | 53 | `def w(name: str, headers: list[str], rows: list[list[str]], align: str) -> None` | No docstring; inspect implementation before reuse. | `src visitas_analysis reporting methodology_report py write_methodology_table_snippets locals w no` |
+| `write_methodology_table_snippets.<locals>.summary_table` | function | 82 | `def summary_table(csv: str, tex: str, group_col: str, first_header: str) -> None` | No docstring; inspect implementation before reuse. | `src visitas_analysis reporting methodology_report py write_methodology_table_snippets locals summary_table no` |
+
 ### `src/visitas_analysis/reporting/metrics.py`
 
 | Symbol | Kind | Line | Signature | Purpose | Search tags |
@@ -506,6 +529,26 @@ Private helpers whose names begin with `_` are included because they often conta
 | `clustered_omnibus_career_test` | function | 719 | `def clustered_omnibus_career_test(df: pd.DataFrame, *, career_col: str='CLAVECARRERA', outcome_col: str='Z_GRADE_PRIMARY', min_career_n: int=30) -> pd.DataFrame` | Classroom-FE, cluster-robust joint test of career coefficients. | `src visitas_analysis study extended_analysis py clustered_omnibus_career_test classroom-fe cluster-robust joint test of career coefficients` |
 | `exact_visit_index_trend` | function | 747 | `def exact_visit_index_trend(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', career_col: str='CLAVECARRERA', min_visit: int=1, max_visit: int=12, min_career_n: int=30, min_exact_group_n_for_stable_trend: int=20) -> pd.DataFrame` | Exploratory trend for the career-relative exact-dose index. | `src visitas_analysis study extended_analysis py exact_visit_index_trend exploratory trend career-relative exact-dose index` |
 
+### `src/visitas_analysis/study/extended_methodology.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `exact_visit_group` | function | 20 | `def exact_visit_group(v: int \| float) -> str` | No docstring; inspect implementation before reuse. | `src visitas_analysis study extended_methodology py exact_visit_group no` |
+| `add_exact_visit_group` | function | 33 | `def add_exact_visit_group(df: pd.DataFrame, visits_col: str='VISITS_CMAT_PERIOD') -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src visitas_analysis study extended_methodology py add_exact_visit_group no` |
+| `exact_visit_group_summary` | function | 41 | `def exact_visit_group_summary(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', population: str) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src visitas_analysis study extended_methodology py exact_visit_group_summary no` |
+| `exact_visit_count_summary` | function | 69 | `def exact_visit_count_summary(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', population: str, max_visits: int=12) -> pd.DataFrame` | Descriptive outcome summary for each exact visit count from 0 to max_visits. | `src visitas_analysis study extended_methodology py exact_visit_count_summary descriptive outcome summary each exact visit count to` |
+| `exact_visit_count_trend_diagnostics` | function | 100 | `def exact_visit_count_trend_diagnostics(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', population: str, max_visits: int=12, stable_max_visits: int=7) -> pd.DataFrame` | Student-level monotonic/linear diagnostics over exact positive counts. | `src visitas_analysis study extended_methodology py exact_visit_count_trend_diagnostics student-level monotonic linear diagnostics over exact positive counts` |
+| `welch_anova_exact_groups` | function | 138 | `def welch_anova_exact_groups(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', population: str) -> pd.DataFrame` | Welch one-way ANOVA plus Brown--Forsythe variance diagnostic. | `src visitas_analysis study extended_methodology py welch_anova_exact_groups welch one-way anova plus brown--forsythe variance diagnostic` |
+| `games_howell_exact_groups` | function | 181 | `def games_howell_exact_groups(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', population: str, alpha: float=0.05) -> pd.DataFrame` | All pairwise Games--Howell contrasts for 0,1,2,3,4+ visit groups. | `src visitas_analysis study extended_methodology py games_howell_exact_groups all pairwise games--howell contrasts visit groups` |
+| `fixed_effect_pairwise_exact_groups` | function | 238 | `def fixed_effect_pairwise_exact_groups(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', population: str, include_career: bool=True) -> tuple[pd.DataFrame, pd.DataFrame]` | All pairwise adjusted contrasts from one additive classroom-FE model. | `src visitas_analysis study extended_methodology py fixed_effect_pairwise_exact_groups all pairwise adjusted contrasts one additive classroom-fe model` |
+| `fixed_effect_pairwise_exact_groups.<locals>.coef_name` | function | 259 | `def coef_name(group: str) -> str \| None` | No docstring; inspect implementation before reuse. | `src visitas_analysis study extended_methodology py fixed_effect_pairwise_exact_groups locals coef_name no` |
+| `_coverage_set` | function | 319 | `def _coverage_set(data) -> set[tuple[int, str]]` | No docstring; inspect implementation before reuse. | `src visitas_analysis study extended_methodology py coverage_set no` |
+| `build_all_math_attempts_with_outcomes` | function | 324 | `def build_all_math_attempts_with_outcomes(data, config) -> pd.DataFrame` | Build all eligible observed math-course attempts in CMAT-covered periods. | `src visitas_analysis study extended_methodology py build_all_math_attempts_with_outcomes build all eligible observed math-course attempts in cmat-covered` |
+| `career_summary` | function | 339 | `def career_summary(df: pd.DataFrame, *, population: str, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', min_n: int=30) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src visitas_analysis study extended_methodology py career_summary no` |
+| `career_ecological_association` | function | 366 | `def career_ecological_association(summary: pd.DataFrame) -> pd.DataFrame` | Descriptive career-level association between CMAT use rate and mean Z. | `src visitas_analysis study extended_methodology py career_ecological_association descriptive career-level association between cmat use rate mean` |
+| `calc_progressor_mu_cohort` | function | 392 | `def calc_progressor_mu_cohort(mu_with_outcomes: pd.DataFrame, longitudinal: pd.DataFrame) -> pd.DataFrame` | MU rows for students whose first later Calculus attempt has CMAT coverage. | `src visitas_analysis study extended_methodology py calc_progressor_mu_cohort mu rows students whose first later calculus attempt` |
+| `calc_progressor_followup_cohort` | function | 398 | `def calc_progressor_followup_cohort(longitudinal_with_outcomes: pd.DataFrame) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src visitas_analysis study extended_methodology py calc_progressor_followup_cohort no` |
+
 ### `src/visitas_analysis/study/extended_plots.py`
 
 | Symbol | Kind | Line | Signature | Purpose | Search tags |
@@ -516,15 +559,34 @@ Private helpers whose names begin with `_` are included because they often conta
 | `plot_longitudinal_any_visit_transition` | function | 60 | `def plot_longitudinal_any_visit_transition(combos: pd.DataFrame, stats_df: pd.DataFrame, figures: Path) -> None` | No docstring; inspect implementation before reuse. | `src visitas_analysis study extended_plots py plot_longitudinal_any_visit_transition no` |
 | `plot_career_usage_rates` | function | 94 | `def plot_career_usage_rates(career_summary: pd.DataFrame, figures: Path, min_n: int=30) -> None` | No docstring; inspect implementation before reuse. | `src visitas_analysis study extended_plots py plot_career_usage_rates no` |
 
+### `src/visitas_analysis/study/methodology_pipeline.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `_save_csv` | function | 39 | `def _save_csv(df: pd.DataFrame, path: Path) -> None` | No docstring; inspect implementation before reuse. | `src visitas_analysis study methodology_pipeline py save_csv no` |
+| `run_methodology_pipeline` | function | 44 | `def run_methodology_pipeline(config) -> dict[str, object]` | Run shared study outputs, then add the methodology-report extensions. | `src visitas_analysis study methodology_pipeline py run_methodology_pipeline run shared outputs then add methodology-report extensions` |
+
+### `src/visitas_analysis/study/methodology_plots.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `_save` | function | 9 | `def _save(fig, path: Path) -> None` | No docstring; inspect implementation before reuse. | `src visitas_analysis study methodology_plots py save no` |
+| `plot_pairwise_exact_group_means` | function | 16 | `def plot_pairwise_exact_group_means(summary: pd.DataFrame, out: Path, filename: str, title: str) -> None` | No docstring; inspect implementation before reuse. | `src visitas_analysis study methodology_plots py plot_pairwise_exact_group_means no` |
+| `plot_career_mean_z` | function | 35 | `def plot_career_mean_z(summary: pd.DataFrame, population: str, out: Path, filename: str) -> None` | No docstring; inspect implementation before reuse. | `src visitas_analysis study methodology_plots py plot_career_mean_z no` |
+| `plot_career_use_vs_z` | function | 49 | `def plot_career_use_vs_z(summary: pd.DataFrame, population: str, out: Path, filename: str) -> None` | No docstring; inspect implementation before reuse. | `src visitas_analysis study methodology_plots py plot_career_use_vs_z no` |
+| `plot_periodicity_acf_by_population` | function | 65 | `def plot_periodicity_acf_by_population(acf: pd.DataFrame, out: Path, filename: str='09_monthly_periodicity_acf_by_population.png') -> None` | No docstring; inspect implementation before reuse. | `src visitas_analysis study methodology_plots py plot_periodicity_acf_by_population no` |
+| `plot_peak_spacing_by_population` | function | 83 | `def plot_peak_spacing_by_population(intervals: pd.DataFrame, out: Path, filename: str='08_peak_spacing_by_population.png') -> None` | No docstring; inspect implementation before reuse. | `src visitas_analysis study methodology_plots py plot_peak_spacing_by_population no` |
+| `plot_exact_visit_count_curve` | function | 98 | `def plot_exact_visit_count_curve(summary: pd.DataFrame, out: Path, filename: str='13_exact_visit_counts_0_to_12.png') -> None` | No docstring; inspect implementation before reuse. | `src visitas_analysis study methodology_plots py plot_exact_visit_count_curve no` |
+
 ### `src/visitas_analysis/study/outcomes.py`
 
 | Symbol | Kind | Line | Signature | Purpose | Search tags |
 |---|---|---:|---|---|---|
-| `_silverman_bandwidth` | function | 7 | `def _silverman_bandwidth(x: np.ndarray) -> float` | No docstring; inspect implementation before reuse. | `src visitas_analysis study outcomes py silverman_bandwidth no` |
-| `_kde_draws` | function | 20 | `def _kde_draws(obs: np.ndarray, size: int, low: float, high: float, rng) -> np.ndarray` | No docstring; inspect implementation before reuse. | `src visitas_analysis study outcomes py kde_draws no` |
-| `_uniform_quantiles` | function | 37 | `def _uniform_quantiles(size: int, low: float, high: float) -> np.ndarray` | No docstring; inspect implementation before reuse. | `src visitas_analysis study outcomes py uniform_quantiles no` |
-| `add_primary_outcomes` | function | 44 | `def add_primary_outcomes(df: pd.DataFrame, config) -> pd.DataFrame` | Create the primary continuous outcome and the secondary pass outcome. | `src visitas_analysis study outcomes py add_primary_outcomes create primary continuous outcome secondary pass` |
-| `add_primary_outcomes.<locals>.zscore` | function | 107 | `def zscore(series: pd.Series) -> pd.Series` | No docstring; inspect implementation before reuse. | `src visitas_analysis study outcomes py add_primary_outcomes locals zscore no` |
+| `_scipy_default_kde_draws` | function | 8 | `def _scipy_default_kde_draws(obs: np.ndarray, size: int, low: float, high: float, rng: np.random.Generator) -> tuple[np.ndarray, float \| None, str]` | Draw from scipy.stats.gaussian_kde using SciPy's default bandwidth. | `src visitas_analysis study outcomes py scipy_default_kde_draws draw scipy stats gaussian_kde using s default bandwidth` |
+| `_uniform_draws` | function | 69 | `def _uniform_draws(size: int, low: float, high: float, rng: np.random.Generator) -> np.ndarray` | Random U(low, high) draws; high is exclusive for NumPy's Generator. | `src visitas_analysis study outcomes py uniform_draws random u low high draws is exclusive numpy` |
+| `_uniform_quantiles` | function | 76 | `def _uniform_quantiles(size: int, low: float, high: float) -> np.ndarray` | Deterministic interior points from a uniform distribution. | `src visitas_analysis study outcomes py uniform_quantiles deterministic interior points a uniform distribution` |
+| `add_primary_outcomes` | function | 88 | `def add_primary_outcomes(df: pd.DataFrame, config) -> pd.DataFrame` | Create continuous classroom-relative performance and pass/fail outcomes. | `src visitas_analysis study outcomes py add_primary_outcomes create continuous classroom-relative performance pass fail` |
+| `add_primary_outcomes.<locals>.zscore` | function | 168 | `def zscore(series: pd.Series) -> pd.Series` | No docstring; inspect implementation before reuse. | `src visitas_analysis study outcomes py add_primary_outcomes locals zscore no` |
 
 ### `src/visitas_analysis/study/pipeline.py`
 
@@ -638,6 +700,13 @@ Private helpers whose names begin with `_` are included because they often conta
 ## Test symbols
 
 These are indexed for completeness and for locating existing coverage, but they are **not** reuse candidates for production analysis.
+
+### `tests/test_methodology_report_helpers.py`
+
+| Symbol | Kind | Line | Purpose / test intent |
+|---|---|---:|---|
+| `test_methodology_primary_outcome_uses_scipy_kde_and_uniform_fallback` | function | 10 | No docstring; inspect implementation before reuse. |
+| `test_methodology_exact_visit_grouping_has_all_ten_pairwise_contrasts` | function | 29 | No docstring; inspect implementation before reuse. |
 
 ### `tests/test_study_helpers.py`
 
