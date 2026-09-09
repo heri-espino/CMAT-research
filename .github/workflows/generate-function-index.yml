@@ -3,7 +3,7 @@ name: Generate code function index
 on:
   push:
     paths:
-      - 'code/scripts/generate_function_index.py'
+      - 'code/**/*.py'
       - '.github/workflows/generate-function-index.yml'
 
 permissions:
