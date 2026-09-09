@@ -31,7 +31,20 @@ Do not let mathematics-support literature dominate the broader higher-education 
 1. `INDEX.md` — which sources matter and their role in the manuscript.
 2. `READING_GUIDE.md` — rapid technical guide with the most important methods/results to remember.
 3. `reading_notes/` — article-level evidence cards with sample, methods, coefficients/tests, uncertainty, quotations, claim boundaries and local verification anchors.
-4. `MISSING_LITERATURE.md` — targeted gaps still requiring search/acquisition.
+4. `notes_on_papers/` — generated **full-text annotated Markdown reading copies**. Important source passages are marked in place as: **1. main idea**, **2. numerical result**, or **3. methodology/statistical test/assumption**. These are derived reading aids; the canonical source remains under `../../../literature/library/`.
+5. `MISSING_LITERATURE.md` — targeted gaps still requiring search/acquisition.
+
+### Annotated full-text copies
+
+`notes_on_papers/` uses GitHub-native Markdown alerts so the annotations are visually distinct without relying on custom CSS:
+
+- `IMPORTANT` → **Idea principal**;
+- `TIP` → **Resultado numérico**;
+- `NOTE` → **Metodología / prueba estadística / supuesto**.
+
+Relevant prose is additionally underlined with HTML `<u>...</u>`. Tables are kept intact rather than underlined when underlining would break Markdown rendering.
+
+The initial annotated set is restricted to articles that already have technical evidence cards in `reading_notes/`, so every highlight is traceable to an existing note. The annotated copies are generated reproducibly by `notes_on_papers/_generate.py`; do not treat them as a second physical literature library.
 
 ## Interpretation boundary
 
