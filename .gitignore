@@ -47,17 +47,21 @@ Thumbs.db
 *.dta
 *.sas7bdat
 
+# Generated local pipeline outputs are not source code.
+code/outputs/
+
 # Raw CSVs are excluded by default. Aggregated/releasable CSVs may be force-added
-# only after privacy review and should live under outputs/aggregated or reports/*/tables.
+# only after privacy review. Retained aggregate analysis outputs live under analysis/.
 *.csv
+!analysis/**/*.csv
 !outputs/aggregated/**/*.csv
 !reports/**/tables/*.csv
 
 # Heavy private literature snapshot
 # The repository is private and the user explicitly requested preservation of
 # local literature PDFs and Docling PNG assets. These files may be committed
-# under literature/Bib*/. Do not redistribute them publicly without checking
-# the applicable rights/licences.
+# under the canonical literature library. Do not redistribute them publicly
+# without checking the applicable rights/licences.
 
 # Local raw-data directories
 data/raw/
