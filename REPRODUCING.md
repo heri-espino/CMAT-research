@@ -1,16 +1,34 @@
 # Reproducing CMAT analyses
 
-This document is the repository-level entry point for reproducing computational outputs. Scientific definitions belong in `code/STUDY_PROTOCOL.md`; code architecture belongs in `code/.ai_handoff.md`; this file only documents the execution path.
+This document is the repository-level execution entry point. Scientific definitions belong in `code/STUDY_PROTOCOL.md`; reusable-code architecture belongs in `code/.ai_handoff.md`; product-specific build details belong in the owning report/paper README.
 
-## 1. Requirements
+## 1. Production model
 
-The active Python project is under `code/` and currently requires Python `>=3.14,<3.15`. Direct analysis dependencies are version-pinned in both `code/pyproject.toml` and `code/requirements.txt`; `code/environment.yml` records the fuller Conda environment used for the current setup.
+```text
+controlled data
+    ↓
+root/code reusable functions
+    ↓
+product-local thin runner
+    ↓
+report
+    ↓
+paper selection
+```
+
+For the methodology report, the product-local runner is inside the report itself:
+
+`reports/methodology_report/code/methodology_report.py`.
+
+## 2. Requirements
+
+The active Python project is under `code/` and currently requires Python `>=3.14,<3.15`. Direct dependencies are version-pinned in `code/pyproject.toml` and `code/requirements.txt`; `code/environment.yml` records the fuller Conda environment.
 
 Raw/row-level institutional data are intentionally not stored in GitHub.
 
-## 2. Create the Python environment
+## 3. Create the Python environment
 
-### Option A — pip / virtual environment
+### pip / virtual environment
 
 From the repository root:
 
@@ -18,7 +36,7 @@ From the repository root:
 python -m venv .venv
 ```
 
-Activate it using the command appropriate for your operating system, then:
+Activate it, then:
 
 ```bash
 python -m pip install --upgrade pip
@@ -27,18 +45,16 @@ python -m pip install -e ".[dev]"
 cd ..
 ```
 
-### Option B — Conda
+### Conda
 
 ```bash
 conda env create -f code/environment.yml
 conda activate cmat314
 ```
 
-If an existing `cmat314` environment is already available, update/verify it rather than creating a second version-named environment.
+If an existing environment already matches the recorded specification, verify/update it rather than creating a version-suffixed duplicate environment.
 
-## 3. Verify the codebase
-
-Run tests:
+## 4. Verify root code
 
 ```bash
 cd code
@@ -46,104 +62,97 @@ python -m pytest
 cd ..
 ```
 
-Verify the report runner structure without loading controlled data:
-
-```bash
-python code/experiments/methodology_report.py --check
-```
-
-The searchable function inventory is:
+The searchable reusable-function inventory is:
 
 `code/FUNCTION_INDEX.md`
 
-Regenerate it after Python changes with:
+Regenerate it after root-code Python changes with:
 
 ```bash
 python code/scripts/generate_function_index.py
 ```
 
-Normally the repository workflow also refreshes this file after Python changes.
+The repository workflow also refreshes this file after Python changes under `code/`.
 
-## 4. Controlled inputs
+## 5. Verify the methodology report boundary
 
-The two principal controlled inputs are:
+Without controlled data:
+
+```bash
+python reports/methodology_report/code/methodology_report.py --check
+```
+
+This verifies that the atomic report entry point can resolve the required reusable functions from root `code/` and that the report's required structural assets are present.
+
+## 6. Controlled inputs
+
+The principal controlled inputs are:
 
 - academic/course records (`materias`);
 - CMAT advisory/visit records (`asesorias`).
 
-They must remain outside GitHub. Do not copy raw administrative workbooks into the repository merely to make a run easier.
+They must remain outside GitHub.
 
-The methodology runner can receive paths explicitly:
+## 7. Reproduce the methodology report
+
+Canonical command:
 
 ```bash
-python code/experiments/methodology_report.py \
-  --materias /path/to/Materias.xlsx \
-  --asesorias /path/to/Asesorias.xlsx
+python reports/methodology_report/code/methodology_report.py \
+  --materias <academic-file> \
+  --asesorias <visits-file>
 ```
 
-On Windows PowerShell, the same command can be written on one line:
+On Windows PowerShell:
 
 ```powershell
-python code/experiments/methodology_report.py --materias "C:\path\Materias.xlsx" --asesorias "C:\path\Asesorias.xlsx"
+python reports/methodology_report/code/methodology_report.py --materias "C:\path\Materias.xlsx" --asesorias "C:\path\Asesorias.xlsx"
 ```
 
-Use `--extra-covariates` only when an approved covariate file is part of the intended scientific specification.
+The local script is intentionally thin. It calls the root-code methodology build/pipeline implementation; reusable calculations are not implemented under `reports/`.
 
-## 5. Reproduce the methodology report outputs
+Disposable generated working outputs are written inside the atomic report at:
 
-Canonical runner:
+`reports/methodology_report/build/`
 
-```bash
-python code/experiments/methodology_report.py --materias <academic-file> --asesorias <visits-file>
-```
+This path is ignored by Git. Reviewed/staged aggregate CSVs and figures used by the report remain under the report's `tables/` and `figures/` directories.
 
-The runner is the stable recipe. It imports reusable functions from the package, executes the methodology analyses in their fixed order, writes deterministic aggregate outputs, and stages the report assets expected by `reports/methodology_report/`.
-
-Local generated outputs are written under:
-
-`code/outputs/methodology_report/`
-
-This path is ignored by Git.
-
-The report directory receives the reviewed/staged aggregate tables/figures required by the LaTeX report. The runner also writes build/provenance metadata so the input files and generated state can be identified.
-
-### Generate without staging into the report
+### Generate without replacing retained report assets
 
 ```bash
-python code/experiments/methodology_report.py \
+python reports/methodology_report/code/methodology_report.py \
   --materias <academic-file> \
   --asesorias <visits-file> \
   --no-stage
 ```
 
-### Compile the LaTeX report
-
-If a compatible LaTeX installation is available:
+### Compile the report
 
 ```bash
-python code/experiments/methodology_report.py \
+python reports/methodology_report/code/methodology_report.py \
   --materias <academic-file> \
   --asesorias <visits-file> \
   --compile
 ```
 
-Compilation is presentation/build work; the scientific calculations are performed upstream by the imported Python functions.
+Compilation is presentation/build work; statistical calculations happen in imported root-code functions.
 
-## 6. Data updates
+## 8. Data updates
 
-When a new institutional data extract arrives:
+When a new institutional extract arrives:
 
-1. do not create a new `*_v2.py` runner;
-2. verify that the input schema remains compatible;
-3. run the tests;
-4. rerun the same stable experiment/report runner with the new controlled input paths;
+1. do not create a new report folder or `*_v2.py` runner;
+2. verify input schema compatibility;
+3. run root-code tests;
+4. rerun the same report-local runner with the new controlled paths;
 5. compare cohort counts, diagnostics and aggregate outputs with the previous retained state;
-6. investigate unexpected differences before replacing retained/report outputs;
-7. update manuscript/report prose only after the regenerated outputs are accepted.
+6. investigate unexpected differences before replacing retained report assets;
+7. update report prose only after outputs are accepted;
+8. propagate only the needed validated subset into downstream papers.
 
 A new data vintage is not, by itself, a methodological change.
 
-## 7. Scientific changes
+## 9. Scientific changes
 
 If cohort membership, an estimand, outcome construction, imputation, statistical test/model, standard errors, threshold logic or another result-generating rule changes:
 
@@ -151,38 +160,35 @@ If cohort membership, an estimand, outcome construction, imputation, statistical
 2. update/add tests;
 3. update `code/STUDY_PROTOCOL.md` or relevant methodology documentation;
 4. regenerate `code/FUNCTION_INDEX.md`;
-5. rerun every affected stable runner;
+5. rerun every affected report-local runner;
 6. compare old/new aggregate outputs;
-7. only then update reports/papers.
+7. only then update downstream papers.
 
-Do not implement the changed estimand only inside a paper or report runner.
+Do not implement the changed estimand only inside a report or paper runner.
 
-## 8. Retaining outputs
+## 10. Reports and papers
 
-Generated local files under `code/outputs/` are disposable/reproducible build artifacts.
+Reports are broad research-development products. They may contain more analyses than any one manuscript and are the preferred home for methodological brainstorming, sensitivity results and scientific context.
 
-After scientific and privacy review:
+Papers are downstream publication selections. If a final paper needs local copies of approved report tables/figures for submission portability, retain them under `papers/<paper_id>/results/` with provenance to the source report/root code.
 
-- project-wide or multi-paper retained aggregates belong under `analysis/shared/`;
-- an aggregate artifact with one clear manuscript owner may belong under `papers/<paper_id>/results/`;
-- do not retain duplicate copies in both places without a documented reason.
+A paper-local `code/` folder, if ever needed, is for thin build/packaging orchestration only.
 
-Current pre-reconciliation aggregate history is stored under `analysis/shared/historical_outputs/` for provenance/comparison.
+## 11. Shared aggregate archive
 
-## 9. Paper-specific reproduction
+`analysis/shared/` may retain aggregate empirical objects that genuinely serve multiple reports/papers or are needed for historical reconciliation. It is not a required stage between code and reports.
 
-Paper-specific runners should live in `code/experiments/` using stable paper IDs and should import canonical functions. Do not create a paper runner until the paper has a defined reproducible analytical recipe; do not create placeholder runners merely to complete the directory structure.
+Current pre-reconciliation aggregate history is stored under `analysis/shared/historical_outputs/`.
 
-At present, `methodology_report.py` is the canonical fully named report-specific runner. Future paper runners should follow the same thin-runner pattern documented in `code/experiments/README.md`.
-
-## 10. Troubleshooting / provenance
+## 12. Troubleshooting / provenance
 
 Start with:
 
-- `code/.ai_handoff.md` — code/reproducibility rules;
+- `code/.ai_handoff.md` — root-code/product-runner boundary;
 - `code/FUNCTION_INDEX.md` — locate existing functions;
 - `code/STUDY_PROTOCOL.md` — scientific specification;
-- `docs/MIGRATION_STATUS.md` — active/historical methodology status;
-- `reports/methodology_report/README.md` — report-specific build/provenance notes.
+- `reports/README.md` — report-layer role;
+- `reports/methodology_report/README.md` — methodology build/provenance;
+- `docs/MIGRATION_STATUS.md` — active/historical methodology status.
 
 If an older implementation is needed, retrieve it from Git history rather than restoring a permanent snapshot directory into the active tree.
