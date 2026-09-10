@@ -7,6 +7,7 @@ This directory contains the first formal Paper 1 draft.
 - `main.tex` — English manuscript draft.
 - `references.bib` — paper-local bibliography used by the draft.
 - `build.py` — cross-platform build wrapper; packaging/orchestration only, with no scientific calculations.
+- `FIGURE_INVENTORY.md` — audit, provenance and replacement map for manuscript figures.
 
 ## Current status
 
@@ -16,7 +17,7 @@ The current ambitious target remains *Studies in Higher Education*. The draft is
 
 ## Reproducible analysis
 
-Paper-specific scientific orchestration now lives in `../code/run_paper.py`. Reusable scientific functions remain in the shared `cmat_analysis` package.
+Paper-specific scientific orchestration lives in `../code/run_paper.py`. Paper-specific figure presentation lives in `../code/figures.py`. Reusable scientific functions remain in the shared `cmat_analysis` package.
 
 From the repository root:
 
@@ -34,12 +35,13 @@ python code/run_paper.py \
   --compare-retained
 ```
 
-The runner rebuilds the strict next-regular-term MU-to-Calculus cohort and aggregate tables 98--107 under `../results/`, then optionally compares tables 101--107 against the retained historical snapshot. A comparison failure must be reviewed before manuscript numbers are changed.
+The runner rebuilds the strict next-regular-term MU-to-Calculus cohort and aggregate tables 98--107 under `../results/`, generates the four English manuscript figures from those aggregate tables, then optionally compares tables 101--107 against the retained historical snapshot. A comparison failure must be reviewed before manuscript numbers are changed.
 
 ## Numerical traceability
 
 The current draft was written from the retained refined longitudinal analysis under:
 
+- `../brainstorm/shared/historical_outputs/study/tables/98_ppa_progression_cohort_flow.csv`
 - `../brainstorm/shared/historical_outputs/study/tables/101_ppa_behavior_profiles.csv`
 - `../brainstorm/shared/historical_outputs/study/tables/102_ppa_persistence_by_mu_group.csv`
 - `../brainstorm/shared/historical_outputs/study/tables/103_ppa_persistence_omnibus.csv`
@@ -53,13 +55,20 @@ The longitudinal cohort construction and interpretation are also documented in:
 - `../brainstorm/research_compendium/ppa_progression_analysis.tex`
 - `../brainstorm/methodology_report/README.md`
 
-The figure currently used by `main.tex` is the retained refined longitudinal snapshot:
+The pre-update manuscript used the retained historical figure:
 
 - `../brainstorm/methodology_report/figures/refined_longitudinal_persistence_3241.png`
 
-The executable branch recipe also generates a fresh aggregate persistence figure at `../results/figures/ppa_persistence_by_mu_group.png`. The manuscript should switch to generated paper-owned assets only after the new run has been checked against the retained snapshot.
+That binary remains preserved for provenance but is no longer used by `main.tex`. The manuscript now uses four paper-owned figures regenerated from reviewed aggregate tables:
 
-Do not manually alter manuscript numbers after a data update. Re-run `code/run_paper.py`, inspect `results/`, compare against retained outputs when appropriate, and then update prose/tables from reviewed generated outputs.
+- `../results/figures/figure_01_cohort_flow.png`
+- `../results/figures/figure_02_main_persistence.png`
+- `../results/figures/figure_03_threshold_piecewise.png`
+- `../results/figures/figure_04_adjusted_persistence_or.png`
+
+Direct manuscript builds regenerate those figures from the retained aggregate snapshot, so the draft can be compiled without private microdata and without relying on the historical Spanish-labelled PNG. A full empirical run generates the same figure set from the new aggregate tables; `--compare-retained` remains the numerical gate before manuscript numbers should be revised.
+
+Do not manually alter manuscript numbers or figure values after a data update. Re-run `code/run_paper.py`, inspect `results/`, compare against retained outputs when appropriate, and then update prose/tables from reviewed generated outputs.
 
 ## Literature traceability
 
@@ -75,20 +84,11 @@ The preferred local build is the cross-platform wrapper, which can be invoked fr
 python paper/build.py
 ```
 
-`build.py` always compiles with `paper/` as the working directory, so the bibliography and external figure paths resolve consistently. It first checks that the required retained figure is a real PNG rather than a Git LFS pointer.
+`build.py` first calls `code/figures.py --source retained`, validates the four generated PNGs, and then compiles with `paper/` as the working directory so the bibliography and external figure paths resolve consistently. The generated figure files live under `results/figures/` and should not be hand-edited.
 
-### First-time local setup
+If a full empirical run invokes `code/run_paper.py --compile`, the runner sets the figure source to `generated`, so compilation uses the aggregate tables created by that same run rather than the retained snapshot.
 
-Because research PDFs/figures are stored with Git LFS, install/initialize LFS and materialize the binary assets before compiling:
-
-```bash
-git lfs install
-git lfs pull
-```
-
-If `build.py` reports that `refined_longitudinal_persistence_3241.png` is still an LFS pointer, rerun `git lfs pull` from the repository root.
-
-You also need a LaTeX distribution providing `latexmk` (recommended), or at minimum both `pdflatex` and `bibtex`. The wrapper uses `latexmk` when available and otherwise falls back to:
+You need a LaTeX distribution providing `latexmk` (recommended), or at minimum both `pdflatex` and `bibtex`. The wrapper uses `latexmk` when available and otherwise falls back to:
 
 ```text
 pdflatex -> bibtex -> pdflatex -> pdflatex
@@ -96,24 +96,15 @@ pdflatex -> bibtex -> pdflatex -> pdflatex
 
 ### Direct LaTeX build
 
-If you prefer to compile manually, run the commands **from `paper/`**:
+If you prefer to compile manually, first generate the figures and then compile from `paper/`:
 
 ```bash
+python code/figures.py --source retained
 cd paper
 latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
 ```
 
-or:
-
-```bash
-cd paper
-pdflatex main.tex
-bibtex main
-pdflatex main.tex
-pdflatex main.tex
-```
-
-Do not run plain `pdflatex paper/main.tex` from the repository root without changing directories, because the manuscript uses paper-relative figure paths and a paper-local bibliography. Prefer `python paper/build.py`.
+or use the `pdflatex`/`bibtex` sequence after figure generation. Prefer `python paper/build.py` because it enforces the figure-generation step automatically.
 
 ## Must resolve before submission
 
