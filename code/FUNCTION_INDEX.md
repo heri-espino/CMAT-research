@@ -32,10 +32,10 @@
 
 ## Inventory summary
 
-- Python files scanned: **64**
-- Reusable/source symbols: **412**
-- Test symbols: **14**
-- Total functions/classes/methods/nested functions: **426**
+- Python files scanned: **63**
+- Reusable/source symbols: **406**
+- Test symbols: **15**
+- Total functions/classes/methods/nested functions: **421**
 
 Private helpers whose names begin with `_` are included because they often contain reusable project logic even when they are not part of the public API.
 
@@ -54,17 +54,6 @@ Private helpers whose names begin with `_` are included because they often conta
 |---|---|---:|---|---|---|
 | `CMATStudyConfig` | class | 8 | `class CMATStudyConfig` | Pre-specified choices shared by the reproducible CMAT study runners. | `config study_config py cmatstudyconfig pre-specified choices shared by reproducible cmat study runners` |
 | `get_study_config` | function | 57 | `def get_study_config(project_root: Path \| None=None) -> CMATStudyConfig` | No docstring; inspect implementation before reuse. | `config study_config py get_study_config no` |
-
-### `experiments/methodology_report.py`
-
-| Symbol | Kind | Line | Signature | Purpose | Search tags |
-|---|---|---:|---|---|---|
-| `_sha256` | function | 36 | `def _sha256(path: Path) -> str` | No docstring; inspect implementation before reuse. | `experiments methodology_report py sha256 no` |
-| `_stage_generated_assets` | function | 44 | `def _stage_generated_assets(output_dir: Path, report_dir: Path) -> dict[str, list[str]]` | Stage generated aggregate assets without touching the external 3,241 snapshot. | `experiments methodology_report py stage_generated_assets stage generated aggregate assets without touching external snapshot` |
-| `_compile_report` | function | 69 | `def _compile_report(report_dir: Path) -> Path` | Compile methodology_report.tex; scientific calculations happen upstream. | `experiments methodology_report py compile_report compile tex scientific calculations happen upstream` |
-| `_check_structure` | function | 90 | `def _check_structure() -> list[str]` | No docstring; inspect implementation before reuse. | `experiments methodology_report py check_structure no` |
-| `_parse_args` | function | 109 | `def _parse_args() -> argparse.Namespace` | No docstring; inspect implementation before reuse. | `experiments methodology_report py parse_args no` |
-| `main` | function | 121 | `def main() -> int` | No docstring; inspect implementation before reuse. | `experiments methodology_report py main no` |
 
 ### `scripts/generate_function_index.py`
 
@@ -716,8 +705,9 @@ These are indexed for completeness and for locating existing coverage, but they 
 
 | Symbol | Kind | Line | Purpose / test intent |
 |---|---|---:|---|
-| `test_methodology_primary_outcome_uses_scipy_kde_and_uniform_fallback` | function | 10 | No docstring; inspect implementation before reuse. |
-| `test_methodology_exact_visit_grouping_has_all_ten_pairwise_contrasts` | function | 29 | No docstring; inspect implementation before reuse. |
+| `test_methodology_primary_outcome_uses_scipy_kde_and_uniform_fallback` | function | 12 | No docstring; inspect implementation before reuse. |
+| `test_methodology_exact_visit_grouping_has_all_ten_pairwise_contrasts` | function | 31 | No docstring; inspect implementation before reuse. |
+| `test_methodology_report_atomic_runner_resolves_root_code_dependencies` | function | 42 | No docstring; inspect implementation before reuse. |
 
 ### `tests/test_study_helpers.py`
 
