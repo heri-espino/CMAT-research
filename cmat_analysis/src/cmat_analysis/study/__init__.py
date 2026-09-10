@@ -1,8 +1,9 @@
-"""Redesigned CMAT longitudinal study.
+"""Compatibility and publication-orchestration namespace.
 
-This package is intentionally separate from the legacy report pipeline so the
-original analysis remains reproducible while the publication-oriented design
-can evolve independently.
+Reusable scientific components formerly under ``study`` now live in
+responsibility-based namespaces. The historical study pipeline remains here so
+retained outputs stay reproducible while brainstorm/paper runners migrate.
+New reusable scientific functions must not be added to this namespace.
 """
 
 from .pipeline import run_study_pipeline
