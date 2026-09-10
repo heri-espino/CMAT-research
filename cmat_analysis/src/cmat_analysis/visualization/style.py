@@ -1,3 +1,9 @@
+"""Shared Matplotlib, Seaborn, and Plotly style configuration.
+
+The functions in this module change plotting-library defaults only; they do not
+construct cohorts, transform analytical data, or alter statistical estimands.
+"""
+
 from __future__ import annotations
 
 import sys
@@ -33,9 +39,8 @@ def _register_local_eb_garamond() -> str:
     return DEFAULT_FONT_FAMILY
 
 
-def mpl_apply():
-    """
-    Aplica un estilo personalizado a las gráficas de Matplotlib y Seaborn.
+def mpl_apply() -> None:
+    """Aplica un estilo personalizado a las gráficas de Matplotlib y Seaborn.
     from style import apply
     mpl_apply()
     """
@@ -101,17 +106,31 @@ def mpl_apply():
         },
     )
 
-def set_style():
+def set_style() -> None:
+    """Apply the project Matplotlib and Seaborn plotting defaults.
+    """
     mpl_apply()
 
 
 
 
-def plotly_apply(palette=["#ffa600", "#ffd380"], fontsize=18, fontstack="EB Garamond, Garamond, Georgia, 'Times New Roman', serif"):
-    """
-    Aplica un estilo personalizado a las gráficas de Plotly, poner:
+def plotly_apply(
+    palette: list[str] = ["#ffa600", "#ffd380"],
+    fontsize: float = 18,
+    fontstack: str = "EB Garamond, Garamond, Georgia, 'Times New Roman', serif",
+) -> None:
+    """Aplica un estilo personalizado a las gráficas de Plotly, poner:
     from style import plotly_apply
     plotly_apply()
+    
+    Parameters
+    ----------
+    palette : list[str], default=['#ffa600', '#ffd380']
+        Plotly discrete color sequence used by the registered template.
+    fontsize : float, default=18
+        Base Plotly font size in points.
+    fontstack : str, default="EB Garamond, Garamond, Georgia, 'Times New Roman', serif"
+        CSS-style font-family stack used by Plotly text elements.
     """
     import pandas as pd
     pd.options.plotting.backend = "plotly"

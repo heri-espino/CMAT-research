@@ -1,4 +1,4 @@
-from cmat_analysis.study.cohort import normalize_identifier, normalize_session, normalize_text, period_index, visit_group
+from cmat_analysis.cohorts import normalize_identifier, normalize_session, normalize_text, period_index, visit_group
 
 
 def test_normalization_and_period_order():
@@ -28,7 +28,7 @@ def test_hmac_pseudonym_is_stable_across_excel_numeric_types():
 
 def test_same_day_ppa_behavior_identifies_first_three_same_day():
     import pandas as pd
-    from cmat_analysis.study.temporal import same_day_ppa_behavior
+    from cmat_analysis.longitudinal import same_day_ppa_behavior
 
     mu = pd.DataFrame({
         "STUDENT_ID": ["a", "b"],
@@ -58,7 +58,7 @@ def test_same_day_ppa_behavior_identifies_first_three_same_day():
 def test_detect_period_peaks_finds_monthly_pattern():
     import numpy as np
     import pandas as pd
-    from cmat_analysis.study.temporal import TemporalPeakConfig, detect_period_peaks
+    from cmat_analysis.longitudinal import TemporalPeakConfig, detect_period_peaks
 
     dates = pd.date_range("2024-01-01", "2024-05-15", freq="D")
     peak_dates = pd.to_datetime(["2024-02-01", "2024-03-01", "2024-04-01", "2024-05-01"])
@@ -91,7 +91,7 @@ def test_detect_period_peaks_finds_monthly_pattern():
 
 def test_temporal_regularity_distinguishes_concentrated_and_distributed_use():
     import pandas as pd
-    from cmat_analysis.study.temporal import student_temporal_regularity
+    from cmat_analysis.longitudinal import student_temporal_regularity
 
     mu = pd.DataFrame({
         "STUDENT_ID": ["a", "b"],
@@ -119,7 +119,7 @@ def test_temporal_regularity_distinguishes_concentrated_and_distributed_use():
 
 def test_monthly_periodicity_diagnostics_recovers_30_day_cycle():
     import pandas as pd
-    from cmat_analysis.study.temporal import monthly_periodicity_diagnostics
+    from cmat_analysis.longitudinal import monthly_periodicity_diagnostics
 
     dates = pd.date_range("2024-01-01", periods=150, freq="D")
     rows = []
@@ -143,7 +143,8 @@ def test_monthly_periodicity_diagnostics_recovers_30_day_cycle():
 def test_extended_one_two_equivalence_and_transition():
     import pandas as pd
     import numpy as np
-    from cmat_analysis.study.extended_analysis import one_two_pooling_analysis, longitudinal_any_visit_transition
+    from cmat_analysis.statistics.group_comparisons import one_two_pooling_analysis
+    from cmat_analysis.longitudinal import longitudinal_any_visit_transition
 
     rng = np.random.default_rng(123)
     d = pd.DataFrame({
@@ -168,7 +169,7 @@ def test_extended_one_two_equivalence_and_transition():
 def test_extended_welch_anova_and_career_association_outputs():
     import numpy as np
     import pandas as pd
-    from cmat_analysis.study.extended_analysis import (
+    from cmat_analysis.statistics.group_comparisons import (
         welch_anova_visit_groups,
         career_usage_association,
     )
@@ -204,7 +205,7 @@ def test_extended_welch_anova_and_career_association_outputs():
 def test_exact_visit_index_uses_career_relative_standardization_and_sparse_tail_sensitivity():
     import numpy as np
     import pandas as pd
-    from cmat_analysis.study.extended_analysis import exact_visit_performance_index, exact_visit_index_trend
+    from cmat_analysis.statistics.group_comparisons import exact_visit_performance_index, exact_visit_index_trend
 
     rng = np.random.default_rng(2026)
     rows = []
@@ -248,7 +249,7 @@ def test_exact_visit_index_uses_career_relative_standardization_and_sparse_tail_
 
 def test_ppa_revalidation_classifier_flags_post_pass_and_same_period_replica():
     import pandas as pd
-    from cmat_analysis.study.ppa_progression import classify_revalidation_records
+    from cmat_analysis.ppa import classify_revalidation_records
 
     d = pd.DataFrame({
         "STUDENT_ID": ["a", "a", "b", "b"],
@@ -270,7 +271,7 @@ def test_ppa_revalidation_classifier_flags_post_pass_and_same_period_replica():
 
 def test_ppa_persistence_summary_orders_threshold_groups():
     import pandas as pd
-    from cmat_analysis.study.ppa_progression import persistence_by_mu_group
+    from cmat_analysis.ppa import persistence_by_mu_group
 
     d = pd.DataFrame({
         "MU_VISIT_GROUP": pd.Categorical(
