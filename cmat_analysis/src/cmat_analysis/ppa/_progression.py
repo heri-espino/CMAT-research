@@ -41,7 +41,29 @@ GROUP_ORDER = ["0", "1-2", "3", "4+"]
 
 @dataclass(frozen=True)
 class PPAProgressionCohorts:
-    """Container for the reconstructed administrative history and paired cohorts."""
+    """Container for reconstructed PPA progression cohorts and audits.
+    
+    Parameters
+    ----------
+    academic_history : pandas.DataFrame
+        Reconstructed academic history with administrative-event classifications.
+    paired_all_subsequent : pandas.DataFrame
+        Paired MU-to-later-Calculus observations satisfying visit-coverage and
+        classroom-Z requirements without restricting to the next regular term.
+    paired_primary_next_term : pandas.DataFrame
+        Primary paired cohort restricted to progression in the next regular academic term.
+    cohort_flow : pandas.DataFrame
+        Counts through the sequential PPA progression cohort restrictions.
+    revalidation_audit : pandas.DataFrame
+        Aggregate audit of real-attempt candidates and likely administrative records.
+    career_count_distribution : pandas.DataFrame
+        Distribution of the number of observed official degree programmes per student.
+    
+    Notes
+    -----
+    The contained cohorts implement the existing observational PPA design. The
+    three-visit threshold is not a randomized assignment mechanism.
+    """
 
     academic_history: pd.DataFrame
     paired_all_subsequent: pd.DataFrame
@@ -59,7 +81,7 @@ def _subject_mask(df: pd.DataFrame, code: str, name: str) -> pd.Series:
 
 def classify_revalidation_records(academics: pd.DataFrame, *, passing_grade: float = 7.5) -> pd.DataFrame:
     """Flag later rows after an observed pass as likely revalidation/replication.
-
+    
     The official academic extract can contain the same student's passed course again
     under a different degree program when that credit is revalidated.  There is no
     explicit revalidation flag in the supplied extract.  We therefore apply a
@@ -68,6 +90,22 @@ def classify_revalidation_records(academics: pd.DataFrame, *, passing_grade: flo
     ``likely_post_pass_revalidation``.  Failed/adverse rows before the first pass remain
     genuine attempt candidates.  Administrative non-attempt tokens remain a separate
     category.  Nothing is removed here.
+    
+    Parameters
+    ----------
+    academics : pd.DataFrame
+        Normalized academic-history table.
+    passing_grade : float, default=7.5
+        Numeric grade threshold defining a passing result.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
+    
+    Notes
+    -----
+    The source extract has no explicit revalidation flag. Labels beginning with ``likely_`` are conservative administrative classifications and should remain auditable rather than being treated as observed ground truth.
     """
     d = academics.copy()
     d["OFFICIAL_CAREER"] = d["CLAVECARRERA"].map(normalize_text)
@@ -219,7 +257,20 @@ def _period_form_career(advisories: pd.DataFrame) -> pd.DataFrame:
 
 
 def build_ppa_progression_cohort(data, config) -> PPAProgressionCohorts:
-    """Build strict MU -> Calculus cohorts under the PPA1 first-semester assumption."""
+    """Build strict MU -> Calculus cohorts under the PPA1 first-semester assumption.
+    
+    Parameters
+    ----------
+    data : object
+        Normalized ``StudyData`` object containing academics, advisory events, and coverage metadata.
+    config : object
+        Study configuration supplying subject definitions, grade threshold, PPA threshold, and minimum classroom size.
+    
+    Returns
+    -------
+    PPAProgressionCohorts
+        Reconstructed academic history together with all-subsequent and next-regular-term paired cohorts and audit summaries.
+    """
     history = classify_revalidation_records(data.academics, passing_grade=config.passing_grade)
     audit_source = data.academic_audit if getattr(data, "academic_audit", None) is not None else data.academics
     audit_history = classify_revalidation_records(audit_source, passing_grade=config.passing_grade)
@@ -402,7 +453,18 @@ def build_ppa_progression_cohort(data, config) -> PPAProgressionCohorts:
 
 
 def ppa_behavior_profiles(df: pd.DataFrame) -> pd.DataFrame:
-    """Eight observable MU-group x later-Calculus-use profiles."""
+    """Eight observable MU-group x later-Calculus-use profiles.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
+    """
     d = df.copy()
     rows = []
     for g in GROUP_ORDER:
@@ -423,7 +485,18 @@ def ppa_behavior_profiles(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def persistence_by_mu_group(df: pd.DataFrame) -> pd.DataFrame:
-    """P(Calculus CMAT use | MU visit group) with Wilson intervals."""
+    """P(Calculus CMAT use | MU visit group) with Wilson intervals.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
+    """
     rows = []
     for g in GROUP_ORDER:
         sub = df.loc[df["MU_VISIT_GROUP"].astype(str).eq(g)]
@@ -500,7 +573,18 @@ def _two_group_risk_comparison(
 
 
 def ppa_persistence_association_tests(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """Omnibus 4x2 association plus the pre-specified exact-3 vs 4+ contrast."""
+    """Omnibus 4x2 association plus the pre-specified exact-3 vs 4+ contrast.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    
+    Returns
+    -------
+    tuple[pd.DataFrame, pd.DataFrame]
+        Tuple containing the four-by-two omnibus association result and the prespecified 4+ versus exactly-3 risk comparison.
+    """
     tab = pd.crosstab(df["MU_VISIT_GROUP"].astype(str), df["CALC_ANY_VISIT"]).reindex(GROUP_ORDER, fill_value=0)
     tab = tab.reindex(columns=[0, 1], fill_value=0)
     chi2, p, dof, expected = stats.chi2_contingency(tab.to_numpy(), correction=False)
@@ -534,11 +618,23 @@ def _collapse_rare(series: pd.Series, min_n: int = 30) -> pd.Series:
 
 def persistence_logistic_models(df: pd.DataFrame, *, min_career_n: int = 30) -> pd.DataFrame:
     """Cluster-robust logistic models for later CMAT use.
-
+    
     Model 1 contains the four MU visit groups.  Model 2 additionally conditions on
     prior relative performance (Z_MU), contemporaneous official degree program at the
     actual MU attempt, and MU academic period.  Clustering is by MU classroom.  These
     models quantify predictive association; they do not identify a PPA treatment effect.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    min_career_n : int, default=30
+        Minimum degree-programme sample size retained for the stated inferential analysis.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
     """
     d = df.dropna(subset=["CALC_ANY_VISIT", "MU_VISIT_GROUP", "MU_CLASSROOM_ID", "Z_MU"]).copy()
     d["MU_CAREER_MODEL"] = _collapse_rare(d["MU_CAREER_OFFICIAL"], min_n=min_career_n)
@@ -575,7 +671,24 @@ def persistence_logistic_models(df: pd.DataFrame, *, min_career_n: int = 30) -> 
 
 
 def piecewise_threshold_persistence_model(df: pd.DataFrame, *, cap_visits: int = 12) -> pd.DataFrame:
-    """Descriptive piecewise logit around V=3; explicitly not an RD design."""
+    """Descriptive piecewise logit around V=3; explicitly not an RD design.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    cap_visits : int, default=12
+        Upper cap applied to visit counts in the piecewise descriptive model.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
+    
+    Notes
+    -----
+    The three-visit threshold is student-controlled and operational. This function is descriptive and must not be interpreted as a regression-discontinuity design.
+    """
     d = df.dropna(subset=["CALC_ANY_VISIT", "MU_VISITS_CMAT_PERIOD", "MU_CLASSROOM_ID"]).copy()
     d["MU_VISITS_CAPPED"] = d["MU_VISITS_CMAT_PERIOD"].clip(upper=cap_visits).astype(float)
     d["VISITS_TO_THRESHOLD"] = np.minimum(d["MU_VISITS_CAPPED"], 3.0)
@@ -603,11 +716,23 @@ def piecewise_threshold_persistence_model(df: pd.DataFrame, *, cap_visits: int =
 
 def later_performance_models(df: pd.DataFrame, *, min_career_n: int = 30) -> pd.DataFrame:
     """Predict later Calculus classroom-relative performance from prior MU information.
-
+    
     The primary temporal specification uses Z_MU and MU visit group to predict Z_CALC.
     It deliberately does not include Cálculo-period CMAT use because that exposure is
     contemporaneous with the outcome and can respond to difficulty experienced during
     the course.  Standard errors are clustered by the Cálculo classroom.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    min_career_n : int, default=30
+        Minimum degree-programme sample size retained for the stated inferential analysis.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
     """
     d = df.dropna(subset=["Z_CALC", "Z_MU", "MU_VISIT_GROUP", "CALC_CLASSROOM_ID"]).copy()
     d["CALC_CAREER_MODEL"] = _collapse_rare(d["CALC_CAREER_OFFICIAL"], min_n=min_career_n)
@@ -646,7 +771,20 @@ def later_performance_models(df: pd.DataFrame, *, min_career_n: int = 30) -> pd.
 
 
 def major_persistence_summary(df: pd.DataFrame, *, min_n: int = 30) -> pd.DataFrame:
-    """Descriptive adoption/persistence/academic trajectory by official MU major."""
+    """Descriptive adoption/persistence/academic trajectory by official MU major.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    min_n : int, default=30
+        Minimum degree-programme sample size retained for the summary or comparison.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
+    """
     d = df.dropna(subset=["MU_CAREER_OFFICIAL"]).copy()
     rows = []
     for career, g in d.groupby("MU_CAREER_OFFICIAL"):
@@ -670,7 +808,18 @@ def major_persistence_summary(df: pd.DataFrame, *, min_n: int = 30) -> pd.DataFr
 
 
 def course_specific_transition(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """2x2 transition using course-tagged MU and Calculus advisory records."""
+    """2x2 transition using course-tagged MU and Calculus advisory records.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    
+    Returns
+    -------
+    tuple[pd.DataFrame, pd.DataFrame]
+        Tuple containing the four course-tagged transition cells and the corresponding two-group risk-comparison statistics.
+    """
     d = df.copy()
     n00 = int(((d.MU_SPECIFIC_ANY_VISIT == 0) & (d.CALC_SPECIFIC_ANY_VISIT == 0)).sum())
     n01 = int(((d.MU_SPECIFIC_ANY_VISIT == 0) & (d.CALC_SPECIFIC_ANY_VISIT == 1)).sum())
@@ -694,7 +843,18 @@ def course_specific_transition(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataF
 
 
 def form_career_crosswalk(df: pd.DataFrame) -> pd.DataFrame:
-    """Observed official-code x Google-Form-career pairs among users in the cohort."""
+    """Observed official-code x Google-Form-career pairs among users in the cohort.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Long-form table of observed official-degree and form-career label pairs for MU and Calculus periods.
+    """
     pieces = []
     for prefix in ["MU", "CALC"]:
         fcol = f"{prefix}_FORM_CAREER_MODE"
@@ -713,7 +873,20 @@ def form_career_crosswalk(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def major_persistence_joint_test(df: pd.DataFrame, *, min_career_n: int = 30) -> pd.DataFrame:
-    """Joint Wald test for official MU degree program in the adjusted persistence logit."""
+    """Joint Wald test for official MU degree program in the adjusted persistence logit.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    min_career_n : int, default=30
+        Minimum degree-programme sample size retained for the stated inferential analysis.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
+    """
     d = df.dropna(subset=["CALC_ANY_VISIT", "MU_VISIT_GROUP", "Z_MU", "MU_CLASSROOM_ID"]).copy()
     d["MU_CAREER_MODEL"] = _collapse_rare(d["MU_CAREER_OFFICIAL"], min_n=min_career_n)
     fit = smf.logit(
@@ -740,7 +913,20 @@ def major_persistence_joint_test(df: pd.DataFrame, *, min_career_n: int = 30) ->
 
 
 def major_delta_z_welch(df: pd.DataFrame, *, min_n: int = 30) -> pd.DataFrame:
-    """Welch ANOVA of classroom-relative academic change (Delta Z) across majors."""
+    """Welch ANOVA of classroom-relative academic change (Delta Z) across majors.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    min_n : int, default=30
+        Minimum degree-programme sample size retained for the summary or comparison.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
+    """
     from statsmodels.stats.oneway import anova_oneway
 
     d = df.dropna(subset=["MU_CAREER_OFFICIAL", "DELTA_Z"]).copy()

@@ -13,6 +13,22 @@ ASESORIAS_PATH = DATA_ROOT / "Asesorias2024.xlsx"
 
 def clean_materias_df(materias: pd.DataFrame) -> pd.DataFrame:
     # IF CLAVEPROFESOR is nan and 'CLAVEALUMNO', 'CLAVEVARIANTEMATERIA', 'CALIFICACION' are the same, drop that row
+    """Clean the historical academic-record table used by legacy CMAT analyses.
+    
+    Parameters
+    ----------
+    materias : pd.DataFrame
+        Academic-record table. The required legacy columns are used directly by the historical cleaning rules.
+    
+    Returns
+    -------
+    pd.DataFrame
+        The same DataFrame object after the historical in-place sorting, deduplication, column removal, and professor filtering rules have been applied.
+    
+    Notes
+    -----
+    This function intentionally mutates ``materias`` in place to preserve historical behavior. It drops ``NUMORDEN`` and rows with missing professor identifiers.
+    """
     materias.sort_values(by=['CLAVEALUMNO', 'CLAVEVARIANTEMATERIA',
                          'CALIFICACION', 'CLAVEPROFESOR'], inplace=True)
     materias.drop_duplicates(subset=['CLAVEALUMNO', 'CLAVEVARIANTEMATERIA',
@@ -146,7 +162,25 @@ def impute_nans_from_pre75_kde_df(
     return df
 
 
-def get_salones_with_imputations(materias):
+def get_salones_with_imputations(
+    materias: pd.DataFrame,
+) -> dict[tuple[object, object, object, object], pd.DataFrame]:
+    """Split academic records by classroom and add the historical imputed grade measures.
+    
+    Parameters
+    ----------
+    materias : pd.DataFrame
+        Academic-record table. The required legacy columns are used directly by the historical cleaning rules.
+    
+    Returns
+    -------
+    dict[tuple[object, object, object, object], pd.DataFrame]
+        Mapping from ``(professor, subject, year, session)`` classroom keys to copied classroom tables containing ``IMPMEAN``, ``IMPMEAN_Z``, ``IMPKDE``, and ``IMPKDE_Z``.
+    
+    Notes
+    -----
+    This is the historical report-compatible classroom imputation routine. Its mean, KDE/empirical, and uniform-fallback rules are preserved for reproduction; it is distinct from the primary publication outcome constructor in ``cmat_analysis.measures``.
+    """
     salones = {}
 
     # group by the 4 keys instead of nested loops

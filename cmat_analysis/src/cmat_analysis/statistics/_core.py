@@ -13,6 +13,22 @@ GROUP_ORDER = ["0", "1-2", "3", "4+"]
 
 
 def group_summary(df: pd.DataFrame, group_col: str, outcome_col: str) -> pd.DataFrame:
+    """Summarize a continuous outcome within ordered analytical groups.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    group_col : str
+        Column containing the analytical group labels.
+    outcome_col : str
+        Column containing the continuous outcome to analyze.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
+    """
     rows = []
     for group, g in df.groupby(group_col, observed=True):
         x = g[outcome_col].dropna().to_numpy(float)
@@ -41,6 +57,24 @@ def _cliffs_delta(x: np.ndarray, y: np.ndarray) -> float:
 
 
 def robust_two_group_tests(df: pd.DataFrame, treatment_col: str, outcome_col: str, seed: int = 42) -> pd.DataFrame:
+    """Compare treated and control groups with robust parametric and rank-based diagnostics.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    treatment_col : str
+        Column containing the binary treatment/exposure indicator, coded 0/1.
+    outcome_col : str
+        Column containing the continuous outcome to analyze.
+    seed : int, default=42
+        Random seed used by resampling or permutation procedures.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
+    """
     d = df[[treatment_col, outcome_col]].dropna()
     x = d.loc[d[treatment_col] == 1, outcome_col].to_numpy(float)
     y = d.loc[d[treatment_col] == 0, outcome_col].to_numpy(float)
@@ -110,6 +144,22 @@ def _coef_table(result, model_name: str, keep_terms: tuple[str, ...] | None = No
 
 
 def primary_fixed_effect_models(df: pd.DataFrame, outcome_col: str, treatment_col: str) -> pd.DataFrame:
+    """Estimate the primary classroom fixed-effect treatment specifications.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    outcome_col : str
+        Column containing the continuous outcome to analyze.
+    treatment_col : str
+        Column containing the binary treatment/exposure indicator, coded 0/1.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
+    """
     d = df.dropna(subset=[outcome_col, treatment_col, "CLASSROOM_ID"]).copy()
     model1 = smf.ols(f"{outcome_col} ~ {treatment_col} + C(CLASSROOM_ID)", data=d).fit(
         cov_type="cluster", cov_kwds={"groups": d["CLASSROOM_ID"]}
@@ -128,6 +178,22 @@ def primary_fixed_effect_models(df: pd.DataFrame, outcome_col: str, treatment_co
 
 
 def dose_group_fixed_effect_model(df: pd.DataFrame, outcome_col: str, group_col: str) -> pd.DataFrame:
+    """Estimate classroom fixed-effect contrasts for ordered visit groups.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    outcome_col : str
+        Column containing the continuous outcome to analyze.
+    group_col : str
+        Column containing the analytical group labels.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
+    """
     d = df.dropna(subset=[outcome_col, group_col, "CLASSROOM_ID"]).copy()
     d[group_col] = pd.Categorical(d[group_col], categories=GROUP_ORDER, ordered=True)
     model = smf.ols(
@@ -139,11 +205,23 @@ def dose_group_fixed_effect_model(df: pd.DataFrame, outcome_col: str, group_col:
 
 def secondary_pass_model(df: pd.DataFrame, treatment_col: str) -> pd.DataFrame:
     """Secondary pass/fail sensitivity using a linear probability model.
-
+    
     The primary paper outcome is continuous performance. For the secondary
     binary outcome we favor a stable classroom-fixed-effect LPM with clustered
     standard errors over a high-dimensional fixed-effect logit, which can suffer
     separation/undefined covariance in small professor-period cells.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    treatment_col : str
+        Column containing the binary treatment/exposure indicator, coded 0/1.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
     """
     d = df.dropna(subset=["PASS", treatment_col, "CLASSROOM_ID", "CLAVECARRERA"]).copy()
     if d["PASS"].nunique() < 2:
@@ -156,6 +234,24 @@ def secondary_pass_model(df: pd.DataFrame, treatment_col: str) -> pd.DataFrame:
     return tab
 
 def visit_distribution(df: pd.DataFrame, visits_col: str, course_label: str, max_exact: int = 15) -> pd.DataFrame:
+    """Tabulate exact visit-count frequencies and upper-tail proportions.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    visits_col : str
+        Column containing CMAT visit counts.
+    course_label : str
+        Human-readable course label copied to returned summaries.
+    max_exact : int, default=15
+        Largest exact visit count tabulated before combining the remaining upper tail.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
+    """
     v = df[visits_col].dropna().astype(int)
     rows = []
     n = len(v)
@@ -178,6 +274,24 @@ def visit_distribution(df: pd.DataFrame, visits_col: str, course_label: str, max
 
 
 def continuation_curve(df: pd.DataFrame, visits_col: str, course_label: str, max_k: int = 10) -> pd.DataFrame:
+    """Estimate the conditional probability of continuing from k to k+1 visits.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    visits_col : str
+        Column containing CMAT visit counts.
+    course_label : str
+        Human-readable course label copied to returned summaries.
+    max_k : int, default=10
+        Largest visit count k for which a continuation probability is reported.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
+    """
     v = df[visits_col].dropna().astype(int).to_numpy()
     rows = []
     for k in range(0, max_k + 1):
@@ -197,6 +311,24 @@ def continuation_curve(df: pd.DataFrame, visits_col: str, course_label: str, max
 
 
 def bunching_metrics(df: pd.DataFrame, visits_col: str, threshold: int, course_label: str) -> pd.DataFrame:
+    """Compute descriptive visit-count concentration diagnostics around a threshold.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    visits_col : str
+        Column containing CMAT visit counts.
+    threshold : int
+        Operational visit-count threshold used to define visit groups and PPA indicators.
+    course_label : str
+        Human-readable course label copied to returned summaries.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
+    """
     v = df[visits_col].dropna().astype(int)
     p_t = float((v == threshold).mean())
     p_l = float((v == threshold - 1).mean())
@@ -218,6 +350,24 @@ def bunching_metrics(df: pd.DataFrame, visits_col: str, threshold: int, course_l
 
 
 def longitudinal_summary(longitudinal: pd.DataFrame, *, mu_group_col: str, calc_visits_col: str, coverage_col: str) -> pd.DataFrame:
+    """Summarize later Calculus use by prior MU visit group among covered observations.
+    
+    Parameters
+    ----------
+    longitudinal : pd.DataFrame
+        Paired longitudinal analytical table.
+    mu_group_col : str
+        Column containing the prior MU visit group.
+    calc_visits_col : str
+        Column containing Calculus-period CMAT visit counts.
+    coverage_col : str
+        Boolean column identifying observations with service-record coverage.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
+    """
     d = longitudinal.loc[longitudinal[coverage_col]].copy()
     rows = []
     for group, g in d.groupby(mu_group_col, observed=True):
@@ -244,13 +394,31 @@ def temporal_regularity_performance_models(
     min_visits: int = 3,
 ) -> pd.DataFrame:
     """RQ2b: regularity-performance association conditional on visit intensity.
-
+    
     Primary RQ2b specification is restricted to students with >=3 visits and a
     numeric final grade (the caller selects the complete-case outcome).  This
     avoids mechanically giving withdrawal cases less time in which to spread
     visits. Visit intensity is flexibly controlled using capped exact-count
     categories (3,4,5,6,7,8+), alongside professor-period fixed effects and
     career, with clustered standard errors by professor-period.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    outcome_col : str
+        Column containing the continuous outcome to analyze.
+    visits_col : str
+        Column containing CMAT visit counts.
+    regularity_col : str, default='REGULARITY_MONTHLY_4'
+        Column containing the student-level regularity measure.
+    min_visits : int, default=3
+        Minimum visit count required for inclusion in the model.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
     """
     req = [outcome_col, visits_col, regularity_col, "CLASSROOM_ID", "CLAVECARRERA"]
     d = df.dropna(subset=req).copy()
@@ -275,7 +443,24 @@ def exact_visit_count_regularity_summary(
     outcome_col: str,
     exact_visits: int = 3,
 ) -> pd.DataFrame:
-    """Descriptive regularity-performance comparison at exactly V=3."""
+    """Descriptive regularity-performance comparison at exactly V=3.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    visits_col : str
+        Column containing CMAT visit counts.
+    outcome_col : str
+        Column containing the continuous outcome to analyze.
+    exact_visits : int, default=3
+        Exact visit count defining the descriptive subset.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
+    """
     d = df.loc[df[visits_col] == int(exact_visits)].dropna(subset=[outcome_col, "ACTIVE_CALENDAR_MONTHS"]).copy()
     if d.empty:
         return pd.DataFrame()

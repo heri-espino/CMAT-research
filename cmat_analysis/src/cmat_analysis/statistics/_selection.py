@@ -35,10 +35,32 @@ def propensity_att_sensitivity(
     numeric_covariates: list[str] | None = None,
 ) -> tuple[pd.DataFrame, pd.DataFrame, dict[str, float | int | str]]:
     """Observed-covariate ATT weighting sensitivity analysis.
-
+    
     This analysis targets the average treatment effect among students observed
     with use beyond the PPA threshold. It addresses only *observed* imbalance;
     it does not identify a causal effect under unmeasured motivation/need.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    treatment_col : str
+        Column containing the binary treatment/exposure indicator, coded 0/1.
+    outcome_col : str
+        Column containing the continuous outcome to analyze.
+    categorical_covariates : list[str]
+        Pre-exposure categorical covariate columns used in the propensity model.
+    numeric_covariates : list[str] | None, default=None
+        Optional pre-exposure numeric covariate columns used in the propensity model.
+    
+    Returns
+    -------
+    tuple[pd.DataFrame, pd.DataFrame, dict[str, float | int | str]]
+        Computed table or tables containing the quantities described above.
+    
+    Notes
+    -----
+    The weighting analysis addresses observed covariate imbalance only. It does not identify a causal effect in the presence of unmeasured need, motivation, or other confounding.
     """
     numeric_covariates = numeric_covariates or []
     covariates = categorical_covariates + numeric_covariates

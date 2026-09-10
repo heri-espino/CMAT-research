@@ -9,6 +9,29 @@ from scipy.signal import find_peaks
 
 @dataclass(frozen=True)
 class TemporalPeakConfig:
+    """Configuration for descriptive temporal peak detection.
+    
+    Parameters
+    ----------
+    rolling_window_days : int, default=7
+        Width of the centered rolling window used to smooth daily activity.
+    min_peak_distance_days : int, default=21
+        Minimum separation in days between detected rolling peaks.
+    prominence_fraction : float, default=0.12
+        Fraction of a period's maximum smoothed activity used in the adaptive
+        prominence threshold.
+    min_prominence : float, default=5.0
+        Absolute lower bound for the peak-prominence threshold.
+    monthly_interval_low_days : int, default=24
+        Lower bound used to label a consecutive peak interval as approximately monthly.
+    monthly_interval_high_days : int, default=38
+        Upper bound used to label a consecutive peak interval as approximately monthly.
+    
+    Notes
+    -----
+    Peak detection is descriptive. The configuration does not encode an examination
+    calendar and therefore cannot identify a peak as an exam-related event by itself.
+    """
     rolling_window_days: int = 7
     min_peak_distance_days: int = 21
     prominence_fraction: float = 0.12
@@ -19,11 +42,23 @@ class TemporalPeakConfig:
 
 def primary_period_visit_events(mu: pd.DataFrame, advisories: pd.DataFrame) -> pd.DataFrame:
     """Return every CMAT visit made during each student's first-MU academic period.
-
+    
     The PPA rule counts any CMAT visit in the term.  The academic file does not
     contain an exact withdrawal date, so the finest defensible temporal link is
     student x year x session.  VISIT_DATE is calendar-day resolution; the exact
     timestamp is retained internally only to order visits within a day.
+    
+    Parameters
+    ----------
+    mu : pd.DataFrame
+        Primary MU cohort whose student-year-session keys define the periods to retain.
+    advisories : pd.DataFrame
+        CMAT advisory-event table with normalized student and academic-period identifiers.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
     """
     keys = mu[["STUDENT_ID", "YEAR", "SESSION"]].drop_duplicates()
     out = advisories.merge(keys, on=["STUDENT_ID", "YEAR", "SESSION"], how="inner")
@@ -36,6 +71,20 @@ def primary_period_visit_events(mu: pd.DataFrame, advisories: pd.DataFrame) -> p
 
 
 def daily_service_counts(events: pd.DataFrame, population: str) -> pd.DataFrame:
+    """Aggregate visit events to daily service volume within academic periods.
+    
+    Parameters
+    ----------
+    events : pd.DataFrame
+        CMAT visit-event table containing student, period, and timestamp information.
+    population : str
+        Label identifying the analyzed population in returned tables.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
+    """
     d = events.copy()
     if "VISIT_DATE" not in d.columns:
         d["VISIT_DATE"] = pd.to_datetime(d["VISIT_DATETIME"], errors="coerce").dt.normalize()
@@ -58,7 +107,16 @@ def same_day_ppa_behavior(
     threshold: int = 3,
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """Characterize concentrated same-day attendance around the PPA threshold.
-
+    
+    
+    Parameters
+    ----------
+    mu : pd.DataFrame
+        Primary MU cohort table with one row per student attempt.
+    mu_events : pd.DataFrame
+        Visit-event table restricted to the relevant MU periods.
+    threshold : int, default=3
+        Visit count defining PPA completion for the same-day concentration diagnostics.
     Returns
     -------
     student_summary:
@@ -69,9 +127,13 @@ def same_day_ppa_behavior(
         Distribution of maximum visits made by a student on a single day.
     completion_dates:
         Aggregate dates on which students reached their threshold-th visit.
-
+    
     No behavioral motive is inferred.  In particular, three visits in one day
     is described as concentrated attendance, not "gaming" the incentive.
+    
+    Notes
+    -----
+    Concentrated same-day attendance is described behaviorally without inferring strategic intent or “gaming.”
     """
     threshold = int(threshold)
     events = mu_events.sort_values(["STUDENT_ID", "VISIT_DATETIME"], kind="stable").copy()
@@ -182,6 +244,20 @@ def same_day_ppa_behavior(
 
 
 def top_daily_dates(daily: pd.DataFrame, n: int = 25) -> pd.DataFrame:
+    """Return the busiest observed service dates from an aggregated daily table.
+    
+    Parameters
+    ----------
+    daily : pd.DataFrame
+        Daily service-count table, typically returned by ``daily_service_counts``.
+    n : int, default=25
+        Number of rows to retain.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
+    """
     return (
         daily.sort_values(["unique_students", "visits"], ascending=False)
         .head(int(n))
@@ -195,11 +271,25 @@ def detect_period_peaks(
     population: str = "All CMAT",
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """Detect separated local peaks in daily CMAT activity.
-
+    
     Detection is deliberately descriptive.  It uses a centered 7-day rolling
     sum of unique-student-days, minimum 21-day separation, and a prominence
     threshold equal to max(5, 12% of the period maximum).  Peaks are not labeled
     as exams unless an official exam calendar is supplied separately.
+    
+    Parameters
+    ----------
+    events : pd.DataFrame
+        CMAT visit-event table containing student, period, and timestamp information.
+    config : TemporalPeakConfig | None, default=None
+        Optional temporal-peak configuration. ``None`` uses ``TemporalPeakConfig()``.
+    population : str, default='All CMAT'
+        Label identifying the analyzed population in returned tables.
+    
+    Returns
+    -------
+    tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]
+        Tuple containing detected peaks, complete daily period profiles, and consecutive peak intervals.
     """
     cfg = config or TemporalPeakConfig()
     d = events.copy()
@@ -304,6 +394,22 @@ def peak_spacing_summary(
     intervals: pd.DataFrame,
     config: TemporalPeakConfig | None = None,
 ) -> pd.DataFrame:
+    """Summarize the number and spacing of detected service-use peaks.
+    
+    Parameters
+    ----------
+    peaks : pd.DataFrame
+        Detected peak table returned by ``detect_period_peaks``.
+    intervals : pd.DataFrame
+        Peak-to-peak interval table returned by ``detect_period_peaks``.
+    config : TemporalPeakConfig | None, default=None
+        Optional temporal-peak configuration supplying the monthly-like gap bounds.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
+    """
     cfg = config or TemporalPeakConfig()
     if peaks.empty:
         return pd.DataFrame()
@@ -346,20 +452,36 @@ def student_temporal_regularity(
     assessment_cycles: int = 4,
 ) -> pd.DataFrame:
     """Construct student-level temporal-distribution measures for CMAT use.
-
+    
     The university reports an approximately monthly assessment rhythm (about
     four assessments per standard term), but exact examination dates vary by
     instructor and are not observed.  Therefore the primary regularity metric
     uses *calendar-month spread* rather than labeling any visit as pre-exam.
-
+    
     REGULARITY_MONTHLY_4 = min(active calendar months, 4) / min(total visits, 4)
-
+    
     It is 1 when the student's observed visits are as distributed across
     calendar months as their visit count permits (up to four assessment-cycle
     months), and smaller when visits are temporally concentrated.  Additional
     day/week measures are retained as sensitivity/descriptive metrics.
-
+    
     No causal or motivational interpretation is attached to these measures.
+    
+    Parameters
+    ----------
+    mu : pd.DataFrame
+        Primary MU cohort table with one row per student attempt.
+    mu_events : pd.DataFrame
+        Visit-event table restricted to the relevant MU periods.
+    visits_col : str, default='VISITS_CMAT_PERIOD'
+        Column containing CMAT visit counts.
+    assessment_cycles : int, default=4
+        Number of assessment-cycle months used to cap the primary regularity measure.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
     """
     cycles = int(assessment_cycles)
     if cycles < 2:
@@ -457,12 +579,36 @@ def monthly_periodicity_diagnostics(
     population: str = "All CMAT",
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Estimate descriptive monthly-cycle diagnostics from daily service load.
-
+    
     For each academic period, daily unique-student counts are completed with
     zero days, day-of-week means are removed, and the remaining series is
     linearly detrended.  We report autocorrelation by lag and the strongest
     periodogram component within 21--42 days.  These are *cycle diagnostics*;
     they do not identify exam dates or establish that exams caused the peaks.
+    
+    Parameters
+    ----------
+    events : pd.DataFrame
+        CMAT visit-event table containing student, period, and timestamp information.
+    lag_min : int, default=14
+        Smallest autocorrelation lag, in days, to evaluate.
+    lag_max : int, default=45
+        Largest autocorrelation lag, in days, to evaluate.
+    candidate_period_low : int, default=21
+        Lower bound, in days, of the periodogram search window.
+    candidate_period_high : int, default=42
+        Upper bound, in days, of the periodogram search window.
+    population : str, default='All CMAT'
+        Label identifying the analyzed population in returned tables.
+    
+    Returns
+    -------
+    tuple[pd.DataFrame, pd.DataFrame]
+        Tuple containing lagged autocorrelation diagnostics and per-period dominant periodogram components.
+    
+    Notes
+    -----
+    The detected cycle is a service-load diagnostic; without an official examination calendar it does not identify exam dates or establish an exam effect.
     """
     from scipy.signal import detrend, periodogram
 

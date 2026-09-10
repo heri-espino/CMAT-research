@@ -1,3 +1,9 @@
+"""Reproducibility and run-provenance logging utilities.
+
+Run logs record file metadata and execution context without reading or modifying
+the analytical contents of the controlled input files.
+"""
+
 from __future__ import annotations
 
 import json
@@ -34,6 +40,28 @@ def write_run_log(
     status: str,
     details: dict[str, object] | None = None,
 ) -> Path:
+    """Write reproducibility metadata for an analysis run.
+    
+    Parameters
+    ----------
+    logs_dir : Path
+        Directory in which ``latest_run.json`` and a timestamped run log are written.
+    materias_path : Path
+        Path to the academic-record input used by the run.
+    asesorias_path : Path
+        Path to the CMAT advisory-record input used by the run.
+    mode : str
+        Name of the analysis or execution mode recorded in the log.
+    status : str
+        Run status recorded in the log.
+    details : dict[str, object] | None, default=None
+        Optional additional JSON-serializable metadata for the run.
+    
+    Returns
+    -------
+    Path
+        Path to the updated ``latest_run.json`` file. A timestamped copy is written in the same directory.
+    """
     logs_dir.mkdir(parents=True, exist_ok=True)
     now = datetime.now(ZoneInfo("America/Mexico_City"))
     payload = {

@@ -79,15 +79,31 @@ def one_two_pooling_analysis(
     equivalence_margin_z: float = 0.20,
 ) -> pd.DataFrame:
     """Formal justification for pooling V=1 and V=2.
-
+    
     A non-significant difference is not evidence of similarity.  Therefore the
     primary similarity diagnostic is a two one-sided tests (TOST) equivalence
     test with a pre-specified smallest effect size of interest of +/-0.20 Z.
     Because Z is measured in classroom standard deviations, this margin has a
     direct substantive interpretation as a small standardized difference.
-
+    
     Welch's test and Brunner-Munzel/Mann-Whitney are reported as complementary
     location/distribution checks, not as equivalence tests.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    visits_col : str
+        Column containing CMAT visit counts.
+    outcome_col : str, default='Z_GRADE_PRIMARY'
+        Column containing the continuous outcome to analyze.
+    equivalence_margin_z : float, default=0.2
+        Prespecified absolute equivalence margin in classroom-standardized outcome units.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
     """
     d = df.loc[df[visits_col].isin([1, 2]), [visits_col, outcome_col]].dropna().copy()
     x1 = d.loc[d[visits_col] == 1, outcome_col].to_numpy(float)
@@ -191,7 +207,22 @@ def welch_anova_visit_groups(
     group_col: str,
     outcome_col: str = "Z_GRADE_PRIMARY",
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    """Welch one-way ANOVA + Brown-Forsythe + Games-Howell for visit cohorts."""
+    """Welch one-way ANOVA + Brown-Forsythe + Games-Howell for visit cohorts.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    group_col : str
+        Column containing the analytical group labels.
+    outcome_col : str, default='Z_GRADE_PRIMARY'
+        Column containing the continuous outcome to analyze.
+    
+    Returns
+    -------
+    tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]
+        Tuple containing the omnibus Welch/Brown-Forsythe table, group summary table, and Games-Howell pairwise table.
+    """
     d = df[[group_col, outcome_col]].dropna().copy()
     d[group_col] = pd.Categorical(d[group_col], categories=VISIT_GROUP_ORDER, ordered=True)
     groups = {
@@ -248,13 +279,33 @@ def career_usage_association(
     seed: int = 42,
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     """Association between degree programme and use pattern.
-
+    
     Rare careers are not combined into a misleading substantive category; they
     are excluded from the omnibus inferential table using a transparent minimum
     N rule and remain available in the descriptive career table.
-
+    
     A permutation p-value is supplied because 4-level visit groups can yield
     sparse expected cells even after the minimum-N filter.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    career_col : str, default='CLAVECARRERA'
+        Column containing the official degree-programme identifier.
+    group_col : str, default='VISIT_GROUP_PERIOD'
+        Column containing the analytical group labels.
+    min_career_n : int, default=30
+        Minimum degree-programme sample size retained for the stated inferential analysis.
+    permutation_reps : int, default=3000
+        Number of random label permutations used for the permutation p-value.
+    seed : int, default=42
+        Random seed used by resampling or permutation procedures.
+    
+    Returns
+    -------
+    tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]
+        Tuple containing the four-level use omnibus table, binary any-use omnibus table, and long-form within-career visit-group proportions.
     """
     d = df[[career_col, group_col]].dropna().copy()
     counts = d[career_col].value_counts()
@@ -331,7 +382,26 @@ def career_performance_analysis(
     visits_col: str = "VISITS_CMAT_PERIOD",
     min_career_n: int = 30,
 ) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    """Career-specific classroom-relative performance and Welch comparisons."""
+    """Career-specific classroom-relative performance and Welch comparisons.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    career_col : str, default='CLAVECARRERA'
+        Column containing the official degree-programme identifier.
+    outcome_col : str, default='Z_GRADE_PRIMARY'
+        Column containing the continuous outcome to analyze.
+    visits_col : str, default='VISITS_CMAT_PERIOD'
+        Column containing CMAT visit counts.
+    min_career_n : int, default=30
+        Minimum degree-programme sample size retained for the stated inferential analysis.
+    
+    Returns
+    -------
+    tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]
+        Tuple containing degree-programme summaries, the Welch/Brown-Forsythe omnibus result, and Games-Howell pairwise comparisons.
+    """
     d = df[[career_col, outcome_col, visits_col]].dropna(subset=[career_col, outcome_col]).copy()
     summary = (
         d.groupby(career_col)
@@ -389,11 +459,31 @@ def career_visit_interaction_model(
     min_cell_n: int = 5,
 ) -> pd.DataFrame:
     """Exploratory heterogeneity of the visit-performance association by career.
-
+    
     To avoid a very sparse interaction model, only careers with at least
     ``min_career_n`` observations are retained.  The output reports a joint Wald
     test for all career x visit-group interaction coefficients.  This is a
     heterogeneity test, not a causal effect-modification claim.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    career_col : str, default='CLAVECARRERA'
+        Column containing the official degree-programme identifier.
+    group_col : str, default='VISIT_GROUP_PERIOD'
+        Column containing the analytical group labels.
+    outcome_col : str, default='Z_GRADE_PRIMARY'
+        Column containing the continuous outcome to analyze.
+    min_career_n : int, default=100
+        Minimum degree-programme sample size retained for the stated inferential analysis.
+    min_cell_n : int, default=5
+        Minimum required count in each retained degree-programme by visit-group cell.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
     """
     req = [career_col, group_col, outcome_col, "CLASSROOM_ID"]
     d = df.dropna(subset=req).copy()
@@ -446,12 +536,28 @@ def clustered_visit_group_omnibus(
     classroom_col: str = "CLASSROOM_ID",
 ) -> pd.DataFrame:
     """Cluster-robust omnibus test for the four visit cohorts.
-
+    
     Welch ANOVA is the requested heteroskedastic marginal comparison, but it
     treats students as independent. This model is a robustness check that adds
     professor-period classroom fixed effects and clusters the covariance matrix
     at the same classroom level. The joint Wald null is that every non-zero
     visit-group coefficient relative to V=0 equals zero.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    group_col : str, default='VISIT_GROUP_PERIOD'
+        Column containing the analytical group labels.
+    outcome_col : str, default='Z_GRADE_PRIMARY'
+        Column containing the continuous outcome to analyze.
+    classroom_col : str, default='CLASSROOM_ID'
+        Column identifying the professor-period classroom used for fixed effects or clustered covariance.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
     """
     req = [group_col, outcome_col, classroom_col]
     d = df.dropna(subset=req).copy()
@@ -489,7 +595,26 @@ def clustered_career_omnibus(
     classroom_col: str = "CLASSROOM_ID",
     min_career_n: int = 30,
 ) -> pd.DataFrame:
-    """Joint career test after classroom fixed effects with clustered covariance."""
+    """Joint career test after classroom fixed effects with clustered covariance.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    career_col : str, default='CLAVECARRERA'
+        Column containing the official degree-programme identifier.
+    outcome_col : str, default='Z_GRADE_PRIMARY'
+        Column containing the continuous outcome to analyze.
+    classroom_col : str, default='CLASSROOM_ID'
+        Column identifying the professor-period classroom used for fixed effects or clustered covariance.
+    min_career_n : int, default=30
+        Minimum degree-programme sample size retained for the stated inferential analysis.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
+    """
     req = [career_col, outcome_col, classroom_col]
     d = df.dropna(subset=req).copy()
     counts = d[career_col].value_counts()
@@ -539,18 +664,42 @@ def exact_visit_performance_index(
     min_cell_n_for_balanced: int = 2,
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
     """Performance index by exact visit count (1..12), adjusted to career context.
-
+    
     ``outcome_col`` is already standardized within professor x period classroom.
     We add a second standardization within degree programme:
-
+    
         CAREER_REL_Z_i = (Z_i - mean(Z | career_i)) / sd(Z | career_i)
-
+    
     Thus a value of +0.30 means that, after first expressing performance relative
     to the student's classroom, the student is 0.30 career-specific SD above the
     mean student in the same degree programme.  Exact-visit summaries are shown
     both student-weighted and career-balanced.  The latter gives each career with
     adequate cell size equal weight, preventing the largest degree programmes
     from mechanically dominating an exact-dose point.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    visits_col : str, default='VISITS_CMAT_PERIOD'
+        Column containing CMAT visit counts.
+    outcome_col : str, default='Z_GRADE_PRIMARY'
+        Column containing the continuous outcome to analyze.
+    career_col : str, default='CLAVECARRERA'
+        Column containing the official degree-programme identifier.
+    min_visit : int, default=1
+        Smallest exact visit count included in the index.
+    max_visit : int, default=12
+        Largest exact visit count included in the index.
+    min_career_n_for_standardization : int, default=30
+        Minimum degree-programme sample size required for career-relative standardization.
+    min_cell_n_for_balanced : int, default=2
+        Minimum degree-programme by exact-visit cell size included in the career-balanced index.
+    
+    Returns
+    -------
+    tuple[pd.DataFrame, pd.DataFrame]
+        Tuple containing exact-visit performance-index rows and degree-programme-by-exact-count component rows.
     """
     req = [visits_col, outcome_col, career_col]
     d = df.dropna(subset=req).copy()
@@ -612,7 +761,26 @@ def longitudinal_any_visit_transition(
     calc_coverage_col: str = "CALC_VISIT_COVERAGE",
     mu_coverage_col: str | None = "MU_VISIT_COVERAGE",
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
-    """2x2 longitudinal transition and association statistics for any CMAT use."""
+    """2x2 longitudinal transition and association statistics for any CMAT use.
+    
+    Parameters
+    ----------
+    longitudinal : pd.DataFrame
+        Paired longitudinal analytical table.
+    mu_visits_col : str, default='MU_VISITS_CMAT_PERIOD'
+        Column containing MU-period CMAT visit counts.
+    calc_visits_col : str, default='VISITS_CMAT_PERIOD'
+        Column containing Calculus-period CMAT visit counts.
+    calc_coverage_col : str, default='CALC_VISIT_COVERAGE'
+        Boolean column identifying Calculus periods with CMAT record coverage.
+    mu_coverage_col : str | None, default='MU_VISIT_COVERAGE'
+        Optional Boolean column identifying MU periods with CMAT record coverage.
+    
+    Returns
+    -------
+    tuple[pd.DataFrame, pd.DataFrame]
+        Tuple containing the four observed MU/Calculus any-use combinations and a one-row table of risk, odds, association, and McNemar statistics.
+    """
     d = longitudinal.copy()
     mask = d[calc_coverage_col].astype(bool)
     if mu_coverage_col and mu_coverage_col in d.columns:
@@ -694,7 +862,22 @@ def clustered_omnibus_visit_group_test(
     group_col: str = "VISIT_GROUP_PERIOD",
     outcome_col: str = "Z_GRADE_PRIMARY",
 ) -> pd.DataFrame:
-    """Cluster-robust classroom-FE omnibus complement to marginal Welch ANOVA."""
+    """Cluster-robust classroom-FE omnibus complement to marginal Welch ANOVA.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    group_col : str, default='VISIT_GROUP_PERIOD'
+        Column containing the analytical group labels.
+    outcome_col : str, default='Z_GRADE_PRIMARY'
+        Column containing the continuous outcome to analyze.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
+    """
     d = df.dropna(subset=[group_col, outcome_col, "CLASSROOM_ID"]).copy()
     d[group_col] = pd.Categorical(d[group_col], categories=VISIT_GROUP_ORDER, ordered=True)
     model = smf.ols(
@@ -723,7 +906,24 @@ def clustered_omnibus_career_test(
     outcome_col: str = "Z_GRADE_PRIMARY",
     min_career_n: int = 30,
 ) -> pd.DataFrame:
-    """Classroom-FE, cluster-robust joint test of career coefficients."""
+    """Classroom-FE, cluster-robust joint test of career coefficients.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    career_col : str, default='CLAVECARRERA'
+        Column containing the official degree-programme identifier.
+    outcome_col : str, default='Z_GRADE_PRIMARY'
+        Column containing the continuous outcome to analyze.
+    min_career_n : int, default=30
+        Minimum degree-programme sample size retained for the stated inferential analysis.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
+    """
     d = df.dropna(subset=[career_col, outcome_col, "CLASSROOM_ID"]).copy()
     counts=d[career_col].value_counts(); keep=counts[counts>=min_career_n].index
     d=d.loc[d[career_col].isin(keep)].copy()
@@ -756,16 +956,40 @@ def exact_visit_index_trend(
     min_exact_group_n_for_stable_trend: int = 20,
 ) -> pd.DataFrame:
     """Exploratory trend for the career-relative exact-dose index.
-
+    
     Two specifications are returned.  The first uses every student with an
     exact count from 1..12.  The second excludes exact-count cells with fewer
     than ``min_exact_group_n_for_stable_trend`` students.  This protects the
     trend interpretation from being driven by the very sparse 8--12-visit
     tail while retaining those cohorts descriptively in table 91.
-
+    
     Spearman's rho is a monotone, nonparametric summary.  The linear slope is
     intentionally secondary and uses professor-period cluster-robust standard
     errors; neither statistic identifies a causal dose-response relation.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    visits_col : str, default='VISITS_CMAT_PERIOD'
+        Column containing CMAT visit counts.
+    outcome_col : str, default='Z_GRADE_PRIMARY'
+        Column containing the continuous outcome to analyze.
+    career_col : str, default='CLAVECARRERA'
+        Column containing the official degree-programme identifier.
+    min_visit : int, default=1
+        Smallest exact visit count included in the index.
+    max_visit : int, default=12
+        Largest exact visit count included in the index.
+    min_career_n : int, default=30
+        Minimum degree-programme sample size retained for the stated inferential analysis.
+    min_exact_group_n_for_stable_trend : int, default=20
+        Minimum exact-count cell size retained in the stable trend sensitivity specification.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
     """
     d = df.dropna(subset=[visits_col, outcome_col, career_col, "CLASSROOM_ID"]).copy()
     cs = d.groupby(career_col)[outcome_col].agg(["count", "mean", "std"])

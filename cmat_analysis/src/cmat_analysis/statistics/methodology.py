@@ -45,6 +45,20 @@ def exact_visit_group(v: int | float) -> str:
 
 
 def add_exact_visit_group(df: pd.DataFrame, visits_col: str = "VISITS_CMAT_PERIOD") -> pd.DataFrame:
+    """Add the ordered 0, 1, 2, 3, and 4+ exact-visit grouping variable.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    visits_col : str, default='VISITS_CMAT_PERIOD'
+        Column containing CMAT visit counts.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
+    """
     d = df.copy()
     d["EXACT_VISIT_GROUP_0_1_2_3_4P"] = pd.Categorical(
         d[visits_col].map(exact_visit_group), categories=EXACT_GROUP_ORDER, ordered=True
@@ -200,7 +214,26 @@ def games_howell_exact_groups(
     population: str,
     alpha: float = 0.05,
 ) -> pd.DataFrame:
-    """All pairwise Games--Howell contrasts for 0,1,2,3,4+ visit groups."""
+    """All pairwise Games--Howell contrasts for 0,1,2,3,4+ visit groups.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    visits_col : str, default='VISITS_CMAT_PERIOD'
+        Column containing CMAT visit counts.
+    outcome_col : str, default='Z_GRADE_PRIMARY'
+        Column containing the continuous outcome to analyze.
+    population : str
+        Label identifying the analyzed population in returned tables.
+    alpha : float, default=0.05
+        Two-sided familywise significance level used for confidence intervals or tests.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Computed table or tables containing the quantities described above.
+    """
     d = add_exact_visit_group(df, visits_col).dropna(subset=[outcome_col]).copy()
     stats_by = {}
     for label in EXACT_GROUP_ORDER:

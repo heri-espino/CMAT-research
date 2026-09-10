@@ -24,6 +24,18 @@ SESSION_OFFSET = {"PRIMAVERA": 0, "VERANO": 1, "OTONO": 2}
 
 
 def normalize_text(value: object) -> str | None:
+    """Normalize free text to uppercase, accent-free, whitespace-collapsed form.
+    
+    Parameters
+    ----------
+    value : object
+        Value to normalize or pseudonymize.
+    
+    Returns
+    -------
+    str | None
+        Normalized text, or ``None`` for missing input.
+    """
     if value is None or (isinstance(value, float) and np.isnan(value)):
         return None
     text = str(value).strip().upper()
@@ -35,11 +47,37 @@ def normalize_text(value: object) -> str | None:
 
 
 def normalize_session(value: object) -> str | None:
+    """Normalize an academic-session label to the canonical CMAT session vocabulary.
+    
+    Parameters
+    ----------
+    value : object
+        Value to normalize or pseudonymize.
+    
+    Returns
+    -------
+    str | None
+        Canonical session label when recognized; otherwise the normalized input label, or ``None`` for missing input.
+    """
     key = normalize_text(value)
     return SESSION_MAP.get(key, key)
 
 
 def period_index(year: int | float, session: object) -> int:
+    """Map an academic year and session to the project chronological period index.
+    
+    Parameters
+    ----------
+    year : int | float
+        Academic calendar year.
+    session : object
+        Academic-session label.
+    
+    Returns
+    -------
+    int
+        Chronological integer index with three ordered session slots per calendar year.
+    """
     session_n = normalize_session(session)
     if session_n not in SESSION_OFFSET:
         raise ValueError(f"Unknown academic session: {session!r}")
@@ -47,10 +85,38 @@ def period_index(year: int | float, session: object) -> int:
 
 
 def period_label(year: int | float, session: object) -> str:
+    """Build the canonical textual label for an academic period.
+    
+    Parameters
+    ----------
+    year : int | float
+        Academic calendar year.
+    session : object
+        Academic-session label.
+    
+    Returns
+    -------
+    str
+        Label of the form ``"YEAR-SESSION"``.
+    """
     return f"{int(year)}-{normalize_session(session)}"
 
 
 def visit_group(visits: int | float, threshold: int = 3) -> str:
+    """Map an observed visit count to the configured threshold group.
+    
+    Parameters
+    ----------
+    visits : int | float
+        Observed number of CMAT visits.
+    threshold : int, default=3
+        Operational visit-count threshold used to define visit groups and PPA indicators.
+    
+    Returns
+    -------
+    str
+        Threshold-based group label: zero, below-threshold positive use, exact threshold, or above threshold.
+    """
     v = int(visits)
     if v <= 0:
         return "0"
@@ -63,6 +129,21 @@ def visit_group(visits: int | float, threshold: int = 3) -> str:
 
 @dataclass
 class StudyData:
+    """Container for normalized study inputs and audit metadata.
+    
+    Parameters
+    ----------
+    academics : pandas.DataFrame
+        Normalized classroom-eligible academic records used in analytical cohort construction.
+    advisories : pandas.DataFrame
+        Normalized CMAT advisory-event records.
+    data_quality : dict[str, object]
+        Data-quality and coverage summaries produced during input normalization.
+    academic_audit : pandas.DataFrame or None, optional
+        Pre-exclusion normalized academic extract retained for administrative auditing,
+        including rows without professor identifiers. It is not the main classroom-level
+        analytical table.
+    """
     academics: pd.DataFrame
     advisories: pd.DataFrame
     data_quality: dict[str, object]
@@ -73,7 +154,18 @@ class StudyData:
 
 
 def normalize_identifier(value: object) -> str | None:
-    """Normalize numeric or pseudonymized identifiers without requiring numbers."""
+    """Normalize numeric or pseudonymized identifiers without requiring numbers.
+    
+    Parameters
+    ----------
+    value : object
+        Value to normalize or pseudonymize.
+    
+    Returns
+    -------
+    str | None
+        Canonical identifier string, or ``None`` for missing or empty input.
+    """
     if value is None or (isinstance(value, float) and np.isnan(value)):
         return None
     if isinstance(value, (int, np.integer)):
@@ -106,6 +198,22 @@ def _classify_grade(value: object, adverse: set[str], non_attempt: set[str]) -> 
 
 
 def load_and_clean_inputs(config) -> StudyData:
+    """Read and normalize academic and CMAT advisory source tables.
+    
+    Parameters
+    ----------
+    config : object
+        Configuration object supplying the existing study or peak-detection parameters required by the function.
+    
+    Returns
+    -------
+    StudyData
+        Normalized academic records, advisory events, data-quality metadata, and the pre-exclusion academic audit table.
+    
+    Notes
+    -----
+    Administrative non-attempts and unknown grade tokens are classified rather than silently converted to numeric grades. Duplicate/conflict counts and advisory coverage are exposed in ``StudyData.data_quality``.
+    """
     materias = _read_table(Path(config.materias_path))
     asesorias = _read_table(Path(config.asesorias_path))
     raw_academic_n = len(materias)
@@ -229,6 +337,22 @@ def _eligible_attempts(df: pd.DataFrame, code: str, name: str) -> pd.DataFrame:
 
 
 def first_attempts(df: pd.DataFrame, code: str, name: str) -> pd.DataFrame:
+    """Select the first eligible attempt of a named subject for each student.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    code : str
+        Canonical subject code used to identify eligible attempts.
+    name : str
+        Normalized or human-readable subject name used as a fallback identifier.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Eligible first-attempt rows, one per observed student when available.
+    """
     attempts = _eligible_attempts(df, code, name)
     attempts = attempts.sort_values(["STUDENT_ID", "PERIOD_INDEX"], kind="stable")
     return attempts.drop_duplicates(["STUDENT_ID"], keep="first").reset_index(drop=True)
@@ -251,6 +375,22 @@ def _visit_counts(advisories: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]
 
 
 def attach_visits(attempts: pd.DataFrame, advisories: pd.DataFrame, *, threshold: int) -> pd.DataFrame:
+    """Attach course-level and period-level CMAT visit counts to academic attempts.
+    
+    Parameters
+    ----------
+    attempts : pd.DataFrame
+        Academic-attempt table to which visit exposure measures are attached.
+    advisories : pd.DataFrame
+        CMAT advisory-event table with normalized student and academic-period identifiers.
+    threshold : int
+        Operational visit-count threshold used to define visit groups and PPA indicators.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Copy of the attempt table augmented with visit counts, visit groups, threshold indicators, persistence indicators, and ``CLASSROOM_ID``.
+    """
     by_course, by_period = _visit_counts(advisories)
     out = attempts.merge(
         by_course,
@@ -275,6 +415,24 @@ def attach_visits(attempts: pd.DataFrame, advisories: pd.DataFrame, *, threshold
 
 
 def build_study_cohorts(data: StudyData, config) -> dict[str, pd.DataFrame]:
+    """Construct the reusable MU, Calculus, and longitudinal study cohorts.
+    
+    Parameters
+    ----------
+    data : StudyData
+        Normalized ``StudyData`` object containing academics, advisory events, and coverage metadata.
+    config : object
+        Configuration object supplying the existing study or peak-detection parameters required by the function.
+    
+    Returns
+    -------
+    dict[str, pd.DataFrame]
+        Dictionary containing ``mu_all_first_attempts``, ``mu_primary``, ``calc_comparator``, and ``longitudinal`` DataFrames.
+    
+    Notes
+    -----
+    The function preserves the existing study definitions. ``SEMESTER_LAG`` remains a backward-compatible alias of ``ACADEMIC_TERM_LAG`` even though the period index includes Primavera, Verano, and Otoño slots.
+    """
     academics, advisories = data.academics, data.advisories
     coverage = set(
         zip(

@@ -87,7 +87,7 @@ def _uniform_quantiles(size: int, low: float, high: float) -> np.ndarray:
 
 def add_primary_outcomes(df: pd.DataFrame, config) -> pd.DataFrame:
     """Create continuous classroom-relative performance and pass/fail outcomes.
-
+    
     Primary continuous outcome
     --------------------------
     1. Numeric final grades are never changed.
@@ -99,9 +99,21 @@ def add_primary_outcomes(df: pd.DataFrame, config) -> pd.DataFrame:
     4. A non-empty but degenerate pool uses empirical resampling.
     5. A classroom with no observed numeric sub-pass grade uses U(0, 7.5).
     6. The completed grade distribution is standardized within classroom.
-
+    
     ``Z_GRADE_UNIFORM_SENS`` and ``Z_GRADE_COMPLETE_CASE`` are retained as
     sensitivity outcomes. ``PASS`` never assigns an artificial numeric grade.
+    
+    Parameters
+    ----------
+    df : pd.DataFrame
+        Input analytical table containing the columns named by the other arguments.
+    config : object
+        Configuration object supplying the existing study or peak-detection parameters required by the function.
+    
+    Returns
+    -------
+    pd.DataFrame
+        Copy of the cohort table with primary/sensitivity grade measures, pass indicator, classroom-standardized outcomes, and an imputation-audit DataFrame stored in ``attrs``.
     """
     out = df.copy()
     rng = np.random.default_rng(config.random_seed)
