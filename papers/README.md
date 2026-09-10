@@ -2,19 +2,70 @@
 
 Publication-specific manuscript projects for the five-paper CMAT research programme.
 
+## Production role
+
+`papers/` is the **publication-selection layer**. The broad scientific reasoning, sensitivities and exploratory/methodological record should first exist in `reports/`; papers then select the validated subset needed for a journal argument.
+
+```text
+root/code
+    reusable scientific computation
+        ↓
+reports/
+    broad analysis + brainstorming + methodological record
+        ↓
+papers/
+    final publication-specific selection and narrative
+```
+
+A paper is therefore downstream of the reports, not a parallel analysis project.
+
 ## Core rule: one paper, one home
 
-Each paper has a single canonical directory under `papers/<paper_id>/`. Everything that is specific to that paper belongs under that directory: scope/RQs, literature interpretation, manuscript source, reviewed paper-specific results, and submission material.
+Each paper has a single canonical directory under `papers/<paper_id>/`. Everything editorially specific to that manuscript belongs there: scope/RQs, literature interpretation, manuscript source, reviewed final paper-specific assets and submission material.
 
-Do **not** mirror paper-specific folders elsewhere in the repository. In particular, there is no separate `literature/papers/` hierarchy.
+Do **not** mirror paper-specific folders elsewhere. In particular, there is no separate `literature/papers/` hierarchy.
 
-The physical literature corpus remains shared under `literature/library/`; paper folders contain only the paper-specific interpretation/indexing of those sources, not duplicate PDFs.
+The physical literature corpus remains shared under `literature/library/`; paper folders contain only paper-specific interpretation/annotation, not duplicate source PDFs.
 
 ## Scientific boundary
 
-Papers consume the canonical scientific pipeline and aggregate outputs; they do **not** maintain independent versions of cohorts, estimands, models, or numerical results.
+Papers do **not** maintain independent versions of cohorts, estimands, models, statistical tests or numerical results.
 
-The canonical cross-paper portfolio is `../docs/PUBLICATION_PORTFOLIO.md`. It summarizes priorities and boundaries. The detailed source of truth for a particular manuscript is that paper's own `README.md`.
+If manuscript work reveals that a new calculation is needed:
+
+1. identify the source report/scientific question;
+2. search `../code/FUNCTION_INDEX.md`;
+3. implement/reuse the calculation in root `../code/src/visitas_analysis/`;
+4. test it and regenerate the relevant report outputs;
+5. only then select the validated result into the paper.
+
+The canonical cross-paper portfolio is `../docs/PUBLICATION_PORTFOLIO.md`; detailed paper status belongs in each paper README.
+
+## Canonical per-paper layout
+
+```text
+papers/<paper_id>/
+├── README.md        # scope, RQs, contribution, targets, status, source reports
+├── literature/      # paper-specific evidence map/notes; no duplicate PDFs
+├── manuscript/      # LaTeX/manuscript source
+├── results/         # selected final aggregate tables/figures for the paper
+├── code/            # optional thin packaging/build runner only
+└── submission/      # journal-specific submission material
+```
+
+Create folders only when they contain real files; do not add empty scaffolding solely for symmetry.
+
+## Optional paper-local code
+
+A future `papers/<paper_id>/code/` folder is allowed only for **thin product orchestration or packaging**. It may import root-code functions or consume reviewed report outputs, but it must not contain a second implementation of scientific logic.
+
+For example, a paper build script may select/copy approved figures from a report and compile the manuscript; it should not independently calculate the regression that produced the figure.
+
+## Report provenance
+
+When a paper copies a final table/figure into `results/` for submission portability, document which report/output it came from. The report remains the broader empirical workspace; the paper-local copy is the final selected publication asset.
+
+Do not silently edit a copied number or figure inside the paper. Changes must originate in root code/report production and then propagate downstream.
 
 ## Planned manuscripts
 
@@ -24,29 +75,10 @@ The canonical cross-paper portfolio is `../docs/PUBLICATION_PORTFOLIO.md`. It su
 4. `paper4_degree_help_seeking/` — disciplinary/degree-programme heterogeneity in support use and persistence.
 5. `paper5_longitudinal_trajectories/` — full-degree longitudinal trajectories of mathematics-support use.
 
-## Canonical per-paper layout
-
-```text
-papers/<paper_id>/
-├── README.md        # canonical paper scope, RQs, contribution, targets, status
-├── literature/      # paper-specific literature index/notes; no duplicate source PDFs
-├── manuscript/      # LaTeX/manuscript source when drafting begins
-├── results/         # reviewed paper-specific aggregate tables/figures when retained
-└── submission/      # journal-specific cover letters/checklists/supplementary files
-```
-
-Only `README.md` and `literature/` are required before drafting. Create `manuscript/`, `results/`, and `submission/` only when they contain real files; do not add empty scaffolding solely for symmetry.
-
 ## Literature boundary
 
-- `../literature/library/` = canonical physical/shared source corpus (`articles/`, `pdf/`, `references/`, catalog/provenance).
-- `../literature/general/` = cross-project/thematic literature maps.
-- `<paper_id>/literature/` = interpretation of shared sources for one paper: priority, role, reading notes, gaps, and claim boundaries.
+- `../literature/library/` = canonical physical/shared source corpus;
+- `../literature/general/` = cross-project/thematic literature maps;
+- `<paper_id>/literature/` = paper-specific source priorities, reading notes, annotations, gaps and claim boundaries.
 
-A source used by three papers still has one physical record in `literature/library/` and three possible paper-specific annotations.
-
-## Code and results boundary
-
-Reusable scientific logic stays in `../code/src/visitas_analysis/`. Stable experiment runners stay in `../code/experiments/`. A paper-specific runner should reproduce that paper's outputs without copying scientific functions into the paper directory.
-
-If a manuscript exposes a methodological problem, fix it first in `code/`, test it, regenerate canonical outputs, verify changed numbers, and only then update the manuscript.
+A source used by multiple papers still has one physical record in `literature/library/`.
