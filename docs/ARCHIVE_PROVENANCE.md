@@ -61,7 +61,7 @@ The duplicate methodology source tree once retained under `code/snapshots/` was 
 
 Verified report artifact:
 
-- `reports/methodology_report/methodology_report.pdf` — 40 pages;
+- `brainstorm/methodology_report/methodology_report.pdf` — 40 pages;
 - SHA-256: `1e52d36809924df4bc84db65f6cb6669fe33d1f402076e8930b3a173f550595f`.
 
 Historical validation recorded 9/9 methodology helper tests passed and a 320-symbol historical Python function index.

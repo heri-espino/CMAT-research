@@ -74,7 +74,7 @@ content: "references-only"
 
 [26] Norris E. Solving the maths problem: international perspectives on mathematics education. London: Royal Society of Arts; 2012. Available from:
 
-[https://www.thersa.org/discover/publications-and-articles/reports/solving-the-maths-probleminternational-perspectives-on-mathematics-education.](https://www.thersa.org/discover/publications-and-articles/reports/solving-the-maths-problem-international-perspectives-on-mathematics-education)
+[https://www.thersa.org/discover/publications-and-articles/brainstorm/solving-the-maths-probleminternational-perspectives-on-mathematics-education.](https://www.thersa.org/discover/publications-and-articles/brainstorm/solving-the-maths-problem-international-perspectives-on-mathematics-education)
 
 
 <!-- p:32 -->

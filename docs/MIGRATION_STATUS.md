@@ -9,14 +9,14 @@
 - private monorepo and privacy-first raw-data exclusion policy established;
 - historical literature source material imported and consolidated under `literature/library/`;
 - historical scientific code/report states imported and verified;
-- cumulative research record preserved in `reports/research_compendium/`;
-- methodology/statistical report preserved in `reports/methodology_report/`;
+- cumulative research record preserved in `brainstorm/research_compendium/`;
+- methodology/statistical report preserved in `brainstorm/methodology_report/`;
 - five-paper portfolio established under `docs/PUBLICATION_PORTFOLIO.md`;
 - each paper made a single canonical home under `papers/<paper_id>/`, including its paper-specific literature view;
 - former parallel `literature/papers/` hierarchy removed;
 - active `code/` cleaned to executable pipeline + immediate technical documentation;
 - duplicate code snapshots, legacy notebooks, old manuals/reports, stale branch-status file and obsolete root migration scripts removed from the active tree;
-- previously committed pipeline outputs classified as shared historical aggregates under `analysis/shared/historical_outputs/`;
+- previously committed pipeline outputs classified as shared historical aggregates under `brainstorm/shared/historical_outputs/`;
 - branch policy consolidated into `docs/GIT_WORKFLOW.md`;
 - historical methodology-restoration documentation consolidated under `docs/provenance/methodology_restoration_2026-09-07/`.
 
@@ -60,9 +60,9 @@ If historical implementation details are needed, retrieve the relevant state fro
 
 `code/` is source code. Generated local outputs under `code/outputs/` are ignored by Git.
 
-Shared privacy-reviewed retained aggregates belong under `analysis/shared/`. Existing historical aggregate outputs are retained at:
+Shared privacy-reviewed retained aggregates belong under `brainstorm/shared/`. Existing historical aggregate outputs are retained at:
 
-`analysis/shared/historical_outputs/`
+`brainstorm/shared/historical_outputs/`
 
 They remain useful for provenance/comparison. A new canonical aggregate output set should be frozen only after the relevant active pipeline is validated.
 

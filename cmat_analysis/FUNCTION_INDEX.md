@@ -1,0 +1,735 @@
+# Python function and symbol index
+
+> **Canonical search index for `cmat_analysis/`.** Before writing a new function, search this file by concept, symbol name, or tag, then inspect the referenced implementation. The index is generated from the Python AST; descriptions come from docstrings when available.
+
+## Before writing new code
+
+1. Search this file for the intended capability (for example `revalidation`, `Games-Howell`, `persistence`, `KDE`, `career`, `privacy`).
+2. Open the most relevant existing symbol and its nearby helpers.
+3. Prefer extending/reusing an existing function over creating a parallel implementation.
+4. If a genuinely new symbol is required, add or improve its docstring.
+5. Regenerate this index with `python scripts/generate_function_index.py` and include the updated index in the same commit.
+
+## Capability map
+
+| Capability | Search terms | Start here |
+|---|---|---|
+| Cohorts, real attempts, revalidations, visit grouping | `cohort attempt revalidation visit group` | `src/cmat_analysis/study/cohort.py` |
+| Study outcomes, classroom-relative grades, adverse-state imputation | `outcome grade z-score classroom imputation KDE` | `src/cmat_analysis/study/outcomes.py` |
+| PPA / MU→Calculus persistence and longitudinal models | `PPA persistence calculus longitudinal transition threshold` | `src/cmat_analysis/study/ppa_progression.py` |
+| Study-level statistical tests and confidence intervals | `statistics CI odds risk Welch Games-Howell effect` | `src/cmat_analysis/study/statistics.py` |
+| Selection adjustment / weighting | `selection propensity weighting balance` | `src/cmat_analysis/study/selection.py` |
+| Temporal patterns, peaks, spacing, periodicity | `temporal peak spacing periodicity ACF` | `src/cmat_analysis/study/temporal.py` |
+| Extended degree-programme and visit-count analyses | `career degree programme exact visits extended` | `src/cmat_analysis/study/extended_analysis.py` |
+| Main publication-study orchestration | `pipeline study run outputs tables figures` | `src/cmat_analysis/study/pipeline.py` |
+| General data cleaning / legacy-compatible analysis helpers | `clean normalize transform grades visits` | `src/cmat_analysis/analysis/cleaning.py` |
+| Parametric and non-parametric tests | `anova t-test kruskal mann-whitney ks nonparametric` | `src/cmat_analysis/analysis/parametric_tests.py; src/cmat_analysis/analysis/nonparametric_tests.py` |
+| Report-compatible imputation and historical figures | `report compatible KDE imputation professor cluster figure` | `src/cmat_analysis/analysis/report_compatible/` |
+| Reporting metrics, tables, rendering and plots | `report metrics render table plot assets` | `src/cmat_analysis/reporting/` |
+| Privacy / pseudonymisation / release helpers | `privacy identifier HMAC anonymized release` | `src/cmat_analysis/privacy.py; src/create_anonymized_release.py` |
+| Figure release and LaTeX release preparation | `release figure latex copy` | `src/cmat_analysis/release_figures.py; src/prepare_release_latex.py` |
+| Entry points and command-line runners | `CLI run analysis study figures` | `src/run_analysis.py; src/run_study.py; src/generador_figuras_cli.py` |
+
+## Inventory summary
+
+- Python files scanned: **63**
+- Reusable/source symbols: **406**
+- Test symbols: **15**
+- Total functions/classes/methods/nested functions: **421**
+
+Private helpers whose names begin with `_` are included because they often contain reusable project logic even when they are not part of the public API.
+
+## Reusable/source symbols by module
+
+### `scripts/generate_function_index.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `Symbol` | class | 40 | `class Symbol` | No docstring; inspect implementation before reuse. | `scripts generate_function_index py symbol no` |
+| `_first_doc_line` | function | 51 | `def _first_doc_line(node: ast.AST) -> str` | No docstring; inspect implementation before reuse. | `scripts generate_function_index py first_doc_line no` |
+| `_signature` | function | 59 | `def _signature(node: ast.FunctionDef \| ast.AsyncFunctionDef \| ast.ClassDef) -> str` | No docstring; inspect implementation before reuse. | `scripts generate_function_index py signature no` |
+| `_tags` | function | 71 | `def _tags(path: str, qualname: str, summary: str) -> str` | No docstring; inspect implementation before reuse. | `scripts generate_function_index py tags no` |
+| `SymbolVisitor` | class | 82 | `class SymbolVisitor(ast.NodeVisitor)` | No docstring; inspect implementation before reuse. | `scripts generate_function_index py symbolvisitor no` |
+| `SymbolVisitor.__init__` | method | 83 | `def __init__(self, relpath: str, is_test: bool) -> None` | No docstring; inspect implementation before reuse. | `scripts generate_function_index py symbolvisitor init__ no` |
+| `SymbolVisitor._qualname` | method | 89 | `def _qualname(self, name: str) -> str` | No docstring; inspect implementation before reuse. | `scripts generate_function_index py symbolvisitor qualname no` |
+| `SymbolVisitor._add` | method | 95 | `def _add(self, node: ast.FunctionDef \| ast.AsyncFunctionDef \| ast.ClassDef, kind: str) -> None` | No docstring; inspect implementation before reuse. | `scripts generate_function_index py symbolvisitor add no` |
+| `SymbolVisitor.visit_ClassDef` | method | 111 | `def visit_ClassDef(self, node: ast.ClassDef) -> None` | No docstring; inspect implementation before reuse. | `scripts generate_function_index py symbolvisitor visit_classdef no` |
+| `SymbolVisitor.visit_FunctionDef` | method | 117 | `def visit_FunctionDef(self, node: ast.FunctionDef) -> None` | No docstring; inspect implementation before reuse. | `scripts generate_function_index py symbolvisitor visit_functiondef no` |
+| `SymbolVisitor.visit_AsyncFunctionDef` | method | 124 | `def visit_AsyncFunctionDef(self, node: ast.AsyncFunctionDef) -> None` | No docstring; inspect implementation before reuse. | `scripts generate_function_index py symbolvisitor visit_asyncfunctiondef no` |
+| `_python_files` | function | 132 | `def _python_files() -> list[Path]` | No docstring; inspect implementation before reuse. | `scripts generate_function_index py python_files no` |
+| `collect_symbols` | function | 142 | `def collect_symbols() -> tuple[list[Path], list[Symbol], list[str]]` | No docstring; inspect implementation before reuse. | `scripts generate_function_index py collect_symbols no` |
+| `_escape` | function | 160 | `def _escape(text: str) -> str` | No docstring; inspect implementation before reuse. | `scripts generate_function_index py escape no` |
+| `render_index` | function | 164 | `def render_index(files: list[Path], symbols: list[Symbol], errors: list[str]) -> str` | No docstring; inspect implementation before reuse. | `scripts generate_function_index py render_index no` |
+| `main` | function | 240 | `def main() -> int` | No docstring; inspect implementation before reuse. | `scripts generate_function_index py main no` |
+
+### `src/cmat_analysis/analysis/cleaning.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `clean_materias_df` | function | 14 | `def clean_materias_df(materias: pd.DataFrame) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis cleaning py clean_materias_df no` |
+| `_silverman_bandwidth` | function | 31 | `def _silverman_bandwidth(x)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis cleaning py silverman_bandwidth no` |
+| `_sample_kde_truncated` | function | 44 | `def _sample_kde_truncated(x_obs, size, low=0.0, high=7.5, rng=None)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis cleaning py sample_kde_truncated no` |
+| `_sample_empirical` | function | 63 | `def _sample_empirical(x_obs, size, rng=None)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis cleaning py sample_empirical no` |
+| `impute_nans_from_pre75_kde_df` | function | 69 | `def impute_nans_from_pre75_kde_df(df, value_col='CALIFICACION', out_col='IMPKDE', low=0.0, high=7.4, min_kde_n=20, seed=42, fallback='uniform', constant_value=6.5, prefer_empirical_if_small=True, global_source=None, debug=False)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis cleaning py impute_nans_from_pre75_kde_df no` |
+| `impute_nans_from_pre75_kde_df.<locals>._borrow_pool` | function | 91 | `def _borrow_pool()` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis cleaning py impute_nans_from_pre75_kde_df locals borrow_pool no` |
+| `get_salones_with_imputations` | function | 149 | `def get_salones_with_imputations(materias)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis cleaning py get_salones_with_imputations no` |
+| `limpieza_datos` | function | 210 | `def limpieza_datos()` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis cleaning py limpieza_datos no` |
+
+### `src/cmat_analysis/analysis/grade_analysis.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `_output_path` | function | 7 | `def _output_path(path_root, filename: str) -> Path` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis grade_analysis py output_path no` |
+| `salon` | function | 11 | `def salon(ultramerge, split, PATH, MATERIA=None)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis grade_analysis py salon no` |
+| `estudiante_ultramerge_means` | function | 62 | `def estudiante_ultramerge_means(ultramerge_means, split, PATH)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis grade_analysis py estudiante_ultramerge_means no` |
+
+### `src/cmat_analysis/analysis/nonparametric_tests.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `_output_path` | function | 9 | `def _output_path(path_root, filename: str) -> Path` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis nonparametric_tests py output_path no` |
+| `pruebas_no_parametricas` | function | 13 | `def pruebas_no_parametricas(group1, group2, split, estudiante_o_calificacion='Salón', PATH=None, MATERIA=None)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis nonparametric_tests py pruebas_no_parametricas no` |
+| `pruebas_no_parametricas.<locals>.bootstrap_diff_median` | function | 29 | `def bootstrap_diff_median(x, y, B=10000, seed=0)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis nonparametric_tests py pruebas_no_parametricas locals bootstrap_diff_median no` |
+| `pruebas_no_parametricas.<locals>.stat_median` | function | 43 | `def stat_median(x, y)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis nonparametric_tests py pruebas_no_parametricas locals stat_median no` |
+| `pruebas_no_parametricas.<locals>.cliffs_delta` | function | 52 | `def cliffs_delta(x, y, max_pairs=5000000, seed=0)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis nonparametric_tests py pruebas_no_parametricas locals cliffs_delta no` |
+| `pruebas_no_parametricas.<locals>.bootstrap_ci_two_sample` | function | 70 | `def bootstrap_ci_two_sample(x, y, stat_fn, B=5000, seed=0, alpha=0.05)` | Generic bootstrap CI for a two-sample statistic. | `src cmat_analysis analysis nonparametric_tests py pruebas_no_parametricas locals bootstrap_ci_two_sample generic bootstrap ci a two-sample statistic` |
+| `pruebas_no_parametricas.<locals>.stat_CL` | function | 100 | `def stat_CL(x, y)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis nonparametric_tests py pruebas_no_parametricas locals stat_cl no` |
+| `pruebas_no_parametricas.<locals>.stat_r_rb` | function | 112 | `def stat_r_rb(x, y)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis nonparametric_tests py pruebas_no_parametricas locals stat_r_rb no` |
+| `pruebas_no_parametricas.<locals>.stat_delta` | function | 119 | `def stat_delta(x, y)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis nonparametric_tests py pruebas_no_parametricas locals stat_delta no` |
+| `pruebas_no_parametricas.<locals>.stat_median_diff` | function | 127 | `def stat_median_diff(x, y)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis nonparametric_tests py pruebas_no_parametricas locals stat_median_diff no` |
+
+### `src/cmat_analysis/analysis/parametric_tests.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `_output_path` | function | 9 | `def _output_path(path_root, filename: str) -> Path` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis parametric_tests py output_path no` |
+| `pruebas_parametricas` | function | 13 | `def pruebas_parametricas(group1, group2, split, estudiante_o_calificacion='Salón', PATH=None, MATERIA=None)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis parametric_tests py pruebas_parametricas no` |
+
+### `src/cmat_analysis/analysis/raw_report_figures.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `ProfessorColorScale` | class | 61 | `class ProfessorColorScale` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py professorcolorscale no` |
+| `ReportContext` | class | 69 | `class ReportContext` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py reportcontext no` |
+| `ClusterContext` | class | 85 | `class ClusterContext` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py clustercontext no` |
+| `ParametricSummary` | class | 96 | `class ParametricSummary` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py parametricsummary no` |
+| `NonParametricSummary` | class | 107 | `class NonParametricSummary` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py nonparametricsummary no` |
+| `parse_args` | function | 123 | `def parse_args() -> argparse.Namespace` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py parse_args no` |
+| `main` | function | 151 | `def main() -> int` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py main no` |
+| `resolve_path` | function | 206 | `def resolve_path(path: Path) -> Path` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py resolve_path no` |
+| `load_report_context` | function | 210 | `def load_report_context(materias_path: Path, asesorias_path: Path, threshold: float, visit_split: int) -> ReportContext` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py load_report_context no` |
+| `build_professor_color_scale` | function | 282 | `def build_professor_color_scale(profes_value_counts: pd.Series) -> ProfessorColorScale` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py build_professor_color_scale no` |
+| `compute_zscore` | function | 303 | `def compute_zscore(series: pd.Series) -> pd.Series` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py compute_zscore no` |
+| `summarize_salones` | function | 315 | `def summarize_salones(salones: dict[tuple[int, str, int, str], pd.DataFrame], threshold: float) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py summarize_salones no` |
+| `pick_comparison_salon_key` | function | 339 | `def pick_comparison_salon_key(summary: pd.DataFrame) -> tuple[int, str, int, str]` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py pick_comparison_salon_key no` |
+| `pick_outlier_salon_key` | function | 350 | `def pick_outlier_salon_key(summary: pd.DataFrame, fallback_key: tuple[int, str, int, str]) -> tuple[int, str, int, str]` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py pick_outlier_salon_key no` |
+| `format_salon_key` | function | 364 | `def format_salon_key(salon_key: tuple[int, str, int, str]) -> str` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py format_salon_key no` |
+| `numeric_array` | function | 369 | `def numeric_array(values: Iterable[object]) -> np.ndarray` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py numeric_array no` |
+| `ensure_parent_dirs` | function | 373 | `def ensure_parent_dirs(*paths: Path) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py ensure_parent_dirs no` |
+| `save_figure` | function | 378 | `def save_figure(fig: plt.Figure, *paths: Path) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py save_figure no` |
+| `save_cluster_grid` | function | 385 | `def save_cluster_grid(grid: sns.matrix.ClusterGrid, *paths: Path) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py save_cluster_grid no` |
+| `add_relative_colorbar` | function | 392 | `def add_relative_colorbar(ax: plt.Axes, label: str) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py add_relative_colorbar no` |
+| `_density_bandwidth` | function | 400 | `def _density_bandwidth(sample: np.ndarray) -> float` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py density_bandwidth no` |
+| `_gaussian_kernel_density` | function | 411 | `def _gaussian_kernel_density(x_grid: np.ndarray, sample: np.ndarray, bandwidth: float) -> np.ndarray` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py gaussian_kernel_density no` |
+| `extract_kde_curve` | function | 416 | `def extract_kde_curve(ax: plt.Axes, values: Iterable[object], clip: tuple[float, float]=KDE_CLIP, bw_adjust: float=KDE_BW_ADJUST) -> tuple[np.ndarray, np.ndarray] \| None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py extract_kde_curve no` |
+| `add_split_density` | function | 439 | `def add_split_density(ax: plt.Axes, values: Iterable[object], threshold: float, fail_color: tuple[float, float, float], pass_color: tuple[float, float, float], clip: tuple[float, float]=KDE_CLIP, bw_adjust: float=KDE_BW_ADJUST, alpha: float=0.3, linewidth: float=0.5) -> bool` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py add_split_density no` |
+| `add_filled_density` | function | 470 | `def add_filled_density(ax: plt.Axes, values: Iterable[object], label: str, clip: tuple[float, float], alpha: float=0.25) -> bool` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py add_filled_density no` |
+| `average_professor_pass_rates` | function | 494 | `def average_professor_pass_rates(df: pd.DataFrame, score_col: str, profes_ids: np.ndarray, threshold: float) -> tuple[float, float]` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py average_professor_pass_rates no` |
+| `global_pass_rates` | function | 513 | `def global_pass_rates(df: pd.DataFrame, score_col: str, threshold: float) -> tuple[float, float]` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py global_pass_rates no` |
+| `add_pass_rate_legend` | function | 521 | `def add_pass_rate_legend(ax: plt.Axes, below: float, above: float, threshold: float) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py add_pass_rate_legend no` |
+| `compute_parametric_summary` | function | 533 | `def compute_parametric_summary(group_1: np.ndarray, group_2: np.ndarray) -> ParametricSummary` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py compute_parametric_summary no` |
+| `cliffs_delta` | function | 546 | `def cliffs_delta(group_1: np.ndarray, group_2: np.ndarray, max_pairs: int=5000000, seed: int=DEFAULT_SEED) -> float` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py cliffs_delta no` |
+| `bootstrap_diff_median` | function | 569 | `def bootstrap_diff_median(group_1: np.ndarray, group_2: np.ndarray, bootstraps: int, seed: int) -> tuple[float, tuple[float, float]]` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py bootstrap_diff_median no` |
+| `bootstrap_ci_two_sample` | function | 587 | `def bootstrap_ci_two_sample(group_1: np.ndarray, group_2: np.ndarray, stat_fn, bootstraps: int, seed: int) -> tuple[float, float]` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py bootstrap_ci_two_sample no` |
+| `compute_non_parametric_summary` | function | 608 | `def compute_non_parametric_summary(group_1: np.ndarray, group_2: np.ndarray, bootstraps: int, seed: int) -> NonParametricSummary` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py compute_non_parametric_summary no` |
+| `compute_non_parametric_summary.<locals>.stat_cl` | function | 643 | `def stat_cl(sample_1: np.ndarray, sample_2: np.ndarray) -> float` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py compute_non_parametric_summary locals stat_cl no` |
+| `plot_professor_mean_trends` | function | 683 | `def plot_professor_mean_trends(ctx: ReportContext) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py plot_professor_mean_trends no` |
+| `plot_all_professors_raw` | function | 718 | `def plot_all_professors_raw(ctx: ReportContext) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py plot_all_professors_raw no` |
+| `plot_split_professor_densities` | function | 739 | `def plot_split_professor_densities(df: pd.DataFrame, score_col: str, profes_ids: np.ndarray, color_scale: ProfessorColorScale, threshold: float, title: str, output_paths: list[Path], y_limit: float \| None, share_mode: str) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py plot_split_professor_densities no` |
+| `plot_imputation_comparison` | function | 779 | `def plot_imputation_comparison(data: pd.DataFrame, series: list[tuple[str, str]], title: str, x_label: str, output_paths: list[Path], clip: tuple[float, float]) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py plot_imputation_comparison no` |
+| `generate_professor_figures` | function | 799 | `def generate_professor_figures(ctx: ReportContext) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py generate_professor_figures no` |
+| `generate_imputation_figures` | function | 829 | `def generate_imputation_figures(ctx: ReportContext) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py generate_imputation_figures no` |
+| `plot_visits_histograms` | function | 907 | `def plot_visits_histograms(ctx: ReportContext) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py plot_visits_histograms no` |
+| `plot_visit_scatter` | function | 943 | `def plot_visit_scatter(df: pd.DataFrame, score_col: str, title: str, y_label: str, output_path: Path, visit_split: int) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py plot_visit_scatter no` |
+| `plot_parametric_comparison` | function | 978 | `def plot_parametric_comparison(group_1: np.ndarray, group_2: np.ndarray, title: str, output_path: Path, visit_split: int) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py plot_parametric_comparison no` |
+| `plot_non_parametric_comparison` | function | 1017 | `def plot_non_parametric_comparison(group_1: np.ndarray, group_2: np.ndarray, title: str, output_path: Path, visit_split: int, bootstraps: int, seed: int) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py plot_non_parametric_comparison no` |
+| `plot_mean_z_by_visits` | function | 1059 | `def plot_mean_z_by_visits(ctx: ReportContext) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py plot_mean_z_by_visits no` |
+| `generate_visit_figures` | function | 1083 | `def generate_visit_figures(ctx: ReportContext, stats_bootstraps: int, seed: int) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py generate_visit_figures no` |
+| `build_cluster_context` | function | 1143 | `def build_cluster_context(ctx: ReportContext, min_observations: int, cluster_count: int) -> ClusterContext` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py build_cluster_context no` |
+| `plot_cluster_heatmap` | function | 1225 | `def plot_cluster_heatmap(cluster_ctx: ClusterContext) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py plot_cluster_heatmap no` |
+| `plot_cluster_selection` | function | 1252 | `def plot_cluster_selection(cluster_ctx: ClusterContext) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py plot_cluster_selection no` |
+| `silverman_bandwidth` | function | 1278 | `def silverman_bandwidth(sample: np.ndarray) -> float` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py silverman_bandwidth no` |
+| `kde_gaussian_grid` | function | 1289 | `def kde_gaussian_grid(x_grid: np.ndarray, sample: np.ndarray, bandwidth: float) -> np.ndarray` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py kde_gaussian_grid no` |
+| `kde_bootstrap_ci` | function | 1294 | `def kde_bootstrap_ci(x_grid: np.ndarray, sample: np.ndarray, bandwidth: float, bootstraps: int, seed: int) -> tuple[np.ndarray, np.ndarray]` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py kde_bootstrap_ci no` |
+| `plot_cluster_distributions` | function | 1310 | `def plot_cluster_distributions(ctx: ReportContext, cluster_ctx: ClusterContext, with_ci: bool, cluster_ci_bootstraps: int, seed: int) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py plot_cluster_distributions no` |
+| `generate_cluster_figures` | function | 1387 | `def generate_cluster_figures(ctx: ReportContext, cluster_ctx: ClusterContext, cluster_ci_bootstraps: int, seed: int) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis raw_report_figures py generate_cluster_figures no` |
+
+### `src/cmat_analysis/analysis/report_compatible/context.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `BaseContext` | class | 19 | `class BaseContext` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible context py basecontext no` |
+| `VisitsContext` | class | 32 | `class VisitsContext` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible context py visitscontext no` |
+| `load_base_context` | function | 37 | `def load_base_context(materias_path: Path) -> BaseContext` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible context py load_base_context no` |
+| `load_visits_context` | function | 91 | `def load_visits_context(asesorias_path: Path, materias: pd.DataFrame) -> VisitsContext` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible context py load_visits_context no` |
+
+### `src/cmat_analysis/analysis/report_compatible/figures_clusters.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `ClusterContext` | class | 23 | `class ClusterContext` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_clusters py clustercontext no` |
+| `_initial_medoids` | function | 34 | `def _initial_medoids(distance_matrix: np.ndarray, k: int, seed: int) -> np.ndarray` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_clusters py initial_medoids no` |
+| `_assign_to_medoids` | function | 45 | `def _assign_to_medoids(distance_matrix: np.ndarray, medoids: np.ndarray) -> np.ndarray` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_clusters py assign_to_medoids no` |
+| `_kmedoids_inertia` | function | 49 | `def _kmedoids_inertia(distance_matrix: np.ndarray, medoids: np.ndarray, labels: np.ndarray) -> float` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_clusters py kmedoids_inertia no` |
+| `_fit_kmedoids` | function | 53 | `def _fit_kmedoids(distance_matrix: np.ndarray, k: int, seed: int, max_iter: int=100) -> tuple[np.ndarray, float]` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_clusters py fit_kmedoids no` |
+| `build_cluster_context` | function | 81 | `def build_cluster_context(ultramerge: pd.DataFrame) -> ClusterContext` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_clusters py build_cluster_context no` |
+| `plot_cluster_heatmap` | function | 122 | `def plot_cluster_heatmap(cluster_ctx: ClusterContext, layout: OutputLayout) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_clusters py plot_cluster_heatmap no` |
+| `plot_cluster_selection` | function | 150 | `def plot_cluster_selection(cluster_ctx: ClusterContext, layout: OutputLayout) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_clusters py plot_cluster_selection no` |
+| `assign_notebook_clusters` | function | 171 | `def assign_notebook_clusters(ultramerge: pd.DataFrame, cluster_ctx: ClusterContext) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_clusters py assign_notebook_clusters no` |
+| `_cluster_legend` | function | 177 | `def _cluster_legend(ax, base: BaseContext, below: float, above: float, *, fontsize: str='small') -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_clusters py cluster_legend no` |
+| `_add_shared_cluster_colorbar` | function | 187 | `def _add_shared_cluster_colorbar(fig: plt.Figure, axes) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_clusters py add_shared_cluster_colorbar no` |
+| `_plot_cluster_distribution_axis` | function | 195 | `def _plot_cluster_distribution_axis(ax: plt.Axes, *, base: BaseContext, ultramerge: pd.DataFrame, cluster_id: int, with_ci: bool) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_clusters py plot_cluster_distribution_axis no` |
+| `plot_cluster_distributions` | function | 262 | `def plot_cluster_distributions(base: BaseContext, ultramerge: pd.DataFrame, layout: OutputLayout) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_clusters py plot_cluster_distributions no` |
+| `plot_cluster_distributions_with_ci` | function | 278 | `def plot_cluster_distributions_with_ci(base: BaseContext, ultramerge: pd.DataFrame, layout: OutputLayout) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_clusters py plot_cluster_distributions_with_ci no` |
+
+### `src/cmat_analysis/analysis/report_compatible/figures_imputation.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `plot_single_classroom_comparison` | function | 14 | `def plot_single_classroom_comparison(mean_only_salones, layout: OutputLayout) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_imputation py plot_single_classroom_comparison no` |
+| `plot_global_imputation_phase1` | function | 33 | `def plot_global_imputation_phase1(phase1_salones, layout: OutputLayout) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_imputation py plot_global_imputation_phase1 no` |
+| `plot_outlier_phase1` | function | 51 | `def plot_outlier_phase1(legacy_visit_salones, layout: OutputLayout) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_imputation py plot_outlier_phase1 no` |
+| `plot_outlier_phase2` | function | 64 | `def plot_outlier_phase2(corrected_visit_salones, layout: OutputLayout) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_imputation py plot_outlier_phase2 no` |
+| `plot_global_imputation_phase2` | function | 77 | `def plot_global_imputation_phase2(ultramerge, layout: OutputLayout) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_imputation py plot_global_imputation_phase2 no` |
+
+### `src/cmat_analysis/analysis/report_compatible/figures_professors.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `plot_yearly_professor_variance` | function | 14 | `def plot_yearly_professor_variance(base: BaseContext, layout: OutputLayout) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_professors py plot_yearly_professor_variance no` |
+| `plot_all_professors_png` | function | 45 | `def plot_all_professors_png(base: BaseContext, layout: OutputLayout) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_professors py plot_all_professors_png no` |
+| `plot_reported_professors_split` | function | 70 | `def plot_reported_professors_split(base: BaseContext, ultramerge: pd.DataFrame, layout: OutputLayout) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_professors py plot_reported_professors_split no` |
+| `plot_imputed_professors_split` | function | 108 | `def plot_imputed_professors_split(base: BaseContext, ultramerge: pd.DataFrame, layout: OutputLayout) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_professors py plot_imputed_professors_split no` |
+
+### `src/cmat_analysis/analysis/report_compatible/figures_tests.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `_plot_ecdf` | function | 13 | `def _plot_ecdf(ax, values, *, label: str, color: str) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_tests py plot_ecdf no` |
+| `_plot_ecdf_comparison` | function | 21 | `def _plot_ecdf_comparison(group1, group2, *, title: str, xlabel: str, output_name: str, layout: OutputLayout) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_tests py plot_ecdf_comparison no` |
+| `_bootstrap_diff_median` | function | 34 | `def _bootstrap_diff_median(x, y, B=10000, seed=0)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_tests py bootstrap_diff_median no` |
+| `_bootstrap_ci_two_sample` | function | 46 | `def _bootstrap_ci_two_sample(x, y, stat_fn, B=5000, seed=0, alpha=0.05)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_tests py bootstrap_ci_two_sample no` |
+| `_cliffs_delta` | function | 60 | `def _cliffs_delta(x, y, max_pairs=5000000, seed=0)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_tests py cliffs_delta no` |
+| `plot_parametric_student` | function | 77 | `def plot_parametric_student(ultramerge_means, layout: OutputLayout) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_tests py plot_parametric_student no` |
+| `plot_ecdf_student` | function | 102 | `def plot_ecdf_student(ultramerge_means, layout: OutputLayout) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_tests py plot_ecdf_student no` |
+| `plot_parametric_salon` | function | 115 | `def plot_parametric_salon(ultramerge, layout: OutputLayout) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_tests py plot_parametric_salon no` |
+| `plot_ecdf_salon` | function | 131 | `def plot_ecdf_salon(ultramerge, layout: OutputLayout) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_tests py plot_ecdf_salon no` |
+| `plot_nonparametric_student` | function | 144 | `def plot_nonparametric_student(ultramerge_means, layout: OutputLayout) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_tests py plot_nonparametric_student no` |
+| `plot_nonparametric_student.<locals>.stat_median` | function | 156 | `def stat_median(x, y)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_tests py plot_nonparametric_student locals stat_median no` |
+| `plot_nonparametric_student.<locals>.stat_CL` | function | 169 | `def stat_CL(x, y)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_tests py plot_nonparametric_student locals stat_cl no` |
+| `plot_nonparametric_student.<locals>.stat_r_rb` | function | 177 | `def stat_r_rb(x, y)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_tests py plot_nonparametric_student locals stat_r_rb no` |
+| `plot_nonparametric_student.<locals>.stat_delta` | function | 182 | `def stat_delta(x, y)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_tests py plot_nonparametric_student locals stat_delta no` |
+| `plot_nonparametric_salon` | function | 211 | `def plot_nonparametric_salon(ultramerge, layout: OutputLayout) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_tests py plot_nonparametric_salon no` |
+| `plot_nonparametric_salon.<locals>.stat_median` | function | 223 | `def stat_median(x, y)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_tests py plot_nonparametric_salon locals stat_median no` |
+
+### `src/cmat_analysis/analysis/report_compatible/figures_visits.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `plot_visit_histograms` | function | 12 | `def plot_visit_histograms(asesoria_counts, layout: OutputLayout) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_visits py plot_visit_histograms no` |
+| `plot_salon_scatter` | function | 60 | `def plot_salon_scatter(ultramerge, layout: OutputLayout) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_visits py plot_salon_scatter no` |
+| `plot_student_scatter` | function | 74 | `def plot_student_scatter(ultramerge_means, layout: OutputLayout) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_visits py plot_student_scatter no` |
+| `plot_mean_z_by_visits` | function | 101 | `def plot_mean_z_by_visits(ultramerge_means, layout: OutputLayout) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible figures_visits py plot_mean_z_by_visits no` |
+
+### `src/cmat_analysis/analysis/report_compatible/imputation.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `StageContext` | class | 13 | `class StageContext` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible imputation py stagecontext no` |
+| `_add_mean_imputation` | function | 19 | `def _add_mean_imputation(sesion_materias: pd.DataFrame) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible imputation py add_mean_imputation no` |
+| `_silverman_bandwidth` | function | 30 | `def _silverman_bandwidth(sample)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible imputation py silverman_bandwidth no` |
+| `_sample_kde_truncated` | function | 43 | `def _sample_kde_truncated(x_obs, size, low=0.0, high=7.5, rng=None)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible imputation py sample_kde_truncated no` |
+| `_sample_empirical` | function | 64 | `def _sample_empirical(x_obs, size, rng=None)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible imputation py sample_empirical no` |
+| `legacy_impute_nans_from_pre75_kde_df` | function | 71 | `def legacy_impute_nans_from_pre75_kde_df(df, value_col='CALIFICACION', out_col='IMPKDE', low=0.0, high=7.5, min_kde_n=20, seed=42)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible imputation py legacy_impute_nans_from_pre75_kde_df no` |
+| `corrected_impute_nans_from_pre75_kde_df` | function | 104 | `def corrected_impute_nans_from_pre75_kde_df(df, value_col='CALIFICACION', out_col='IMPKDE', low=0.0, high=7.4, min_kde_n=20, seed=42, fallback='uniform', constant_value=6.5, global_source=None)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible imputation py corrected_impute_nans_from_pre75_kde_df no` |
+| `corrected_impute_nans_from_pre75_kde_df.<locals>._borrow_pool` | function | 128 | `def _borrow_pool()` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible imputation py corrected_impute_nans_from_pre75_kde_df locals borrow_pool no` |
+| `build_salones_mean_only` | function | 174 | `def build_salones_mean_only(materias: pd.DataFrame, profes_ids) -> dict[SalonKey, pd.DataFrame]` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible imputation py build_salones_mean_only no` |
+| `build_salones_with_imputer` | function | 188 | `def build_salones_with_imputer(materias: pd.DataFrame, profes_ids, imputer, *, imputer_kwargs: dict \| None=None) -> dict[SalonKey, pd.DataFrame]` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible imputation py build_salones_with_imputer no` |
+| `concat_salones` | function | 219 | `def concat_salones(salones: dict[SalonKey, pd.DataFrame]) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible imputation py concat_salones no` |
+| `compute_ultramerge_means` | function | 225 | `def compute_ultramerge_means(ultramerge: pd.DataFrame, materias: pd.DataFrame) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible imputation py compute_ultramerge_means no` |
+
+### `src/cmat_analysis/analysis/report_compatible/kde_safe.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `numeric_values` | function | 11 | `def numeric_values(values) -> np.ndarray` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible kde_safe py numeric_values no` |
+| `scott_bandwidth` | function | 15 | `def scott_bandwidth(sample: np.ndarray, bw_adjust: float=1.0) -> float \| None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible kde_safe py scott_bandwidth no` |
+| `silverman_bandwidth` | function | 25 | `def silverman_bandwidth(sample: np.ndarray) -> float` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible kde_safe py silverman_bandwidth no` |
+| `gaussian_kde_grid` | function | 37 | `def gaussian_kde_grid(x_grid: np.ndarray, sample: np.ndarray, bandwidth: float) -> np.ndarray` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible kde_safe py gaussian_kde_grid no` |
+| `kde_curve` | function | 42 | `def kde_curve(values, *, clip: tuple[float, float] \| None, bw_adjust: float=0.5, cut: float=0.0, gridsize: int=200) -> tuple[np.ndarray, np.ndarray] \| None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible kde_safe py kde_curve no` |
+| `_next_color` | function | 68 | `def _next_color(ax, color)` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible kde_safe py next_color no` |
+| `plot_filled_kde` | function | 72 | `def plot_filled_kde(ax, values, *, label: str, clip: tuple[float, float] \| None=None, bw_adjust: float=0.5, alpha: float=0.2, color=None) -> tuple[np.ndarray, np.ndarray] \| None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible kde_safe py plot_filled_kde no` |
+| `plot_split_kde` | function | 92 | `def plot_split_kde(ax, values, *, threshold: float, left_color, right_color, clip: tuple[float, float]=(0.0, 10.0), bw_adjust: float=0.5, alpha: float=0.3, linewidth: float=0.5) -> tuple[np.ndarray, np.ndarray] \| None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible kde_safe py plot_split_kde no` |
+| `plot_hist_with_kde` | function | 126 | `def plot_hist_with_kde(ax, values, *, bins: int, clip: tuple[float, float] \| None=None, bw_adjust: float=0.5) -> tuple[np.ndarray, np.ndarray] \| None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible kde_safe py plot_hist_with_kde no` |
+| `kde_bootstrap_ci` | function | 146 | `def kde_bootstrap_ci(x_grid: np.ndarray, sample: np.ndarray, bandwidth: float, *, bootstraps: int=200, q: tuple[float, float]=(2.5, 97.5), rng=None) -> tuple[np.ndarray, np.ndarray]` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible kde_safe py kde_bootstrap_ci no` |
+
+### `src/cmat_analysis/analysis/report_compatible/main.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `parse_args` | function | 65 | `def parse_args() -> argparse.Namespace` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible main py parse_args no` |
+| `run_raw_report_figures` | function | 73 | `def run_raw_report_figures(*, materias_path: Path=DEFAULT_MATERIAS, asesorias_path: Path=DEFAULT_ASESORIAS, output_root: Path=DEFAULT_OUTPUT_ROOT, figures_dir: Path \| None=None) -> dict[str, Path]` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible main py run_raw_report_figures no` |
+| `main` | function | 152 | `def main() -> int` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible main py no` |
+
+### `src/cmat_analysis/analysis/report_compatible/plot_helpers.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `OutputLayout` | class | 13 | `class OutputLayout` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible plot_helpers py outputlayout no` |
+| `build_output_layout` | function | 20 | `def build_output_layout(root: Path) -> OutputLayout` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible plot_helpers py build_output_layout no` |
+| `ensure_output_dirs` | function | 30 | `def ensure_output_dirs(layout: OutputLayout) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible plot_helpers py ensure_output_dirs no` |
+| `save_figure` | function | 36 | `def save_figure(fig: plt.Figure, *paths: Path) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible plot_helpers py save_figure no` |
+| `save_cluster_grid` | function | 43 | `def save_cluster_grid(grid, *paths: Path) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible plot_helpers py save_cluster_grid no` |
+| `add_half_blues_colorbar` | function | 50 | `def add_half_blues_colorbar(ax: plt.Axes, label: str='Proporción de estudiantes') -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible plot_helpers py add_half_blues_colorbar no` |
+| `pass_rate_handles` | function | 58 | `def pass_rate_handles(left_color, right_color, left_label: str, right_label: str) -> tuple[list[Line2D], list[str]]` | No docstring; inspect implementation before reuse. | `src cmat_analysis analysis report_compatible plot_helpers py pass_rate_handles no` |
+
+### `src/cmat_analysis/config/settings.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `VisitAnalysisSettings` | class | 8 | `class VisitAnalysisSettings` | No docstring; inspect implementation before reuse. | `src cmat_analysis config settings py visitanalysissettings no` |
+| `get_settings` | function | 20 | `def get_settings(project_root: Path \| None=None) -> VisitAnalysisSettings` | No docstring; inspect implementation before reuse. | `src cmat_analysis config settings py get_settings no` |
+
+### `src/cmat_analysis/config/study_config.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `CMATStudyConfig` | class | 8 | `class CMATStudyConfig` | Pre-specified choices shared by the reproducible CMAT study runners. | `src cmat_analysis config study_config py cmatstudyconfig pre-specified choices shared by reproducible cmat study runners` |
+| `get_study_config` | function | 57 | `def get_study_config(project_root: Path \| None=None) -> CMATStudyConfig` | No docstring; inspect implementation before reuse. | `src cmat_analysis config study_config py get_study_config no` |
+
+### `src/cmat_analysis/io/concentrado_reader.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `read_concentrado` | function | 9 | `def read_concentrado()` | No docstring; inspect implementation before reuse. | `src cmat_analysis io concentrado_reader py read_concentrado no` |
+
+### `src/cmat_analysis/pipeline/main_pipeline.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `run_visitas_pipeline` | function | 10 | `def run_visitas_pipeline(settings: Any, *, include_report_assets: bool=True, include_raw_figures: bool=True) -> dict[str, object]` | Regenerate project outputs from the canonical raw Excel inputs. | `src cmat_analysis pipeline main_pipeline py run_visitas_pipeline regenerate project outputs canonical raw excel inputs` |
+
+### `src/cmat_analysis/privacy.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `canonical_identifier` | function | 9 | `def canonical_identifier(value: object) -> str` | Canonicalize identifiers so numeric Excel representations link reliably. | `src cmat_analysis privacy py canonical_identifier canonicalize identifiers so numeric excel representations link reliably` |
+| `hmac_pseudonym` | function | 20 | `def hmac_pseudonym(value: object, key: bytes, namespace: str, length: int=32) -> str` | Return a deterministic keyed pseudonym. | `src cmat_analysis privacy py hmac_pseudonym return a deterministic keyed pseudonym` |
+
+### `src/cmat_analysis/release_figures.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `figure_name` | function | 75 | `def figure_name(key: str) -> str` | No docstring; inspect implementation before reuse. | `src cmat_analysis release_figures py figure_name no` |
+| `figure_path` | function | 79 | `def figure_path(figures_dir: Path, key: str) -> Path` | No docstring; inspect implementation before reuse. | `src cmat_analysis release_figures py figure_path no` |
+| `figure_stem` | function | 83 | `def figure_stem(key: str) -> str` | No docstring; inspect implementation before reuse. | `src cmat_analysis release_figures py figure_stem no` |
+| `report_figure_names` | function | 87 | `def report_figure_names() -> list[str]` | No docstring; inspect implementation before reuse. | `src cmat_analysis release_figures py report_figure_names no` |
+
+### `src/cmat_analysis/reporting/descriptive_pipeline.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `AnalyticalBundle` | class | 72 | `class AnalyticalBundle` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting descriptive_pipeline py analyticalbundle no` |
+| `make_classroom_unit_id` | function | 88 | `def make_classroom_unit_id(df: pd.DataFrame) -> pd.Series` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting descriptive_pipeline py make_classroom_unit_id no` |
+| `clean_materias_with_tracking` | function | 93 | `def clean_materias_with_tracking(materias_raw: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting descriptive_pipeline py clean_materias_with_tracking no` |
+| `enrich_materias_with_visits` | function | 185 | `def enrich_materias_with_visits(materias_cleaned: pd.DataFrame, asesorias_raw: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting descriptive_pipeline py enrich_materias_with_visits no` |
+| `build_analytical_bundle` | function | 233 | `def build_analytical_bundle(project_root: Path, materias_path: Path, asesorias_path: Path) -> AnalyticalBundle` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting descriptive_pipeline py build_analytical_bundle no` |
+
+### `src/cmat_analysis/reporting/methodology_build.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `_sha256` | function | 26 | `def _sha256(path: Path) -> str` | Return the SHA-256 digest of a controlled input file. | `src cmat_analysis reporting methodology_build py sha256 return sha-256 digest of a controlled input file` |
+| `_stage_generated_assets` | function | 35 | `def _stage_generated_assets(output_dir: Path, report_dir: Path, repo_root: Path) -> dict[str, list[str]]` | Stage generated aggregate assets into the atomic report directory. | `src cmat_analysis reporting methodology_build py stage_generated_assets stage generated aggregate assets atomic report directory` |
+| `_compile_report` | function | 64 | `def _compile_report(report_dir: Path) -> Path` | Compile the methodology report after scientific outputs have been staged. | `src cmat_analysis reporting methodology_build py compile_report compile methodology report scientific outputs have been staged` |
+| `_check_structure` | function | 102 | `def _check_structure(code_root: Path, report_dir: Path) -> list[str]` | Validate the root-code/report boundary without loading controlled data. | `src cmat_analysis reporting methodology_build py check_structure validate root-code report boundary without loading controlled data` |
+| `_parse_args` | function | 121 | `def _parse_args(default_output_dir: Path, argv: list[str] \| None) -> argparse.Namespace` | Parse the stable methodology-report runner interface. | `src cmat_analysis reporting methodology_build py parse_args parse stable methodology-report runner interface` |
+| `methodology_report_cli` | function | 148 | `def methodology_report_cli(repo_root: Path, report_dir: Path, argv: list[str] \| None=None) -> int` | Run the methodology-report recipe while keeping scientific functions in root/code. | `src cmat_analysis reporting methodology_build py methodology_report_cli run methodology-report recipe while keeping scientific functions in` |
+
+### `src/cmat_analysis/reporting/methodology_report.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `_esc` | function | 9 | `def _esc(x: object) -> str` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting methodology_report py esc no` |
+| `_f` | function | 18 | `def _f(x: object, digits: int=3, pct: bool=False) -> str` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting methodology_report py f no` |
+| `_tab` | function | 33 | `def _tab(headers: list[str], rows: list[list[str]], align: str) -> str` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting methodology_report py tab no` |
+| `_read` | function | 40 | `def _read(root: Path, name: str) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting methodology_report py read no` |
+| `write_methodology_table_snippets` | function | 47 | `def write_methodology_table_snippets(generated_tables_dir: Path, report_tables_dir: Path) -> list[Path]` | Render report table snippets from already-computed aggregate CSV files. | `src cmat_analysis reporting methodology_report py write_methodology_table_snippets render report table snippets already-computed aggregate csv files` |
+| `write_methodology_table_snippets.<locals>.w` | function | 53 | `def w(name: str, headers: list[str], rows: list[list[str]], align: str) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting methodology_report py write_methodology_table_snippets locals w no` |
+| `write_methodology_table_snippets.<locals>.summary_table` | function | 82 | `def summary_table(csv: str, tex: str, group_col: str, first_header: str) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting methodology_report py write_methodology_table_snippets locals summary_table no` |
+
+### `src/cmat_analysis/reporting/metrics.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `_safe_prop` | function | 44 | `def _safe_prop(numerator: float \| int, denominator: float \| int) -> float` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting metrics py safe_prop no` |
+| `_safe_number` | function | 50 | `def _safe_number(value: object) -> object` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting metrics py safe_number no` |
+| `_series_to_numeric` | function | 64 | `def _series_to_numeric(series: pd.Series) -> pd.Series` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting metrics py series_to_numeric no` |
+| `_describe_numeric` | function | 68 | `def _describe_numeric(series: pd.Series) -> dict[str, float \| int \| None]` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting metrics py describe_numeric no` |
+| `_summary_metric_row` | function | 102 | `def _summary_metric_row(metric: str, value: object, unit: str, definition: str) -> dict[str, object]` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting metrics py summary_metric_row no` |
+| `_top_share` | function | 111 | `def _top_share(values: pd.Series, share: float) -> tuple[int, float]` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting metrics py top_share no` |
+| `gini_coefficient` | function | 121 | `def gini_coefficient(values: Iterable[float \| int]) -> float` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting metrics py gini_coefficient no` |
+| `compute_source_data_overview` | function | 135 | `def compute_source_data_overview(bundle: AnalyticalBundle) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting metrics py compute_source_data_overview no` |
+| `compute_student_visit_distribution` | function | 235 | `def compute_student_visit_distribution(student_visits: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting metrics py compute_student_visit_distribution no` |
+| `compute_year_summary` | function | 358 | `def compute_year_summary(bundle: AnalyticalBundle) -> tuple[pd.DataFrame, pd.DataFrame]` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting metrics py compute_year_summary no` |
+| `compute_classroom_unit_summary` | function | 404 | `def compute_classroom_unit_summary(bundle: AnalyticalBundle) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting metrics py compute_classroom_unit_summary no` |
+| `compute_classroom_size_distribution` | function | 433 | `def compute_classroom_size_distribution(classroom_summary: pd.DataFrame) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting metrics py compute_classroom_size_distribution no` |
+| `compute_professor_summary` | function | 445 | `def compute_professor_summary(bundle: AnalyticalBundle, classroom_summary: pd.DataFrame) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting metrics py compute_professor_summary no` |
+| `compute_subject_summary` | function | 473 | `def compute_subject_summary(bundle: AnalyticalBundle, classroom_summary: pd.DataFrame) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting metrics py compute_subject_summary no` |
+| `compute_student_summary` | function | 502 | `def compute_student_summary(bundle: AnalyticalBundle) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting metrics py compute_student_summary no` |
+| `compute_grade_variable_summary` | function | 521 | `def compute_grade_variable_summary(bundle: AnalyticalBundle) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting metrics py compute_grade_variable_summary no` |
+| `compute_non_numeric_grade_tokens` | function | 563 | `def compute_non_numeric_grade_tokens(bundle: AnalyticalBundle) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting metrics py compute_non_numeric_grade_tokens no` |
+| `compute_threshold_summaries` | function | 579 | `def compute_threshold_summaries(bundle: AnalyticalBundle) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting metrics py compute_threshold_summaries no` |
+| `compute_top_students_by_visits` | function | 625 | `def compute_top_students_by_visits(student_summary: pd.DataFrame, top_n: int=25) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting metrics py compute_top_students_by_visits no` |
+| `compute_concentration_outputs` | function | 636 | `def compute_concentration_outputs(bundle: AnalyticalBundle, student_summary: pd.DataFrame, year_summary: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting metrics py compute_concentration_outputs no` |
+| `compute_summary_json` | function | 755 | `def compute_summary_json(bundle: AnalyticalBundle, visit_summary: pd.DataFrame, year_summary: pd.DataFrame, grade_summary: pd.DataFrame, concentration_summary: pd.DataFrame) -> dict[str, object]` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting metrics py compute_summary_json no` |
+
+### `src/cmat_analysis/reporting/plots.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `save_figure_pdf` | function | 19 | `def save_figure_pdf(fig: plt.Figure, output_dir: Path, stem: str) -> list[Path]` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting plots py save_figure_pdf no` |
+| `plot_visits_histogram` | function | 27 | `def plot_visits_histogram(student_visits: pd.DataFrame, output_dir: Path) -> list[Path]` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting plots py plot_visits_histogram no` |
+| `plot_visits_histogram_low_counts` | function | 39 | `def plot_visits_histogram_low_counts(student_visits: pd.DataFrame, output_dir: Path, max_visits_shown: int=10) -> list[Path]` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting plots py plot_visits_histogram_low_counts no` |
+| `plot_visits_ecdf` | function | 56 | `def plot_visits_ecdf(student_visits: pd.DataFrame, output_dir: Path) -> list[Path]` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting plots py plot_visits_ecdf no` |
+| `plot_visits_tail_curve` | function | 68 | `def plot_visits_tail_curve(visit_tail: pd.DataFrame, output_dir: Path) -> list[Path]` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting plots py plot_visits_tail_curve no` |
+| `plot_visits_continuation_curve` | function | 83 | `def plot_visits_continuation_curve(visit_tail: pd.DataFrame, output_dir: Path) -> list[Path]` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting plots py plot_visits_continuation_curve no` |
+| `plot_visits_by_year` | function | 98 | `def plot_visits_by_year(student_year_visits: pd.DataFrame, output_dir: Path) -> list[Path]` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting plots py plot_visits_by_year no` |
+| `plot_classroom_size_distribution` | function | 115 | `def plot_classroom_size_distribution(classroom_summary: pd.DataFrame, output_dir: Path) -> list[Path]` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting plots py plot_classroom_size_distribution no` |
+| `plot_visits_lorenz_curve` | function | 126 | `def plot_visits_lorenz_curve(lorenz: pd.DataFrame, output_dir: Path) -> list[Path]` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting plots py plot_visits_lorenz_curve no` |
+| `generate_figures` | function | 141 | `def generate_figures(student_visits: pd.DataFrame, visit_tail: pd.DataFrame, student_year_visits: pd.DataFrame, classroom_summary: pd.DataFrame, lorenz: pd.DataFrame, output_dir: Path) -> list[Path]` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting plots py generate_figures no` |
+
+### `src/cmat_analysis/reporting/render.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `_format_value` | function | 11 | `def _format_value(value: object, decimals: int=3) -> str` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting render py format_value no` |
+| `_format_pct` | function | 19 | `def _format_pct(value: object, decimals: int=1) -> str` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting render py format_pct no` |
+| `_format_tex_pct` | function | 25 | `def _format_tex_pct(value: object, decimals: int=1) -> str` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting render py format_tex_pct no` |
+| `_markdown_table` | function | 31 | `def _markdown_table(df: pd.DataFrame, max_rows: int \| None=None) -> str` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting render py markdown_table no` |
+| `_latex_table` | function | 47 | `def _latex_table(df: pd.DataFrame) -> str` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting render py latex_table no` |
+| `write_csv_tables` | function | 58 | `def write_csv_tables(tables: dict[str, pd.DataFrame], output_dir: Path) -> list[Path]` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting render py write_csv_tables no` |
+| `write_json_summary` | function | 68 | `def write_json_summary(summary: dict[str, object], path: Path) -> Path` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting render py write_json_summary no` |
+| `write_tex_snippets` | function | 73 | `def write_tex_snippets(summary: dict[str, object], source_overview: pd.DataFrame, cleaning_summary: pd.DataFrame, visit_thresholds: pd.DataFrame, year_summary: pd.DataFrame, concentration_summary: pd.DataFrame, grade_summary: pd.DataFrame, non_numeric_grade_tokens: pd.DataFrame, output_dir: Path) -> list[Path]` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting render py write_tex_snippets no` |
+| `write_readme` | function | 292 | `def write_readme(path: Path, summary: dict[str, object], source_overview: pd.DataFrame, cleaning_summary: pd.DataFrame, visit_summary: pd.DataFrame, visit_thresholds: pd.DataFrame, year_summary: pd.DataFrame, classroom_summary: pd.DataFrame, professor_summary: pd.DataFrame, grade_summary: pd.DataFrame, concentration_summary: pd.DataFrame, table_paths: list[Path], figure_paths: list[Path], tex_paths: list[Path]) -> Path` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting render py write_readme no` |
+| `write_readme.<locals>.rel_path` | function | 308 | `def rel_path(target: Path) -> str` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting render py write_readme locals rel_path no` |
+
+### `src/cmat_analysis/reporting/report_assets.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `_reset_output_dir` | function | 53 | `def _reset_output_dir(path: Path) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting report_assets py reset_output_dir no` |
+| `_reset_descriptive_figures` | function | 60 | `def _reset_descriptive_figures(path: Path) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting report_assets py reset_descriptive_figures no` |
+| `_log_paths` | function | 81 | `def _log_paths(label: str, paths: list[Path], project_root: Path) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting report_assets py log_paths no` |
+| `generate_report_assets` | function | 87 | `def generate_report_assets(*, project_root: Path=PROJECT_ROOT, materias_path: Path=DEFAULT_MATERIAS_PATH, asesorias_path: Path=DEFAULT_ASESORIAS_PATH, output_dir: Path=REPORT_ASSETS_DIR) -> dict[str, object]` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting report_assets py generate_report_assets no` |
+| `main` | function | 209 | `def main() -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting report_assets py main no` |
+
+### `src/cmat_analysis/reporting/run_log.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `_file_info` | function | 9 | `def _file_info(path: Path) -> dict[str, object]` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting run_log py file_info no` |
+| `write_run_log` | function | 28 | `def write_run_log(*, logs_dir: Path, materias_path: Path, asesorias_path: Path, mode: str, status: str, details: dict[str, object] \| None=None) -> Path` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting run_log py write_run_log no` |
+
+### `src/cmat_analysis/study/cohort.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `normalize_text` | function | 26 | `def normalize_text(value: object) -> str \| None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study cohort py normalize_text no` |
+| `normalize_session` | function | 37 | `def normalize_session(value: object) -> str \| None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study cohort py normalize_session no` |
+| `period_index` | function | 42 | `def period_index(year: int \| float, session: object) -> int` | No docstring; inspect implementation before reuse. | `src cmat_analysis study cohort py period_index no` |
+| `period_label` | function | 49 | `def period_label(year: int \| float, session: object) -> str` | No docstring; inspect implementation before reuse. | `src cmat_analysis study cohort py period_label no` |
+| `visit_group` | function | 53 | `def visit_group(visits: int \| float, threshold: int=3) -> str` | No docstring; inspect implementation before reuse. | `src cmat_analysis study cohort py visit_group no` |
+| `StudyData` | class | 65 | `class StudyData` | No docstring; inspect implementation before reuse. | `src cmat_analysis study cohort py studydata no` |
+| `normalize_identifier` | function | 75 | `def normalize_identifier(value: object) -> str \| None` | Normalize numeric or pseudonymized identifiers without requiring numbers. | `src cmat_analysis study cohort py normalize_identifier normalize numeric or pseudonymized identifiers without requiring numbers` |
+| `_read_table` | function | 87 | `def _read_table(path: Path) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis study cohort py read_table no` |
+| `_classify_grade` | function | 96 | `def _classify_grade(value: object, adverse: set[str], non_attempt: set[str]) -> str` | No docstring; inspect implementation before reuse. | `src cmat_analysis study cohort py classify_grade no` |
+| `load_and_clean_inputs` | function | 108 | `def load_and_clean_inputs(config) -> StudyData` | No docstring; inspect implementation before reuse. | `src cmat_analysis study cohort py load_and_clean_inputs no` |
+| `_subject_mask` | function | 221 | `def _subject_mask(df: pd.DataFrame, code: str, name: str) -> pd.Series` | No docstring; inspect implementation before reuse. | `src cmat_analysis study cohort py subject_mask no` |
+| `_eligible_attempts` | function | 225 | `def _eligible_attempts(df: pd.DataFrame, code: str, name: str) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis study cohort py eligible_attempts no` |
+| `first_attempts` | function | 231 | `def first_attempts(df: pd.DataFrame, code: str, name: str) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis study cohort py first_attempts no` |
+| `_visit_counts` | function | 237 | `def _visit_counts(advisories: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]` | No docstring; inspect implementation before reuse. | `src cmat_analysis study cohort py visit_counts no` |
+| `attach_visits` | function | 253 | `def attach_visits(attempts: pd.DataFrame, advisories: pd.DataFrame, *, threshold: int) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis study cohort py attach_visits no` |
+| `build_study_cohorts` | function | 277 | `def build_study_cohorts(data: StudyData, config) -> dict[str, pd.DataFrame]` | No docstring; inspect implementation before reuse. | `src cmat_analysis study cohort py build_study_cohorts no` |
+
+### `src/cmat_analysis/study/extended_analysis.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `_mean_ci_t` | function | 40 | `def _mean_ci_t(values: np.ndarray, alpha: float=0.05) -> tuple[float, float, float, float]` | Student-t confidence interval for a sample mean. | `src cmat_analysis study extended_analysis py mean_ci_t student-t confidence interval a sample mean` |
+| `_welch_mean_ci` | function | 60 | `def _welch_mean_ci(x: np.ndarray, y: np.ndarray, alpha: float=0.05) -> tuple[float, float, float, float]` | Difference mean(x)-mean(y), Welch SE/df and two-sided CI. | `src cmat_analysis study extended_analysis py welch_mean_ci difference mean x y welch se df two-sided` |
+| `one_two_pooling_analysis` | function | 74 | `def one_two_pooling_analysis(df: pd.DataFrame, *, visits_col: str, outcome_col: str='Z_GRADE_PRIMARY', equivalence_margin_z: float=0.2) -> pd.DataFrame` | Formal justification for pooling V=1 and V=2. | `src cmat_analysis study extended_analysis py one_two_pooling_analysis formal justification pooling v` |
+| `_games_howell` | function | 146 | `def _games_howell(groups: dict[str, np.ndarray], alpha: float=0.05) -> pd.DataFrame` | Games-Howell all-pairs comparisons for unequal variances/sample sizes. | `src cmat_analysis study extended_analysis py games_howell games-howell all-pairs comparisons unequal variances sample sizes` |
+| `welch_anova_visit_groups` | function | 188 | `def welch_anova_visit_groups(df: pd.DataFrame, *, group_col: str, outcome_col: str='Z_GRADE_PRIMARY') -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]` | Welch one-way ANOVA + Brown-Forsythe + Games-Howell for visit cohorts. | `src cmat_analysis study extended_analysis py welch_anova_visit_groups welch one-way anova brown-forsythe games-howell visit cohorts` |
+| `_bias_corrected_cramers_v` | function | 227 | `def _bias_corrected_cramers_v(table: np.ndarray) -> float` | No docstring; inspect implementation before reuse. | `src cmat_analysis study extended_analysis py bias_corrected_cramers_v no` |
+| `career_usage_association` | function | 241 | `def career_usage_association(df: pd.DataFrame, *, career_col: str='CLAVECARRERA', group_col: str='VISIT_GROUP_PERIOD', min_career_n: int=30, permutation_reps: int=3000, seed: int=42) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]` | Association between degree programme and use pattern. | `src cmat_analysis study extended_analysis py career_usage_association association between degree programme use pattern` |
+| `career_performance_analysis` | function | 326 | `def career_performance_analysis(df: pd.DataFrame, *, career_col: str='CLAVECARRERA', outcome_col: str='Z_GRADE_PRIMARY', visits_col: str='VISITS_CMAT_PERIOD', min_career_n: int=30) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]` | Career-specific classroom-relative performance and Welch comparisons. | `src cmat_analysis study extended_analysis py career_performance_analysis career-specific classroom-relative performance welch comparisons` |
+| `career_visit_interaction_model` | function | 382 | `def career_visit_interaction_model(df: pd.DataFrame, *, career_col: str='CLAVECARRERA', group_col: str='VISIT_GROUP_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', min_career_n: int=100, min_cell_n: int=5) -> pd.DataFrame` | Exploratory heterogeneity of the visit-performance association by career. | `src cmat_analysis study extended_analysis py career_visit_interaction_model exploratory heterogeneity of visit-performance association by career` |
+| `clustered_visit_group_omnibus` | function | 441 | `def clustered_visit_group_omnibus(df: pd.DataFrame, *, group_col: str='VISIT_GROUP_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', classroom_col: str='CLASSROOM_ID') -> pd.DataFrame` | Cluster-robust omnibus test for the four visit cohorts. | `src cmat_analysis study extended_analysis py clustered_visit_group_omnibus cluster-robust omnibus test four visit cohorts` |
+| `clustered_career_omnibus` | function | 484 | `def clustered_career_omnibus(df: pd.DataFrame, *, career_col: str='CLAVECARRERA', outcome_col: str='Z_GRADE_PRIMARY', classroom_col: str='CLASSROOM_ID', min_career_n: int=30) -> pd.DataFrame` | Joint career test after classroom fixed effects with clustered covariance. | `src cmat_analysis study extended_analysis py clustered_career_omnibus joint career test classroom fixed effects clustered covariance` |
+| `exact_visit_performance_index` | function | 530 | `def exact_visit_performance_index(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', career_col: str='CLAVECARRERA', min_visit: int=1, max_visit: int=12, min_career_n_for_standardization: int=30, min_cell_n_for_balanced: int=2) -> tuple[pd.DataFrame, pd.DataFrame]` | Performance index by exact visit count (1..12), adjusted to career context. | `src cmat_analysis study extended_analysis py exact_visit_performance_index performance index by exact visit count adjusted to` |
+| `longitudinal_any_visit_transition` | function | 607 | `def longitudinal_any_visit_transition(longitudinal: pd.DataFrame, *, mu_visits_col: str='MU_VISITS_CMAT_PERIOD', calc_visits_col: str='VISITS_CMAT_PERIOD', calc_coverage_col: str='CALC_VISIT_COVERAGE', mu_coverage_col: str \| None='MU_VISIT_COVERAGE') -> tuple[pd.DataFrame, pd.DataFrame]` | 2x2 longitudinal transition and association statistics for any CMAT use. | `src cmat_analysis study extended_analysis py longitudinal_any_visit_transition x2 longitudinal transition association statistics any cmat use` |
+| `clustered_omnibus_visit_group_test` | function | 691 | `def clustered_omnibus_visit_group_test(df: pd.DataFrame, *, group_col: str='VISIT_GROUP_PERIOD', outcome_col: str='Z_GRADE_PRIMARY') -> pd.DataFrame` | Cluster-robust classroom-FE omnibus complement to marginal Welch ANOVA. | `src cmat_analysis study extended_analysis py clustered_omnibus_visit_group_test cluster-robust classroom-fe omnibus complement to marginal welch anova` |
+| `clustered_omnibus_career_test` | function | 719 | `def clustered_omnibus_career_test(df: pd.DataFrame, *, career_col: str='CLAVECARRERA', outcome_col: str='Z_GRADE_PRIMARY', min_career_n: int=30) -> pd.DataFrame` | Classroom-FE, cluster-robust joint test of career coefficients. | `src cmat_analysis study extended_analysis py clustered_omnibus_career_test classroom-fe cluster-robust joint test of career coefficients` |
+| `exact_visit_index_trend` | function | 747 | `def exact_visit_index_trend(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', career_col: str='CLAVECARRERA', min_visit: int=1, max_visit: int=12, min_career_n: int=30, min_exact_group_n_for_stable_trend: int=20) -> pd.DataFrame` | Exploratory trend for the career-relative exact-dose index. | `src cmat_analysis study extended_analysis py exact_visit_index_trend exploratory trend career-relative exact-dose index` |
+
+### `src/cmat_analysis/study/extended_methodology.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `exact_visit_group` | function | 20 | `def exact_visit_group(v: int \| float) -> str` | No docstring; inspect implementation before reuse. | `src cmat_analysis study extended_methodology py exact_visit_group no` |
+| `add_exact_visit_group` | function | 33 | `def add_exact_visit_group(df: pd.DataFrame, visits_col: str='VISITS_CMAT_PERIOD') -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis study extended_methodology py add_exact_visit_group no` |
+| `exact_visit_group_summary` | function | 41 | `def exact_visit_group_summary(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', population: str) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis study extended_methodology py exact_visit_group_summary no` |
+| `exact_visit_count_summary` | function | 69 | `def exact_visit_count_summary(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', population: str, max_visits: int=12) -> pd.DataFrame` | Descriptive outcome summary for each exact visit count from 0 to max_visits. | `src cmat_analysis study extended_methodology py exact_visit_count_summary descriptive outcome summary each exact visit count to` |
+| `exact_visit_count_trend_diagnostics` | function | 100 | `def exact_visit_count_trend_diagnostics(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', population: str, max_visits: int=12, stable_max_visits: int=7) -> pd.DataFrame` | Student-level monotonic/linear diagnostics over exact positive counts. | `src cmat_analysis study extended_methodology py exact_visit_count_trend_diagnostics student-level monotonic linear diagnostics over exact positive counts` |
+| `welch_anova_exact_groups` | function | 138 | `def welch_anova_exact_groups(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', population: str) -> pd.DataFrame` | Welch one-way ANOVA plus Brown--Forsythe variance diagnostic. | `src cmat_analysis study extended_methodology py welch_anova_exact_groups welch one-way anova plus brown--forsythe variance diagnostic` |
+| `games_howell_exact_groups` | function | 181 | `def games_howell_exact_groups(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', population: str, alpha: float=0.05) -> pd.DataFrame` | All pairwise Games--Howell contrasts for 0,1,2,3,4+ visit groups. | `src cmat_analysis study extended_methodology py games_howell_exact_groups all pairwise games--howell contrasts visit groups` |
+| `fixed_effect_pairwise_exact_groups` | function | 238 | `def fixed_effect_pairwise_exact_groups(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', population: str, include_career: bool=True) -> tuple[pd.DataFrame, pd.DataFrame]` | All pairwise adjusted contrasts from one additive classroom-FE model. | `src cmat_analysis study extended_methodology py fixed_effect_pairwise_exact_groups all pairwise adjusted contrasts one additive classroom-fe model` |
+| `fixed_effect_pairwise_exact_groups.<locals>.coef_name` | function | 259 | `def coef_name(group: str) -> str \| None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study extended_methodology py fixed_effect_pairwise_exact_groups locals coef_name no` |
+| `_coverage_set` | function | 319 | `def _coverage_set(data) -> set[tuple[int, str]]` | No docstring; inspect implementation before reuse. | `src cmat_analysis study extended_methodology py coverage_set no` |
+| `build_all_math_attempts_with_outcomes` | function | 324 | `def build_all_math_attempts_with_outcomes(data, config) -> pd.DataFrame` | Build all eligible observed math-course attempts in CMAT-covered periods. | `src cmat_analysis study extended_methodology py build_all_math_attempts_with_outcomes build all eligible observed math-course attempts in cmat-covered` |
+| `career_summary` | function | 339 | `def career_summary(df: pd.DataFrame, *, population: str, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', min_n: int=30) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis study extended_methodology py career_summary no` |
+| `career_ecological_association` | function | 366 | `def career_ecological_association(summary: pd.DataFrame) -> pd.DataFrame` | Descriptive career-level association between CMAT use rate and mean Z. | `src cmat_analysis study extended_methodology py career_ecological_association descriptive career-level association between cmat use rate mean` |
+| `calc_progressor_mu_cohort` | function | 392 | `def calc_progressor_mu_cohort(mu_with_outcomes: pd.DataFrame, longitudinal: pd.DataFrame) -> pd.DataFrame` | MU rows for students whose first later Calculus attempt has CMAT coverage. | `src cmat_analysis study extended_methodology py calc_progressor_mu_cohort mu rows students whose first later calculus attempt` |
+| `calc_progressor_followup_cohort` | function | 398 | `def calc_progressor_followup_cohort(longitudinal_with_outcomes: pd.DataFrame) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis study extended_methodology py calc_progressor_followup_cohort no` |
+
+### `src/cmat_analysis/study/extended_plots.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `_finish` | function | 12 | `def _finish(fig, path: Path) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study extended_plots py finish no` |
+| `plot_exact_visit_performance_index` | function | 19 | `def plot_exact_visit_performance_index(index_df: pd.DataFrame, figures: Path) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study extended_plots py plot_exact_visit_performance_index no` |
+| `plot_career_performance` | function | 40 | `def plot_career_performance(career_summary: pd.DataFrame, figures: Path, min_n: int=30) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study extended_plots py plot_career_performance no` |
+| `plot_longitudinal_any_visit_transition` | function | 60 | `def plot_longitudinal_any_visit_transition(combos: pd.DataFrame, stats_df: pd.DataFrame, figures: Path) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study extended_plots py plot_longitudinal_any_visit_transition no` |
+| `plot_career_usage_rates` | function | 94 | `def plot_career_usage_rates(career_summary: pd.DataFrame, figures: Path, min_n: int=30) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study extended_plots py plot_career_usage_rates no` |
+
+### `src/cmat_analysis/study/methodology_pipeline.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `_save_csv` | function | 39 | `def _save_csv(df: pd.DataFrame, path: Path) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study methodology_pipeline py save_csv no` |
+| `run_methodology_pipeline` | function | 44 | `def run_methodology_pipeline(config) -> dict[str, object]` | Run shared study outputs, then add the methodology-report extensions. | `src cmat_analysis study methodology_pipeline py run_methodology_pipeline run shared outputs then add methodology-report extensions` |
+
+### `src/cmat_analysis/study/methodology_plots.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `_save` | function | 9 | `def _save(fig, path: Path) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study methodology_plots py save no` |
+| `plot_pairwise_exact_group_means` | function | 16 | `def plot_pairwise_exact_group_means(summary: pd.DataFrame, out: Path, filename: str, title: str) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study methodology_plots py plot_pairwise_exact_group_means no` |
+| `plot_career_mean_z` | function | 35 | `def plot_career_mean_z(summary: pd.DataFrame, population: str, out: Path, filename: str) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study methodology_plots py plot_career_mean_z no` |
+| `plot_career_use_vs_z` | function | 49 | `def plot_career_use_vs_z(summary: pd.DataFrame, population: str, out: Path, filename: str) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study methodology_plots py plot_career_use_vs_z no` |
+| `plot_periodicity_acf_by_population` | function | 65 | `def plot_periodicity_acf_by_population(acf: pd.DataFrame, out: Path, filename: str='09_monthly_periodicity_acf_by_population.png') -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study methodology_plots py plot_periodicity_acf_by_population no` |
+| `plot_peak_spacing_by_population` | function | 83 | `def plot_peak_spacing_by_population(intervals: pd.DataFrame, out: Path, filename: str='08_peak_spacing_by_population.png') -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study methodology_plots py plot_peak_spacing_by_population no` |
+| `plot_exact_visit_count_curve` | function | 98 | `def plot_exact_visit_count_curve(summary: pd.DataFrame, out: Path, filename: str='13_exact_visit_counts_0_to_12.png') -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study methodology_plots py plot_exact_visit_count_curve no` |
+
+### `src/cmat_analysis/study/outcomes.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `_scipy_default_kde_draws` | function | 8 | `def _scipy_default_kde_draws(obs: np.ndarray, size: int, low: float, high: float, rng: np.random.Generator) -> tuple[np.ndarray, float \| None, str]` | Draw from scipy.stats.gaussian_kde using SciPy's default bandwidth. | `src cmat_analysis study outcomes py scipy_default_kde_draws draw scipy stats gaussian_kde using s default bandwidth` |
+| `_uniform_draws` | function | 69 | `def _uniform_draws(size: int, low: float, high: float, rng: np.random.Generator) -> np.ndarray` | Random U(low, high) draws; high is exclusive for NumPy's Generator. | `src cmat_analysis study outcomes py uniform_draws random u low high draws is exclusive numpy` |
+| `_uniform_quantiles` | function | 76 | `def _uniform_quantiles(size: int, low: float, high: float) -> np.ndarray` | Deterministic interior points from a uniform distribution. | `src cmat_analysis study outcomes py uniform_quantiles deterministic interior points a uniform distribution` |
+| `add_primary_outcomes` | function | 88 | `def add_primary_outcomes(df: pd.DataFrame, config) -> pd.DataFrame` | Create continuous classroom-relative performance and pass/fail outcomes. | `src cmat_analysis study outcomes py add_primary_outcomes create continuous classroom-relative performance pass fail` |
+| `add_primary_outcomes.<locals>.zscore` | function | 168 | `def zscore(series: pd.Series) -> pd.Series` | No docstring; inspect implementation before reuse. | `src cmat_analysis study outcomes py add_primary_outcomes locals zscore no` |
+
+### `src/cmat_analysis/study/pipeline.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `_json_default` | function | 88 | `def _json_default(obj)` | No docstring; inspect implementation before reuse. | `src cmat_analysis study pipeline py json_default no` |
+| `_save_csv` | function | 100 | `def _save_csv(df: pd.DataFrame, path: Path) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study pipeline py save_csv no` |
+| `_merge_extra_covariates` | function | 105 | `def _merge_extra_covariates(mu: pd.DataFrame, config) -> tuple[pd.DataFrame, list[str], str]` | No docstring; inspect implementation before reuse. | `src cmat_analysis study pipeline py merge_extra_covariates no` |
+| `run_study_pipeline` | function | 120 | `def run_study_pipeline(config) -> dict[str, object]` | No docstring; inspect implementation before reuse. | `src cmat_analysis study pipeline py run_study_pipeline no` |
+
+### `src/cmat_analysis/study/plots.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `_save` | function | 13 | `def _save(fig, path: Path) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study plots py save no` |
+| `plot_visit_distribution` | function | 20 | `def plot_visit_distribution(mu: pd.DataFrame, calc: pd.DataFrame, out: Path, visits_col: str) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study plots py plot_visit_distribution no` |
+| `plot_continuation` | function | 37 | `def plot_continuation(curves: pd.DataFrame, out: Path) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study plots py plot_continuation no` |
+| `plot_primary_group_means` | function | 50 | `def plot_primary_group_means(summary: pd.DataFrame, out: Path) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study plots py plot_primary_group_means no` |
+| `plot_longitudinal_persistence` | function | 63 | `def plot_longitudinal_persistence(summary: pd.DataFrame, out: Path) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study plots py plot_longitudinal_persistence no` |
+| `plot_daily_cmat_timeline` | function | 74 | `def plot_daily_cmat_timeline(daily: pd.DataFrame, out: Path) -> None` | Calendar-day service load with a 7-day rolling mean of unique students. | `src cmat_analysis study plots py plot_daily_cmat_timeline calendar-day service load a day rolling mean of` |
+| `plot_term_peak_profiles` | function | 92 | `def plot_term_peak_profiles(profiles: pd.DataFrame, peaks: pd.DataFrame, out: Path) -> None` | Small multiples of smoothed within-period attendance with detected peaks. | `src cmat_analysis study plots py plot_term_peak_profiles small multiples of smoothed within-period attendance detected peaks` |
+| `plot_same_day_ppa_behavior` | function | 121 | `def plot_same_day_ppa_behavior(maxdist: pd.DataFrame, out: Path) -> None` | Maximum number of same-day visits among students who reached the PPA threshold. | `src cmat_analysis study plots py plot_same_day_ppa_behavior maximum number of same-day visits among students who` |
+| `plot_peak_spacing` | function | 137 | `def plot_peak_spacing(intervals: pd.DataFrame, summary: pd.DataFrame, out: Path) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study plots py plot_peak_spacing no` |
+| `plot_monthly_periodicity_acf` | function | 154 | `def plot_monthly_periodicity_acf(acf: pd.DataFrame, out: Path) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study plots py plot_monthly_periodicity_acf no` |
+| `plot_exact3_regularity_performance` | function | 171 | `def plot_exact3_regularity_performance(summary: pd.DataFrame, out: Path) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study plots py plot_exact3_regularity_performance no` |
+
+### `src/cmat_analysis/study/ppa_plots.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `_save` | function | 12 | `def _save(fig, path: Path) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study ppa_plots py save no` |
+| `plot_ppa_persistence_by_mu_group` | function | 19 | `def plot_ppa_persistence_by_mu_group(summary: pd.DataFrame, figures: Path) -> None` | Plot later Calculus-use probability by 0/1-2/3/4+ MU visits. | `src cmat_analysis study ppa_plots py plot_ppa_persistence_by_mu_group plot later calculus-use probability by mu visits` |
+| `plot_ppa_academic_trajectory_profiles` | function | 41 | `def plot_ppa_academic_trajectory_profiles(profiles: pd.DataFrame, figures: Path) -> None` | Plot mean Delta-Z for the eight observable MU-group x Calculus-use profiles. | `src cmat_analysis study ppa_plots py plot_ppa_academic_trajectory_profiles plot mean delta-z eight observable mu-group x calculus-use` |
+
+### `src/cmat_analysis/study/ppa_progression.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `PPAProgressionCohorts` | class | 43 | `class PPAProgressionCohorts` | Container for the reconstructed administrative history and paired cohorts. | `src cmat_analysis study ppa_progression py ppaprogressioncohorts container reconstructed administrative history paired cohorts` |
+| `_subject_mask` | function | 54 | `def _subject_mask(df: pd.DataFrame, code: str, name: str) -> pd.Series` | No docstring; inspect implementation before reuse. | `src cmat_analysis study ppa_progression py subject_mask no` |
+| `classify_revalidation_records` | function | 60 | `def classify_revalidation_records(academics: pd.DataFrame, *, passing_grade: float=7.5) -> pd.DataFrame` | Flag later rows after an observed pass as likely revalidation/replication. | `src cmat_analysis study ppa_progression py classify_revalidation_records flag later rows an observed pass as likely` |
+| `_numeric_classroom_reference_z` | function | 136 | `def _numeric_classroom_reference_z(history: pd.DataFrame, *, code: str, name: str, min_classroom_n: int=5) -> pd.DataFrame` | Compute numeric-grade Z using the actual course classroom as reference. | `src cmat_analysis study ppa_progression py numeric_classroom_reference_z compute numeric-grade z using actual course classroom as` |
+| `_next_regular_term` | function | 178 | `def _next_regular_term(year: int, session: str) -> tuple[int, str] \| None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study ppa_progression py next_regular_term no` |
+| `_period_form_career` | function | 189 | `def _period_form_career(advisories: pd.DataFrame) -> pd.DataFrame` | Most frequently recorded Google-Form career for each student-period. | `src cmat_analysis study ppa_progression py period_form_career most frequently recorded google-form career each student-period` |
+| `build_ppa_progression_cohort` | function | 221 | `def build_ppa_progression_cohort(data, config) -> PPAProgressionCohorts` | Build strict MU -> Calculus cohorts under the PPA1 first-semester assumption. | `src cmat_analysis study ppa_progression py build_ppa_progression_cohort build strict mu calculus cohorts under ppa1 first-semester` |
+| `ppa_behavior_profiles` | function | 404 | `def ppa_behavior_profiles(df: pd.DataFrame) -> pd.DataFrame` | Eight observable MU-group x later-Calculus-use profiles. | `src cmat_analysis study ppa_progression py ppa_behavior_profiles eight observable mu-group x later-calculus-use profiles` |
+| `persistence_by_mu_group` | function | 425 | `def persistence_by_mu_group(df: pd.DataFrame) -> pd.DataFrame` | P(Calculus CMAT use \| MU visit group) with Wilson intervals. | `src cmat_analysis study ppa_progression py persistence_by_mu_group p calculus cmat use mu visit group wilson` |
+| `_two_group_risk_comparison` | function | 447 | `def _two_group_risk_comparison(df: pd.DataFrame, *, group_col: str, event_col: str, exposed_value: str, reference_value: str, label: str) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis study ppa_progression py two_group_risk_comparison no` |
+| `ppa_persistence_association_tests` | function | 502 | `def ppa_persistence_association_tests(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]` | Omnibus 4x2 association plus the pre-specified exact-3 vs 4+ contrast. | `src cmat_analysis study ppa_progression py ppa_persistence_association_tests omnibus x2 association plus pre-specified exact-3 vs contrast` |
+| `_collapse_rare` | function | 528 | `def _collapse_rare(series: pd.Series, min_n: int=30) -> pd.Series` | No docstring; inspect implementation before reuse. | `src cmat_analysis study ppa_progression py collapse_rare no` |
+| `persistence_logistic_models` | function | 535 | `def persistence_logistic_models(df: pd.DataFrame, *, min_career_n: int=30) -> pd.DataFrame` | Cluster-robust logistic models for later CMAT use. | `src cmat_analysis study ppa_progression py persistence_logistic_models cluster-robust logistic models later cmat use` |
+| `piecewise_threshold_persistence_model` | function | 577 | `def piecewise_threshold_persistence_model(df: pd.DataFrame, *, cap_visits: int=12) -> pd.DataFrame` | Descriptive piecewise logit around V=3; explicitly not an RD design. | `src cmat_analysis study ppa_progression py piecewise_threshold_persistence_model descriptive piecewise logit around v explicitly not an` |
+| `later_performance_models` | function | 604 | `def later_performance_models(df: pd.DataFrame, *, min_career_n: int=30) -> pd.DataFrame` | Predict later Calculus classroom-relative performance from prior MU information. | `src cmat_analysis study ppa_progression py later_performance_models predict later calculus classroom-relative performance prior mu information` |
+| `major_persistence_summary` | function | 648 | `def major_persistence_summary(df: pd.DataFrame, *, min_n: int=30) -> pd.DataFrame` | Descriptive adoption/persistence/academic trajectory by official MU major. | `src cmat_analysis study ppa_progression py major_persistence_summary descriptive adoption persistence academic trajectory by official mu` |
+| `course_specific_transition` | function | 672 | `def course_specific_transition(df: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]` | 2x2 transition using course-tagged MU and Calculus advisory records. | `src cmat_analysis study ppa_progression py course_specific_transition x2 transition using course-tagged mu calculus advisory records` |
+| `form_career_crosswalk` | function | 696 | `def form_career_crosswalk(df: pd.DataFrame) -> pd.DataFrame` | Observed official-code x Google-Form-career pairs among users in the cohort. | `src cmat_analysis study ppa_progression py form_career_crosswalk observed official-code x google-form-career pairs among users in` |
+| `major_persistence_joint_test` | function | 715 | `def major_persistence_joint_test(df: pd.DataFrame, *, min_career_n: int=30) -> pd.DataFrame` | Joint Wald test for official MU degree program in the adjusted persistence logit. | `src cmat_analysis study ppa_progression py major_persistence_joint_test joint wald test official mu degree program in` |
+| `major_delta_z_welch` | function | 742 | `def major_delta_z_welch(df: pd.DataFrame, *, min_n: int=30) -> pd.DataFrame` | Welch ANOVA of classroom-relative academic change (Delta Z) across majors. | `src cmat_analysis study ppa_progression py major_delta_z_welch welch anova of classroom-relative academic change delta z` |
+
+### `src/cmat_analysis/study/selection.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `_weighted_mean` | function | 12 | `def _weighted_mean(x: np.ndarray, w: np.ndarray) -> float` | No docstring; inspect implementation before reuse. | `src cmat_analysis study selection py weighted_mean no` |
+| `_smd_binary` | function | 16 | `def _smd_binary(x: np.ndarray, t: np.ndarray, w: np.ndarray \| None=None) -> float` | No docstring; inspect implementation before reuse. | `src cmat_analysis study selection py smd_binary no` |
+| `propensity_att_sensitivity` | function | 29 | `def propensity_att_sensitivity(df: pd.DataFrame, *, treatment_col: str, outcome_col: str, categorical_covariates: list[str], numeric_covariates: list[str] \| None=None) -> tuple[pd.DataFrame, pd.DataFrame, dict[str, float \| int \| str]]` | Observed-covariate ATT weighting sensitivity analysis. | `src cmat_analysis study selection py propensity_att_sensitivity observed-covariate att weighting sensitivity analysis` |
+
+### `src/cmat_analysis/study/statistics.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `group_summary` | function | 15 | `def group_summary(df: pd.DataFrame, group_col: str, outcome_col: str) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis study statistics py group_summary no` |
+| `_cliffs_delta` | function | 37 | `def _cliffs_delta(x: np.ndarray, y: np.ndarray) -> float` | No docstring; inspect implementation before reuse. | `src cmat_analysis study statistics py cliffs_delta no` |
+| `robust_two_group_tests` | function | 43 | `def robust_two_group_tests(df: pd.DataFrame, treatment_col: str, outcome_col: str, seed: int=42) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis study statistics py robust_two_group_tests no` |
+| `_coef_table` | function | 93 | `def _coef_table(result, model_name: str, keep_terms: tuple[str, ...] \| None=None) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis study statistics py coef_table no` |
+| `primary_fixed_effect_models` | function | 112 | `def primary_fixed_effect_models(df: pd.DataFrame, outcome_col: str, treatment_col: str) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis study statistics py primary_fixed_effect_models no` |
+| `dose_group_fixed_effect_model` | function | 130 | `def dose_group_fixed_effect_model(df: pd.DataFrame, outcome_col: str, group_col: str) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis study statistics py dose_group_fixed_effect_model no` |
+| `secondary_pass_model` | function | 140 | `def secondary_pass_model(df: pd.DataFrame, treatment_col: str) -> pd.DataFrame` | Secondary pass/fail sensitivity using a linear probability model. | `src cmat_analysis study statistics py secondary_pass_model secondary pass fail sensitivity using a linear probability` |
+| `visit_distribution` | function | 158 | `def visit_distribution(df: pd.DataFrame, visits_col: str, course_label: str, max_exact: int=15) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis study statistics py visit_distribution no` |
+| `continuation_curve` | function | 180 | `def continuation_curve(df: pd.DataFrame, visits_col: str, course_label: str, max_k: int=10) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis study statistics py continuation_curve no` |
+| `bunching_metrics` | function | 199 | `def bunching_metrics(df: pd.DataFrame, visits_col: str, threshold: int, course_label: str) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis study statistics py bunching_metrics no` |
+| `longitudinal_summary` | function | 220 | `def longitudinal_summary(longitudinal: pd.DataFrame, *, mu_group_col: str, calc_visits_col: str, coverage_col: str) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis study statistics py longitudinal_summary no` |
+| `temporal_regularity_performance_models` | function | 238 | `def temporal_regularity_performance_models(df: pd.DataFrame, *, outcome_col: str, visits_col: str, regularity_col: str='REGULARITY_MONTHLY_4', min_visits: int=3) -> pd.DataFrame` | RQ2b: regularity-performance association conditional on visit intensity. | `src cmat_analysis study statistics py temporal_regularity_performance_models rq2b regularity-performance association conditional on visit intensity` |
+| `exact_visit_count_regularity_summary` | function | 271 | `def exact_visit_count_regularity_summary(df: pd.DataFrame, *, visits_col: str, outcome_col: str, exact_visits: int=3) -> pd.DataFrame` | Descriptive regularity-performance comparison at exactly V=3. | `src cmat_analysis study statistics py exact_visit_count_regularity_summary descriptive regularity-performance comparison at exactly v` |
+
+### `src/cmat_analysis/study/temporal.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `TemporalPeakConfig` | class | 11 | `class TemporalPeakConfig` | No docstring; inspect implementation before reuse. | `src cmat_analysis study temporal py temporalpeakconfig no` |
+| `primary_period_visit_events` | function | 20 | `def primary_period_visit_events(mu: pd.DataFrame, advisories: pd.DataFrame) -> pd.DataFrame` | Return every CMAT visit made during each student's first-MU academic period. | `src cmat_analysis study temporal py primary_period_visit_events return every cmat visit made during each student` |
+| `daily_service_counts` | function | 38 | `def daily_service_counts(events: pd.DataFrame, population: str) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis study temporal py daily_service_counts no` |
+| `same_day_ppa_behavior` | function | 55 | `def same_day_ppa_behavior(mu: pd.DataFrame, mu_events: pd.DataFrame, threshold: int=3) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]` | Characterize concentrated same-day attendance around the PPA threshold. | `src cmat_analysis study temporal py same_day_ppa_behavior characterize concentrated same-day attendance around ppa threshold` |
+| `same_day_ppa_behavior.<locals>._max_bucket` | function | 153 | `def _max_bucket(v: int) -> str` | No docstring; inspect implementation before reuse. | `src cmat_analysis study temporal py same_day_ppa_behavior locals max_bucket no` |
+| `top_daily_dates` | function | 184 | `def top_daily_dates(daily: pd.DataFrame, n: int=25) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis study temporal py top_daily_dates no` |
+| `detect_period_peaks` | function | 192 | `def detect_period_peaks(events: pd.DataFrame, config: TemporalPeakConfig \| None=None, population: str='All CMAT') -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]` | Detect separated local peaks in daily CMAT activity. | `src cmat_analysis study temporal py detect_period_peaks detect separated local peaks in daily cmat activity` |
+| `peak_spacing_summary` | function | 302 | `def peak_spacing_summary(peaks: pd.DataFrame, intervals: pd.DataFrame, config: TemporalPeakConfig \| None=None) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis study temporal py peak_spacing_summary no` |
+| `student_temporal_regularity` | function | 341 | `def student_temporal_regularity(mu: pd.DataFrame, mu_events: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', assessment_cycles: int=4) -> pd.DataFrame` | Construct student-level temporal-distribution measures for CMAT use. | `src cmat_analysis study temporal py student_temporal_regularity construct student-level temporal-distribution measures cmat use` |
+| `monthly_periodicity_diagnostics` | function | 450 | `def monthly_periodicity_diagnostics(events: pd.DataFrame, *, lag_min: int=14, lag_max: int=45, candidate_period_low: int=21, candidate_period_high: int=42, population: str='All CMAT') -> tuple[pd.DataFrame, pd.DataFrame]` | Estimate descriptive monthly-cycle diagnostics from daily service load. | `src cmat_analysis study temporal py monthly_periodicity_diagnostics estimate descriptive monthly-cycle diagnostics daily service load` |
+
+### `src/cmat_analysis/visualization/style.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `_candidate_font_roots` | function | 10 | `def _candidate_font_roots() -> list[Path]` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization style py candidate_font_roots no` |
+| `_register_local_eb_garamond` | function | 19 | `def _register_local_eb_garamond() -> str` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization style py register_local_eb_garamond no` |
+| `mpl_apply` | function | 36 | `def mpl_apply()` | Aplica un estilo personalizado a las gráficas de Matplotlib y Seaborn. | `src cmat_analysis visualization style py mpl_apply aplica un estilo personalizado a las gr ficas` |
+| `set_style` | function | 104 | `def set_style()` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization style py set_style no` |
+| `plotly_apply` | function | 110 | `def plotly_apply(palette=['#ffa600', '#ffd380'], fontsize=18, fontstack="EB Garamond, Garamond, Georgia, 'Times New Roman', serif")` | Aplica un estilo personalizado a las gráficas de Plotly, poner: from style import plotly_apply plotly_apply(). | `src cmat_analysis visualization style py plotly_apply aplica un estilo personalizado a las gr ficas` |
+
+### `src/create_anonymized_release.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `_load_key` | function | 24 | `def _load_key(args) -> bytes` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py load_key no` |
+| `_term_anchor` | function | 39 | `def _term_anchor(year: int, period: str) -> str` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py term_anchor no` |
+| `_make_anonymized_data` | function | 45 | `def _make_anonymized_data(project: Path, destination: Path, key: bytes) -> dict` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py make_anonymized_data no` |
+| `_copy_public_code` | function | 105 | `def _copy_public_code(project: Path, release_root: Path) -> None` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py copy_public_code no` |
+| `create_release` | function | 120 | `def create_release(project: Path, output_zip: Path, key: bytes) -> Path` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py create_release no` |
+| `main` | function | 154 | `def main() -> int` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py main no` |
+
+### `src/generador_figuras_cli.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `UserFacingError` | class | 48 | `class UserFacingError(Exception)` | No docstring; inspect implementation before reuse. | `src generador_figuras_cli py userfacingerror no` |
+| `get_base_dir` | function | 52 | `def get_base_dir() -> Path` | No docstring; inspect implementation before reuse. | `src generador_figuras_cli py get_base_dir no` |
+| `validate_excel_path` | function | 58 | `def validate_excel_path(path: Path, relative_label: str) -> None` | No docstring; inspect implementation before reuse. | `src generador_figuras_cli py validate_excel_path no` |
+| `validate_required_columns` | function | 68 | `def validate_required_columns(df: pd.DataFrame, required: tuple[str, ...], file_name: str) -> None` | No docstring; inspect implementation before reuse. | `src generador_figuras_cli py validate_required_columns no` |
+| `validate_inputs` | function | 78 | `def validate_inputs(base_dir: Path) -> tuple[Path, Path, Path]` | No docstring; inspect implementation before reuse. | `src generador_figuras_cli py validate_inputs no` |
+| `generate_descriptive_figures` | function | 106 | `def generate_descriptive_figures(base_dir: Path, catalogo_path: Path, visitas_path: Path, figures_dir: Path) -> list[Path]` | No docstring; inspect implementation before reuse. | `src generador_figuras_cli py generate_descriptive_figures no` |
+| `generate_all_figures` | function | 131 | `def generate_all_figures(base_dir: Path, visitas_path: Path, catalogo_path: Path, figures_dir: Path) -> list[Path]` | No docstring; inspect implementation before reuse. | `src generador_figuras_cli py generate_all_figures no` |
+| `main` | function | 170 | `def main() -> int` | No docstring; inspect implementation before reuse. | `src generador_figuras_cli py main no` |
+
+### `src/prepare_release_latex.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `should_copy_latex_file` | function | 23 | `def should_copy_latex_file(path: Path) -> bool` | No docstring; inspect implementation before reuse. | `src prepare_release_latex py should_copy_latex_file no` |
+| `copy_tree_filtered` | function | 28 | `def copy_tree_filtered(src: Path, dst: Path) -> None` | No docstring; inspect implementation before reuse. | `src prepare_release_latex py copy_tree_filtered no` |
+| `prepare_release_latex` | function | 38 | `def prepare_release_latex(release_dir: Path) -> None` | No docstring; inspect implementation before reuse. | `src prepare_release_latex py no` |
+| `main` | function | 65 | `def main() -> int` | No docstring; inspect implementation before reuse. | `src prepare_release_latex py main no` |
+
+### `src/run_analysis.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `parse_args` | function | 21 | `def parse_args() -> argparse.Namespace` | No docstring; inspect implementation before reuse. | `src run_analysis py parse_args no` |
+| `main` | function | 38 | `def main() -> int` | No docstring; inspect implementation before reuse. | `src run_analysis py main no` |
+
+### `src/run_study.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `main` | function | 17 | `def main() -> int` | No docstring; inspect implementation before reuse. | `src run_study py main no` |
+
+## Test symbols
+
+These are indexed for completeness and for locating existing coverage, but they are **not** reuse candidates for production analysis.
+
+### `tests/test_methodology_report_helpers.py`
+
+| Symbol | Kind | Line | Purpose / test intent |
+|---|---|---:|---|
+| `test_methodology_primary_outcome_uses_scipy_kde_and_uniform_fallback` | function | 12 | No docstring; inspect implementation before reuse. |
+| `test_methodology_exact_visit_grouping_has_all_ten_pairwise_contrasts` | function | 31 | No docstring; inspect implementation before reuse. |
+| `test_methodology_report_atomic_runner_resolves_root_code_dependencies` | function | 42 | No docstring; inspect implementation before reuse. |
+
+### `tests/test_study_helpers.py`
+
+| Symbol | Kind | Line | Purpose / test intent |
+|---|---|---:|---|
+| `test_normalization_and_period_order` | function | 4 | No docstring; inspect implementation before reuse. |
+| `test_visit_groups` | function | 14 | No docstring; inspect implementation before reuse. |
+| `test_hmac_pseudonym_is_stable_across_excel_numeric_types` | function | 22 | No docstring; inspect implementation before reuse. |
+| `test_same_day_ppa_behavior_identifies_first_three_same_day` | function | 29 | No docstring; inspect implementation before reuse. |
+| `test_detect_period_peaks_finds_monthly_pattern` | function | 58 | No docstring; inspect implementation before reuse. |
+| `test_temporal_regularity_distinguishes_concentrated_and_distributed_use` | function | 92 | No docstring; inspect implementation before reuse. |
+| `test_monthly_periodicity_diagnostics_recovers_30_day_cycle` | function | 120 | No docstring; inspect implementation before reuse. |
+| `test_extended_one_two_equivalence_and_transition` | function | 143 | No docstring; inspect implementation before reuse. |
+| `test_extended_welch_anova_and_career_association_outputs` | function | 168 | No docstring; inspect implementation before reuse. |
+| `test_exact_visit_index_uses_career_relative_standardization_and_sparse_tail_sensitivity` | function | 204 | No docstring; inspect implementation before reuse. |
+| `test_ppa_revalidation_classifier_flags_post_pass_and_same_period_replica` | function | 249 | No docstring; inspect implementation before reuse. |
+| `test_ppa_persistence_summary_orders_threshold_groups` | function | 271 | No docstring; inspect implementation before reuse. |
+
+## Parse status
+
+All scanned Python files parsed successfully.
+
+## Maintenance
+
+This file is generated. Do not hand-edit symbol tables. Edit `scripts/generate_function_index.py` if the format or capability map needs to change, then regenerate.

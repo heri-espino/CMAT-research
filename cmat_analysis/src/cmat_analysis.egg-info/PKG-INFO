@@ -1,0 +1,16 @@
+Metadata-Version: 2.4
+Name: cmat-analysis
+Version: 0.1.0
+Summary: Reusable scientific analysis library for the CMAT research programme.
+Requires-Python: <3.15,>=3.14
+Requires-Dist: pandas==3.0.3
+Requires-Dist: numpy==2.4.6
+Requires-Dist: matplotlib==3.10.9
+Requires-Dist: seaborn==0.13.2
+Requires-Dist: scipy==1.17.1
+Requires-Dist: scikit-learn==1.8.0
+Requires-Dist: statsmodels==0.14.6
+Requires-Dist: openpyxl==3.1.5
+Provides-Extra: dev
+Requires-Dist: build; extra == "dev"
+Requires-Dist: pytest; extra == "dev"

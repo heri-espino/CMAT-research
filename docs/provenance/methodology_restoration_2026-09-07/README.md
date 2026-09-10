@@ -14,7 +14,7 @@ The restored state was validated before merge:
 - every entry in the methodology report `provenance/SHA256SUMS.txt` passed SHA-256 verification;
 - methodology helper suite: **9/9 tests passed**;
 - historical Python function index: **320 symbols**;
-- `reports/methodology_report/methodology_report.pdf`: **40 pages** and SHA-256 `1e52d36809924df4bc84db65f6cb6669fe33d1f402076e8930b3a173f550595f`;
+- `brainstorm/methodology_report/methodology_report.pdf`: **40 pages** and SHA-256 `1e52d36809924df4bc84db65f6cb6669fe33d1f402076e8930b3a173f550595f`;
 - no original Excel files or prohibited raw administrative microdata formats were present.
 
 Historical scientific-source fingerprint:
@@ -53,7 +53,7 @@ The refined longitudinal/PPA `N=3,241` stage is **later work** and is not claime
 
 The active methodology report is:
 
-`reports/methodology_report/`
+`brainstorm/methodology_report/`
 
 The duplicate restored code tree that once lived under `code/snapshots/` was intentionally removed. The full working tree immediately before that code cleanup remains recoverable from Git at commit:
 

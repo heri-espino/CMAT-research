@@ -25,6 +25,6 @@ Do not turn `docs/` into a second copy of subsystem documentation:
 - paper-specific scope/status -> `papers/<paper_id>/README.md`;
 - paper-specific literature -> `papers/<paper_id>/literature/`;
 - shared literature retrieval rules -> `literature/`;
-- report-specific build/provenance -> the relevant `reports/<report>/` directory.
+- report-specific build/provenance -> the relevant `brainstorm/<report>/` directory.
 
 When a working title, paper boundary, priority or journal strategy changes, update `PUBLICATION_PORTFOLIO.md` for the cross-paper view and the relevant paper README for detail. Do not duplicate the same detailed paper state across multiple handoffs.

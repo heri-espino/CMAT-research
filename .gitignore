@@ -49,7 +49,7 @@ Thumbs.db
 
 # Generated local pipeline/build outputs are not source code.
 code/outputs/
-reports/**/build/
+brainstorm/**/build/
 papers/**/build/
 
 # Raw CSVs are excluded by default. Aggregated/releasable CSVs may be force-added
@@ -58,7 +58,7 @@ papers/**/build/
 *.csv
 !analysis/**/*.csv
 !outputs/aggregated/**/*.csv
-!reports/**/tables/*.csv
+!brainstorm/**/tables/*.csv
 !papers/**/results/**/*.csv
 
 # Heavy private literature snapshot
