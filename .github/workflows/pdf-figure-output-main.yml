@@ -1,0 +1,165 @@
+name: Standardize generated figures on PDF
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/pdf-figure-output-main.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    if: github.event.head_commit.message == 'ci(admin): switch generated figures to PDF'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+
+      - name: Make PDF the canonical generated figure format
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+
+          def read(path: str) -> str:
+              return Path(path).read_text(encoding='utf-8')
+
+          def write(path: str, text: str) -> None:
+              Path(path).write_text(text, encoding='utf-8')
+
+          def replace_once(path: str, old: str, new: str) -> None:
+              text = read(path)
+              if old not in text:
+                  raise SystemExit(f'Expected text not found in {path}: {old!r}')
+              write(path, text.replace(old, new, 1))
+
+          # Remove the just-added raster+vector public helper. The stable public
+          # reporting API remains provenance-focused; production plotters save PDF.
+          write(
+              'cmat_analysis/src/cmat_analysis/reporting/__init__.py',
+              '''"""Reusable tabular reporting, formatting, and provenance utilities.\n\nPublication-specific report orchestration is retained only as a compatibility\nlayer during migration and is not part of this package's public API.\n"""\n\nfrom .provenance import write_run_log\n\n__all__ = ["write_run_log"]\n''',
+          )
+          for obsolete in (
+              'cmat_analysis/src/cmat_analysis/reporting/figures.py',
+              'cmat_analysis/tests/test_reporting_figures.py',
+          ):
+              path = Path(obsolete)
+              if path.exists():
+                  path.unlink()
+
+          replace_once(
+              'cmat_analysis/PUBLIC_API.md',
+              '- `save_figure_variants` — function\n- `write_run_log` — function',
+              '- `write_run_log` — function',
+          )
+          replace_once(
+              'cmat_analysis/PUBLIC_API.md',
+              'Public functions: **67**',
+              'Public functions: **66**',
+          )
+          replace_once(
+              'cmat_analysis/docs/api/index.rst',
+              '.. autofunction:: cmat_analysis.reporting.save_figure_variants\n   :no-index-entry:\n\n',
+              '',
+          )
+          replace_once(
+              'cmat_analysis/tests/test_public_api_documentation.py',
+              '    "cmat_analysis.reporting": ("save_figure_variants", "write_run_log"),',
+              '    "cmat_analysis.reporting": ("write_run_log",),',
+          )
+
+          # Active plot producers: file extension controls Matplotlib backend;
+          # PDF preserves vector paths/text unless an artist is explicitly rasterized.
+          producer_paths = (
+              'cmat_analysis/src/cmat_analysis/visualization/_study.py',
+              'cmat_analysis/src/cmat_analysis/visualization/_ppa.py',
+              'cmat_analysis/src/cmat_analysis/visualization/_exploratory.py',
+              'cmat_analysis/src/cmat_analysis/visualization/methodology.py',
+              'cmat_analysis/src/cmat_analysis/study/methodology_pipeline.py',
+          )
+          for filename in producer_paths:
+              text = read(filename)
+              text = text.replace('.png"', '.pdf"').replace(".png'", ".pdf'")
+              write(filename, text)
+
+          # Generated methodology assets are now staged as PDFs. The refined
+          # N=3,241 snapshot remains an explicit external PNG and is not rewritten.
+          replace_once(
+              'cmat_analysis/src/cmat_analysis/reporting/methodology_build.py',
+              'generated_figures.glob("*.png")',
+              'generated_figures.glob("*.pdf")',
+          )
+
+          # LaTeX products omit the extension for generated figures. This keeps
+          # retained historical PNG snapshots compilable while pdfLaTeX selects
+          # the new PDF asset when it is present. Do not rewrite the explicitly
+          # external refined snapshot.
+          tex_paths = (
+              'brainstorm/research_compendium/research_compendium.tex',
+              'brainstorm/research_compendium/new_section.tex',
+              'brainstorm/research_compendium/ppa_progression_analysis.tex',
+              'brainstorm/methodology_report/methodology_report.tex',
+          )
+          pattern = re.compile(r'(\\includegraphics(?:\[[^\]]*\])?\{[^{}]+)\.png\}')
+          for filename in tex_paths:
+              path = Path(filename)
+              text = path.read_text(encoding='utf-8')
+              def repl(match: re.Match[str]) -> str:
+                  whole = match.group(0)
+                  if 'refined_longitudinal_persistence_3241.png' in whole:
+                      return whole
+                  return match.group(1) + '}'
+              path.write_text(pattern.sub(repl, text), encoding='utf-8')
+
+          # Guard against active PNG outputs being reintroduced in the producer set.
+          remaining = []
+          for filename in producer_paths:
+              for lineno, line in enumerate(read(filename).splitlines(), 1):
+                  if '.png' in line:
+                      remaining.append(f'{filename}:{lineno}: {line.strip()}')
+          if remaining:
+              raise SystemExit('Active PNG figure outputs remain:\n' + '\n'.join(remaining))
+          PY
+
+      - name: Install library, tests, and docs
+        run: python -m pip install -e "./cmat_analysis[dev,docs]"
+
+      - name: Run test suite
+        run: pytest cmat_analysis/tests/
+
+      - name: Build Sphinx documentation with warnings as errors
+        run: sphinx-build -W -b html cmat_analysis/docs /tmp/cmat-analysis-docs
+
+      - name: Verify LaTeX generated-figure references are extension-neutral
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import re
+          bad = []
+          for root in (Path('brainstorm/research_compendium'), Path('brainstorm/methodology_report')):
+              for path in root.glob('*.tex'):
+                  for lineno, line in enumerate(path.read_text(encoding='utf-8').splitlines(), 1):
+                      if '\\includegraphics' in line and '.png' in line and 'refined_longitudinal_persistence_3241.png' not in line:
+                          bad.append(f'{path}:{lineno}: {line.strip()}')
+          if bad:
+              raise SystemExit('Unexpected raster LaTeX figure references remain:\n' + '\n'.join(bad))
+          PY
+
+      - name: Commit directly to main and remove one-time workflow
+        shell: bash
+        run: |
+          rm .github/workflows/pdf-figure-output-main.yml
+          git config user.name 'CMAT maintenance bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add -A
+          git commit -m 'refactor(figures): standardize LaTeX outputs on PDF'
+          git push origin HEAD:main
