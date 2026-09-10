@@ -251,9 +251,6 @@ reporting
 
 .. automodule:: cmat_analysis.reporting
 
-.. autofunction:: cmat_analysis.reporting.save_figure_variants
-   :no-index-entry:
-
 .. autofunction:: cmat_analysis.reporting.write_run_log
    :no-index-entry:
 

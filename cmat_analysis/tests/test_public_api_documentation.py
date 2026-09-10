@@ -87,7 +87,7 @@ EXPECTED_PUBLIC_API = {
         "plotly_apply",
         "set_style",
     ),
-    "cmat_analysis.reporting": ("save_figure_variants", "write_run_log"),
+    "cmat_analysis.reporting": ("write_run_log",),
     "cmat_analysis.privacy": (
         "canonical_identifier",
         "hmac_pseudonym",

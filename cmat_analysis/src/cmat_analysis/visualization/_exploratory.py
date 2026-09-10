@@ -34,7 +34,7 @@ def plot_exact_visit_performance_index(index_df: pd.DataFrame, figures: Path) ->
     ax.set_ylabel("Índice de rendimiento relativo a la licenciatura (DE)")
     ax.set_title("Rendimiento relativo por número exacto de asesorías (1–12)")
     ax.set_xticks(range(1, 13))
-    _finish(fig, figures / "11_exact_visit_career_relative_index.png")
+    _finish(fig, figures / "11_exact_visit_career_relative_index.pdf")
 
 
 def plot_career_performance(career_summary: pd.DataFrame, figures: Path, min_n: int = 30) -> None:
@@ -54,7 +54,7 @@ def plot_career_performance(career_summary: pd.DataFrame, figures: Path, min_n: 
     ax.set_xlabel("Media de Z respecto al salón (DE)")
     ax.set_ylabel("Licenciatura")
     ax.set_title("Desempeño relativo al salón por licenciatura")
-    _finish(fig, figures / "12_career_classroom_z_means.png")
+    _finish(fig, figures / "12_career_classroom_z_means.pdf")
 
 
 def plot_longitudinal_any_visit_transition(combos: pd.DataFrame, stats_df: pd.DataFrame, figures: Path) -> None:
@@ -88,7 +88,7 @@ def plot_longitudinal_any_visit_transition(combos: pd.DataFrame, stats_df: pd.Da
     ax.set_title(f"Persistencia individual de uso: MU a Cálculo I (RR={rr:.2f})")
     for i,(p,n) in enumerate(zip(ps,ns)):
         ax.text(i, p+0.025, f"{100*p:.1f}%\nn={n}", ha="center", va="bottom", fontsize=9)
-    _finish(fig, figures / "13_any_visit_mu_to_calculus_transition.png")
+    _finish(fig, figures / "13_any_visit_mu_to_calculus_transition.pdf")
 
 
 def plot_career_usage_rates(career_summary: pd.DataFrame, figures: Path, min_n: int = 30) -> None:
@@ -105,4 +105,4 @@ def plot_career_usage_rates(career_summary: pd.DataFrame, figures: Path, min_n: 
     ax.set_ylabel("Licenciatura")
     ax.set_title("Uso del CMAT por licenciatura")
     ax.set_xlim(left=0)
-    _finish(fig, figures / "14_career_any_visit_rates.png")
+    _finish(fig, figures / "14_career_any_visit_rates.pdf")

@@ -99,7 +99,6 @@ No public callables.
 
 ## `cmat_analysis.reporting`
 
-- `save_figure_variants` — function
 - `write_run_log` — function
 
 ## `cmat_analysis.privacy`
@@ -107,5 +106,5 @@ No public callables.
 - `canonical_identifier` — function
 - `hmac_pseudonym` — function
 
-Public functions: **67**  
+Public functions: **66**  
 Public classes: **3**
