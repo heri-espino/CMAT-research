@@ -1,6 +1,17 @@
 # Report changelog
 
+## Atomic report architecture — 2026-09-10
+
+- Moved the stable methodology-report entry point from `code/experiments/methodology_report.py` to `reports/methodology_report/code/methodology_report.py`.
+- Kept reusable scientific and build functions in root `code/src/visitas_analysis/`; the report-local script is intentionally only a thin importer/launcher.
+- Added `code/src/visitas_analysis/reporting/methodology_build.py` as the root-code home for report-build orchestration previously embedded in the central runner.
+- Moved disposable methodology working outputs from `code/outputs/methodology_report/` to the report-local ignored `build/` directory.
+- Retained reviewed CSV/LaTeX table assets and figures inside the report folder.
+- Updated repository documentation to define `code/ → reports/ → papers/` as the primary production hierarchy.
+
 ## v2 methodology — 2026-09-07
+
+Historical methodology-state label retained for provenance.
 
 - Rewritten as one continuous technical report; publication split moved to the end.
 - Expanded mathematical/statistical explanations for the methods and assumptions.
