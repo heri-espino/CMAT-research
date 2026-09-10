@@ -37,7 +37,7 @@ jobs:
         run: python -m pip install -e './cmat_analysis[dev]'
 
       - name: Compile Python entry points
-        run: python -m py_compile code/run_paper.py paper/build.py literature_selected/notes_on_papers/_generate.py
+        run: python -m py_compile code/run_paper.py code/figures.py paper/build.py literature_selected/notes_on_papers/_generate.py
 
       - name: Validate Paper 1 recipe without private data
         run: python code/run_paper.py --check
