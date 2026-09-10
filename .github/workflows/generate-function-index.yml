@@ -36,5 +36,9 @@ jobs:
           git config user.email 'actions@users.noreply.github.com'
           git add cmat_analysis/FUNCTION_INDEX.md
           git commit -m 'docs: generate cmat_analysis function index'
-          git pull --rebase origin main
-          git push
+          # The repository contains historical Git-LFS files that checkout may
+          # leave as harmless working-tree modifications. A pull --rebase would
+          # reject that dirty tree even though the generated index is committed.
+          # This job starts from the triggering main commit, so the immediate
+          # fast-forward push is the appropriate operation here.
+          git push origin HEAD:main

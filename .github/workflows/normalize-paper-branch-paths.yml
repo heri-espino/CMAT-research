@@ -1,0 +1,87 @@
+name: Normalize publication branch paths
+
+on:
+  push:
+    branches: ['main']
+    paths: ['.github/workflows/normalize-paper-branch-paths.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  normalize:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - branch: paper/paper1-ppa-persistence
+            old_slug: paper1_ppa_persistence
+          - branch: paper/paper2-mu-performance
+            old_slug: paper2_mu_performance
+          - branch: paper/paper3-grading-heterogeneity
+            old_slug: paper3_grading_heterogeneity
+          - branch: paper/paper4-degree-help-seeking
+            old_slug: paper4_degree_help_seeking
+          - branch: paper/paper5-longitudinal-trajectories
+            old_slug: paper5_longitudinal_trajectories
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ matrix.branch }}
+          fetch-depth: 0
+
+      - name: Normalize text references
+        env:
+          OLD_SLUG: ${{ matrix.old_slug }}
+        run: |
+          python - <<'PY'
+          import os
+          from pathlib import Path
+
+          old_slug = os.environ['OLD_SLUG']
+          roots = [Path('literature_selected'), Path('paper')]
+          skip = {'.pdf', '.png', '.jpg', '.jpeg', '.zip'}
+          common = [
+              ('reports/', 'brainstorm/'),
+              ('analysis/shared/', 'brainstorm/shared/'),
+              (f'papers/{old_slug}/literature/', 'literature_selected/'),
+              (f'papers/{old_slug}/manuscript/', 'paper/'),
+          ]
+          for root in roots:
+              if not root.exists():
+                  continue
+              for p in root.rglob('*'):
+                  if not p.is_file() or p.suffix.lower() in skip:
+                      continue
+                  try:
+                      old = p.read_text(encoding='utf-8')
+                  except UnicodeDecodeError:
+                      continue
+                  new = old
+                  for a, b in common:
+                      new = new.replace(a, b)
+                  if old_slug == 'paper1_ppa_persistence':
+                      if p == Path('paper/main.tex'):
+                          new = new.replace('../../../brainstorm/methodology_report/', '../brainstorm/methodology_report/')
+                      if p == Path('paper/build.py'):
+                          new = new.replace('REPO_ROOT = MANUSCRIPT_DIR.parents[2]', 'REPO_ROOT = MANUSCRIPT_DIR.parent')
+                          new = new.replace('/ "reports"', '/ "brainstorm"')
+                      if p == Path('literature_selected/notes_on_papers/_generate.py'):
+                          new = new.replace('ROOT = Path(__file__).resolve().parents[4]', 'ROOT = Path(__file__).resolve().parents[2]')
+                          new = new.replace('ROOT / "papers" / "paper1_ppa_persistence" / "literature" / "reading_notes"', 'ROOT / "literature_selected" / "reading_notes"')
+                  if new != old:
+                      p.write_text(new, encoding='utf-8')
+          PY
+
+      - name: Commit branch normalization
+        run: |
+          if test -z "$(git status --porcelain -- literature_selected paper)"; then
+            echo 'No path changes needed.'
+            exit 0
+          fi
+          git config user.name 'CMAT migration bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add literature_selected paper
+          git commit -m 'refactor: normalize publication branch paths'
+          git push origin HEAD:${{ matrix.branch }}

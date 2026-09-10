@@ -1,6 +1,6 @@
 [project]
 name = "cmat-analysis"
-version = "0.1.0"
+version = "0.2.0"
 description = "Reusable scientific analysis library for the CMAT research programme."
 requires-python = ">=3.14,<3.15"
 dependencies = [
@@ -16,6 +16,7 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["build", "pytest"]
+docs = ["sphinx>=8.2"]
 
 [build-system]
 requires = ["setuptools>=68"]
