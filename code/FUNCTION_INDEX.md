@@ -32,10 +32,10 @@
 
 ## Inventory summary
 
-- Python files scanned: **63**
-- Reusable/source symbols: **406**
+- Python files scanned: **64**
+- Reusable/source symbols: **412**
 - Test symbols: **14**
-- Total functions/classes/methods/nested functions: **420**
+- Total functions/classes/methods/nested functions: **426**
 
 Private helpers whose names begin with `_` are included because they often contain reusable project logic even when they are not part of the public API.
 
@@ -401,6 +401,17 @@ Private helpers whose names begin with `_` are included because they often conta
 | `clean_materias_with_tracking` | function | 93 | `def clean_materias_with_tracking(materias_raw: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]` | No docstring; inspect implementation before reuse. | `src visitas_analysis reporting descriptive_pipeline py clean_materias_with_tracking no` |
 | `enrich_materias_with_visits` | function | 185 | `def enrich_materias_with_visits(materias_cleaned: pd.DataFrame, asesorias_raw: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]` | No docstring; inspect implementation before reuse. | `src visitas_analysis reporting descriptive_pipeline py enrich_materias_with_visits no` |
 | `build_analytical_bundle` | function | 233 | `def build_analytical_bundle(project_root: Path, materias_path: Path, asesorias_path: Path) -> AnalyticalBundle` | No docstring; inspect implementation before reuse. | `src visitas_analysis reporting descriptive_pipeline py build_analytical_bundle no` |
+
+### `src/visitas_analysis/reporting/methodology_build.py`
+
+| Symbol | Kind | Line | Signature | Purpose | Search tags |
+|---|---|---:|---|---|---|
+| `_sha256` | function | 26 | `def _sha256(path: Path) -> str` | Return the SHA-256 digest of a controlled input file. | `src visitas_analysis reporting methodology_build py sha256 return sha-256 digest of a controlled input file` |
+| `_stage_generated_assets` | function | 35 | `def _stage_generated_assets(output_dir: Path, report_dir: Path, repo_root: Path) -> dict[str, list[str]]` | Stage generated aggregate assets into the atomic report directory. | `src visitas_analysis reporting methodology_build py stage_generated_assets stage generated aggregate assets atomic report directory` |
+| `_compile_report` | function | 64 | `def _compile_report(report_dir: Path) -> Path` | Compile the methodology report after scientific outputs have been staged. | `src visitas_analysis reporting methodology_build py compile_report compile methodology report scientific outputs have been staged` |
+| `_check_structure` | function | 102 | `def _check_structure(code_root: Path, report_dir: Path) -> list[str]` | Validate the root-code/report boundary without loading controlled data. | `src visitas_analysis reporting methodology_build py check_structure validate root-code report boundary without loading controlled data` |
+| `_parse_args` | function | 121 | `def _parse_args(default_output_dir: Path, argv: list[str] \| None) -> argparse.Namespace` | Parse the stable methodology-report runner interface. | `src visitas_analysis reporting methodology_build py parse_args parse stable methodology-report runner interface` |
+| `methodology_report_cli` | function | 148 | `def methodology_report_cli(repo_root: Path, report_dir: Path, argv: list[str] \| None=None) -> int` | Run the methodology-report recipe while keeping scientific functions in root/code. | `src visitas_analysis reporting methodology_build py methodology_report_cli run methodology-report recipe while keeping scientific functions in` |
 
 ### `src/visitas_analysis/reporting/methodology_report.py`
 
