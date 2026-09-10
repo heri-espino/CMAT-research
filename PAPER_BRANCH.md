@@ -3,10 +3,35 @@
 This branch is the canonical publication workspace for Paper 1. It inherits shared infrastructure from `main` and owns only publication-specific selection and production.
 
 - `literature_selected/`: selected literature, reading notes and annotated source Markdown;
-- `code/`: paper-specific orchestration importing `cmat_analysis`;
-- `results/`: generated/selected paper outputs;
+- `code/`: paper-specific orchestration importing the installed `cmat_analysis` library;
+- `results/`: generated/selected aggregate paper outputs;
 - `paper/`: manuscript and build material;
 - `submission/`: journal-specific material.
+
+## Canonical Paper 1 runner
+
+Install the shared library once from the repository root:
+
+```bash
+python -m pip install -e './cmat_analysis[dev]'
+```
+
+Validate the branch without private data:
+
+```bash
+python code/run_paper.py --check
+```
+
+Reproduce the current PPA-persistence specification with controlled local inputs:
+
+```bash
+python code/run_paper.py \
+  --materias '/path/to/Materias.xlsx' \
+  --asesorias '/path/to/Asesorias.xlsx' \
+  --compare-retained
+```
+
+Use `--compile` to delegate to `paper/build.py` after a successful scientific run. The runner writes only aggregate publication outputs under `results/`; raw/row-level administrative data must never be committed.
 
 ## Coordination contract
 
