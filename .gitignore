@@ -47,15 +47,19 @@ Thumbs.db
 *.dta
 *.sas7bdat
 
-# Generated local pipeline outputs are not source code.
+# Generated local pipeline/build outputs are not source code.
 code/outputs/
+reports/**/build/
+papers/**/build/
 
 # Raw CSVs are excluded by default. Aggregated/releasable CSVs may be force-added
-# only after privacy review. Retained aggregate analysis outputs live under analysis/.
+# only after privacy review. Retained aggregate analysis outputs live under analysis/
+# or inside the atomic report/paper product that owns them.
 *.csv
 !analysis/**/*.csv
 !outputs/aggregated/**/*.csv
 !reports/**/tables/*.csv
+!papers/**/results/**/*.csv
 
 # Heavy private literature snapshot
 # The repository is private and the user explicitly requested preservation of
