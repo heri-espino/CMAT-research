@@ -8,7 +8,7 @@ import pandas as pd
 import seaborn as sns
 from sklearn.preprocessing import MinMaxScaler
 
-from cmat_analysis.analysis.cleaning import clean_materias_df
+from cmat_analysis.preprocessing import clean_materias_df
 
 
 COMPARISON_SALON_KEY = (23453, "MAT1012", 2020, "PRIMAVERA")

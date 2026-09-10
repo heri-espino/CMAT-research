@@ -34,6 +34,7 @@ Canonical implementation modules
    cmat_analysis.statistics.inference
    cmat_analysis.statistics.selection
    cmat_analysis.statistics.group_comparisons
+   cmat_analysis.statistics.methodology
    cmat_analysis.longitudinal.temporal
    cmat_analysis.longitudinal.transitions
    cmat_analysis.ppa.progression
@@ -42,4 +43,5 @@ Canonical implementation modules
    cmat_analysis.visualization.ppa
    cmat_analysis.visualization.exploratory
    cmat_analysis.visualization.grade_distributions
+   cmat_analysis.visualization.methodology
    cmat_analysis.reporting.provenance

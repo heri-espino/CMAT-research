@@ -19,6 +19,7 @@ from .inference import (
     visit_distribution,
 )
 from .selection import propensity_att_sensitivity
+from .methodology import add_exact_visit_group, games_howell_exact_groups
 from .group_comparisons import (
     career_performance_analysis,
     career_usage_association,
@@ -34,6 +35,8 @@ from .group_comparisons import (
 )
 
 __all__ = [
+    "add_exact_visit_group",
+    "games_howell_exact_groups",
     "bunching_metrics",
     "career_performance_analysis",
     "career_usage_association",

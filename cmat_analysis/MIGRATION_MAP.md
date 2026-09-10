@@ -13,6 +13,8 @@ This map records the architectural move from report-history namespaces to respon
 | `study/statistics.py` | descriptive/inferential statistics | `statistics/inference.py` | moved; old path is shim |
 | `study/selection.py` | propensity ATT sensitivity | `statistics/selection.py` | moved; old path is shim |
 | `study/extended_analysis.py` | robust/group/career comparisons | `statistics/group_comparisons.py` | moved; old path is shim |
+| `study/extended_methodology.py` | reusable visit-dose methodology diagnostics | `statistics/methodology.py` | moved; old path is shim |
+| `study/methodology_plots.py` | methodology figures | `visualization/methodology.py` | moved; old path is shim |
 | `study/temporal.py` | timing/regularity/periodicity | `longitudinal/temporal.py` | moved; old path is shim |
 | `study/ppa_progression.py` | PPA progression/persistence | `ppa/progression.py` | moved; old path is shim |
 | `study/plots.py` | study figures | `visualization/study.py` | moved; old path is shim |
@@ -22,7 +24,7 @@ This map records the architectural move from report-history namespaces to respon
 
 ## Deliberately retained compatibility/orchestration
 
-`analysis/raw_report_figures.py`, `analysis/report_compatible/`, `pipeline/`, `study/pipeline.py`, `study/methodology_pipeline.py`, `study/methodology_plots.py`, `study/extended_methodology.py`, `reporting/methodology_build.py`, and `reporting/methodology_report.py` remain outside the public API because they orchestrate or reproduce specific historical reports. They should be extracted to a brainstorm workspace only with an end-to-end reproduction check; no new reusable functionality should be added to them.
+`analysis/raw_report_figures.py`, `analysis/report_compatible/`, `pipeline/`, `study/pipeline.py`, `study/methodology_pipeline.py`, `reporting/methodology_build.py`, and `reporting/methodology_report.py` remain outside the public API because they orchestrate or reproduce specific historical reports. They should be extracted to a brainstorm workspace only with an end-to-end reproduction check; no new reusable functionality should be added to them.
 
 ## Consumer rule
 

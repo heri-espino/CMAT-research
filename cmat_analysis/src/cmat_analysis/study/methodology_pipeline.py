@@ -10,8 +10,8 @@ from pathlib import Path
 
 import pandas as pd
 
-from .cohort import build_study_cohorts, load_and_clean_inputs
-from .extended_methodology import (
+from cmat_analysis.cohorts import build_study_cohorts, load_and_clean_inputs
+from cmat_analysis.statistics.methodology import (
     build_all_math_attempts_with_outcomes,
     calc_progressor_followup_cohort,
     calc_progressor_mu_cohort,
@@ -24,7 +24,7 @@ from .extended_methodology import (
     games_howell_exact_groups,
     welch_anova_exact_groups,
 )
-from .methodology_plots import (
+from cmat_analysis.visualization.methodology import (
     plot_career_mean_z,
     plot_career_use_vs_z,
     plot_exact_visit_count_curve,
@@ -32,7 +32,7 @@ from .methodology_plots import (
     plot_peak_spacing_by_population,
     plot_periodicity_acf_by_population,
 )
-from .outcomes import add_primary_outcomes
+from cmat_analysis.measures import add_primary_outcomes
 from .pipeline import run_study_pipeline
 
 

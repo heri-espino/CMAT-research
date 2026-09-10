@@ -5,7 +5,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from cmat_analysis.analysis.cleaning import (
+from cmat_analysis.preprocessing import (
     clean_materias_df,
     get_salones_with_imputations,
 )
