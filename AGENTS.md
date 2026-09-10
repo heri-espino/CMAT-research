@@ -6,48 +6,82 @@ Before substantive work:
 
 1. read `AI_HANDOFF.md`;
 2. read the README/AGENTS file in the subsystem being changed;
-3. **for any Python/code task, read `code/.ai_handoff.md` and search `code/FUNCTION_INDEX.md` before proposing or writing a new function**;
-4. inspect current canonical outputs/protocol before quoting numerical results;
+3. **for any Python/scientific-code task, read `code/.ai_handoff.md` and search `code/FUNCTION_INDEX.md` before proposing or writing a reusable function**;
+4. inspect the owning report/paper and current canonical outputs/protocol before quoting numerical results;
 5. use a short-lived branch for a concrete change when useful unless the user explicitly requests otherwise.
 
 ## Canonical repository model
 
-`main` is the source of truth. Organize the project by subfolder; branches are temporary workspaces for concrete changes, not permanent scientific states.
+`main` is the source of truth. Git is the history/provenance layer.
 
-Read `docs/GIT_WORKFLOW.md` before creating or reusing a branch. Git itself is the authority for current branch state; do not maintain manual branch-status files.
+The primary production chain is:
 
-## Scientific dependency rule
+```text
+controlled data
+    ↓
+root code
+    ↓
+atomic reports
+    ↓
+publication papers
+```
 
-Maintain one scientific chain:
+More precisely:
 
-`controlled data -> code/ -> analysis/ -> reports/ and papers/`.
+`controlled data -> code/src/visitas_analysis/ -> reports/<report_id>/ -> papers/<paper_id>/`.
 
-Do not create manuscript-specific scientific pipelines. If any planned paper needs a methodological change, implement and validate it in canonical code first, regenerate aggregate outputs, and only then update the manuscript.
+`analysis/shared/` is auxiliary storage for cross-report aggregates/provenance, not a required production stage.
 
-The canonical five-paper publication plan is `docs/PUBLICATION_PORTFOLIO.md`.
+## Root-code authority
 
-## Code reuse / token-efficiency / reproducibility rule
-
-`code/.ai_handoff.md` is the architectural contract for Python work. `code/FUNCTION_INDEX.md` is the canonical searchable inventory of the active Python tree.
+Reusable scientific/computational logic belongs in `code/src/visitas_analysis/`.
 
 Before implementing functionality:
 
 1. read `code/.ai_handoff.md`;
-2. search the index by concept, likely function name, and tags;
+2. search `code/FUNCTION_INDEX.md`;
 3. inspect the referenced implementation;
-4. reuse or extend an existing function whenever scientifically equivalent;
-5. do not create a parallel estimator, cleaner, cohort builder, plotting helper, or transformation only because its location was not immediately obvious;
-6. if a new reusable symbol is truly needed, place it in the appropriate importable module, add a concise docstring/tests, and do **not** hide scientific logic inside an experiment runner;
-7. import the reusable function into the stable runner that reproduces the relevant scientific question;
-8. regenerate the index in the same code change (`python code/scripts/generate_function_index.py`).
+4. reuse or extend an existing scientifically equivalent function;
+5. if a new reusable symbol is truly needed, place it in the appropriate root-code module and add a concise docstring/tests;
+6. regenerate the function index in the same scientific change.
 
-Paper/question-specific runners belong under `code/experiments/` and must have stable descriptive names rather than `v2`, `final`, `new`, or date suffixes. A new data vintage normally means rerunning the same stable runner, not writing a new script. Git is the provenance/history layer.
+Do **not** place reusable cohort logic, estimators, transformations, statistical tests, model definitions, confidence intervals, imputation rules or plotting functions inside a report or paper folder.
 
-GitHub automatically refreshes the index after Python changes under `code/`, but code authors should still verify that the generated description is useful.
+## Atomic report rule
+
+`reports/` is the scientific-development/brainstorming layer. Each report is an atomic product that may contain:
+
+- `README.md`;
+- `code/` with a **thin local entry point**;
+- `tables/`;
+- `figures/`;
+- `notes/`;
+- `provenance/`;
+- LaTeX source and compiled artifact.
+
+A report-local runner may resolve paths, parse product-specific CLI arguments and call root-code functions. It must **not** become an independent scientific codebase.
+
+Canonical example:
+
+```bash
+python reports/methodology_report/code/methodology_report.py --check
+```
+
+The implementation it calls remains under root `code/`.
+
+There is intentionally no active `code/experiments/` directory; product recipes are co-located with their products.
+
+## Reports → papers rule
+
+`reports/` should preserve the broad empirical record, including nulls, sensitivities, alternative specifications, methodological discussion and exploratory results.
+
+`papers/` is the publication-selection layer. Papers select validated evidence from reports and root code; they may not redefine cohorts, estimands or scientific functions independently.
+
+If a manuscript exposes a methodological problem, fix it first in root `code/`, test it, regenerate the affected report outputs, verify changed numbers, and only then update the paper.
 
 ## Stable paper IDs and single-home rule
 
-Use these IDs consistently across `papers/`, documentation, runners and issue/PR descriptions:
+Use these IDs consistently:
 
 - `paper1_ppa_persistence`
 - `paper2_mu_performance`
@@ -55,13 +89,21 @@ Use these IDs consistently across `papers/`, documentation, runners and issue/PR
 - `paper4_degree_help_seeking`
 - `paper5_longitudinal_trajectories`
 
-Each paper has exactly one canonical home: `papers/<paper_id>/`. Paper-specific literature belongs in `papers/<paper_id>/literature/`; do not recreate a parallel `literature/papers/` hierarchy or alternate folder names for the same manuscript.
+Each paper has exactly one canonical home: `papers/<paper_id>/`. Paper-specific literature belongs under that paper; do not recreate `literature/papers/`.
 
-## Preservation / provenance rule
+If a paper eventually needs local build code, use `papers/<paper_id>/code/` only for thin orchestration/packaging that imports root code or consumes reviewed report outputs.
 
-Git history is the canonical storage for historical source states. Do not keep duplicate active code/report trees merely for version history.
+## Reproducibility / data updates
 
-Dated/version-labelled identifiers may remain inside `docs/provenance/`, report provenance folders, archive hashes, fingerprints, or other records whose purpose is to identify a historical state. They must be clearly historical and must not silently overwrite canonical paths.
+A new data vintage normally means rerunning the same stable report/paper runner, not writing a new script.
+
+Do not create `v2`, `final`, `new`, dated or alternate report/paper/code copies solely for version control.
+
+Scientific-code changes require tests and corresponding protocol/methodology updates. Paper-specific selections happen after report outputs are stable.
+
+## Preservation / provenance
+
+Git history is the canonical storage for historical source states. Dated/version-labelled identifiers may remain in provenance records when they identify a specific historical state, but they must not become active parallel trees.
 
 Historical `Bib/Bib2` names are provenance only and must not be recreated.
 
@@ -78,36 +120,32 @@ Never commit:
 
 Aggregated outputs may be committed after privacy review. Heavy literature PDFs/assets are internal research material in this private repository, not automatically redistributable content.
 
-## Analysis/reporting rules
+## Scientific interpretation rules
 
-- Preserve validated discoveries in the master empirical record, including null results and sensitivity analyses.
+- Preserve validated discoveries, null results and sensitivity analyses in the broad report/empirical record.
 - Keep causal language conservative for student-selected CMAT use.
-- Do not infer motivation, habit formation, or psychological states from administrative visits.
-- Classroom is `instructor × course × academic period` unless a reviewed methodological change explicitly replaces it.
-- Scientific-code changes require tests, protocol/changelog/function-index updates, and a new source fingerprint when applicable.
-- Paper-specific selections happen after canonical outputs are stable.
-- Paper folders may select results; they may not redefine them independently.
-- Reported results should be reproducible from stable runners; notebooks or hand-edited outputs are not the canonical computational source.
+- Do not infer motivation, habit formation or psychological states from administrative visits.
+- Classroom is `instructor × course × academic period` unless a reviewed methodological change replaces it.
+- Reported results should be reproducible from root code plus a stable product-local runner; notebooks or hand-edited outputs are not the canonical computational source.
 
 ## Literature rules
 
-The physical literature corpus is shared under `literature/library/`. Cross-project literature maps live under `literature/general/`. Paper-specific literature indices, reading notes and gap trackers live with their paper under `papers/<paper_id>/literature/`. Read `literature/AGENTS.md` before reorganizing or adding literature.
+The physical literature corpus is shared under `literature/library/`. Cross-project literature maps live under `literature/general/`. Paper-specific literature indices, reading notes and gap trackers live with their paper under `papers/<paper_id>/literature/`.
 
-Do not recreate upload-batch folders such as `Bib3`, `Bib4`, etc. New sources belong in the shared library and are then indexed into every relevant general or paper-local view.
+Do not recreate upload-batch folders such as `Bib3`, `Bib4`, etc.
 
 ## Documentation / handoff
 
-Major folders should have a README explaining scope, inputs, outputs, canonical status and dependencies.
+Major product folders should have a README explaining scope, inputs, outputs, canonical status and dependencies.
 
 Future AI sessions should start with:
 
-1. `AI_HANDOFF.md` — global project routing/state;
-2. `REPRODUCING.md` — execution environment and canonical commands when reproduction matters;
-3. `code/.ai_handoff.md` — code architecture/reproducibility contract before code work;
-4. `code/FUNCTION_INDEX.md` — locate existing capabilities before writing code;
-5. `docs/PUBLICATION_PORTFOLIO.md` — five-paper plan;
-6. `literature/AI_HANDOFF.md` — literature-specific state when relevant;
-7. the relevant `papers/<paper_id>/README.md` and `papers/<paper_id>/literature/` when working on a manuscript;
-8. current methodological protocol/changelog before changing scientific code.
+1. `AI_HANDOFF.md`;
+2. `REPRODUCING.md` when execution matters;
+3. `code/.ai_handoff.md` + `code/FUNCTION_INDEX.md` before code work;
+4. the relevant `reports/<report_id>/README.md` for report work;
+5. `docs/PUBLICATION_PORTFOLIO.md` + relevant paper README for manuscript work;
+6. literature handoffs when literature changes;
+7. current methodology/protocol before scientific-code changes.
 
-Update the appropriate owning document whenever code, estimands, portfolio boundaries or major architecture changes. Keep the root handoff compact rather than duplicating subsystem detail.
+Update the owning document whenever code, estimands, portfolio boundaries or major architecture changes. Keep root handoffs compact rather than duplicating subsystem detail.
