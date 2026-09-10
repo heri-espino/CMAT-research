@@ -6,9 +6,9 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 
-from .cohort import build_study_cohorts, load_and_clean_inputs
-from .outcomes import add_primary_outcomes
-from .plots import (
+from cmat_analysis.cohorts import build_study_cohorts, load_and_clean_inputs
+from cmat_analysis.measures import add_primary_outcomes
+from cmat_analysis.visualization.study import (
     plot_continuation,
     plot_longitudinal_persistence,
     plot_primary_group_means,
@@ -20,8 +20,8 @@ from .plots import (
     plot_monthly_periodicity_acf,
     plot_exact3_regularity_performance,
 )
-from .selection import propensity_att_sensitivity
-from .extended_analysis import (
+from cmat_analysis.statistics.selection import propensity_att_sensitivity
+from cmat_analysis.statistics.group_comparisons import (
     one_two_pooling_analysis,
     welch_anova_visit_groups,
     career_usage_association,
@@ -35,13 +35,13 @@ from .extended_analysis import (
     clustered_omnibus_career_test,
     exact_visit_index_trend,
 )
-from .extended_plots import (
+from cmat_analysis.visualization.exploratory import (
     plot_exact_visit_performance_index,
     plot_career_performance,
     plot_longitudinal_any_visit_transition,
     plot_career_usage_rates,
 )
-from .ppa_progression import (
+from cmat_analysis.ppa.progression import (
     build_ppa_progression_cohort,
     ppa_behavior_profiles,
     persistence_by_mu_group,
@@ -55,11 +55,11 @@ from .ppa_progression import (
     major_persistence_joint_test,
     major_delta_z_welch,
 )
-from .ppa_plots import (
+from cmat_analysis.visualization.ppa import (
     plot_ppa_persistence_by_mu_group,
     plot_ppa_academic_trajectory_profiles,
 )
-from .temporal import (
+from cmat_analysis.longitudinal.temporal import (
     TemporalPeakConfig,
     daily_service_counts,
     detect_period_peaks,
@@ -70,7 +70,7 @@ from .temporal import (
     student_temporal_regularity,
     monthly_periodicity_diagnostics,
 )
-from .statistics import (
+from cmat_analysis.statistics.inference import (
     bunching_metrics,
     continuation_curve,
     dose_group_fixed_effect_model,

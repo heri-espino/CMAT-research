@@ -37,7 +37,7 @@ from cmat_analysis.paths import (
     RAW_REPORT_FIGURES_DIR,
 )
 from cmat_analysis.visualization import style
-from cmat_analysis.analysis.cleaning import (
+from cmat_analysis.preprocessing import (
     clean_materias_df,
     get_salones_with_imputations,
 )
