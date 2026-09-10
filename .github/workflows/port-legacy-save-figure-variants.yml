@@ -18,6 +18,11 @@ jobs:
           ref: admin/port-legacy-save-figure-variants
           fetch-depth: 0
 
+      - name: Set up Python 3.14
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+
       - name: Update API contract and targeted test
         shell: bash
         run: |
