@@ -52,6 +52,7 @@ Thumbs.db
 cmat_analysis/outputs/
 brainstorm/**/build/
 paper/build/
+results/logs/
 
 # Raw CSVs are excluded by default. Aggregated/releasable CSVs may be force-added
 # only after privacy review. Retained aggregate outputs may live in brainstorms.
