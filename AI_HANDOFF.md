@@ -2,48 +2,50 @@
 
 Canonical entry point for future AI sessions working in `heri-espino/CMAT-research`.
 
-This file is intentionally a **router, not a duplicate project encyclopedia**. Detailed scientific/editorial information belongs in the subsystem that owns it.
+This file is intentionally a **router**, not a duplicate project encyclopedia.
 
-## 1. Repository model
+## 1. Repository production model
 
-`main` is the source of truth. Git history is the version/provenance layer; do not create active `v2`, `final`, dated, or ZIP-derived duplicates solely for version control.
+`main` is the source of truth. Git history is the version/provenance layer; do not create active `v2`, `final`, dated or ZIP-derived duplicates solely for version control.
 
-Scientific flow:
+The primary scientific-production chain is:
 
 ```text
 controlled institutional data
         ↓
-code/src/visitas_analysis/       reusable scientific logic
+code/src/visitas_analysis/
+        reusable scientific/computational functions
+        ↓ imported by
+reports/<report_id>/code/
+        thin report-local runner
         ↓
-code/experiments/                stable reproducible recipes
-        ↓
-code/outputs/                    local generated outputs; ignored by Git
-        ↓ review/privacy check
-analysis/shared/ or papers/*/results/
-        ↓
-reports/ and papers/
+reports/<report_id>/
+        broad research synthesis / brainstorming / validated outputs
+        ↓ selected into
+papers/<paper_id>/
+        publication manuscript and final paper-specific assets
 ```
 
-Literature flow:
+`analysis/shared/` is auxiliary storage for aggregates with genuine cross-report/project-wide value, not a mandatory intermediate stage.
+
+Literature remains separate:
 
 ```text
 literature/library/              one physical source record
         ↓
 literature/general/              cross-project interpretation
 papers/<paper_id>/literature/    paper-specific interpretation
-        ↓
-papers/<paper_id>/manuscript/
 ```
 
 Ownership rules:
 
+- **root `code/` owns reusable computation**;
+- **each report is atomic** and may own a thin `code/` entry point plus its tables, figures, notes, provenance and LaTeX;
+- report-local code must import root `code/`, never fork scientific functions;
+- **papers are the publication-selection layer** and do not redefine scientific logic independently;
 - **one paper = one home:** `papers/<paper_id>/`;
-- do not recreate `literature/papers/`;
 - **one physical literature source = one library record:** `literature/library/`;
-- reusable scientific functions belong in `code/src/visitas_analysis/`;
-- runners define execution recipes and import reusable functions;
-- reports are project-level products; papers are manuscript-level products;
-- historical source states belong in Git history; detailed restoration records may live under `docs/provenance/`.
+- historical source states belong in Git history, with explicit provenance records where useful.
 
 ## 2. Mandatory startup by task
 
@@ -54,33 +56,35 @@ Ownership rules:
 3. this file
 4. README/AGENTS for the subsystem being changed
 
-### Reproduction / execution
-
-Read `REPRODUCING.md` first.
-
 ### Code / numerical analysis
 
 1. `code/.ai_handoff.md`
-2. `code/FUNCTION_INDEX.md` — search before creating any function
+2. `code/FUNCTION_INDEX.md`
 3. `code/STUDY_PROTOCOL.md`
 4. `code/ADMINISTRATIVE_QUESTIONS.md`
-5. only then open the relevant module/runner
+5. owning report/paper README
+6. relevant root-code implementation and local runner
 
-For an existing report/analysis reproduction task, follow the runner-first rule: use the existing implementation/reference, reuse functions, create/edit one thin runner, verify reproduction, and do not broaden scope unnecessarily.
+Search the function index before creating any reusable function.
+
+### Report work
+
+Read `reports/README.md`, then `reports/<report_id>/README.md`. A report's local `code/` folder is orchestration only; new scientific functions still go to root `code/`.
 
 ### Specific paper
 
-1. `docs/PUBLICATION_PORTFOLIO.md` for cross-paper boundaries
-2. `papers/<paper_id>/README.md` for the detailed paper source of truth
-3. `papers/<paper_id>/literature/` for that paper's evidence map
-4. relevant runner/results/manuscript files only as needed
+1. `docs/PUBLICATION_PORTFOLIO.md`
+2. `papers/<paper_id>/README.md`
+3. `papers/<paper_id>/literature/`
+4. source report(s) from which the paper selects evidence
+5. manuscript/results/submission files only as needed
 
 ### Literature
 
 1. `literature/AI_HANDOFF.md`
 2. `literature/AGENTS.md`
 3. `literature/library/CATALOG.md`
-4. relevant `literature/general/` or `papers/<paper_id>/literature/` index
+4. relevant general or paper-local literature view
 
 ## 3. Stable paper IDs
 
@@ -90,9 +94,7 @@ For an existing report/analysis reproduction task, follow the runner-first rule:
 - `paper4_degree_help_seeking`
 - `paper5_longitudinal_trajectories`
 
-Cross-paper strategy: `docs/PUBLICATION_PORTFOLIO.md`. Detailed scope/status: each `papers/<paper_id>/README.md`.
-
-Do not duplicate full paper descriptions here.
+Cross-paper strategy: `docs/PUBLICATION_PORTFOLIO.md`. Detailed scope/status belongs in each paper README.
 
 ## 4. Code/reproducibility contract
 
@@ -101,25 +103,39 @@ Canonical code guidance: `code/.ai_handoff.md`.
 Before writing Python:
 
 1. search `code/FUNCTION_INDEX.md`;
-2. reuse/extend an existing scientifically equivalent function;
-3. create new reusable logic only when needed;
-4. add docstring/tests for new reusable logic;
-5. import it into the stable experiment/report runner;
+2. reuse/extend an existing scientifically equivalent root-code function;
+3. create new reusable logic only under `code/src/visitas_analysis/` when necessary;
+4. add docstring/tests;
+5. call it from the owning report/paper runner;
 6. rerun the same runner when only the data vintage changes.
 
-Current report-specific canonical runner:
+Current atomic methodology-report runner:
 
 ```bash
-python code/experiments/methodology_report.py
+python reports/methodology_report/code/methodology_report.py --check
 ```
 
-Do not recreate the methodology calculation sequence manually when the runner/reference implementation already exists.
+With controlled inputs:
 
-## 5. Global scientific invariants
+```bash
+python reports/methodology_report/code/methodology_report.py \
+  --materias <academic-file> \
+  --asesorias <visits-file>
+```
+
+The local runner imports the implementation from root `code/`; do not reconstruct the calculation sequence inside the report folder.
+
+## 5. Reports → papers boundary
+
+`reports/` is where broad empirical reasoning is developed and preserved. Reports may contain null findings, sensitivities, competing specifications, methodological discussion and results that are useful for more than one manuscript.
+
+`papers/` is where validated report evidence is selected into publication-specific arguments. A paper may copy/retain the final aggregate assets it actually needs for submission, but must preserve provenance to the source report/root code and must not create a competing estimator or cohort definition.
+
+## 6. Global scientific invariants
 
 ### Observational interpretation
 
-CMAT attendance is student-selected. Do not claim CMAT, PPA, tutoring, visit frequency, or threshold crossing causally changes grades, persistence, motivation, or habit without an identification design that supports that claim.
+CMAT attendance is student-selected. Do not claim CMAT, PPA, tutoring, visit frequency or threshold crossing causally changes grades, persistence, motivation or habit without an identification design supporting that claim.
 
 ### CMAT visit records
 
@@ -136,19 +152,19 @@ Passing grade: `7.5`.
 - BV / RT / BA: adverse/non-passing academic states.
 - EQV / REV / AC: administrative/non-comparable states.
 
-Classroom for classroom-relative performance is `professor × same course × same academic period` unless an explicitly reviewed methodological change replaces it.
+Classroom = `professor × same course × same academic period` unless an explicitly reviewed methodological change replaces it.
 
 ### Academic-record duplication
 
-An academic row is not automatically a new real attempt. Degree changes/revalidations can repeat previously passed courses. Preserve the real-attempt/revalidation rules in canonical code.
+An academic row is not automatically a new real attempt. Degree changes/revalidations can repeat previously passed courses. Preserve the canonical real-attempt/revalidation rules.
 
 Official academic programme (`CLAVECARRERA`) is the primary programme field.
 
 ### Cohort discipline
 
-Do not silently substitute one cohort for another. First-MU, later-Calculus progressor, and stricter longitudinal/PPA populations answer different questions. Trace quoted sample sizes/results to their runner/output/report.
+Do not silently substitute one cohort for another. First-MU, later-Calculus progressor and stricter longitudinal/PPA populations answer different questions. Trace quoted sample sizes/results to their report/runner/output.
 
-## 6. Reports, retained outputs and provenance
+## 7. Current products and provenance
 
 Active reports:
 
@@ -165,34 +181,30 @@ Historical restoration/import records:
 - `docs/ARCHIVE_PROVENANCE.md`
 - `docs/provenance/`
 
-Detailed methodology-restoration record:
+Do not recreate permanent snapshot source trees merely because an old implementation is needed; retrieve it from Git history.
 
-`docs/provenance/methodology_restoration_2026-09-07/README.md`
-
-Do not re-create permanent snapshot source trees merely because an old implementation is needed; retrieve it from Git history.
-
-## 7. Data/privacy boundary
+## 8. Data/privacy boundary
 
 Never commit administrative Excel/raw exports, row-level student/advisory microdata, direct identifiers, HMAC keys/salts, credentials/tokens, unreviewed identifying free text, or unreviewed row-level pseudonymised longitudinal datasets.
 
 Aggregate outputs may be retained only after disclosure/privacy review.
 
-## 8. Current unresolved scientific maintenance
+## 9. Current unresolved scientific maintenance
 
-The later methodology corrections and the refined longitudinal/PPA work still require deliberate scientific reconciliation before claiming one fully unified canonical study pipeline. See `docs/MIGRATION_STATUS.md`.
+The later methodology corrections and refined longitudinal/PPA work still require deliberate scientific reconciliation before claiming one fully unified canonical study pipeline. See `docs/MIGRATION_STATUS.md`.
 
-That unresolved maintenance item must **not** block narrower reproduction tasks when an existing validated implementation/runner already defines the requested artifact.
+That unresolved maintenance item must not block narrower reproduction tasks when an existing validated report recipe already defines the requested artifact.
 
-## 9. Handoff maintenance rule
+## 10. Handoff maintenance
 
-Keep this file short and routing-oriented.
+Keep this file routing-oriented.
 
-- paper detail -> `papers/<paper_id>/README.md`
-- portfolio boundary/priority -> `docs/PUBLICATION_PORTFOLIO.md`
-- code architecture/reproducibility -> `code/.ai_handoff.md`
-- function inventory -> regenerate `code/FUNCTION_INDEX.md`
-- literature routing/library state -> `literature/AI_HANDOFF.md` / `literature/AGENTS.md`
-- migration/current provenance -> `docs/MIGRATION_STATUS.md` / `docs/provenance/`
-- root handoff -> only project-wide routing/invariants
+- code architecture/reproducibility → `code/.ai_handoff.md`
+- function inventory → `code/FUNCTION_INDEX.md`
+- report-specific build/scientific context → `reports/<report_id>/README.md`
+- paper detail → `papers/<paper_id>/README.md`
+- portfolio boundary → `docs/PUBLICATION_PORTFOLIO.md`
+- literature routing → `literature/AI_HANDOFF.md` / `literature/AGENTS.md`
+- migration/provenance → `docs/MIGRATION_STATUS.md` / `docs/provenance/`
 
-Do not paste paper-specific result tables, long literature lists, or detailed journal strategies into this file; link to their canonical homes instead.
+Do not duplicate full paper descriptions, long result tables or detailed literature inventories here.
