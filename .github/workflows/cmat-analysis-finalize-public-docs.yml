@@ -1,0 +1,620 @@
+name: Finalize cmat_analysis public API docs
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/cmat-analysis-finalize-public-docs.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  document:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Complete NumPy-style public API documentation
+        shell: bash
+        run: |
+          python - <<'PY'
+          from __future__ import annotations
+
+          import ast
+          from pathlib import Path
+
+          ROOT = Path('cmat_analysis')
+          PKG = ROOT / 'src/cmat_analysis'
+
+          PUBLIC_API: dict[str, list[tuple[str, str]]] = {
+              'cmat_analysis.io': [],
+              'cmat_analysis.preprocessing': [
+                  ('clean_materias_df', 'function'),
+                  ('get_salones_with_imputations', 'function'),
+              ],
+              'cmat_analysis.cohorts': [
+                  ('StudyData', 'class'),
+                  ('attach_visits', 'function'),
+                  ('build_study_cohorts', 'function'),
+                  ('first_attempts', 'function'),
+                  ('load_and_clean_inputs', 'function'),
+                  ('normalize_identifier', 'function'),
+                  ('normalize_session', 'function'),
+                  ('normalize_text', 'function'),
+                  ('period_index', 'function'),
+                  ('period_label', 'function'),
+                  ('visit_group', 'function'),
+              ],
+              'cmat_analysis.measures': [('add_primary_outcomes', 'function')],
+              'cmat_analysis.statistics': [
+                  ('add_exact_visit_group', 'function'),
+                  ('games_howell_exact_groups', 'function'),
+                  ('bunching_metrics', 'function'),
+                  ('career_performance_analysis', 'function'),
+                  ('career_usage_association', 'function'),
+                  ('career_visit_interaction_model', 'function'),
+                  ('clustered_career_omnibus', 'function'),
+                  ('clustered_omnibus_career_test', 'function'),
+                  ('clustered_omnibus_visit_group_test', 'function'),
+                  ('clustered_visit_group_omnibus', 'function'),
+                  ('continuation_curve', 'function'),
+                  ('dose_group_fixed_effect_model', 'function'),
+                  ('exact_visit_count_regularity_summary', 'function'),
+                  ('exact_visit_index_trend', 'function'),
+                  ('exact_visit_performance_index', 'function'),
+                  ('group_summary', 'function'),
+                  ('longitudinal_summary', 'function'),
+                  ('one_two_pooling_analysis', 'function'),
+                  ('primary_fixed_effect_models', 'function'),
+                  ('propensity_att_sensitivity', 'function'),
+                  ('robust_two_group_tests', 'function'),
+                  ('secondary_pass_model', 'function'),
+                  ('temporal_regularity_performance_models', 'function'),
+                  ('visit_distribution', 'function'),
+                  ('welch_anova_visit_groups', 'function'),
+              ],
+              'cmat_analysis.longitudinal': [
+                  ('TemporalPeakConfig', 'class'),
+                  ('daily_service_counts', 'function'),
+                  ('detect_period_peaks', 'function'),
+                  ('longitudinal_any_visit_transition', 'function'),
+                  ('monthly_periodicity_diagnostics', 'function'),
+                  ('peak_spacing_summary', 'function'),
+                  ('primary_period_visit_events', 'function'),
+                  ('same_day_ppa_behavior', 'function'),
+                  ('student_temporal_regularity', 'function'),
+                  ('top_daily_dates', 'function'),
+              ],
+              'cmat_analysis.ppa': [
+                  ('PPAProgressionCohorts', 'class'),
+                  ('build_ppa_progression_cohort', 'function'),
+                  ('classify_revalidation_records', 'function'),
+                  ('course_specific_transition', 'function'),
+                  ('form_career_crosswalk', 'function'),
+                  ('later_performance_models', 'function'),
+                  ('major_delta_z_welch', 'function'),
+                  ('major_persistence_joint_test', 'function'),
+                  ('major_persistence_summary', 'function'),
+                  ('persistence_by_mu_group', 'function'),
+                  ('persistence_logistic_models', 'function'),
+                  ('piecewise_threshold_persistence_model', 'function'),
+                  ('ppa_behavior_profiles', 'function'),
+                  ('ppa_persistence_association_tests', 'function'),
+              ],
+              'cmat_analysis.visualization': [
+                  ('mpl_apply', 'function'),
+                  ('plotly_apply', 'function'),
+                  ('set_style', 'function'),
+              ],
+              'cmat_analysis.reporting': [('write_run_log', 'function')],
+              'cmat_analysis.privacy': [
+                  ('canonical_identifier', 'function'),
+                  ('hmac_pseudonym', 'function'),
+              ],
+          }
+
+          SOURCE_TARGETS = {
+              PKG / 'preprocessing/_cleaning.py': {
+                  'clean_materias_df', 'get_salones_with_imputations',
+              },
+              PKG / 'cohorts/_core.py': {
+                  'StudyData', 'attach_visits', 'build_study_cohorts',
+                  'first_attempts', 'load_and_clean_inputs', 'normalize_identifier',
+                  'normalize_session', 'normalize_text', 'period_index',
+                  'period_label', 'visit_group',
+              },
+              PKG / 'measures/_grades.py': {'add_primary_outcomes'},
+              PKG / 'statistics/_core.py': {
+                  'bunching_metrics', 'continuation_curve',
+                  'dose_group_fixed_effect_model',
+                  'exact_visit_count_regularity_summary', 'group_summary',
+                  'longitudinal_summary', 'primary_fixed_effect_models',
+                  'robust_two_group_tests', 'secondary_pass_model',
+                  'temporal_regularity_performance_models', 'visit_distribution',
+              },
+              PKG / 'statistics/_selection.py': {'propensity_att_sensitivity'},
+              PKG / 'statistics/methodology.py': {
+                  'add_exact_visit_group', 'games_howell_exact_groups',
+              },
+              PKG / 'statistics/_group_comparisons.py': {
+                  'career_performance_analysis', 'career_usage_association',
+                  'career_visit_interaction_model', 'clustered_career_omnibus',
+                  'clustered_omnibus_career_test',
+                  'clustered_omnibus_visit_group_test',
+                  'clustered_visit_group_omnibus', 'exact_visit_index_trend',
+                  'exact_visit_performance_index', 'one_two_pooling_analysis',
+                  'welch_anova_visit_groups', 'longitudinal_any_visit_transition',
+              },
+              PKG / 'longitudinal/_temporal.py': {
+                  'TemporalPeakConfig', 'daily_service_counts',
+                  'detect_period_peaks', 'monthly_periodicity_diagnostics',
+                  'peak_spacing_summary', 'primary_period_visit_events',
+                  'same_day_ppa_behavior', 'student_temporal_regularity',
+                  'top_daily_dates',
+              },
+              PKG / 'ppa/_progression.py': {
+                  'PPAProgressionCohorts', 'build_ppa_progression_cohort',
+                  'classify_revalidation_records', 'course_specific_transition',
+                  'form_career_crosswalk', 'later_performance_models',
+                  'major_delta_z_welch', 'major_persistence_joint_test',
+                  'major_persistence_summary', 'persistence_by_mu_group',
+                  'persistence_logistic_models',
+                  'piecewise_threshold_persistence_model', 'ppa_behavior_profiles',
+                  'ppa_persistence_association_tests',
+              },
+              PKG / 'visualization/style.py': {
+                  'mpl_apply', 'plotly_apply', 'set_style',
+              },
+              PKG / 'reporting/provenance.py': {'write_run_log'},
+          }
+
+          SUMMARIES = {
+              'clean_materias_df': 'Clean the historical academic-record table used by legacy CMAT analyses.',
+              'get_salones_with_imputations': 'Split academic records by classroom and add the historical imputed grade measures.',
+              'StudyData': 'Container for normalized academic records, advisory events, and data-quality metadata.',
+              'normalize_text': 'Normalize free text to uppercase, accent-free, whitespace-collapsed form.',
+              'normalize_session': 'Normalize an academic-session label to the canonical CMAT session vocabulary.',
+              'period_index': 'Map an academic year and session to the project chronological period index.',
+              'period_label': 'Build the canonical textual label for an academic period.',
+              'visit_group': 'Map an observed visit count to the configured threshold group.',
+              'normalize_identifier': 'Normalize numeric or textual identifiers for stable joins.',
+              'load_and_clean_inputs': 'Read and normalize academic and CMAT advisory source tables.',
+              'first_attempts': 'Select the first eligible attempt of a named subject for each student.',
+              'attach_visits': 'Attach course-level and period-level CMAT visit counts to academic attempts.',
+              'build_study_cohorts': 'Construct the reusable MU, Calculus, and longitudinal study cohorts.',
+              'add_primary_outcomes': 'Construct primary and sensitivity academic outcomes within classroom.',
+              'group_summary': 'Summarize a continuous outcome within ordered analytical groups.',
+              'robust_two_group_tests': 'Compare treated and control groups with robust parametric and rank-based diagnostics.',
+              'primary_fixed_effect_models': 'Estimate the primary classroom fixed-effect treatment specifications.',
+              'dose_group_fixed_effect_model': 'Estimate classroom fixed-effect contrasts for ordered visit groups.',
+              'secondary_pass_model': 'Estimate the secondary pass/fail sensitivity model as a linear probability model.',
+              'visit_distribution': 'Tabulate exact visit-count frequencies and upper-tail proportions.',
+              'continuation_curve': 'Estimate the conditional probability of continuing from k to k+1 visits.',
+              'bunching_metrics': 'Compute descriptive visit-count concentration diagnostics around a threshold.',
+              'longitudinal_summary': 'Summarize later Calculus use by prior MU visit group among covered observations.',
+              'temporal_regularity_performance_models': 'Estimate the association between visit regularity and performance conditional on visit intensity.',
+              'exact_visit_count_regularity_summary': 'Summarize regularity and performance at one exact visit count.',
+              'propensity_att_sensitivity': 'Estimate observed-covariate ATT weighting and balance diagnostics.',
+              'add_exact_visit_group': 'Add the ordered 0, 1, 2, 3, and 4+ exact-visit grouping variable.',
+              'games_howell_exact_groups': 'Compute all pairwise Games-Howell contrasts for exact visit groups.',
+              'one_two_pooling_analysis': 'Assess whether one- and two-visit groups are equivalent within a prespecified Z-score margin.',
+              'welch_anova_visit_groups': 'Compare visit groups using Welch ANOVA, Brown-Forsythe, and Games-Howell procedures.',
+              'career_usage_association': 'Measure association between degree programme and CMAT use pattern.',
+              'career_performance_analysis': 'Summarize classroom-relative performance by degree programme and compare eligible programmes.',
+              'career_visit_interaction_model': 'Test exploratory heterogeneity of the visit-performance association across degree programmes.',
+              'clustered_visit_group_omnibus': 'Test visit-group coefficients jointly with classroom fixed effects and clustered covariance.',
+              'clustered_career_omnibus': 'Test degree-programme coefficients jointly after classroom fixed effects.',
+              'exact_visit_performance_index': 'Build classroom-relative and career-relative performance indices by exact visit count.',
+              'clustered_omnibus_visit_group_test': 'Run the classroom-FE cluster-robust omnibus test for visit groups.',
+              'clustered_omnibus_career_test': 'Run the classroom-FE cluster-robust omnibus test for degree programmes.',
+              'exact_visit_index_trend': 'Estimate descriptive monotone and linear trends across exact visit counts.',
+              'TemporalPeakConfig': 'Configuration for descriptive detection and classification of temporal service-use peaks.',
+              'primary_period_visit_events': 'Select all CMAT visits occurring in each student’s primary MU academic period.',
+              'daily_service_counts': 'Aggregate visit events to daily service volume within academic periods.',
+              'same_day_ppa_behavior': 'Describe within-day concentration of visits around the PPA threshold.',
+              'top_daily_dates': 'Return the busiest observed service dates from an aggregated daily table.',
+              'detect_period_peaks': 'Detect separated local peaks in smoothed daily CMAT activity.',
+              'peak_spacing_summary': 'Summarize the number and spacing of detected service-use peaks.',
+              'student_temporal_regularity': 'Construct student-level measures of within-term visit distribution and regularity.',
+              'monthly_periodicity_diagnostics': 'Estimate autocorrelation and periodogram diagnostics for approximately monthly service cycles.',
+              'longitudinal_any_visit_transition': 'Summarize paired any-use transitions from MU to Calculus and associated 2x2 statistics.',
+              'PPAProgressionCohorts': 'Container for reconstructed PPA academic history, paired cohorts, and audit tables.',
+              'classify_revalidation_records': 'Classify likely post-pass revalidations and same-period career replications without deleting records.',
+              'build_ppa_progression_cohort': 'Construct the strict and sensitivity MU-to-Calculus PPA progression cohorts.',
+              'ppa_behavior_profiles': 'Summarize the eight observed MU visit-group by later Calculus-use profiles.',
+              'persistence_by_mu_group': 'Estimate later Calculus CMAT-use probability by MU visit group with Wilson intervals.',
+              'ppa_persistence_association_tests': 'Test association between MU visit group and later Calculus CMAT use.',
+              'persistence_logistic_models': 'Fit cluster-robust logistic models for later CMAT use after MU.',
+              'piecewise_threshold_persistence_model': 'Fit a descriptive piecewise persistence model around the three-visit threshold.',
+              'later_performance_models': 'Predict later Calculus classroom-relative performance from prior MU information.',
+              'major_persistence_summary': 'Summarize persistence and academic trajectory measures by official MU degree programme.',
+              'course_specific_transition': 'Summarize paired course-tagged CMAT use from MU to Calculus.',
+              'form_career_crosswalk': 'Cross-tabulate official degree codes with Google-Form career labels among observed users.',
+              'major_persistence_joint_test': 'Jointly test official degree-programme terms in the adjusted persistence logit.',
+              'major_delta_z_welch': 'Compare classroom-relative academic change across degree programmes using Welch ANOVA.',
+              'mpl_apply': 'Apply the project Matplotlib and Seaborn plotting defaults.',
+              'set_style': 'Apply the project Matplotlib and Seaborn plotting defaults.',
+              'plotly_apply': 'Register and activate the project Plotly template.',
+              'write_run_log': 'Write reproducibility metadata for an analysis run.',
+          }
+
+          PARAM_DOC = {
+              'materias': 'Academic-record table. The required legacy columns are used directly by the historical cleaning rules.',
+              'value': 'Value to normalize or pseudonymize.',
+              'year': 'Academic calendar year.',
+              'session': 'Academic-session label.',
+              'visits': 'Observed number of CMAT visits.',
+              'threshold': 'Operational visit-count threshold used to define visit groups and PPA indicators.',
+              'df': 'Input analytical table containing the columns named by the other arguments.',
+              'group_col': 'Column containing the analytical group labels.',
+              'outcome_col': 'Column containing the continuous outcome to analyze.',
+              'treatment_col': 'Column containing the binary treatment/exposure indicator, coded 0/1.',
+              'seed': 'Random seed used by resampling or permutation procedures.',
+              'visits_col': 'Column containing CMAT visit counts.',
+              'course_label': 'Human-readable course label copied to returned summaries.',
+              'max_exact': 'Largest exact visit count tabulated before combining the remaining upper tail.',
+              'max_k': 'Largest visit count k for which a continuation probability is reported.',
+              'longitudinal': 'Paired longitudinal analytical table.',
+              'mu_group_col': 'Column containing the prior MU visit group.',
+              'calc_visits_col': 'Column containing Calculus-period CMAT visit counts.',
+              'coverage_col': 'Boolean column identifying observations with service-record coverage.',
+              'regularity_col': 'Column containing the student-level regularity measure.',
+              'min_visits': 'Minimum visit count required for inclusion in the model.',
+              'exact_visits': 'Exact visit count defining the descriptive subset.',
+              'categorical_covariates': 'Pre-exposure categorical covariate columns used in the propensity model.',
+              'numeric_covariates': 'Optional pre-exposure numeric covariate columns used in the propensity model.',
+              'population': 'Descriptive label attached to returned rows.',
+              'alpha': 'Two-sided familywise significance level used for confidence intervals or tests.',
+              'career_col': 'Column containing the official degree-programme identifier.',
+              'min_career_n': 'Minimum degree-programme sample size retained for the stated inferential analysis.',
+              'permutation_reps': 'Number of random label permutations used for the permutation p-value.',
+              'min_cell_n': 'Minimum required count in each retained degree-programme by visit-group cell.',
+              'classroom_col': 'Column identifying the professor-period classroom used for fixed effects or clustered covariance.',
+              'min_visit': 'Smallest exact visit count included in the index.',
+              'max_visit': 'Largest exact visit count included in the index.',
+              'min_career_n_for_standardization': 'Minimum degree-programme sample size required for career-relative standardization.',
+              'min_cell_n_for_balanced': 'Minimum degree-programme by exact-visit cell size included in the career-balanced index.',
+              'min_exact_group_n_for_stable_trend': 'Minimum exact-count cell size retained in the stable trend sensitivity specification.',
+              'mu_visits_col': 'Column containing MU-period CMAT visit counts.',
+              'calc_coverage_col': 'Boolean column identifying Calculus periods with CMAT record coverage.',
+              'mu_coverage_col': 'Optional Boolean column identifying MU periods with CMAT record coverage.',
+              'mu': 'Primary MU cohort table with one row per student attempt.',
+              'advisories': 'CMAT advisory-event table with normalized student and academic-period identifiers.',
+              'population': 'Label identifying the analyzed population in returned tables.',
+              'mu_events': 'Visit-event table restricted to the relevant MU periods.',
+              'daily': 'Daily service-count table, typically returned by ``daily_service_counts``.',
+              'n': 'Number of rows to retain.',
+              'events': 'CMAT visit-event table containing student, period, and timestamp information.',
+              'config': 'Configuration object supplying the existing study or peak-detection parameters required by the function.',
+              'peaks': 'Detected peak table returned by ``detect_period_peaks``.',
+              'intervals': 'Peak-to-peak interval table returned by ``detect_period_peaks``.',
+              'assessment_cycles': 'Number of assessment-cycle months used to cap the primary regularity measure.',
+              'lag_min': 'Smallest autocorrelation lag, in days, to evaluate.',
+              'lag_max': 'Largest autocorrelation lag, in days, to evaluate.',
+              'candidate_period_low': 'Lower bound, in days, of the periodogram search window.',
+              'candidate_period_high': 'Upper bound, in days, of the periodogram search window.',
+              'academics': 'Normalized academic-history table.',
+              'passing_grade': 'Numeric grade threshold defining a passing result.',
+              'data': 'Normalized ``StudyData`` object containing academics, advisory events, and coverage metadata.',
+              'cap_visits': 'Upper cap applied to visit counts in the piecewise descriptive model.',
+              'min_n': 'Minimum degree-programme sample size retained for the summary or comparison.',
+              'palette': 'Plotly discrete color sequence used by the registered template.',
+              'fontsize': 'Base Plotly font size in points.',
+              'fontstack': 'CSS-style font-family stack used by Plotly text elements.',
+              'logs_dir': 'Directory in which ``latest_run.json`` and a timestamped run log are written.',
+              'materias_path': 'Path to the academic-record input used by the run.',
+              'asesorias_path': 'Path to the CMAT advisory-record input used by the run.',
+              'mode': 'Name of the analysis or execution mode recorded in the log.',
+              'status': 'Run status recorded in the log.',
+              'details': 'Optional additional JSON-serializable metadata for the run.',
+              'code': 'Canonical subject code used to identify eligible attempts.',
+              'name': 'Normalized or human-readable subject name used as a fallback identifier.',
+              'attempts': 'Academic-attempt table to which visit exposure measures are attached.',
+              'equivalence_margin_z': 'Prespecified absolute equivalence margin in classroom-standardized outcome units.',
+          }
+
+          PARAM_OVERRIDE = {
+              ('primary_period_visit_events', 'mu'): 'Primary MU cohort whose student-year-session keys define the periods to retain.',
+              ('same_day_ppa_behavior', 'threshold'): 'Visit count defining PPA completion for the same-day concentration diagnostics.',
+              ('detect_period_peaks', 'config'): 'Optional temporal-peak configuration. ``None`` uses ``TemporalPeakConfig()``.',
+              ('peak_spacing_summary', 'config'): 'Optional temporal-peak configuration supplying the monthly-like gap bounds.',
+              ('build_ppa_progression_cohort', 'config'): 'Study configuration supplying subject definitions, grade threshold, PPA threshold, and minimum classroom size.',
+          }
+
+          RETURN_DOC = {
+              'clean_materias_df': 'The same DataFrame object after the historical in-place sorting, deduplication, column removal, and professor filtering rules have been applied.',
+              'get_salones_with_imputations': 'Mapping from ``(professor, subject, year, session)`` classroom keys to copied classroom tables containing ``IMPMEAN``, ``IMPMEAN_Z``, ``IMPKDE``, and ``IMPKDE_Z``.',
+              'normalize_text': 'Normalized text, or ``None`` for missing input.',
+              'normalize_session': 'Canonical session label when recognized; otherwise the normalized input label, or ``None`` for missing input.',
+              'period_index': 'Chronological integer index with three ordered session slots per calendar year.',
+              'period_label': 'Label of the form ``"YEAR-SESSION"``.',
+              'visit_group': 'Threshold-based group label: zero, below-threshold positive use, exact threshold, or above threshold.',
+              'normalize_identifier': 'Canonical identifier string, or ``None`` for missing or empty input.',
+              'load_and_clean_inputs': 'Normalized academic records, advisory events, data-quality metadata, and the pre-exclusion academic audit table.',
+              'first_attempts': 'Eligible first-attempt rows, one per observed student when available.',
+              'attach_visits': 'Copy of the attempt table augmented with visit counts, visit groups, threshold indicators, persistence indicators, and ``CLASSROOM_ID``.',
+              'build_study_cohorts': 'Dictionary containing ``mu_all_first_attempts``, ``mu_primary``, ``calc_comparator``, and ``longitudinal`` DataFrames.',
+              'add_primary_outcomes': 'Copy of the cohort table with primary/sensitivity grade measures, pass indicator, classroom-standardized outcomes, and an imputation-audit DataFrame stored in ``attrs``.',
+              'welch_anova_visit_groups': 'Tuple containing the omnibus Welch/Brown-Forsythe table, group summary table, and Games-Howell pairwise table.',
+              'career_usage_association': 'Tuple containing the four-level use omnibus table, binary any-use omnibus table, and long-form within-career visit-group proportions.',
+              'career_performance_analysis': 'Tuple containing degree-programme summaries, the Welch/Brown-Forsythe omnibus result, and Games-Howell pairwise comparisons.',
+              'exact_visit_performance_index': 'Tuple containing exact-visit performance-index rows and degree-programme-by-exact-count component rows.',
+              'longitudinal_any_visit_transition': 'Tuple containing the four observed MU/Calculus any-use combinations and a one-row table of risk, odds, association, and McNemar statistics.',
+              'same_day_ppa_behavior': 'Four DataFrames containing student-level indicators, aggregate proportions, maximum-daily-visit distribution, and threshold-completion dates.',
+              'detect_period_peaks': 'Tuple containing detected peaks, complete daily period profiles, and consecutive peak intervals.',
+              'monthly_periodicity_diagnostics': 'Tuple containing lagged autocorrelation diagnostics and per-period dominant periodogram components.',
+              'course_specific_transition': 'Tuple containing the four course-tagged transition cells and the corresponding two-group risk-comparison statistics.',
+              'ppa_persistence_association_tests': 'Tuple containing the four-by-two omnibus association result and the prespecified 4+ versus exactly-3 risk comparison.',
+              'build_ppa_progression_cohort': 'Reconstructed academic history together with all-subsequent and next-regular-term paired cohorts and audit summaries.',
+              'form_career_crosswalk': 'Long-form table of observed official-degree and form-career label pairs for MU and Calculus periods.',
+              'write_run_log': 'Path to the updated ``latest_run.json`` file. A timestamped copy is written in the same directory.',
+          }
+
+          EXTRA_NOTES = {
+              'clean_materias_df': 'This function intentionally mutates ``materias`` in place to preserve historical behavior. It drops ``NUMORDEN`` and rows with missing professor identifiers.',
+              'get_salones_with_imputations': 'This is the historical report-compatible classroom imputation routine. Its mean, KDE/empirical, and uniform-fallback rules are preserved for reproduction; it is distinct from the primary publication outcome constructor in ``cmat_analysis.measures``.',
+              'load_and_clean_inputs': 'Administrative non-attempts and unknown grade tokens are classified rather than silently converted to numeric grades. Duplicate/conflict counts and advisory coverage are exposed in ``StudyData.data_quality``.',
+              'build_study_cohorts': 'The function preserves the existing study definitions. ``SEMESTER_LAG`` remains a backward-compatible alias of ``ACADEMIC_TERM_LAG`` even though the period index includes Primavera, Verano, and Otoño slots.',
+              'propensity_att_sensitivity': 'The weighting analysis addresses observed covariate imbalance only. It does not identify a causal effect in the presence of unmeasured need, motivation, or other confounding.',
+              'piecewise_threshold_persistence_model': 'The three-visit threshold is student-controlled and operational. This function is descriptive and must not be interpreted as a regression-discontinuity design.',
+              'classify_revalidation_records': 'The source extract has no explicit revalidation flag. Labels beginning with ``likely_`` are conservative administrative classifications and should remain auditable rather than being treated as observed ground truth.',
+              'same_day_ppa_behavior': 'Concentrated same-day attendance is described behaviorally without inferring strategic intent or “gaming.”',
+              'monthly_periodicity_diagnostics': 'The detected cycle is a service-load diagnostic; without an official examination calendar it does not identify exam dates or establish an exam effect.',
+          }
+
+          FULL_CLASS_DOCS = {
+              'StudyData': '''Container for normalized study inputs and audit metadata.
+
+Parameters
+----------
+academics : pandas.DataFrame
+    Normalized classroom-eligible academic records used in analytical cohort construction.
+advisories : pandas.DataFrame
+    Normalized CMAT advisory-event records.
+data_quality : dict[str, object]
+    Data-quality and coverage summaries produced during input normalization.
+academic_audit : pandas.DataFrame or None, optional
+    Pre-exclusion normalized academic extract retained for administrative auditing,
+    including rows without professor identifiers. It is not the main classroom-level
+    analytical table.''',
+              'TemporalPeakConfig': '''Configuration for descriptive temporal peak detection.
+
+Parameters
+----------
+rolling_window_days : int, default=7
+    Width of the centered rolling window used to smooth daily activity.
+min_peak_distance_days : int, default=21
+    Minimum separation in days between detected rolling peaks.
+prominence_fraction : float, default=0.12
+    Fraction of a period's maximum smoothed activity used in the adaptive
+    prominence threshold.
+min_prominence : float, default=5.0
+    Absolute lower bound for the peak-prominence threshold.
+monthly_interval_low_days : int, default=24
+    Lower bound used to label a consecutive peak interval as approximately monthly.
+monthly_interval_high_days : int, default=38
+    Upper bound used to label a consecutive peak interval as approximately monthly.
+
+Notes
+-----
+Peak detection is descriptive. The configuration does not encode an examination
+calendar and therefore cannot identify a peak as an exam-related event by itself.''',
+              'PPAProgressionCohorts': '''Container for reconstructed PPA progression cohorts and audits.
+
+Parameters
+----------
+academic_history : pandas.DataFrame
+    Reconstructed academic history with administrative-event classifications.
+paired_all_subsequent : pandas.DataFrame
+    Paired MU-to-later-Calculus observations satisfying visit-coverage and
+    classroom-Z requirements without restricting to the next regular term.
+paired_primary_next_term : pandas.DataFrame
+    Primary paired cohort restricted to progression in the next regular academic term.
+cohort_flow : pandas.DataFrame
+    Counts through the sequential PPA progression cohort restrictions.
+revalidation_audit : pandas.DataFrame
+    Aggregate audit of real-attempt candidates and likely administrative records.
+career_count_distribution : pandas.DataFrame
+    Distribution of the number of observed official degree programmes per student.
+
+Notes
+-----
+The contained cohorts implement the existing observational PPA design. The
+three-visit threshold is not a randomized assignment mechanism.''',
+          }
+
+          def annotation_text(node: ast.AST | None) -> str:
+              return ast.unparse(node) if node is not None else 'object'
+
+          def default_text(node: ast.AST | None) -> str:
+              if node is None:
+                  return ''
+              try:
+                  return f", default={ast.unparse(node)}"
+              except Exception:
+                  return ', optional'
+
+          def parameter_records(node: ast.FunctionDef | ast.AsyncFunctionDef) -> list[tuple[str, str, str]]:
+              args = list(node.args.posonlyargs) + list(node.args.args)
+              positional_defaults = [None] * (len(args) - len(node.args.defaults)) + list(node.args.defaults)
+              records: list[tuple[str, str, str]] = []
+              for arg, default in zip(args, positional_defaults):
+                  if arg.arg in {'self', 'cls'}:
+                      continue
+                  records.append((arg.arg, annotation_text(arg.annotation), default_text(default)))
+              if node.args.vararg is not None:
+                  records.append(('*' + node.args.vararg.arg, annotation_text(node.args.vararg.annotation), ''))
+              for arg, default in zip(node.args.kwonlyargs, node.args.kw_defaults):
+                  records.append((arg.arg, annotation_text(arg.annotation), default_text(default)))
+              if node.args.kwarg is not None:
+                  records.append(('**' + node.args.kwarg.arg, annotation_text(node.args.kwarg.annotation), ''))
+              return records
+
+          def params_block(name: str, node: ast.FunctionDef | ast.AsyncFunctionDef) -> str:
+              records = parameter_records(node)
+              if not records:
+                  return ''
+              lines = ['Parameters', '----------']
+              for param, ann, default in records:
+                  bare = param.lstrip('*')
+                  desc = PARAM_OVERRIDE.get((name, bare), PARAM_DOC.get(bare))
+                  if desc is None:
+                      if bare.endswith('_col'):
+                          desc = 'Column name used by the computation.'
+                      elif bare.startswith('min_'):
+                          desc = 'Minimum value required by the stated filtering or stability rule.'
+                      elif bare.startswith('max_'):
+                          desc = 'Maximum value used by the stated range or truncation rule.'
+                      else:
+                          desc = 'Input value used by the documented computation.'
+                  lines += [f'{param} : {ann}{default}', f'    {desc}']
+              return '\n'.join(lines)
+
+          def return_block(name: str, node: ast.FunctionDef | ast.AsyncFunctionDef) -> str:
+              if node.returns is None:
+                  return ''
+              ret = ast.unparse(node.returns)
+              if ret in {'None', 'NoneType'}:
+                  return ''
+              desc = RETURN_DOC.get(name, 'Computed table or tables containing the quantities described above.')
+              return f'Returns\n-------\n{ret}\n    {desc}'
+
+          def build_doc(name: str, node: ast.FunctionDef | ast.AsyncFunctionDef | ast.ClassDef) -> str:
+              if isinstance(node, ast.ClassDef) and name in FULL_CLASS_DOCS:
+                  return FULL_CLASS_DOCS[name].strip()
+              existing = ast.get_docstring(node, clean=True) or SUMMARIES.get(name, name.replace('_', ' ').capitalize() + '.')
+              if isinstance(node, ast.ClassDef):
+                  return existing.strip()
+              pblock = params_block(name, node)
+              rblock = return_block(name, node)
+              doc = existing.strip()
+              if pblock and 'Parameters\n----------' not in doc:
+                  marker = '\nReturns\n-------'
+                  if marker in doc:
+                      doc = doc.replace(marker, '\n\n' + pblock + marker, 1)
+                  else:
+                      doc += '\n\n' + pblock
+              if rblock and 'Returns\n-------' not in doc:
+                  doc += '\n\n' + rblock
+              note = EXTRA_NOTES.get(name)
+              if note and note not in doc:
+                  doc += '\n\nNotes\n-----\n' + note
+              return doc
+
+          def replace_docstrings(path: Path, targets: set[str]) -> None:
+              source = path.read_text(encoding='utf-8')
+              tree = ast.parse(source, filename=str(path))
+              lines = source.splitlines(keepends=True)
+              edits: list[tuple[int, int, list[str]]] = []
+              found: set[str] = set()
+              for node in tree.body:
+                  if not isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+                      continue
+                  if node.name not in targets:
+                      continue
+                  found.add(node.name)
+                  doc = build_doc(node.name, node)
+                  rendered = ['    """' + doc.splitlines()[0] + '\n']
+                  rendered += ['    ' + line + '\n' for line in doc.splitlines()[1:]]
+                  rendered += ['    """\n']
+                  old_doc = node.body[0] if node.body and isinstance(node.body[0], ast.Expr) and isinstance(getattr(node.body[0], 'value', None), ast.Constant) and isinstance(node.body[0].value.value, str) else None
+                  if old_doc is not None:
+                      edits.append((old_doc.lineno - 1, old_doc.end_lineno, rendered))
+                  else:
+                      insert_at = node.body[0].lineno - 1
+                      edits.append((insert_at, insert_at, rendered))
+              missing = targets - found
+              if missing:
+                  raise RuntimeError(f'{path}: public targets not found: {sorted(missing)}')
+              for start, end, rendered in sorted(edits, reverse=True):
+                  lines[start:end] = rendered
+              path.write_text(''.join(lines), encoding='utf-8')
+
+          # Safe annotation-only improvements. No defaults or executable logic change.
+          cleaning = PKG / 'preprocessing/_cleaning.py'
+          text = cleaning.read_text(encoding='utf-8')
+          text = text.replace(
+              'def get_salones_with_imputations(materias):',
+              'def get_salones_with_imputations(\n    materias: pd.DataFrame,\n) -> dict[tuple[object, object, object, object], pd.DataFrame]:',
+          )
+          cleaning.write_text(text, encoding='utf-8')
+
+          style = PKG / 'visualization/style.py'
+          text = style.read_text(encoding='utf-8')
+          text = text.replace('def mpl_apply():', 'def mpl_apply() -> None:')
+          text = text.replace('def set_style():', 'def set_style() -> None:')
+          text = text.replace(
+              'def plotly_apply(palette=["#ffa600", "#ffd380"], fontsize=18, fontstack="EB Garamond, Garamond, Georgia, \'Times New Roman\', serif"):',
+              'def plotly_apply(\n    palette: list[str] = ["#ffa600", "#ffd380"],\n    fontsize: float = 18,\n    fontstack: str = "EB Garamond, Garamond, Georgia, \'Times New Roman\', serif",\n) -> None:',
+          )
+          style.write_text(text, encoding='utf-8')
+
+          for path, targets in SOURCE_TARGETS.items():
+              replace_docstrings(path, targets)
+
+          # Canonical modules whose public implementation lives directly in the file.
+          style = PKG / 'visualization/style.py'
+          text = style.read_text(encoding='utf-8')
+          if not ast.get_docstring(ast.parse(text)):
+              text = '"""Shared Matplotlib, Seaborn, and Plotly style configuration.\n\nThe functions in this module change plotting-library defaults only; they do not\nconstruct cohorts, transform analytical data, or alter statistical estimands.\n"""\n\n' + text
+              style.write_text(text, encoding='utf-8')
+
+          provenance = PKG / 'reporting/provenance.py'
+          text = provenance.read_text(encoding='utf-8')
+          if not ast.get_docstring(ast.parse(text)):
+              text = '"""Reproducibility and run-provenance logging utilities.\n\nRun logs record file metadata and execution context without reading or modifying\nthe analytical contents of the controlled input files.\n"""\n\n' + text
+              provenance.write_text(text, encoding='utf-8')
+
+          # Sphinx: exact reviewed API only. No recursive discovery and no compatibility modules.
+          api_lines = [
+              'Public API reference',
+              '====================',
+              '',
+              'This reference is intentionally restricted to symbols exported by the',
+              'reviewed canonical namespace ``__all__`` declarations. Compatibility',
+              'namespaces, private implementation modules, historical pipelines, and',
+              'non-exported helpers are excluded.',
+              '',
+          ]
+          for module_name, symbols in PUBLIC_API.items():
+              title = module_name.replace('cmat_analysis.', '') or 'cmat_analysis'
+              api_lines += [title, '-' * len(title), '', f'.. automodule:: {module_name}', '']
+              if not symbols:
+                  api_lines += ['This namespace currently exposes no stable public callables.', '']
+              for symbol, kind in symbols:
+                  directive = 'autoclass' if kind == 'class' else 'autofunction'
+                  api_lines += [f'.. {directive}:: {module_name}.{symbol}', '   :no-index-entry:', '']
+          (ROOT / 'docs/api/index.rst').write_text('\n'.join(api_lines), encoding='utf-8')
+
+          # Human-readable inventory synchronized with the executable contract.
+          md = [
+              '# cmat_analysis public API',
+              '',
+              'This inventory defines the reviewed documentation surface. A symbol is',
+              'public here only when it is exported from the canonical namespace',
+              '`__all__`. Compatibility namespaces and non-exported helpers are not API.',
+              '',
+          ]
+          fn_count = 0
+          cls_count = 0
+          for module_name, symbols in PUBLIC_API.items():
+              md += [f'## `{module_name}`', '']
+              if not symbols:
+                  md += ['No public callables.', '']
+                  continue
+              for symbol, kind in symbols:
+                  md.append(f'- `{symbol}` — {kind}')
+                  fn_count += kind == 'function'
+                  cls_count += kind == 'class'
+              md.append('')
+          md += [f'Public functions: **{fn_count}**  ', f'Public classes: **{cls_count}**', '']
+          (ROOT / 'PUBLIC_API.md').write_text('\n'.join(md), encoding='utf-8')
+          PY
+
+          git config user.name 'CMAT documentation bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add cmat_analysis
+          git commit -m 'docs: complete canonical public API reference'
+          git push origin HEAD:main
