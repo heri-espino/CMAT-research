@@ -48,6 +48,7 @@ Ownership rules:
 - **papers are the publication-selection layer** and do not redefine scientific logic independently;
 - **one paper = one home:** `papers/<paper_id>/`;
 - **one physical literature source = one library record:** `literature/library/`;
+- **heavy research binaries use Git LFS**, including PDFs under `literature/`, `reports/`, and `papers/`; install/materialize LFS locally instead of migrating these binaries into normal Git;
 - historical source states belong in Git history, with explicit provenance records where useful.
 
 ## 2. Mandatory startup by task
@@ -210,11 +211,13 @@ Historical restoration/import records:
 
 Do not recreate permanent snapshot source trees merely because an old implementation is needed; retrieve it from Git history.
 
-## 9. Data/privacy boundary
+## 9. Data/privacy and binary-storage boundary
 
 Never commit administrative Excel/raw exports, row-level student/advisory microdata, direct identifiers, HMAC keys/salts, credentials/tokens, unreviewed identifying free text, or unreviewed row-level pseudonymised longitudinal datasets.
 
 Aggregate outputs may be retained only after disclosure/privacy review.
+
+Git LFS is the canonical storage layer for heavy versioned research binaries listed in `.gitattributes`, especially source/report/paper PDFs, large PNG/JPG assets, and archive ZIPs. On a development machine, run `git lfs install` once; use `git lfs pull` whenever an existing clone contains pointer files instead of the actual binaries. Do not convert the repository-wide PDF corpus to ordinary Git blobs merely to avoid installing LFS, because that inflates normal Git history and future clone size.
 
 ## 10. Current unresolved scientific maintenance
 
