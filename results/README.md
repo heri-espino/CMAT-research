@@ -1,6 +1,6 @@
 # Paper 1 results
 
-This directory contains generated or deliberately selected **publication-level aggregate outputs** for Paper 1. The canonical recipe is `../code/run_paper.py`; reusable calculations remain in the shared `cmat_analysis` library.
+This directory contains generated or deliberately selected **publication-level aggregate outputs** for Paper 1. The canonical scientific recipe is `../code/run_paper.py`; reusable calculations remain in the shared `cmat_analysis` library, while `../code/figures.py` converts reviewed aggregate tables into paper-specific visual presentation.
 
 Expected generated structure:
 
@@ -18,11 +18,16 @@ results/
 │   ├── 106_ppa_piecewise_threshold_persistence.csv
 │   └── 107_ppa_later_performance_models.csv
 ├── figures/
-│   └── ppa_persistence_by_mu_group.png
+│   ├── figure_01_cohort_flow.png
+│   ├── figure_02_main_persistence.png
+│   ├── figure_03_threshold_piecewise.png
+│   └── figure_04_adjusted_persistence_or.png
 ├── logs/
 └── run_summary.json
 ```
 
 Tables `101`--`107` are the primary reproducibility bridge to the retained longitudinal snapshot currently cited by the manuscript. `python code/run_paper.py --compare-retained ...` checks them against `brainstorm/shared/historical_outputs/study/tables/` and fails rather than silently changing published numbers.
 
-Do not hand-edit numerical outputs. Administrative row-level data, student identifiers, raw joined cohorts, and local input files must never be committed here. Aggregate CSVs or figures should only be committed after privacy/provenance review. Local run logs may contain local file paths and are not publication artifacts.
+The four manuscript figures are generated artifacts rather than hand-edited source material. A direct `python paper/build.py` regenerates them from the retained aggregate snapshot, while `code/run_paper.py --compile` regenerates them from the aggregate tables produced by that empirical run. Figure provenance and the replacement of the historical Spanish-labelled persistence figure are documented in `../paper/FIGURE_INVENTORY.md`.
+
+Do not hand-edit numerical outputs or figures. Administrative row-level data, student identifiers, raw joined cohorts, and local input files must never be committed here. Aggregate CSVs or figures should only be committed after privacy/provenance review. Local run logs may contain local file paths and are not publication artifacts.
