@@ -30,13 +30,13 @@ The initial collection is intentionally restricted to articles that already have
 Run from the repository root:
 
 ```bash
-python papers/paper1_ppa_persistence/literature/notes_on_papers/_generate.py --write
+python literature_selected/notes_on_papers/_generate.py --write
 ```
 
 Validation without writing:
 
 ```bash
-python papers/paper1_ppa_persistence/literature/notes_on_papers/_generate.py --check
+python literature_selected/notes_on_papers/_generate.py --check
 ```
 
 Do not hand-edit generated article copies. If an annotation is wrong or incomplete, edit `_generate.py` or the underlying technical reading note and regenerate.

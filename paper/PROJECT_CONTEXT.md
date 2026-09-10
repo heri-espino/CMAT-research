@@ -13,7 +13,7 @@ Paper 1 is a downstream publication selection, not an independent analysis branc
 ```text
 root/code reusable functions
         ↓
-reports/research_compendium + reports/methodology_report
+brainstorm/research_compendium + brainstorm/methodology_report
         broad longitudinal/methodological evidence
         ↓
 papers/paper1_ppa_persistence
@@ -49,8 +49,8 @@ MU-period visit group: `0 / 1–2 / exactly 3 / 4+`.
 
 Paper 1 currently draws its empirical development from two report-level records:
 
-- `../../reports/research_compendium/` — contains the refined PPA1→Calculus longitudinal development, including the N=3,241 stage;
-- `../../reports/methodology_report/` — contains the later methodology/statistical review, broad N=4,211 progressor sensitivity, and the preserved N=3,241 comparison snapshot.
+- `../../brainstorm/research_compendium/` — contains the refined PPA1→Calculus longitudinal development, including the N=3,241 stage;
+- `../../brainstorm/methodology_report/` — contains the later methodology/statistical review, broad N=4,211 progressor sensitivity, and the preserved N=3,241 comparison snapshot.
 
 These reports are intentionally broader than Paper 1. The manuscript should select only the results needed for its argument while keeping traceability to the report/root-code source.
 
@@ -81,6 +81,6 @@ Create folders only when they contain real files; do not add empty scaffolding s
 
 ## Dependencies and reproducibility boundary
 
-Reusable longitudinal/statistical logic belongs in `../../code/`. Report-level empirical development belongs in `../../reports/`. The strict N=3,241 longitudinal result currently remains a later-stage retained snapshot documented in the two source reports and must be regenerated from the canonical executable root-code pipeline before submission.
+Reusable longitudinal/statistical logic belongs in `../../code/`. Report-level empirical development belongs in `../../brainstorm/`. The strict N=3,241 longitudinal result currently remains a later-stage retained snapshot documented in the two source reports and must be regenerated from the canonical executable root-code pipeline before submission.
 
 Paper-specific literature is in `literature/`; physical source records remain in `../../literature/library/`.

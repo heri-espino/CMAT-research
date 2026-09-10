@@ -14,12 +14,12 @@ import sys
 from pathlib import Path
 
 MANUSCRIPT_DIR = Path(__file__).resolve().parent
-REPO_ROOT = MANUSCRIPT_DIR.parents[2]
+REPO_ROOT = MANUSCRIPT_DIR.parent
 MAIN_TEX = MANUSCRIPT_DIR / "main.tex"
 BIB_FILE = MANUSCRIPT_DIR / "references.bib"
 FIGURE = (
     REPO_ROOT
-    / "reports"
+    / "brainstorm"
     / "methodology_report"
     / "figures"
     / "refined_longitudinal_persistence_3241.png"

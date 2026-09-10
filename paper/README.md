@@ -18,22 +18,22 @@ The current ambitious target remains *Studies in Higher Education*. The draft is
 
 Primary Paper 1 estimates currently come from the retained refined longitudinal analysis under:
 
-- `../../../analysis/shared/historical_outputs/study/tables/101_ppa_behavior_profiles.csv`
-- `../../../analysis/shared/historical_outputs/study/tables/102_ppa_persistence_by_mu_group.csv`
-- `../../../analysis/shared/historical_outputs/study/tables/103_ppa_persistence_omnibus.csv`
-- `../../../analysis/shared/historical_outputs/study/tables/104_ppa_exact3_vs_4plus_persistence.csv`
-- `../../../analysis/shared/historical_outputs/study/tables/105_ppa_persistence_logistic_models.csv`
-- `../../../analysis/shared/historical_outputs/study/tables/106_ppa_piecewise_threshold_persistence.csv`
-- `../../../analysis/shared/historical_outputs/study/tables/107_ppa_later_performance_models.csv`
+- `../../../brainstorm/shared/historical_outputs/study/tables/101_ppa_behavior_profiles.csv`
+- `../../../brainstorm/shared/historical_outputs/study/tables/102_ppa_persistence_by_mu_group.csv`
+- `../../../brainstorm/shared/historical_outputs/study/tables/103_ppa_persistence_omnibus.csv`
+- `../../../brainstorm/shared/historical_outputs/study/tables/104_ppa_exact3_vs_4plus_persistence.csv`
+- `../../../brainstorm/shared/historical_outputs/study/tables/105_ppa_persistence_logistic_models.csv`
+- `../../../brainstorm/shared/historical_outputs/study/tables/106_ppa_piecewise_threshold_persistence.csv`
+- `../../../brainstorm/shared/historical_outputs/study/tables/107_ppa_later_performance_models.csv`
 
 The longitudinal cohort construction and interpretation are also documented in:
 
-- `../../../reports/research_compendium/ppa_progression_analysis.tex`
-- `../../../reports/methodology_report/README.md`
+- `../../../brainstorm/research_compendium/ppa_progression_analysis.tex`
+- `../../../brainstorm/methodology_report/README.md`
 
 The figure currently used by `main.tex` is the retained refined longitudinal snapshot:
 
-- `../../../reports/methodology_report/figures/refined_longitudinal_persistence_3241.png`
+- `../../../brainstorm/methodology_report/figures/refined_longitudinal_persistence_3241.png`
 
 Do not manually alter manuscript numbers after a data update. Re-run the relevant longitudinal analysis once it is reintegrated into the canonical executable pipeline, compare generated outputs, and then update the prose from those outputs.
 
@@ -48,7 +48,7 @@ The draft intentionally uses several *Studies in Higher Education* anchors alrea
 The manuscript is validated in GitHub Actions on a clean TeX Live installation with Git LFS assets materialized. The preferred local build is the cross-platform wrapper, which can be invoked from the repository root or from any other working directory:
 
 ```bash
-python papers/paper1_ppa_persistence/manuscript/build.py
+python paper/build.py
 ```
 
 The wrapper always compiles with `manuscript/` as the working directory, so the bibliography and external figure paths resolve consistently. It first checks that the required figure is a real PNG rather than a Git LFS pointer.
@@ -87,7 +87,7 @@ pdflatex main.tex
 pdflatex main.tex
 ```
 
-Do not run plain `pdflatex papers/paper1_ppa_persistence/manuscript/main.tex` from the repository root without changing directories, because the manuscript currently uses report-relative figure paths and a paper-local bibliography. Use `build.py`, `latexmk -cd`, or `cd papers/paper1_ppa_persistence/manuscript` first.
+Do not run plain `pdflatex paper/main.tex` from the repository root without changing directories, because the manuscript currently uses report-relative figure paths and a paper-local bibliography. Use `build.py`, `latexmk -cd`, or `cd papers/paper1_ppa_persistence/manuscript` first.
 
 ## Continuous compilation check
 

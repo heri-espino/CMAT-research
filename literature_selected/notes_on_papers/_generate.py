@@ -18,9 +18,9 @@ from dataclasses import dataclass
 from pathlib import Path
 
 
-ROOT = Path(__file__).resolve().parents[4]
+ROOT = Path(__file__).resolve().parents[2]
 LIBRARY = ROOT / "literature" / "library" / "articles"
-NOTES_ROOT = ROOT / "papers" / "paper1_ppa_persistence" / "literature" / "reading_notes"
+NOTES_ROOT = ROOT / "literature_selected" / "reading_notes"
 OUTPUT_DIR = Path(__file__).resolve().parent
 
 
@@ -344,13 +344,13 @@ The initial collection is intentionally restricted to articles that already have
 Run from the repository root:
 
 ```bash
-python papers/paper1_ppa_persistence/literature/notes_on_papers/_generate.py --write
+python literature_selected/notes_on_papers/_generate.py --write
 ```
 
 Validation without writing:
 
 ```bash
-python papers/paper1_ppa_persistence/literature/notes_on_papers/_generate.py --check
+python literature_selected/notes_on_papers/_generate.py --check
 ```
 
 Do not hand-edit generated article copies. If an annotation is wrong or incomplete, edit `_generate.py` or the underlying technical reading note and regenerate.
