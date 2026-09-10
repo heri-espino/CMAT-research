@@ -20,7 +20,7 @@
 
 ## Inventory
 
-- Python files scanned: **100**
+- Python files scanned: **102**
 - Reusable symbols: **405**
 - Test symbols: **18**
 
@@ -513,6 +513,26 @@
 | `_smd_binary` | function | 16 | `def _smd_binary(x: np.ndarray, t: np.ndarray, w: np.ndarray \| None=None) -> float` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics selection py smd_binary` |
 | `propensity_att_sensitivity` | function | 29 | `def propensity_att_sensitivity(df: pd.DataFrame, *, treatment_col: str, outcome_col: str, categorical_covariates: list[str], numeric_covariates: list[str] \| None=None) -> tuple[pd.DataFrame, pd.DataFrame, dict[str, float \| int \| str]]` | Observed-covariate ATT weighting sensitivity analysis. | `src cmat_analysis statistics selection py propensity_att_sensitivity observed-covariate att weighting sensitivity analysis` |
 
+### `src/cmat_analysis/statistics/methodology.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `exact_visit_group` | function | 34 | `def exact_visit_group(v: int \| float) -> str` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics methodology py exact_visit_group` |
+| `add_exact_visit_group` | function | 47 | `def add_exact_visit_group(df: pd.DataFrame, visits_col: str='VISITS_CMAT_PERIOD') -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics methodology py add_exact_visit_group` |
+| `exact_visit_group_summary` | function | 55 | `def exact_visit_group_summary(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', population: str) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics methodology py exact_visit_group_summary` |
+| `exact_visit_count_summary` | function | 83 | `def exact_visit_count_summary(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', population: str, max_visits: int=12) -> pd.DataFrame` | Descriptive outcome summary for each exact visit count from 0 to max_visits. | `src cmat_analysis statistics methodology py exact_visit_count_summary descriptive outcome summary each exact visit count to` |
+| `exact_visit_count_trend_diagnostics` | function | 114 | `def exact_visit_count_trend_diagnostics(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', population: str, max_visits: int=12, stable_max_visits: int=7) -> pd.DataFrame` | Student-level monotonic/linear diagnostics over exact positive counts. | `src cmat_analysis statistics methodology py exact_visit_count_trend_diagnostics student-level monotonic linear diagnostics over exact positive counts` |
+| `welch_anova_exact_groups` | function | 152 | `def welch_anova_exact_groups(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', population: str) -> pd.DataFrame` | Welch one-way ANOVA plus Brown--Forsythe variance diagnostic. | `src cmat_analysis statistics methodology py welch_anova_exact_groups welch one-way anova plus brown--forsythe variance diagnostic` |
+| `games_howell_exact_groups` | function | 195 | `def games_howell_exact_groups(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', population: str, alpha: float=0.05) -> pd.DataFrame` | All pairwise Games--Howell contrasts for 0,1,2,3,4+ visit groups. | `src cmat_analysis statistics methodology py games_howell_exact_groups all pairwise games--howell contrasts visit groups` |
+| `fixed_effect_pairwise_exact_groups` | function | 252 | `def fixed_effect_pairwise_exact_groups(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', population: str, include_career: bool=True) -> tuple[pd.DataFrame, pd.DataFrame]` | All pairwise adjusted contrasts from one additive classroom-FE model. | `src cmat_analysis statistics methodology py fixed_effect_pairwise_exact_groups all pairwise adjusted contrasts one additive classroom-fe model` |
+| `fixed_effect_pairwise_exact_groups.<locals>.coef_name` | function | 273 | `def coef_name(group: str) -> str \| None` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics methodology py fixed_effect_pairwise_exact_groups locals coef_name` |
+| `_coverage_set` | function | 333 | `def _coverage_set(data) -> set[tuple[int, str]]` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics methodology py coverage_set` |
+| `build_all_math_attempts_with_outcomes` | function | 338 | `def build_all_math_attempts_with_outcomes(data, config) -> pd.DataFrame` | Build all eligible observed math-course attempts in CMAT-covered periods. | `src cmat_analysis statistics methodology py build_all_math_attempts_with_outcomes build all eligible observed math-course attempts in cmat-covered` |
+| `career_summary` | function | 353 | `def career_summary(df: pd.DataFrame, *, population: str, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', min_n: int=30) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics methodology py career_summary` |
+| `career_ecological_association` | function | 380 | `def career_ecological_association(summary: pd.DataFrame) -> pd.DataFrame` | Descriptive career-level association between CMAT use rate and mean Z. | `src cmat_analysis statistics methodology py career_ecological_association descriptive career-level association between cmat use rate mean` |
+| `calc_progressor_mu_cohort` | function | 406 | `def calc_progressor_mu_cohort(mu_with_outcomes: pd.DataFrame, longitudinal: pd.DataFrame) -> pd.DataFrame` | MU rows for students whose first later Calculus attempt has CMAT coverage. | `src cmat_analysis statistics methodology py calc_progressor_mu_cohort mu rows students whose first later calculus attempt` |
+| `calc_progressor_followup_cohort` | function | 412 | `def calc_progressor_followup_cohort(longitudinal_with_outcomes: pd.DataFrame) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics methodology py calc_progressor_followup_cohort` |
+
 ### `src/cmat_analysis/statistics/nonparametric.py`
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
@@ -535,44 +555,12 @@
 | `_output_path` | function | 9 | `def _output_path(path_root, filename: str) -> Path` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics parametric py output_path` |
 | `pruebas_parametricas` | function | 13 | `def pruebas_parametricas(group1, group2, split, estudiante_o_calificacion='Salón', PATH=None, MATERIA=None)` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics parametric py pruebas_parametricas` |
 
-### `src/cmat_analysis/study/extended_methodology.py`
-
-| Symbol | Kind | Line | Signature | Summary | Tags |
-|---|---|---:|---|---|---|
-| `exact_visit_group` | function | 20 | `def exact_visit_group(v: int \| float) -> str` | No docstring; inspect implementation before reuse. | `src cmat_analysis study extended_methodology py exact_visit_group` |
-| `add_exact_visit_group` | function | 33 | `def add_exact_visit_group(df: pd.DataFrame, visits_col: str='VISITS_CMAT_PERIOD') -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis study extended_methodology py add_exact_visit_group` |
-| `exact_visit_group_summary` | function | 41 | `def exact_visit_group_summary(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', population: str) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis study extended_methodology py exact_visit_group_summary` |
-| `exact_visit_count_summary` | function | 69 | `def exact_visit_count_summary(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', population: str, max_visits: int=12) -> pd.DataFrame` | Descriptive outcome summary for each exact visit count from 0 to max_visits. | `src cmat_analysis study extended_methodology py exact_visit_count_summary descriptive outcome summary each exact visit count to` |
-| `exact_visit_count_trend_diagnostics` | function | 100 | `def exact_visit_count_trend_diagnostics(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', population: str, max_visits: int=12, stable_max_visits: int=7) -> pd.DataFrame` | Student-level monotonic/linear diagnostics over exact positive counts. | `src cmat_analysis study extended_methodology py exact_visit_count_trend_diagnostics student-level monotonic linear diagnostics over exact positive counts` |
-| `welch_anova_exact_groups` | function | 138 | `def welch_anova_exact_groups(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', population: str) -> pd.DataFrame` | Welch one-way ANOVA plus Brown--Forsythe variance diagnostic. | `src cmat_analysis study extended_methodology py welch_anova_exact_groups welch one-way anova plus brown--forsythe variance diagnostic` |
-| `games_howell_exact_groups` | function | 181 | `def games_howell_exact_groups(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', population: str, alpha: float=0.05) -> pd.DataFrame` | All pairwise Games--Howell contrasts for 0,1,2,3,4+ visit groups. | `src cmat_analysis study extended_methodology py games_howell_exact_groups all pairwise games--howell contrasts visit groups` |
-| `fixed_effect_pairwise_exact_groups` | function | 238 | `def fixed_effect_pairwise_exact_groups(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', population: str, include_career: bool=True) -> tuple[pd.DataFrame, pd.DataFrame]` | All pairwise adjusted contrasts from one additive classroom-FE model. | `src cmat_analysis study extended_methodology py fixed_effect_pairwise_exact_groups all pairwise adjusted contrasts one additive classroom-fe model` |
-| `fixed_effect_pairwise_exact_groups.<locals>.coef_name` | function | 259 | `def coef_name(group: str) -> str \| None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study extended_methodology py fixed_effect_pairwise_exact_groups locals coef_name` |
-| `_coverage_set` | function | 319 | `def _coverage_set(data) -> set[tuple[int, str]]` | No docstring; inspect implementation before reuse. | `src cmat_analysis study extended_methodology py coverage_set` |
-| `build_all_math_attempts_with_outcomes` | function | 324 | `def build_all_math_attempts_with_outcomes(data, config) -> pd.DataFrame` | Build all eligible observed math-course attempts in CMAT-covered periods. | `src cmat_analysis study extended_methodology py build_all_math_attempts_with_outcomes build all eligible observed math-course attempts in cmat-covered` |
-| `career_summary` | function | 339 | `def career_summary(df: pd.DataFrame, *, population: str, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', min_n: int=30) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis study extended_methodology py career_summary` |
-| `career_ecological_association` | function | 366 | `def career_ecological_association(summary: pd.DataFrame) -> pd.DataFrame` | Descriptive career-level association between CMAT use rate and mean Z. | `src cmat_analysis study extended_methodology py career_ecological_association descriptive career-level association between cmat use rate mean` |
-| `calc_progressor_mu_cohort` | function | 392 | `def calc_progressor_mu_cohort(mu_with_outcomes: pd.DataFrame, longitudinal: pd.DataFrame) -> pd.DataFrame` | MU rows for students whose first later Calculus attempt has CMAT coverage. | `src cmat_analysis study extended_methodology py calc_progressor_mu_cohort mu rows students whose first later calculus attempt` |
-| `calc_progressor_followup_cohort` | function | 398 | `def calc_progressor_followup_cohort(longitudinal_with_outcomes: pd.DataFrame) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis study extended_methodology py calc_progressor_followup_cohort` |
-
 ### `src/cmat_analysis/study/methodology_pipeline.py`
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
 |---|---|---:|---|---|---|
 | `_save_csv` | function | 39 | `def _save_csv(df: pd.DataFrame, path: Path) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study methodology_pipeline py save_csv` |
 | `run_methodology_pipeline` | function | 44 | `def run_methodology_pipeline(config) -> dict[str, object]` | Run shared study outputs, then add the methodology-report extensions. | `src cmat_analysis study methodology_pipeline py run_methodology_pipeline run shared outputs then add methodology-report extensions` |
-
-### `src/cmat_analysis/study/methodology_plots.py`
-
-| Symbol | Kind | Line | Signature | Summary | Tags |
-|---|---|---:|---|---|---|
-| `_save` | function | 9 | `def _save(fig, path: Path) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study methodology_plots py save` |
-| `plot_pairwise_exact_group_means` | function | 16 | `def plot_pairwise_exact_group_means(summary: pd.DataFrame, out: Path, filename: str, title: str) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study methodology_plots py plot_pairwise_exact_group_means` |
-| `plot_career_mean_z` | function | 35 | `def plot_career_mean_z(summary: pd.DataFrame, population: str, out: Path, filename: str) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study methodology_plots py plot_career_mean_z` |
-| `plot_career_use_vs_z` | function | 49 | `def plot_career_use_vs_z(summary: pd.DataFrame, population: str, out: Path, filename: str) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study methodology_plots py plot_career_use_vs_z` |
-| `plot_periodicity_acf_by_population` | function | 65 | `def plot_periodicity_acf_by_population(acf: pd.DataFrame, out: Path, filename: str='09_monthly_periodicity_acf_by_population.png') -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study methodology_plots py plot_periodicity_acf_by_population` |
-| `plot_peak_spacing_by_population` | function | 83 | `def plot_peak_spacing_by_population(intervals: pd.DataFrame, out: Path, filename: str='08_peak_spacing_by_population.png') -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study methodology_plots py plot_peak_spacing_by_population` |
-| `plot_exact_visit_count_curve` | function | 98 | `def plot_exact_visit_count_curve(summary: pd.DataFrame, out: Path, filename: str='13_exact_visit_counts_0_to_12.png') -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis study methodology_plots py plot_exact_visit_count_curve` |
 
 ### `src/cmat_analysis/study/pipeline.py`
 
@@ -624,6 +612,18 @@
 | `plot_peak_spacing` | function | 137 | `def plot_peak_spacing(intervals: pd.DataFrame, summary: pd.DataFrame, out: Path) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization study py plot_peak_spacing` |
 | `plot_monthly_periodicity_acf` | function | 154 | `def plot_monthly_periodicity_acf(acf: pd.DataFrame, out: Path) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization study py plot_monthly_periodicity_acf` |
 | `plot_exact3_regularity_performance` | function | 171 | `def plot_exact3_regularity_performance(summary: pd.DataFrame, out: Path) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization study py plot_exact3_regularity_performance` |
+
+### `src/cmat_analysis/visualization/methodology.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `_save` | function | 15 | `def _save(fig, path: Path) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization methodology py save` |
+| `plot_pairwise_exact_group_means` | function | 22 | `def plot_pairwise_exact_group_means(summary: pd.DataFrame, out: Path, filename: str, title: str) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization methodology py plot_pairwise_exact_group_means` |
+| `plot_career_mean_z` | function | 41 | `def plot_career_mean_z(summary: pd.DataFrame, population: str, out: Path, filename: str) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization methodology py plot_career_mean_z` |
+| `plot_career_use_vs_z` | function | 55 | `def plot_career_use_vs_z(summary: pd.DataFrame, population: str, out: Path, filename: str) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization methodology py plot_career_use_vs_z` |
+| `plot_periodicity_acf_by_population` | function | 71 | `def plot_periodicity_acf_by_population(acf: pd.DataFrame, out: Path, filename: str='09_monthly_periodicity_acf_by_population.png') -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization methodology py plot_periodicity_acf_by_population` |
+| `plot_peak_spacing_by_population` | function | 89 | `def plot_peak_spacing_by_population(intervals: pd.DataFrame, out: Path, filename: str='08_peak_spacing_by_population.png') -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization methodology py plot_peak_spacing_by_population` |
+| `plot_exact_visit_count_curve` | function | 104 | `def plot_exact_visit_count_curve(summary: pd.DataFrame, out: Path, filename: str='13_exact_visit_counts_0_to_12.png') -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization methodology py plot_exact_visit_count_curve` |
 
 ### `src/cmat_analysis/visualization/style.py`
 
@@ -711,7 +711,7 @@
 | `test_temporal_regularity_distinguishes_concentrated_and_distributed_use` | function | 92 | `def test_temporal_regularity_distinguishes_concentrated_and_distributed_use()` | No docstring; inspect implementation before reuse. | `tests test_study_helpers py test_temporal_regularity_distinguishes_concentrated_and_distributed_use` |
 | `test_monthly_periodicity_diagnostics_recovers_30_day_cycle` | function | 120 | `def test_monthly_periodicity_diagnostics_recovers_30_day_cycle()` | No docstring; inspect implementation before reuse. | `tests test_study_helpers py test_monthly_periodicity_diagnostics_recovers_30_day_cycle` |
 | `test_extended_one_two_equivalence_and_transition` | function | 143 | `def test_extended_one_two_equivalence_and_transition()` | No docstring; inspect implementation before reuse. | `tests test_study_helpers py test_extended_one_two_equivalence_and_transition` |
-| `test_extended_welch_anova_and_career_association_outputs` | function | 168 | `def test_extended_welch_anova_and_career_association_outputs()` | No docstring; inspect implementation before reuse. | `tests test_study_helpers py test_extended_welch_anova_and_career_association_outputs` |
-| `test_exact_visit_index_uses_career_relative_standardization_and_sparse_tail_sensitivity` | function | 204 | `def test_exact_visit_index_uses_career_relative_standardization_and_sparse_tail_sensitivity()` | No docstring; inspect implementation before reuse. | `tests test_study_helpers py test_exact_visit_index_uses_career_relative_standardization_and_sparse_tail_sensitivity` |
-| `test_ppa_revalidation_classifier_flags_post_pass_and_same_period_replica` | function | 249 | `def test_ppa_revalidation_classifier_flags_post_pass_and_same_period_replica()` | No docstring; inspect implementation before reuse. | `tests test_study_helpers py test_ppa_revalidation_classifier_flags_post_pass_and_same_period_replica` |
-| `test_ppa_persistence_summary_orders_threshold_groups` | function | 271 | `def test_ppa_persistence_summary_orders_threshold_groups()` | No docstring; inspect implementation before reuse. | `tests test_study_helpers py test_ppa_persistence_summary_orders_threshold_groups` |
+| `test_extended_welch_anova_and_career_association_outputs` | function | 169 | `def test_extended_welch_anova_and_career_association_outputs()` | No docstring; inspect implementation before reuse. | `tests test_study_helpers py test_extended_welch_anova_and_career_association_outputs` |
+| `test_exact_visit_index_uses_career_relative_standardization_and_sparse_tail_sensitivity` | function | 205 | `def test_exact_visit_index_uses_career_relative_standardization_and_sparse_tail_sensitivity()` | No docstring; inspect implementation before reuse. | `tests test_study_helpers py test_exact_visit_index_uses_career_relative_standardization_and_sparse_tail_sensitivity` |
+| `test_ppa_revalidation_classifier_flags_post_pass_and_same_period_replica` | function | 250 | `def test_ppa_revalidation_classifier_flags_post_pass_and_same_period_replica()` | No docstring; inspect implementation before reuse. | `tests test_study_helpers py test_ppa_revalidation_classifier_flags_post_pass_and_same_period_replica` |
+| `test_ppa_persistence_summary_orders_threshold_groups` | function | 272 | `def test_ppa_persistence_summary_orders_threshold_groups()` | No docstring; inspect implementation before reuse. | `tests test_study_helpers py test_ppa_persistence_summary_orders_threshold_groups` |
