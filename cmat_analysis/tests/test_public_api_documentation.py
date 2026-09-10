@@ -127,7 +127,8 @@ def test_public_api_has_numpy_style_docstrings() -> None:
                 failures.append(f"{module_name}.{name}: missing NumPy Parameters section")
             if inspect.isfunction(obj):
                 return_annotation = signature.return_annotation
-                if return_annotation not in {inspect.Signature.empty, None, type(None)}:
+                void_annotations = {None, type(None), "None", "NoneType"}
+                if return_annotation is not inspect.Signature.empty and return_annotation not in void_annotations:
                     if "Returns\n-------" not in doc:
                         failures.append(f"{module_name}.{name}: missing NumPy Returns section")
     assert not failures, "\n" + "\n".join(failures)
