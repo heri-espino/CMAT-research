@@ -1,8 +1,10 @@
+from pathlib import Path
 from types import SimpleNamespace
 
 import numpy as np
 import pandas as pd
 
+from visitas_analysis.reporting.methodology_build import methodology_report_cli
 from visitas_analysis.study.extended_methodology import add_exact_visit_group, games_howell_exact_groups
 from visitas_analysis.study.outcomes import add_primary_outcomes
 
@@ -35,3 +37,9 @@ def test_methodology_exact_visit_grouping_has_all_ten_pairwise_contrasts():
     grouped = add_exact_visit_group(d)
     assert set(grouped["EXACT_VISIT_GROUP_0_1_2_3_4P"].astype(str)) == {"0", "1", "2", "3", "4+"}
     assert len(games_howell_exact_groups(d, population="test")) == 10
+
+
+def test_methodology_report_atomic_runner_resolves_root_code_dependencies():
+    repo_root = Path(__file__).resolve().parents[2]
+    report_dir = repo_root / "reports" / "methodology_report"
+    assert methodology_report_cli(repo_root, report_dir, ["--check"]) == 0
