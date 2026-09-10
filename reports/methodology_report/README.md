@@ -4,6 +4,8 @@ This directory is an **atomic methodology/statistical-review workspace**. It con
 
 It does **not** own a separate scientific implementation: reusable functions remain in the repository-level `code/` package.
 
+Before substantive analytical work here, read `../AI_HANDOFF.md` and `../../docs/RESEARCH_WORKFLOW.md`. Those documents define the general rule that this report is an experimental/research workspace using root `code/` as its scientific library.
+
 ## Atomic structure
 
 ```text
@@ -34,6 +36,21 @@ The implementation used by this report lives in root `code/`, principally:
 - `../../code/src/visitas_analysis/reporting/methodology_build.py` — build/validation orchestration.
 
 If the report needs a new scientific function, add it to root `code/`, test it there, regenerate `code/FUNCTION_INDEX.md`, and only then call it from the local runner.
+
+## How to add a new methodology experiment
+
+When a new check or methodological idea is needed:
+
+1. record the question/rationale in this README or `notes/`;
+2. search `../../code/FUNCTION_INDEX.md`;
+3. reuse an existing canonical function when possible;
+4. if a reusable calculation is missing, implement it under `../../code/src/visitas_analysis/` with tests/documentation;
+5. call it from `code/methodology_report.py` only through the canonical root-code API/build recipe;
+6. generate diagnostics/tables/figures under the report workflow;
+7. preserve assumptions, null findings, sensitivities and interpretation here even when they will not enter a paper;
+8. promote only reviewed evidence downstream into the relevant paper.
+
+Do not calculate a new paper number directly in a manuscript and then retrofit this report later.
 
 ## Reproducible build
 
