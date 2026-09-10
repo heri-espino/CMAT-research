@@ -1,6 +1,7 @@
 # Python
 __pycache__/
 *.py[cod]
+*.egg-info/
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/
@@ -48,18 +49,16 @@ Thumbs.db
 *.sas7bdat
 
 # Generated local pipeline/build outputs are not source code.
-code/outputs/
+cmat_analysis/outputs/
 brainstorm/**/build/
-papers/**/build/
+paper/build/
 
 # Raw CSVs are excluded by default. Aggregated/releasable CSVs may be force-added
-# only after privacy review. Retained aggregate analysis outputs live under analysis/
-# or inside the atomic report/paper product that owns them.
+# only after privacy review. Retained aggregate outputs may live in brainstorms.
 *.csv
-!analysis/**/*.csv
 !outputs/aggregated/**/*.csv
 !brainstorm/**/tables/*.csv
-!papers/**/results/**/*.csv
+!results/**/*.csv
 
 # Heavy private literature snapshot
 # The repository is private and the user explicitly requested preservation of
