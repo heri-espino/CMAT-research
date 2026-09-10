@@ -3,6 +3,8 @@
 This inventory defines the reviewed documentation surface. A symbol is
 public here only when it is exported from the canonical namespace
 `__all__`. Compatibility namespaces and non-exported helpers are not API.
+The test suite verifies this inventory contract and requires NumPy-style
+docstrings for every exported callable.
 
 ## `cmat_analysis.io`
 
