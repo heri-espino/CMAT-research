@@ -5,8 +5,8 @@ import numpy as np
 import pandas as pd
 
 from cmat_analysis.reporting.methodology_build import methodology_report_cli
-from cmat_analysis.study.extended_methodology import add_exact_visit_group, games_howell_exact_groups
-from cmat_analysis.study.outcomes import add_primary_outcomes
+from cmat_analysis.statistics.methodology import add_exact_visit_group, games_howell_exact_groups
+from cmat_analysis.measures import add_primary_outcomes
 
 
 def test_methodology_primary_outcome_uses_scipy_kde_and_uniform_fallback():
