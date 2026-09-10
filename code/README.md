@@ -1,25 +1,42 @@
 # Code
 
-Canonical scientific-analysis code for the CMAT project.
+Canonical reusable scientific/computational core for the CMAT project.
 
 ## Role
 
-`code/` contains the **active executable pipeline only** plus the documentation required to understand and run it. Historical copies, notebooks, reports, and generated artifacts do not belong here; Git history is the provenance layer for those states.
+`code/` owns **functions and shared pipelines**, not report or paper ownership. Historical copies, report-local recipes, manuscripts and generated report assets do not belong here.
+
+The production boundary is:
+
+```text
+controlled data
+    ↓
+root/code
+    reusable scientific functions + shared pipelines
+    ↓ imported by
+reports/<report_id>/code/<runner>.py
+    thin product-local orchestration
+    ↓
+report tables / figures / notes / LaTeX
+    ↓ selected into
+papers/<paper_id>/
+```
+
+A reusable calculation must have one implementation in root `code/`. Report- or paper-local code may **call** that implementation but must not fork it.
 
 ## Current layout
 
 ```text
 code/
-├── .ai_handoff.md              # reproducibility/function/runner contract
+├── .ai_handoff.md
 ├── README.md
-├── FUNCTION_INDEX.md           # searchable AST inventory of Python symbols
+├── FUNCTION_INDEX.md
 ├── README_STUDY.md
 ├── STUDY_PROTOCOL.md
 ├── ADMINISTRATIVE_QUESTIONS.md
 ├── config/
-├── experiments/                # stable thin runners for specific questions/papers
-├── src/                        # reusable scientific library + current broad runners
-├── scripts/                    # maintenance/documentation utilities
+├── src/                        # reusable scientific library + broad project runners
+├── scripts/                    # code-maintenance/documentation utilities
 ├── tests/
 ├── pyproject.toml
 ├── requirements.txt
@@ -29,124 +46,112 @@ code/
 └── run_study.sh
 ```
 
-## Reproducibility architecture
+There is intentionally **no `code/experiments/` layer**. Product-specific orchestration is co-located with the product that owns it.
 
-Read `code/.ai_handoff.md` before modifying Python. The core rule is:
+## Reusable-code rule
 
-```text
-reusable scientific function
-    code/src/visitas_analysis/...
-        ↓ imported by
-stable experiment/pipeline runner
-    code/experiments/<experiment_id>.py
-    or an existing canonical runner
-        ↓
-controlled configuration + controlled data
-        ↓
-regenerated outputs
-```
-
-When the institutional data are updated, the normal operation is to **rerun the same stable script**, not rewrite the analysis or create a new `*_v2.py` file. Git is the version-history layer.
-
-`code/experiments/README.md` defines the contract for future paper/question-specific runners. Reusable cohort logic, statistics, models, transformations, and plotting logic must remain in the importable package rather than being duplicated inside those runners.
-
-## Runner-first rule: do not over-engineer reproduction tasks
-
-When the task is to reproduce an existing report, paper, figure set, or prior analysis, **the first objective is to reconstruct the existing recipe, not redesign the architecture**.
-
-Use this order:
-
-1. identify the report/paper/analysis that must be reproduced;
-2. if a prior ZIP, snapshot, script, or report-producing codebase is available, treat it as the implementation reference;
-3. inspect `FUNCTION_INDEX.md` and the referenced code to identify the functions that already perform each calculation;
-4. preserve those reusable functions in `src/visitas_analysis/...`;
-5. create or update one thin stable runner in `code/experiments/` that imports those functions and executes them in the required order;
-6. verify that the runner regenerates the expected tables/figures;
-7. only after exact reproduction works should broader refactors, reconciliation between historical branches, staging automation, or architectural cleanup be considered.
-
-Do **not** turn a simple runner task into a redesign of provenance, report architecture, branch reconciliation, or compilation unless the user explicitly requests that work or exact reproduction requires it.
-
-`code/experiments/methodology_report.py` is the canonical example: the scientific functions live in importable modules, while the runner is the stable recipe for rebuilding the methodology report when the controlled data change.
-
-The practical distinction is:
-
-```text
-FUNCTION
-= how a calculation is performed
-
-RUNNER
-= which existing functions are executed, with which configuration and in which order
-
-REPORT
-= how the generated outputs are presented
-```
-
-For a data update, the default action is **rerun the existing runner**. Do not recreate the methodology from scratch.
-
-## Function index — read before adding code
-
-`FUNCTION_INDEX.md` is the canonical low-cost search layer for the active Python tree. It is generated from the Python AST and indexes functions, classes, methods, nested helpers, signatures, line numbers, docstring summaries, and search tags. Test symbols are included separately so existing coverage can be found without treating tests as production utilities.
-
-**Required workflow before creating a new function:**
+Before creating a Python function:
 
 1. read `.ai_handoff.md`;
-2. search `FUNCTION_INDEX.md` by capability, keyword, or likely symbol name;
-3. inspect the most relevant existing implementation and nearby helpers;
-4. reuse or extend existing code where scientifically appropriate;
-5. create a new symbol only when existing functionality does not cover the need;
-6. give new reusable functions/classes a useful docstring and tests;
-7. import the function into the stable runner that reproduces the relevant experiment/question.
+2. search `FUNCTION_INDEX.md` by capability, likely name and tags;
+3. inspect the most relevant implementation;
+4. reuse or extend an existing scientifically equivalent function;
+5. if a new reusable function is required, put it in the appropriate module under `src/visitas_analysis/`;
+6. add a useful docstring and tests;
+7. call it from the owning report/paper runner rather than implementing it locally;
+8. regenerate `FUNCTION_INDEX.md`.
 
-The index is regenerated with:
+The index is generated with:
 
 ```bash
 python scripts/generate_function_index.py
 ```
 
-GitHub also regenerates it automatically after changes to Python files under `code/`. Do not hand-edit the generated symbol tables; improve docstrings or `scripts/generate_function_index.py` instead.
+GitHub also refreshes it automatically after Python changes under `code/`.
 
-## Current canonical runners
+## Product-local runner rule
 
-- `src/run_study.py` — broad publication-oriented study runner; imports `visitas_analysis.study.run_study_pipeline`.
-- `src/run_analysis.py` — general/report pipeline runner; imports `visitas_analysis.pipeline.main_pipeline.run_visitas_pipeline`.
-- `experiments/methodology_report.py` — stable report-specific recipe for rebuilding the methodology report from controlled inputs.
+A runner belongs with the product whose build recipe it defines.
 
-These remain canonical until a deliberate, tested refactor. New paper-specific runners should be thin importers under `experiments/`, not copies of these pipelines.
+Current canonical example:
 
-## What was intentionally removed from the working tree
+```text
+reports/methodology_report/
+├── code/
+│   └── methodology_report.py      # thin entry point
+├── tables/
+├── figures/
+├── notes/
+├── provenance/
+├── methodology_report.tex
+└── methodology_report.pdf
+```
 
-The repository previously mixed active code with `snapshots/`, `legacy/`, `manual/`, `reporte/`, `LITERATURE_STARTER.md`, and committed generated outputs. These were removed from `code/` because they duplicate project history or belong to other subsystems.
+The entry point imports the actual implementation from root `code/`. It should not contain cohort construction, estimators, tests, transformations, model definitions or reusable plotting logic.
 
-- historical source states remain recoverable through Git;
-- methodology-restoration provenance remains documented under `docs/` and `reports/methodology_report/`;
-- legacy notebooks/manual reports remain available in Git history if ever needed;
-- the previously committed aggregate outputs now live under `analysis/shared/historical_outputs/`.
+If another report becomes reproducible, use the same pattern under `reports/<report_id>/code/`. If a paper later needs a build/orchestration script, it may use `papers/<paper_id>/code/` under the same restriction.
 
-The complete pre-cleanup working tree is preserved by Git at commit `20a993d92e8cc197a9060180d8cb6a6caf2607a7`.
+## Current shared runners
 
-## Scientific caution
+These remain in root `code/` because they are broad project-level pipelines rather than one product's recipe:
 
-The active pipeline still needs a deliberate reconciliation between the refined longitudinal/PPA work and later methodology corrections documented in project provenance. Removing duplicate snapshots from the working tree does **not** imply that this reconciliation is complete.
+- `src/run_study.py` — publication-oriented shared study runner;
+- `src/run_analysis.py` — general/descriptive shared analysis runner;
+- `src/generador_figuras_cli.py` — figure utility;
+- `src/create_anonymized_release.py` — privacy/release utility;
+- `src/prepare_release_latex.py` — release-preparation utility.
 
-That reconciliation is a separate scientific-maintenance task. It must **not** block a narrower request whose goal is simply to reproduce a known report from its existing functions and historical implementation reference.
+The methodology report itself is run from:
 
-Before changing scientific logic, inspect `.ai_handoff.md`, `FUNCTION_INDEX.md`, the implementation, tests, `STUDY_PROTOCOL.md`, `ADMINISTRATIVE_QUESTIONS.md`, `docs/MIGRATION_STATUS.md`, and the methodology report/provenance.
+```bash
+python ../reports/methodology_report/code/methodology_report.py --check
+```
 
-## Scientific rules
+when the current working directory is `code/`, or from the repository root with:
+
+```bash
+python reports/methodology_report/code/methodology_report.py --check
+```
+
+## Report-build functions
+
+Report-specific **reusable build helpers may still live in root `code/`**. For example, the methodology report uses:
+
+- `src/visitas_analysis/study/methodology_pipeline.py` for the analysis sequence;
+- `src/visitas_analysis/reporting/methodology_report.py` for LaTeX table rendering;
+- `src/visitas_analysis/reporting/methodology_build.py` for report-build orchestration/validation.
+
+The fact that a helper is report-specific does not make the report folder the right place for a reusable implementation. Root `code/` remains the computational authority.
+
+## Data updates
+
+When institutional data are updated, rerun the same product-local runner with the new controlled inputs. Do not create `*_v2.py`, duplicate the report folder, or copy calculations into a notebook.
+
+A new data vintage is not a scientific change. If cohort rules, estimands, outcomes, imputation, statistical tests/models, standard errors or threshold logic change, update root `code/`, tests and protocol first, then rerun the affected reports and papers.
+
+## Reports versus papers
+
+`reports/` is the broad scientific-development/brainstorming layer. Reports may contain competing analyses, nulls, sensitivities and methodological discussion.
+
+`papers/` is the publication-selection layer. Papers select validated evidence from the reports and canonical code outputs; they must not maintain independent scientific implementations.
+
+## Historical cleanup
+
+Older active copies such as `snapshots/`, `legacy/`, `manual/`, `reporte/` and committed `code/outputs/` were removed from the code tree because Git is the history layer and products belong outside `code/`.
+
+The pre-cleanup working tree remains recoverable at commit `20a993d92e8cc197a9060180d8cb6a6caf2607a7`.
+
+## Scientific cautions
 
 - Classroom = `instructor × course × academic period` unless a reviewed methodological change explicitly replaces it.
 - Student-selected CMAT use is observational; do not use causal language without an identification design that supports it.
-- Paper-specific code should not diverge from this canonical pipeline.
-- Scientific code changes require tests and corresponding methodology/protocol documentation.
-- Search `FUNCTION_INDEX.md` before introducing new scientific helpers; avoid parallel implementations of the same estimand or transformation.
-- Stable experiment runners must import reusable functions rather than reimplement them.
-- A new data vintage is not a reason to create a new function, runner, or version-suffixed file.
-- When reproducing an existing analysis, prefer the smallest correct runner implementation before considering wider refactors.
+- Do not infer motivation, habit or psychological mechanisms directly from administrative visit traces.
+- Scientific-code changes require tests and corresponding methodology/protocol documentation.
+- Search `FUNCTION_INDEX.md` before introducing new scientific helpers.
+- Product-local runners import root functions; they do not redefine them.
 
-## Data boundary
+## Data and output boundary
 
-Raw administrative data and row-level linked student records remain outside GitHub. Paths/configuration may refer to controlled local inputs, but those inputs must not be committed.
+Raw administrative data and row-level linked records remain outside GitHub.
 
-## Outputs
-
-Local executions may generate `code/outputs/`; that directory is ignored by Git. Privacy-reviewed aggregate artifacts intended to be retained belong under `analysis/shared/` or, when they have a clear single-paper owner, the corresponding `papers/<paper_id>/results/` directory.
+`code/outputs/` remains available for disposable outputs of broad shared pipelines. Product-specific disposable build files should live inside the owning product's ignored `build/` directory, for example `reports/methodology_report/build/`.
