@@ -32,6 +32,26 @@ A fourth rule applies to literature: **one physical literature source = one libr
 
 Execution/reproduction instructions: `REPRODUCING.md`.
 
+### Git LFS requirement
+
+Heavy research binaries are intentionally stored with **Git LFS**, including PDFs in `literature/`, `reports/`, and `papers/`. This keeps normal Git history substantially lighter while still allowing the full files to exist locally.
+
+Install Git LFS once on each computer before cloning:
+
+```bash
+git lfs install
+git clone <repository-url>
+```
+
+For an existing clone that contains small text pointer files instead of PDFs, run:
+
+```bash
+git lfs install
+git lfs pull
+```
+
+After LFS materializes the working tree, the PDFs open normally on the local machine. See `REPRODUCING.md` for details.
+
 ## Structure
 
 ```text
