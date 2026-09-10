@@ -1,31 +1,69 @@
 # Reports
 
-Technical and internal-facing reports.
+`reports/` is the CMAT project's **research-development and brainstorming layer** between reusable computation and publication manuscripts.
 
-## Report structure
+The production flow is:
 
-### `methodology_report/`
+```text
+root/code
+    reusable scientific functions
+        ↓
+reports/<report_id>/
+    broad scientific synthesis + local build recipe
+        ↓
+papers/<paper_id>/
+    selected publication argument
+```
 
-The methodology report is the detailed statistical and methodological record used for review. It should:
+Reports should preserve more of the scientific record than a journal article normally can: null findings, sensitivity analyses, alternative specifications, methodological concerns, exploratory extensions and reasoning that may later feed one or several papers.
 
-- explain mathematical/statistical methods in detail;
-- present all validated discoveries, not only those destined for publication;
-- distinguish descriptive, associational and causal claims carefully;
-- map every reported number to a reproducible aggregate output;
-- document methodological assumptions, sensitivities and provenance.
+## Atomic report rule
 
-The main source is `methodology_report/methodology_report.tex` and the compiled artifact is `methodology_report/methodology_report.pdf`.
+A report should be operationally self-contained while **not** becoming a second scientific codebase.
 
-### `research_compendium/`
+Preferred layout when the components exist:
 
-The research compendium preserves the earlier cumulative LaTeX research record, including exploratory extensions and the PPA1-to-Calculus chapter. It is retained for scientific continuity and historical context rather than treated as the current methodological authority.
+```text
+reports/<report_id>/
+├── README.md
+├── code/             # thin product-local runner(s)
+├── notes/            # brainstorming / interpretation / future analyses
+├── tables/           # retained aggregate report tables
+├── figures/          # retained aggregate report figures
+├── provenance/       # report-specific historical/methodological records
+├── build/            # disposable local generated workspace; ignored by Git
+├── <report>.tex
+└── <report>.pdf
+```
 
-The main source is `research_compendium/research_compendium.tex` and the compiled artifact is `research_compendium/research_compendium.pdf`.
+The local `code/` directory may parse arguments, resolve paths and call root-code functions. **Reusable cohort logic, statistics, models, estimators, transformations and plotting functions remain in `../code/src/visitas_analysis/`.**
 
-## Naming rule
+If a report needs a new scientific function, implement/test/index it in root `code/` first, then import it from the report runner.
 
-Report and artifact names describe their scientific purpose. Git provides version history, so active paths should not use suffixes such as `v2`, `v5`, or `v8`. Historical version labels may still appear in provenance documentation when they identify a specific imported snapshot or scientific-source fingerprint.
+## `methodology_report/`
 
-## Current status
+This is the detailed current statistical/methodological review workspace. Its canonical runner is co-located with the report:
 
-`methodology_report/` is the more recent methodology-focused report and `research_compendium/` is the preserved cumulative historical report. The remaining reconciliation task is scientific rather than nominal: the active canonical pipeline still needs to reconcile the later methodology corrections with the refined longitudinal/PPA stage before one report can be treated as a fully unified canonical empirical record.
+```bash
+python reports/methodology_report/code/methodology_report.py --check
+```
+
+With controlled inputs it regenerates the methodology tables/figures by calling the reusable implementation in root `code/`.
+
+See `methodology_report/README.md` for the exact build/provenance boundary.
+
+## `research_compendium/`
+
+This preserves the earlier cumulative research record, including exploratory extensions and the refined PPA1→Calculus chapter. It is broader than any paper and remains useful as brainstorming/scientific continuity, but it is not yet wired to its own atomic computational runner.
+
+Do not create that runner by copying calculations into this directory; when it is added, it should import the relevant root-code functions just like the methodology report.
+
+## Reports → papers
+
+Papers are downstream selections, not replacements for the broad reports. A paper should be able to say, in effect, "these are the subset of validated report results needed for this manuscript."
+
+If a final paper needs local copies of figures/tables for submission, retain them under that paper with provenance back to the source report/root code. Do not use the paper directory as the place where the result is first calculated.
+
+## Naming
+
+Report names describe scientific purpose. Git provides version history, so active paths should not use suffixes such as `v2`, `v5`, `v8`, `final` or dates. Historical version labels may remain inside provenance records when they identify a specific frozen state.
