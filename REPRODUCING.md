@@ -26,6 +26,33 @@ The active Python project is under `code/` and currently requires Python `>=3.14
 
 Raw/row-level institutional data are intentionally not stored in GitHub.
 
+### Git LFS for PDFs and heavy binaries
+
+This repository intentionally uses **Git LFS** for heavy research binaries, including PDFs under `literature/`, `reports/`, and `papers/`, as well as selected PNG/JPG assets and archive ZIPs. Git stores small pointer files in normal history while Git LFS materializes the corresponding binaries in the working tree.
+
+Install Git LFS once on each computer before cloning:
+
+```bash
+git lfs install
+git clone <repository-url>
+```
+
+A normal clone performed after `git lfs install` should materialize LFS files automatically. If the repository was already cloned and a PDF opens as a small text file containing `version https://git-lfs.github.com/spec/v1`, run:
+
+```bash
+git lfs install
+git lfs pull
+```
+
+Useful diagnostics:
+
+```bash
+git lfs ls-files
+git lfs status
+```
+
+Do not migrate repository-wide PDFs back into normal Git merely to make them visible locally; install/materialize LFS instead. The LFS policy is defined in `.gitattributes` and exists to keep normal Git history smaller as the literature and report corpus grows.
+
 ## 3. Create the Python environment
 
 ### pip / virtual environment
