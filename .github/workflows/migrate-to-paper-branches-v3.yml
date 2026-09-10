@@ -1,0 +1,52 @@
+name: Migrate to paper branches v3
+
+on:
+  push:
+    paths:
+      - '.github/workflows/migrate-to-paper-branches-v3.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  migrate:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          lfs: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+
+      - name: Protect workflow files from bot mutation
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('.github/scripts/migrate_repo_layout.py')
+          s = p.read_text(encoding='utf-8')
+          s = s.replace(
+              '\n\ndef validate_main() -> None:',
+              '\n    # GitHub Actions tokens cannot update workflow files. Keep them byte-for-byte\n'
+              '    # identical during the bot push; they are cleaned after migration.\n'
+              '    run("git", "checkout", BASE_SHA, "--", ".github/workflows")\n\n\n'
+              'def validate_main() -> None:'
+          )
+          s = s.replace(
+              '    run("git", "add", "-A")\n    run("git", "diff", "--cached", "--check")\n',
+              '    # Do not let branch-specific workflow creation enter bot-authored commits.\n'
+              '    Path(".github/workflows/compile-paper.yml").unlink(missing_ok=True)\n'
+              '    run("git", "checkout", main_sha, "--", ".github/workflows")\n'
+              '    run("git", "add", "-A")\n'
+              '    run("git", "diff", "--cached", "--check")\n',
+              1,
+          )
+          p.write_text(s, encoding='utf-8')
+          PY
+
+      - name: Run guarded repository migration
+        run: python .github/scripts/migrate_repo_layout.py
