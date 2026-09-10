@@ -2,10 +2,11 @@
 
 This directory contains the first formal Paper 1 draft.
 
-## Main file
+## Main files
 
 - `main.tex` — English manuscript draft.
 - `references.bib` — paper-local bibliography used by the draft.
+- `build.py` — cross-platform build wrapper; packaging/orchestration only, with no scientific calculations.
 
 ## Current status
 
@@ -44,7 +45,40 @@ The draft intentionally uses several *Studies in Higher Education* anchors alrea
 
 ## Build
 
-From this directory, a normal BibTeX build is:
+The manuscript is validated in GitHub Actions on a clean TeX Live installation with Git LFS assets materialized. The preferred local build is the cross-platform wrapper, which can be invoked from the repository root or from any other working directory:
+
+```bash
+python papers/paper1_ppa_persistence/manuscript/build.py
+```
+
+The wrapper always compiles with `manuscript/` as the working directory, so the bibliography and external figure paths resolve consistently. It first checks that the required figure is a real PNG rather than a Git LFS pointer.
+
+### First-time local setup
+
+Because report figures are stored with Git LFS, install/initialize LFS and materialize the binary assets before compiling:
+
+```bash
+git lfs install
+git lfs pull
+```
+
+If `build.py` reports that `refined_longitudinal_persistence_3241.png` is still an LFS pointer, rerun `git lfs pull` from the repository root.
+
+You also need a LaTeX distribution providing `latexmk` (recommended), or at minimum both `pdflatex` and `bibtex`. The wrapper uses `latexmk` when available and otherwise falls back to:
+
+```text
+pdflatex -> bibtex -> pdflatex -> pdflatex
+```
+
+### Direct LaTeX build
+
+If you prefer to compile manually, run the commands **from this manuscript directory**:
+
+```bash
+latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
+```
+
+or:
 
 ```bash
 pdflatex main.tex
@@ -53,7 +87,11 @@ pdflatex main.tex
 pdflatex main.tex
 ```
 
-The external figure path assumes the repository layout remains intact.
+Do not run plain `pdflatex papers/paper1_ppa_persistence/manuscript/main.tex` from the repository root without changing directories, because the manuscript currently uses report-relative figure paths and a paper-local bibliography. Use `build.py`, `latexmk -cd`, or `cd papers/paper1_ppa_persistence/manuscript` first.
+
+## Continuous compilation check
+
+`.github/workflows/compile-paper1.yml` checks out Git LFS assets and compiles Paper 1 whenever the manuscript or its retained persistence figure changes. A passing workflow therefore verifies that the repository version of the manuscript is compilable independently of a local machine configuration.
 
 ## Must resolve before submission
 
