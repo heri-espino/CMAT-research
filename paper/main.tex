@@ -1,0 +1,176 @@
+\documentclass[11pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[margin=1in]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{siunitx}
+\usepackage{natbib}
+\usepackage[hidelinks]{hyperref}
+
+\title{Mathematics Support Use and Classroom-Relative Performance in First-Year University Mathematics}
+\author{Draft for internal development}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Mathematics support centres are widely used in higher education, yet estimates of their relationship with academic performance are difficult to interpret because attendance is voluntary and course grades depend partly on the local grading environment. We study 6,627 students in their first eligible attempt at a first-year university mathematics course during academic periods with observable support-centre coverage. CMAT registrations are aligned to the same academic period as the focal course, and final performance is standardised within classroom, defined as instructor by course by academic period. Overall, 18.6\% of students recorded at least one same-period CMAT visit. Mean classroom-relative performance was $-0.060$ standard deviations among students with no visits, compared with $0.218$ for 1--2 visits, $0.325$ for exactly 3 visits, and $0.342$ for 4 or more visits. A Welch omnibus comparison rejected equality of group means, and multiplicity-aware Games--Howell contrasts separated each positive-use group from non-users, whereas none of the contrasts among positive-use groups was statistically distinguishable at the 5\% level. Classroom fixed-effect models showed the same pattern, with estimated contrasts of $0.318$, $0.443$, and $0.468$ standard deviations for the three positive-use groups relative to zero visits. These results document a substantial association between observed formal help-seeking and relative academic performance, but they do not identify a causal effect of tutoring because important determinants of both support use and achievement are incompletely observed. The evidence is more consistent with a broad separation between non-use and positive use than with a simple monotone dose-response among users.
+\end{abstract}
+
+\noindent\textbf{Keywords:} mathematics support; academic help-seeking; tutoring; first-year mathematics; academic performance; observational study
+
+\section{Introduction}
+
+Mathematics learning support has become an established component of higher education provision, particularly where students enter mathematically demanding programmes with heterogeneous prior preparation. Reviews of mathematics and statistics support describe a field that has expanded from remedial provision toward broader, institutionally embedded forms of academic support, while also noting persistent difficulty in evaluating impact because participation is usually voluntary and definitions of attendance vary across studies \citep{lawson2020,mullen2024}. This identification problem is substantive rather than merely statistical: students who seek help may differ from non-users in prior attainment, motivation, perceived difficulty, study effort, time availability, or willingness to use institutional resources.
+
+Empirical studies nevertheless provide repeated evidence that use of mathematics support is associated with academic outcomes. Early work at the National University of Ireland Maynooth compared grades and pass rates of students who used a mathematics support centre with those who did not, while explicitly acknowledging that unobserved study effort could account for part of the observed difference \citep{macanbhaird2009}. Later longitudinal work continued to find favourable associations while emphasising the difficulty of isolating support from the broader learning experience \citep{jacob2019}. Recent evidence based on stronger causal designs shows why this distinction matters: encouragement and intervention designs can estimate effects under assumptions unavailable to a simple attendance comparison, and their results should not be transferred mechanically to observational centre-use data \citep{paloyo2016,pugatch2018,buchele2024}.
+
+The present study revisits this question using administrative data from the Centro de Aprendizaje de Matem\'aticas (CMAT) at Universidad de las Am\'ericas Puebla. It improves on an earlier exploratory analysis in two ways. First, support use is reconstructed contemporaneously: visits are counted only when they occur in the same academic period as a student's first eligible attempt at Matem\'aticas Universitarias (MU), rather than assigning a student's accumulated support use across the complete observation window to every academic record. Second, the outcome is expressed relative to the student's immediate grading environment, standardising the final course result within an instructor--course--period classroom. This does not remove self-selection into support use, but it reduces a distinct source of incomparability that arises when raw grades are pooled across different instructors and academic periods.
+
+We ask two related questions. First, how is same-period CMAT use associated with classroom-relative performance in first-attempt MU? Second, does the pattern resemble a graded dose-response across positive levels of use, or is the dominant empirical separation between students with no recorded support use and those with any positive use? The distinction matters because treating visit count as a simple treatment dose can overstate what observational attendance data identify.
+
+\textbf{Draft-development note.} The strongest remaining improvement would be the addition of credible pre-treatment measures of mathematics preparation, such as a diagnostic score or prior mathematics achievement. If such variables become available, the paper should add a pre-specified observed-covariate adjustment/sensitivity analysis rather than interpreting the current fixed-effect estimates causally.
+
+\section{Institutional context and historical decomposition}
+
+CMAT provides mathematics advising that students may use throughout the academic period. Each registration records an observed contact with the centre, but the administrative system does not measure the duration or intensity of the interaction. The same student may therefore have several registrations, potentially with different advisers. In the first-year context, three CMAT registrations have historically been relevant to the institutional PPA participation requirement; that incentive is important for understanding attendance behaviour but does not convert visits into randomized exposure.
+
+This paper is a deliberate decomposition of the project's earlier \texttt{proyecto\_visitas} analysis. The historical work combined several scientifically distinct questions, including student use of CMAT, academic performance, professor-level grade distributions, classroom heterogeneity, and exploratory instructor clustering. The present paper retains only the student support-use/performance question. Professor-specific grade distributions, clustering of grading regimes, and their temporal stability are reserved for a separate paper on grading heterogeneity. Purely descriptive service-load outputs remain research provenance rather than publication outcomes.
+
+The historical analysis also used a broad visit variable that accumulated a student's advisory registrations over the available workbook and merged that total onto academic observations. That construction is not used here because it cannot ensure temporal alignment between support and the focal grade. All substantive results below instead use the current course-period reconstruction described in the next section.
+
+\section{Data and methods}
+
+\subsection{Analytical population}
+
+The primary population contains one observation per student: the first eligible attempt at MU. Administrative non-attempt records such as equivalencies and revalidations are excluded from the attempt definition, whereas adverse academic statuses are retained in the primary outcome construction. The study is restricted to academic periods for which CMAT registration data are available. In the retained analytical snapshot, 7,777 eligible first-MU attempts are observed across all academic periods and 6,627 fall within periods with CMAT coverage; the latter constitute the primary Paper 2 cohort.
+
+This restriction is important because a zero recorded visit is interpretable as observed non-use only when the support-registration system covers the corresponding academic period. The current analysis therefore does not treat uncovered periods as if students had chosen not to attend.
+
+\subsection{Exposure}
+
+For each student, the primary exposure is the number of CMAT registrations recorded during the same academic period as the focal MU attempt. We use four groups for the main presentation:
+\[
+V\in\{0,\;1\text{--}2,\;3,\;4+\}.
+\]
+The 1--2 category pools two low-intensity positive-use levels. This pooling is not justified only by a non-significant difference test: a separate two one-sided tests equivalence analysis uses a pre-specified margin of $\pm0.20$ classroom-standardised outcome units. In the retained snapshot, the exact one- and two-visit groups have means of approximately $0.222$ and $0.209$, respectively, with an estimated difference of $-0.013$ and a 95\% interval from $-0.135$ to $0.108$; the TOST rejects differences at or beyond the chosen margin ($p=0.0013$).
+
+The four-level specification is useful because it permits a direct comparison between non-use and several positive-use intensities without imposing linearity in visit count. Comparisons involving the institutional three-visit threshold are retained as secondary analyses, but Paper 2 does not interpret that threshold as an exogenous treatment discontinuity.
+
+\subsection{Outcome and classroom standardisation}
+
+The primary outcome is continuous final performance standardised within classroom. For student $i$ in classroom $c$,
+\[
+Z_{ic}=\frac{Y_{ic}-\bar{Y}_{c}}{s_c},
+\]
+where a classroom is defined as the same instructor teaching the same course in the same academic period. This transformation places students on a relative scale within the context in which their work was evaluated. In the single-course primary cohort, the classroom distinction is effectively instructor by academic period, while the more general library definition also includes course.
+
+The standardisation does not assert that instructor differences are measurement error, nor does it make grades interchangeable in a causal sense. Instead, it prevents between-classroom location and scale differences from mechanically driving the comparison of CMAT-use groups. Professor-level grading heterogeneity is itself a separate research question and is intentionally not estimated as a Paper 2 contribution.
+
+Non-numeric adverse outcomes are retained in the primary specification using the project's pre-specified adverse-outcome imputation procedure before classroom standardisation. Because this choice can affect the relative position of withdrawn or otherwise non-numeric records, we also report a uniform adverse-imputation sensitivity and a complete-case specification using numeric final grades only.
+
+\subsection{Statistical analysis}
+
+We first report group-specific means and 95\% confidence intervals for $Z$. Equality of the four group means is assessed with Welch's one-way ANOVA because the Brown--Forsythe diagnostic provides strong evidence of unequal variances. Pairwise comparisons use Games--Howell intervals and multiplicity-aware $p$-values, which allow unequal group sizes and variances.
+
+We then estimate ordinary least-squares models with classroom fixed effects and standard errors clustered by classroom. The principal dose-group model includes indicators for 1--2, 3, and 4+ visits, with zero visits as the reference category. These coefficients estimate conditional associations within classroom; they are not causal effects of receiving tutoring. A secondary binary contrast compares more than three visits with three or fewer because that contrast was central in an earlier project specification, and its robustness across alternative outcome constructions is reported as a sensitivity rather than the main estimand.
+
+Propensity-score methods can improve balance on observed pre-exposure characteristics when an appropriate covariate set is available \citep{rosenbaum1983,austin2011}. We do not present observed-covariate weighting as a solution to the current identification problem because the administrative extract lacks sufficiently rich measures of baseline mathematics preparation. The primary interpretation therefore remains associational throughout.
+
+\section{Results}
+
+\subsection{Observed CMAT use in first-attempt MU}
+
+Among the 6,627 students in the primary cohort, 5,393 recorded no CMAT registration during the focal MU period, while 1,234 (18.6\%) recorded at least one. Exact positive-use counts were 517 students with one visit, 245 with two, 170 with three, and 302 with four or more. Figure~\ref{fig:visits} shows the resulting distribution, which is strongly concentrated at zero and has a comparatively small positive-use tail.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.82\textwidth]{../results/figures/fig01_mu_visit_distribution.pdf}
+\caption{Distribution of same-period CMAT registrations in the first-attempt MU analytical cohort. The dashed line marks the institutional three-visit PPA threshold for context; the figure is descriptive and is not a regression-discontinuity design.}
+\label{fig:visits}
+\end{figure}
+
+\subsection{Classroom-relative performance by support-use group}
+
+Table~\ref{tab:means} and Figure~\ref{fig:means} show a pronounced separation between students with no recorded CMAT use and each positive-use category. Mean classroom-relative performance was $-0.060$ for non-users, $0.218$ for students with 1--2 visits, $0.325$ for exactly three visits, and $0.342$ for students with four or more visits.
+
+\begin{table}[tbp]
+\centering
+\caption{Classroom-relative performance by same-period CMAT-use group.}
+\label{tab:means}
+\begin{tabular}{lrrrr}
+\toprule
+CMAT visits & $N$ & Mean $Z$ & SD & 95\% CI \\
+\midrule
+0   & 5,393 & -0.060 & 1.017 & [-0.087, -0.033] \\
+1--2 & 762 & 0.218 & 0.817 & [0.160, 0.276] \\
+3   & 170 & 0.325 & 0.724 & [0.216, 0.434] \\
+4+  & 302 & 0.342 & 0.712 & [0.262, 0.423] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.78\textwidth]{../results/figures/fig02_mu_performance_by_visit_group.pdf}
+\caption{Mean classroom-relative performance by same-period CMAT-use group. Error bars show 95\% confidence intervals.}
+\label{fig:means}
+\end{figure}
+
+The Brown--Forsythe test rejected homogeneity of variance ($p<0.001$), supporting use of the heteroskedastic Welch procedure. Welch's omnibus test also rejected equality of means, $F(3,546.4)=56.21$, $p<0.001$. The pairwise pattern is more informative than the omnibus rejection. Games--Howell comparisons found differences between zero visits and 1--2, three, and four-or-more visits, with adjusted $p\leq0.001$ in each case. By contrast, comparisons among positive-use groups were not statistically distinguishable at the 5\% level: 1--2 versus three visits had $p=0.327$, 1--2 versus 4+ had $p=0.069$, and three versus 4+ had $p=0.900$.
+
+This pattern cautions against describing the data as a simple increasing dose-response. The observed gradient in the group means is dominated by the separation between no recorded use and positive use; the retained data provide much weaker evidence that additional visits among users correspond to progressively higher relative performance.
+
+\subsection{Within-classroom adjusted associations}
+
+Classroom fixed-effect models retain the same qualitative pattern. Relative to students with zero visits in the same classroom environment, the estimated contrasts are $0.318$ standard deviations for 1--2 visits, $0.443$ for exactly three visits, and $0.468$ for four or more visits. All three confidence intervals exclude zero (Figure~\ref{fig:dose}). Because the outcome itself is already standardised within classroom, these models should be interpreted as an additional within-classroom comparison rather than evidence that all relevant selection has been removed.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.80\textwidth]{../results/figures/fig03_adjusted_dose_coefficients.pdf}
+\caption{Classroom fixed-effect associations between same-period CMAT-use groups and classroom-relative MU performance, with zero visits as the reference group. Error bars show 95\% confidence intervals; standard errors are clustered by classroom.}
+\label{fig:dose}
+\end{figure}
+
+The earlier threshold-oriented specification comparing more than three visits with three or fewer yielded an unadjusted mean difference of $0.359Z$ (95\% CI $[0.277,0.439]$). A classroom fixed-effect specification estimated $0.388Z$, and adding degree-programme indicators yielded $0.375Z$ (95\% CI $[0.257,0.493]$). These estimates are included to preserve continuity with the historical analysis, but they do not imply that exceeding three visits causes a discrete increase in performance.
+
+\subsection{Outcome sensitivity}
+
+The positive threshold contrast is smaller when the analysis is restricted to numeric final grades but remains above zero in the retained snapshot. The primary adverse-outcome construction gives a mean difference of $0.359Z$ for more than three versus three-or-fewer visits, the uniform adverse-imputation sensitivity gives $0.343Z$, and the complete-case specification gives $0.211Z$ (95\% CI $[0.137,0.281]$). Figure~\ref{fig:sensitivity} makes clear that the magnitude depends on how adverse non-numeric outcomes are handled, which is one reason the main paper should emphasise the four-group pattern rather than a single threshold estimate.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.82\textwidth]{../results/figures/fig04_outcome_sensitivity.pdf}
+\caption{Sensitivity of the historical $>3$ versus $\leq3$ visit contrast to alternative constructions of the continuous outcome. This threshold comparison is secondary to the four-group analysis.}
+\label{fig:sensitivity}
+\end{figure}
+
+\section{Discussion}
+
+The central empirical result is straightforward but narrower than a causal statement about tutoring effectiveness. Students who recorded CMAT use during their first MU period occupied a higher position within their classroom grade distribution than students with no recorded use, and this separation persisted in within-classroom fixed-effect specifications. At the same time, the positive-use groups were not cleanly ordered after heteroskedastic, multiplicity-aware pairwise comparison. The evidence therefore supports a distinction between non-use and observed formal help-seeking more strongly than it supports a simple claim that each additional level of attendance is associated with progressively better performance.
+
+This distinction is consistent with the broader help-seeking literature, where seeking academic assistance is itself a strategic student behaviour rather than a randomly assigned treatment \citep{fong2023}. A favourable association can arise because support is beneficial, because students who seek help also engage in other productive behaviours, because students respond to difficulty in heterogeneous ways, or through combinations of these mechanisms. Conversely, negative selection could attenuate an underlying benefit if students experiencing greater difficulty are more likely to seek support. The present administrative data do not identify the balance among these mechanisms.
+
+The results also connect to the mathematics-support evaluation literature. Earlier studies have reported higher grades or pass rates among users while recognising that attendance and prior preparation are intertwined \citep{macanbhaird2009,jacob2019}. Our contribution is not to resolve that longstanding selection problem, but to improve measurement on two dimensions that are often obscured in institutional analyses: support use is aligned to the same course period rather than accumulated across a student's observed history, and academic performance is evaluated relative to peers facing the same instructor and course-period grading environment. These choices reduce temporal mismatch and grading-context heterogeneity without pretending to substitute for randomization.
+
+The absence of robust differences among positive-use groups also has practical implications. Administrative visit counts are an imperfect proxy for support intensity because registrations do not measure duration, content, adviser interaction, or the amount of independent work prompted by a visit. A student with one substantive consultation and another with several short registrations can therefore receive different support despite apparently ordered counts. Interpreting visit count as a literal dose would require richer process data than are currently available.
+
+\section{Limitations and next analytical steps}
+
+Several limitations should constrain interpretation. First, the study lacks comprehensive pre-treatment measures of mathematics proficiency, and classroom fixed effects do not address student-level self-selection into help-seeking. Second, CMAT records are registrations rather than measured tutoring duration, and manual registration can introduce duplicate or missing records. Third, visits and course performance are observed within the same academic period, so help-seeking can respond to evolving academic difficulty; the temporal alignment improves relevance but does not establish temporal exogeneity. Fourth, treatment of non-numeric adverse outcomes affects estimated magnitudes, although the retained sensitivity analyses preserve the sign of the association. Fifth, the institutional PPA threshold can influence attendance behaviour in MU and therefore complicates interpretation of visit categories as purely voluntary intensity.
+
+\textbf{Draft-development note.} Before submission, rerun this paper from the controlled institutional inputs with `code/run_paper.py --compare-retained`. A later methodology-restoration snapshot contains some exact-dose summaries that differ from the retained shared-study snapshot used here; those states must be reconciled rather than mixed. The manuscript should also add any defensible pre-treatment covariates that become available and report covariate-balance diagnostics if propensity weighting is retained as a sensitivity analysis.
+
+\section{Conclusion}
+
+In first-attempt university mathematics, contemporaneous CMAT use is strongly associated with higher classroom-relative academic performance. The most stable feature of the retained evidence is the separation between students with no recorded support use and those with positive use, whereas differences among positive-use intensities are much less clearly ordered. This pattern is compatible with both beneficial support and systematic selection into formal help-seeking, and the available observational data do not identify their separate contributions. By aligning support records to the focal course period and comparing performance within a common grading environment, the analysis provides a cleaner descriptive and inferential basis for subsequent work on mathematics-support effectiveness without overstating what attendance records alone can establish.
+
+\bibliographystyle{plainnat}
+\bibliography{references}
+
+\end{document}

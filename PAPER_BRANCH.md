@@ -8,6 +8,12 @@ This branch is the canonical publication workspace for Paper 2. It inherits shar
 - `paper/`: manuscript and build material;
 - `submission/`: journal-specific material.
 
+## Scientific scope
+
+Paper 2 studies the association between same-period CMAT use and classroom-relative academic performance in the first eligible attempt at Matemáticas Universitarias. Its main empirical distinction is use versus non-use, while positive-use dose categories are examined without assuming a causal monotone dose-response.
+
+The historical `proyecto_visitas` work is decomposed rather than copied. `paper/DECOMPOSITION_FROM_PROYECTO_VISITAS.md` is the binding scope map: student support use/performance belongs here; professor grade distributions, grading-profile clusters, and grading-regime stability belong to Paper 3; general service-load material remains brainstorm/provenance.
+
 ## Coordination contract
 
 This branch may be developed by a paper-specific research/writing chat, but repository-wide governance belongs to the designated repo-admin / integrator / upstream-maintainer workflow. The user retains final scientific authority.
