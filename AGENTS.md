@@ -5,10 +5,11 @@
 Before substantive work:
 
 1. read `AI_HANDOFF.md`;
-2. read the README/AGENTS file in the subsystem being changed;
-3. **for any Python/scientific-code task, read `code/.ai_handoff.md` and search `code/FUNCTION_INDEX.md` before proposing or writing a reusable function**;
-4. inspect the owning report/paper and current canonical outputs/protocol before quoting numerical results;
-5. use a short-lived branch for a concrete change when useful unless the user explicitly requests otherwise.
+2. read `docs/RESEARCH_WORKFLOW.md` when the task concerns research architecture, report development, or movement of evidence into papers;
+3. read the README/AI handoff for the subsystem being changed;
+4. **for any Python/scientific-code task, read `code/.ai_handoff.md` and search `code/FUNCTION_INDEX.md` before proposing or writing a reusable function**;
+5. inspect the owning report/paper and current canonical outputs/protocol before quoting numerical results;
+6. use a short-lived branch for a concrete change when useful unless the user explicitly requests otherwise.
 
 ## Canonical repository model
 
@@ -30,6 +31,8 @@ More precisely:
 
 `controlled data -> code/src/visitas_analysis/ -> reports/<report_id>/ -> papers/<paper_id>/`.
 
+The working analogy is: **root `code/` is the internal scientific library; reports are reproducible research workspaces that use that library; papers are curated publication products built from validated report evidence.**
+
 `analysis/shared/` is auxiliary storage for cross-report aggregates/provenance, not a required production stage.
 
 ## Root-code authority
@@ -49,7 +52,9 @@ Do **not** place reusable cohort logic, estimators, transformations, statistical
 
 ## Atomic report rule
 
-`reports/` is the scientific-development/brainstorming layer. Each report is an atomic product that may contain:
+`reports/` is the scientific-development/brainstorming layer. Read `reports/AI_HANDOFF.md` before substantive report work.
+
+Each report is an atomic product that may contain:
 
 - `README.md`;
 - `code/` with a **thin local entry point**;
@@ -59,7 +64,7 @@ Do **not** place reusable cohort logic, estimators, transformations, statistical
 - `provenance/`;
 - LaTeX source and compiled artifact.
 
-A report-local runner may resolve paths, parse product-specific CLI arguments and call root-code functions. It must **not** become an independent scientific codebase.
+A report-local runner may resolve paths, parse product-specific CLI arguments, select configuration and call root-code functions in a fixed order. It must **not** become an independent scientific codebase.
 
 Canonical example:
 
@@ -70,6 +75,22 @@ python reports/methodology_report/code/methodology_report.py --check
 The implementation it calls remains under root `code/`.
 
 There is intentionally no active `code/experiments/` directory; product recipes are co-located with their products.
+
+## New research idea rule
+
+When a new analytical idea appears, do not start by coding it in a paper or report-local helper. Use this sequence:
+
+1. give the question an existing/new report home;
+2. record the question, rationale, assumptions and uncertainties in that report;
+3. search the root-code function index;
+4. implement any missing reusable capability only in root `code/`, with tests/documentation;
+5. call it from the report-local runner;
+6. preserve diagnostics, nulls, sensitivities and interpretation in the report;
+7. after review, select only the necessary validated evidence into a paper.
+
+If manuscript work later exposes a missing analysis, return upstream to root code + the appropriate report before changing paper numbers.
+
+The full version of this workflow is `docs/RESEARCH_WORKFLOW.md` and the report-specific operational checklist is `reports/AI_HANDOFF.md`.
 
 ## Reports → papers rule
 
@@ -141,11 +162,12 @@ Major product folders should have a README explaining scope, inputs, outputs, ca
 Future AI sessions should start with:
 
 1. `AI_HANDOFF.md`;
-2. `REPRODUCING.md` when execution matters;
-3. `code/.ai_handoff.md` + `code/FUNCTION_INDEX.md` before code work;
-4. the relevant `reports/<report_id>/README.md` for report work;
-5. `docs/PUBLICATION_PORTFOLIO.md` + relevant paper README for manuscript work;
-6. literature handoffs when literature changes;
-7. current methodology/protocol before scientific-code changes.
+2. `docs/RESEARCH_WORKFLOW.md` for the code → reports → papers production model;
+3. `REPRODUCING.md` when execution matters;
+4. `code/.ai_handoff.md` + `code/FUNCTION_INDEX.md` before code work;
+5. `reports/AI_HANDOFF.md` + the relevant report README for report work;
+6. `docs/PUBLICATION_PORTFOLIO.md` + relevant paper README for manuscript work;
+7. literature handoffs when literature changes;
+8. current methodology/protocol before scientific-code changes.
 
-Update the owning document whenever code, estimands, portfolio boundaries or major architecture changes. Keep root handoffs compact rather than duplicating subsystem detail.
+Update the owning document whenever code, estimands, portfolio boundaries or major architecture changes. Keep root handoffs compact rather than duplicating subsystem detail. **When a durable workflow rule emerges in conversation, record it in the repository documentation instead of relying on chat memory.**
