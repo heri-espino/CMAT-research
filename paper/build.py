@@ -1,13 +1,14 @@
 """Build the Paper 1 manuscript from any working directory.
 
-This is packaging/build orchestration only. It does not implement scientific
-calculations. The script checks that Git LFS assets needed by the manuscript are
-materialized, then compiles in the manuscript directory so relative LaTeX and
-BibTeX paths are stable.
+The builder generates the paper-owned figures from reviewed aggregate tables
+before compiling LaTeX. Direct builds use the retained aggregate snapshot;
+``code/run_paper.py --compile`` selects freshly generated aggregate tables after
+an empirical run. No scientific calculations are implemented here.
 """
 
 from __future__ import annotations
 
+import os
 import shutil
 import subprocess
 import sys
@@ -17,12 +18,12 @@ MANUSCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = MANUSCRIPT_DIR.parent
 MAIN_TEX = MANUSCRIPT_DIR / "main.tex"
 BIB_FILE = MANUSCRIPT_DIR / "references.bib"
-FIGURE = (
-    REPO_ROOT
-    / "brainstorm"
-    / "methodology_report"
-    / "figures"
-    / "refined_longitudinal_persistence_3241.png"
+FIGURES_DIR = REPO_ROOT / "results" / "figures"
+FIGURE_FILES = (
+    "figure_01_cohort_flow.png",
+    "figure_02_main_persistence.png",
+    "figure_03_threshold_piecewise.png",
+    "figure_04_adjusted_persistence_or.png",
 )
 
 LFS_POINTER_PREFIX = b"version https://git-lfs.github.com/spec/v1"
@@ -34,31 +35,43 @@ def fail(message: str) -> None:
     raise SystemExit(1)
 
 
+def run(command: list[str], *, cwd: Path = MANUSCRIPT_DIR) -> None:
+    print("+", " ".join(command))
+    subprocess.run(command, cwd=cwd, check=True)
+
+
+def generate_figures() -> None:
+    source = os.environ.get("PAPER1_FIGURE_SOURCE", "retained")
+    if source not in {"retained", "generated", "auto"}:
+        fail(
+            "PAPER1_FIGURE_SOURCE must be one of retained, generated, or auto; "
+            f"received {source!r}."
+        )
+    run(
+        [sys.executable, str(REPO_ROOT / "code" / "figures.py"), "--source", source],
+        cwd=REPO_ROOT,
+    )
+
+
 def check_inputs() -> None:
     if not MAIN_TEX.is_file():
         fail(f"missing LaTeX source: {MAIN_TEX}")
     if not BIB_FILE.is_file():
         fail(f"missing bibliography: {BIB_FILE}")
-    if not FIGURE.is_file():
-        fail(
-            "missing retained figure. Run `git lfs pull` from the repository "
-            f"root and verify: {FIGURE}"
-        )
 
-    header = FIGURE.read_bytes()[:64]
-    if header.startswith(LFS_POINTER_PREFIX):
-        fail(
-            "the required figure is still a Git LFS pointer, not the PNG. "
-            "Run `git lfs install` once, then `git lfs pull`, and rerun this "
-            "builder."
-        )
-    if not header.startswith(PNG_SIGNATURE):
-        fail(f"required figure is not a valid PNG: {FIGURE}")
-
-
-def run(command: list[str]) -> None:
-    print("+", " ".join(command))
-    subprocess.run(command, cwd=MANUSCRIPT_DIR, check=True)
+    generate_figures()
+    for filename in FIGURE_FILES:
+        figure = FIGURES_DIR / filename
+        if not figure.is_file():
+            fail(f"missing generated Paper 1 figure: {figure}")
+        header = figure.read_bytes()[:64]
+        if header.startswith(LFS_POINTER_PREFIX):
+            fail(
+                "generated figure path is an unresolved Git LFS pointer: "
+                f"{figure}"
+            )
+        if not header.startswith(PNG_SIGNATURE):
+            fail(f"generated figure is not a valid PNG: {figure}")
 
 
 def build() -> None:
