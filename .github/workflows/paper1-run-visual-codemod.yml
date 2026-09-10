@@ -1,0 +1,26 @@
+name: Run Paper 1 visual codemod
+
+on:
+  push:
+    branches: [paper/paper1-ppa-persistence]
+    paths: [.github/workflows/paper1-run-visual-codemod.yml]
+
+permissions:
+  contents: write
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: paper/paper1-ppa-persistence
+          fetch-depth: 1
+          lfs: false
+      - run: python code/_apply_visual_update.py
+      - run: |
+          git config user.name "CMAT Paper 1 bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add code/run_paper.py paper/main.tex
+          git commit -m "paper1: integrate reproducible English figures"
+          git push origin HEAD:paper/paper1-ppa-persistence
