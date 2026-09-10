@@ -11,3 +11,7 @@ paper/**/*.png filter=lfs diff=lfs merge=lfs -text
 literature_selected/**/*.pdf filter=lfs diff=lfs merge=lfs -text
 literature_selected/**/*.png filter=lfs diff=lfs merge=lfs -text
 **/*.zip filter=lfs diff=lfs merge=lfs -text
+
+# Historical Proyecto Visitas notebooks are preserved only on the dedicated
+# brainstorm branch and use LFS so the shared Git history remains light.
+brainstorm/proyecto_visitas/**/*.ipynb filter=lfs diff=lfs merge=lfs -text
