@@ -68,7 +68,7 @@ def plot_career_use_vs_z(summary: pd.DataFrame, population: str, out: Path, file
     _save(fig, out / filename)
 
 
-def plot_periodicity_acf_by_population(acf: pd.DataFrame, out: Path, filename: str = "09_monthly_periodicity_acf_by_population.png") -> None:
+def plot_periodicity_acf_by_population(acf: pd.DataFrame, out: Path, filename: str = "09_monthly_periodicity_acf_by_population.pdf") -> None:
     d = acf.loc[acf["SESSION"] == "POOLED"].dropna(subset=["autocorrelation"]).copy()
     if d.empty:
         return
@@ -86,7 +86,7 @@ def plot_periodicity_acf_by_population(acf: pd.DataFrame, out: Path, filename: s
     _save(fig, out / filename)
 
 
-def plot_peak_spacing_by_population(intervals: pd.DataFrame, out: Path, filename: str = "08_peak_spacing_by_population.png") -> None:
+def plot_peak_spacing_by_population(intervals: pd.DataFrame, out: Path, filename: str = "08_peak_spacing_by_population.pdf") -> None:
     if intervals.empty:
         return
     populations = list(intervals["population"].dropna().unique())
@@ -101,7 +101,7 @@ def plot_peak_spacing_by_population(intervals: pd.DataFrame, out: Path, filename
     _save(fig, out / filename)
 
 
-def plot_exact_visit_count_curve(summary: pd.DataFrame, out: Path, filename: str = "13_exact_visit_counts_0_to_12.png") -> None:
+def plot_exact_visit_count_curve(summary: pd.DataFrame, out: Path, filename: str = "13_exact_visit_counts_0_to_12.pdf") -> None:
     d = summary.copy().dropna(subset=["mean_z"])
     if d.empty:
         return

@@ -178,24 +178,24 @@ def run_methodology_pipeline(config) -> dict[str, object]:
     plot_pairwise_exact_group_means(
         exact_full_summary,
         figures,
-        "11_exact_visit_groups_0_1_2_3_4plus.png",
+        "11_exact_visit_groups_0_1_2_3_4plus.pdf",
         "Desempeño por visitas exactas: cohorte completa de primer MU",
     )
     plot_pairwise_exact_group_means(
         progressor_summary,
         figures,
-        "12_progressor4211_exact_visit_groups.png",
+        "12_progressor4211_exact_visit_groups.pdf",
         "Desempeño por visitas exactas: estudiantes de MU que posteriormente llegan a Cálculo",
     )
-    plot_exact_visit_count_curve(exact_count, figures, "13_exact_visit_counts_0_to_12.png")
+    plot_exact_visit_count_curve(exact_count, figures, "13_exact_visit_counts_0_to_12.pdf")
 
     for population, stem in [
         ("All observed math-course attempts with CMAT coverage", "all_math_attempts"),
         ("First-MU attempts with CMAT coverage", "first_mu"),
         ("Linked later-Calculus attempts (N=4211 risk set)", "linked_calculus4211"),
     ]:
-        plot_career_mean_z(career_populations, population, figures, f"career_mean_z_{stem}.png")
-        plot_career_use_vs_z(career_populations, population, figures, f"career_use_vs_z_{stem}.png")
+        plot_career_mean_z(career_populations, population, figures, f"career_mean_z_{stem}.pdf")
+        plot_career_use_vs_z(career_populations, population, figures, f"career_use_vs_z_{stem}.pdf")
 
     intervals_path = tables / "67_peak_spacing_intervals.csv"
     acf_path = tables / "69_monthly_cycle_autocorrelation.csv"
