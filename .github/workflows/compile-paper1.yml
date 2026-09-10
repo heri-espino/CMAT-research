@@ -1,0 +1,33 @@
+name: Compile Paper 1
+
+on:
+  push:
+    paths:
+      - 'papers/paper1_ppa_persistence/manuscript/**'
+      - 'reports/methodology_report/figures/refined_longitudinal_persistence_3241.png'
+      - '.github/workflows/compile-paper1.yml'
+  pull_request:
+    paths:
+      - 'papers/paper1_ppa_persistence/manuscript/**'
+      - 'reports/methodology_report/figures/refined_longitudinal_persistence_3241.png'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  compile:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Install LaTeX
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y latexmk texlive-latex-base texlive-latex-recommended texlive-latex-extra texlive-fonts-recommended
+
+      - name: Compile Paper 1
+        working-directory: papers/paper1_ppa_persistence/manuscript
+        run: latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex
