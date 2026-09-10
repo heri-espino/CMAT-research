@@ -1,0 +1,140 @@
+name: Import historical Proyecto Visitas brainstorm
+
+on:
+  push:
+    branches:
+      - brainstorm/proyecto-visitas
+    paths:
+      - '.github/workflows/import-proyecto-visitas.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out target branch
+        uses: actions/checkout@v4
+        with:
+          ref: brainstorm/proyecto-visitas
+          fetch-depth: 0
+          lfs: true
+
+      - name: Configure Git and LFS
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git lfs install --local
+
+      - name: Fetch only proyecto visitas from historical repository
+        run: |
+          git clone --depth 1 --filter=blob:none --sparse https://github.com/heri-espino/CMAT.git /tmp/cmat-source
+          git -C /tmp/cmat-source sparse-checkout set 'proyecto visitas'
+          test -d '/tmp/cmat-source/proyecto visitas'
+          echo "SOURCE_COMMIT=$(git -C /tmp/cmat-source rev-parse HEAD)" >> "$GITHUB_ENV"
+
+      - name: Import historical subtree
+        run: |
+          SRC='/tmp/cmat-source/proyecto visitas'
+          DEST='brainstorm/proyecto_visitas'
+          rm -rf "$DEST"
+          mkdir -p "$DEST"
+          rsync -a \
+            --exclude='*.aux' \
+            --exclude='*.log' \
+            --exclude='*.out' \
+            --exclude='*.toc' \
+            --exclude='*.synctex.gz' \
+            --exclude='*.lnk' \
+            "$SRC/" "$DEST/"
+
+          # Do not reintroduce direct student-level exports into CMAT-research.
+          rm -f "$DEST/output_visitas/report_assets/tables/student_summary.csv"
+          rm -f "$DEST/output_visitas/report_assets/tables/top_students_by_visits.csv"
+          rm -f "$DEST/output_visitas/report_assets/tables/lorenz_visits.csv"
+
+      - name: Clear notebook outputs while preserving notebook source
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+
+          root = Path('brainstorm/proyecto_visitas')
+          count = 0
+          for path in root.rglob('*.ipynb'):
+              nb = json.loads(path.read_text(encoding='utf-8'))
+              for cell in nb.get('cells', []):
+                  if cell.get('cell_type') == 'code':
+                      cell['execution_count'] = None
+                      cell['outputs'] = []
+              nb['metadata'].pop('widgets', None)
+              path.write_text(json.dumps(nb, ensure_ascii=False, indent=1) + '\n', encoding='utf-8')
+              count += 1
+          print(f'Cleared outputs from {count} notebooks.')
+          PY
+
+      - name: Verify privacy guard for imported CSVs and notebooks
+        run: |
+          python - <<'PY'
+          import csv
+          import json
+          from pathlib import Path
+
+          root = Path('brainstorm/proyecto_visitas')
+          bad_csv = []
+          for path in root.rglob('*.csv'):
+              with path.open('r', encoding='utf-8-sig', errors='replace', newline='') as f:
+                  first = f.readline().strip()
+              header = [c.strip() for c in first.split(',')]
+              if 'CLAVEALUMNO' in header or 'ID' in header or 'id' in header:
+                  bad_csv.append(str(path))
+
+          bad_nb = []
+          for path in root.rglob('*.ipynb'):
+              nb = json.loads(path.read_text(encoding='utf-8'))
+              for cell in nb.get('cells', []):
+                  if cell.get('cell_type') == 'code' and cell.get('outputs'):
+                      bad_nb.append(str(path))
+                      break
+
+          if bad_csv:
+              raise SystemExit('Student-level/direct-ID CSVs remain after sanitation:\n  - ' + '\n  - '.join(bad_csv))
+          if bad_nb:
+              raise SystemExit('Notebook outputs remain after sanitation:\n  - ' + '\n  - '.join(bad_nb))
+          print('Privacy guard passed: no direct-ID CSV headers and no notebook outputs.')
+          PY
+
+      - name: Write import provenance
+        run: |
+          cat > brainstorm/proyecto_visitas/IMPORT_PROVENANCE.md <<EOF
+          # Import provenance
+
+          This directory is a sanitized historical import of **only** the `proyecto visitas/` subtree from `heri-espino/CMAT`.
+
+          - Source repository: `heri-espino/CMAT`
+          - Source branch: `main`
+          - Source commit used by this import: `${SOURCE_COMMIT}`
+          - Source subtree tree SHA recorded before import: `06be56b28e2dacb8b7d53a490e55274fda34be70`
+          - Destination branch: `brainstorm/proyecto-visitas`
+          - Destination path: `brainstorm/proyecto_visitas/`
+
+          ## Deliberate sanitation
+
+          The original source repository predates the privacy policy of `CMAT-research`. The import therefore excludes direct student-level exported tables (`student_summary.csv`, `top_students_by_visits.csv`, and `lorenz_visits.csv`) and clears Jupyter notebook outputs while preserving notebook source cells. LaTeX build debris and Windows shortcuts are excluded; scientific source, aggregate outputs, figures, references, `.tex` source and the historical compiled report PDF are retained.
+
+          The historical LaTeX report is **brainstorm/provenance**, not a publication manuscript.
+          EOF
+
+      - name: Remove one-time importer and commit historical workspace
+        run: |
+          rm -f .github/workflows/import-proyecto-visitas.yml
+          git add -A
+          git status --short
+          if git diff --cached --quiet; then
+            echo 'Nothing to import.'
+            exit 0
+          fi
+          git commit -m 'archive: import sanitized Proyecto Visitas brainstorm'
+          git push origin HEAD:brainstorm/proyecto-visitas
