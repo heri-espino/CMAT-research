@@ -2,6 +2,8 @@
 
 Publication-specific manuscript projects for the five-paper CMAT research programme.
 
+The complete production method is `../docs/RESEARCH_WORKFLOW.md`; when a paper requires new evidence, follow the upstream research procedure in `../reports/AI_HANDOFF.md` rather than implementing the analysis inside the manuscript project.
+
 ## Production role
 
 `papers/` is the **publication-selection layer**. The broad scientific reasoning, sensitivities and exploratory/methodological record should first exist in `reports/`; papers then select the validated subset needed for a journal argument.
@@ -34,10 +36,12 @@ Papers do **not** maintain independent versions of cohorts, estimands, models, s
 If manuscript work reveals that a new calculation is needed:
 
 1. identify the source report/scientific question;
-2. search `../code/FUNCTION_INDEX.md`;
-3. implement/reuse the calculation in root `../code/src/visitas_analysis/`;
-4. test it and regenerate the relevant report outputs;
-5. only then select the validated result into the paper.
+2. record the new analysis need in the appropriate report;
+3. search `../code/FUNCTION_INDEX.md`;
+4. implement/reuse the calculation in root `../code/src/visitas_analysis/`;
+5. test it and regenerate the relevant report outputs;
+6. evaluate the new evidence in the report, including assumptions/sensitivities;
+7. only then select the validated result into the paper.
 
 The canonical cross-paper portfolio is `../docs/PUBLICATION_PORTFOLIO.md`; detailed paper status belongs in each paper README.
 
@@ -66,6 +70,8 @@ For example, a paper build script may select/copy approved figures from a report
 When a paper copies a final table/figure into `results/` for submission portability, document which report/output it came from. The report remains the broader empirical workspace; the paper-local copy is the final selected publication asset.
 
 Do not silently edit a copied number or figure inside the paper. Changes must originate in root code/report production and then propagate downstream.
+
+A paper may select evidence from more than one report, and a report may feed more than one paper.
 
 ## Planned manuscripts
 
