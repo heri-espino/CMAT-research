@@ -348,8 +348,8 @@
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
 |---|---|---:|---|---|---|
-| `canonical_identifier` | function | 9 | `def canonical_identifier(value: object) -> str` | Canonicalize identifiers so numeric Excel representations link reliably. | `src cmat_analysis privacy py canonical_identifier canonicalize identifiers so numeric excel representations link reliably` |
-| `hmac_pseudonym` | function | 20 | `def hmac_pseudonym(value: object, key: bytes, namespace: str, length: int=32) -> str` | Return a deterministic keyed pseudonym. | `src cmat_analysis privacy py hmac_pseudonym return a deterministic keyed pseudonym` |
+| `canonical_identifier` | function | 18 | `def canonical_identifier(value: object) -> str` | Convert an identifier to a stable textual representation. | `src cmat_analysis privacy py canonical_identifier convert an identifier to a stable textual representation` |
+| `hmac_pseudonym` | function | 48 | `def hmac_pseudonym(value: object, key: bytes, namespace: str, length: int=32) -> str` | Create a deterministic keyed pseudonym for an identifier. | `src cmat_analysis privacy py hmac_pseudonym create a deterministic keyed pseudonym an identifier` |
 
 ### `src/cmat_analysis/release_figures.py`
 
