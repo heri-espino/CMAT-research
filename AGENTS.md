@@ -128,6 +128,22 @@ Git history is the canonical storage for historical source states. Dated/version
 
 Historical `Bib/Bib2` names are provenance only and must not be recreated.
 
+### Binary-storage rule
+
+Heavy versioned research binaries use **Git LFS** according to `.gitattributes`, including PDFs under `literature/`, `reports/`, and `papers/`, selected large PNG/JPG assets, and archive ZIPs. Do not migrate those binaries into normal Git merely to avoid installing LFS; that unnecessarily inflates repository history and clone size.
+
+On a local development machine, install LFS once with:
+
+```bash
+git lfs install
+```
+
+If an existing checkout contains pointer text instead of the real binary, materialize it with:
+
+```bash
+git lfs pull
+```
+
 ## Data/privacy boundary
 
 Never commit:
