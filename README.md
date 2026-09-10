@@ -1,23 +1,34 @@
 # CMAT Research
 
-Canonical private monorepo / research compendium for the research and publication programme based on the **Centro de Aprendizaje de Matemáticas (CMAT)** at UDLAP.
+Canonical private research compendium for the research and publication programme based on the **Centro de Aprendizaje de Matemáticas (CMAT)** at UDLAP.
 
 ## Repository philosophy
 
-`main` is the source of truth. The project is organized by scientific ownership and function, while Git branches are short-lived workspaces for concrete changes. Historical working copies live in Git history rather than as versioned folders inside the active tree.
+`main` is the source of truth and Git is the version/provenance layer. Active folders are organized by **scientific responsibility and production stage**, not by historical version.
 
-The scientific flow is:
+The production hierarchy is:
 
-`controlled data -> reusable code -> stable runners -> aggregate outputs -> reports / papers`.
+```text
+controlled institutional data
+        ↓
+code/                         reusable scientific functions and shared pipelines
+        ↓
+reports/<report_id>/          atomic research/brainstorming products
+        ↓
+papers/<paper_id>/           publication manuscripts selecting validated report evidence
+```
 
-Two ownership rules organize the repository:
+`analysis/` is an auxiliary cross-report archive for retained shared aggregates; it is not a required intermediate layer in the main production chain.
 
-1. **one paper = one home** — everything specific to a manuscript belongs under `papers/<paper_id>/`;
-2. **one physical literature source = one library record** — PDFs/Markdown/reference records live once under `literature/library/` and may be annotated by several papers.
+Three ownership rules organize the repository:
+
+1. **root `code/` owns reusable computation** — cohort construction, transformations, estimators, tests, models, plots and reusable report-build helpers;
+2. **each report is atomic** — a report may contain its own thin `code/` entry point, notes, tables, figures, provenance and LaTeX, but its local code must import reusable functions from root `code/` rather than reimplementing them;
+3. **one paper = one home** — everything editorially specific to a manuscript belongs under `papers/<paper_id>/`; papers select and synthesize validated evidence rather than maintaining independent scientific pipelines.
+
+A fourth rule applies to literature: **one physical literature source = one library record** under `literature/library/`; paper-specific interpretation lives with the paper.
 
 Execution/reproduction instructions: `REPRODUCING.md`.
-
-Future AI sessions should start with `AI_HANDOFF.md` and `AGENTS.md`.
 
 ## Structure
 
@@ -30,132 +41,144 @@ CMAT-research/
 ├── AGENTS.md
 ├── AI_HANDOFF.md
 │
-├── code/                         # active canonical Python pipeline
+├── code/                         # canonical reusable scientific/computational core
 │   ├── .ai_handoff.md
 │   ├── FUNCTION_INDEX.md
 │   ├── config/
-│   ├── experiments/              # stable report/paper runners
-│   ├── src/                      # reusable scientific functions
-│   ├── scripts/                  # code maintenance utilities
+│   ├── src/                      # reusable functions + broad shared pipelines
+│   ├── scripts/                  # code-maintenance utilities
 │   └── tests/
 │
-├── analysis/
-│   └── shared/
-│       └── historical_outputs/   # retained shared aggregates awaiting canonical freeze
+├── reports/                      # research development / brainstorming layer
+│   ├── README.md
+│   ├── methodology_report/
+│   │   ├── code/                 # thin local runner only
+│   │   ├── tables/
+│   │   ├── figures/
+│   │   ├── notes/
+│   │   ├── provenance/
+│   │   ├── methodology_report.tex
+│   │   └── methodology_report.pdf
+│   └── research_compendium/
 │
-├── reports/
-│   ├── methodology_report/       # methodology/statistical review report
-│   └── research_compendium/      # cumulative historical research record
-│
-├── papers/
+├── papers/                       # publication layer
 │   ├── paper1_ppa_persistence/
-│   │   ├── README.md
-│   │   └── literature/
 │   ├── paper2_mu_performance/
-│   │   ├── README.md
-│   │   └── literature/
 │   ├── paper3_grading_heterogeneity/
 │   ├── paper4_degree_help_seeking/
 │   └── paper5_longitudinal_trajectories/
 │
+├── analysis/
+│   └── shared/
+│       └── historical_outputs/   # cross-report retained aggregates/provenance
+│
 ├── literature/
-│   ├── library/                  # shared physical corpus/source layer
-│   └── general/                  # cross-project literature view
+│   ├── library/                  # shared physical source corpus
+│   └── general/                  # cross-project literature views
 │
 ├── docs/
 │   ├── PUBLICATION_PORTFOLIO.md
 │   ├── GIT_WORKFLOW.md
 │   ├── MIGRATION_STATUS.md
 │   ├── ARCHIVE_PROVENANCE.md
-│   └── provenance/               # historical restoration records only
+│   └── provenance/
 │
 └── data/                         # documentation only; no administrative microdata
 ```
 
-Within a paper, create `manuscript/`, `results/`, and `submission/` only when they contain real files. Do not add empty scaffolding merely for symmetry.
+## Production model
 
-## Ownership map
+### 1. Root `code/` — computational authority
 
-### Code
+Reusable estimators, cleaning, cohort construction, statistical tests, transformations, plotting functions and reusable build utilities belong in `code/src/visitas_analysis/`. Before writing a function, read `code/.ai_handoff.md` and search `code/FUNCTION_INDEX.md`.
 
-Reusable estimators, cleaning, cohort construction, statistical tests and plotting logic belong in `code/src/visitas_analysis/`. Before writing a function, read `code/.ai_handoff.md` and search `code/FUNCTION_INDEX.md`.
+A product folder must not become a second scientific codebase. If a report reveals that a new statistic, model, transformation or plotting function is needed, implement it in root `code/`, test it there, and then import it from the product-local entry point.
 
-A reproducible scientific/report recipe belongs in `code/experiments/` and imports reusable functions. A new data extract normally means rerunning the same stable runner, not creating `*_v2.py`.
+Broad shared runners such as `code/src/run_study.py` and `code/src/run_analysis.py` remain in root `code/` because they are project-wide pipelines rather than one report's build recipe.
 
-### Analysis outputs
+### 2. `reports/` — atomic research-development products
 
-`analysis/shared/` contains retained aggregate empirical objects with project-wide or multi-paper relevance. The current historical aggregate set is under `analysis/shared/historical_outputs/`.
+Reports are the project's working scientific synthesis and brainstorming layer. A report may be broad, exploratory, methodological, or cumulative; it can retain null results, sensitivities and analyses that will never appear together in one publication.
 
-If a reviewed output eventually has a clear single-paper owner, it may be retained under `papers/<paper_id>/results/`, but it must still originate from canonical code/runners. Avoid duplicate retained copies without a documented reason.
+Each report should be as self-contained as practical:
 
-### Papers
+```text
+reports/<report_id>/
+├── README.md
+├── code/             # thin entry point(s); imports root/code
+├── notes/
+├── tables/
+├── figures/
+├── provenance/
+├── <report>.tex
+└── <report>.pdf
+```
 
-Each paper has exactly one canonical directory under `papers/<paper_id>/`. Its `README.md` is the detailed source of truth for that paper's question, estimand, contribution, journal route, status and interpretation boundaries.
+The canonical methodology-report command is now:
 
-Paper-specific literature indices, reading guides, gap trackers and evidence notes live under `papers/<paper_id>/literature/`. There is intentionally no `literature/papers/` mirror.
+```bash
+python reports/methodology_report/code/methodology_report.py --check
+```
 
-### Literature
+and, with controlled data:
 
-`literature/library/` is the canonical shared physical corpus: extracted article Markdown, source PDFs, separated references and the catalogue/provenance layer. `literature/general/` contains cross-project thematic views.
+```bash
+python reports/methodology_report/code/methodology_report.py \
+  --materias <academic-file> \
+  --asesorias <visits-file>
+```
 
-A source used by several papers is stored once in the library and can be referenced/annotated by several paper-local literature views.
+Its disposable working directory is `reports/methodology_report/build/`, which is ignored by Git. Reviewed report tables/figures remain inside the report itself.
 
-### Reports
+### 3. `papers/` — publication selection layer
 
-`reports/methodology_report/` and `reports/research_compendium/` are project-level products rather than manuscript homes. Report names describe scientific purpose, not version.
+Each paper has exactly one canonical directory under `papers/<paper_id>/`. Papers select, interpret and present validated results developed in the reports; they do not redefine cohorts or estimands independently.
 
-## AI / agent entry points
+Paper-specific literature indices, reading guides and evidence notes live with the paper. Manuscript, reviewed final figures/tables and submission files should also live there when they exist.
 
-1. `AI_HANDOFF.md` — current scientific/project state and routing.
-2. `AGENTS.md` — repository operating rules.
-3. `REPRODUCING.md` — environment, tests and canonical execution commands.
-4. `code/.ai_handoff.md` + `code/FUNCTION_INDEX.md` — mandatory before code changes.
-5. `docs/PUBLICATION_PORTFOLIO.md` — cross-paper boundaries/priorities.
-6. `papers/<paper_id>/README.md` — detailed paper-specific source of truth.
-7. `literature/AGENTS.md` and `literature/AI_HANDOFF.md` — shared-library/retrieval rules.
+If a paper needs a product-local script later, it may use `papers/<paper_id>/code/`, but that script must be a thin consumer/orchestrator of root `code/` and/or reviewed report outputs, never a parallel scientific implementation.
 
-## Five-paper publication programme
+## Current reports
+
+- `reports/methodology_report/` — current detailed methodology/statistical review workspace and atomic reproducible report.
+- `reports/research_compendium/` — cumulative historical research record retained for scientific continuity and broader brainstorming context.
+
+## Current papers
 
 Canonical cross-paper plan: `docs/PUBLICATION_PORTFOLIO.md`.
 
-1. **Paper 1 — incentive-linked persistence** — *Beyond the Incentive Threshold: Academic Support Use and Persistence After a First-Year Participation Incentive*.
-2. **Paper 2 — CMAT use and MU performance** — *Mathematics Support Use and Classroom-Relative Academic Performance in First-Year University Mathematics*.
-3. **Paper 3 — grading heterogeneity** — *When the Same Grade Does Not Mean the Same Performance: Instructor-by-Term Heterogeneity in Undergraduate Mathematics Assessment*.
-4. **Paper 4 — disciplinary help-seeking heterogeneity** — *Who Keeps Seeking Mathematics Help? Disciplinary Heterogeneity in University Mathematics Support Use*.
-5. **Paper 5 — full-degree trajectories** — *Longitudinal Trajectories of Mathematics Support Use Across the Undergraduate Degree*.
+1. `paper1_ppa_persistence`
+2. `paper2_mu_performance`
+3. `paper3_grading_heterogeneity`
+4. `paper4_degree_help_seeking`
+5. `paper5_longitudinal_trajectories`
 
-The portfolio document provides cross-paper strategy; detailed manuscript information should be maintained in each paper rather than repeatedly copied into unrelated subsystem documentation.
+Detailed scope/status belongs in each paper's own `README.md`, not repeated in the root documentation.
 
-## Historical scientific provenance
+## Literature
 
-Historical package labels such as `v8`, `methodology_v5`, and `v2` identify imported scientific states; they are not active folder names. Duplicate historical code/import scripts are removed from the active tree once their provenance is recorded because Git is the history layer.
+`literature/library/` is the canonical shared physical corpus: extracted article Markdown, source PDFs, separated references and catalogue/provenance records. `literature/general/` contains cross-project thematic views; `papers/<paper_id>/literature/` contains paper-specific interpretation and notes.
 
-The complete pre-code-cleanup working tree remains available at commit `20a993d92e8cc197a9060180d8cb6a6caf2607a7`. Consolidated methodology-restoration details live at `docs/provenance/methodology_restoration_2026-09-07/README.md`; broader import/archive provenance lives in `docs/MIGRATION_STATUS.md` and `docs/ARCHIVE_PROVENANCE.md`.
+Do not recreate a parallel `literature/papers/` hierarchy or duplicate PDFs inside paper folders.
 
-Removing duplicate historical directories does **not** imply that every historical methodological branch has been scientifically reconciled. Read `docs/MIGRATION_STATUS.md`, the current protocol, tests and implementation before making that claim.
+## Analysis archive
 
-## Privacy
+`analysis/shared/` is reserved for aggregate empirical objects that genuinely have cross-report or project-wide value, including historical outputs used for reconciliation. Report-owned generated assets should normally stay with the report that interprets them.
+
+## AI / agent entry points
+
+1. `AI_HANDOFF.md` — global routing and invariants.
+2. `AGENTS.md` — repository operating rules.
+3. `REPRODUCING.md` — environment and execution commands.
+4. `code/.ai_handoff.md` + `code/FUNCTION_INDEX.md` — mandatory before Python/scientific-code changes.
+5. `reports/<report_id>/README.md` — report-specific scientific/build context.
+6. `docs/PUBLICATION_PORTFOLIO.md` and `papers/<paper_id>/README.md` — publication context.
+7. `literature/AGENTS.md` and `literature/AI_HANDOFF.md` — literature rules.
+
+## Privacy and provenance
 
 Administrative microdata are not committed. Do not commit student/direct identifiers, raw CMAT exports, official row-level grade spreadsheets, HMAC keys/salts, credentials/tokens, unreviewed row-level pseudonymised longitudinal data, or identifying free text.
 
-Heavy literature PDFs/assets are preserved only because this repository is private and the owner requested internal archival continuity; they are not automatically redistributable.
+Historical source states belong in Git history; detailed restoration records may live under `docs/provenance/` or a report's own `provenance/` directory. Active paths should not use `v2`, `final`, dated, or ZIP-derived names solely for version control.
 
-## Reproducibility
-
-See `REPRODUCING.md` for installation, tests, controlled-input handling and exact runner commands.
-
-Generated local outputs under `code/outputs/` are ignored by Git. Retained aggregate outputs must be privacy-reviewed and traceable to code/configuration.
-
-The central reproducibility rule is: **functions define calculations; runners define reproducible scientific recipes; reports and papers present the resulting outputs.**
-
-## Citation and rights
-
-Repository-level citation metadata is in `CITATION.cff`. Once individual papers are published, cite those papers separately for their scientific claims/results.
-
-`LICENSE` intentionally does **not** grant a blanket open license over the private repository. Third-party literature and institutional data remain subject to their own rights/controls; future public code/data releases can apply explicit licenses to the materials they actually cover.
-
-## Git workflow
-
-See `docs/GIT_WORKFLOW.md`.
-
-Use Git for history. Do not create permanent `v2`, `final`, dated, or ZIP-derived copies of active code/reports/papers solely for version control.
+Repository-level citation metadata is in `CITATION.cff`. `LICENSE` intentionally does not grant a blanket open license over the private repository or third-party literature/institutional materials.
