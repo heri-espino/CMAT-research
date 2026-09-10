@@ -8,11 +8,13 @@ Last journal-fit review: 2026-09-07. Journal targets are strategic, not commitme
 
 ## Portfolio rules
 
-1. All papers consume canonical scientific code/runners and validated aggregate outputs; manuscripts do not maintain independent estimators or cohort definitions.
-2. Each paper has one canonical home under `papers/<paper_id>/`.
-3. Paper-specific literature lives under `papers/<paper_id>/literature/`; physical source records remain shared under `literature/library/`.
-4. If manuscript work exposes a methodological problem, fix/validate it in `code/` first and regenerate outputs before revising manuscript numbers.
-5. Changes to detailed paper scope/status belong in that paper README; update this file only when the **portfolio-level** boundary, title, priority or journal route changes.
+1. Reusable scientific computation lives in root `code/`; papers do not maintain independent estimators or cohort definitions.
+2. Broad empirical development, sensitivities and methodological reasoning should be preserved in `reports/` before publication-specific selection.
+3. Papers select validated evidence from one or more source reports and root-code outputs; they are downstream publication products rather than parallel analysis projects.
+4. Each paper has one canonical home under `papers/<paper_id>/`.
+5. Paper-specific literature lives under `papers/<paper_id>/literature/`; physical source records remain shared under `literature/library/`.
+6. If manuscript work exposes a methodological problem, fix/validate it in root `code/`, regenerate the relevant report outputs, and only then revise manuscript numbers.
+7. Changes to detailed paper scope/status belong in that paper README; update this file only when the portfolio-level boundary, title, priority or journal route changes.
 
 ## Portfolio overview
 
@@ -58,17 +60,24 @@ Paper 1 is a focused two-context persistence design. Paper 5 is reserved for ful
 
 For detailed scope, read the corresponding `README.md`. For literature, read its `literature/` subdirectory.
 
-## Shared scientific and literature infrastructure
+## Shared production infrastructure
 
 ```text
-code/src/visitas_analysis/      reusable scientific functions
-code/experiments/               stable reproducible runners
-analysis/shared/                retained shared aggregate outputs
+code/src/visitas_analysis/      reusable scientific/computational functions
+reports/<report_id>/code/       thin product-local runners importing root code
+reports/<report_id>/            broad empirical/methodological workspace
+papers/<paper_id>/              publication-specific final selection
+analysis/shared/                optional cross-report aggregate archive
 literature/library/             one physical source record per scholarly version
-papers/<paper_id>/              manuscript-specific ownership
 ```
 
 Do not create permanent paper-specific scientific pipelines or duplicate source PDFs.
+
+The current canonical report-runner example is:
+
+```bash
+python reports/methodology_report/code/methodology_report.py --check
+```
 
 ## Journal-fit maintenance
 
