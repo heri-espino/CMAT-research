@@ -2,7 +2,7 @@
 
 Canonical entry point for future AI sessions working in `heri-espino/CMAT-research`.
 
-This file is intentionally a **router**, not a duplicate project encyclopedia.
+This file is intentionally a **router**, not a duplicate project encyclopedia. The full production method is documented in `docs/RESEARCH_WORKFLOW.md`.
 
 ## 1. Repository production model
 
@@ -20,11 +20,13 @@ reports/<report_id>/code/
         thin report-local runner
         ↓
 reports/<report_id>/
-        broad research synthesis / brainstorming / validated outputs
+        broad research synthesis / experimentation / brainstorming / validated outputs
         ↓ selected into
 papers/<paper_id>/
         publication manuscript and final paper-specific assets
 ```
+
+The working analogy is: **root `code/` is the internal scientific library; `reports/` are reproducible research workspaces that use that library; `papers/` are the curated publication layer.** A function may be CMAT-specific and still belong in root code if it defines reusable computational behavior.
 
 `analysis/shared/` is auxiliary storage for aggregates with genuine cross-report/project-wide value, not a mandatory intermediate stage.
 
@@ -42,6 +44,7 @@ Ownership rules:
 - **root `code/` owns reusable computation**;
 - **each report is atomic** and may own a thin `code/` entry point plus its tables, figures, notes, provenance and LaTeX;
 - report-local code must import root `code/`, never fork scientific functions;
+- **reports preserve the broad research record**, including diagnostics, nulls, sensitivities and unresolved ideas;
 - **papers are the publication-selection layer** and do not redefine scientific logic independently;
 - **one paper = one home:** `papers/<paper_id>/`;
 - **one physical literature source = one library record:** `literature/library/`;
@@ -54,7 +57,7 @@ Ownership rules:
 1. `README.md`
 2. `AGENTS.md`
 3. this file
-4. README/AGENTS for the subsystem being changed
+4. README/AI handoff for the subsystem being changed
 
 ### Code / numerical analysis
 
@@ -69,7 +72,13 @@ Search the function index before creating any reusable function.
 
 ### Report work
 
-Read `reports/README.md`, then `reports/<report_id>/README.md`. A report's local `code/` folder is orchestration only; new scientific functions still go to root `code/`.
+1. `docs/RESEARCH_WORKFLOW.md`
+2. `reports/AI_HANDOFF.md`
+3. `reports/<report_id>/README.md`
+4. `code/.ai_handoff.md` + `code/FUNCTION_INDEX.md` when computation is involved
+5. relevant root-code functions and the report-local runner
+
+A report's local `code/` folder is orchestration only; new scientific functions still go to root `code/`.
 
 ### Specific paper
 
@@ -78,6 +87,8 @@ Read `reports/README.md`, then `reports/<report_id>/README.md`. A report's local
 3. `papers/<paper_id>/literature/`
 4. source report(s) from which the paper selects evidence
 5. manuscript/results/submission files only as needed
+
+If manuscript work requires a new result, return upstream to root code + the relevant report before changing paper numbers.
 
 ### Literature
 
@@ -125,13 +136,29 @@ python reports/methodology_report/code/methodology_report.py \
 
 The local runner imports the implementation from root `code/`; do not reconstruct the calculation sequence inside the report folder.
 
-## 5. Reports → papers boundary
+## 5. Research lifecycle: idea → report → paper
+
+For a new research idea, use this order:
+
+1. give the question an existing or new report home;
+2. record the question, rationale, assumptions and unresolved issues in the report README/notes;
+3. search root-code functions before implementing anything;
+4. add missing reusable capability only in root `code/`, with tests/documentation;
+5. call those functions from the report-local runner;
+6. generate and inspect report-local diagnostics/tables/figures;
+7. preserve nulls, sensitivities, limitations and competing interpretations in the report;
+8. promote only the validated subset needed for a publication into `papers/<paper_id>/`;
+9. if the paper later needs another result, return upstream rather than implementing it in the manuscript folder.
+
+See `docs/RESEARCH_WORKFLOW.md` and `reports/AI_HANDOFF.md` for the full operational version.
+
+## 6. Reports → papers boundary
 
 `reports/` is where broad empirical reasoning is developed and preserved. Reports may contain null findings, sensitivities, competing specifications, methodological discussion and results that are useful for more than one manuscript.
 
 `papers/` is where validated report evidence is selected into publication-specific arguments. A paper may copy/retain the final aggregate assets it actually needs for submission, but must preserve provenance to the source report/root code and must not create a competing estimator or cohort definition.
 
-## 6. Global scientific invariants
+## 7. Global scientific invariants
 
 ### Observational interpretation
 
@@ -164,7 +191,7 @@ Official academic programme (`CLAVECARRERA`) is the primary programme field.
 
 Do not silently substitute one cohort for another. First-MU, later-Calculus progressor and stricter longitudinal/PPA populations answer different questions. Trace quoted sample sizes/results to their report/runner/output.
 
-## 7. Current products and provenance
+## 8. Current products and provenance
 
 Active reports:
 
@@ -183,28 +210,30 @@ Historical restoration/import records:
 
 Do not recreate permanent snapshot source trees merely because an old implementation is needed; retrieve it from Git history.
 
-## 8. Data/privacy boundary
+## 9. Data/privacy boundary
 
 Never commit administrative Excel/raw exports, row-level student/advisory microdata, direct identifiers, HMAC keys/salts, credentials/tokens, unreviewed identifying free text, or unreviewed row-level pseudonymised longitudinal datasets.
 
 Aggregate outputs may be retained only after disclosure/privacy review.
 
-## 9. Current unresolved scientific maintenance
+## 10. Current unresolved scientific maintenance
 
 The later methodology corrections and refined longitudinal/PPA work still require deliberate scientific reconciliation before claiming one fully unified canonical study pipeline. See `docs/MIGRATION_STATUS.md`.
 
 That unresolved maintenance item must not block narrower reproduction tasks when an existing validated report recipe already defines the requested artifact.
 
-## 10. Handoff maintenance
+## 11. Handoff maintenance
 
 Keep this file routing-oriented.
 
+- full production philosophy/workflow → `docs/RESEARCH_WORKFLOW.md`
 - code architecture/reproducibility → `code/.ai_handoff.md`
 - function inventory → `code/FUNCTION_INDEX.md`
-- report-specific build/scientific context → `reports/<report_id>/README.md`
+- report-layer workflow → `reports/AI_HANDOFF.md`
+- report-specific state → `reports/<report_id>/README.md`
 - paper detail → `papers/<paper_id>/README.md`
 - portfolio boundary → `docs/PUBLICATION_PORTFOLIO.md`
 - literature routing → `literature/AI_HANDOFF.md` / `literature/AGENTS.md`
 - migration/provenance → `docs/MIGRATION_STATUS.md` / `docs/provenance/`
 
-Do not duplicate full paper descriptions, long result tables or detailed literature inventories here.
+Do not duplicate full paper descriptions, long result tables or detailed literature inventories here. When a durable working rule emerges in conversation, record it in the canonical owning document rather than relying on chat history.
