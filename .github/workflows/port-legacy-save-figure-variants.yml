@@ -1,0 +1,67 @@
+name: Validate legacy figure saver port
+
+on:
+  push:
+    branches:
+      - admin/port-legacy-save-figure-variants
+
+permissions:
+  contents: write
+
+jobs:
+  validate-and-finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out port branch
+        uses: actions/checkout@v4
+        with:
+          ref: admin/port-legacy-save-figure-variants
+          fetch-depth: 0
+
+      - name: Update API contract and targeted test
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          docs = Path('cmat_analysis/docs/api/index.rst')
+          text = docs.read_text(encoding='utf-8')
+          old = ".. automodule:: cmat_analysis.reporting\n\n.. autofunction:: cmat_analysis.reporting.write_run_log\n   :no-index-entry:\n"
+          new = ".. automodule:: cmat_analysis.reporting\n\n.. autofunction:: cmat_analysis.reporting.save_figure_variants\n   :no-index-entry:\n\n.. autofunction:: cmat_analysis.reporting.write_run_log\n   :no-index-entry:\n"
+          if old not in text:
+              raise SystemExit('Expected reporting block not found in docs/api/index.rst')
+          docs.write_text(text.replace(old, new, 1), encoding='utf-8')
+
+          contract = Path('cmat_analysis/tests/test_public_api_documentation.py')
+          text = contract.read_text(encoding='utf-8')
+          old = '    "cmat_analysis.reporting": ("write_run_log",),\n'
+          new = '    "cmat_analysis.reporting": ("save_figure_variants", "write_run_log"),\n'
+          if old not in text:
+              raise SystemExit('Expected reporting API tuple not found')
+          contract.write_text(text.replace(old, new, 1), encoding='utf-8')
+
+          test = Path('cmat_analysis/tests/test_reporting_figures.py')
+          test.write_text('''"""Tests for reusable reporting figure helpers."""\n\nfrom __future__ import annotations\n\nimport matplotlib.pyplot as plt\n\nfrom cmat_analysis.reporting import save_figure_variants\n\n\ndef test_save_figure_variants_writes_pdf_and_png(tmp_path) -> None:\n    """Write both variants in a deterministic order and close the figure."""\n    fig, ax = plt.subplots()\n    ax.plot([0, 1], [0, 1])\n    number = fig.number\n\n    created = save_figure_variants(fig, tmp_path / "nested", "example")\n\n    assert created == [\n        tmp_path / "nested" / "example.pdf",\n        tmp_path / "nested" / "example.png",\n    ]\n    assert all(path.is_file() and path.stat().st_size > 0 for path in created)\n    assert number not in plt.get_fignums()\n''', encoding='utf-8')
+          PY
+
+      - name: Install library, tests, and docs
+        run: python -m pip install -e "./cmat_analysis[dev,docs]"
+
+      - name: Verify restored public import
+        run: python -c "from cmat_analysis.reporting import save_figure_variants"
+
+      - name: Run test suite
+        run: pytest cmat_analysis/tests/
+
+      - name: Build Sphinx documentation with warnings as errors
+        run: sphinx-build -W -b html cmat_analysis/docs cmat_analysis/docs/_build/html
+
+      - name: Remove one-time workflow and commit validated port
+        shell: bash
+        run: |
+          rm .github/workflows/port-legacy-save-figure-variants.yml
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add cmat_analysis .github/workflows/port-legacy-save-figure-variants.yml
+          git commit -m "test(reporting): validate restored figure variants helper"
+          git push origin HEAD:admin/port-legacy-save-figure-variants
