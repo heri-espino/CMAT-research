@@ -1,0 +1,47 @@
+name: Paper 1 commit generated figures
+
+on:
+  push:
+    branches:
+      - paper/paper1-ppa-persistence
+    paths:
+      - .github/workflows/paper1-commit-figures.yml
+
+permissions:
+  contents: write
+
+jobs:
+  generate-and-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Paper 1 branch
+        uses: actions/checkout@v4
+        with:
+          ref: paper/paper1-ppa-persistence
+          lfs: true
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+
+      - name: Install Paper 1 plotting dependencies
+        run: python -m pip install -e './cmat_analysis[dev]'
+
+      - name: Generate manuscript figures from retained aggregate tables
+        run: python code/figures.py --source retained
+
+      - name: Commit generated figures with Git LFS
+        shell: bash
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git lfs install --local
+          git add -f results/figures/figure_01_cohort_flow.png
+          git add -f results/figures/figure_02_main_persistence.png
+          git add -f results/figures/figure_03_threshold_piecewise.png
+          git add -f results/figures/figure_04_adjusted_persistence_or.png
+          git status --short
+          git commit -m 'Add generated Paper 1 manuscript figures'
+          git push origin HEAD:paper/paper1-ppa-persistence
