@@ -1,0 +1,41 @@
+name: Run cmat_analysis public API documentation finalizer
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/cmat-analysis-docs-runner.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  finalize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Apply documentation-only codemod
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+
+          payload = Path('.github/workflows/cmat-analysis-finalize-public-docs.yml').read_text(encoding='utf-8')
+          marker = "          python - <<'PY'\n"
+          if marker not in payload:
+              raise RuntimeError('documentation payload marker not found')
+          body = payload.split(marker, 1)[1].split('\n          PY\n', 1)[0]
+          source = '\n'.join(
+              line[10:] if line.startswith('          ') else line
+              for line in body.splitlines()
+          ) + '\n'
+          exec(compile(source, '<public-api-docs-codemod>', 'exec'), {})
+          PY
+
+          git config user.name 'CMAT documentation bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git add cmat_analysis
+          git commit -m 'docs: complete canonical public API reference'
+          git push origin HEAD:main
