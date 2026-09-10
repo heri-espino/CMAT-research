@@ -18,6 +18,8 @@ reports/<report_id>/          atomic research/brainstorming products
 papers/<paper_id>/           publication manuscripts selecting validated report evidence
 ```
 
+A useful mental model is: **`code/` behaves like an internal scientific library (architecturally similar to using scikit-learn), `reports/` are reproducible research workspaces that import that library to run experiments/checks, and `papers/` are the curated publication products built from validated report evidence.** The full workflow is documented in `docs/RESEARCH_WORKFLOW.md`.
+
 `analysis/` is an auxiliary cross-report archive for retained shared aggregates; it is not a required intermediate layer in the main production chain.
 
 Three ownership rules organize the repository:
@@ -51,6 +53,7 @@ CMAT-research/
 │
 ├── reports/                      # research development / brainstorming layer
 │   ├── README.md
+│   ├── AI_HANDOFF.md             # operational guide for report workspaces
 │   ├── methodology_report/
 │   │   ├── code/                 # thin local runner only
 │   │   ├── tables/
@@ -77,6 +80,7 @@ CMAT-research/
 │   └── general/                  # cross-project literature views
 │
 ├── docs/
+│   ├── RESEARCH_WORKFLOW.md       # full code → reports → papers working method
 │   ├── PUBLICATION_PORTFOLIO.md
 │   ├── GIT_WORKFLOW.md
 │   ├── MIGRATION_STATUS.md
@@ -113,6 +117,8 @@ reports/<report_id>/
 ├── <report>.tex
 └── <report>.pdf
 ```
+
+Before substantive work in this layer, read `reports/AI_HANDOFF.md`; it contains the full report-development procedure, including how to move a new idea from question → root-code capability → report experiment → reviewed evidence → paper selection.
 
 The canonical methodology-report command is now:
 
@@ -169,11 +175,12 @@ Do not recreate a parallel `literature/papers/` hierarchy or duplicate PDFs insi
 
 1. `AI_HANDOFF.md` — global routing and invariants.
 2. `AGENTS.md` — repository operating rules.
-3. `REPRODUCING.md` — environment and execution commands.
-4. `code/.ai_handoff.md` + `code/FUNCTION_INDEX.md` — mandatory before Python/scientific-code changes.
-5. `reports/<report_id>/README.md` — report-specific scientific/build context.
-6. `docs/PUBLICATION_PORTFOLIO.md` and `papers/<paper_id>/README.md` — publication context.
-7. `literature/AGENTS.md` and `literature/AI_HANDOFF.md` — literature rules.
+3. `docs/RESEARCH_WORKFLOW.md` — full production method and placement rules.
+4. `REPRODUCING.md` — environment and execution commands.
+5. `code/.ai_handoff.md` + `code/FUNCTION_INDEX.md` — mandatory before Python/scientific-code changes.
+6. `reports/AI_HANDOFF.md` + `reports/<report_id>/README.md` — mandatory for substantive report/experimental work.
+7. `docs/PUBLICATION_PORTFOLIO.md` and `papers/<paper_id>/README.md` — publication context.
+8. `literature/AGENTS.md` and `literature/AI_HANDOFF.md` — literature rules.
 
 ## Privacy and provenance
 
