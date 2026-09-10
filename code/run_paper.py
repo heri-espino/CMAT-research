@@ -11,15 +11,16 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 from dataclasses import replace
 from importlib.metadata import PackageNotFoundError, version
 from pathlib import Path
 
-import matplotlib.pyplot as plt
-import matplotlib.ticker as mtick
 import pandas as pd
+
+from figures import generate_paper_figures, validate_figure_inputs
 
 try:
     from cmat_analysis.cohorts import load_and_clean_inputs
@@ -68,46 +69,6 @@ def _save_csv(frame: pd.DataFrame, path: Path) -> None:
     """Write one aggregate Paper 1 output table."""
     path.parent.mkdir(parents=True, exist_ok=True)
     frame.to_csv(path, index=False)
-
-
-def _plot_persistence(summary: pd.DataFrame, path: Path) -> None:
-    """Create the Paper 1 persistence figure from the generated aggregate table."""
-    required = {
-        "mu_visit_group",
-        "p_calc_any_visit",
-        "ci95_low_wilson",
-        "ci95_high_wilson",
-    }
-    missing = required.difference(summary.columns)
-    if missing:
-        raise ValueError(
-            "Persistence summary is missing expected columns: "
-            + ", ".join(sorted(missing))
-        )
-
-    order = ["0", "1-2", "3", "4+"]
-    frame = summary.copy()
-    frame["mu_visit_group"] = frame["mu_visit_group"].astype(str)
-    frame = frame.set_index("mu_visit_group").reindex(order).reset_index()
-
-    y = frame["p_calc_any_visit"].astype(float)
-    lower = frame["ci95_low_wilson"].astype(float)
-    upper = frame["ci95_high_wilson"].astype(float)
-    yerr = [y - lower, upper - y]
-
-    set_style()
-    fig, ax = plt.subplots(figsize=(7.2, 4.8))
-    ax.errorbar(range(len(order)), y, yerr=yerr, marker="o", capsize=4)
-    ax.set_xticks(range(len(order)), order)
-    ax.set_ylim(0, 1)
-    ax.set_xlabel("CMAT visits during Matemáticas Universitarias")
-    ax.set_ylabel("Probability of any CMAT use in Calculus I")
-    ax.yaxis.set_major_formatter(mtick.PercentFormatter(1.0))
-    ax.grid(axis="y", alpha=0.2)
-    fig.tight_layout()
-    path.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(path, dpi=300, bbox_inches="tight")
-    plt.close(fig)
 
 
 def _compare_retained() -> None:
@@ -162,9 +123,13 @@ def check_environment() -> int:
     """Validate imports and branch-local structure without requiring private data."""
     required_paths = [
         REPO_ROOT / "cmat_analysis" / "pyproject.toml",
+        REPO_ROOT / "code" / "figures.py",
         PAPER_DIR / "main.tex",
         PAPER_DIR / "references.bib",
+        RETAINED_TABLES_DIR / "98_ppa_progression_cohort_flow.csv",
         RETAINED_TABLES_DIR / "102_ppa_persistence_by_mu_group.csv",
+        RETAINED_TABLES_DIR / "105_ppa_persistence_logistic_models.csv",
+        RETAINED_TABLES_DIR / "106_ppa_piecewise_threshold_persistence.csv",
     ]
     missing = [
         str(path.relative_to(REPO_ROOT)) for path in required_paths if not path.exists()
@@ -175,10 +140,17 @@ def check_environment() -> int:
             print(f"  - {path}", file=sys.stderr)
         return 1
 
+    try:
+        validate_figure_inputs(RETAINED_TABLES_DIR)
+    except (FileNotFoundError, ValueError) as exc:
+        print(f"Paper 1 figure-input check failed: {exc}", file=sys.stderr)
+        return 1
+
     print("Paper 1 recipe check: OK")
     print(f"cmat-analysis version: {_package_version()}")
     print("Primary analysis: strict next-regular-term MU -> Calculus progression cohort")
     print("Primary outcome: any CMAT use in the eligible Calculus I period")
+    print("Figure inputs: retained aggregate snapshot is complete")
     print("No private data were read.")
     return 0
 
@@ -251,8 +223,7 @@ def run_analysis(args: argparse.Namespace) -> int:
     for filename, frame in generated.items():
         _save_csv(frame, TABLES_DIR / filename)
 
-    figure_path = FIGURES_DIR / "ppa_persistence_by_mu_group.png"
-    _plot_persistence(persistence, figure_path)
+    figure_paths = generate_paper_figures(TABLES_DIR, FIGURES_DIR)
 
     summary = {
         "paper": "paper1-ppa-persistence",
@@ -262,7 +233,7 @@ def run_analysis(args: argparse.Namespace) -> int:
         "tables": sorted(
             str(path.relative_to(REPO_ROOT)) for path in TABLES_DIR.glob("*.csv")
         ),
-        "figures": [str(figure_path.relative_to(REPO_ROOT))],
+        "figures": [str(path.relative_to(REPO_ROOT)) for path in figure_paths],
     }
     (RESULTS_ROOT / "run_summary.json").write_text(
         json.dumps(summary, indent=2, ensure_ascii=False) + "\n",
@@ -286,13 +257,21 @@ def run_analysis(args: argparse.Namespace) -> int:
 
     print(f"Paper 1 primary cohort: N={len(pair):,}")
     print(f"Generated tables: {TABLES_DIR}")
-    print(f"Generated figure: {figure_path}")
+    print("Generated figures:")
+    for path in figure_paths:
+        print(f"  - {path}")
 
     if args.compare_retained:
         _compare_retained()
 
     if args.compile:
-        subprocess.run([sys.executable, str(PAPER_DIR / "build.py")], check=True)
+        build_env = os.environ.copy()
+        build_env["PAPER1_FIGURE_SOURCE"] = "generated"
+        subprocess.run(
+            [sys.executable, str(PAPER_DIR / "build.py")],
+            check=True,
+            env=build_env,
+        )
 
     return 0
 

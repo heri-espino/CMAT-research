@@ -77,25 +77,14 @@ PPA1 is a first-year institutional participation requirement that can be complet
 
 The primary analysis uses a strict MU-to-Calculus progression cohort. Students must have: (1) a first real observed attempt at Matem\'aticas Universitarias; (2) a numeric passing grade of at least 7.5 in that attempt; (3) a later first real Calculus I attempt; (4) a numeric Calculus I grade; (5) CMAT coverage in both periods; (6) valid classroom-relative performance measures in both courses; and (7) Calculus I in the next regular spring/fall academic period after MU.
 
-Table~\ref{tab:flow} summarizes the cohort construction. The resulting primary cohort contains 3,241 students.
+Figure~\ref{fig:cohort-flow} summarizes the cohort construction. The resulting primary cohort contains 3,241 students.
 
-\begin{table}[htbp]
+\begin{figure}[htbp]
 \centering
-\caption{Construction of the primary longitudinal cohort}
-\label{tab:flow}
-\begin{tabular}{lr}
-\toprule
-Stage & $N$ \\
-\midrule
-First real observed MU attempt candidate & 7,777 \\
-Numeric passing first MU attempt ($\geq 7.5$) & 5,769 \\
-Subsequent first Calculus I attempt observed & 4,556 \\
-Subsequent Calculus I attempt with numeric grade & 4,055 \\
-CMAT coverage and valid $Z$ in both courses & 3,389 \\
-\textbf{Primary cohort: Calculus in next regular term} & \textbf{3,241} \\
-\bottomrule
-\end{tabular}
-\end{table}
+\includegraphics[width=0.82\textwidth]{../results/figures/figure_01_cohort_flow.png}
+\caption{Construction of the primary longitudinal cohort. Counts are reproduced from the retained aggregate cohort-flow table; the final analytic sample contains students who passed their first real observed MU attempt, subsequently had a numeric Calculus I grade, had CMAT coverage and valid classroom-relative performance measures in both courses, and progressed to Calculus I in the next regular term.}
+\label{fig:cohort-flow}
+\end{figure}
 
 The 3,389 students who satisfy all conditions except the next-regular-term restriction form a delayed-progression sensitivity cohort in the historical longitudinal analysis. A broader 4,211 future-Calculus progressor cohort is also documented in the methodology record, but it is not yet fully reconciled with the stricter longitudinal pipeline and is therefore not substituted silently for the primary estimand in this draft.
 
@@ -157,8 +146,8 @@ The global association is strong: $\chi^2(3)=392.47$, $p=9.47\times10^{-85}$, wi
 
 \begin{figure}[htbp]
 \centering
-\includegraphics[width=0.78\textwidth]{../brainstorm/methodology_report/figures/refined_longitudinal_persistence_3241.png}
-\caption{Probability of any CMAT use during Calculus I by prior MU visit group in the primary longitudinal cohort ($N=3{,}241$). The underlying retained snapshot reports Wilson 95\% confidence intervals.}
+\includegraphics[width=0.78\textwidth]{../results/figures/figure_02_main_persistence.png}
+\caption{Probability of any CMAT use during Calculus I by prior University Mathematics (MU) visit group in the primary longitudinal cohort ($N=3{,}241$). Points show observed group proportions and error bars show Wilson 95\% confidence intervals.}
 \label{fig:persistence}
 \end{figure}
 
@@ -168,28 +157,30 @@ The comparison most directly tied to the institutional threshold contrasts exact
 
 The comparison is consistent with behavioural heterogeneity around the operational threshold: students who continued beyond three MU visits were more likely to use CMAT again later than students who stopped exactly at three. It does not establish that crossing three visits caused persistence, because the number of visits is student-controlled.
 
+\subsection{Visit-count shape around the threshold}
+
+A descriptive piecewise model shows a much steeper association between visit count and later use through three visits than after three. Up to the threshold, the estimated odds ratio per additional visit is 1.994 (95\% CI [1.807, 2.200], $p<.001$). Beyond three visits, the corresponding odds ratio is 1.063 (95\% CI [0.982, 1.150], $p=.131$). Figure~\ref{fig:threshold-piecewise} summarizes this contrast. The flattening is descriptive; it does not identify a discontinuity caused by the institutional threshold.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.72\textwidth]{../results/figures/figure_03_threshold_piecewise.png}
+\caption{Estimated per-visit odds ratios from the descriptive piecewise logistic model of later CMAT use, with cluster-robust 95\% confidence intervals. The first slope applies through three MU visits and the second applies after three visits. The dashed reference line denotes an odds ratio of 1. Visit count is student-controlled, so the figure is not a regression-discontinuity estimate.}
+\label{fig:threshold-piecewise}
+\end{figure}
+
 \subsection{Adjusted persistence models}
 
-The persistence gradient remains after adjustment for prior classroom-relative MU performance, official degree programme, and MU period (Table~\ref{tab:logit}). Relative to students with no MU visits, adjusted odds of later CMAT use were 3.53 times higher for 1--2 visits, 4.84 times higher for exactly three visits, and 9.82 times higher for four or more visits. All three group coefficients were statistically distinguishable from zero in the adjusted model.
+The persistence gradient remains after adjustment for prior classroom-relative MU performance, official degree programme, and MU period (Figure~\ref{fig:adjusted-or}). Relative to students with no MU visits, adjusted odds of later CMAT use were 3.53 times higher for 1--2 visits, 4.84 times higher for exactly three visits, and 9.82 times higher for four or more visits. All three group coefficients were statistically distinguishable from zero in the adjusted model.
 
-\begin{table}[htbp]
+\begin{figure}[htbp]
 \centering
-\caption{Adjusted odds ratios for later CMAT use}
-\label{tab:logit}
-\begin{tabular}{lrrr}
-\toprule
-MU visit group & Adjusted OR & 95\% CI & $p$ \\
-\midrule
-1--2 vs 0 & 3.53 & [2.83, 4.40] & $<.001$ \\
-3 vs 0 & 4.84 & [3.18, 7.37] & $<.001$ \\
-4+ vs 0 & 9.82 & [6.88, 14.00] & $<.001$ \\
-\bottomrule
-\end{tabular}
-\end{table}
+\includegraphics[width=0.74\textwidth]{../results/figures/figure_04_adjusted_persistence_or.png}
+\caption{Adjusted odds ratios for any CMAT use during Calculus I by prior MU visit group. The reference group is zero MU visits. The model adjusts for prior classroom-relative MU performance, official degree programme at the MU attempt, and MU academic period; error bars show cluster-robust 95\% confidence intervals with clustering by MU classroom.}
+\label{fig:adjusted-or}
+\end{figure}
 
 The adjusted model also shows that higher prior relative performance predicts later CMAT use ($OR=1.59$ per one-unit increase in $Z_{MU}$, 95\% CI [1.27, 1.98]). This is another indication that later use cannot be reduced to a simple remediation story in which only low-performing students seek support.
 
-A descriptive piecewise model shows a much steeper association between visit count and later use through three visits than after three. Up to the threshold, the estimated odds ratio per additional visit is 1.994 (95\% CI [1.807, 2.200], $p<.001$). Beyond three visits, the corresponding odds ratio is 1.063 (95\% CI [0.982, 1.150], $p=.131$). This flattening is descriptive; it does not identify a discontinuity caused by the institutional threshold.
 
 \subsection{Secondary association with later academic performance}
 
