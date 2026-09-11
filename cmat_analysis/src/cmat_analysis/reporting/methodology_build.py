@@ -51,7 +51,7 @@ def _stage_generated_assets(
         dst = report_tables / src.name
         shutil.copy2(src, dst)
         staged_tables.append(str(dst.relative_to(repo_root)))
-    for src in sorted(generated_figures.glob("*.png")):
+    for src in sorted(generated_figures.glob("*.pdf")):
         dst = report_figures / src.name
         shutil.copy2(src, dst)
         staged_figures.append(str(dst.relative_to(repo_root)))

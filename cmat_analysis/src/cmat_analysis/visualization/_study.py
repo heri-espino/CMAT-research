@@ -31,7 +31,7 @@ def plot_visit_distribution(mu: pd.DataFrame, calc: pd.DataFrame, out: Path, vis
     ax.set_ylabel("Proporción de estudiantes")
     ax.set_xticks(x)
     ax.legend()
-    _save(fig, out / "01_visit_distribution_mu_vs_calculus.png")
+    _save(fig, out / "01_visit_distribution_mu_vs_calculus.pdf")
 
 
 def plot_continuation(curves: pd.DataFrame, out: Path) -> None:
@@ -44,7 +44,7 @@ def plot_continuation(curves: pd.DataFrame, out: Path) -> None:
     ax.set_ylabel("P(V ≥ k+1 | V ≥ k)")
     ax.set_ylim(0, 1)
     ax.legend()
-    _save(fig, out / "02_continuation_probability.png")
+    _save(fig, out / "02_continuation_probability.pdf")
 
 
 def plot_primary_group_means(summary: pd.DataFrame, out: Path) -> None:
@@ -57,7 +57,7 @@ def plot_primary_group_means(summary: pd.DataFrame, out: Path) -> None:
     ax.set_xticks(x, d.index)
     ax.set_xlabel("Visitas al CMAT durante el primer intento de MU")
     ax.set_ylabel("Desempeño estandarizado (Z), media e IC95%")
-    _save(fig, out / "03_primary_outcome_by_visit_group.png")
+    _save(fig, out / "03_primary_outcome_by_visit_group.pdf")
 
 
 def plot_longitudinal_persistence(summary: pd.DataFrame, out: Path) -> None:
@@ -68,7 +68,7 @@ def plot_longitudinal_persistence(summary: pd.DataFrame, out: Path) -> None:
     ax.set_ylim(0, 1)
     ax.set_xlabel("Grupo de visitas en Matemáticas Universitarias")
     ax.set_ylabel("Proporción con ≥1 visita en Cálculo I")
-    _save(fig, out / "04_longitudinal_persistence_to_calculus.png")
+    _save(fig, out / "04_longitudinal_persistence_to_calculus.pdf")
 
 
 def plot_daily_cmat_timeline(daily: pd.DataFrame, out: Path) -> None:
@@ -86,7 +86,7 @@ def plot_daily_cmat_timeline(daily: pd.DataFrame, out: Path) -> None:
     ax.set_xlabel("Fecha")
     ax.set_ylabel("Estudiantes únicos")
     ax.legend()
-    _save(fig, out / "05_daily_cmat_timeline.png")
+    _save(fig, out / "05_daily_cmat_timeline.pdf")
 
 
 def plot_term_peak_profiles(profiles: pd.DataFrame, peaks: pd.DataFrame, out: Path) -> None:
@@ -115,7 +115,7 @@ def plot_term_peak_profiles(profiles: pd.DataFrame, peaks: pd.DataFrame, out: Pa
     fig.suptitle("Actividad diaria del CMAT por periodo: suma móvil de 7 días de estudiantes-día", y=1.01)
     fig.supxlabel("Fecha")
     fig.supylabel("Estudiantes-día en ventana de 7 días")
-    _save(fig, out / "06_term_temporal_peaks.png")
+    _save(fig, out / "06_term_temporal_peaks.pdf")
 
 
 def plot_same_day_ppa_behavior(maxdist: pd.DataFrame, out: Path) -> None:
@@ -131,7 +131,7 @@ def plot_same_day_ppa_behavior(maxdist: pd.DataFrame, out: Path) -> None:
     ax.set_xlabel("Máximo de visitas del estudiante en un mismo día")
     ax.set_ylabel("Proporción entre quienes alcanzaron PPA")
     ax.set_ylim(0, max(0.05, float(d["proportion"].max()) * 1.12))
-    _save(fig, out / "07_same_day_ppa_behavior.png")
+    _save(fig, out / "07_same_day_ppa_behavior.pdf")
 
 
 def plot_peak_spacing(intervals: pd.DataFrame, summary: pd.DataFrame, out: Path) -> None:
@@ -147,7 +147,7 @@ def plot_peak_spacing(intervals: pd.DataFrame, summary: pd.DataFrame, out: Path)
     ax.set_xlabel("Días entre picos detectados consecutivos")
     ax.set_ylabel("Número de intervalos")
     ax.legend()
-    _save(fig, out / "08_peak_spacing_days.png")
+    _save(fig, out / "08_peak_spacing_days.pdf")
 
 
 
@@ -165,7 +165,7 @@ def plot_monthly_periodicity_acf(acf: pd.DataFrame, out: Path) -> None:
     ax.set_xlabel("Rezago (días)")
     ax.set_ylabel("Autocorrelación diaria, ajustada por día de semana")
     ax.legend()
-    _save(fig, out / "09_monthly_periodicity_acf.png")
+    _save(fig, out / "09_monthly_periodicity_acf.pdf")
 
 
 def plot_exact3_regularity_performance(summary: pd.DataFrame, out: Path) -> None:
@@ -180,4 +180,4 @@ def plot_exact3_regularity_performance(summary: pd.DataFrame, out: Path) -> None
     ax.set_xticks(x, d["active_calendar_months"].astype(str))
     ax.set_xlabel("Meses calendario activos entre estudiantes con exactamente 3 visitas")
     ax.set_ylabel("Desempeño Z (solo calificaciones numéricas), media e IC95%")
-    _save(fig, out / "10_exact3_regularity_vs_performance.png")
+    _save(fig, out / "10_exact3_regularity_vs_performance.pdf")

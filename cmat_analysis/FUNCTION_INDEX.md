@@ -20,9 +20,9 @@
 
 ## Inventory
 
-- Python files scanned: **103**
-- Reusable symbols: **405**
-- Test symbols: **21**
+- Python files scanned: **105**
+- Reusable symbols: **406**
+- Test symbols: **22**
 
 ## Reusable symbols
 
@@ -370,6 +370,12 @@
 | `enrich_materias_with_visits` | function | 185 | `def enrich_materias_with_visits(materias_cleaned: pd.DataFrame, asesorias_raw: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting descriptive_pipeline py enrich_materias_with_visits` |
 | `build_analytical_bundle` | function | 233 | `def build_analytical_bundle(project_root: Path, materias_path: Path, asesorias_path: Path) -> AnalyticalBundle` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting descriptive_pipeline py build_analytical_bundle` |
 
+### `src/cmat_analysis/reporting/figures.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `save_figure_variants` | function | 10 | `def save_figure_variants(fig: plt.Figure, output_dir: Path, stem: str) -> list[Path]` | Save a Matplotlib figure as both PDF and PNG. | `src cmat_analysis reporting figures py save_figure_variants save a matplotlib figure as both pdf png` |
+
 ### `src/cmat_analysis/reporting/methodology_build.py`
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
@@ -706,6 +712,12 @@
 | `test_public_api_is_explicit_and_stable` | function | 98 | `def test_public_api_is_explicit_and_stable() -> None` | Ensure canonical namespaces expose exactly the reviewed API. | `tests test_public_api_documentation py test_public_api_is_explicit_and_stable ensure canonical namespaces expose exactly reviewed api` |
 | `test_public_api_has_numpy_style_docstrings` | function | 105 | `def test_public_api_has_numpy_style_docstrings() -> None` | Require public callables to carry minimally complete NumPy docstrings. | `tests test_public_api_documentation py test_public_api_has_numpy_style_docstrings require public callables to carry minimally complete numpy docstrings` |
 | `test_sphinx_api_page_excludes_compatibility_and_private_modules` | function | 137 | `def test_sphinx_api_page_excludes_compatibility_and_private_modules() -> None` | Keep the main Sphinx reference restricted to namespace-level public API. | `tests test_public_api_documentation py test_sphinx_api_page_excludes_compatibility_and_private_modules keep main sphinx reference restricted to namespace-level public api` |
+
+### `tests/test_reporting_figures.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `test_save_figure_variants_writes_pdf_and_png` | function | 10 | `def test_save_figure_variants_writes_pdf_and_png(tmp_path) -> None` | Write both variants in a deterministic order and close the figure. | `tests test_reporting_figures py test_save_figure_variants_writes_pdf_and_png write both variants in a deterministic order close figure` |
 
 ### `tests/test_study_helpers.py`
 
