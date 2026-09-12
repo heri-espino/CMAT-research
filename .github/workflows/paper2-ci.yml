@@ -55,10 +55,5 @@ jobs:
             exit 1
           fi
 
-      - name: Install LaTeX toolchain
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y latexmk texlive-latex-base texlive-latex-recommended texlive-fonts-recommended lmodern
-
-      - name: Compile Paper 2 manuscript
-        run: python paper/build.py
+      # Manuscript compilation and artifact upload are centralized in
+      # .github/workflows/paper-build.yml, shared from main.
