@@ -35,7 +35,7 @@ def plot_ppa_persistence_by_mu_group(summary: pd.DataFrame, figures: Path) -> No
     for i, r in d.iterrows():
         ax.annotate(f"n={int(r['n'])}", (i, r["p_calc_any_visit"]), xytext=(0, 9),
                     textcoords="offset points", ha="center", fontsize=8)
-    _save(fig, figures / "15_ppa_persistence_by_mu_group.png")
+    _save(fig, figures / "15_ppa_persistence_by_mu_group.pdf")
 
 
 def plot_ppa_academic_trajectory_profiles(profiles: pd.DataFrame, figures: Path) -> None:
@@ -53,4 +53,4 @@ def plot_ppa_academic_trajectory_profiles(profiles: pd.DataFrame, figures: Path)
     ax.set_xlabel(r"Cambio medio en posición relativa: $Z_{Calc}-Z_{MU}$")
     ax.set_ylabel("Perfil observable")
     ax.set_title("Trayectoria académica relativa por patrón de uso")
-    _save(fig, figures / "16_ppa_academic_trajectory_profiles.png")
+    _save(fig, figures / "16_ppa_academic_trajectory_profiles.pdf")
