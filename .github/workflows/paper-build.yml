@@ -1,0 +1,118 @@
+name: Paper build and export
+
+on:
+  push:
+    branches:
+      - 'paper/**'
+    paths:
+      - 'paper/**'
+      - 'code/**'
+      - 'literature_selected/**'
+      - 'results/**'
+      - 'cmat_analysis/**'
+      - 'PAPER_BRANCH.md'
+      - '.github/workflows/paper-build.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: paper-build-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out branch with Git LFS assets
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Prepare artifact metadata
+        id: meta
+        shell: bash
+        run: |
+          branch="${GITHUB_REF_NAME//\//-}"
+          echo "branch=$branch" >> "$GITHUB_OUTPUT"
+          echo "sha=${GITHUB_SHA::8}" >> "$GITHUB_OUTPUT"
+
+      - name: Detect buildable manuscript
+        id: manuscript
+        shell: bash
+        run: |
+          if [[ -f paper/build.py && -f paper/main.tex ]]; then
+            echo "buildable=true" >> "$GITHUB_OUTPUT"
+            echo "Buildable manuscript detected."
+          else
+            echo "buildable=false" >> "$GITHUB_OUTPUT"
+            echo "No paper/build.py + paper/main.tex pair yet; source export will still run."
+          fi
+
+      - name: Set up Python 3.14
+        if: steps.manuscript.outputs.buildable == 'true'
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+          cache: pip
+          cache-dependency-path: cmat_analysis/pyproject.toml
+
+      - name: Install shared CMAT library
+        if: steps.manuscript.outputs.buildable == 'true'
+        run: python -m pip install -e './cmat_analysis[dev]'
+
+      - name: Install LaTeX toolchain
+        if: steps.manuscript.outputs.buildable == 'true'
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            latexmk \
+            texlive-latex-base \
+            texlive-latex-recommended \
+            texlive-latex-extra \
+            texlive-fonts-recommended \
+            texlive-bibtex-extra \
+            texlive-science \
+            lmodern
+
+      - name: Compile manuscript
+        if: steps.manuscript.outputs.buildable == 'true'
+        run: python paper/build.py
+
+      - name: Upload compiled PDF, logs, and vector figures
+        if: always() && steps.manuscript.outputs.buildable == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper-${{ steps.meta.outputs.branch }}-${{ steps.meta.outputs.sha }}
+          path: |
+            paper/main.pdf
+            paper/main.log
+            paper/main.blg
+            paper/main.bbl
+            results/figures/*.pdf
+          if-no-files-found: warn
+          retention-days: 30
+
+      - name: Upload paper source
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper-source-${{ steps.meta.outputs.branch }}-${{ steps.meta.outputs.sha }}
+          path: |
+            paper/**
+            code/**
+            PAPER_BRANCH.md
+            !paper/main.pdf
+            !paper/*.aux
+            !paper/*.bbl
+            !paper/*.blg
+            !paper/*.fdb_latexmk
+            !paper/*.fls
+            !paper/*.log
+            !paper/*.out
+            !paper/*.toc
+            !paper/*.synctex.gz
+          if-no-files-found: warn
+          retention-days: 30
