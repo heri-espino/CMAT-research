@@ -1,0 +1,23 @@
+{
+  "@context": "https://doi.org/10.5063/schema/codemeta-2.0",
+  "@type": "SoftwareSourceCode",
+  "name": "CMAT Research",
+  "description": "Reproducible research compendium for CMAT, including the cmat_analysis scientific library, research-development materials, literature infrastructure, and publication-specific branches.",
+  "codeRepository": "https://github.com/heri-espino/CMAT-research",
+  "programmingLanguage": "Python",
+  "runtimePlatform": "Python 3.14",
+  "author": [
+    {
+      "@type": "Person",
+      "givenName": "Heriberto",
+      "familyName": "Espino Montelongo"
+    }
+  ],
+  "keywords": [
+    "mathematics support",
+    "higher education",
+    "academic help-seeking",
+    "reproducible research"
+  ],
+  "developmentStatus": "active"
+}

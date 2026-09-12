@@ -1,0 +1,47 @@
+name: Research or methodology change
+description: Propose a shared scientific change that may affect cohorts, measures, models, or interpretation.
+title: "[research] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for proposed changes to shared scientific logic. Publication-specific writing belongs on the relevant paper branch. Never paste controlled microdata or direct identifiers.
+  - type: textarea
+    id: question
+    attributes:
+      label: Scientific question or problem
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: Current behavior or convention
+      description: Identify the relevant cohort, measure, model, assumption, or API.
+    validations:
+      required: true
+  - type: textarea
+    id: proposed
+    attributes:
+      label: Proposed change
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence and validation plan
+      description: State what evidence, retained outputs, tests, or sensitivity analyses would support the change.
+    validations:
+      required: true
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Intended scope
+      options:
+        - main / cmat_analysis
+        - shared brainstorm
+        - paper-specific branch
+        - historical brainstorm branch
+        - documentation or infrastructure only
+    validations:
+      required: true

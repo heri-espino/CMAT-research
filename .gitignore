@@ -61,11 +61,10 @@ results/logs/
 !brainstorm/**/tables/*.csv
 !results/**/*.csv
 
-# Heavy private literature snapshot
-# The repository is private and the user explicitly requested preservation of
-# local literature PDFs and Docling PNG assets. These files may be committed
-# under the canonical literature library. Do not redistribute them publicly
-# without checking the applicable rights/licences.
+# Heavy literature snapshot
+# Local literature PDFs and Docling assets may be preserved in the canonical
+# literature library when appropriate, but repository visibility does not grant
+# redistribution rights. Check applicable licences before public reuse.
 
 # Local raw-data directories
 data/raw/
