@@ -1,0 +1,119 @@
+name: Repository metadata CI
+
+on:
+  push:
+    branches:
+      - main
+      - 'paper/**'
+      - 'brainstorm/**'
+    paths:
+      - 'pyproject.toml'
+      - 'environment.yml'
+      - 'CITATION.cff'
+      - 'CITATION.bib'
+      - 'codemeta.json'
+      - '.editorconfig'
+      - '.pre-commit-config.yaml'
+      - 'CONTRIBUTING.md'
+      - 'CODE_OF_CONDUCT.md'
+      - 'SECURITY.md'
+      - 'CHANGELOG.md'
+      - '.github/CODEOWNERS'
+      - '.github/ISSUE_TEMPLATE/**'
+      - '.github/workflows/repository-metadata-ci.yml'
+      - 'REPRODUCING.md'
+      - 'README.md'
+  pull_request:
+    paths:
+      - 'pyproject.toml'
+      - 'environment.yml'
+      - 'CITATION.cff'
+      - 'CITATION.bib'
+      - 'codemeta.json'
+      - '.editorconfig'
+      - '.pre-commit-config.yaml'
+      - 'CONTRIBUTING.md'
+      - 'CODE_OF_CONDUCT.md'
+      - 'SECURITY.md'
+      - 'CHANGELOG.md'
+      - '.github/CODEOWNERS'
+      - '.github/ISSUE_TEMPLATE/**'
+      - '.github/workflows/repository-metadata-ci.yml'
+      - 'REPRODUCING.md'
+      - 'README.md'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.14
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+
+      - name: Install metadata validators
+        run: python -m pip install 'PyYAML==6.0.3' 'pre-commit==4.3.0'
+
+      - name: Validate TOML, JSON, YAML, and citation keys
+        shell: bash
+        run: |
+          python - <<'PY'
+          import json
+          import tomllib
+          from pathlib import Path
+          import yaml
+
+          for path in (Path('pyproject.toml'), Path('cmat_analysis/pyproject.toml')):
+              with path.open('rb') as handle:
+                  tomllib.load(handle)
+
+          with Path('codemeta.json').open(encoding='utf-8') as handle:
+              codemeta = json.load(handle)
+          assert codemeta.get('@type') == 'SoftwareSourceCode'
+          assert codemeta.get('codeRepository') == 'https://github.com/heri-espino/CMAT-research'
+
+          for path in (
+              Path('environment.yml'),
+              Path('CITATION.cff'),
+              Path('.pre-commit-config.yaml'),
+              Path('.github/ISSUE_TEMPLATE/bug_report.yml'),
+              Path('.github/ISSUE_TEMPLATE/research_change.yml'),
+              Path('.github/ISSUE_TEMPLATE/config.yml'),
+          ):
+              with path.open(encoding='utf-8') as handle:
+                  yaml.safe_load(handle)
+
+          with Path('CITATION.cff').open(encoding='utf-8') as handle:
+              citation = yaml.safe_load(handle)
+          for key in ('cff-version', 'message', 'title', 'type', 'authors', 'repository-code'):
+              assert key in citation, f'missing CITATION.cff key: {key}'
+          assert citation['cff-version'] == '1.2.0'
+          PY
+
+      - name: Run repository metadata pre-commit checks
+        run: |
+          pre-commit run --files \
+            pyproject.toml \
+            environment.yml \
+            CITATION.cff \
+            CITATION.bib \
+            codemeta.json \
+            .editorconfig \
+            .pre-commit-config.yaml \
+            CONTRIBUTING.md \
+            CODE_OF_CONDUCT.md \
+            SECURITY.md \
+            CHANGELOG.md \
+            .github/CODEOWNERS \
+            .github/ISSUE_TEMPLATE/bug_report.yml \
+            .github/ISSUE_TEMPLATE/research_change.yml \
+            .github/ISSUE_TEMPLATE/config.yml
+
+      - name: Check whitespace errors
+        run: git diff --check
