@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Sensitive-data or security report
+    url: https://github.com/heri-espino/CMAT-research/security
+    about: Do not post credentials, vulnerabilities, or controlled research data in a public issue.
