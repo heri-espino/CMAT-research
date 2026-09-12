@@ -1,0 +1,10 @@
+# Default repository owner
+* @heri-espino
+
+# Shared scientific library and governance
+/cmat_analysis/ @heri-espino
+/docs/ @heri-espino
+/.github/ @heri-espino
+/CITATION.cff @heri-espino
+/environment.yml @heri-espino
+/pyproject.toml @heri-espino
