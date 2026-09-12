@@ -1,0 +1,14 @@
+# Repository-level tooling configuration only.
+# Installable package metadata remains canonical in cmat_analysis/pyproject.toml.
+
+[tool.cmat-research]
+python = "3.14"
+package-path = "cmat_analysis"
+environment-file = "environment.yml"
+citation-file = "CITATION.cff"
+reproducibility-guide = "REPRODUCING.md"
+
+[tool.pytest.ini_options]
+testpaths = ["cmat_analysis/tests"]
+pythonpath = ["cmat_analysis/src"]
+addopts = "-ra"
