@@ -11,7 +11,22 @@ CMAT-research/
 └── docs/            # programme-wide documentation and provenance
 ```
 
-Install the shared library with `python -m pip install -e ./cmat_analysis`. Reusable scientific logic belongs in `cmat_analysis/src/cmat_analysis/`; brainstorm and paper runners import it.
+## Environment
+
+The canonical Python package metadata and scientific dependency pins live in `cmat_analysis/pyproject.toml`. For pip, install the shared library with:
+
+```bash
+python -m pip install -e './cmat_analysis[dev,docs]'
+```
+
+For Conda, create the repository environment with:
+
+```bash
+conda env create -f environment.yml
+conda activate cmat-research
+```
+
+Reusable scientific logic belongs in `cmat_analysis/src/cmat_analysis/`; brainstorm and paper runners import it. See `REPRODUCING.md` and `docs/REPOSITORY_METADATA.md` for the reproducibility and metadata conventions.
 
 ## Publication branches
 
@@ -32,5 +47,11 @@ Historical brainstorm branches inherit shared upstream from `main` but keep larg
 Repository-wide integration is governed through a designated repo-admin / integrator / upstream-maintainer workflow, while branch-specific chats act as research, reconstruction or writing agents for their assigned branch. Because chats cannot communicate directly with one another, durable decisions and cross-branch instructions must be recorded in the repository. See `docs/REPO_GOVERNANCE.md` and `AI_HANDOFF.md` before making structural or upstream changes.
 
 Do not merge an entire `paper/*` or long-lived historical `brainstorm/*` branch into `main`; these branches are intentionally ahead of the shared upstream. Reusable improvements discovered while working on a branch should be integrated into `main` first and then propagated back to the relevant branches.
+
+## Citation and repository metadata
+
+GitHub citation metadata lives in `CITATION.cff`; a BibTeX convenience record is available in `CITATION.bib`, while `codemeta.json` provides machine-readable software metadata. These files describe the research compendium rather than determining authorship of individual manuscripts.
+
+The repository-wide rights boundary is described in `LICENSE`, contribution expectations in `CONTRIBUTING.md`, and sensitive-data/security reporting in `SECURITY.md`.
 
 Heavy research binaries remain in Git LFS. Install once with `git lfs install`; use `git lfs pull` when assets are still pointers.
