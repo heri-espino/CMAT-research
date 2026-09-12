@@ -1,0 +1,40 @@
+name: Bug report
+description: Report a reproducible problem in shared code, documentation, or infrastructure.
+title: "[bug] "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include student-level data, direct identifiers, credentials, secrets, or controlled institutional records.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Problem
+      description: Describe what happened and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: Provide a minimal reproducible example using non-sensitive data.
+    validations:
+      required: true
+  - type: input
+    id: branch
+    attributes:
+      label: Branch or commit
+      placeholder: main or commit SHA
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      placeholder: Python 3.14, OS, pip/Conda
+  - type: textarea
+    id: validation
+    attributes:
+      label: Additional context
+      description: Include logs or tracebacks only after removing sensitive information.
