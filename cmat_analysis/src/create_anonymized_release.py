@@ -17,7 +17,7 @@ REPO_ROOT = SRC_ROOT.parents[1]
 if str(SRC_ROOT) not in sys.path:
     sys.path.insert(0, str(SRC_ROOT))
 
-from cmat_analysis.privacy import hmac_pseudonym
+from cmat_analysis.privacy import canonical_identifier, hmac_pseudonym
 
 
 MATERIAS_FILENAME = "Materias estudiantes-profesores 2019-2025 P y O.xlsx"
@@ -145,10 +145,10 @@ def _make_pseudonymized_data(
     asesorias.to_csv(asesorias_out, index=False)
 
     raw_students_m = {
-        str(value).strip() for value in materias_raw["CLAVEALUMNO"].dropna()
+        canonical_identifier(value) for value in materias_raw["CLAVEALUMNO"].dropna()
     }
     raw_students_a = {
-        str(value).strip() for value in asesorias_raw["id"].dropna()
+        canonical_identifier(value) for value in asesorias_raw["id"].dropna()
     }
     pseudo_students_m = set(materias["CLAVEALUMNO"].dropna())
     pseudo_students_a = set(asesorias["id"].dropna())
