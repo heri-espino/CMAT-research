@@ -20,9 +20,9 @@
 
 ## Inventory
 
-- Python files scanned: **112**
+- Python files scanned: **113**
 - Reusable symbols: **434**
-- Test symbols: **36**
+- Test symbols: **42**
 
 ## Reusable symbols
 
@@ -768,6 +768,17 @@
 | Symbol | Kind | Line | Signature | Summary | Tags |
 |---|---|---:|---|---|---|
 | `test_ppa_mu_baseline_does_not_require_later_calculus_progression` | function | 11 | `def test_ppa_mu_baseline_does_not_require_later_calculus_progression() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_baseline py test_ppa_mu_baseline_does_not_require_later_calculus_progression` |
+
+### `tests/test_ppa_context.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `_academic_rows` | function | 18 | `def _academic_rows() -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `tests test_ppa_context py academic_rows` |
+| `test_build_mu_classroom_context_counts_all_real_attempts` | function | 39 | `def test_build_mu_classroom_context_counts_all_real_attempts() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_context py test_build_mu_classroom_context_counts_all_real_attempts` |
+| `test_leave_period_out_academic_context_excludes_current_period` | function | 57 | `def test_leave_period_out_academic_context_excludes_current_period() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_context py test_leave_period_out_academic_context_excludes_current_period` |
+| `_major_data` | function | 81 | `def _major_data(seed: int=17, n: int=800) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `tests test_ppa_context py major_data` |
+| `test_major_summary_and_increment_detect_programme_heterogeneity` | function | 110 | `def test_major_summary_and_increment_detect_programme_heterogeneity() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_context py test_major_summary_and_increment_detect_programme_heterogeneity` |
+| `test_academic_context_models_return_standardized_coefficients` | function | 122 | `def test_academic_context_models_return_standardized_coefficients() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_context py test_academic_context_models_return_standardized_coefficients` |
 
 ### `tests/test_ppa_encouragement.py`
 
