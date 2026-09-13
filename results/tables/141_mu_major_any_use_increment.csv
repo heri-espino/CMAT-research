@@ -1,0 +1,2 @@
+outcome,n,majors,professors,periods,r2_base_period_professor,r2_plus_major,delta_r2_major,partial_r2_major,joint_f_major,joint_df_num,joint_df_den,joint_p_major,note
+MU_ANY_VISIT,4906,28,53,11,0.10855042394917558,0.12163950631356146,0.013089082364385884,0.01468291950103482,2.6580253619389738,27,4816.0,7.015267391537484e-06,descriptive association; degree programme is not randomized
