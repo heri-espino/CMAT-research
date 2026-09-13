@@ -1,0 +1,370 @@
+course_code,catalog_name,course_code_ambiguous
+CON1012,Contabilidad,False
+CON1013,Contabilidad,False
+DIG0013,Cultura Digital,False
+ESP0012,Argumentación Académica,False
+ESP0013,Argumentación Académica,False
+ESP0022,Escritura Académica,False
+ESP0023,Escritura Académica,False
+FIS1012,Física General,True
+FIS1012,Física General I,True
+FIS1022,Laboratorio de Física General,False
+FIS2012,Física General II,False
+INF0012,Tecnologías de la Información en la Construcción del Conocimiento,False
+LAT1013,Herramientas y Programación Actuarial,False
+LAT2012,Modelos Estocásticos I,False
+LAT2013,Teoría de Matrices,False
+LAT2022,Teoría de Matrices,False
+LAT2023,Modelos Estocásticos I,False
+LAT2032,Teoría del Interés I,False
+LAT2042,Herramientas de Programación Actuarial,False
+LAT2052,Teoría del Seguro,False
+LAT2053,Modelos Estocásticos II,False
+LAT2062,Modelos Estocásticos II,False
+LAT2072,Teoría del Interés II,False
+LAT3012,Métodos de Inferencia I,False
+LAT3013,Métodos de Inferencia I,False
+LAT3022,Modelos Estocásticos III,False
+LAT3023,Modelos Estocásticos III,False
+LAT3032,Matemáticas Actuariales del Seguro de Vida,False
+LAT3033,Matemáticas Actuariales del Seguro de Daños,False
+LAT3043,Prácticas en la Profesión 1,False
+LAT3052,Portafolios de Inversión,False
+LAT3053,Programación Matemática,False
+LAT3062,Métodos de Inferencia II,False
+LAT3063,Métodos de Inferencia II,False
+LAT3072,Demografía,False
+LAT3082,Análisis Matemático III,False
+LAT4012,Productos Derivados,False
+LAT4022,Teoría del Riesgo,False
+LAT4032,Temas Selectos 1 (Actuaría),False
+LAT4052,Optimización Avanzada,False
+LAT4053,Optimización Avanzada,False
+LAT4062,Administración Actuarial de Riesgos,False
+LAT4072,Seguridad Social y Pensiones,False
+LAT4082,Temas Selectos 2 (Actuaría),False
+LAT4092,Temas Selectos 3 (Actuaría),False
+LBC2012,Microbiología,False
+LBC2013,Microbiología,False
+LBC2023,Laboratorio de Microbiología,False
+LBI2063,Zoología de Vertebrados,False
+LBI2073,Laboratorio de Zoología de Vertebrados,False
+LBI2083,Biología Celular,False
+LBI3013,Biología Molecular,False
+LBI3023,Recursos Bióticos de México,False
+LBI3033,Laboratorio de Biología Celular y Molecular,False
+LBI3043,Botánica,False
+LBI3053,Laboratorio de Botánica,False
+LBI3063,Bioanálisis y Modelación,False
+LBI3073,Prácticas en la Profesión 1,False
+LBI3083,Genética Evolutiva y Poblacional,False
+LBI3093,Biología Evolutiva,False
+LBI3103,Laboratorio de Genética y Biología Evolutiva,False
+LBI3113,Fisiología Animal,False
+LBI3123,Laboratorio de Fisiología Animal,False
+LBI3133,Métodos en Ecología,False
+LBI3143,Temas Selectos,False
+LBI4013,Diseño y Método de Investigación Biológica,False
+LBI4023,Biotecnología,False
+LBI4033,Ciencias de Plantas,False
+LBI4043,Laboratorio de Ciencias de Plantas,False
+LBI4053,Ecología de Comunidades y Ecosistemas,False
+LBI4063,Perspectivas Disciplinares,False
+LBI4073,Prácticas en la Profesión 2,False
+LBI4083,Procesos de Investigación Biológica y Análisis,False
+LBI4093,Biología de la Conservación,False
+LBI4103,Bioinformática,False
+LBI4113,Biología del Desarrollo,False
+LBI4123,Laboratorio de Biología del Desarrollo,False
+LBI4133,Tópicos de Vanguardia,False
+LCN1012,Dietética,False
+LCN2012,Evaluación del Estado de Nutrición,False
+LCN2022,Elaboración de Planes de Alimentación,False
+LCN2032,Nutrición en el Ciclo de la Vida,False
+LDS1011,Análisis Discreto,False
+LDS1021,Minería de Datos,False
+LDS1041,Análisis Topológico de Datos,False
+LDS1051,Reconocimiento de Patrones,False
+LDS1061,Temas Selectos 1 (Ciencia de Datos),False
+LDS1071,Aprendizaje de Máquina,False
+LDS1081,Redes Neuronales,False
+LDS1101,Programación Concurrente,False
+LDS1111,Temas Selectos 2 (Ciencia de Datos),False
+LDS1121,Temas Selectos 3 (Ciencia de Datos),False
+LDS1131,Visualización de Datos,False
+LDS2013,Representación de Datos,False
+LDS2023,Análisis Discreto I,False
+LDS2033,Análisis Discreto II,False
+LDS3013,Prácticas en la Profesión 1,False
+LDS3023,Reconocimiento de Patrones,False
+LDS3033,Temas Selectos,False
+LDS3043,Inteligencia Computacional,False
+LDS4013,Minería de Datos,False
+LDS4023,Análisis Topológico de Datos,False
+LDS4033,Programación Concurrente,False
+LDS4043,Perspectivas Disciplinares,False
+LDS4053,Prácticas en la Profesión 2,False
+LDS4063,Visualización de Datos,False
+LDS4073,Seguridad de Datos,False
+LDS4083,Tópicos de Vanguardia,False
+LDS4093,Aprendizaje Estadístico,False
+LEC3043,Econometría,False
+LEC3092,Econometría I,False
+LEC3103,Econometría de Series de Tiempo,False
+LEC4032,Econometría II,False
+LEF1013,Fundamentos de Enfermería,False
+LEF1023,Anatomía y Fisiología Humana,False
+LEF1033,Prácticas de Principios Básicos de Enfermería,False
+LEF1043,Bioquímica Humana,False
+LEF1053,Microbiología y Parasitología,False
+LEF1063,Farmacología,False
+LEF1073,Enfermería Médico-Quirúrgica I,False
+LEF1083,Enfermería Médico-Quirúrgica II,False
+LEF1093,Enfermería Materno-Infantil,False
+LEF1103,Enfermería Pediátrica,False
+LEF1113,Enfermería en Salud Mental,False
+LEF1123,Enfermería Comunitaria,False
+LEF1133,Administración en Enfermería,False
+LEF1143,Investigación en Enfermería,False
+LEF1153,Ética y Legislación en Enfermería,False
+LEF1163,Prácticas Clínicas I,False
+LEF1173,Prácticas Clínicas II,False
+LEF1183,Prácticas Clínicas III,False
+LEF1193,Prácticas Clínicas IV,False
+LEF1203,Seminario de Titulación,False
+LEX0112,Lengua Extranjera I,False
+LEX0113,Lengua Extranjera I,False
+LEX0122,Lengua Extranjera II,False
+LEX0123,Lengua Extranjera II,False
+LEX0132,Lengua Extranjera III,False
+LEX0133,Lengua Extranjera III,False
+LFA1013,Física General I,False
+LFA1023,Laboratorio de Física General I,False
+LFA1033,Calor y Ondas,False
+LFA1043,Laboratorio de Calor y Ondas,False
+LFA2012,"Calor, Ondas y Fuidos",False
+LFA2013,Física General II,False
+LFA2023,Laboratorio de Física General II,False
+LFA2033,Óptica,False
+LFA2043,Laboratorio de Óptica,False
+LFA3013,Ecuaciones Diferenciales Parciales,False
+LFA3023,Métodos Matemáticos de la Física 2,False
+LFA3033,Mecánica Clásica,False
+LFA3043,Física Moderna,False
+LFA3052,Métodos Matemáticos de la Física I,False
+LFA3053,Física Moderna Experimental,False
+LFA3063,Prácticas en la Profesión 1,False
+LFA3073,Métodos Matemáticos de la Física 3,False
+LFA3082,Análisis Numérico,False
+LFA3083,Programación Científica,False
+LFA3093,Teoría Electromagnética I,False
+LFA3103,Mecánica Cuántica I,False
+LFA3113,"Física Atómica, Molecular y Nuclear",False
+LFA3123,Análisis Numérico,False
+LFA4013,Mecánica Estadística,False
+LFA4023,Teoría Electromagnética II,False
+LFA4033,Mecánica Cuántica II,False
+LFA4043,Física Computacional,False
+LFA4052,Temas Selectos 1 (Fïsica),False
+LFA4053,Prácticas en la Profesión 2,False
+LFA4063,Física del Estado Sólido,False
+LFA4073,Física de Partículas,False
+LFA4083,Laboratorio de Investigación,False
+LFA4092,Temas Selectos 2 (Fïsica),False
+LFA4093,Temas Selectos,False
+LFA4102,Temas Selectos 3 (Fïsica),False
+LFA4103,Perspectivas Disciplinares,False
+LFA4113,Tópicos de Vanguardia,False
+LFB2012,Farmacología,False
+LFB2013,Microbiología,False
+LFB2023,Laboratorio de Microbiología,False
+LFB2033,Biología Celular,False
+LFB2043,Laboratorio de Biología Celular,False
+LFB2053,Química Analítica,False
+LFB2063,Laboratorio de Química Analítica,False
+LFB2073,Farmacología,False
+LFB2083,Laboratorio de Farmacología y Farmacognosia,False
+LFB2093,Biología Molecular,False
+LFB2103,Laboratorio de Biología Molecular,False
+LFB2113,Anatomía y Fisiología,False
+LFB2123,Laboratorio de Anatomía y Fisiología,False
+LFB2133,Fisiopatología,False
+LFB2143,Genética,False
+LFB2153,Farmacología Clínica,False
+LFB2163,Fisicoquímica,False
+LFB2173,Laboratorio de Fisicoquímica,False
+LFB2183,Prácticas en la Profesión 1,False
+LFB2193,Prácticas en la Profesión 2,False
+LFB2203,Perspectivas Disciplinares,False
+LFB2213,Tópicos de Vanguardia,False
+LIC1012,Laboratorio de Dibujo Aplicado a la Ingeniería Civil,False
+LIC1022,Dibujo Técnico Computarizado,False
+LIC1032,Topografía,False
+LIC2012,Equilibrio de Cuerpos Rígidos,False
+LIC2022,Geología y Suelos en la Construcción,False
+LIC2032,Hidráulica General,False
+LIC2042,Control de Calidad en la Construcción,False
+LIC2052,Laboratorio de Hidráulica General,False
+LIC2062,Comportamiento Mecánico de Materiales,False
+LIC2072,Diseño Geométrico de Carreteras,False
+LIC2082,Ecuaciones Diferenciales Ordinarias,False
+LIC3012,Instalaciones Básicas,False
+LIC3022,Introducción a la Ingeniería Estructural,False
+LIC3032,Procedimientos de Construcción,False
+LIC3042,Análisis Estructural I,False
+LIC3052,Laboratorio de Materiales,False
+LIC3062,Hidrología y Modelos Geográficos,False
+LIC3072,Planeación y Control de Obra,False
+LIC3082,Diseño de Elementos de Concreto Reforzado,False
+LIC3092,Laboratorio de Estructuras,False
+LIC3102,Diseño de Elementos de Acero,False
+LIC3112,Dinámica Estructural para Análisis Sísmico,False
+LIC3122,Diseño y Conservación de Pavimentos,False
+LIC3132,Laboratorio de Pavimentos,False
+LIC3142,Diseño de Elementos de Mampostería,False
+LIC3152,Diseño de Sistemas de Agua y Saneamiento,False
+LIC3162,Laboratorio de Calidad del Agua,False
+LIC3172,Diseño Geotécnico,False
+LIC3182,Prácticas en la Profesión 1,False
+LIC4012,Diseño Estructural en Concreto Reforzado,False
+LIC4022,Diseño Estructural en Acero,False
+LIC4032,Diseño Geotécnico Avanzado,False
+LIC4042,Modelado de Sistemas de Agua y Saneamiento,False
+LIC4052,Prácticas en la Profesión 2,False
+LIC4062,Temas Selectos,False
+LIC4072,Perspectivas Disciplinares,False
+LIC4082,Tópicos de Vanguardia,False
+LII1012,Dibujo Técnico Computarizado,False
+LII1022,Estadística Aplicada,False
+LII1032,Investigación de Operaciones I,False
+LII1042,Procesos de Manufactura,False
+LII1052,Ingeniería de Métodos,False
+LII1062,Ergonomía y Seguridad Industrial,False
+LII2012,Investigación de Operaciones II,False
+LII2022,Control de Calidad,False
+LII2032,Ingeniería Económica,False
+LII2042,Planeación y Control de la Producción,True
+LII2042,Teorías y Técnicas de Optimización,True
+LII2052,Logística y Cadenas de Suministro,False
+LII2062,Sistemas de Información para la Toma de Decisiones,False
+LII2072,Simulación de Sistemas,False
+LII2082,Gestión de Proyectos,False
+LII3012,Ingeniería de Sistemas,False
+LII3022,Análisis y Diseño de Sistemas de Producción,False
+LII3032,Gestión de la Calidad Total,False
+LII3042,Administración de Recursos Humanos,False
+LII3052,Administración de la Tecnología,False
+LII3062,Sistemas de Manufactura Avanzada,False
+LII3072,Evaluación de Proyectos,False
+LII3082,Prácticas en la Profesión 1,False
+LII4012,Temas Selectos,False
+LII4022,Perspectivas Disciplinares,False
+LII4032,Tópicos de Vanguardia,False
+LII4042,Prácticas en la Profesión 2,False
+LIS1012,Algoritmos y Programación,False
+LIS1013,Algoritmos y Programación,False
+LIS1022,Programación Orientada a Objetos,False
+LIS2012,Matemáticas Discretas,False
+LIS2032,Esctructuras de Datos,False
+LIS2033,Bases de Datos,False
+LIS2043,Matemáticas Discretas,False
+LIS2082,Bases de Datos,False
+LIS3082,Inteligencia Artificial,False
+LIS4093,Cómputo en la Nube y Datos Masivos,False
+LIS4102,Cómputo en la Nuve y Datos Masivos,False
+LMR1012,Histología,False
+LMR1022,Bioquímica Clínica,False
+LMR1032,Anatomofisiología,False
+LMR1042,Embriología y Genética,False
+LMR1052,Fisiología,False
+LMR1062,Biología Celular y Molecular,False
+LMR1072,Anatomía Dental,False
+LMR1082,Microbiología y Parasitología,False
+LMR1092,Farmacología,False
+LMR1102,Patología General,False
+LMR1112,Radiología Dental,False
+LMR1122,Odontología Preventiva,False
+LMR1132,Operatoria Dental,False
+LMR1142,Prótesis Parcial Removible,False
+LMR1152,Endodoncia,False
+LMR1162,Periodoncia,False
+LMR1172,Cirugía Bucal,False
+LMR1182,Ortodoncia,False
+LMR1192,Odontopediatría,False
+LMR1202,Prótesis Total,False
+LMR1212,Clínica Integral I,False
+LMR1222,Clínica Integral II,False
+LMR1232,Clínica Integral III,False
+LMR1242,Clínica Integral IV,False
+LMR1252,Seminario de Investigación,False
+LMR1262,Ética Profesional,False
+LMR2062,Inmunología Clínica,False
+LNM2013,Introducción a la Nanotecnología,False
+LNM2023,Química Inorgánica I,False
+LNM2033,Laboratorio de Química Inorgánica I,False
+LNM2043,Termodinámica Química,False
+LNM2053,Laboratorio de Termodinámica Química,False
+LNM2063,Fisicoquímica,False
+LNM2073,Laboratorio de Fisicoquímica,False
+LNM3013,Química de Materiales,False
+LNM3023,Laboratorio de Química de Materiales,False
+LNM3033,Química Inorgánica II,False
+LNM3043,Laboratorio de Química Inorgánica II,False
+LNM3053,Prácticas en la Profesión 1,False
+LNM3063,Química Inorgánica II,False
+LNM3073,Laboratorio de Química Inorgánica II,False
+LNM3083,Nanomateriales Funcionales,False
+LNM3093,Laboratorio de Nanomateriales Funcionales,False
+LNM4013,Fisicoquímica de Superficies,False
+LNM4023,Laboratorio de Fisicoquímica de Superficies,False
+LNM4033,Nanotecnología e Industria,False
+LNM4043,Temas Selectos,False
+LNM4053,Prácticas en la Profesión 2,False
+LNM4063,Nanotecnología y Sociedad,False
+LNM4073,Nanotecnología e Ingeniería Molecular Aplicada,False
+LNM4083,Ingeniería Molecular y Simulación,False
+LNM4093,Perspectivas Disciplinares,False
+LNM4103,Tópicos de Vanguardia,False
+LNM4113,Nanobiotecnología,False
+LNM4123,Laboratorio de Nanobiotecnología,False
+MAT1012,Matemáticas Universitarias,False
+MAT1013,Matemáticas Universitarias,False
+MAT1022,Cálculo I,False
+MAT1023,Cálculo I,False
+MAT1032,Álgebra Lineal,False
+MAT1042,Geometría Analítica,False
+MAT1043,Álgebra Superior,False
+MAT1053,Geometría Analítica,False
+MAT1062,Álgebra Superior,False
+MAT2012,Cálculo II,False
+MAT2013,Cálculo II,False
+MAT2023,Análisis Matemático I,False
+MAT2033,Ecuaciones Diferenciales Ordinarias,False
+MAT2042,Análisis Matemático I,False
+MAT2043,Análisis Matemático II,False
+MAT2052,Ecuaciones Diferenciales Ordinarias,False
+MAT2062,Estadística Inferencial,False
+MAT2082,Probabilidad y Estadística,False
+MAT3012,Análisis Matemático II,False
+MAT3013,Análisis Matemático II,False
+MAT3022,Ecuaciones Diferenciales Parciales,False
+MAT3033,Bioestadística,False
+QUI1012,Química General,False
+QUI1013,Química General,False
+QUI1022,Laboratorio de Química General,False
+QUI1023,Laboratorio de Química General,False
+QUI1032,Química Orgánica I,False
+QUI1042,Laboratorio de Química Orgánica I,False
+QUI2012,Bioquímica I,True
+QUI2012,Química Orgánica II,True
+QUI2022,Laboratorio de Química Orgánica II,False
+QUI2033,Química Orgánica I,False
+QUI2043,Laboratorio de Química Orgánica I,False
+QUI2053,Química Orgánica II,False
+QUI2062,Bioquímica II,False
+QUI2063,Bioquímica II,True
+QUI2063,Laboratorio de Química Orgánica II,True
+QUI2073,Bioquímica I,False
+QUI2083,Laboratorio de Bioquímica I,False
+QUI2093,Bioquímica II,False
+QUI2103,Laboratorio de Bioquímica II,False
