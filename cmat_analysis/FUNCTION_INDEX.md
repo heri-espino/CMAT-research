@@ -20,9 +20,9 @@
 
 ## Inventory
 
-- Python files scanned: **111**
-- Reusable symbols: **427**
-- Test symbols: **36**
+- Python files scanned: **116**
+- Reusable symbols: **435**
+- Test symbols: **44**
 
 ## Reusable symbols
 
@@ -350,6 +350,24 @@
 | Symbol | Kind | Line | Signature | Summary | Tags |
 |---|---|---:|---|---|---|
 | `build_ppa_mu_baseline_cohort` | function | 15 | `def build_ppa_mu_baseline_cohort(data, config) -> pd.DataFrame` | Build the pre-progression MU cohort for PPA participation analyses. | `src cmat_analysis ppa baseline py build_ppa_mu_baseline_cohort build pre-progression mu cohort participation analyses` |
+
+### `src/cmat_analysis/ppa/context.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `build_mu_classroom_outcome_context` | function | 29 | `def build_mu_classroom_outcome_context(data, config, *, min_classroom_n: int=5) -> pd.DataFrame` | Build MU classroom outcome context from all real attempt candidates. | `src cmat_analysis ppa context py build_mu_classroom_outcome_context build mu classroom outcome all real attempt candidates` |
+| `leave_period_out_professor_academic_context` | function | 141 | `def leave_period_out_professor_academic_context(df: pd.DataFrame, *, professor_col: str, period_col: str, grade_col: str, pass_col: str, min_other_n: int=30, prefix: str='PROF_ACAD') -> pd.DataFrame` | Attach historical instructor grading context estimated from other periods. | `src cmat_analysis ppa context py leave_period_out_professor_academic_context attach historical instructor grading estimated other periods` |
+| `major_visit_group_summary` | function | 257 | `def major_visit_group_summary(df: pd.DataFrame, *, major_col: str='MU_CAREER_OFFICIAL', group_col: str='MU_VISIT_GROUP', visit_col: str='MU_VISITS_CMAT_PERIOD', min_n: int=30, group_order: Sequence[str]=DEFAULT_VISIT_GROUP_ORDER) -> pd.DataFrame` | Summarize initial CMAT use by official degree programme. | `src cmat_analysis ppa context py major_visit_group_summary summarize initial cmat use by official degree programme` |
+| `major_uptake_increment` | function | 319 | `def major_uptake_increment(df: pd.DataFrame, *, outcome_col: str='MU_ANY_VISIT', major_col: str='MU_CAREER_OFFICIAL', professor_col: str='MU_PROFESSOR', period_col: str='MU_PERIOD_LABEL', min_major_n: int=30) -> pd.DataFrame` | Quantify added descriptive fit from degree programme beyond professor and period. | `src cmat_analysis ppa context py major_uptake_increment quantify added descriptive fit degree programme beyond professor` |
+| `major_visit_group_multinomial_increment` | function | 392 | `def major_visit_group_multinomial_increment(df: pd.DataFrame, *, group_col: str='MU_VISIT_GROUP', major_col: str='MU_CAREER_OFFICIAL', professor_col: str='MU_PROFESSOR', period_col: str='MU_PERIOD_LABEL', min_major_n: int=30, group_order: Sequence[str]=DEFAULT_VISIT_GROUP_ORDER) -> pd.DataFrame` | Test whether degree programme adds fit for 0/1-2/3/4+ use beyond professor. | `src cmat_analysis ppa context py major_visit_group_multinomial_increment test whether degree programme adds fit use beyond` |
+| `academic_context_uptake_models` | function | 467 | `def academic_context_uptake_models(df: pd.DataFrame, *, outcome_col: str, context_cols: Sequence[str], period_col: str, major_col: str \| None=None, professor_col: str \| None=None, min_major_n: int=30) -> pd.DataFrame` | Estimate separate standardized associations between academic context and CMAT use. | `src cmat_analysis ppa context py academic_context_uptake_models estimate separate standardized associations between academic cmat use` |
+| `professor_period_context_correlations` | function | 559 | `def professor_period_context_correlations(df: pd.DataFrame, *, professor_col: str, period_col: str, uptake_col: str, academic_cols: Sequence[str]) -> pd.DataFrame` | Correlate historical instructor uptake propensity with academic context. | `src cmat_analysis ppa context py professor_period_context_correlations correlate historical instructor uptake propensity academic` |
+
+### `src/cmat_analysis/ppa/context_inference.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `clustered_academic_context_uptake_models` | function | 13 | `def clustered_academic_context_uptake_models(df: pd.DataFrame, *, outcome_col: str, context_cols: Sequence[str], period_col: str, cluster_col: str, major_col: str \| None=None, professor_col: str \| None=None, min_major_n: int=30) -> pd.DataFrame` | Estimate academic-context associations with cluster-robust inference. | `src cmat_analysis ppa context_inference py clustered_academic_context_uptake_models estimate academic-context associations cluster-robust inference` |
 
 ### `src/cmat_analysis/ppa/encouragement.py`
 
@@ -757,6 +775,29 @@
 |---|---|---:|---|---|---|
 | `test_ppa_mu_baseline_does_not_require_later_calculus_progression` | function | 11 | `def test_ppa_mu_baseline_does_not_require_later_calculus_progression() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_baseline py test_ppa_mu_baseline_does_not_require_later_calculus_progression` |
 
+### `tests/test_ppa_context.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `_academic_rows` | function | 18 | `def _academic_rows() -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `tests test_ppa_context py academic_rows` |
+| `test_build_mu_classroom_context_counts_all_real_attempts` | function | 39 | `def test_build_mu_classroom_context_counts_all_real_attempts() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_context py test_build_mu_classroom_context_counts_all_real_attempts` |
+| `test_leave_period_out_academic_context_excludes_current_period` | function | 57 | `def test_leave_period_out_academic_context_excludes_current_period() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_context py test_leave_period_out_academic_context_excludes_current_period` |
+| `_major_data` | function | 81 | `def _major_data(seed: int=17, n: int=800) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `tests test_ppa_context py major_data` |
+| `test_major_summary_and_increment_detect_programme_heterogeneity` | function | 110 | `def test_major_summary_and_increment_detect_programme_heterogeneity() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_context py test_major_summary_and_increment_detect_programme_heterogeneity` |
+| `test_academic_context_models_return_standardized_coefficients` | function | 122 | `def test_academic_context_models_return_standardized_coefficients() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_context py test_academic_context_models_return_standardized_coefficients` |
+
+### `tests/test_ppa_context_clustered.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `test_clustered_context_models_report_cluster_counts` | function | 9 | `def test_clustered_context_models_report_cluster_counts() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_context_clustered py test_clustered_context_models_report_cluster_counts` |
+
+### `tests/test_ppa_context_clustered_professor.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `test_professor_can_be_cluster_and_fixed_effect` | function | 9 | `def test_professor_can_be_cluster_and_fixed_effect() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_context_clustered_professor py test_professor_can_be_cluster_and_fixed_effect` |
+
 ### `tests/test_ppa_encouragement.py`
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
@@ -780,9 +821,9 @@
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
 |---|---|---:|---|---|---|
-| `test_public_api_is_explicit_and_stable` | function | 105 | `def test_public_api_is_explicit_and_stable() -> None` | Ensure canonical namespaces expose exactly the reviewed API. | `tests test_public_api_documentation py test_public_api_is_explicit_and_stable ensure canonical namespaces expose exactly reviewed api` |
-| `test_public_api_has_numpy_style_docstrings` | function | 112 | `def test_public_api_has_numpy_style_docstrings() -> None` | Require public callables to carry minimally complete NumPy docstrings. | `tests test_public_api_documentation py test_public_api_has_numpy_style_docstrings require public callables to carry minimally complete numpy docstrings` |
-| `test_sphinx_api_page_excludes_compatibility_and_private_modules` | function | 144 | `def test_sphinx_api_page_excludes_compatibility_and_private_modules() -> None` | Keep the main Sphinx reference restricted to namespace-level public API. | `tests test_public_api_documentation py test_sphinx_api_page_excludes_compatibility_and_private_modules keep main sphinx reference restricted to namespace-level public api` |
+| `test_public_api_is_explicit_and_stable` | function | 113 | `def test_public_api_is_explicit_and_stable() -> None` | Ensure canonical namespaces expose exactly the reviewed API. | `tests test_public_api_documentation py test_public_api_is_explicit_and_stable ensure canonical namespaces expose exactly reviewed api` |
+| `test_public_api_has_numpy_style_docstrings` | function | 120 | `def test_public_api_has_numpy_style_docstrings() -> None` | Require public callables to carry minimally complete NumPy docstrings. | `tests test_public_api_documentation py test_public_api_has_numpy_style_docstrings require public callables to carry minimally complete numpy docstrings` |
+| `test_sphinx_api_page_excludes_compatibility_and_private_modules` | function | 152 | `def test_sphinx_api_page_excludes_compatibility_and_private_modules() -> None` | Keep the main Sphinx reference restricted to namespace-level public API. | `tests test_public_api_documentation py test_sphinx_api_page_excludes_compatibility_and_private_modules keep main sphinx reference restricted to namespace-level public api` |
 
 ### `tests/test_study_helpers.py`
 
