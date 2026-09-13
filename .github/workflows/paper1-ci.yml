@@ -39,8 +39,32 @@ jobs:
       - name: Compile Python entry points
         run: python -m py_compile code/run_paper.py code/figures.py paper/build.py literature_selected/notes_on_papers/_generate.py
 
-      - name: Validate Paper 1 recipe without private data
+      - name: Validate Paper 1 recipe without controlled data
         run: python code/run_paper.py --check
+
+      - name: Run controlled Paper 1 analysis
+        run: python code/run_paper.py
+
+      - name: Upload aggregate instructor and familiarity results
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper1-instructor-familiarity-${{ github.sha }}
+          path: |
+            results/tables/120_mu_professor_visit_group_distribution_summary.csv
+            results/tables/121_mu_professor_visit_group_multinomial_increment.csv
+            results/tables/122_mu_professor_any_use_increment.csv
+            results/tables/123_calc_professor_any_use_increment.csv
+            results/tables/124_familiarization_with_calc_professor_models.csv
+            results/tables/125_professor_familiarization_interaction_coefficients.csv
+            results/tables/126_professor_familiarization_group_slopes.csv
+            results/tables/127_professor_familiarization_diagnostics.csv
+            results/tables/128_professor_propensity_by_prior_familiarity.csv
+            results/tables/129_familiarization_with_calc_professor_models_all_subsequent.csv
+            results/tables/130_professor_familiarization_group_slopes_all_subsequent.csv
+            results/tables/131_professor_familiarization_diagnostics_all_subsequent.csv
+            results/tables/132_professor_familiarization_interaction_coefficients_all_subsequent.csv
+            results/run_summary.json
+          retention-days: 30
 
       - name: Validate annotated-literature generator
         run: python literature_selected/notes_on_papers/_generate.py --check
