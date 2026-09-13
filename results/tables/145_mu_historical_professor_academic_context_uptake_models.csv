@@ -1,0 +1,5 @@
+context_measure,specification,n,estimate_per_sd,se_hc1,ci_low,ci_high,p_value,r2,note
+MU_PROF_ACAD_LEAVE_PERIOD_OUT_MEAN_GRADE,period_major,4548,-0.049597055792518795,0.006039279389493236,-0.061434043395925536,-0.03776006818911205,2.1678735831433453e-16,0.08390478272323887,descriptive linear probability model; context is not a causal difficulty measure
+MU_PROF_ACAD_LEAVE_PERIOD_OUT_MEAN_GRADE,period_major_professor_fe,4548,0.019446422365174708,0.019664043560604562,-0.019095103013610233,0.05798794774395965,0.32269590420622873,0.12332595445804007,descriptive linear probability model; context is not a causal difficulty measure
+MU_PROF_ACAD_LEAVE_PERIOD_OUT_PASS_RATE,period_major,4664,-0.04069649240091719,0.006038326074471486,-0.0525316115068813,-0.02886137329495308,1.58716493211016e-11,0.0754726139801768,descriptive linear probability model; context is not a causal difficulty measure
+MU_PROF_ACAD_LEAVE_PERIOD_OUT_PASS_RATE,period_major_professor_fe,4664,0.08619051609325595,0.02313297491307011,0.04084988526363854,0.13153114692287338,0.0001946407434245773,0.12413550969290099,descriptive linear probability model; context is not a causal difficulty measure
