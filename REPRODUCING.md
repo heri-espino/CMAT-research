@@ -30,9 +30,9 @@ git lfs pull
 
 The Conda environment delegates Python package installation to the same editable `cmat_analysis` package used by the pip workflow, so scientific dependency pins remain centralized in `cmat_analysis/pyproject.toml`.
 
-## Local controlled data
+## Data inputs
 
-Raw administrative data are not stored in GitHub. After cloning, place the controlled source workbooks in the canonical local directory:
+Raw administrative workbooks remain local even while the repository is private. Place them under:
 
 ```text
 data/raw/
@@ -41,13 +41,38 @@ data/raw/
 └── pre_treatment_covariates.xlsx   # optional
 ```
 
-`data/raw/` is ignored by Git except for its README. The shared configuration discovers the two canonical workbooks automatically, so paper runners that use `get_study_config()` can normally be invoked without `--materias` or `--asesorias`. The shorter aliases `Materias.xlsx` and `Asesorias.xlsx` are also accepted, while explicit CLI paths still override automatic discovery.
+`data/raw/` is ignored by Git except for its README. The shared configuration discovers the canonical workbooks automatically, and the shorter aliases `Materias.xlsx` and `Asesorias.xlsx` are also accepted.
 
-A temporary compatibility fallback recognizes the historical locations directly under `data/`. New setups should use `data/raw/`.
+The private repository may additionally contain the controlled pseudonymized research release:
+
+```text
+data/controlled/
+├── Materias_pseudonymized.csv
+├── Asesorias_pseudonymized.csv
+├── PSEUDONYMIZATION_MANIFEST.json
+├── SHA256SUMS.txt
+└── PRIVACY_README.md
+```
+
+Raw local workbooks have priority when present; otherwise `get_study_config()` and the shared visit-analysis settings fall back automatically to the controlled pseudonymized CSVs. This permits the paper branches to reproduce analyses without committing direct institutional identifiers.
+
+To regenerate the controlled release from authorized local source workbooks, use the same secret HMAC key stored outside the repository:
+
+```bash
+python cmat_analysis/src/create_anonymized_release.py \
+  --key-file /secure/path/to/CMAT_PSEUDONYM_KEY.txt \
+  --install-controlled
+```
+
+The generator preserves all substantive advisory research fields, including the exact timestamp, while replacing student identifiers and professor identifiers with deterministic HMAC-SHA256 pseudonyms. It never writes the secret key into the release. Advisory professor names currently use a separate `advisor_*` namespace because no verified crosswalk to numeric `CLAVEPROFESOR` is available.
+
+The row-level controlled release is pseudonymized rather than anonymous and may remain in Git only while the repository is private and access-restricted. If repository visibility is ever changed to public, purge the controlled release from the full Git/LFS history, releases, caches, and workflow artifacts before changing visibility. See `docs/DATA_PRIVACY.md` and `docs/PSEUDONYMIZED_RELEASE.md`.
+
+A temporary compatibility fallback still recognizes historical data locations directly under `data/`; new setups should use `data/raw/` or the documented controlled release.
 
 ## Git LFS and controlled data
 
-Heavy research binaries use Git LFS; run `git lfs install` once and `git lfs pull` after cloning when assets are still pointers. Raw administrative workbooks, row-level student/advising microdata, direct identifiers, credentials, secrets, HMAC keys or salts, and unreviewed identifying free text must not be committed.
+Heavy research binaries use Git LFS; run `git lfs install` once and `git lfs pull` after cloning when assets are still pointers. Raw administrative workbooks, direct identifiers, credentials, secrets, and HMAC keys must never be committed. The only row-level data intended for repository versioning are the specifically documented pseudonymized files under `data/controlled/` while the repository remains private.
 
 ## Research runners
 
