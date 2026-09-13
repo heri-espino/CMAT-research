@@ -68,6 +68,7 @@ EXPECTED_PUBLIC_API = {
     ),
     "cmat_analysis.ppa": (
         "PPAProgressionCohorts",
+        "build_ppa_mu_baseline_cohort",
         "build_ppa_progression_cohort",
         "classify_revalidation_records",
         "course_specific_transition",
