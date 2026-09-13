@@ -20,9 +20,9 @@
 
 ## Inventory
 
-- Python files scanned: **106**
-- Reusable symbols: **417**
-- Test symbols: **29**
+- Python files scanned: **108**
+- Reusable symbols: **424**
+- Test symbols: **35**
 
 ## Reusable symbols
 
@@ -344,6 +344,18 @@
 | `form_career_crosswalk` | function | 845 | `def form_career_crosswalk(df: pd.DataFrame) -> pd.DataFrame` | Observed official-code x Google-Form-career pairs among users in the cohort. | `src cmat_analysis ppa progression py form_career_crosswalk observed official-code x google-form-career pairs among users in` |
 | `major_persistence_joint_test` | function | 875 | `def major_persistence_joint_test(df: pd.DataFrame, *, min_career_n: int=30) -> pd.DataFrame` | Joint Wald test for official MU degree program in the adjusted persistence logit. | `src cmat_analysis ppa progression py major_persistence_joint_test joint wald test official mu degree program in` |
 | `major_delta_z_welch` | function | 915 | `def major_delta_z_welch(df: pd.DataFrame, *, min_n: int=30) -> pd.DataFrame` | Welch ANOVA of classroom-relative academic change (Delta Z) across majors. | `src cmat_analysis ppa progression py major_delta_z_welch welch anova of classroom-relative academic change delta z` |
+
+### `src/cmat_analysis/ppa/encouragement.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `_collapse_rare_categories` | function | 22 | `def _collapse_rare_categories(series: pd.Series, min_n: int) -> pd.Series` | No docstring; inspect implementation before reuse. | `src cmat_analysis ppa encouragement py collapse_rare_categories` |
+| `professor_visit_group_distribution` | function | 29 | `def professor_visit_group_distribution(df: pd.DataFrame, *, professor_col: str, group_col: str, min_professor_n: int=30, group_order: Sequence[str]=DEFAULT_VISIT_GROUP_ORDER) -> pd.DataFrame` | Summarize 0/1-2/3/4+ service-use composition by instructor. | `src cmat_analysis ppa encouragement py professor_visit_group_distribution summarize service-use composition by instructor` |
+| `leave_period_out_professor_propensity` | function | 85 | `def leave_period_out_professor_propensity(df: pd.DataFrame, *, professor_col: str, period_col: str, outcome_col: str, min_other_n: int=30, prefix: str='PROF') -> pd.DataFrame` | Attach an instructor uptake rate estimated from other academic periods. | `src cmat_analysis ppa encouragement py leave_period_out_professor_propensity attach an instructor uptake rate estimated other academic` |
+| `professor_uptake_increment` | function | 172 | `def professor_uptake_increment(df: pd.DataFrame, *, outcome_col: str, professor_col: str, period_col: str, career_col: str \| None=None, min_career_n: int=30) -> pd.DataFrame` | Quantify added descriptive fit from instructor fixed effects. | `src cmat_analysis ppa encouragement py professor_uptake_increment quantify added descriptive fit instructor fixed effects` |
+| `professor_visit_group_multinomial_increment` | function | 255 | `def professor_visit_group_multinomial_increment(df: pd.DataFrame, *, group_col: str, professor_col: str, period_col: str, career_col: str \| None=None, min_career_n: int=30, group_order: Sequence[str]=DEFAULT_VISIT_GROUP_ORDER) -> pd.DataFrame` | Test whether instructor identity adds fit for 0/1-2/3/4+ uptake groups. | `src cmat_analysis ppa encouragement py professor_visit_group_multinomial_increment test whether instructor identity adds fit uptake groups` |
+| `familiarization_professor_persistence_models` | function | 334 | `def familiarization_professor_persistence_models(df: pd.DataFrame, *, outcome_col: str='CALC_ANY_VISIT', prior_group_col: str='MU_VISIT_GROUP', prior_performance_col: str='Z_MU', professor_col: str='CALC_PROFESSOR', period_col: str='CALC_PERIOD_LABEL', career_col: str='CALC_CAREER_OFFICIAL', min_career_n: int=30) -> pd.DataFrame` | Estimate prior-familiarization contrasts before and after instructor effects. | `src cmat_analysis ppa encouragement py familiarization_professor_persistence_models estimate prior-familiarization contrasts after instructor effects` |
+| `professor_familiarization_interaction_model` | function | 446 | `def professor_familiarization_interaction_model(df: pd.DataFrame, *, outcome_col: str='CALC_ANY_VISIT', prior_group_col: str='MU_VISIT_GROUP', prior_performance_col: str='Z_MU', professor_col: str='CALC_PROFESSOR', period_col: str='CALC_PERIOD_LABEL', career_col: str='CALC_CAREER_OFFICIAL', min_career_n: int=30, min_other_n: int=30) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]` | Model joint associations of prior familiarity and instructor-linked uptake. | `src cmat_analysis ppa encouragement py professor_familiarization_interaction_model model joint associations of prior familiarity instructor-linked uptake` |
 
 ### `src/cmat_analysis/preprocessing/_cleaning.py`
 
@@ -725,6 +737,17 @@
 | `test_methodology_primary_outcome_uses_scipy_kde_and_uniform_fallback` | function | 12 | `def test_methodology_primary_outcome_uses_scipy_kde_and_uniform_fallback()` | No docstring; inspect implementation before reuse. | `tests test_methodology_report_helpers py test_methodology_primary_outcome_uses_scipy_kde_and_uniform_fallback` |
 | `test_methodology_exact_visit_grouping_has_all_ten_pairwise_contrasts` | function | 31 | `def test_methodology_exact_visit_grouping_has_all_ten_pairwise_contrasts()` | No docstring; inspect implementation before reuse. | `tests test_methodology_report_helpers py test_methodology_exact_visit_grouping_has_all_ten_pairwise_contrasts` |
 | `test_methodology_report_atomic_runner_resolves_root_code_dependencies` | function | 42 | `def test_methodology_report_atomic_runner_resolves_root_code_dependencies()` | No docstring; inspect implementation before reuse. | `tests test_methodology_report_helpers py test_methodology_report_atomic_runner_resolves_root_code_dependencies` |
+
+### `tests/test_ppa_encouragement.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `_synthetic_progression` | function | 18 | `def _synthetic_progression(seed: int=2026, n: int=1600) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `tests test_ppa_encouragement py synthetic_progression` |
+| `test_professor_visit_group_distribution_preserves_four_groups` | function | 41 | `def test_professor_visit_group_distribution_preserves_four_groups() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_encouragement py test_professor_visit_group_distribution_preserves_four_groups` |
+| `test_leave_period_out_propensity_excludes_current_period` | function | 55 | `def test_leave_period_out_propensity_excludes_current_period() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_encouragement py test_leave_period_out_propensity_excludes_current_period` |
+| `test_professor_increment_and_multinomial_return_joint_tests` | function | 76 | `def test_professor_increment_and_multinomial_return_joint_tests() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_encouragement py test_professor_increment_and_multinomial_return_joint_tests` |
+| `test_familiarization_effects_survive_professor_fixed_effect_specification` | function | 99 | `def test_familiarization_effects_survive_professor_fixed_effect_specification() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_encouragement py test_familiarization_effects_survive_professor_fixed_effect_specification` |
+| `test_joint_professor_familiarization_model_returns_group_specific_slopes` | function | 112 | `def test_joint_professor_familiarization_model_returns_group_specific_slopes() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_encouragement py test_joint_professor_familiarization_model_returns_group_specific_slopes` |
 
 ### `tests/test_public_api.py`
 
