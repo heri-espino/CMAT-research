@@ -35,10 +35,21 @@ jobs:
         run: python -m pip install -e './cmat_analysis[dev]'
 
       - name: Compile Python entry points
-        run: python -m py_compile code/run_paper.py code/figures.py paper/build.py
+        run: python -m py_compile code/run_paper.py code/figures.py code/professor_encouragement_analysis.py paper/build.py
 
       - name: Validate Paper 2 recipe without private data
         run: python code/run_paper.py --check
+
+      - name: Run professor encouragement diagnostic
+        run: python code/professor_encouragement_analysis.py
+
+      - name: Upload professor encouragement aggregate summary
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper2-professor-encouragement-${{ github.sha }}
+          path: results/exploratory/professor_encouragement/summary.json
+          if-no-files-found: error
+          retention-days: 30
 
       - name: Generate retained-snapshot vector figures
         run: python code/figures.py --source retained
