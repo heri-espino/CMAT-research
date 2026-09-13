@@ -178,7 +178,7 @@ def main() -> int:
         period_col="MU_PERIOD_LABEL",
         cluster_col="MU_PROFESSOR",
         major_col="MU_CAREER_OFFICIAL",
-        professor_col="MU_PROFESSOR",
+        professor_col=None,
         min_major_n=config.min_career_n_for_inference,
     )
     context_correlations = professor_period_context_correlations(
