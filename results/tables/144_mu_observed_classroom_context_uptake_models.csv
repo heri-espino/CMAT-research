@@ -1,0 +1,5 @@
+context_measure,specification,n,estimate_per_sd,se_hc1,ci_low,ci_high,p_value,r2,note
+MU_LOO_CLASSROOM_MEAN_GRADE,period_major,4906,-0.03486713923968598,0.006301739177098111,-0.04721854802679828,-0.022515730452573678,3.1490879061577666e-08,0.07101643512670242,descriptive linear probability model; context is not a causal difficulty measure
+MU_LOO_CLASSROOM_MEAN_GRADE,period_major_professor_fe,4906,-0.011500294130656306,0.008549750407286024,-0.028257804928936914,0.005257216667624302,0.17859200444498735,0.12199321264657681,descriptive linear probability model; context is not a causal difficulty measure
+MU_LOO_CLASSROOM_PASS_RATE,period_major,4906,-0.059960754962194766,0.00653278297784446,-0.07276500959876991,-0.047156500325619626,4.373825624463342e-20,0.08286522190660539,descriptive linear probability model; context is not a causal difficulty measure
+MU_LOO_CLASSROOM_PASS_RATE,period_major_professor_fe,4906,-0.034587005339395634,0.008824229190781735,-0.051882494553327836,-0.01729151612546343,8.871454693753543e-05,0.12453404630884968,descriptive linear probability model; context is not a causal difficulty measure
