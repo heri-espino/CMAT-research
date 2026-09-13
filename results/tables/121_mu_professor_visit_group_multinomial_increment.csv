@@ -1,0 +1,2 @@
+outcome,n,groups,professors,periods,mcfadden_r2_base,mcfadden_r2_plus_professor,delta_mcfadden_r2_professor,lr_stat_professor,lr_df,lr_p_professor,base_optimizer,full_optimizer,base_converged,full_converged,note
+MU_VISIT_GROUP,4906,0|1-2|3|4+,53,11,0.06169397419186651,0.1236656090577457,0.0619716348658792,426.8295699270211,156,4.967254239195119e-27,lbfgs,lbfgs,True,True,descriptive multinomial association; exact group 3 is retained as an institutionally salient category; instructor identity is not randomized
