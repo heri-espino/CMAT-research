@@ -77,6 +77,7 @@ No public callables.
 ## `cmat_analysis.ppa`
 
 - `PPAProgressionCohorts` — class
+- `build_ppa_mu_baseline_cohort` — function
 - `build_ppa_progression_cohort` — function
 - `classify_revalidation_records` — function
 - `course_specific_transition` — function
@@ -101,7 +102,9 @@ The instructor-linked uptake helpers are descriptive. Instructor identity and
 leave-period-out instructor uptake rates are not randomized treatments or valid
 instruments by themselves; their purpose is to quantify implementation-linked
 variation and to test whether prior CMAT familiarity predicts later use after
-conditioning on later-course instructor context.
+conditioning on later-course instructor context. `build_ppa_mu_baseline_cohort`
+keeps the initial MU participation analysis independent of later progression to
+Calculus, so instructor-linked uptake is not estimated only among progressors.
 
 ## `cmat_analysis.visualization`
 
@@ -118,5 +121,5 @@ conditioning on later-course instructor context.
 - `canonical_identifier` — function
 - `hmac_pseudonym` — function
 
-Public functions: **72**  
+Public functions: **73**  
 Public classes: **3**
