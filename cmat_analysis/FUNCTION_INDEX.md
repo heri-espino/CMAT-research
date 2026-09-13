@@ -20,8 +20,8 @@
 
 ## Inventory
 
-- Python files scanned: **113**
-- Reusable symbols: **434**
+- Python files scanned: **114**
+- Reusable symbols: **435**
 - Test symbols: **42**
 
 ## Reusable symbols
@@ -362,6 +362,12 @@
 | `major_visit_group_multinomial_increment` | function | 392 | `def major_visit_group_multinomial_increment(df: pd.DataFrame, *, group_col: str='MU_VISIT_GROUP', major_col: str='MU_CAREER_OFFICIAL', professor_col: str='MU_PROFESSOR', period_col: str='MU_PERIOD_LABEL', min_major_n: int=30, group_order: Sequence[str]=DEFAULT_VISIT_GROUP_ORDER) -> pd.DataFrame` | Test whether degree programme adds fit for 0/1-2/3/4+ use beyond professor. | `src cmat_analysis ppa context py major_visit_group_multinomial_increment test whether degree programme adds fit use beyond` |
 | `academic_context_uptake_models` | function | 467 | `def academic_context_uptake_models(df: pd.DataFrame, *, outcome_col: str, context_cols: Sequence[str], period_col: str, major_col: str \| None=None, professor_col: str \| None=None, min_major_n: int=30) -> pd.DataFrame` | Estimate separate standardized associations between academic context and CMAT use. | `src cmat_analysis ppa context py academic_context_uptake_models estimate separate standardized associations between academic cmat use` |
 | `professor_period_context_correlations` | function | 559 | `def professor_period_context_correlations(df: pd.DataFrame, *, professor_col: str, period_col: str, uptake_col: str, academic_cols: Sequence[str]) -> pd.DataFrame` | Correlate historical instructor uptake propensity with academic context. | `src cmat_analysis ppa context py professor_period_context_correlations correlate historical instructor uptake propensity academic` |
+
+### `src/cmat_analysis/ppa/context_inference.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `clustered_academic_context_uptake_models` | function | 13 | `def clustered_academic_context_uptake_models(df: pd.DataFrame, *, outcome_col: str, context_cols: Sequence[str], period_col: str, cluster_col: str, major_col: str \| None=None, professor_col: str \| None=None, min_major_n: int=30) -> pd.DataFrame` | Estimate academic-context associations with cluster-robust inference. | `src cmat_analysis ppa context_inference py clustered_academic_context_uptake_models estimate academic-context associations cluster-robust inference` |
 
 ### `src/cmat_analysis/ppa/encouragement.py`
 
