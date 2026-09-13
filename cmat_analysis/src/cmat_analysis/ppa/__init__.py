@@ -15,6 +15,7 @@ from .context import (
     major_visit_group_summary,
     professor_period_context_correlations,
 )
+from .context_inference import clustered_academic_context_uptake_models
 from .encouragement import (
     familiarization_professor_persistence_models,
     leave_period_out_professor_propensity,
@@ -47,6 +48,7 @@ __all__ = [
     "build_ppa_mu_baseline_cohort",
     "build_ppa_progression_cohort",
     "classify_revalidation_records",
+    "clustered_academic_context_uptake_models",
     "course_specific_transition",
     "familiarization_professor_persistence_models",
     "form_career_crosswalk",
