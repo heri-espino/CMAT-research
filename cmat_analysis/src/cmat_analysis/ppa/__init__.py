@@ -12,8 +12,8 @@ from .encouragement import (
     professor_familiarization_interaction_model,
     professor_uptake_increment,
     professor_visit_group_distribution,
-    professor_visit_group_multinomial_increment,
 )
+from .group_models import professor_visit_group_multinomial_increment
 from .progression import (
     PPAProgressionCohorts,
     build_ppa_progression_cohort,
