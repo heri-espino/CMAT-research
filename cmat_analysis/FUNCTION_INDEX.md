@@ -20,8 +20,8 @@
 
 ## Inventory
 
-- Python files scanned: **111**
-- Reusable symbols: **427**
+- Python files scanned: **112**
+- Reusable symbols: **434**
 - Test symbols: **36**
 
 ## Reusable symbols
@@ -350,6 +350,18 @@
 | Symbol | Kind | Line | Signature | Summary | Tags |
 |---|---|---:|---|---|---|
 | `build_ppa_mu_baseline_cohort` | function | 15 | `def build_ppa_mu_baseline_cohort(data, config) -> pd.DataFrame` | Build the pre-progression MU cohort for PPA participation analyses. | `src cmat_analysis ppa baseline py build_ppa_mu_baseline_cohort build pre-progression mu cohort participation analyses` |
+
+### `src/cmat_analysis/ppa/context.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `build_mu_classroom_outcome_context` | function | 29 | `def build_mu_classroom_outcome_context(data, config, *, min_classroom_n: int=5) -> pd.DataFrame` | Build MU classroom outcome context from all real attempt candidates. | `src cmat_analysis ppa context py build_mu_classroom_outcome_context build mu classroom outcome all real attempt candidates` |
+| `leave_period_out_professor_academic_context` | function | 141 | `def leave_period_out_professor_academic_context(df: pd.DataFrame, *, professor_col: str, period_col: str, grade_col: str, pass_col: str, min_other_n: int=30, prefix: str='PROF_ACAD') -> pd.DataFrame` | Attach historical instructor grading context estimated from other periods. | `src cmat_analysis ppa context py leave_period_out_professor_academic_context attach historical instructor grading estimated other periods` |
+| `major_visit_group_summary` | function | 257 | `def major_visit_group_summary(df: pd.DataFrame, *, major_col: str='MU_CAREER_OFFICIAL', group_col: str='MU_VISIT_GROUP', visit_col: str='MU_VISITS_CMAT_PERIOD', min_n: int=30, group_order: Sequence[str]=DEFAULT_VISIT_GROUP_ORDER) -> pd.DataFrame` | Summarize initial CMAT use by official degree programme. | `src cmat_analysis ppa context py major_visit_group_summary summarize initial cmat use by official degree programme` |
+| `major_uptake_increment` | function | 319 | `def major_uptake_increment(df: pd.DataFrame, *, outcome_col: str='MU_ANY_VISIT', major_col: str='MU_CAREER_OFFICIAL', professor_col: str='MU_PROFESSOR', period_col: str='MU_PERIOD_LABEL', min_major_n: int=30) -> pd.DataFrame` | Quantify added descriptive fit from degree programme beyond professor and period. | `src cmat_analysis ppa context py major_uptake_increment quantify added descriptive fit degree programme beyond professor` |
+| `major_visit_group_multinomial_increment` | function | 392 | `def major_visit_group_multinomial_increment(df: pd.DataFrame, *, group_col: str='MU_VISIT_GROUP', major_col: str='MU_CAREER_OFFICIAL', professor_col: str='MU_PROFESSOR', period_col: str='MU_PERIOD_LABEL', min_major_n: int=30, group_order: Sequence[str]=DEFAULT_VISIT_GROUP_ORDER) -> pd.DataFrame` | Test whether degree programme adds fit for 0/1-2/3/4+ use beyond professor. | `src cmat_analysis ppa context py major_visit_group_multinomial_increment test whether degree programme adds fit use beyond` |
+| `academic_context_uptake_models` | function | 467 | `def academic_context_uptake_models(df: pd.DataFrame, *, outcome_col: str, context_cols: Sequence[str], period_col: str, major_col: str \| None=None, professor_col: str \| None=None, min_major_n: int=30) -> pd.DataFrame` | Estimate separate standardized associations between academic context and CMAT use. | `src cmat_analysis ppa context py academic_context_uptake_models estimate separate standardized associations between academic cmat use` |
+| `professor_period_context_correlations` | function | 559 | `def professor_period_context_correlations(df: pd.DataFrame, *, professor_col: str, period_col: str, uptake_col: str, academic_cols: Sequence[str]) -> pd.DataFrame` | Correlate historical instructor uptake propensity with academic context. | `src cmat_analysis ppa context py professor_period_context_correlations correlate historical instructor uptake propensity academic` |
 
 ### `src/cmat_analysis/ppa/encouragement.py`
 
