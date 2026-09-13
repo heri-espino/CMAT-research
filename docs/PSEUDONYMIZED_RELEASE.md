@@ -1,6 +1,6 @@
 # Pseudonymized release record
 
-A controlled full-fields pseudonymized release has been generated from the current CMAT source workbooks. The repository is currently public, so the row-level CSV files are intentionally not committed.
+A controlled full-fields pseudonymized release has been generated from the current CMAT source workbooks. The repository is now private and access-controlled, so this release is eligible for repository storage under the conditions documented in `docs/DATA_PRIVACY.md`; the raw Excel workbooks and the HMAC secret remain outside Git.
 
 Release ZIP SHA-256:
 
@@ -20,4 +20,6 @@ Asesorias2024.xlsx
 
 The release contains 27,788 academic rows and 13,500 advisory rows. Student linkage between the academic and advisory sources was preserved after pseudonymization. Exact advisory timestamps and the substantive advisory research variables were retained because they are required for the planned temporal, longitudinal, and help-seeking analyses.
 
-The release is pseudonymized rather than anonymous, so it is treated as controlled research data. See `docs/DATA_PRIVACY.md` for the storage and dissemination conditions.
+The release is pseudonymized rather than anonymous, so it remains controlled research data. Direct student identifiers are replaced by deterministic `stu_*` HMAC-SHA256 pseudonyms, academic professor identifiers by `prof_*` pseudonyms, and advisory professor names are currently represented separately as `advisor_*` because no verified professor-name-to-`CLAVEPROFESOR` crosswalk is available. The secret key is not stored in this repository.
+
+Repository storage of the row-level release is conditional on the repository remaining private and access being limited to authorized collaborators. If the repository is ever made public, the row-level release must be purged from the complete Git/LFS history, releases, caches, and workflow artifacts before the visibility change. See `docs/DATA_PRIVACY.md` for the full storage and dissemination conditions.
