@@ -1,8 +1,8 @@
 # Paper 1 results
 
-This directory contains generated or deliberately selected **publication-level aggregate outputs** for Paper 1. The canonical scientific recipe is `../code/run_paper.py`; reusable calculations remain in the shared `cmat_analysis` library, while `../code/figures.py` converts reviewed aggregate tables into paper-specific visual presentation.
+This directory contains generated or deliberately selected **publication-level aggregate outputs** for Paper 1. The canonical scientific recipes are `../code/run_paper.py` and `../code/context_analysis.py`; reusable calculations remain in the shared `cmat_analysis` library, while `../code/figures.py` converts reviewed aggregate tables into paper-specific visual presentation.
 
-The retained persistence bridge remains tables `101`–`107`, while the controlled instructor/familiarity extension is stored in tables `120`–`132`. No instructor identifiers, student identifiers, row-level joined cohorts or local input paths are retained in these publication outputs.
+The retained persistence bridge remains tables `101`–`107`, the controlled instructor/familiarity extension is stored in tables `120`–`132`, and the controlled degree-programme/classroom-context extension is stored in tables `140`–`146`. No instructor identifiers, student identifiers, row-level joined cohorts or local input paths are retained in these publication outputs.
 
 The instructor/familiarity tables are:
 
@@ -14,6 +14,8 @@ The instructor/familiarity tables are:
 - `125`–`127`: primary-cohort prior-familiarity × leave-period-out current-instructor uptake model and diagnostics.
 - `128_professor_propensity_by_prior_familiarity.csv`: descriptive later-use rates by prior-use group and quartile of current-instructor leave-period-out uptake.
 - `129`–`132`: all-subsequent-Calculus sensitivity versions of the familiarity and interaction models.
+
+Tables `140`–`142` describe and test degree-programme heterogeneity in initial MU use after professor and period are accounted for. Table `143` summarizes the outcome environment of all real MU professor-period classrooms, including adverse nonnumeric outcomes in the pass-rate denominator. Table `144` relates leave-one-out classroom mean grade and pass rate to CMAT uptake with inference clustered by professor-period classroom, table `145` relates leave-period-out historical professor academic outcomes to uptake with inference clustered by instructor, and table `146` records professor-period correlations between historical academic outcomes and historical CMAT uptake.
 
 `results/run_summary.json` records the controlled cohort sizes and generated-output inventory. The current controlled rerun has an MU baseline of `N=4,906`, a strict next-regular-term persistence cohort of `N=3,241`, and an all-subsequent sensitivity cohort of `N=3,389`.
 
