@@ -30,6 +30,21 @@ git lfs pull
 
 The Conda environment delegates Python package installation to the same editable `cmat_analysis` package used by the pip workflow, so scientific dependency pins remain centralized in `cmat_analysis/pyproject.toml`.
 
+## Local controlled data
+
+Raw administrative data are not stored in GitHub. After cloning, place the controlled source workbooks in the canonical local directory:
+
+```text
+data/raw/
+├── Materias estudiantes-profesores 2019-2025 P y O.xlsx
+├── Asesorias2024.xlsx
+└── pre_treatment_covariates.xlsx   # optional
+```
+
+`data/raw/` is ignored by Git except for its README. The shared configuration discovers the two canonical workbooks automatically, so paper runners that use `get_study_config()` can normally be invoked without `--materias` or `--asesorias`. The shorter aliases `Materias.xlsx` and `Asesorias.xlsx` are also accepted, while explicit CLI paths still override automatic discovery.
+
+A temporary compatibility fallback recognizes the historical locations directly under `data/`. New setups should use `data/raw/`.
+
 ## Git LFS and controlled data
 
 Heavy research binaries use Git LFS; run `git lfs install` once and `git lfs pull` after cloning when assets are still pointers. Raw administrative workbooks, row-level student/advising microdata, direct identifiers, credentials, secrets, HMAC keys or salts, and unreviewed identifying free text must not be committed.
