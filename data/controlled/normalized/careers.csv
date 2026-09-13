@@ -1,0 +1,53 @@
+career_id,career_name,school_id
+ACT,Actuaría,EDEC
+ACU,Artes Culinarias,EDNE
+AHR,Administración de Hoteles y Restaurantes,EDNE
+AIN,Arquitectura de Interiores,EDAH
+ANI,Animación Digital,EDAH
+ANP,Antropología,EDCS
+ARQ,Arquitectura,EDAH
+ART,Artes Plásticas,EDAH
+BAN,Banca e Inversiones,EDNE
+BIO,Biología,EDEC
+BQC,Bioquímica Clínica,EDEC
+CDD,Ciencia de Datos,EDEC
+CIP,Ciencia Política,EDCS
+CNU,Ciencias de la Nutrición,EDEC
+COM,Comunicación y Producción de Medios,EDCS
+CRP,Comunicación y Relaciones Públicas,EDCS
+DAN,Danza,EDAH
+DER,Derecho,EDCS
+DIV,Diseño de Información Visual,EDAH
+ECO,Economía,EDNE
+EFI,Estrategias Financieras y Contaduría Pública,EDNE
+ENF,Enfermería,EDEC
+FIS,Física,EDEC
+HCU,Historia del Arte y Curaduría,EDAH
+IAA,Ingeniería Ambiental,EDEI
+IBI,Ingeniería Biomédica,EDEI
+ICI,Ingeniería Civil,EDEI
+IDI,Idiomas,EDAH
+IEN,Ingeniería en Energía,EDEI
+IIA,Ingeniería en Industrias Alimentarias,EDEI
+IIN,Ingeniería Industrial,EDEI
+ILC,Ingeniería en Logística y Cadena de Suministros,EDEI
+IMC,Ingeniería Mecánica,EDEI
+IMT,Ingeniería Mecatrónica,EDEI
+IQC,Ingeniería Química,EDEI
+IRT,Ingeniería en Robótica y Telecomunicaciones,EDEI
+ISC,Ingeniería en Sistemas Computacionales,EDEI
+LAD,Administración de Empresas,EDNE
+LCD,Cirujano Dentista,EDEC
+LIT,Literatura,EDAH
+LNI,Administración de Negocios Internacionales,EDNE
+MED,Médico Cirujano,EDEC
+MER,Mercadotecnia,EDNE
+MUS,Música,EDAH
+NAN,Nanotecnología e Ingeniería Molecular,EDEC
+PED,Pedagogía,EDCS
+PSI,Psicología Clínica,EDCS
+PSO,Psicología Organizacional,EDCS
+QFB,Químico Farmacéutico Biólogo,EDEC
+REL,Relaciones Internacionales,EDCS
+RMU,Relaciones Multiculturales,EDCS
+TEA,Teatro,EDAH
