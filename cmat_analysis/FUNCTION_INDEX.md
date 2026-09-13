@@ -20,8 +20,8 @@
 
 ## Inventory
 
-- Python files scanned: **108**
-- Reusable symbols: **424**
+- Python files scanned: **109**
+- Reusable symbols: **425**
 - Test symbols: **35**
 
 ## Reusable symbols
@@ -344,6 +344,12 @@
 | `form_career_crosswalk` | function | 845 | `def form_career_crosswalk(df: pd.DataFrame) -> pd.DataFrame` | Observed official-code x Google-Form-career pairs among users in the cohort. | `src cmat_analysis ppa progression py form_career_crosswalk observed official-code x google-form-career pairs among users in` |
 | `major_persistence_joint_test` | function | 875 | `def major_persistence_joint_test(df: pd.DataFrame, *, min_career_n: int=30) -> pd.DataFrame` | Joint Wald test for official MU degree program in the adjusted persistence logit. | `src cmat_analysis ppa progression py major_persistence_joint_test joint wald test official mu degree program in` |
 | `major_delta_z_welch` | function | 915 | `def major_delta_z_welch(df: pd.DataFrame, *, min_n: int=30) -> pd.DataFrame` | Welch ANOVA of classroom-relative academic change (Delta Z) across majors. | `src cmat_analysis ppa progression py major_delta_z_welch welch anova of classroom-relative academic change delta z` |
+
+### `src/cmat_analysis/ppa/baseline.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `build_ppa_mu_baseline_cohort` | function | 15 | `def build_ppa_mu_baseline_cohort(data, config) -> pd.DataFrame` | Build the pre-progression MU cohort for PPA participation analyses. | `src cmat_analysis ppa baseline py build_ppa_mu_baseline_cohort build pre-progression mu cohort participation analyses` |
 
 ### `src/cmat_analysis/ppa/encouragement.py`
 
@@ -761,9 +767,9 @@
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
 |---|---|---:|---|---|---|
-| `test_public_api_is_explicit_and_stable` | function | 98 | `def test_public_api_is_explicit_and_stable() -> None` | Ensure canonical namespaces expose exactly the reviewed API. | `tests test_public_api_documentation py test_public_api_is_explicit_and_stable ensure canonical namespaces expose exactly reviewed api` |
-| `test_public_api_has_numpy_style_docstrings` | function | 105 | `def test_public_api_has_numpy_style_docstrings() -> None` | Require public callables to carry minimally complete NumPy docstrings. | `tests test_public_api_documentation py test_public_api_has_numpy_style_docstrings require public callables to carry minimally complete numpy docstrings` |
-| `test_sphinx_api_page_excludes_compatibility_and_private_modules` | function | 137 | `def test_sphinx_api_page_excludes_compatibility_and_private_modules() -> None` | Keep the main Sphinx reference restricted to namespace-level public API. | `tests test_public_api_documentation py test_sphinx_api_page_excludes_compatibility_and_private_modules keep main sphinx reference restricted to namespace-level public api` |
+| `test_public_api_is_explicit_and_stable` | function | 104 | `def test_public_api_is_explicit_and_stable() -> None` | Ensure canonical namespaces expose exactly the reviewed API. | `tests test_public_api_documentation py test_public_api_is_explicit_and_stable ensure canonical namespaces expose exactly reviewed api` |
+| `test_public_api_has_numpy_style_docstrings` | function | 111 | `def test_public_api_has_numpy_style_docstrings() -> None` | Require public callables to carry minimally complete NumPy docstrings. | `tests test_public_api_documentation py test_public_api_has_numpy_style_docstrings require public callables to carry minimally complete numpy docstrings` |
+| `test_sphinx_api_page_excludes_compatibility_and_private_modules` | function | 143 | `def test_sphinx_api_page_excludes_compatibility_and_private_modules() -> None` | Keep the main Sphinx reference restricted to namespace-level public API. | `tests test_public_api_documentation py test_sphinx_api_page_excludes_compatibility_and_private_modules keep main sphinx reference restricted to namespace-level public api` |
 
 ### `tests/test_study_helpers.py`
 
