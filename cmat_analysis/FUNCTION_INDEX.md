@@ -20,9 +20,9 @@
 
 ## Inventory
 
-- Python files scanned: **109**
+- Python files scanned: **110**
 - Reusable symbols: **425**
-- Test symbols: **35**
+- Test symbols: **36**
 
 ## Reusable symbols
 
@@ -744,6 +744,12 @@
 | `test_methodology_exact_visit_grouping_has_all_ten_pairwise_contrasts` | function | 31 | `def test_methodology_exact_visit_grouping_has_all_ten_pairwise_contrasts()` | No docstring; inspect implementation before reuse. | `tests test_methodology_report_helpers py test_methodology_exact_visit_grouping_has_all_ten_pairwise_contrasts` |
 | `test_methodology_report_atomic_runner_resolves_root_code_dependencies` | function | 42 | `def test_methodology_report_atomic_runner_resolves_root_code_dependencies()` | No docstring; inspect implementation before reuse. | `tests test_methodology_report_helpers py test_methodology_report_atomic_runner_resolves_root_code_dependencies` |
 
+### `tests/test_ppa_baseline.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `test_ppa_mu_baseline_does_not_require_later_calculus_progression` | function | 11 | `def test_ppa_mu_baseline_does_not_require_later_calculus_progression() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_baseline py test_ppa_mu_baseline_does_not_require_later_calculus_progression` |
+
 ### `tests/test_ppa_encouragement.py`
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
@@ -767,9 +773,9 @@
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
 |---|---|---:|---|---|---|
-| `test_public_api_is_explicit_and_stable` | function | 104 | `def test_public_api_is_explicit_and_stable() -> None` | Ensure canonical namespaces expose exactly the reviewed API. | `tests test_public_api_documentation py test_public_api_is_explicit_and_stable ensure canonical namespaces expose exactly reviewed api` |
-| `test_public_api_has_numpy_style_docstrings` | function | 111 | `def test_public_api_has_numpy_style_docstrings() -> None` | Require public callables to carry minimally complete NumPy docstrings. | `tests test_public_api_documentation py test_public_api_has_numpy_style_docstrings require public callables to carry minimally complete numpy docstrings` |
-| `test_sphinx_api_page_excludes_compatibility_and_private_modules` | function | 143 | `def test_sphinx_api_page_excludes_compatibility_and_private_modules() -> None` | Keep the main Sphinx reference restricted to namespace-level public API. | `tests test_public_api_documentation py test_sphinx_api_page_excludes_compatibility_and_private_modules keep main sphinx reference restricted to namespace-level public api` |
+| `test_public_api_is_explicit_and_stable` | function | 105 | `def test_public_api_is_explicit_and_stable() -> None` | Ensure canonical namespaces expose exactly the reviewed API. | `tests test_public_api_documentation py test_public_api_is_explicit_and_stable ensure canonical namespaces expose exactly reviewed api` |
+| `test_public_api_has_numpy_style_docstrings` | function | 112 | `def test_public_api_has_numpy_style_docstrings() -> None` | Require public callables to carry minimally complete NumPy docstrings. | `tests test_public_api_documentation py test_public_api_has_numpy_style_docstrings require public callables to carry minimally complete numpy docstrings` |
+| `test_sphinx_api_page_excludes_compatibility_and_private_modules` | function | 144 | `def test_sphinx_api_page_excludes_compatibility_and_private_modules() -> None` | Keep the main Sphinx reference restricted to namespace-level public API. | `tests test_public_api_documentation py test_sphinx_api_page_excludes_compatibility_and_private_modules keep main sphinx reference restricted to namespace-level public api` |
 
 ### `tests/test_study_helpers.py`
 
