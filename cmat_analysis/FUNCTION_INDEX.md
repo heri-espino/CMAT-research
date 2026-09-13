@@ -21,8 +21,8 @@
 ## Inventory
 
 - Python files scanned: **104**
-- Reusable symbols: **407**
-- Test symbols: **25**
+- Reusable symbols: **410**
+- Test symbols: **28**
 
 ## Reusable symbols
 
@@ -641,12 +641,15 @@
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
 |---|---|---:|---|---|---|
-| `_load_key` | function | 24 | `def _load_key(args) -> bytes` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py load_key` |
-| `_term_anchor` | function | 39 | `def _term_anchor(year: int, period: str) -> str` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py term_anchor` |
-| `_make_anonymized_data` | function | 45 | `def _make_anonymized_data(project: Path, destination: Path, key: bytes) -> dict` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py make_anonymized_data` |
-| `_copy_public_code` | function | 105 | `def _copy_public_code(project: Path, release_root: Path) -> None` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py copy_public_code` |
-| `create_release` | function | 120 | `def create_release(project: Path, output_zip: Path, key: bytes) -> Path` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py create_release` |
-| `main` | function | 154 | `def main() -> int` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py main` |
+| `_load_key` | function | 29 | `def _load_key(args: argparse.Namespace) -> bytes` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py load_key` |
+| `_sha256` | function | 44 | `def _sha256(path: Path) -> str` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py sha256` |
+| `_first_existing` | function | 52 | `def _first_existing(*paths: Path) -> Path` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py first_existing` |
+| `_source_paths` | function | 59 | `def _source_paths(repo_root: Path) -> tuple[Path, Path]` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py source_paths` |
+| `_make_pseudonymized_data` | function | 75 | `def _make_pseudonymized_data(repo_root: Path, destination: Path, key: bytes) -> dict[str, object]` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py make_pseudonymized_data` |
+| `_privacy_text` | function | 201 | `def _privacy_text() -> str` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py privacy_text` |
+| `_write_release_files` | function | 214 | `def _write_release_files(release_dir: Path, manifest: dict[str, object]) -> None` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py write_release_files` |
+| `create_release` | function | 239 | `def create_release(repo_root: Path, output_zip: Path, key: bytes, *, install_controlled: bool=False) -> Path` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py create_release` |
+| `main` | function | 267 | `def main() -> int` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py main` |
 
 ### `src/generador_figuras_cli.py`
 
@@ -691,8 +694,11 @@
 |---|---|---:|---|---|---|
 | `test_study_config_prefers_data_raw` | function | 11 | `def test_study_config_prefers_data_raw(tmp_path: Path) -> None` | No docstring; inspect implementation before reuse. | `tests test_data_paths py test_study_config_prefers_data_raw` |
 | `test_study_config_accepts_short_local_aliases` | function | 25 | `def test_study_config_accepts_short_local_aliases(tmp_path: Path) -> None` | No docstring; inspect implementation before reuse. | `tests test_data_paths py test_study_config_accepts_short_local_aliases` |
-| `test_study_config_keeps_legacy_data_fallback` | function | 39 | `def test_study_config_keeps_legacy_data_fallback(tmp_path: Path) -> None` | No docstring; inspect implementation before reuse. | `tests test_data_paths py test_study_config_keeps_legacy_data_fallback` |
-| `test_visit_settings_prefers_data_raw` | function | 53 | `def test_visit_settings_prefers_data_raw(tmp_path: Path) -> None` | No docstring; inspect implementation before reuse. | `tests test_data_paths py test_visit_settings_prefers_data_raw` |
+| `test_study_config_uses_controlled_pseudonymized_release` | function | 39 | `def test_study_config_uses_controlled_pseudonymized_release(tmp_path: Path) -> None` | No docstring; inspect implementation before reuse. | `tests test_data_paths py test_study_config_uses_controlled_pseudonymized_release` |
+| `test_study_config_prefers_raw_over_controlled` | function | 53 | `def test_study_config_prefers_raw_over_controlled(tmp_path: Path) -> None` | No docstring; inspect implementation before reuse. | `tests test_data_paths py test_study_config_prefers_raw_over_controlled` |
+| `test_study_config_keeps_legacy_data_fallback` | function | 71 | `def test_study_config_keeps_legacy_data_fallback(tmp_path: Path) -> None` | No docstring; inspect implementation before reuse. | `tests test_data_paths py test_study_config_keeps_legacy_data_fallback` |
+| `test_visit_settings_prefers_data_raw` | function | 85 | `def test_visit_settings_prefers_data_raw(tmp_path: Path) -> None` | No docstring; inspect implementation before reuse. | `tests test_data_paths py test_visit_settings_prefers_data_raw` |
+| `test_visit_settings_uses_controlled_pseudonymized_release` | function | 99 | `def test_visit_settings_uses_controlled_pseudonymized_release(tmp_path: Path) -> None` | No docstring; inspect implementation before reuse. | `tests test_data_paths py test_visit_settings_uses_controlled_pseudonymized_release` |
 
 ### `tests/test_methodology_report_helpers.py`
 

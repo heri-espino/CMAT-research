@@ -66,6 +66,7 @@ def get_study_config(project_root: Path | None = None) -> CMATStudyConfig:
     root = project_root or Path(__file__).resolve().parents[1]
     data = root / "data"
     raw = data / "raw"
+    controlled = data / "controlled"
 
     preferred_materias = raw / "Materias estudiantes-profesores 2019-2025 P y O.xlsx"
     preferred_asesorias = raw / "Asesorias2024.xlsx"
@@ -74,12 +75,14 @@ def get_study_config(project_root: Path | None = None) -> CMATStudyConfig:
     materias_path = _first_existing(
         preferred_materias,
         raw / "Materias.xlsx",
+        controlled / "Materias_pseudonymized.csv",
         data / "Materias estudiantes-profesores 2019-2025 P y O.xlsx",
         data / "Materias_anonymized.csv",
     )
     asesorias_path = _first_existing(
         preferred_asesorias,
         raw / "Asesorias.xlsx",
+        controlled / "Asesorias_pseudonymized.csv",
         data / "Asesorias2024.xlsx",
         data / "Asesorias_anonymized.csv",
     )
