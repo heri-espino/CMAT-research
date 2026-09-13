@@ -5,6 +5,7 @@ assignment cutoffs. The existing cohort, persistence, and progression formulas
 are preserved by this architectural move.
 """
 
+from .baseline import build_ppa_mu_baseline_cohort
 from .encouragement import (
     familiarization_professor_persistence_models,
     leave_period_out_professor_propensity,
@@ -32,6 +33,7 @@ from .progression import (
 
 __all__ = [
     "PPAProgressionCohorts",
+    "build_ppa_mu_baseline_cohort",
     "build_ppa_progression_cohort",
     "classify_revalidation_records",
     "course_specific_transition",
