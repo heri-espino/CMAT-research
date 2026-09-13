@@ -70,6 +70,7 @@ def clustered_academic_context_uptake_models(
             subset.append(major_col)
         if professor_col is not None:
             subset.append(professor_col)
+        subset = list(dict.fromkeys(subset))
         d = df[subset].dropna().copy()
         d[outcome_col] = pd.to_numeric(d[outcome_col], errors="coerce")
         d[context_col] = pd.to_numeric(d[context_col], errors="coerce")
