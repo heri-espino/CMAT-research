@@ -1,0 +1,41 @@
+{
+  "paper": "paper1-ppa-persistence",
+  "cmat_analysis_version": "0.2.0",
+  "mu_baseline_n": 4906,
+  "mu_baseline_professors": 53,
+  "primary_cohort_n": 3241,
+  "primary_calc_professors": 48,
+  "all_subsequent_sensitivity_n": 3389,
+  "interpretation": "observational instructor-linked uptake and prior-familiarity associations; neither instructor propensity nor prior CMAT use is randomized",
+  "tables": [
+    "results/tables/100_student_official_career_count_distribution.csv",
+    "results/tables/101_ppa_behavior_profiles.csv",
+    "results/tables/102_ppa_persistence_by_mu_group.csv",
+    "results/tables/103_ppa_persistence_omnibus.csv",
+    "results/tables/104_ppa_exact3_vs_4plus_persistence.csv",
+    "results/tables/105_ppa_persistence_logistic_models.csv",
+    "results/tables/106_ppa_piecewise_threshold_persistence.csv",
+    "results/tables/107_ppa_later_performance_models.csv",
+    "results/tables/120_mu_professor_visit_group_distribution_summary.csv",
+    "results/tables/121_mu_professor_visit_group_multinomial_increment.csv",
+    "results/tables/122_mu_professor_any_use_increment.csv",
+    "results/tables/123_calc_professor_any_use_increment.csv",
+    "results/tables/124_familiarization_with_calc_professor_models.csv",
+    "results/tables/125_professor_familiarization_interaction_coefficients.csv",
+    "results/tables/126_professor_familiarization_group_slopes.csv",
+    "results/tables/127_professor_familiarization_diagnostics.csv",
+    "results/tables/128_professor_propensity_by_prior_familiarity.csv",
+    "results/tables/129_familiarization_with_calc_professor_models_all_subsequent.csv",
+    "results/tables/130_professor_familiarization_group_slopes_all_subsequent.csv",
+    "results/tables/131_professor_familiarization_diagnostics_all_subsequent.csv",
+    "results/tables/132_professor_familiarization_interaction_coefficients_all_subsequent.csv",
+    "results/tables/98_ppa_progression_cohort_flow.csv",
+    "results/tables/99_revalidation_audit.csv"
+  ],
+  "figures": [
+    "results/figures/figure_01_cohort_flow.png",
+    "results/figures/figure_02_main_persistence.png",
+    "results/figures/figure_03_threshold_piecewise.png",
+    "results/figures/figure_04_adjusted_persistence_or.png"
+  ]
+}
