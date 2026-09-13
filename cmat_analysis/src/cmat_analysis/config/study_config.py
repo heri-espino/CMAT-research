@@ -54,16 +54,43 @@ class CMATStudyConfig:
     career_usage_permutation_reps: int = 3000
 
 
+def _first_existing(*paths: Path) -> Path:
+    """Return the first existing path, or the first candidate when none exist."""
+    for path in paths:
+        if path.exists():
+            return path
+    return paths[0]
+
+
 def get_study_config(project_root: Path | None = None) -> CMATStudyConfig:
     root = project_root or Path(__file__).resolve().parents[1]
     data = root / "data"
-    extra = data / "pre_treatment_covariates.xlsx"
-    raw_materias = data / "Materias estudiantes-profesores 2019-2025 P y O.xlsx"
-    raw_asesorias = data / "Asesorias2024.xlsx"
-    anon_materias = data / "Materias_anonymized.csv"
-    anon_asesorias = data / "Asesorias_anonymized.csv"
-    materias_path = raw_materias if raw_materias.exists() else anon_materias
-    asesorias_path = raw_asesorias if raw_asesorias.exists() else anon_asesorias
+    raw = data / "raw"
+    controlled = data / "controlled"
+
+    preferred_materias = raw / "Materias estudiantes-profesores 2019-2025 P y O.xlsx"
+    preferred_asesorias = raw / "Asesorias2024.xlsx"
+    preferred_extra = raw / "pre_treatment_covariates.xlsx"
+
+    materias_path = _first_existing(
+        preferred_materias,
+        raw / "Materias.xlsx",
+        controlled / "Materias_pseudonymized.csv",
+        data / "Materias estudiantes-profesores 2019-2025 P y O.xlsx",
+        data / "Materias_anonymized.csv",
+    )
+    asesorias_path = _first_existing(
+        preferred_asesorias,
+        raw / "Asesorias.xlsx",
+        controlled / "Asesorias_pseudonymized.csv",
+        data / "Asesorias2024.xlsx",
+        data / "Asesorias_anonymized.csv",
+    )
+    extra = _first_existing(
+        preferred_extra,
+        data / "pre_treatment_covariates.xlsx",
+    )
+
     return CMATStudyConfig(
         project_root=root,
         materias_path=materias_path,

@@ -53,19 +53,22 @@ cmat_analysis/outputs/
 brainstorm/**/build/
 paper/build/
 
-# Raw CSVs are excluded by default. Aggregated/releasable CSVs may be force-added
-# only after privacy review. Retained aggregate outputs may live in brainstorms.
+# Raw CSVs are excluded by default. Aggregate outputs and the specifically
+# documented controlled pseudonymized release are explicit exceptions.
 *.csv
 !outputs/aggregated/**/*.csv
 !brainstorm/**/tables/*.csv
 !results/**/*.csv
+!data/controlled/*.csv
 
 # Heavy literature snapshot
 # Local literature PDFs and Docling assets may be preserved in the canonical
 # literature library when appropriate, but repository visibility does not grant
 # redistribution rights. Check applicable licences before public reuse.
 
-# Local raw-data directories
-data/raw/
+# Local raw-data directories. Keep data/raw/README.md tracked so the canonical
+# local directory exists after cloning; everything else under data/raw stays local.
+data/raw/*
+!data/raw/README.md
 data/private/
 data/internal/

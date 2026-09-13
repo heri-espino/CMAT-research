@@ -20,9 +20,9 @@
 
 ## Inventory
 
-- Python files scanned: **105**
-- Reusable symbols: **406**
-- Test symbols: **22**
+- Python files scanned: **104**
+- Reusable symbols: **410**
+- Test symbols: **28**
 
 ## Reusable symbols
 
@@ -260,14 +260,16 @@
 | Symbol | Kind | Line | Signature | Summary | Tags |
 |---|---|---:|---|---|---|
 | `VisitAnalysisSettings` | class | 8 | `class VisitAnalysisSettings` | No docstring; inspect implementation before reuse. | `src cmat_analysis config settings py visitanalysissettings` |
-| `get_settings` | function | 20 | `def get_settings(project_root: Path \| None=None) -> VisitAnalysisSettings` | No docstring; inspect implementation before reuse. | `src cmat_analysis config settings py get_settings` |
+| `_first_existing` | function | 20 | `def _first_existing(*paths: Path) -> Path` | No docstring; inspect implementation before reuse. | `src cmat_analysis config settings py first_existing` |
+| `get_settings` | function | 27 | `def get_settings(project_root: Path \| None=None) -> VisitAnalysisSettings` | No docstring; inspect implementation before reuse. | `src cmat_analysis config settings py get_settings` |
 
 ### `src/cmat_analysis/config/study_config.py`
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
 |---|---|---:|---|---|---|
 | `CMATStudyConfig` | class | 8 | `class CMATStudyConfig` | Pre-specified choices shared by the reproducible CMAT study runners. | `src cmat_analysis config study_config py cmatstudyconfig pre-specified choices shared by reproducible cmat study runners` |
-| `get_study_config` | function | 57 | `def get_study_config(project_root: Path \| None=None) -> CMATStudyConfig` | No docstring; inspect implementation before reuse. | `src cmat_analysis config study_config py get_study_config` |
+| `_first_existing` | function | 57 | `def _first_existing(*paths: Path) -> Path` | Return the first existing path, or the first candidate when none exist. | `src cmat_analysis config study_config py first_existing return first existing path or candidate when none` |
+| `get_study_config` | function | 65 | `def get_study_config(project_root: Path \| None=None) -> CMATStudyConfig` | No docstring; inspect implementation before reuse. | `src cmat_analysis config study_config py get_study_config` |
 
 ### `src/cmat_analysis/io/concentrado_reader.py`
 
@@ -369,12 +371,6 @@
 | `clean_materias_with_tracking` | function | 93 | `def clean_materias_with_tracking(materias_raw: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting descriptive_pipeline py clean_materias_with_tracking` |
 | `enrich_materias_with_visits` | function | 185 | `def enrich_materias_with_visits(materias_cleaned: pd.DataFrame, asesorias_raw: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting descriptive_pipeline py enrich_materias_with_visits` |
 | `build_analytical_bundle` | function | 233 | `def build_analytical_bundle(project_root: Path, materias_path: Path, asesorias_path: Path) -> AnalyticalBundle` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting descriptive_pipeline py build_analytical_bundle` |
-
-### `src/cmat_analysis/reporting/figures.py`
-
-| Symbol | Kind | Line | Signature | Summary | Tags |
-|---|---|---:|---|---|---|
-| `save_figure_variants` | function | 10 | `def save_figure_variants(fig: plt.Figure, output_dir: Path, stem: str) -> list[Path]` | Save a Matplotlib figure as both PDF and PNG. | `src cmat_analysis reporting figures py save_figure_variants save a matplotlib figure as both pdf png` |
 
 ### `src/cmat_analysis/reporting/methodology_build.py`
 
@@ -627,9 +623,9 @@
 | `plot_pairwise_exact_group_means` | function | 22 | `def plot_pairwise_exact_group_means(summary: pd.DataFrame, out: Path, filename: str, title: str) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization methodology py plot_pairwise_exact_group_means` |
 | `plot_career_mean_z` | function | 41 | `def plot_career_mean_z(summary: pd.DataFrame, population: str, out: Path, filename: str) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization methodology py plot_career_mean_z` |
 | `plot_career_use_vs_z` | function | 55 | `def plot_career_use_vs_z(summary: pd.DataFrame, population: str, out: Path, filename: str) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization methodology py plot_career_use_vs_z` |
-| `plot_periodicity_acf_by_population` | function | 71 | `def plot_periodicity_acf_by_population(acf: pd.DataFrame, out: Path, filename: str='09_monthly_periodicity_acf_by_population.png') -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization methodology py plot_periodicity_acf_by_population` |
-| `plot_peak_spacing_by_population` | function | 89 | `def plot_peak_spacing_by_population(intervals: pd.DataFrame, out: Path, filename: str='08_peak_spacing_by_population.png') -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization methodology py plot_peak_spacing_by_population` |
-| `plot_exact_visit_count_curve` | function | 104 | `def plot_exact_visit_count_curve(summary: pd.DataFrame, out: Path, filename: str='13_exact_visit_counts_0_to_12.png') -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization methodology py plot_exact_visit_count_curve` |
+| `plot_periodicity_acf_by_population` | function | 71 | `def plot_periodicity_acf_by_population(acf: pd.DataFrame, out: Path, filename: str='09_monthly_periodicity_acf_by_population.pdf') -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization methodology py plot_periodicity_acf_by_population` |
+| `plot_peak_spacing_by_population` | function | 89 | `def plot_peak_spacing_by_population(intervals: pd.DataFrame, out: Path, filename: str='08_peak_spacing_by_population.pdf') -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization methodology py plot_peak_spacing_by_population` |
+| `plot_exact_visit_count_curve` | function | 104 | `def plot_exact_visit_count_curve(summary: pd.DataFrame, out: Path, filename: str='13_exact_visit_counts_0_to_12.pdf') -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization methodology py plot_exact_visit_count_curve` |
 
 ### `src/cmat_analysis/visualization/style.py`
 
@@ -645,12 +641,15 @@
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
 |---|---|---:|---|---|---|
-| `_load_key` | function | 24 | `def _load_key(args) -> bytes` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py load_key` |
-| `_term_anchor` | function | 39 | `def _term_anchor(year: int, period: str) -> str` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py term_anchor` |
-| `_make_anonymized_data` | function | 45 | `def _make_anonymized_data(project: Path, destination: Path, key: bytes) -> dict` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py make_anonymized_data` |
-| `_copy_public_code` | function | 105 | `def _copy_public_code(project: Path, release_root: Path) -> None` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py copy_public_code` |
-| `create_release` | function | 120 | `def create_release(project: Path, output_zip: Path, key: bytes) -> Path` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py create_release` |
-| `main` | function | 154 | `def main() -> int` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py main` |
+| `_load_key` | function | 29 | `def _load_key(args: argparse.Namespace) -> bytes` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py load_key` |
+| `_sha256` | function | 44 | `def _sha256(path: Path) -> str` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py sha256` |
+| `_first_existing` | function | 52 | `def _first_existing(*paths: Path) -> Path` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py first_existing` |
+| `_source_paths` | function | 59 | `def _source_paths(repo_root: Path) -> tuple[Path, Path]` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py source_paths` |
+| `_make_pseudonymized_data` | function | 75 | `def _make_pseudonymized_data(repo_root: Path, destination: Path, key: bytes) -> dict[str, object]` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py make_pseudonymized_data` |
+| `_privacy_text` | function | 201 | `def _privacy_text() -> str` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py privacy_text` |
+| `_write_release_files` | function | 214 | `def _write_release_files(release_dir: Path, manifest: dict[str, object]) -> None` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py write_release_files` |
+| `create_release` | function | 239 | `def create_release(repo_root: Path, output_zip: Path, key: bytes, *, install_controlled: bool=False) -> Path` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py create_release` |
+| `main` | function | 267 | `def main() -> int` | No docstring; inspect implementation before reuse. | `src create_anonymized_release py main` |
 
 ### `src/generador_figuras_cli.py`
 
@@ -689,6 +688,18 @@
 
 ## Test symbols
 
+### `tests/test_data_paths.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `test_study_config_prefers_data_raw` | function | 11 | `def test_study_config_prefers_data_raw(tmp_path: Path) -> None` | No docstring; inspect implementation before reuse. | `tests test_data_paths py test_study_config_prefers_data_raw` |
+| `test_study_config_accepts_short_local_aliases` | function | 25 | `def test_study_config_accepts_short_local_aliases(tmp_path: Path) -> None` | No docstring; inspect implementation before reuse. | `tests test_data_paths py test_study_config_accepts_short_local_aliases` |
+| `test_study_config_uses_controlled_pseudonymized_release` | function | 39 | `def test_study_config_uses_controlled_pseudonymized_release(tmp_path: Path) -> None` | No docstring; inspect implementation before reuse. | `tests test_data_paths py test_study_config_uses_controlled_pseudonymized_release` |
+| `test_study_config_prefers_raw_over_controlled` | function | 53 | `def test_study_config_prefers_raw_over_controlled(tmp_path: Path) -> None` | No docstring; inspect implementation before reuse. | `tests test_data_paths py test_study_config_prefers_raw_over_controlled` |
+| `test_study_config_keeps_legacy_data_fallback` | function | 71 | `def test_study_config_keeps_legacy_data_fallback(tmp_path: Path) -> None` | No docstring; inspect implementation before reuse. | `tests test_data_paths py test_study_config_keeps_legacy_data_fallback` |
+| `test_visit_settings_prefers_data_raw` | function | 85 | `def test_visit_settings_prefers_data_raw(tmp_path: Path) -> None` | No docstring; inspect implementation before reuse. | `tests test_data_paths py test_visit_settings_prefers_data_raw` |
+| `test_visit_settings_uses_controlled_pseudonymized_release` | function | 99 | `def test_visit_settings_uses_controlled_pseudonymized_release(tmp_path: Path) -> None` | No docstring; inspect implementation before reuse. | `tests test_data_paths py test_visit_settings_uses_controlled_pseudonymized_release` |
+
 ### `tests/test_methodology_report_helpers.py`
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
@@ -712,12 +723,6 @@
 | `test_public_api_is_explicit_and_stable` | function | 98 | `def test_public_api_is_explicit_and_stable() -> None` | Ensure canonical namespaces expose exactly the reviewed API. | `tests test_public_api_documentation py test_public_api_is_explicit_and_stable ensure canonical namespaces expose exactly reviewed api` |
 | `test_public_api_has_numpy_style_docstrings` | function | 105 | `def test_public_api_has_numpy_style_docstrings() -> None` | Require public callables to carry minimally complete NumPy docstrings. | `tests test_public_api_documentation py test_public_api_has_numpy_style_docstrings require public callables to carry minimally complete numpy docstrings` |
 | `test_sphinx_api_page_excludes_compatibility_and_private_modules` | function | 137 | `def test_sphinx_api_page_excludes_compatibility_and_private_modules() -> None` | Keep the main Sphinx reference restricted to namespace-level public API. | `tests test_public_api_documentation py test_sphinx_api_page_excludes_compatibility_and_private_modules keep main sphinx reference restricted to namespace-level public api` |
-
-### `tests/test_reporting_figures.py`
-
-| Symbol | Kind | Line | Signature | Summary | Tags |
-|---|---|---:|---|---|---|
-| `test_save_figure_variants_writes_pdf_and_png` | function | 10 | `def test_save_figure_variants_writes_pdf_and_png(tmp_path) -> None` | Write both variants in a deterministic order and close the figure. | `tests test_reporting_figures py test_save_figure_variants_writes_pdf_and_png write both variants in a deterministic order close figure` |
 
 ### `tests/test_study_helpers.py`
 
