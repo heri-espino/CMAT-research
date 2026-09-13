@@ -1,0 +1,40 @@
+{
+  "release_created_utc": "2026-09-13T12:35:45.209943+00:00",
+  "method": "HMAC-SHA256 pseudonymization with research fields retained",
+  "student_linkage": "Same stu_* pseudonym in Materias and Asesorias",
+  "academic_professor_linkage": "CLAVEPROFESOR pseudonymized as prof_*",
+  "advisory_professor_linkage": "Asesorias.profesor is a professor name, while Materias only contains numeric CLAVEPROFESOR. It is therefore pseudonymized as advisor_* and is NOT asserted to equal prof_* without a verified name-to-ID crosswalk.",
+  "fields_retained_in_asesorias": [
+    "fecha",
+    "id",
+    "carrera",
+    "semestre",
+    "profesor",
+    "materia",
+    "tema",
+    "periodo",
+    "_VISIT_UID"
+  ],
+  "timestamp_policy": "Exact supplied timestamp retained in ISO-8601 form, including clock time.",
+  "fields_removed_from_asesorias": [],
+  "secret_key_in_release": false,
+  "source_sha256": {
+    "Materias estudiantes-profesores 2019-2025 P y O.xlsx": "e2671767ed9a2daa14f5d08318113bfb0327539dde4cf12f4204584f28d367a1",
+    "Asesorias2024.xlsx": "43a0fcd6f7f620b5b606a51efc9eac60761acdbb239d7ac839bf5c1e83bef295"
+  },
+  "validation": {
+    "academic_rows": 27788,
+    "advisory_rows_raw": 13500,
+    "advisory_exact_duplicates_removed": 0,
+    "advisory_rows_release": 13500,
+    "student_overlap_raw": 2925,
+    "student_overlap_pseudonymized": 2925,
+    "student_linkage_preserved": true,
+    "advisor_names_pseudonymized": 120,
+    "exact_timestamp_nonmissing": 13500,
+    "carrera_retained": true,
+    "semestre_retained": true,
+    "tema_retained": true,
+    "profesor_retained_pseudonymized": true
+  }
+}
