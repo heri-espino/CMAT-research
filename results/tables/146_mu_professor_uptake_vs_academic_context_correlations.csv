@@ -1,0 +1,3 @@
+academic_context,uptake_context,professor_period_cells,pearson_r,pearson_p,spearman_rho,spearman_p,note
+MU_PROF_ACAD_LEAVE_PERIOD_OUT_MEAN_GRADE,MU_PROF_LEAVE_PERIOD_OUT_RATE,168,-0.4642063584573412,2.329986833725127e-10,-0.4762645353712109,6.790425791359157e-11,cell-level descriptive correlation; neither measure is a randomized instructor trait
+MU_PROF_ACAD_LEAVE_PERIOD_OUT_PASS_RATE,MU_PROF_LEAVE_PERIOD_OUT_RATE,168,-0.5574539423523868,4.211930379104562e-15,-0.5528916302012826,7.796186471486458e-15,cell-level descriptive correlation; neither measure is a randomized instructor trait
