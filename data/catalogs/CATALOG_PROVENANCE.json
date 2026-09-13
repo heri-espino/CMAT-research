@@ -1,0 +1,24 @@
+{
+  "source_files": {
+    "dev.xlsx": "94a69c05ba2ca7fc852ae52faac4e726177c7f5ca1754ef24be695792b84dde7",
+    "prod.xlsx": "9db428dc1bf2da5998e97336d97b86fe968adb63bd2dcd4ec9398b77c667a440"
+  },
+  "catalog_sheet_equivalence": {
+    "Escuelas": true,
+    "Carreras": true,
+    "Materias": true
+  },
+  "extraction": {
+    "schools_rows": 5,
+    "careers_rows": 52,
+    "course_catalog_unique_code_name_pairs": 369,
+    "course_catalog_exact_duplicate_rows_removed": 102,
+    "course_codes_with_multiple_names": 4
+  },
+  "school_assignment_source": "Institutional Licenciaturas catalog image supplied by project owner on 2026-09-13.",
+  "notes": [
+    "Only non-student catalog sheets were extracted from dev/prod.",
+    "No historical student-level rows from Asesorías, Calificaciones, or Diagnóstico are stored in this catalog layer.",
+    "Multiple course codes may share the same course name, and a small number of codes have multiple catalog names; conflicts are preserved rather than silently collapsed."
+  ]
+}
