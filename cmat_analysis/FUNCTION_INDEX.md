@@ -20,9 +20,9 @@
 
 ## Inventory
 
-- Python files scanned: **115**
+- Python files scanned: **116**
 - Reusable symbols: **435**
-- Test symbols: **43**
+- Test symbols: **44**
 
 ## Reusable symbols
 
@@ -791,6 +791,12 @@
 | Symbol | Kind | Line | Signature | Summary | Tags |
 |---|---|---:|---|---|---|
 | `test_clustered_context_models_report_cluster_counts` | function | 9 | `def test_clustered_context_models_report_cluster_counts() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_context_clustered py test_clustered_context_models_report_cluster_counts` |
+
+### `tests/test_ppa_context_clustered_professor.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `test_professor_can_be_cluster_and_fixed_effect` | function | 9 | `def test_professor_can_be_cluster_and_fixed_effect() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_context_clustered_professor py test_professor_can_be_cluster_and_fixed_effect` |
 
 ### `tests/test_ppa_encouragement.py`
 
