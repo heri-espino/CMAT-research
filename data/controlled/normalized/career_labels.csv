@@ -1,0 +1,58 @@
+career_label_id,career_label,career_id,school_id,mapping_method
+CARLBL_F041EA11A4,Actuaría,ACT,EDEC,normalized_name_exact
+CARLBL_4D358FAC4B,Administración de Empresas,LAD,EDNE,normalized_name_exact
+CARLBL_A9326320A2,Administración de Hoteles y Restaurantes,AHR,EDNE,normalized_name_exact
+CARLBL_563A8FB47A,Administración de Negocios Internacionales,LNI,EDNE,normalized_name_exact
+CARLBL_D71B1873BB,Animación Digital,ANI,EDAH,normalized_name_exact
+CARLBL_427653E0C4,Antropología,ANP,EDCS,normalized_name_exact
+CARLBL_7743DA629F,Antropología Cultural,ANP,EDCS,legacy_name_alias
+CARLBL_1653596C40,Arquitectura,ARQ,EDAH,normalized_name_exact
+CARLBL_2254675DAB,Arquitectura de Interiores,AIN,EDAH,normalized_name_exact
+CARLBL_77399F35BF,Artes Culinarias,ACU,EDNE,normalized_name_exact
+CARLBL_41179F062D,Banca e Inversiones,BAN,EDNE,normalized_name_exact
+CARLBL_5B99AB135B,Biología,BIO,EDEC,normalized_name_exact
+CARLBL_B2CB496E63,Bioquímica Clínica,BQC,EDEC,normalized_name_exact
+CARLBL_D9A75FFAB0,Ciencia de datos,CDD,EDEC,normalized_name_exact
+CARLBL_B0E99C16AD,Ciencia Política,CIP,EDCS,normalized_name_exact
+CARLBL_A5E0BF95DC,Ciencias de la Nutrición,CNU,EDEC,normalized_name_exact
+CARLBL_8F151E362F,Ciencias Farmacéuticas,,EDEC,unresolved
+CARLBL_8574A520E3,Cirujano Dentista,LCD,EDEC,normalized_name_exact
+CARLBL_D2CCFB7A3D,Comunicación e Imagen,,EDCS,unresolved
+CARLBL_7FF01234A5,Comunicación y Producción de Medios,COM,EDCS,normalized_name_exact
+CARLBL_D788F04446,Comunicación y Relaciones Públicas,CRP,EDCS,normalized_name_exact
+CARLBL_A1021A89F5,Derecho,DER,EDCS,normalized_name_exact
+CARLBL_4F7AE8E024,Diseño de Información Visual,DIV,EDAH,normalized_name_exact
+CARLBL_255574A75E,Economía,ECO,EDNE,normalized_name_exact
+CARLBL_7FCE1E6B4F,Enfermería,ENF,EDEC,normalized_name_exact
+CARLBL_F867BE971F,Estrategias Financieras y Contaduría Pública,EFI,EDNE,normalized_name_exact
+CARLBL_783067A8AC,Física,FIS,EDEC,normalized_name_exact
+CARLBL_55373365FD,Idiomas,IDI,EDAH,normalized_name_exact
+CARLBL_8DBD054572,Ingeniería Ambiental,IAA,EDEI,normalized_name_exact
+CARLBL_D174EB3A71,Ingeniería Biomédica,IBI,EDEI,normalized_name_exact
+CARLBL_28FD56FF33,Ingeniería Civil,ICI,EDEI,normalized_name_exact
+CARLBL_56B3A1BFE0,Ingeniería en Alimentos,IIA,EDEI,legacy_name_alias
+CARLBL_38AF17408E,Ingeniería en Electrónica y Comunicaciones,,EDEI,unresolved
+CARLBL_616F8A0D87,Ingeniería en Electrónica y Sistemas Inteligentes,,EDEI,unresolved
+CARLBL_B3FCCAA8C1,Ingeniería en Energía,IEN,EDEI,normalized_name_exact
+CARLBL_AA24E93890,Ingeniería en Industrias Alimentarias,IIA,EDEI,normalized_name_exact
+CARLBL_1D36359214,Ingeniería en Logística,ILC,EDEI,legacy_name_alias
+CARLBL_18D189705C,Ingeniería en Logística y Cadena de Suministros,ILC,EDEI,normalized_name_exact
+CARLBL_ADFF4A692B,Ingeniería en Robótica y Telecomunicaciones,IRT,EDEI,normalized_name_exact
+CARLBL_6264AD2D5A,Ingeniería en Sistemas Computacionales,ISC,EDEI,normalized_name_exact
+CARLBL_DAB7ED3371,Ingeniería Industrial,IIN,EDEI,normalized_name_exact
+CARLBL_CC13F1BB98,Ingeniería Mecánica,IMC,EDEI,normalized_name_exact
+CARLBL_9FDFCF684F,Ingeniería Mecatrónica,IMT,EDEI,normalized_name_exact
+CARLBL_9393C45E8D,Ingeniería Química,IQC,EDEI,normalized_name_exact
+CARLBL_00C65EB042,Literatura,LIT,EDAH,normalized_name_exact
+CARLBL_9055D95D1C,Médico Cirujano,MED,EDEC,normalized_name_exact
+CARLBL_BD76F0F196,Mercadotecnia,MER,EDNE,normalized_name_exact
+CARLBL_578AFE0C7F,Música,MUS,EDAH,normalized_name_exact
+CARLBL_F7A3F2E0E2,Nanotecnología e Ingeniería Molecular,NAN,EDEC,normalized_name_exact
+CARLBL_95EFA65CA9,Option 61,,,unresolved
+CARLBL_2D027A0928,Pedagogía,PED,EDCS,normalized_name_exact
+CARLBL_6DD559E116,Psicología Clínica,PSI,EDCS,normalized_name_exact
+CARLBL_4BEABE6CAE,Psicología Organizacional,PSO,EDCS,normalized_name_exact
+CARLBL_39611AFCAD,Químico Farmacéutico Biólogo,QFB,EDEC,normalized_name_exact
+CARLBL_9B4F1F4102,Relaciones Internacionales,REL,EDCS,normalized_name_exact
+CARLBL_E2C994E651,Relaciones Multiculturales,RMU,EDCS,normalized_name_exact
+CARLBL_F0A8FB1424,Teatro,TEA,EDAH,normalized_name_exact

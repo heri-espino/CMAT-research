@@ -20,11 +20,23 @@
 
 ## Inventory
 
-- Python files scanned: **104**
-- Reusable symbols: **410**
-- Test symbols: **28**
+- Python files scanned: **106**
+- Reusable symbols: **417**
+- Test symbols: **29**
 
 ## Reusable symbols
+
+### `scripts/build_normalized_controlled_data.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `norm` | function | 26 | `def norm(x)` | No docstring; inspect implementation before reuse. | `scripts build_normalized_controlled_data py norm` |
+| `clean` | function | 31 | `def clean(x)` | No docstring; inspect implementation before reuse. | `scripts build_normalized_controlled_data py clean` |
+| `sid` | function | 35 | `def sid(prefix, value, n=10)` | No docstring; inspect implementation before reuse. | `scripts build_normalized_controlled_data py sid` |
+| `slug` | function | 39 | `def slug(value, n=56)` | No docstring; inspect implementation before reuse. | `scripts build_normalized_controlled_data py slug` |
+| `pcode` | function | 44 | `def pcode(x)` | No docstring; inspect implementation before reuse. | `scripts build_normalized_controlled_data py pcode` |
+| `sha` | function | 52 | `def sha(path)` | No docstring; inspect implementation before reuse. | `scripts build_normalized_controlled_data py sha` |
+| `build` | function | 60 | `def build(root: Path)` | No docstring; inspect implementation before reuse. | `scripts build_normalized_controlled_data py build` |
 
 ### `scripts/generate_function_index.py`
 
@@ -687,6 +699,12 @@
 | `main` | function | 17 | `def main() -> int` | No docstring; inspect implementation before reuse. | `src run_study py main` |
 
 ## Test symbols
+
+### `tests/test_data_catalogs.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `test_institutional_catalog_dimensions_are_consistent` | function | 10 | `def test_institutional_catalog_dimensions_are_consistent() -> None` | No docstring; inspect implementation before reuse. | `tests test_data_catalogs py test_institutional_catalog_dimensions_are_consistent` |
 
 ### `tests/test_data_paths.py`
 

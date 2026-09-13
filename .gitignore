@@ -54,13 +54,15 @@ brainstorm/**/build/
 paper/build/
 results/logs/
 
-# Raw CSVs are excluded by default. Aggregate outputs and the specifically
-# documented controlled pseudonymized release are explicit exceptions.
+# Raw CSVs are excluded by default. Aggregate outputs, institutional catalogs,
+# and the specifically documented controlled pseudonymized layers are explicit exceptions.
 *.csv
 !outputs/aggregated/**/*.csv
 !brainstorm/**/tables/*.csv
 !results/**/*.csv
+!data/catalogs/*.csv
 !data/controlled/*.csv
+!data/controlled/normalized/*.csv
 
 # Heavy literature snapshot
 # Local literature PDFs and Docling assets may be preserved in the canonical

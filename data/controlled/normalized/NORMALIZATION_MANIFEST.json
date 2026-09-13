@@ -1,0 +1,57 @@
+{
+  "schema_version": 2,
+  "created_utc": "2026-09-13T18:29:45.715492+00:00",
+  "representation": "normalized relational layer derived from controlled flat pseudonymized sources plus non-sensitive institutional catalogs",
+  "privacy_classification": "controlled pseudonymized research data",
+  "exact_advisory_timestamp_retained": true,
+  "flat_compatibility_sources_preserved": true,
+  "catalog_provenance": "dev.xlsx/prod.xlsx catalog sheets; school assignments from institutional Licenciaturas image supplied 2026-09-13",
+  "diagnostic_source": "dev.xlsx Diagnóstico sheet; student IDs pseudonymized with the same project HMAC key; raw IDs not retained",
+  "table_rows": {
+    "schools": 5,
+    "careers": 52,
+    "career_labels": 57,
+    "career_codes": 99,
+    "subjects": 297,
+    "course_variants": 369,
+    "subject_labels": 28,
+    "terms": 13,
+    "topics": 771,
+    "students": 10961,
+    "instructors": 77,
+    "advisors": 120,
+    "student_careers": 31918,
+    "course_attempts": 27788,
+    "advisory_visits": 13500,
+    "diagnostics": 2787
+  },
+  "career_mapping": {
+    "mapped_advisory_visits": 13462,
+    "total_advisory_visits": 13500,
+    "mapped_advisory_share": 0.9971851851851852,
+    "academic_career_codes_mapped": 22,
+    "academic_career_codes_total": 99,
+    "academic_attempts_with_mapped_career": 20887,
+    "academic_attempts_total": 27788,
+    "academic_mapping_rule": "current code exact OR same-term diagnostic top count >=10 and top share >=0.85"
+  },
+  "student_linkage": {
+    "flat_unique_students": 10961,
+    "normalized_unique_students_including_diagnostics": 10961,
+    "flat_students_preserved": true
+  },
+  "relational_validation": {
+    "sqlite_foreign_key_violations": 0,
+    "subject_label_ids_unique": true,
+    "visit_ids_unique": true,
+    "attempt_ids_unique": true
+  },
+  "source_sha256": {
+    "Materias_pseudonymized.csv": "269b622c8c011e667a10b6ca3b05b3180cc42f3a0a8b5e95673646ab3db3b2c9",
+    "Asesorias_pseudonymized.csv": "a75204401235a44bf8a31a2fd047b2c431618dfb4d4d3755080b288e97bd151b",
+    "dev.xlsx": "94a69c05ba2ca7fc852ae52faac4e726177c7f5ca1754ef24be695792b84dde7",
+    "schools.csv": "e4269ea5d2f7ebfb6624274838193a37520fea4b2287a3f76400b810f9f7cf1f",
+    "careers.csv": "1a86ef2871a5c3a9b780bd7202d7271cd5dce2fa1b9e52169295756179b5ba21",
+    "course_catalog.csv": "40be9ec701a02e146cc3ed6130b8943c0f64d607646ecc2e669272515deaf010"
+  }
+}
