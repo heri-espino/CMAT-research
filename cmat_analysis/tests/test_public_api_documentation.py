@@ -73,6 +73,7 @@ EXPECTED_PUBLIC_API = {
         "build_ppa_mu_baseline_cohort",
         "build_ppa_progression_cohort",
         "classify_revalidation_records",
+        "clustered_academic_context_uptake_models",
         "course_specific_transition",
         "familiarization_professor_persistence_models",
         "form_career_crosswalk",
