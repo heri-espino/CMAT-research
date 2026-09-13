@@ -30,15 +30,18 @@ def get_settings(project_root: Path | None = None) -> VisitAnalysisSettings:
     output_root = root / "outputs"
     data_root = root / "data"
     raw_root = data_root / "raw"
+    controlled_root = data_root / "controlled"
 
     materias_path = _first_existing(
         raw_root / "Materias estudiantes-profesores 2019-2025 P y O.xlsx",
         raw_root / "Materias.xlsx",
+        controlled_root / "Materias_pseudonymized.csv",
         data_root / "Materias estudiantes-profesores 2019-2025 P y O.xlsx",
     )
     asesorias_path = _first_existing(
         raw_root / "Asesorias2024.xlsx",
         raw_root / "Asesorias.xlsx",
+        controlled_root / "Asesorias_pseudonymized.csv",
         data_root / "Asesorias2024.xlsx",
     )
 
