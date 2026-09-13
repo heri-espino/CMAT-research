@@ -1,0 +1,2 @@
+outcome,n,groups,majors,professors,periods,mcfadden_r2_base_period_professor,mcfadden_r2_plus_major,delta_mcfadden_r2_major,lr_stat_major,lr_df,lr_p_major,base_optimizer,full_optimizer,note
+MU_VISIT_GROUP,4906,0|1-2|3|4+,28,53,11,0.10648418535435544,0.12371807162557502,0.01723388627121957,118.6983735580925,81,0.004050852121064066,lbfgs,lbfgs,descriptive multinomial association; degree programme is not randomized
