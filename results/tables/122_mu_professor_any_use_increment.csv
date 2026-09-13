@@ -1,0 +1,2 @@
+outcome,n,professors,periods,r2_base,r2_plus_professor,delta_r2_professor,partial_r2_professor,joint_f_professor,joint_df_num,joint_df_den,joint_p_professor,note
+MU_ANY_VISIT,4906,53,11,0.06493830619163754,0.12163950631356135,0.05670120012192381,0.06063899365932587,5.978642590590529,52,4816.0,4.3071190057127376e-37,descriptive nested linear-probability models; instructor identity is not randomized
