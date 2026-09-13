@@ -17,9 +17,9 @@ import pandas as pd
 from cmat_analysis.cohorts import load_and_clean_inputs
 from cmat_analysis.config.study_config import get_study_config
 from cmat_analysis.ppa import (
-    academic_context_uptake_models,
     build_mu_classroom_outcome_context,
     build_ppa_mu_baseline_cohort,
+    clustered_academic_context_uptake_models,
     leave_period_out_professor_academic_context,
     leave_period_out_professor_propensity,
     major_uptake_increment,
@@ -155,7 +155,7 @@ def main() -> int:
         min_major_n=config.min_career_n_for_inference,
     )
 
-    observed_context = academic_context_uptake_models(
+    observed_context = clustered_academic_context_uptake_models(
         mu_augmented,
         outcome_col="MU_ANY_VISIT",
         context_cols=[
@@ -163,11 +163,12 @@ def main() -> int:
             "MU_LOO_CLASSROOM_PASS_RATE",
         ],
         period_col="MU_PERIOD_LABEL",
+        cluster_col="MU_CONTEXT_CLASSROOM_ID",
         major_col="MU_CAREER_OFFICIAL",
         professor_col="MU_PROFESSOR",
         min_major_n=config.min_career_n_for_inference,
     )
-    historical_context = academic_context_uptake_models(
+    historical_context = clustered_academic_context_uptake_models(
         mu_augmented,
         outcome_col="MU_ANY_VISIT",
         context_cols=[
@@ -175,6 +176,7 @@ def main() -> int:
             "MU_PROF_ACAD_LEAVE_PERIOD_OUT_PASS_RATE",
         ],
         period_col="MU_PERIOD_LABEL",
+        cluster_col="MU_PROFESSOR",
         major_col="MU_CAREER_OFFICIAL",
         professor_col="MU_PROFESSOR",
         min_major_n=config.min_career_n_for_inference,
