@@ -80,8 +80,10 @@ No public callables.
 - `build_ppa_progression_cohort` — function
 - `classify_revalidation_records` — function
 - `course_specific_transition` — function
+- `familiarization_professor_persistence_models` — function
 - `form_career_crosswalk` — function
 - `later_performance_models` — function
+- `leave_period_out_professor_propensity` — function
 - `major_delta_z_welch` — function
 - `major_persistence_joint_test` — function
 - `major_persistence_summary` — function
@@ -90,6 +92,16 @@ No public callables.
 - `piecewise_threshold_persistence_model` — function
 - `ppa_behavior_profiles` — function
 - `ppa_persistence_association_tests` — function
+- `professor_familiarization_interaction_model` — function
+- `professor_uptake_increment` — function
+- `professor_visit_group_distribution` — function
+- `professor_visit_group_multinomial_increment` — function
+
+The instructor-linked uptake helpers are descriptive. Instructor identity and
+leave-period-out instructor uptake rates are not randomized treatments or valid
+instruments by themselves; their purpose is to quantify implementation-linked
+variation and to test whether prior CMAT familiarity predicts later use after
+conditioning on later-course instructor context.
 
 ## `cmat_analysis.visualization`
 
@@ -106,5 +118,5 @@ No public callables.
 - `canonical_identifier` — function
 - `hmac_pseudonym` — function
 
-Public functions: **66**  
+Public functions: **72**  
 Public classes: **3**
