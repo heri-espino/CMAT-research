@@ -20,9 +20,9 @@
 
 ## Inventory
 
-- Python files scanned: **114**
+- Python files scanned: **115**
 - Reusable symbols: **435**
-- Test symbols: **42**
+- Test symbols: **43**
 
 ## Reusable symbols
 
@@ -786,6 +786,12 @@
 | `test_major_summary_and_increment_detect_programme_heterogeneity` | function | 110 | `def test_major_summary_and_increment_detect_programme_heterogeneity() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_context py test_major_summary_and_increment_detect_programme_heterogeneity` |
 | `test_academic_context_models_return_standardized_coefficients` | function | 122 | `def test_academic_context_models_return_standardized_coefficients() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_context py test_academic_context_models_return_standardized_coefficients` |
 
+### `tests/test_ppa_context_clustered.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `test_clustered_context_models_report_cluster_counts` | function | 9 | `def test_clustered_context_models_report_cluster_counts() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_context_clustered py test_clustered_context_models_report_cluster_counts` |
+
 ### `tests/test_ppa_encouragement.py`
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
@@ -809,9 +815,9 @@
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
 |---|---|---:|---|---|---|
-| `test_public_api_is_explicit_and_stable` | function | 112 | `def test_public_api_is_explicit_and_stable() -> None` | Ensure canonical namespaces expose exactly the reviewed API. | `tests test_public_api_documentation py test_public_api_is_explicit_and_stable ensure canonical namespaces expose exactly reviewed api` |
-| `test_public_api_has_numpy_style_docstrings` | function | 119 | `def test_public_api_has_numpy_style_docstrings() -> None` | Require public callables to carry minimally complete NumPy docstrings. | `tests test_public_api_documentation py test_public_api_has_numpy_style_docstrings require public callables to carry minimally complete numpy docstrings` |
-| `test_sphinx_api_page_excludes_compatibility_and_private_modules` | function | 151 | `def test_sphinx_api_page_excludes_compatibility_and_private_modules() -> None` | Keep the main Sphinx reference restricted to namespace-level public API. | `tests test_public_api_documentation py test_sphinx_api_page_excludes_compatibility_and_private_modules keep main sphinx reference restricted to namespace-level public api` |
+| `test_public_api_is_explicit_and_stable` | function | 113 | `def test_public_api_is_explicit_and_stable() -> None` | Ensure canonical namespaces expose exactly the reviewed API. | `tests test_public_api_documentation py test_public_api_is_explicit_and_stable ensure canonical namespaces expose exactly reviewed api` |
+| `test_public_api_has_numpy_style_docstrings` | function | 120 | `def test_public_api_has_numpy_style_docstrings() -> None` | Require public callables to carry minimally complete NumPy docstrings. | `tests test_public_api_documentation py test_public_api_has_numpy_style_docstrings require public callables to carry minimally complete numpy docstrings` |
+| `test_sphinx_api_page_excludes_compatibility_and_private_modules` | function | 152 | `def test_sphinx_api_page_excludes_compatibility_and_private_modules() -> None` | Keep the main Sphinx reference restricted to namespace-level public API. | `tests test_public_api_documentation py test_sphinx_api_page_excludes_compatibility_and_private_modules keep main sphinx reference restricted to namespace-level public api` |
 
 ### `tests/test_study_helpers.py`
 
