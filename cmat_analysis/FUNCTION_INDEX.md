@@ -20,8 +20,8 @@
 
 ## Inventory
 
-- Python files scanned: **110**
-- Reusable symbols: **425**
+- Python files scanned: **111**
+- Reusable symbols: **427**
 - Test symbols: **36**
 
 ## Reusable symbols
@@ -362,6 +362,13 @@
 | `professor_visit_group_multinomial_increment` | function | 255 | `def professor_visit_group_multinomial_increment(df: pd.DataFrame, *, group_col: str, professor_col: str, period_col: str, career_col: str \| None=None, min_career_n: int=30, group_order: Sequence[str]=DEFAULT_VISIT_GROUP_ORDER) -> pd.DataFrame` | Test whether instructor identity adds fit for 0/1-2/3/4+ uptake groups. | `src cmat_analysis ppa encouragement py professor_visit_group_multinomial_increment test whether instructor identity adds fit uptake groups` |
 | `familiarization_professor_persistence_models` | function | 334 | `def familiarization_professor_persistence_models(df: pd.DataFrame, *, outcome_col: str='CALC_ANY_VISIT', prior_group_col: str='MU_VISIT_GROUP', prior_performance_col: str='Z_MU', professor_col: str='CALC_PROFESSOR', period_col: str='CALC_PERIOD_LABEL', career_col: str='CALC_CAREER_OFFICIAL', min_career_n: int=30) -> pd.DataFrame` | Estimate prior-familiarization contrasts before and after instructor effects. | `src cmat_analysis ppa encouragement py familiarization_professor_persistence_models estimate prior-familiarization contrasts after instructor effects` |
 | `professor_familiarization_interaction_model` | function | 446 | `def professor_familiarization_interaction_model(df: pd.DataFrame, *, outcome_col: str='CALC_ANY_VISIT', prior_group_col: str='MU_VISIT_GROUP', prior_performance_col: str='Z_MU', professor_col: str='CALC_PROFESSOR', period_col: str='CALC_PERIOD_LABEL', career_col: str='CALC_CAREER_OFFICIAL', min_career_n: int=30, min_other_n: int=30) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]` | Model joint associations of prior familiarity and instructor-linked uptake. | `src cmat_analysis ppa encouragement py professor_familiarization_interaction_model model joint associations of prior familiarity instructor-linked uptake` |
+
+### `src/cmat_analysis/ppa/group_models.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `_fit_finite_mnlogit` | function | 16 | `def _fit_finite_mnlogit(formula: str, data: pd.DataFrame)` | Fit MNLogit with conservative optimizer fallbacks and finite-result checks. | `src cmat_analysis ppa group_models py fit_finite_mnlogit fit mnlogit conservative optimizer fallbacks finite-result checks` |
+| `professor_visit_group_multinomial_increment` | function | 46 | `def professor_visit_group_multinomial_increment(df: pd.DataFrame, *, group_col: str, professor_col: str, period_col: str, career_col: str \| None=None, min_career_n: int=30, group_order: Sequence[str]=DEFAULT_VISIT_GROUP_ORDER) -> pd.DataFrame` | Test whether instructor identity adds fit for 0/1-2/3/4+ uptake groups. | `src cmat_analysis ppa group_models py professor_visit_group_multinomial_increment test whether instructor identity adds fit uptake groups` |
 
 ### `src/cmat_analysis/preprocessing/_cleaning.py`
 
