@@ -20,9 +20,9 @@
 
 ## Inventory
 
-- Python files scanned: **124**
+- Python files scanned: **125**
 - Reusable symbols: **463**
-- Test symbols: **55**
+- Test symbols: **57**
 
 ## Reusable symbols
 
@@ -841,6 +841,13 @@
 | `test_attach_observed_choice_set_size_is_many_to_one` | function | 89 | `def test_attach_observed_choice_set_size_is_many_to_one() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory py test_attach_observed_choice_set_size_is_many_to_one` |
 | `test_administrative_choice_constraint_audit_finds_schedule_but_not_capacity` | function | 96 | `def test_administrative_choice_constraint_audit_finds_schedule_but_not_capacity() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory py test_administrative_choice_constraint_audit_finds_schedule_but_not_capacity` |
 | `test_post_failure_response_models_runs_clustered_lpm` | function | 104 | `def test_post_failure_response_models_runs_clustered_lpm() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory py test_post_failure_response_models_runs_clustered_lpm` |
+
+### `tests/test_ppa_adaptation_confirmatory_extra.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `test_career_interaction_models_reduce_dimension_as_threshold_rises` | function | 12 | `def test_career_interaction_models_reduce_dimension_as_threshold_rises() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory_extra py test_career_interaction_models_reduce_dimension_as_threshold_rises` |
+| `test_numeric_failure_severity_models_report_prior_z` | function | 35 | `def test_numeric_failure_severity_models_report_prior_z() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory_extra py test_numeric_failure_severity_models_report_prior_z` |
 
 ### `tests/test_ppa_adaptation_rank_denominator.py`
 
