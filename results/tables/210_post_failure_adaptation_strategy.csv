@@ -1,0 +1,7 @@
+failed_attempt_number,adaptation_strategy,n,next_attempt_pass_rate,mean_delta_prof_easiness_percentile,mean_delta_cmat_visits
+1,higher-outcome professor only,225,0.7333333333333333,0.3931704525663336,-0.5866666666666667
+1,neither observed change,138,0.5797101449275363,-0.29387343358858853,-0.2898550724637681
+1,higher-outcome professor + more CMAT,16,0.875,0.40179617945983287,1.6875
+2,higher-outcome professor only,47,0.6595744680851063,0.30366065645689705,-0.02127659574468085
+2,neither observed change,34,0.38235294117647056,-0.2879204766221218,0.0
+3,higher-outcome professor only,14,0.21428571428571427,0.2566059307858458,0.0

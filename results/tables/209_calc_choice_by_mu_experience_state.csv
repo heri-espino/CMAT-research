@@ -1,0 +1,5 @@
+reference_state,term,n,mu_classroom_clusters,estimate,se_cluster,p_value,r2
+lower_strain,"C(MU_EXPERIENCE_STATE, Treatment(reference='lower_strain'))[T.adverse_or_nonnumeric]",3224,180,-0.005102973492015736,0.041059396842272076,0.9010914292220266,0.051309755318168726
+lower_strain,"C(MU_EXPERIENCE_STATE, Treatment(reference='lower_strain'))[T.compounded_strain]",3224,180,-0.02599197720317844,0.05818198622262027,0.6550658171590773,0.051309755318168726
+lower_strain,"C(MU_EXPERIENCE_STATE, Treatment(reference='lower_strain'))[T.contextual_challenge]",3224,180,-0.017822140201911932,0.014049074304588906,0.20459685715322806,0.051309755318168726
+lower_strain,"C(MU_EXPERIENCE_STATE, Treatment(reference='lower_strain'))[T.individual_strain]",3224,180,-0.04546300409373577,0.019765455953425288,0.021441183089879374,0.051309755318168726

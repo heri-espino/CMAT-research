@@ -1,0 +1,23 @@
+{
+  "mu_students_with_cmat_coverage": 6627,
+  "mu_real_attempt_rows": 8979,
+  "students_with_first_later_calc_and_cmat_coverage": 4151,
+  "rankable_calc_choices": 3224,
+  "repeat_transitions_after_failed_mu_attempt_with_both_periods_covered": 1007,
+  "profiles_retained_all_mu": 29,
+  "profiles_retained_calc": 24,
+  "outputs": [
+    "200_mu_attempt_outcome_summary.csv",
+    "201_mu_experience_profile_progression.csv",
+    "202_calc_experience_profile_adaptation.csv",
+    "203_calc_choice_association_models.csv",
+    "204_calc_choice_performance_difficulty_interaction.csv",
+    "205_mu_repeat_attempt_summary.csv",
+    "206_mu_repeat_attempt_by_career.csv",
+    "207_career_adaptation_summary.csv",
+    "208_mu_experience_state_summary.csv",
+    "209_calc_choice_by_mu_experience_state.csv",
+    "210_post_failure_adaptation_strategy.csv"
+  ],
+  "interpretation": "Administrative traces of engagement-related adaptation; not direct latent engagement, causal professor difficulty, or causal instructor-choice effects."
+}
