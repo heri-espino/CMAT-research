@@ -53,5 +53,8 @@ jobs:
             results/tables/205_mu_repeat_attempt_summary.csv
             results/tables/206_mu_repeat_attempt_by_career.csv
             results/tables/207_career_adaptation_summary.csv
+            results/tables/208_mu_experience_state_summary.csv
+            results/tables/209_calc_choice_by_mu_experience_state.csv
+            results/tables/210_post_failure_adaptation_strategy.csv
             results/engagement_run_summary.json
           retention-days: 30
