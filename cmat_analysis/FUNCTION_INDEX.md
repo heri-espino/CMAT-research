@@ -20,9 +20,9 @@
 
 ## Inventory
 
-- Python files scanned: **117**
+- Python files scanned: **118**
 - Reusable symbols: **445**
-- Test symbols: **44**
+- Test symbols: **47**
 
 ## Reusable symbols
 
@@ -783,6 +783,14 @@
 | `test_methodology_primary_outcome_uses_scipy_kde_and_uniform_fallback` | function | 12 | `def test_methodology_primary_outcome_uses_scipy_kde_and_uniform_fallback()` | No docstring; inspect implementation before reuse. | `tests test_methodology_report_helpers py test_methodology_primary_outcome_uses_scipy_kde_and_uniform_fallback` |
 | `test_methodology_exact_visit_grouping_has_all_ten_pairwise_contrasts` | function | 31 | `def test_methodology_exact_visit_grouping_has_all_ten_pairwise_contrasts()` | No docstring; inspect implementation before reuse. | `tests test_methodology_report_helpers py test_methodology_exact_visit_grouping_has_all_ten_pairwise_contrasts` |
 | `test_methodology_report_atomic_runner_resolves_root_code_dependencies` | function | 42 | `def test_methodology_report_atomic_runner_resolves_root_code_dependencies()` | No docstring; inspect implementation before reuse. | `tests test_methodology_report_helpers py test_methodology_report_atomic_runner_resolves_root_code_dependencies` |
+
+### `tests/test_ppa_adaptation.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `test_strict_prior_instructor_context_excludes_current_and_future_periods` | function | 13 | `def test_strict_prior_instructor_context_excludes_current_and_future_periods() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation py test_strict_prior_instructor_context_excludes_current_and_future_periods` |
+| `test_instructor_choice_percentiles_rank_only_within_period` | function | 44 | `def test_instructor_choice_percentiles_rank_only_within_period() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation py test_instructor_choice_percentiles_rank_only_within_period` |
+| `test_repeat_attempt_summary_tracks_post_failure_changes` | function | 67 | `def test_repeat_attempt_summary_tracks_post_failure_changes() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation py test_repeat_attempt_summary_tracks_post_failure_changes` |
 
 ### `tests/test_ppa_baseline.py`
 
