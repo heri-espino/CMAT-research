@@ -38,12 +38,16 @@ jobs:
         run: |
           python -m py_compile code/run_engagement.py
           python -m py_compile code/run_confirmatory.py
+          python -m py_compile code/run_confirmatory_extra.py
 
       - name: Run controlled engagement adaptation analysis
         run: python code/run_engagement.py
 
       - name: Run confirmatory design checks
         run: python code/run_confirmatory.py
+
+      - name: Run stabilized confirmatory models
+        run: python code/run_confirmatory_extra.py
 
       - name: Upload aggregate Paper 4 engagement results
         uses: actions/upload-artifact@v4
@@ -71,6 +75,11 @@ jobs:
             results/tables/227_calc_choice_set_model_sensitivity.csv
             results/tables/228_administrative_choice_constraint_audit.csv
             results/tables/229_post_failure_choice_set_audit.csv
+            results/tables/230_career_experience_interaction_reduced.csv
+            results/tables/231_post_failure_numeric_severity_models.csv
+            results/tables/232_primary_experience_state_summary.csv
+            results/tables/233_state_measurement_audit.csv
             results/engagement_run_summary.json
             results/confirmatory_run_summary.json
+            results/confirmatory_extra_run_summary.json
           retention-days: 30
