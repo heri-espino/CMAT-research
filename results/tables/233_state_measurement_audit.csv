@@ -1,0 +1,8 @@
+metric,value
+n_mu_students,6627.0
+share_missing_relative_z,0.16613852421910366
+share_missing_classroom_context,0.0
+share_missing_z_with_numeric_grade,0.0
+share_missing_z_without_numeric_grade,0.16613852421910366
+among_missing_z_share_numeric_grade,0.0
+among_missing_z_share_no_numeric_grade,1.0

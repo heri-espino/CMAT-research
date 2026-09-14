@@ -4,140 +4,103 @@
 
 Canonical portfolio: `../../docs/PUBLICATION_PORTFOLIO.md`.
 
-This directory is the **single canonical home** for Paper 4. Paper-specific manuscript material, literature notes, results and submission files belong here; shared source PDFs remain in `../../literature/library/`. Reusable cohort definitions, historical-instructor measures, choice-set rankings and transition helpers live in `../../cmat_analysis/`; the branch-local recipe only composes those shared functions into Paper 4 analyses.
+This directory is the **single canonical home** for Paper 4. Paper-specific manuscript material, literature notes, results and submission files belong here; shared source PDFs remain in `../../literature/library/`. Reusable cohort definitions, historical-instructor measures, choice-set rankings, repeated-attempt transitions and confirmatory robustness helpers live in `../../cmat_analysis/`; branch-local recipes only compose those shared functions into Paper 4 analyses.
 
 ## Conceptual framing
 
-Paper 4 uses Kahu's student-engagement framework as a theoretical organizer without claiming that administrative records directly measure the full psychosocial state of engagement. Kahu separates sociocultural context, structural and psychosocial influences, engagement, and proximal/distal consequences, while defining engagement itself as multidimensional across affect, cognition and behaviour. Our administrative data observe only part of that system, most clearly institutional context, academic outcomes and behavioral traces.
+Paper 4 uses Kahu's student-engagement framework as a theoretical organizer without claiming that administrative records directly measure the full psychosocial state of engagement. Kahu separates sociocultural context, structural and psychosocial influences, engagement, and proximal/distal consequences, while defining engagement itself as multidimensional across affect, cognition and behaviour. Our administrative data observe only part of that system, most clearly institutional context, academic outcomes and behavioural traces.
 
-The proposed contribution is therefore a **Kahu-aligned quantitative trace layer** for studying longitudinal academic adaptation. The paper distinguishes:
+The proposed contribution is therefore a **Kahu-aligned quantitative trace layer** for studying longitudinal academic adaptation. The paper distinguishes structural/disciplinary context, experienced academic performance, formal support response, later context-selection adaptation and longitudinal transitions. CMAT use is treated as a formal help-seeking/behavioural trace, not as engagement itself; instructor-context movement is treated as an observable adaptation trace, not as a measure of intrinsic professor ease or unconstrained student preference.
 
-1. **Structural/disciplinary context:** official degree programme, institutional assignment to the first MU professor, and the realized classroom academic environment.
-2. **Experienced academic performance:** classroom-relative performance, pass/non-pass outcomes and attempt number. These are treated as academic outcomes/feedback, not engagement itself.
-3. **Formal support response:** contemporaneous CMAT use and its intensity (`0 / 1–2 / exactly 3 / 4+`). This is an observable behavioural trace related to engagement/help-seeking, not a complete measure of engagement.
-4. **Context-selection adaptation:** after contexts become selectable, whether the student moves toward instructors with historically higher observed pass rates and mean grades. This is an observable adaptation/choice trace and not a measure of intrinsic professor ease.
-5. **Longitudinal transition:** repeated MU attempts, later Calculus progression, subsequent CMAT use and next-attempt outcomes.
-
-This structure preserves Kahu's central warning that antecedents, engagement and consequences should not be collapsed into one construct. It also exploits the framework's emphasis on engagement as situational, responsive to the environment and potentially bidirectional with academic outcomes. Degree-programme comparisons are interpreted as possible disciplinary cultures of engagement rather than fixed student traits.
-
-Recent learning-analytics reviews strengthen this positioning because they show that higher-education engagement analytics overwhelmingly rely on observable behavioural traces and often provide limited contextual information. Paper 4 differs by explicitly separating context, academic outcomes, behavioral support use and later adaptation rather than labeling every administrative trace as engagement.
+A temporal distinction is essential. First-MU experience states combine realized classroom-relative performance and realized leave-one-out classroom pass-rate context, so their association with CMAT use during the same MU period is **contemporaneous and descriptive**. By contrast, first-MU experience precedes later Calculus enrolment, and a failed MU attempt precedes the next MU attempt, so those transition analyses have explicit temporal ordering even though they remain observational.
 
 ## Institutional transition that motivates the design
 
 The MU-to-Calculus transition contains a useful change in institutional choice structure:
 
 - **MU:** students are assigned to sections/professors by the university, with grouping strongly connected to degree programme. Professor identity is therefore primarily an assigned structural context.
-- **Calculus I:** students choose their professor subject to the offered sections, schedules, capacity and other constraints that are not fully observed in the administrative data. Professor choice can therefore be studied as a later behavioral/context-selection trace, although not as unconstrained preference.
+- **Calculus I:** students subsequently enrol with a professor from the sections offered in that period. Individual schedules, section capacity and registration restrictions are not observed, so the observed period-wide set of instructors is only a proxy for the feasible choice set.
 
-For instructor-choice analyses, an instructor is never labeled intrinsically “easy” or “hard.” The shared library calculates strictly-prior pass-rate and mean-grade histories using only academic periods before the student's choice, then ranks historically observed instructor outcomes within the professors observed teaching the course in that period. Higher percentiles mean historically higher observed pass rates/grades, not causal teaching quality or leniency.
+For instructor-context analyses, an instructor is never labeled intrinsically “easy” or “hard.” Strictly-prior pass-rate and mean-grade histories use only academic periods before the focal enrolment, and within-period percentiles rank those historical outcomes among instructors observed teaching the course that period. Higher percentiles therefore mean historically higher observed academic outcomes, not causal teaching quality, grading leniency or a deliberate student choice of an “easier” professor.
 
 ## Research questions
 
 1. Can first-MU experiences be summarized into interpretable quantitative states that preserve the distinction between individual performance and academic context?
-2. How does formal support use differ across those experience states and across degree programmes?
-3. Does an adverse or difficult MU experience predict selecting a Calculus instructor with historically higher academic outcomes once professor choice becomes available?
+2. How does formal support use differ across those experience states, and is that pattern robust to alternative definitions of academic strain?
+3. Does prior MU experience predict the historical academic-outcome context of the instructor with whom the student subsequently enrols in Calculus I?
 4. After a failed MU attempt, how do students adapt before the next attempt through professor switching, movement in historical instructor-outcome context and changes in CMAT use?
-5. How do these adaptation traces differ across degree programmes, and are they consistent with disciplinary cultures of engagement?
+5. Do degree programmes contribute systematic heterogeneity in formal support use and context-selection traces, and does the response to academic strain vary across programmes?
 
-## Primary quantitative states
-
-The detailed exploratory grid retains performance band × realized classroom-difficulty band × CMAT group, but the main analysis avoids presenting dozens of sparse combinations. First-MU experience is reduced to five interpretable states before studying behavioral responses:
-
-- **lower strain:** middle/high relative performance outside the most difficult classroom quartile;
-- **contextual challenge:** middle/high relative performance in the bottom quartile of leave-one-out classroom pass rate;
-- **individual strain:** low relative performance outside the most difficult classroom quartile;
-- **compounded strain:** low relative performance in the most difficult classroom quartile;
-- **adverse/non-numeric:** first MU attempt recorded as an adverse or otherwise nonnumeric outcome.
-
-The state itself is not an engagement category. CMAT use, later instructor choice and repeated-attempt changes are analyzed as responses/adaptation traces conditional on that experience.
-
-## Core populations and current controlled rerun
+## Core populations
 
 The September 2026 controlled-data rerun contains:
 
 - **6,627** students whose first real MU attempt falls in a CMAT-coverage period;
 - **8,979** real MU attempt rows across their observed histories;
 - **4,151** students with a first later Calculus attempt in a CMAT-coverage period after an observed MU pass;
-- **3,224** later Calculus choices for which the chosen instructor can be ranked from strictly prior instructor outcomes;
+- **3,224** later Calculus enrolments for which the chosen instructor can be ranked from strictly prior instructor outcomes;
 - **1,007** transitions from a failed/adverse MU attempt to a subsequent MU attempt where both periods have CMAT coverage.
 
-## Current empirical findings
+## Primary first-MU experience states
 
-### First-MU experience states
+The confirmatory primary classification is recomputed **within the covered analytic cohort**, using classroom-relative performance `Z <= -0.5` as individual strain and the bottom quartile of leave-one-out classroom pass rate as high contextual difficulty. This supersedes the earlier exploratory state counts in table `208`, whose contextual cut was inherited from the broader trajectory builder before the CMAT-coverage restriction. Table `232` is therefore the canonical main-analysis state summary.
 
-The five states sharply separate subsequent academic trajectories and support responses.
+- **lower strain:** `N=3,679`; first-period CMAT use 18.8%, eventual MU pass 99.8%, observed later Calculus 77.5%, later Calculus CMAT use 23.6%;
+- **contextual challenge:** `N=1,012`; first-period CMAT use 28.6%, eventual MU pass 97.7%, observed later Calculus 76.3%, later Calculus CMAT use 30.6%;
+- **individual strain:** `N=673`; first-period CMAT use 9.5%, eventual MU pass 58.5%, observed later Calculus 42.2%, later Calculus CMAT use 13.7%;
+- **compounded strain:** `N=162`; first-period CMAT use 8.0%, eventual MU pass 30.9%, observed later Calculus 16.0%, later Calculus CMAT use 15.4%;
+- **adverse/non-numeric:** `N=1,101`; first-period CMAT use 16.2%, eventual MU pass 44.2%, observed later Calculus 19.7%, later Calculus CMAT use 15.2%.
 
-- **Lower strain:** `N=3,653`; 0.9% first-attempt non-pass, 99.8% eventual MU pass, 18.8% first-period CMAT use, 77.7% observed later Calculus progression and 23.6% later Calculus CMAT use.
-- **Contextual challenge:** `N=1,038`; despite being in the lowest classroom-pass-rate quartile, only 5.1% have a first-attempt non-pass and 97.8% eventually pass MU. This group has the highest first-period CMAT use among the main states (28.0%; mean 1.04 visits) and 30.5% later Calculus CMAT use.
-- **Individual strain:** `N=665`; 55.3% first-attempt non-pass, 58.9% eventual MU pass, only 9.5% first-period CMAT use, 42.4% observed later Calculus and 13.8% later Calculus CMAT use.
-- **Compounded strain:** `N=170`; 97.1% first-attempt non-pass, 30.6% eventual MU pass, 8.2% first-period CMAT use and only 16.5% observed later Calculus.
-- **Adverse/non-numeric:** `N=1,101`; 44.2% eventually pass MU and 19.7% are observed later in Calculus.
+The measurement audit (`233`) shows that 16.6% of covered first-MU students lack a classroom-relative `Z`, and every such case lacks a numeric grade; no numeric-grade student is silently classified as adverse/non-numeric because of a missing `Z`, and classroom pass-rate context is complete for the analytic cohort.
 
-The contrast is substantively important: the students experiencing the greatest academic strain are not necessarily the students using the most formal support. The contextual-challenge group combines strong relative performance under a difficult classroom context with the highest CMAT uptake, whereas individual/compounded strain show lower support use despite much weaker academic trajectories. This should be investigated as a help-seeking/engagement-related selection pattern rather than interpreted causally.
+## Confirmatory design closure
 
-### Does a difficult MU experience lead students to choose an easier Calculus professor?
+### 1. Robustness of the academic-strain taxonomy
 
-The simple avoidance hypothesis is **not supported** by the current Calculus-choice analysis. In `N=3,224` rankable choices, with Calculus-period and degree-programme controls plus CMAT-response and attempt-history controls, the experience-state comparison uses lower strain as the reference:
+Tables `220`–`222` test nine pre-specified definitions formed by performance cutoffs `-0.25`, `-0.50`, `-0.75` crossed with contextual-difficulty quantiles `0.20`, `0.25`, `1/3`. Across **all nine specifications**, contextual-challenge students have the highest first-period CMAT-use rate among the four numeric states. Relative to lower strain, the contextual-challenge CMAT-use difference ranges from **+8.4 to +10.0 percentage points**; relative to individual strain, from **+15.7 to +20.1 points**; and relative to compounded strain, from **+14.5 to +21.8 points**.
 
-- contextual challenge: −1.78 percentile points in chosen historical instructor outcome rank (`p=0.205`);
-- compounded strain: −2.60 points (`p=0.655`);
-- adverse/non-numeric: −0.51 points (`p=0.901`);
-- individual strain: **−4.55 points** (`p=0.021`).
+The continuous model (`222`) gives the same qualitative pattern without thresholds. Conditional on degree programme and period, a +1 SD increase in classroom-relative performance is associated with +5.0 percentage points in same-period CMAT use (`p<1e-30`), while a +1 SD increase in classroom pass-rate context is associated with -4.7 points (`p<1e-7`); the interaction is -1.8 points (`p<1e-5`). Because performance, classroom outcomes and CMAT use are realized within the same period, these are contemporaneous associations rather than causal effects of academic difficulty on help-seeking.
 
-The continuous specification gives the same broad conclusion: higher MU classroom-relative performance is associated with a small shift toward historically higher-outcome Calculus instructors (+1.34 percentile points per SD in the joint model, `p=0.028`), while realized MU classroom pass-rate context is not independently associated with the later choice (`p=0.161`) and the performance × classroom-context interaction is not evident (`p=0.681`). Therefore the data do not support the narrative that students who do poorly in assigned MU systematically compensate by choosing historically easier/higher-outcome Calculus professors.
+### 2. Formalized post-failure adaptation
 
-### Failed MU attempts are a distinct adaptation point
+The repeated-attempt models (`223`, `231`) separate three subsequent responses: movement toward a historically higher-outcome instructor context, next-period CMAT use and increased CMAT use. Attempt number itself does not jointly explain these responses after controls, while prior CMAT use predicts later CMAT use in the full transition sample (+11.3 percentage points, `p=0.00035`) but does not predict an increase in visits.
 
-The strongest context-selection response occurs **immediately after MU failure**, not at the later Calculus transition.
+The descriptive movement toward historically higher-outcome instructors is robust to how instructor context is measured (`224`). After the **first failed MU attempt**, 62.3% of rankable transitions move upward in the within-period historical-outcome percentile, 67.5% move to a professor with a higher strictly-prior pass rate and 66.9% move to one with a higher strictly-prior mean grade. The same direction persists after the second and third failures, although samples become small thereafter. The absolute-history checks are important because they show that the pattern is not created solely by a changing within-period percentile denominator.
 
-Among 820 covered transitions following the first failed/adverse MU attempt, 97.0% move to a different professor. For the 387 transitions where both the prior and next professors can be ranked from historical outcomes, 62.3% move toward a professor with historically higher outcomes, with a mean shift of **+13.4 percentile points**. The same directional tendency appears after the second failure (60.0% of 85 rankable transitions; +6.1 points) and third failure (63.6% of 22; +8.6 points), although later-attempt samples are small.
+Among numeric failures with a classroom-relative `Z` (`231`), failure severity does not show evidence that a more severe failure causes greater upward professor-context movement or more CMAT use: the coefficient of prior `Z` on upward professor-context movement is +5.3 percentage points per SD (`p=0.056`), while its associations with next-period CMAT use and increased CMAT use are small and non-significant. These models remain observational and should not be interpreted as causal effects of switching professors or using CMAT.
 
-Next-attempt pass rates decline with repeated failure: 64.6% after the first failed attempt, 54.5% after the second and 40.0% after the third. This makes the `n`th-attempt population a substantively distinct high-risk group rather than a nuisance to be discarded.
+### 3. Degree-programme heterogeneity without twenty separate subanalyses
 
-Among rankable first-failure transitions, the descriptive adaptation-strategy table shows:
+The confirmatory programme analysis uses omnibus tests (`225`) rather than one regression per degree. Degree programme adds explanatory information beyond experience state and period for first-MU CMAT use (`ΔR²=0.0154`, joint `p=3.6e-7`), later Calculus CMAT use (`ΔR²=0.0250`, `p=3.0e-12`) and the historical instructor-outcome rank observed in Calculus (`ΔR²=0.0143`, `p=5.8e-6`). These are statistically clear but modest incremental contributions.
 
-- moving to a historically higher-outcome professor without increasing CMAT: `N=225`, next-attempt pass rate 73.3%;
-- neither observed change: `N=138`, next-attempt pass rate 58.0%;
-- moving to a historically higher-outcome professor **and** increasing CMAT: `N=16`, next-attempt pass rate 87.5%.
+The original unrestricted programme×experience-state interaction in `225` is retained only as a diagnostic because 116 interaction restrictions with 190 classroom clusters are too highly parameterized for the primary inferential claim. Table `230` is the canonical interaction sensitivity: after increasingly aggressive pre-specified pooling of smaller programmes, the interaction remains detectable at thresholds of 100, 150 and 200 students per retained programme, while incremental fit declines from `ΔR²=0.0112` to `0.0060`. The interpretation is therefore that disciplinary context modifies behavioural response patterns, but the additional explanatory magnitude is modest rather than dominant.
 
-These are descriptive associations, not treatment effects. Professor movement may reflect availability, scheduling, institutional rules, student composition, grading practices or other unobserved selection, and the small joint-strategy group should not be overinterpreted.
+### 4. Audit of the instructor-choice proxy
 
-CMAT use does not increase after the first failure in aggregate: any-use falls from 18.9% in the failed attempt period to 9.8% in the next attempt period, with a mean change of −0.23 visits. This decline must be interpreted together with the PPA participation incentive and changing institutional context, not as direct evidence of disengagement.
+The Calculus choice-set audit (`226`) shows 5–25 instructors observed teaching the course per period (median 13.5), with 2–18 instructors rankable from strictly-prior history (median 11.5). The chosen instructor is historically rankable for **77.7%** of the 4,151 later Calculus enrolments, and average history coverage is about 0.78 at the student level.
 
-### Degree-programme heterogeneity
+The administrative audit (`228`) finds no usable fields for an individual section identifier, schedule time, capacity or room, so the analysis cannot reconstruct each student's feasible instructor set. The correct language is therefore **“students subsequently enrolled with instructors associated with historically higher/lower observed academic outcomes”**, not “students deliberately chose easier/harder professors.”
 
-Degree programmes show substantial differences in first-MU failure, CMAT use, later Calculus support use and selected historical instructor context. Actuaría (`LAT`) remains an informative example: among `N=368` first-MU students, 30.4% use CMAT in the first MU period and 40.8% of the `N=287` later-Calculus students use CMAT there, while its mean chosen Calculus historical-outcome percentile is near the middle of the observed choice set (0.532). Thus high formal-support use in Actuaría is not simply accompanied by systematic selection of historically high-outcome Calculus professors.
+Choice-set sensitivity (`227`) does not rescue the simple avoidance hypothesis. The individual-strain coefficient remains about **-4.4 percentile points** when requiring at least 2, 3, 4 or 5 rankable instructors (`p≈0.024`), and becomes -6.0 points (`p=0.005`) when additionally requiring at least 75% historical coverage. Under that stricter sample contextual challenge is also associated with a lower historical-outcome rank (-3.4 points, `p=0.019`). Thus the data do not support a general pattern in which a difficult MU experience is followed by enrolment with historically higher-outcome Calculus instructors.
 
-Programme differences should remain part of the paper because Kahu's framework explicitly permits disciplinary structural context and different cultures of engagement, but programme-level descriptive differences must not be treated as individual mechanisms without adjustment.
-
-## Contribution
-
-The emerging contribution is no longer a catalogue of degree-programme support rates. Paper 4 can show how administrative data can provide a **quantitative longitudinal complement** to a multidimensional engagement framework by observing the sequence:
-
-`assigned context → academic experience/outcome → support response → context-selection adaptation → subsequent outcome`.
-
-The contribution is strongest when framed as an operational layer for observable engagement-related adaptation rather than a claim to measure latent engagement. In particular, the assigned-MU/chosen-Calculus transition and repeated-MU-attempt transitions create natural moments where changes in student behaviour can be studied after academic feedback.
+For post-failure MU transitions (`229`), all observed next-attempt periods have at least four rankable instructors, but only 47.2% of first-failure transitions have comparable historical percentiles for both the prior and next professor because early-period historical coverage is incomplete. Absolute prior pass-rate and mean-grade comparisons in `224` therefore remain essential robustness checks.
 
 ## Interpretation rules
 
 - Do **not** equate CMAT non-use with disengagement; students may use other resources or need no formal support.
+- Do **not** interpret same-period MU state → CMAT comparisons causally; performance, classroom outcomes and visits are contemporaneous.
 - Do **not** label a professor intrinsically easy/hard. Use “historically higher/lower observed academic outcomes,” “historical instructor-outcome percentile,” or “observed academic context.”
-- Do **not** treat instructor choice as unconstrained preference; individual schedules, capacity and registration restrictions are not fully observed.
-- Do **not** treat a change to a historically higher-outcome professor as causal treatment.
-- Keep performance outcomes, contextual antecedents and behavioral traces conceptually distinct in the Kahu-aligned interpretation.
-- The `n`th-attempt analyses include adverse/nonnumeric failures and require CMAT coverage in both transition periods when CMAT changes are interpreted.
-- Official academic degree `CLAVECARRERA` remains the primary programme variable; small programmes remain in the data but should be pooled/excluded from programme-level inference as appropriate.
-
-## Journal strategy
-
-The target should be reconsidered after the engagement framing is fully developed. The paper now potentially fits a broader higher-education/engagement audience better than a mathematics-support-only outlet. Candidate targets include *Higher Education Research & Development* if the Kahu-aligned theoretical contribution is made explicit, *Studies in Higher Education* as an ambitious option, and *International Journal of Mathematical Education in Science and Technology* if the manuscript remains primarily mathematics-education focused.
+- Do **not** describe Calculus professor enrolment as unconstrained preference or deliberate selection; schedules, capacity and registration restrictions are not observed.
+- Do **not** treat movement to a historically higher-outcome professor or increased CMAT use as a treatment whose effect is identified by the descriptive next-attempt pass rates.
+- Keep structural context, academic outcomes/feedback, behavioural traces and subsequent outcomes conceptually distinct in the Kahu-aligned interpretation.
+- Degree-programme heterogeneity should be presented through omnibus and pooled interaction tests, not through a catalogue of isolated programme-specific significance tests.
 
 ## Reproducibility boundary
 
-The shared trajectory and instructor-history methods are implemented and tested under `main/cmat_analysis/src/cmat_analysis/ppa/`. The Paper 4 recipe is `code/run_engagement.py` and its controlled CI is `.github/workflows/paper4-ci.yml`.
+The shared trajectory, instructor-history, confirmatory sensitivity, post-failure and choice-set audit methods are implemented and tested under `main/cmat_analysis/src/cmat_analysis/ppa/`. Paper 4 uses three thin recipes: `code/run_engagement.py`, `code/run_confirmatory.py` and `code/run_confirmatory_extra.py`; controlled execution is handled by `.github/workflows/paper4-ci.yml`.
 
-Reviewed aggregate outputs retained under `results/tables/` include the attempt-history summary (`200`), Calculus-choice models (`203`–`204`), repeat-attempt summary (`205`), degree-programme adaptation summary (`207`), five-state experience summary (`208`), state-to-Calculus-choice model (`209`) and post-failure adaptation strategies (`210`). Detailed profile tables (`201`–`202`) and the repeat-by-career table (`206`) are reproducibly generated by the recipe and available through the CI artifact even when not retained as primary reviewed tables.
+Reviewed aggregate outputs retained under `results/tables/` include the original engagement/adaptation tables `200`–`210` and the confirmatory closure tables `220`–`233`. Tables `232`–`233` define and audit the canonical primary state classification; `220`–`222` cover taxonomy robustness; `223`–`224` and `231` formalize post-failure adaptation; `225` and `230` cover degree-programme heterogeneity; and `226`–`229` audit the instructor-choice proxy and its support.
 
 ## Status
 
-Active Paper 4 design. The empirical signal is now strong enough to justify targeted literature work and manuscript development, but the next methodological priority is to formalize the Kahu-to-administrative-trace mapping, test robustness of the historical instructor-choice measure, and distinguish descriptive adaptation from causal interpretation.
+**Empirical design closure candidate.** The four planned pre-draft analyses have been completed and versioned. The manuscript has not been modified. The next decision is whether these robustness results are sufficient to freeze the empirical design; if frozen, subsequent work should focus on literature integration, Kahu-to-administrative-trace mapping, presentation/figures and manuscript drafting rather than adding unconstrained exploratory specifications.

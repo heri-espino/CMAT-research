@@ -1,0 +1,21 @@
+specification,term,n,clusters,periods,estimate,se_cluster,p_value,r2
+rankable_ge_2,"C(_STATE, Treatment(reference='lower_strain'))[T.adverse_or_nonnumeric]",3224,180,10,0.00666783523531005,0.026647968724859847,0.8024177851822469,0.05108626151296558
+rankable_ge_2,"C(_STATE, Treatment(reference='lower_strain'))[T.compounded_strain]",3224,180,10,-0.021855245899041517,0.04578216567719047,0.6330953532042463,0.05108626151296558
+rankable_ge_2,"C(_STATE, Treatment(reference='lower_strain'))[T.contextual_challenge]",3224,180,10,-0.022149208441966564,0.013501568196321999,0.10090300545882762,0.05108626151296558
+rankable_ge_2,"C(_STATE, Treatment(reference='lower_strain'))[T.individual_strain]",3224,180,10,-0.04398091058011183,0.019498481803364553,0.024095259151661184,0.05108626151296558
+rankable_ge_3,"C(_STATE, Treatment(reference='lower_strain'))[T.adverse_or_nonnumeric]",3189,180,9,0.006590238590979702,0.026580537583014843,0.804184902710054,0.04311362635545113
+rankable_ge_3,"C(_STATE, Treatment(reference='lower_strain'))[T.compounded_strain]",3189,180,9,-0.021741278836056217,0.045720996555719366,0.6344159051974962,0.04311362635545113
+rankable_ge_3,"C(_STATE, Treatment(reference='lower_strain'))[T.contextual_challenge]",3189,180,9,-0.022084980929931136,0.013557176480718308,0.10330770306843608,0.04311362635545113
+rankable_ge_3,"C(_STATE, Treatment(reference='lower_strain'))[T.individual_strain]",3189,180,9,-0.043791905383188515,0.01948154253896232,0.024584708662130205,0.04311362635545113
+rankable_ge_4,"C(_STATE, Treatment(reference='lower_strain'))[T.adverse_or_nonnumeric]",3189,180,9,0.006590238590979702,0.026580537583014843,0.804184902710054,0.04311362635545113
+rankable_ge_4,"C(_STATE, Treatment(reference='lower_strain'))[T.compounded_strain]",3189,180,9,-0.021741278836056217,0.045720996555719366,0.6344159051974962,0.04311362635545113
+rankable_ge_4,"C(_STATE, Treatment(reference='lower_strain'))[T.contextual_challenge]",3189,180,9,-0.022084980929931136,0.013557176480718308,0.10330770306843608,0.04311362635545113
+rankable_ge_4,"C(_STATE, Treatment(reference='lower_strain'))[T.individual_strain]",3189,180,9,-0.043791905383188515,0.01948154253896232,0.024584708662130205,0.04311362635545113
+rankable_ge_5,"C(_STATE, Treatment(reference='lower_strain'))[T.adverse_or_nonnumeric]",3189,180,9,0.006590238590979702,0.026580537583014843,0.804184902710054,0.04311362635545113
+rankable_ge_5,"C(_STATE, Treatment(reference='lower_strain'))[T.compounded_strain]",3189,180,9,-0.021741278836056217,0.045720996555719366,0.6344159051974962,0.04311362635545113
+rankable_ge_5,"C(_STATE, Treatment(reference='lower_strain'))[T.contextual_challenge]",3189,180,9,-0.022084980929931136,0.013557176480718308,0.10330770306843608,0.04311362635545113
+rankable_ge_5,"C(_STATE, Treatment(reference='lower_strain'))[T.individual_strain]",3189,180,9,-0.043791905383188515,0.01948154253896232,0.024584708662130205,0.04311362635545113
+rankable_ge_2_history_coverage_ge_0.75,"C(_STATE, Treatment(reference='lower_strain'))[T.adverse_or_nonnumeric]",2590,162,6,-0.014605312365127266,0.03257761368242249,0.6539196859321295,0.0322276976326783
+rankable_ge_2_history_coverage_ge_0.75,"C(_STATE, Treatment(reference='lower_strain'))[T.compounded_strain]",2590,162,6,-0.04584037038065387,0.05770821467780722,0.42699321580243654,0.0322276976326783
+rankable_ge_2_history_coverage_ge_0.75,"C(_STATE, Treatment(reference='lower_strain'))[T.contextual_challenge]",2590,162,6,-0.034391394012247,0.014676053986064932,0.019110527649106625,0.0322276976326783
+rankable_ge_2_history_coverage_ge_0.75,"C(_STATE, Treatment(reference='lower_strain'))[T.individual_strain]",2590,162,6,-0.05958616174673587,0.021405444672052264,0.005374406864843989,0.0322276976326783
