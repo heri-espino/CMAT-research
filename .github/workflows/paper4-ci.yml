@@ -1,0 +1,57 @@
+name: Paper 4 engagement adaptation CI
+
+on:
+  push:
+    branches:
+      - 'paper/paper4-degree-help-seeking'
+    paths:
+      - 'code/**'
+      - 'paper/**'
+      - 'results/**'
+      - 'cmat_analysis/**'
+      - '.github/workflows/paper4-ci.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  engagement-analysis:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Paper 4 with Git LFS assets
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Set up Python 3.14
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+          cache: pip
+          cache-dependency-path: cmat_analysis/pyproject.toml
+
+      - name: Install shared CMAT library
+        run: python -m pip install -e './cmat_analysis[dev]'
+
+      - name: Compile Paper 4 recipe
+        run: python -m py_compile code/run_engagement.py
+
+      - name: Run controlled engagement adaptation analysis
+        run: python code/run_engagement.py
+
+      - name: Upload aggregate Paper 4 engagement results
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper4-engagement-adaptation-${{ github.sha }}
+          path: |
+            results/tables/200_mu_attempt_outcome_summary.csv
+            results/tables/201_mu_experience_profile_progression.csv
+            results/tables/202_calc_experience_profile_adaptation.csv
+            results/tables/203_calc_choice_association_models.csv
+            results/tables/204_calc_choice_performance_difficulty_interaction.csv
+            results/tables/205_mu_repeat_attempt_summary.csv
+            results/tables/206_mu_repeat_attempt_by_career.csv
+            results/tables/207_career_adaptation_summary.csv
+            results/engagement_run_summary.json
+          retention-days: 30
