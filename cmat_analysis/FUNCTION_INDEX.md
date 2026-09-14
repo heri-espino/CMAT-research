@@ -20,9 +20,9 @@
 
 ## Inventory
 
-- Python files scanned: **119**
+- Python files scanned: **120**
 - Reusable symbols: **446**
-- Test symbols: **47**
+- Test symbols: **48**
 
 ## Reusable symbols
 
@@ -797,6 +797,12 @@
 | `test_strict_prior_instructor_context_excludes_current_and_future_periods` | function | 13 | `def test_strict_prior_instructor_context_excludes_current_and_future_periods() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation py test_strict_prior_instructor_context_excludes_current_and_future_periods` |
 | `test_instructor_choice_percentiles_rank_only_within_period` | function | 44 | `def test_instructor_choice_percentiles_rank_only_within_period() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation py test_instructor_choice_percentiles_rank_only_within_period` |
 | `test_repeat_attempt_summary_tracks_post_failure_changes` | function | 67 | `def test_repeat_attempt_summary_tracks_post_failure_changes() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation py test_repeat_attempt_summary_tracks_post_failure_changes` |
+
+### `tests/test_ppa_adaptation_rank_denominator.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `test_repeat_rank_shift_share_excludes_missing_ranks` | function | 9 | `def test_repeat_rank_shift_share_excludes_missing_ranks() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_rank_denominator py test_repeat_rank_shift_share_excludes_missing_ranks` |
 
 ### `tests/test_ppa_baseline.py`
 
