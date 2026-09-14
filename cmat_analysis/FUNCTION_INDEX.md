@@ -20,9 +20,9 @@
 
 ## Inventory
 
-- Python files scanned: **122**
+- Python files scanned: **123**
 - Reusable symbols: **461**
-- Test symbols: **48**
+- Test symbols: **55**
 
 ## Reusable symbols
 
@@ -822,6 +822,18 @@
 | `test_strict_prior_instructor_context_excludes_current_and_future_periods` | function | 13 | `def test_strict_prior_instructor_context_excludes_current_and_future_periods() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation py test_strict_prior_instructor_context_excludes_current_and_future_periods` |
 | `test_instructor_choice_percentiles_rank_only_within_period` | function | 44 | `def test_instructor_choice_percentiles_rank_only_within_period() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation py test_instructor_choice_percentiles_rank_only_within_period` |
 | `test_repeat_attempt_summary_tracks_post_failure_changes` | function | 67 | `def test_repeat_attempt_summary_tracks_post_failure_changes() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation py test_repeat_attempt_summary_tracks_post_failure_changes` |
+
+### `tests/test_ppa_adaptation_confirmatory.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `test_classify_experience_state_separates_individual_and_contextual_strain` | function | 19 | `def test_classify_experience_state_separates_individual_and_contextual_strain() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory py test_classify_experience_state_separates_individual_and_contextual_strain` |
+| `test_experience_state_sensitivity_returns_predefined_grid` | function | 34 | `def test_experience_state_sensitivity_returns_predefined_grid() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory py test_experience_state_sensitivity_returns_predefined_grid` |
+| `test_choice_set_audit_uses_observed_and_rankable_counts` | function | 59 | `def test_choice_set_audit_uses_observed_and_rankable_counts() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory py test_choice_set_audit_uses_observed_and_rankable_counts` |
+| `test_augment_repeat_transition_context_adds_absolute_history_changes` | function | 72 | `def test_augment_repeat_transition_context_adds_absolute_history_changes() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory py test_augment_repeat_transition_context_adds_absolute_history_changes` |
+| `test_attach_observed_choice_set_size_is_many_to_one` | function | 89 | `def test_attach_observed_choice_set_size_is_many_to_one() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory py test_attach_observed_choice_set_size_is_many_to_one` |
+| `test_administrative_choice_constraint_audit_finds_schedule_but_not_capacity` | function | 96 | `def test_administrative_choice_constraint_audit_finds_schedule_but_not_capacity() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory py test_administrative_choice_constraint_audit_finds_schedule_but_not_capacity` |
+| `test_post_failure_response_models_runs_clustered_lpm` | function | 104 | `def test_post_failure_response_models_runs_clustered_lpm() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory py test_post_failure_response_models_runs_clustered_lpm` |
 
 ### `tests/test_ppa_adaptation_rank_denominator.py`
 
