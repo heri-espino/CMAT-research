@@ -11,9 +11,9 @@ from .adaptation import (
     calc_choice_association_models,
     experience_profile_summary,
     instructor_choice_percentiles,
-    repeat_attempt_summary,
     strict_prior_instructor_context,
 )
+from .adaptation_summary import repeat_attempt_summary
 from .baseline import build_ppa_mu_baseline_cohort
 from .context import (
     academic_context_uptake_models,
