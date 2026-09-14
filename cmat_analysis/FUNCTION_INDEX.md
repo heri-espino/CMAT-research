@@ -20,9 +20,9 @@
 
 ## Inventory
 
-- Python files scanned: **120**
-- Reusable symbols: **446**
-- Test symbols: **48**
+- Python files scanned: **123**
+- Reusable symbols: **461**
+- Test symbols: **55**
 
 ## Reusable symbols
 
@@ -359,6 +359,31 @@
 | `experience_profile_summary` | function | 502 | `def experience_profile_summary(df: pd.DataFrame, *, profile_col: str='MU_EXPERIENCE_PROFILE', min_n: int=20) -> pd.DataFrame` | Summarize parsimonious first-MU experience profiles and later adaptation traces. | `src cmat_analysis ppa adaptation py experience_profile_summary summarize parsimonious first-mu experience profiles later traces` |
 | `calc_choice_association_models` | function | 548 | `def calc_choice_association_models(df: pd.DataFrame, *, outcome_col: str='CALC_CHOSEN_EASINESS_PERCENTILE', career_col: str='MU_FIRST_CAREER', calc_period_col: str='CALC_FIRST_PERIOD_LABEL', cluster_col: str='MU_FIRST_CLASSROOM_ID', min_career_n: int=30) -> pd.DataFrame` | Estimate how prior MU experience is associated with later instructor-context choice. | `src cmat_analysis ppa adaptation py calc_choice_association_models estimate how prior mu experience is associated later` |
 | `repeat_attempt_summary` | function | 639 | `def repeat_attempt_summary(transitions: pd.DataFrame) -> pd.DataFrame` | Summarize behavioral and instructor-context changes after failed MU attempts. | `src cmat_analysis ppa adaptation py repeat_attempt_summary summarize behavioral instructor-context changes after failed mu attempts` |
+
+### `src/cmat_analysis/ppa/adaptation_audit.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `augment_repeat_transition_context` | function | 13 | `def augment_repeat_transition_context(transitions: pd.DataFrame, mu_attempts: pd.DataFrame) -> pd.DataFrame` | Attach absolute strictly-prior instructor outcomes to repeat transitions. | `src cmat_analysis ppa adaptation_audit py augment_repeat_transition_context attach absolute strictly-prior instructor outcomes to repeat transitions` |
+| `observed_course_instructor_counts` | function | 86 | `def observed_course_instructor_counts(academics: pd.DataFrame, *, passing_grade: float, subject_code: str, subject_name: str, period_col: str='PERIOD_INDEX', instructor_col: str='CLAVEPROFESOR') -> pd.DataFrame` | Count instructors observed teaching a course in each academic period. | `src cmat_analysis ppa adaptation_audit py observed_course_instructor_counts count instructors observed teaching a course in each` |
+| `attach_observed_choice_set_size` | function | 138 | `def attach_observed_choice_set_size(choices: pd.DataFrame, period_counts: pd.DataFrame, *, choice_period_col: str='CALC_FIRST_PERIOD_INDEX', count_period_col: str='PERIOD_INDEX', output_col: str='CALC_CHOICE_SET_OBSERVED_N') -> pd.DataFrame` | Attach period-wide observed instructor counts to student choices. | `src cmat_analysis ppa adaptation_audit py attach_observed_choice_set_size attach period-wide observed instructor counts to student choices` |
+
+### `src/cmat_analysis/ppa/adaptation_confirmatory.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `_collapse_rare` | function | 18 | `def _collapse_rare(series: pd.Series, min_n: int) -> pd.Series` | No docstring; inspect implementation before reuse. | `src cmat_analysis ppa adaptation_confirmatory py collapse_rare` |
+| `_standardize` | function | 24 | `def _standardize(series: pd.Series) -> pd.Series` | No docstring; inspect implementation before reuse. | `src cmat_analysis ppa adaptation_confirmatory py standardize` |
+| `_joint_wald` | function | 32 | `def _joint_wald(fit, *, contains: str) -> tuple[float, int, float]` | No docstring; inspect implementation before reuse. | `src cmat_analysis ppa adaptation_confirmatory py joint_wald` |
+| `classify_experience_state` | function | 47 | `def classify_experience_state(df: pd.DataFrame, *, z_col: str='MU_FIRST_Z', pass_rate_col: str='MU_FIRST_LOO_PASS_RATE', performance_cut: float=-0.5, difficulty_quantile: float=0.25) -> pd.Series` | Classify first-MU experience into five parsimonious academic-strain states. | `src cmat_analysis ppa adaptation_confirmatory py classify_experience_state classify first-mu experience five parsimonious academic-strain states` |
+| `experience_state_sensitivity` | function | 110 | `def experience_state_sensitivity(mu_students: pd.DataFrame, *, later_calc_student_ids: Iterable[object] \| None=None, performance_cuts: tuple[float, ...]=(-0.25, -0.5, -0.75), difficulty_quantiles: tuple[float, ...]=(0.2, 0.25, 1 / 3)) -> pd.DataFrame` | Summarize experience states across a pre-specified threshold grid. | `src cmat_analysis ppa adaptation_confirmatory py experience_state_sensitivity summarize experience states across a pre-specified threshold grid` |
+| `continuous_challenge_response_model` | function | 185 | `def continuous_challenge_response_model(mu_students: pd.DataFrame, *, min_career_n: int=30) -> pd.DataFrame` | Model first-MU CMAT use continuously as performance and context vary. | `src cmat_analysis ppa adaptation_confirmatory py continuous_challenge_response_model model first-mu cmat use continuously as performance context` |
+| `post_failure_response_models` | function | 241 | `def post_failure_response_models(transitions: pd.DataFrame, *, min_career_n: int=30) -> pd.DataFrame` | Estimate formal response models after a failed or adverse MU attempt. | `src cmat_analysis ppa adaptation_confirmatory py post_failure_response_models estimate formal response models after a failed or` |
+| `career_heterogeneity_tests` | function | 390 | `def career_heterogeneity_tests(mu_students: pd.DataFrame, calc_choices: pd.DataFrame, *, min_career_n: int=30) -> pd.DataFrame` | Test whether degree programme adds joint explanatory information to key responses. | `src cmat_analysis ppa adaptation_confirmatory py career_heterogeneity_tests test whether degree programme adds joint explanatory information` |
+| `choice_set_audit` | function | 512 | `def choice_set_audit(calc_choices: pd.DataFrame, *, observed_col: str='CALC_CHOICE_SET_OBSERVED_N', rankable_col: str='CALC_CHOICE_SET_RANKABLE_N', period_col: str='CALC_FIRST_PERIOD_LABEL') -> pd.DataFrame` | Audit the observed-period instructor set used as a choice-set proxy. | `src cmat_analysis ppa adaptation_confirmatory py choice_set_audit audit observed-period instructor set used as a choice-set` |
+| `choice_set_audit.<locals>.add` | function | 555 | `def add(metric: str, value: float \| int, level: str) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis ppa adaptation_confirmatory py choice_set_audit locals add` |
+| `choice_set_sensitivity_models` | function | 577 | `def choice_set_sensitivity_models(calc_choices: pd.DataFrame, *, min_career_n: int=30, rankable_thresholds: tuple[int, ...]=(2, 3, 4, 5), min_history_coverage: float=0.75) -> pd.DataFrame` | Re-estimate experience-state choice associations under stricter set support. | `src cmat_analysis ppa adaptation_confirmatory py choice_set_sensitivity_models re-estimate experience-state choice associations under stricter set support` |
+| `administrative_choice_constraint_audit` | function | 666 | `def administrative_choice_constraint_audit(academic_df: pd.DataFrame, *, additional_groups: Mapping[str, tuple[str, ...]] \| None=None) -> pd.DataFrame` | Audit whether administrative fields can refine individual instructor choice sets. | `src cmat_analysis ppa adaptation_confirmatory py administrative_choice_constraint_audit audit whether administrative fields can refine individual instructor` |
 
 ### `src/cmat_analysis/ppa/adaptation_summary.py`
 
@@ -797,6 +822,18 @@
 | `test_strict_prior_instructor_context_excludes_current_and_future_periods` | function | 13 | `def test_strict_prior_instructor_context_excludes_current_and_future_periods() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation py test_strict_prior_instructor_context_excludes_current_and_future_periods` |
 | `test_instructor_choice_percentiles_rank_only_within_period` | function | 44 | `def test_instructor_choice_percentiles_rank_only_within_period() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation py test_instructor_choice_percentiles_rank_only_within_period` |
 | `test_repeat_attempt_summary_tracks_post_failure_changes` | function | 67 | `def test_repeat_attempt_summary_tracks_post_failure_changes() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation py test_repeat_attempt_summary_tracks_post_failure_changes` |
+
+### `tests/test_ppa_adaptation_confirmatory.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `test_classify_experience_state_separates_individual_and_contextual_strain` | function | 19 | `def test_classify_experience_state_separates_individual_and_contextual_strain() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory py test_classify_experience_state_separates_individual_and_contextual_strain` |
+| `test_experience_state_sensitivity_returns_predefined_grid` | function | 34 | `def test_experience_state_sensitivity_returns_predefined_grid() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory py test_experience_state_sensitivity_returns_predefined_grid` |
+| `test_choice_set_audit_uses_observed_and_rankable_counts` | function | 59 | `def test_choice_set_audit_uses_observed_and_rankable_counts() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory py test_choice_set_audit_uses_observed_and_rankable_counts` |
+| `test_augment_repeat_transition_context_adds_absolute_history_changes` | function | 72 | `def test_augment_repeat_transition_context_adds_absolute_history_changes() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory py test_augment_repeat_transition_context_adds_absolute_history_changes` |
+| `test_attach_observed_choice_set_size_is_many_to_one` | function | 89 | `def test_attach_observed_choice_set_size_is_many_to_one() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory py test_attach_observed_choice_set_size_is_many_to_one` |
+| `test_administrative_choice_constraint_audit_finds_schedule_but_not_capacity` | function | 96 | `def test_administrative_choice_constraint_audit_finds_schedule_but_not_capacity() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory py test_administrative_choice_constraint_audit_finds_schedule_but_not_capacity` |
+| `test_post_failure_response_models_runs_clustered_lpm` | function | 104 | `def test_post_failure_response_models_runs_clustered_lpm() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory py test_post_failure_response_models_runs_clustered_lpm` |
 
 ### `tests/test_ppa_adaptation_rank_denominator.py`
 
