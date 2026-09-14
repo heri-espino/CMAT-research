@@ -6,36 +6,21 @@ construct cohorts, transform analytical data, or alter statistical estimands.
 
 from __future__ import annotations
 
-import sys
-from pathlib import Path
+DEFAULT_FONT_FAMILY = "CMU Serif"
+FALLBACK_FONT_FAMILY = "Computer Modern"
 
 
-DEFAULT_FONT_FAMILY = "EB Garamond"
-
-
-def _candidate_font_roots() -> list[Path]:
-    roots: list[Path] = []
-    if getattr(sys, "frozen", False):
-        roots.append(Path(sys.executable).resolve().parent)
-    roots.append(Path(__file__).resolve().parents[3])
-    roots.append(Path.cwd())
-    return roots
-
-
-def _register_local_eb_garamond() -> str:
+def _resolve_font_family() -> str:
+    """Return the installed Computer Modern family used in publication plots."""
     try:
         from matplotlib import font_manager
     except Exception:
-        return DEFAULT_FONT_FAMILY
+        return FALLBACK_FONT_FAMILY
 
-    for root in _candidate_font_roots():
-        font_dir = root / "fonts" / "static"
-        regular = font_dir / "EBGaramond-Regular.ttf"
-        if not regular.exists():
-            continue
-        for path in font_dir.glob("EBGaramond-*.ttf"):
-            font_manager.fontManager.addfont(str(path))
-        return font_manager.FontProperties(fname=str(regular)).get_name()
+    try:
+        font_manager.findfont(DEFAULT_FONT_FAMILY, fallback_to_default=False)
+    except ValueError:
+        return FALLBACK_FONT_FAMILY
     return DEFAULT_FONT_FAMILY
 
 
@@ -46,15 +31,15 @@ def mpl_apply() -> None:
     """
     import seaborn as sns
 
-    font_family = _register_local_eb_garamond()
+    font_family = _resolve_font_family()
 
-    sns.set(
+    sns.set_theme(
         style="whitegrid",
         palette="muted",
         font=font_family,
         font_scale=1.5,
         rc={
-            "font.family": font_family,
+            "font.family": [font_family, "DejaVu Serif"],
             "grid.linestyle": "--",
             "axes.edgecolor": "black",
             "axes.linewidth": 0.8,
@@ -117,7 +102,7 @@ def set_style() -> None:
 def plotly_apply(
     palette: list[str] = ["#ffa600", "#ffd380"],
     fontsize: float = 18,
-    fontstack: str = "EB Garamond, Garamond, Georgia, 'Times New Roman', serif",
+    fontstack: str = "CMU Serif, Computer Modern, serif",
 ) -> None:
     """Aplica un estilo personalizado a las gráficas de Plotly, poner:
     from style import plotly_apply
@@ -130,7 +115,7 @@ def plotly_apply(
     fontsize : float, default=18
         Base Plotly font size in points.
     fontstack : str, default="EB Garamond, Garamond, Georgia, 'Times New Roman', serif"
-        CSS-style font-family stack used by Plotly text elements.
+        CSS-style Computer Modern font stack used by Plotly text elements.
     """
     import pandas as pd
     pd.options.plotting.backend = "plotly"

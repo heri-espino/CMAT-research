@@ -21,7 +21,7 @@
 ## Inventory
 
 - Python files scanned: **120**
-- Reusable symbols: **446**
+- Reusable symbols: **445**
 - Test symbols: **48**
 
 ## Reusable symbols
@@ -707,11 +707,10 @@
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
 |---|---|---:|---|---|---|
-| `_candidate_font_roots` | function | 16 | `def _candidate_font_roots() -> list[Path]` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization style py candidate_font_roots` |
-| `_register_local_eb_garamond` | function | 25 | `def _register_local_eb_garamond() -> str` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization style py register_local_eb_garamond` |
-| `mpl_apply` | function | 42 | `def mpl_apply() -> None` | Aplica un estilo personalizado a las gráficas de Matplotlib y Seaborn. | `src cmat_analysis visualization style py mpl_apply aplica un estilo personalizado a las gr ficas` |
-| `set_style` | function | 109 | `def set_style() -> None` | Apply the project Matplotlib and Seaborn plotting defaults. | `src cmat_analysis visualization style py set_style apply project matplotlib seaborn plotting defaults` |
-| `plotly_apply` | function | 117 | `def plotly_apply(palette: list[str]=['#ffa600', '#ffd380'], fontsize: float=18, fontstack: str="EB Garamond, Garamond, Georgia, 'Times New Roman', serif") -> None` | Aplica un estilo personalizado a las gráficas de Plotly, poner: from style import plotly_apply plotly_apply() Parameters ---------- palette : list[str], default=['#ffa600', '#ffd380'] Plotly discrete color sequence used by the registered template. | `src cmat_analysis visualization style py plotly_apply aplica un estilo personalizado a las gr ficas` |
+| `_resolve_font_family` | function | 13 | `def _resolve_font_family() -> str` | Return the installed Computer Modern family used in publication plots. | `src cmat_analysis visualization style py resolve_font_family return installed computer modern family used in publication` |
+| `mpl_apply` | function | 27 | `def mpl_apply() -> None` | Aplica un estilo personalizado a las gráficas de Matplotlib y Seaborn. | `src cmat_analysis visualization style py mpl_apply aplica un estilo personalizado a las gr ficas` |
+| `set_style` | function | 94 | `def set_style() -> None` | Apply the project Matplotlib and Seaborn plotting defaults. | `src cmat_analysis visualization style py set_style apply project matplotlib seaborn plotting defaults` |
+| `plotly_apply` | function | 102 | `def plotly_apply(palette: list[str]=['#ffa600', '#ffd380'], fontsize: float=18, fontstack: str='CMU Serif, Computer Modern, serif') -> None` | Aplica un estilo personalizado a las gráficas de Plotly, poner: from style import plotly_apply plotly_apply() Parameters ---------- palette : list[str], default=['#ffa600', '#ffd380'] Plotly discrete color sequence used by the registered template. | `src cmat_analysis visualization style py plotly_apply aplica un estilo personalizado a las gr ficas` |
 
 ### `src/create_anonymized_release.py`
 
