@@ -1,0 +1,283 @@
+\documentclass[11pt,letterpaper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage{geometry}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{natbib}
+\usepackage[hidelinks]{hyperref}
+\geometry{margin=1in}
+
+\newcommand{\draftnote}[1]{\par\medskip\noindent\textbf{Draft-development note: #1}\par\medskip}
+
+\title{From Assigned to Chosen Academic Contexts: Longitudinal Traces of Student Engagement and Adaptation in First-Year University Mathematics}
+\author{Heriberto Espino Montelongo\\Universidad de las Am\'ericas Puebla}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Student engagement in higher education is shaped by the interaction between students and their academic environment, yet administrative studies often collapse context, behaviour, and outcomes into a single indicator. This paper develops a longitudinal, Kahu-aligned approach to administrative data by distinguishing academic context, experienced performance, formal help-seeking, subsequent context selection, and later outcomes. We study 6,627 students whose first observed attempt at a first-year university mathematics course occurred during periods covered by the institutional mathematics support centre. First-course experiences are summarized into five states that distinguish classroom-relative performance from leave-one-out classroom pass-rate context. Students who maintained relatively stronger performance in low-pass-rate classrooms had the highest same-period mathematics-support use (28.6\%), whereas students experiencing individual strain (9.5\%) or compounded individual and contextual strain (8.0\%) used formal support much less despite substantially weaker progression. This ordering persists across nine pre-specified definitions of performance and contextual difficulty. We then examine later adaptation. Among 3,224 students for whom the instructor in a later Calculus course can be ranked using strictly prior instructor outcomes, difficult first-course experiences do not predict subsequent enrolment with historically higher-outcome instructors; individual-strain students instead enrol with instructors about 4.4 percentile points lower on the historical-outcome distribution than lower-strain students. By contrast, after a failed first-course attempt, 97.0\% of students change instructor and, among comparable cases, 62.3\% move toward an instructor with historically higher outcomes; the direction is similar when using absolute prior pass rates and prior mean grades. Degree programme contributes statistically clear but modest additional heterogeneity in support use and later academic context. The results do not identify causal effects or latent engagement. They show that academic need, formal help-seeking, and subsequent adaptation are distinct processes, and that administrative traces can complement engagement theory when their temporal and conceptual boundaries are made explicit.
+\end{abstract}
+
+\noindent\textbf{Keywords:} student engagement; academic help-seeking; mathematics support; first-year transition; academic adaptation; higher education; repeated course attempts
+
+\section{Introduction}
+
+Student engagement is widely treated as central to learning, persistence, and achievement in higher education, but the construct is often difficult to operationalize without reducing it to a convenient observable behaviour. Attendance, course participation, use of university services, grades, and persistence all provide information about students' interaction with the institution, yet they do not represent the same phenomenon. Kahu's framework was developed partly in response to this problem, distinguishing the state of engagement from its antecedents and consequences and emphasizing the interaction between students, institutions, and sociocultural context \citep{kahu2013}. This distinction becomes especially important when engagement is studied through administrative records, where behaviour and outcomes are observed more readily than motivation, affect, belonging, self-regulation, or students' interpretations of their experiences.
+
+Formal academic help-seeking is a useful case through which to study this distinction. Seeking help from instructors or academic support centres is an observable behaviour that may reflect adaptive self-regulation, but non-use cannot be equated with disengagement, and use itself can arise from different forms of need, familiarity, confidence, institutional encouragement, or disciplinary norms. A meta-analysis of postsecondary help-seeking research found that the relationship between help-seeking and achievement depends on the source and quality of help, with formal and instrumental help-seeking generally associated with more favourable outcomes than avoidant or executive forms \citep{fong2023}. Within mathematics support, research similarly shows that voluntary services can be valuable for students who attend, while substantial numbers of students do not engage even when support is available \citep{macanbhaird2013,lawson2020,mullen2024}. The resulting empirical challenge is not simply to estimate whether support ``works,'' but to understand who uses it, under what academic conditions, and how students alter their behaviour after academic feedback.
+
+This paper studies those processes in a setting that contains two useful transitions. At Universidad de las Am\'ericas Puebla (UDLAP), students in the first-year course Matem\'aticas Universitarias (MU) are assigned to sections by the university, with assignment strongly structured by degree programme. In the later Calculus I context, students subsequently enrol with an instructor from the sections offered in that period. The administrative data do not reveal each student's feasible set of sections, schedules, or capacity constraints, so this later enrolment cannot be interpreted as unconstrained preference. Nevertheless, the institutional transition changes the role of instructor context: the first MU instructor is primarily assigned, whereas later instructor enrolment occurs in a setting where students have more scope for selection. A second transition arises when students fail MU and return for another attempt. Repeated attempts allow us to observe whether students change instructor, alter formal support use, or move toward instructors associated with historically different academic outcomes.
+
+The study therefore asks how observable responses differ across forms of academic challenge and how those responses evolve over time. The empirical design first separates \emph{individual strain}, measured through classroom-relative performance, from \emph{contextual challenge}, measured through the leave-one-out pass-rate environment of the classroom. This yields a parsimonious five-state description of the first MU experience. Crucially, formal support use is not part of the state definition. Instead, mathematics-support use is treated as a behavioural response observed alongside the realized first-course experience, while later Calculus enrolment and repeated-attempt behaviour are treated as subsequent adaptation traces. The same-period relationship between MU experience and support use is descriptive and contemporaneous; only the later transitions establish temporal ordering.
+
+The paper makes four contributions. First, it provides a quantitative operationalization that is deliberately narrower than the engagement construct itself. Rather than labeling every administrative event as engagement, it separates structural context, experienced academic outcomes, formal help-seeking, later context selection, and subsequent outcomes in a way that is consistent with Kahu's conceptual distinctions \citep{kahu2013}. Second, it shows that academic need and formal help-seeking do not align monotonically. Students facing difficult classroom contexts while maintaining stronger relative performance are substantially more likely to use formal mathematics support than students experiencing much poorer individual outcomes. Third, it examines academic adaptation longitudinally by comparing a transition from an assigned instructional context to a later, partly selectable one and by following students after failed MU attempts. Fourth, it tests whether these patterns vary across degree programmes without reducing the analysis to a catalogue of programme-specific significance tests.
+
+The findings complicate a simple ``difficulty induces help-seeking'' account. The group facing contextual challenge uses formal support most, while the groups experiencing individual or compounded strain use it least. This pattern is robust to alternative definitions of difficulty. A poor MU experience also does not translate into later enrolment with instructors associated with historically higher academic outcomes in Calculus. By contrast, instructor change is nearly universal immediately after a failed MU attempt, and most comparable students move toward instructors with historically higher prior outcomes. These results suggest that students respond to academic challenge through multiple channels, and that the channel chosen after difficulty cannot be inferred from academic need alone.
+
+\section{Conceptual framework}
+
+\subsection{Engagement as a situated process}
+
+Kahu \citep{kahu2013} describes student engagement as a complex, multifaceted construct that cannot be understood adequately from a single behavioural or psychological perspective. The framework separates sociocultural context, structural and psychosocial influences, engagement itself, and proximal and distal consequences. This distinction matters empirically because many variables routinely described as engagement are better understood as conditions that shape engagement or as outcomes that follow from it. For administrative research, the risk is particularly acute: an analyst can observe that a student visited a support centre, failed a course, changed instructor, or progressed to a later course, but those observations do not reveal the student's affective or cognitive state.
+
+The present study therefore uses Kahu's framework as a \emph{theoretical organizer}, not as a claim that administrative records measure latent engagement. We treat the assigned MU classroom and degree programme as structural context, classroom-relative performance and course outcomes as academic experience and feedback, CMAT attendance as a formal help-seeking trace, later instructor enrolment as a context-selection trace, and subsequent performance or progression as outcomes. The value of this separation is that different observed behaviours can move in different directions without forcing them onto a single engagement scale.
+
+This perspective is also consistent with broader research on the first-year experience. Students' adjustment to higher education involves not only formal academic performance but also new relationships, sources of support, and institutional environments. Qualitative work on first-year students has shown that academic and social integration emerge through multiple interacting processes rather than a single behavioural index \citep{wilcox2005}. Our data do not observe the social dimensions examined in that literature, which is precisely why we avoid treating CMAT use as an exhaustive measure of engagement. Instead, formal support use is one institutional trace within a broader system of possible responses.
+
+\subsection{Help-seeking and the problem of non-engagement}
+
+Academic help-seeking is commonly framed as a self-regulated response to difficulty, but the behaviour is heterogeneous. Fong et al.'s \citeyearpar{fong2023} meta-analysis distinguishes formal from informal sources and instrumental from executive or avoidant forms, showing that the association with achievement depends on what kind of help is sought and for what purpose. Formal support-centre attendance is therefore meaningful but incomplete: it indicates contact with an institutional support resource, not the quality of the interaction, the student's motivation, or the availability of alternative forms of help.
+
+Mathematics support research has long confronted the same selection problem. Support centres provide additional assistance outside regular teaching \citep{lawson2020,mullen2024}, and observational studies often find more favourable outcomes among attendees after some statistical adjustment \citep{macanbhaird2009,jacob2019}. At the same time, students who attend differ from those who do not, and evaluation is complicated by unobserved study effort, prior preparation, perceived need, and voluntary uptake. Mac an Bhaird et al. \citeyearpar{macanbhaird2013} document that a meaningful group of students do not engage appropriately with available mathematics learning supports, despite the apparent benefits of such provision. This non-engagement problem makes it unsafe to assume that the students in greatest academic difficulty are necessarily the students most likely to seek formal assistance.
+
+Recent syntheses reinforce the need for caution. Mullen et al. \citeyearpar{mullen2024} identify a broad and predominantly positive mathematics and statistics support literature, but also emphasize methodological diversity, potential bias, and the need for more rigorous evaluation designs. The present paper does not attempt to identify a causal impact of CMAT attendance. Instead, it focuses on the pattern of formal help-seeking itself and on how that pattern coexists with academic challenge and later adaptation.
+
+\subsection{Academic challenge, feedback, and adaptation}
+
+A longitudinal perspective allows academic difficulty to be treated as feedback that may precede later behavioural change, while preserving the distinction between response and outcome. Students who experience difficulty may seek formal help, intensify independent study, rely on peers, change schedules, select different instructors, repeat a course, or disengage from the academic pathway. Administrative data observe only some of these responses, but repeated observations can still reveal whether support use and instructional context change after salient academic events.
+
+Two transitions are especially informative here. The first is the move from MU to Calculus I. Because MU sections are institutionally assigned while later Calculus enrolment occurs within a set of offered sections, the transition permits a limited analysis of context selection. The second is the transition from a failed MU attempt to the next MU attempt. Failure is an unambiguous academic event that precedes the next enrolment, allowing us to ask whether students subsequently change instructor context or support use.
+
+Neither transition identifies intention. A student who enrols with an instructor associated with historically higher pass rates may have actively sought that instructor, may have selected a convenient schedule, or may have been constrained by capacity or registration rules. Accordingly, throughout the paper we describe \emph{subsequent enrolment with historically higher- or lower-outcome instructors}, rather than deliberate choice of ``easy'' or ``hard'' professors.
+
+\section{Institutional setting and data}
+
+\subsection{Mathematics support and first-year mathematics}
+
+CMAT is UDLAP's institutional mathematics learning-support centre. It provides formal assistance in mathematics and statistics outside regular course instruction, with visits recorded through an administrative advising system. A recorded visit therefore indicates formal contact with the support centre. It does not identify the student's help-seeking goal, the quality of the interaction, or other support used outside CMAT.
+
+MU is a first-year university mathematics course taken by students from multiple degree programmes. The university assigns students to MU sections, and section composition is strongly related to degree programme. This makes the first MU classroom an institutional context that students largely receive rather than select. Calculus I occurs later for programmes requiring further mathematics. Students enrol in sections offered in the relevant period, although the available data do not contain schedule, section-capacity, room, or individual registration-option fields sufficient to reconstruct the set of instructors feasible for each student.
+
+\subsection{Administrative records and analytic populations}
+
+The study uses pseudonymized administrative academic records linked to CMAT visit records. Academic records provide course, period, instructor, degree programme, and final academic outcome. The longitudinal data pipeline distinguishes real course attempts from administrative replications associated with processes such as programme changes or revalidation. CMAT coverage is defined at the academic-period level so that a recorded zero is interpreted as non-use only when the support-centre records for that period are considered available.
+
+The first-MU analytic cohort contains 6,627 students whose first real observed MU attempt occurred during a CMAT-coverage period. Across their histories, 8,979 real MU attempt rows are observed. A later-Calculus cohort contains 4,151 students with a first later Calculus attempt in a CMAT-coverage period after an observed MU pass. For 3,224 of these later enrolments, the instructor can be ranked using strictly prior academic outcomes. The repeated-attempt cohort contains 1,007 transitions from a failed or adverse MU attempt to a subsequent MU attempt for which both periods have CMAT coverage.
+
+\subsection{Classroom-relative performance and contextual difficulty}
+
+Individual academic performance is measured relative to the student's MU classroom. A classroom is defined by course, instructor, and academic period. For student $i$ in classroom $c$, the standardized classroom-relative grade is
+\[
+Z_{ic}=\frac{Y_{ic}-\bar{Y}_{c}}{s_c},
+\]
+where $Y_{ic}$ is the student's numeric course grade and the reference distribution is constructed from eligible real attempts in that classroom.
+
+Contextual difficulty is measured using the leave-one-out classroom pass rate. The pass-rate denominator includes eligible real attempts in the classroom, including adverse nonnumeric outcomes treated as non-passes, while the focal student's own outcome is removed. The leave-one-out construction reduces the direct mechanical contribution of the focal student's grade to the contextual measure. The measure is still a realized classroom outcome rather than an intrinsic property of the instructor: it can reflect student composition, pedagogy, assessment, scheduling, and other course-context factors.
+
+\subsection{Primary first-MU experience states}
+
+The primary classification separates individual relative performance from classroom pass-rate context. Individual strain is defined as $Z\leq -0.5$. High contextual difficulty is defined as membership in the bottom quartile of the leave-one-out classroom pass-rate distribution, recalculated within the covered analytic cohort. These two dimensions yield four numeric states:
+\begin{enumerate}
+    \item \textbf{lower strain}: $Z>-0.5$ and the classroom is outside the bottom pass-rate quartile;
+    \item \textbf{contextual challenge}: $Z>-0.5$ and the classroom is in the bottom pass-rate quartile;
+    \item \textbf{individual strain}: $Z\leq-0.5$ and the classroom is outside the bottom pass-rate quartile;
+    \item \textbf{compounded strain}: $Z\leq-0.5$ and the classroom is in the bottom pass-rate quartile.
+\end{enumerate}
+A fifth state, \textbf{adverse/non-numeric}, contains first MU attempts without a numeric grade. A measurement audit confirms that all first-MU observations lacking $Z$ also lack a numeric grade, so numeric students are not silently assigned to the adverse group because of missing standardization inputs. Classroom pass-rate context is observed throughout the analytic cohort.
+
+The state definition intentionally excludes CMAT attendance. This is central to the design: the state summarizes the realized academic experience, while formal support use is analyzed as a separate behavioural trace.
+
+\subsection{Formal support use and later instructor context}
+
+Same-period formal help-seeking is measured using any CMAT use and the number of recorded visits during the first MU period. Because the academic state and visits are both realized during the same period, their association is contemporaneous and is not interpreted as ``difficulty causing help-seeking.''
+
+For later Calculus and repeated-attempt analyses, instructor context is constructed using only academic periods strictly before the focal enrolment. For each instructor, prior pass rate and prior mean grade are calculated from earlier course offerings. Where possible, the chosen instructor's historical outcome is ranked among instructors observed teaching the relevant course in the focal period, producing a percentile from lower to higher historical academic outcomes. These measures describe historical outcome context; they do not identify instructor quality, grading leniency, or causal teaching effects.
+
+The observed instructor set is a period-level proxy rather than an individual choice set. An administrative audit found no usable section identifier, schedule time, capacity, or room fields that could restrict the observed set to the options feasible for a particular student. Sensitivity analyses therefore restrict attention to periods with progressively more rankable instructors and, separately, periods with high historical coverage.
+
+\subsection{Statistical analysis}
+
+The empirical analysis has four pre-specified blocks. First, the stability of the experience-state results is assessed across nine alternative definitions formed by crossing individual-performance cutoffs of $-0.25$, $-0.50$, and $-0.75$ with contextual-difficulty thresholds at the 20th, 25th, and 33.3rd percentiles of the classroom pass-rate distribution. We report whether the ordering of CMAT-use rates is preserved across the grid. A continuous linear probability model provides a threshold-free complement:
+\[
+CMAT_i = \alpha + \beta_1 Z_i + \beta_2 P_i +
+\beta_3(Z_i\times P_i)+\lambda_{d(i)}+\tau_{t(i)}+\varepsilon_i,
+\]
+where $P_i$ is the standardized leave-one-out pass-rate context, $\lambda_{d(i)}$ denotes degree-programme controls, and $\tau_{t(i)}$ denotes academic-period controls. Standard errors are clustered by first-MU classroom.
+
+Second, later Calculus instructor context is modeled as a function of first-MU experience state, prior CMAT-use group, degree programme, and Calculus period, with standard errors clustered by first-MU classroom. The primary outcome is the percentile of the subsequently enrolled Calculus instructor's strictly prior academic outcomes. Choice-set sensitivities progressively require at least two, three, four, or five rankable instructors in the period, with an additional specification requiring at least 75\% historical coverage.
+
+Third, post-failure adaptation is analyzed at the transition level. Descriptive summaries report professor switching, CMAT use before and after failure, next-attempt pass rate, and movement in historical instructor-outcome context after the first, second, and later failures. Formal linear probability models examine three outcomes: movement toward a historically higher-outcome instructor, any CMAT use in the next attempt, and increased CMAT use. Models adjust for attempt number, prior CMAT use, degree programme, period, and prior instructor context where applicable, with standard errors clustered by student. A numeric-failure analysis additionally relates the standardized relative performance of the failed attempt to subsequent adaptation.
+
+Fourth, degree-programme heterogeneity is evaluated through omnibus tests rather than separate programme-specific regressions. We compare models with and without degree programme for first-MU CMAT use, later Calculus CMAT use, and later instructor-context rank. Programme-by-experience-state interactions are evaluated under increasingly aggressive pooling of smaller programmes to avoid relying on an over-parameterized interaction.
+
+All analyses are observational. Statistical adjustment addresses measured differences only and is not used to claim causal effects of CMAT use, instructor movement, course failure, or degree programme.
+
+\section{Results}
+
+\subsection{First-MU experience states and formal support use}
+
+Table~\ref{tab:states} shows the primary five-state classification. The largest group is lower strain ($N=3{,}679$), followed by adverse/non-numeric outcomes ($N=1{,}101$), contextual challenge ($N=1{,}012$), individual strain ($N=673$), and compounded strain ($N=162$).
+
+\begin{table}[htbp]
+\centering
+\caption{Primary first-MU experience states and subsequent outcomes}
+\label{tab:states}
+\begin{tabular}{lrrrrr}
+\toprule
+State & $N$ & MU CMAT & Eventual MU pass & Later Calculus & Calc CMAT \\
+\midrule
+Lower strain & 3,679 & 18.8\% & 99.8\% & 77.5\% & 23.6\% \\
+Contextual challenge & 1,012 & 28.6\% & 97.7\% & 76.3\% & 30.6\% \\
+Individual strain & 673 & 9.5\% & 58.5\% & 42.2\% & 13.7\% \\
+Compounded strain & 162 & 8.0\% & 30.9\% & 16.0\% & 15.4\% \\
+Adverse/non-numeric & 1,101 & 16.2\% & 44.2\% & 19.7\% & 15.2\% \\
+\bottomrule
+\end{tabular}
+\caption*{\footnotesize Notes: MU CMAT is any recorded support-centre use in the first MU period. Later Calculus is the proportion observed in a later Calculus attempt under the study's coverage rules. Calc CMAT is support use among those observed in later Calculus. Experience states are defined independently of CMAT attendance.}
+\end{table}
+
+The relationship between academic strain and formal support use is not monotonic. Contextual-challenge students, who are in low-pass-rate classrooms but remain above the individual-strain cutoff, have the highest first-period CMAT-use rate at 28.6\%. Their eventual MU pass rate is 97.7\%, and 76.3\% are observed later in Calculus. By contrast, only 9.5\% of individual-strain students and 8.0\% of compounded-strain students use CMAT in the first MU period, despite much weaker eventual MU pass rates and markedly lower later Calculus progression.
+
+The difference is not explained by the primary cutoff. Across all nine pre-specified combinations of performance and contextual-difficulty thresholds, contextual challenge remains the numeric state with the highest CMAT-use rate. Relative to lower strain, the difference ranges from 8.4 to 10.0 percentage points; relative to individual strain, from 15.7 to 20.1 points; and relative to compounded strain, from 14.5 to 21.8 points.
+
+The threshold-free model gives the same qualitative pattern. Among 5,526 students with numeric relative performance, a one-standard-deviation increase in classroom-relative performance is associated with a 5.0 percentage-point increase in same-period CMAT use ($p<.001$), while a one-standard-deviation increase in classroom pass-rate context is associated with a 4.7-point decrease ($p<.001$). The interaction is negative by 1.8 points ($p<.001$). These estimates describe contemporaneous associations: stronger relative performers are more likely to use formal support, especially in lower-pass-rate environments, but the model cannot establish whether CMAT use preceded, followed, or co-evolved with the realized course outcome.
+
+\subsection{Does a difficult first experience predict later enrolment with a higher-outcome instructor?}
+
+The later Calculus transition does not support the simple hypothesis that students who experience difficulty in MU subsequently compensate by enrolling with instructors who have historically higher outcomes. In the rankable sample of 3,224 later Calculus enrolments, individual-strain students enrol with instructors whose historical-outcome rank is approximately 4.4 percentile points lower than that of lower-strain students ($p=.024$), after adjustment for prior CMAT-use group, degree programme, and Calculus period. The contextual-challenge difference is about $-2.2$ points and is not statistically distinguishable from zero in the primary support specification, while compounded-strain and adverse/non-numeric differences are also imprecise.
+
+This result is stable when the observed period-level instructor set is required to contain more rankable alternatives. Requiring at least two, three, four, or five rankable instructors leaves the individual-strain coefficient near $-4.4$ percentile points, with $p$ values around .024. Under a stricter sample requiring at least 75\% historical instructor coverage, the individual-strain difference is $-6.0$ points ($p=.005$), and contextual challenge is also associated with a lower historical-outcome rank by $-3.4$ points ($p=.019$).
+
+These coefficients should not be interpreted as deliberate preference for a ``harder'' professor. The data identify the instructor with whom the student subsequently enrolled, not the complete set of feasible instructors. The appropriate conclusion is narrower: difficult MU experiences are not followed by a general shift toward historically higher-outcome Calculus instructors in the observed administrative data.
+
+\subsection{Failure as a transition point}
+
+A different pattern appears when the next observation occurs immediately after a failed MU attempt. Table~\ref{tab:failure} summarizes repeated-attempt transitions. After the first failed or adverse attempt, 97.0\% of students change instructor. Among the 387 transitions for which the previous and next instructors can both be placed on a comparable historical-outcome percentile, 62.3\% move upward, with an average increase of 13.4 percentile points. The same direction appears after the second and third failed attempts, although the sample becomes much smaller.
+
+\begin{table}[htbp]
+\centering
+\caption{Observed adaptation after failed MU attempts}
+\label{tab:failure}
+\begin{tabular}{lrrrrrr}
+\toprule
+Failed attempt & $N$ & Change prof. & Prior CMAT & Next CMAT & Next pass & Move higher \\
+\midrule
+1 & 820 & 97.0\% & 18.9\% & 9.8\% & 64.6\% & 62.3\% \\
+2 & 143 & 93.0\% & 3.5\% & 4.9\% & 54.5\% & 60.0\% \\
+3 & 30 & 100.0\% & 6.7\% & 3.3\% & 40.0\% & 63.6\% \\
+\bottomrule
+\end{tabular}
+\caption*{\footnotesize Notes: ``Move higher'' is calculated among transitions with comparable strictly-prior instructor-outcome percentiles ($N=387$, 85, and 22 for failed attempts 1--3). Later-attempt samples are small and are reported descriptively.}
+\end{table}
+
+The movement is not an artefact of the within-period percentile denominator. After the first failed attempt, 67.5\% of 456 comparable transitions move to an instructor with a higher strictly-prior pass rate, while 66.9\% of 387 move to an instructor with a higher strictly-prior mean grade. After the second failure, the corresponding shares are 62.4\% and 58.8\%; after the third, 65.4\% and 68.2\%. This consistency across absolute and relative historical measures supports the descriptive conclusion that failed students commonly re-enter MU in an instructor context associated with stronger prior academic outcomes.
+
+CMAT use follows a different pattern. After the first failure, any CMAT use falls from 18.9\% in the failed-attempt period to 9.8\% in the next attempt, and the mean number of visits falls by 0.23. Attempt number itself is not jointly associated with the three modeled adaptation outcomes after adjustment. Prior CMAT use, however, is associated with a 11.3 percentage-point higher probability of CMAT use in the next attempt in the full transition sample ($p<.001$), although it does not predict an increase in the number of visits.
+
+Among the subset of numeric failures with a valid classroom-relative $Z$, failure severity provides little evidence of a simple dose-response adaptation mechanism. A one-standard-deviation increase in prior $Z$ is associated with a 5.3 percentage-point higher probability of moving upward in historical instructor context, a borderline association ($p=.056$), while its associations with next-attempt CMAT use and increased CMAT use are small and statistically non-significant. Thus, the descriptive movement after failure should not be interpreted as ``more severe failure produces more adaptation.''
+
+\subsection{Degree-programme heterogeneity}
+
+Degree programme contributes additional information to each major behavioural outcome, but the incremental explanatory magnitude is modest. For first-MU CMAT use, adding degree programme to experience state and period increases $R^2$ by 0.0154, with a joint programme test of $p<.001$. For later Calculus CMAT use, the corresponding increase is 0.0250 ($p<.001$), and for the historical outcome rank of the subsequently enrolled Calculus instructor it is 0.0143 ($p<.001$).
+
+\begin{table}[htbp]
+\centering
+\caption{Incremental contribution of degree programme}
+\label{tab:degree}
+\begin{tabular}{lrrrr}
+\toprule
+Outcome & $N$ & Programme levels & $\Delta R^2$ & Joint $p$ \\
+\midrule
+First-MU CMAT use & 6,627 & 30 & 0.0154 & $<.001$ \\
+Later Calculus CMAT use & 4,151 & 25 & 0.0250 & $<.001$ \\
+Later instructor historical rank & 3,224 & 25 & 0.0143 & $<.001$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The programme-by-experience-state interaction is also detectable when smaller programmes are pooled before estimation. With programmes retained separately only when they contain at least 100 students, the interaction adds $\Delta R^2=0.0112$; at thresholds of 150 and 200 students, the increments fall to 0.0087 and 0.0060, respectively, while the joint interaction tests remain statistically clear. This pattern is consistent with disciplinary heterogeneity in behavioural response but does not suggest that degree programme dominates the individual and contextual dimensions of the first-MU experience.
+
+Actuar\'ia provides a useful descriptive example. Among 368 first-MU students in the programme, 30.4\% use CMAT in the first MU period and 40.8\% of the 287 students later observed in Calculus use CMAT there. Yet the mean historical-outcome percentile of their Calculus instructor is 0.532, close to the middle of the observed distribution. High formal-support use in this programme is therefore not simply accompanied by systematic enrolment with historically high-outcome Calculus instructors.
+
+\section{Discussion}
+
+The central finding is not that academically challenged students seek more help. Instead, different forms of academic challenge are associated with sharply different observable responses. Students who maintain relatively stronger performance while studying in low-pass-rate classrooms are the most likely to use formal mathematics support, whereas students with weak classroom-relative performance---including those simultaneously in difficult classroom contexts---use CMAT much less. The result survives nine pre-specified state definitions and a continuous model, making it unlikely to be a consequence of one convenient cutoff.
+
+This distinction matters for both engagement research and mathematics-support practice. If support-centre use were treated directly as engagement, the contextual-challenge group would appear highly engaged and the individual-strain group less engaged. Kahu's framework cautions against that inference \citep{kahu2013}. We observe one behaviour---formal institutional help-seeking---not the student's cognitive engagement, emotional investment, informal support network, or independent study. The administrative evidence therefore supports a narrower statement: \emph{students experiencing greater academic need are not necessarily the students making greater use of formal support}. That gap is substantively important in its own right.
+
+The finding aligns with prior mathematics-support research on non-engagement. Mac an Bhaird et al. \citeyearpar{macanbhaird2013} show that availability of mathematics learning support does not guarantee appropriate uptake, while broader reviews document continuing interest in who engages with support and why others do not \citep{lawson2020,mullen2024}. Our contribution is to add a longitudinal and contextual dimension. Rather than classifying students solely by attendance or prior preparation, we distinguish how they perform relative to classmates from the observed outcome environment of the classroom. The resulting pattern suggests that the students who mobilize formal help successfully may not be those with the weakest realized outcomes.
+
+One possible interpretation is that formal help-seeking requires resources beyond academic need itself: awareness, confidence, familiarity with the institution, time, perceived legitimacy of seeking help, and expectations about whether support will be useful. Fong et al. \citeyearpar{fong2023} emphasize that help-seeking is not a unitary behaviour and that adaptive forms differ from avoidance or solution-seeking. Our administrative data cannot distinguish these mechanisms, so they should be investigated rather than assumed. Nevertheless, the observed mismatch between strain and formal help-seeking identifies a group---students with individual or compounded strain and little formal support use---for whom qualitative or survey research could be especially informative.
+
+\subsection{Adaptation does not occur through a single channel}
+
+The longitudinal results further show that support use and context selection are distinct adaptive channels. The simple hypothesis that students who do poorly in an assigned MU context later compensate by enrolling with higher-outcome Calculus instructors is not supported. If anything, individual-strain students subsequently appear with slightly lower historical-outcome instructor ranks. That result persists when the analysis is restricted to periods with multiple rankable instructors and stronger historical coverage.
+
+The immediate post-failure transition is different. Nearly every student changes professor after a first MU failure, and most comparable students move toward professors associated with historically stronger prior outcomes. The pattern remains when historical context is measured by absolute prior pass rate or absolute prior mean grade, reducing concern that it is produced solely by changes in the composition of instructors across periods.
+
+These two findings can coexist because they describe different decision points. The transition to Calculus occurs after students have already passed MU and progressed along the mathematics sequence. A failed MU attempt, by contrast, creates an immediate need to repeat the same course. Failure may change the salience of instructor context, the advice students receive, or the options presented during re-enrolment. The data cannot identify which mechanism is responsible, but the contrast suggests that academic adaptation is event-dependent rather than a stable tendency to seek an ``easier'' environment.
+
+Importantly, movement in instructor context does not coincide with greater formal support use. CMAT attendance falls after the first failure, even though instructor switching is nearly universal. This decline cannot be interpreted as disengagement. The institutional setting includes changing incentive conditions around first-year support, and students may also substitute toward other resources or alter study strategies that are not observed. The result instead reinforces the conceptual value of keeping formal help-seeking and other adaptive behaviour separate.
+
+\subsection{Repeated failure as a high-risk trajectory}
+
+Students who fail repeatedly form a substantively important population rather than a nuisance group to be removed from analysis. The observed next-attempt pass rate declines from 64.6\% after the first failure to 54.5\% after the second and 40.0\% after the third. Later samples are small, but the trajectory illustrates accumulating academic risk.
+
+At the same time, the formal models do not show that more severe numeric failure produces proportionally stronger adaptation. This is an important negative result. It suggests that simply increasing academic difficulty does not mechanically increase help-seeking or context change. For institutional practice, interventions targeted only on the assumption that students will respond adaptively once difficulty becomes sufficiently visible may therefore miss students who need support but do not mobilize it.
+
+A stronger future design would combine administrative trajectories with measures of perceived difficulty, academic self-efficacy, help-seeking attitudes, and reasons for instructor enrolment. Such data could distinguish whether low support use under individual strain reflects avoidance, competing obligations, alternative sources of support, lack of awareness, or a belief that formal support is not appropriate. The current administrative design identifies the pattern but not the latent mechanism.
+
+\subsection{Degree programme as disciplinary context}
+
+Programme-level heterogeneity is statistically clear for first-MU CMAT use, later Calculus support use, and later instructor context, and the response to experience state varies across programmes. Yet the additional explained variance is modest. This balance is theoretically useful. Degree programme appears to be a meaningful structural context without becoming a deterministic student characteristic.
+
+Kahu's sociocultural and structural framing provides a natural interpretation: disciplines can differ in mathematical demand, norms around help-seeking, sequencing of required mathematics, peer cultures, and the perceived value of mastering quantitative material \citep{kahu2013}. The present data cannot determine which of these mechanisms produces programme differences. Actuar\'ia, for example, displays high formal-support use without an unusually high average Calculus instructor-outcome rank, a pattern compatible with stronger institutionalized use of mathematics support but not proof of a distinct ``engagement culture.''
+
+The programme results should therefore motivate targeted follow-up rather than programme stereotypes. Survey or qualitative work could test whether students in quantitatively intensive programmes perceive CMAT use as routine, whether peers and faculty normalize formal help-seeking differently, or whether curriculum demands simply create more opportunities to seek support.
+
+\section{Limitations}
+
+Several limitations define the interpretation of the study. First, the design is observational. The analyses do not identify causal effects of CMAT use, instructor movement, academic failure, or degree programme. Students self-select into formal support and, in later contexts, into course sections subject to constraints that are only partly observed.
+
+Second, the first-MU experience states use realized academic outcomes. Classroom-relative performance and classroom pass-rate context are measured at the end of the same course period in which CMAT visits occur. Their relationship with CMAT attendance is therefore contemporaneous. The analysis can show that certain combinations of realized individual and classroom outcomes coexist with higher or lower formal support use, but it cannot establish whether difficulty caused attendance, attendance altered performance, or both were shaped by earlier unobserved factors.
+
+Third, the later Calculus instructor set is only partially observed. We know which instructors taught the course in each period and which have sufficient historical data to be ranked, but we do not observe each student's feasible timetable, section capacity, registration constraints, or the information available to the student at enrolment. Consequently, later instructor context is an observed enrolment outcome, not a revealed-preference measure.
+
+Fourth, historical instructor outcomes are not intrinsic instructor characteristics. Prior pass rates and mean grades may reflect student composition, curricular changes, assessment design, course timing, and other contextual factors. Strictly prior measurement avoids using future information to characterize a focal enrolment, but it does not turn historical outcomes into causal measures of difficulty or quality.
+
+Fifth, CMAT records capture only one form of formal help-seeking. Students may seek assistance from classmates, friends, instructors, online resources, private tutors, or family. The broader help-seeking literature shows that sources and goals matter \citep{fong2023}, while first-year research demonstrates that social and academic support are embedded in wider networks \citep{wilcox2005}. Non-use of CMAT therefore cannot be classified as disengagement.
+
+Finally, programme comparisons remain descriptive. Degree programme may proxy curricular intensity, student selection, prior preparation, peer norms, or programme-specific advising. The omnibus tests establish heterogeneity but do not isolate a disciplinary causal mechanism.
+
+\draftnote{Before submission, add the institutionally approved ethics/data-governance statement and confirm the wording of the MU assignment process and Calculus registration process with the relevant administrative unit. If feasible, obtain section schedule/capacity data; these would materially strengthen the later-instructor analysis.}
+
+\section{Conclusion}
+
+This study uses longitudinal administrative records to examine academic challenge, formal help-seeking, and adaptation without treating those constructs as interchangeable. The central empirical pattern is a mismatch between academic need and formal support use. Students who face difficult classroom environments while maintaining relatively stronger performance are the most likely to use the mathematics support centre, whereas students with substantially weaker relative outcomes use formal support much less. The pattern is stable across alternative definitions of academic strain.
+
+Later adaptation is similarly heterogeneous. A difficult MU experience does not generally lead students to enrol with historically higher-outcome Calculus instructors. Immediate failure, however, is followed by near-universal instructor change and, for most comparable students, movement toward an instructor associated with stronger prior academic outcomes. Formal support use does not increase in parallel. Degree programme adds further, but modest, heterogeneity to these behavioural traces.
+
+The findings support a restrained use of administrative data in engagement research. Attendance records, grades, course repetition, and instructor enrolment can reveal meaningful sequences of behaviour, but none of them alone measures student engagement. Their value lies in preserving their differences and studying how they unfold over time. In this setting, the resulting sequence is not a simple path from difficulty to help-seeking to success. It is a set of partially independent responses to academic challenge, shaped by institutional context and disciplinary environment.
+
+\bibliographystyle{apalike}
+\bibliography{references}
+
+\end{document}
