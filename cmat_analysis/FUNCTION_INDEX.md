@@ -20,9 +20,9 @@
 
 ## Inventory
 
-- Python files scanned: **116**
-- Reusable symbols: **435**
-- Test symbols: **44**
+- Python files scanned: **120**
+- Reusable symbols: **446**
+- Test symbols: **48**
 
 ## Reusable symbols
 
@@ -344,6 +344,27 @@
 | `form_career_crosswalk` | function | 845 | `def form_career_crosswalk(df: pd.DataFrame) -> pd.DataFrame` | Observed official-code x Google-Form-career pairs among users in the cohort. | `src cmat_analysis ppa progression py form_career_crosswalk observed official-code x google-form-career pairs among users in` |
 | `major_persistence_joint_test` | function | 875 | `def major_persistence_joint_test(df: pd.DataFrame, *, min_career_n: int=30) -> pd.DataFrame` | Joint Wald test for official MU degree program in the adjusted persistence logit. | `src cmat_analysis ppa progression py major_persistence_joint_test joint wald test official mu degree program in` |
 | `major_delta_z_welch` | function | 915 | `def major_delta_z_welch(df: pd.DataFrame, *, min_n: int=30) -> pd.DataFrame` | Welch ANOVA of classroom-relative academic change (Delta Z) across majors. | `src cmat_analysis ppa progression py major_delta_z_welch welch anova of classroom-relative academic change delta z` |
+
+### `src/cmat_analysis/ppa/adaptation.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `EngagementTrajectoryData` | class | 27 | `class EngagementTrajectoryData` | Container for MU experience, Calculus choice, and repeat-attempt traces. | `src cmat_analysis ppa adaptation py engagementtrajectorydata container mu experience calculus choice repeat-attempt traces` |
+| `strict_prior_instructor_context` | function | 53 | `def strict_prior_instructor_context(df: pd.DataFrame, *, instructor_col: str, period_index_col: str, grade_col: str, pass_col: str, min_history_n: int=20, prefix: str='PRIOR_INSTRUCTOR') -> pd.DataFrame` | Attach instructor outcomes based only on strictly earlier academic periods. | `src cmat_analysis ppa adaptation py strict_prior_instructor_context attach instructor outcomes based only on strictly earlier` |
+| `instructor_choice_percentiles` | function | 159 | `def instructor_choice_percentiles(df: pd.DataFrame, *, instructor_col: str, period_index_col: str, pass_rate_col: str, mean_grade_col: str, prefix: str='CHOICE') -> pd.DataFrame` | Rank historically observed instructor outcomes within each offered-period choice set. | `src cmat_analysis ppa adaptation py instructor_choice_percentiles rank historically observed instructor outcomes within each offered-period` |
+| `_performance_band` | function | 230 | `def _performance_band(z: float) -> str` | No docstring; inspect implementation before reuse. | `src cmat_analysis ppa adaptation py performance_band` |
+| `_difficulty_band` | function | 240 | `def _difficulty_band(pass_rate: float, low_cut: float, high_cut: float) -> str` | No docstring; inspect implementation before reuse. | `src cmat_analysis ppa adaptation py difficulty_band` |
+| `build_engagement_trajectory_data` | function | 250 | `def build_engagement_trajectory_data(data, config, *, min_history_n: int=20) -> EngagementTrajectoryData` | Build MU experience, repeat-attempt, and later Calculus instructor-choice traces. | `src cmat_analysis ppa adaptation py build_engagement_trajectory_data build mu experience repeat-attempt later calculus instructor-choice traces` |
+| `build_engagement_trajectory_data.<locals>.subject_mask` | function | 285 | `def subject_mask(frame: pd.DataFrame, code: str, name: str) -> pd.Series` | No docstring; inspect implementation before reuse. | `src cmat_analysis ppa adaptation py build_engagement_trajectory_data locals subject_mask` |
+| `experience_profile_summary` | function | 502 | `def experience_profile_summary(df: pd.DataFrame, *, profile_col: str='MU_EXPERIENCE_PROFILE', min_n: int=20) -> pd.DataFrame` | Summarize parsimonious first-MU experience profiles and later adaptation traces. | `src cmat_analysis ppa adaptation py experience_profile_summary summarize parsimonious first-mu experience profiles later traces` |
+| `calc_choice_association_models` | function | 548 | `def calc_choice_association_models(df: pd.DataFrame, *, outcome_col: str='CALC_CHOSEN_EASINESS_PERCENTILE', career_col: str='MU_FIRST_CAREER', calc_period_col: str='CALC_FIRST_PERIOD_LABEL', cluster_col: str='MU_FIRST_CLASSROOM_ID', min_career_n: int=30) -> pd.DataFrame` | Estimate how prior MU experience is associated with later instructor-context choice. | `src cmat_analysis ppa adaptation py calc_choice_association_models estimate how prior mu experience is associated later` |
+| `repeat_attempt_summary` | function | 639 | `def repeat_attempt_summary(transitions: pd.DataFrame) -> pd.DataFrame` | Summarize behavioral and instructor-context changes after failed MU attempts. | `src cmat_analysis ppa adaptation py repeat_attempt_summary summarize behavioral instructor-context changes after failed mu attempts` |
+
+### `src/cmat_analysis/ppa/adaptation_summary.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `repeat_attempt_summary` | function | 9 | `def repeat_attempt_summary(transitions: pd.DataFrame) -> pd.DataFrame` | Summarize behavioral and instructor-context changes after failed MU attempts. | `src cmat_analysis ppa adaptation_summary py repeat_attempt_summary summarize behavioral instructor-context changes after failed mu attempts` |
 
 ### `src/cmat_analysis/ppa/baseline.py`
 
@@ -769,6 +790,20 @@
 | `test_methodology_exact_visit_grouping_has_all_ten_pairwise_contrasts` | function | 31 | `def test_methodology_exact_visit_grouping_has_all_ten_pairwise_contrasts()` | No docstring; inspect implementation before reuse. | `tests test_methodology_report_helpers py test_methodology_exact_visit_grouping_has_all_ten_pairwise_contrasts` |
 | `test_methodology_report_atomic_runner_resolves_root_code_dependencies` | function | 42 | `def test_methodology_report_atomic_runner_resolves_root_code_dependencies()` | No docstring; inspect implementation before reuse. | `tests test_methodology_report_helpers py test_methodology_report_atomic_runner_resolves_root_code_dependencies` |
 
+### `tests/test_ppa_adaptation.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `test_strict_prior_instructor_context_excludes_current_and_future_periods` | function | 13 | `def test_strict_prior_instructor_context_excludes_current_and_future_periods() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation py test_strict_prior_instructor_context_excludes_current_and_future_periods` |
+| `test_instructor_choice_percentiles_rank_only_within_period` | function | 44 | `def test_instructor_choice_percentiles_rank_only_within_period() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation py test_instructor_choice_percentiles_rank_only_within_period` |
+| `test_repeat_attempt_summary_tracks_post_failure_changes` | function | 67 | `def test_repeat_attempt_summary_tracks_post_failure_changes() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation py test_repeat_attempt_summary_tracks_post_failure_changes` |
+
+### `tests/test_ppa_adaptation_rank_denominator.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `test_repeat_rank_shift_share_excludes_missing_ranks` | function | 9 | `def test_repeat_rank_shift_share_excludes_missing_ranks() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_rank_denominator py test_repeat_rank_shift_share_excludes_missing_ranks` |
+
 ### `tests/test_ppa_baseline.py`
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
@@ -821,9 +856,9 @@
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
 |---|---|---:|---|---|---|
-| `test_public_api_is_explicit_and_stable` | function | 113 | `def test_public_api_is_explicit_and_stable() -> None` | Ensure canonical namespaces expose exactly the reviewed API. | `tests test_public_api_documentation py test_public_api_is_explicit_and_stable ensure canonical namespaces expose exactly reviewed api` |
-| `test_public_api_has_numpy_style_docstrings` | function | 120 | `def test_public_api_has_numpy_style_docstrings() -> None` | Require public callables to carry minimally complete NumPy docstrings. | `tests test_public_api_documentation py test_public_api_has_numpy_style_docstrings require public callables to carry minimally complete numpy docstrings` |
-| `test_sphinx_api_page_excludes_compatibility_and_private_modules` | function | 152 | `def test_sphinx_api_page_excludes_compatibility_and_private_modules() -> None` | Keep the main Sphinx reference restricted to namespace-level public API. | `tests test_public_api_documentation py test_sphinx_api_page_excludes_compatibility_and_private_modules keep main sphinx reference restricted to namespace-level public api` |
+| `test_public_api_is_explicit_and_stable` | function | 120 | `def test_public_api_is_explicit_and_stable() -> None` | Ensure canonical namespaces expose exactly the reviewed API. | `tests test_public_api_documentation py test_public_api_is_explicit_and_stable ensure canonical namespaces expose exactly reviewed api` |
+| `test_public_api_has_numpy_style_docstrings` | function | 127 | `def test_public_api_has_numpy_style_docstrings() -> None` | Require public callables to carry minimally complete NumPy docstrings. | `tests test_public_api_documentation py test_public_api_has_numpy_style_docstrings require public callables to carry minimally complete numpy docstrings` |
+| `test_sphinx_api_page_excludes_compatibility_and_private_modules` | function | 159 | `def test_sphinx_api_page_excludes_compatibility_and_private_modules() -> None` | Keep the main Sphinx reference restricted to namespace-level public API. | `tests test_public_api_documentation py test_sphinx_api_page_excludes_compatibility_and_private_modules keep main sphinx reference restricted to namespace-level public api` |
 
 ### `tests/test_study_helpers.py`
 
