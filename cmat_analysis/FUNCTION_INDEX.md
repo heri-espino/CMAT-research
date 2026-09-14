@@ -20,9 +20,9 @@
 
 ## Inventory
 
-- Python files scanned: **123**
-- Reusable symbols: **461**
-- Test symbols: **55**
+- Python files scanned: **125**
+- Reusable symbols: **463**
+- Test symbols: **57**
 
 ## Reusable symbols
 
@@ -384,6 +384,13 @@
 | `choice_set_audit.<locals>.add` | function | 555 | `def add(metric: str, value: float \| int, level: str) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis ppa adaptation_confirmatory py choice_set_audit locals add` |
 | `choice_set_sensitivity_models` | function | 577 | `def choice_set_sensitivity_models(calc_choices: pd.DataFrame, *, min_career_n: int=30, rankable_thresholds: tuple[int, ...]=(2, 3, 4, 5), min_history_coverage: float=0.75) -> pd.DataFrame` | Re-estimate experience-state choice associations under stricter set support. | `src cmat_analysis ppa adaptation_confirmatory py choice_set_sensitivity_models re-estimate experience-state choice associations under stricter set support` |
 | `administrative_choice_constraint_audit` | function | 666 | `def administrative_choice_constraint_audit(academic_df: pd.DataFrame, *, additional_groups: Mapping[str, tuple[str, ...]] \| None=None) -> pd.DataFrame` | Audit whether administrative fields can refine individual instructor choice sets. | `src cmat_analysis ppa adaptation_confirmatory py administrative_choice_constraint_audit audit whether administrative fields can refine individual instructor` |
+
+### `src/cmat_analysis/ppa/adaptation_confirmatory_extra.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `career_heterogeneity_reduced_interactions` | function | 17 | `def career_heterogeneity_reduced_interactions(mu_students: pd.DataFrame, *, min_career_ns: tuple[int, ...]=(100, 150, 200)) -> pd.DataFrame` | Test degree-programme by experience-state heterogeneity with controlled dimension. | `src cmat_analysis ppa adaptation_confirmatory_extra py career_heterogeneity_reduced_interactions test degree-programme by experience-state heterogeneity controlled dimension` |
+| `post_failure_numeric_severity_models` | function | 90 | `def post_failure_numeric_severity_models(transitions: pd.DataFrame, *, min_career_n: int=30) -> pd.DataFrame` | Relate numeric failure severity to subsequent adaptation responses. | `src cmat_analysis ppa adaptation_confirmatory_extra py post_failure_numeric_severity_models relate numeric failure severity to subsequent adaptation responses` |
 
 ### `src/cmat_analysis/ppa/adaptation_summary.py`
 
@@ -834,6 +841,13 @@
 | `test_attach_observed_choice_set_size_is_many_to_one` | function | 89 | `def test_attach_observed_choice_set_size_is_many_to_one() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory py test_attach_observed_choice_set_size_is_many_to_one` |
 | `test_administrative_choice_constraint_audit_finds_schedule_but_not_capacity` | function | 96 | `def test_administrative_choice_constraint_audit_finds_schedule_but_not_capacity() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory py test_administrative_choice_constraint_audit_finds_schedule_but_not_capacity` |
 | `test_post_failure_response_models_runs_clustered_lpm` | function | 104 | `def test_post_failure_response_models_runs_clustered_lpm() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory py test_post_failure_response_models_runs_clustered_lpm` |
+
+### `tests/test_ppa_adaptation_confirmatory_extra.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `test_career_interaction_models_reduce_dimension_as_threshold_rises` | function | 12 | `def test_career_interaction_models_reduce_dimension_as_threshold_rises() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory_extra py test_career_interaction_models_reduce_dimension_as_threshold_rises` |
+| `test_numeric_failure_severity_models_report_prior_z` | function | 35 | `def test_numeric_failure_severity_models_report_prior_z() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory_extra py test_numeric_failure_severity_models_report_prior_z` |
 
 ### `tests/test_ppa_adaptation_rank_denominator.py`
 
