@@ -42,6 +42,21 @@ def _coverage_mask(df: pd.DataFrame, coverage: set[tuple[int, str]]) -> pd.Serie
     )
 
 
+def _mu_experience_state(df: pd.DataFrame) -> pd.Series:
+    """Collapse performance x realized classroom difficulty into five interpretable states."""
+    performance = df["MU_FIRST_PERFORMANCE_BAND"].astype(str)
+    difficulty = df["MU_FIRST_DIFFICULTY_BAND"].astype(str)
+    state = pd.Series("lower_strain", index=df.index, dtype="object")
+    state.loc[performance.eq("nonnumeric_or_unstandardized")] = "adverse_or_nonnumeric"
+    low = performance.eq("low_relative")
+    hard = difficulty.eq("high_difficulty_context")
+    state.loc[low & ~hard] = "individual_strain"
+    state.loc[low & hard] = "compounded_strain"
+    state.loc[~low & ~performance.eq("nonnumeric_or_unstandardized") & hard] = "contextual_challenge"
+    state.loc[difficulty.eq("unknown_context") & ~performance.eq("nonnumeric_or_unstandardized")] = "unknown_context"
+    return state
+
+
 def _mu_outcome_summary(mu_students: pd.DataFrame) -> pd.DataFrame:
     rows = []
     total = len(mu_students)
@@ -78,6 +93,37 @@ def _profile_progression_summary(mu_students: pd.DataFrame, calc_ids: set[str], 
     return pd.DataFrame(rows).sort_values("n", ascending=False).reset_index(drop=True)
 
 
+def _experience_state_summary(mu_students: pd.DataFrame, calc_choices: pd.DataFrame) -> pd.DataFrame:
+    d = mu_students.copy()
+    d["MU_EXPERIENCE_STATE"] = _mu_experience_state(d)
+    calc = calc_choices[[
+        "STUDENT_ID",
+        "CALC_FIRST_ANY_CMAT",
+        "CALC_CHOSEN_EASINESS_PERCENTILE",
+    ]].copy()
+    calc["OBSERVED_LATER_CALC"] = 1
+    d = d.merge(calc, on="STUDENT_ID", how="left", validate="one_to_one")
+    d["OBSERVED_LATER_CALC"] = d["OBSERVED_LATER_CALC"].fillna(0).astype(int)
+    rows = []
+    for state, sub in d.groupby("MU_EXPERIENCE_STATE", dropna=False):
+        later = sub.loc[sub["OBSERVED_LATER_CALC"].eq(1)]
+        rank = pd.to_numeric(later["CALC_CHOSEN_EASINESS_PERCENTILE"], errors="coerce")
+        rows.append({
+            "mu_experience_state": state,
+            "n_mu": int(len(sub)),
+            "first_attempt_nonpass_rate": float((sub["MU_ATTEMPT_OUTCOME_PROFILE"] != "pass_first").mean()),
+            "eventual_mu_pass_rate": float(sub["MU_EVER_PASSED"].mean()),
+            "first_cmat_use_rate": float((sub["MU_FIRST_CMAT_VISITS"] > 0).mean()),
+            "mean_first_cmat_visits": float(sub["MU_FIRST_CMAT_VISITS"].mean()),
+            "observed_later_calc_rate": float(sub["OBSERVED_LATER_CALC"].mean()),
+            "n_later_calc": int(len(later)),
+            "calc_cmat_use_rate": float(later["CALC_FIRST_ANY_CMAT"].mean()) if len(later) else np.nan,
+            "n_rankable_calc_choice": int(rank.notna().sum()),
+            "mean_chosen_easiness_percentile": float(rank.mean()),
+        })
+    return pd.DataFrame(rows).sort_values("n_mu", ascending=False).reset_index(drop=True)
+
+
 def _career_adaptation_summary(
     mu_students: pd.DataFrame,
     calc_choices: pd.DataFrame,
@@ -101,12 +147,15 @@ def _career_adaptation_summary(
     calc_rows = []
     for career, sub in calc_choices.groupby("MU_FIRST_CAREER", dropna=False):
         rank = pd.to_numeric(sub["CALC_CHOSEN_EASINESS_PERCENTILE"], errors="coerce")
+        rankable = rank.dropna()
         calc_rows.append({
             "career": career,
             "n_later_calc": int(len(sub)),
-            "n_rankable_calc_choice": int(rank.notna().sum()),
-            "mean_chosen_easiness_percentile": float(rank.mean()),
-            "top_quartile_easiness_choice_rate": float((rank >= 0.75).mean()) if rank.notna().any() else np.nan,
+            "n_rankable_calc_choice": int(rankable.size),
+            "mean_chosen_easiness_percentile": float(rankable.mean()) if rankable.size else np.nan,
+            "top_quartile_easiness_choice_rate": (
+                float((rankable >= 0.75).mean()) if rankable.size else np.nan
+            ),
             "calc_cmat_use_rate": float(sub["CALC_FIRST_ANY_CMAT"].mean()),
         })
     if len(calc_rows):
@@ -120,6 +169,7 @@ def _repeat_by_career(transitions: pd.DataFrame, min_n: int = 20) -> pd.DataFram
         if len(sub) < min_n:
             continue
         delta = pd.to_numeric(sub["DELTA_PROF_EASINESS_PERCENTILE"], errors="coerce")
+        rankable = delta.dropna()
         rows.append({
             "career": career,
             "n_repeat_transitions": int(len(sub)),
@@ -128,11 +178,45 @@ def _repeat_by_career(transitions: pd.DataFrame, min_n: int = 20) -> pd.DataFram
             "next_cmat_use_rate": float(sub["NEXT_ANY_CMAT"].mean()),
             "mean_delta_cmat_visits": float(sub["DELTA_CMAT_VISITS"].mean()),
             "next_attempt_pass_rate": float(sub["NEXT_ATTEMPT_PASS"].mean()),
-            "n_rankable_professor_changes": int(delta.notna().sum()),
-            "mean_delta_prof_easiness_percentile": float(delta.mean()),
-            "share_moving_to_higher_easiness_percentile": float((delta > 0).mean()) if delta.notna().any() else np.nan,
+            "n_rankable_professor_changes": int(rankable.size),
+            "mean_delta_prof_easiness_percentile": float(rankable.mean()) if rankable.size else np.nan,
+            "share_moving_to_higher_easiness_percentile": (
+                float((rankable > 0).mean()) if rankable.size else np.nan
+            ),
         })
     return pd.DataFrame(rows).sort_values("n_repeat_transitions", ascending=False).reset_index(drop=True)
+
+
+def _post_failure_strategy_summary(transitions: pd.DataFrame, min_n: int = 10) -> pd.DataFrame:
+    d = transitions.copy()
+    delta = pd.to_numeric(d["DELTA_PROF_EASINESS_PERCENTILE"], errors="coerce")
+    d = d.loc[delta.notna()].copy()
+    d["MOVED_TO_HIGHER_OUTCOME_PROF"] = delta.loc[d.index].gt(0).astype(int)
+    d["INCREASED_CMAT"] = d["NEXT_CMAT_VISITS"].gt(d["PREV_CMAT_VISITS"]).astype(int)
+    d["ADAPTATION_STRATEGY"] = np.select(
+        [
+            d["MOVED_TO_HIGHER_OUTCOME_PROF"].eq(1) & d["INCREASED_CMAT"].eq(1),
+            d["MOVED_TO_HIGHER_OUTCOME_PROF"].eq(1),
+            d["INCREASED_CMAT"].eq(1),
+        ],
+        ["higher-outcome professor + more CMAT", "higher-outcome professor only", "more CMAT only"],
+        default="neither observed change",
+    )
+    rows = []
+    for (attempt, strategy), sub in d.groupby(["FAILED_ATTEMPT_NUMBER", "ADAPTATION_STRATEGY"]):
+        if len(sub) < min_n:
+            continue
+        rows.append({
+            "failed_attempt_number": int(attempt),
+            "adaptation_strategy": strategy,
+            "n": int(len(sub)),
+            "next_attempt_pass_rate": float(sub["NEXT_ATTEMPT_PASS"].mean()),
+            "mean_delta_prof_easiness_percentile": float(sub["DELTA_PROF_EASINESS_PERCENTILE"].mean()),
+            "mean_delta_cmat_visits": float(sub["DELTA_CMAT_VISITS"].mean()),
+        })
+    return pd.DataFrame(rows).sort_values(
+        ["failed_attempt_number", "n"], ascending=[True, False]
+    ).reset_index(drop=True)
 
 
 def _experience_choice_interaction_model(calc_choices: pd.DataFrame, min_career_n: int = 30) -> pd.DataFrame:
@@ -179,6 +263,49 @@ def _experience_choice_interaction_model(calc_choices: pd.DataFrame, min_career_
     return pd.DataFrame(rows)
 
 
+def _experience_state_choice_model(calc_choices: pd.DataFrame, min_career_n: int = 30) -> pd.DataFrame:
+    d = calc_choices.dropna(subset=[
+        "CALC_CHOSEN_EASINESS_PERCENTILE",
+        "MU_FIRST_PERFORMANCE_BAND",
+        "MU_FIRST_DIFFICULTY_BAND",
+        "MU_FIRST_VISIT_GROUP",
+        "MU_ATTEMPT_OUTCOME_PROFILE",
+        "MU_FIRST_CAREER",
+        "CALC_FIRST_PERIOD_LABEL",
+        "MU_FIRST_CLASSROOM_ID",
+    ]).copy()
+    d["MU_EXPERIENCE_STATE"] = _mu_experience_state(d)
+    d = d.loc[d["MU_EXPERIENCE_STATE"].ne("unknown_context")].copy()
+    counts = d["MU_FIRST_CAREER"].value_counts()
+    keep = set(counts[counts >= min_career_n].index)
+    d["_CAREER"] = d["MU_FIRST_CAREER"].where(d["MU_FIRST_CAREER"].isin(keep), "OTHER")
+    formula = (
+        "CALC_CHOSEN_EASINESS_PERCENTILE ~ "
+        "C(MU_EXPERIENCE_STATE, Treatment(reference='lower_strain')) "
+        "+ C(MU_FIRST_VISIT_GROUP) + C(MU_ATTEMPT_OUTCOME_PROFILE) "
+        "+ C(_CAREER) + C(CALC_FIRST_PERIOD_LABEL)"
+    )
+    fit = smf.ols(formula, data=d).fit(
+        cov_type="cluster", cov_kwds={"groups": d["MU_FIRST_CLASSROOM_ID"]}
+    )
+    rows = []
+    prefix = "C(MU_EXPERIENCE_STATE, Treatment(reference='lower_strain'))"
+    for term, estimate in fit.params.items():
+        if not term.startswith(prefix):
+            continue
+        rows.append({
+            "reference_state": "lower_strain",
+            "term": term,
+            "n": int(fit.nobs),
+            "mu_classroom_clusters": int(d["MU_FIRST_CLASSROOM_ID"].nunique()),
+            "estimate": float(estimate),
+            "se_cluster": float(fit.bse[term]),
+            "p_value": float(fit.pvalues[term]),
+            "r2": float(fit.rsquared),
+        })
+    return pd.DataFrame(rows)
+
+
 def main() -> int:
     base_config = get_study_config(REPO_ROOT)
     config = replace(base_config, output_dir=REPO_ROOT / "results")
@@ -189,6 +316,13 @@ def main() -> int:
         data.data_quality["coverage"]["YEAR"].astype(int),
         data.data_quality["coverage"]["SESSION"],
     ))
+    covered_academic_rows = data.academics.loc[
+        [(int(y), s) in coverage for y, s in zip(data.academics["YEAR"], data.academics["SESSION"])]
+    ]
+    covered_period_indices = set(
+        pd.to_numeric(covered_academic_rows["PERIOD_INDEX"], errors="coerce").dropna().astype(int)
+    )
+
     mu_students = trajectories.mu_students.copy()
     mu_students = mu_students.loc[_coverage_mask(mu_students, coverage)].copy()
     calc_choices = trajectories.calc_choices.copy()
@@ -197,6 +331,10 @@ def main() -> int:
         & calc_choices["STUDENT_ID"].isin(mu_students["STUDENT_ID"])
     ].copy()
     repeats = trajectories.repeat_transitions.copy()
+    repeats = repeats.loc[
+        repeats["PREV_PERIOD_INDEX"].isin(covered_period_indices)
+        & repeats["NEXT_PERIOD_INDEX"].isin(covered_period_indices)
+    ].copy()
 
     profile_all = _profile_progression_summary(
         mu_students,
@@ -232,6 +370,14 @@ def main() -> int:
             calc_choices,
             min_n=config.min_career_n_for_inference,
         ),
+        "208_mu_experience_state_summary.csv": _experience_state_summary(mu_students, calc_choices),
+        "209_calc_choice_by_mu_experience_state.csv": _experience_state_choice_model(
+            calc_choices,
+            min_career_n=config.min_career_n_for_inference,
+        ),
+        "210_post_failure_adaptation_strategy.csv": (
+            _post_failure_strategy_summary(repeats) if len(repeats) else pd.DataFrame()
+        ),
     }
     for filename, frame in outputs.items():
         _save(frame, filename)
@@ -241,7 +387,7 @@ def main() -> int:
         "mu_real_attempt_rows": int(len(trajectories.mu_attempts)),
         "students_with_first_later_calc_and_cmat_coverage": int(len(calc_choices)),
         "rankable_calc_choices": int(calc_choices["CALC_CHOSEN_EASINESS_PERCENTILE"].notna().sum()),
-        "repeat_transitions_after_failed_mu_attempt": int(len(repeats)),
+        "repeat_transitions_after_failed_mu_attempt_with_both_periods_covered": int(len(repeats)),
         "profiles_retained_all_mu": int(len(profile_all)),
         "profiles_retained_calc": int(len(calc_profile)),
         "outputs": list(outputs),
