@@ -34,11 +34,16 @@ jobs:
       - name: Install shared CMAT library
         run: python -m pip install -e './cmat_analysis[dev]'
 
-      - name: Compile Paper 4 recipe
-        run: python -m py_compile code/run_engagement.py
+      - name: Compile Paper 4 recipes
+        run: |
+          python -m py_compile code/run_engagement.py
+          python -m py_compile code/run_confirmatory.py
 
       - name: Run controlled engagement adaptation analysis
         run: python code/run_engagement.py
+
+      - name: Run confirmatory design checks
+        run: python code/run_confirmatory.py
 
       - name: Upload aggregate Paper 4 engagement results
         uses: actions/upload-artifact@v4
@@ -56,5 +61,16 @@ jobs:
             results/tables/208_mu_experience_state_summary.csv
             results/tables/209_calc_choice_by_mu_experience_state.csv
             results/tables/210_post_failure_adaptation_strategy.csv
+            results/tables/220_difficulty_threshold_sensitivity.csv
+            results/tables/221_difficulty_contrast_stability.csv
+            results/tables/222_continuous_challenge_cmat_model.csv
+            results/tables/223_post_failure_response_models.csv
+            results/tables/224_post_failure_context_definition_sensitivity.csv
+            results/tables/225_career_heterogeneity_omnibus.csv
+            results/tables/226_calc_choice_set_audit.csv
+            results/tables/227_calc_choice_set_model_sensitivity.csv
+            results/tables/228_administrative_choice_constraint_audit.csv
+            results/tables/229_post_failure_choice_set_audit.csv
             results/engagement_run_summary.json
+            results/confirmatory_run_summary.json
           retention-days: 30
