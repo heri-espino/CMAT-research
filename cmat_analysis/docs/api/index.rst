@@ -190,7 +190,28 @@ ppa
 
 .. automodule:: cmat_analysis.ppa
 
+.. autoclass:: cmat_analysis.ppa.EngagementTrajectoryData
+   :no-index-entry:
+
 .. autoclass:: cmat_analysis.ppa.PPAProgressionCohorts
+   :no-index-entry:
+
+.. autofunction:: cmat_analysis.ppa.build_engagement_trajectory_data
+   :no-index-entry:
+
+.. autofunction:: cmat_analysis.ppa.calc_choice_association_models
+   :no-index-entry:
+
+.. autofunction:: cmat_analysis.ppa.experience_profile_summary
+   :no-index-entry:
+
+.. autofunction:: cmat_analysis.ppa.instructor_choice_percentiles
+   :no-index-entry:
+
+.. autofunction:: cmat_analysis.ppa.repeat_attempt_summary
+   :no-index-entry:
+
+.. autofunction:: cmat_analysis.ppa.strict_prior_instructor_context
    :no-index-entry:
 
 .. autofunction:: cmat_analysis.ppa.build_ppa_progression_cohort
