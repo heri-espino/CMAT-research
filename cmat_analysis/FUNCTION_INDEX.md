@@ -20,8 +20,8 @@
 
 ## Inventory
 
-- Python files scanned: **121**
-- Reusable symbols: **458**
+- Python files scanned: **122**
+- Reusable symbols: **461**
 - Test symbols: **48**
 
 ## Reusable symbols
@@ -359,6 +359,14 @@
 | `experience_profile_summary` | function | 502 | `def experience_profile_summary(df: pd.DataFrame, *, profile_col: str='MU_EXPERIENCE_PROFILE', min_n: int=20) -> pd.DataFrame` | Summarize parsimonious first-MU experience profiles and later adaptation traces. | `src cmat_analysis ppa adaptation py experience_profile_summary summarize parsimonious first-mu experience profiles later traces` |
 | `calc_choice_association_models` | function | 548 | `def calc_choice_association_models(df: pd.DataFrame, *, outcome_col: str='CALC_CHOSEN_EASINESS_PERCENTILE', career_col: str='MU_FIRST_CAREER', calc_period_col: str='CALC_FIRST_PERIOD_LABEL', cluster_col: str='MU_FIRST_CLASSROOM_ID', min_career_n: int=30) -> pd.DataFrame` | Estimate how prior MU experience is associated with later instructor-context choice. | `src cmat_analysis ppa adaptation py calc_choice_association_models estimate how prior mu experience is associated later` |
 | `repeat_attempt_summary` | function | 639 | `def repeat_attempt_summary(transitions: pd.DataFrame) -> pd.DataFrame` | Summarize behavioral and instructor-context changes after failed MU attempts. | `src cmat_analysis ppa adaptation py repeat_attempt_summary summarize behavioral instructor-context changes after failed mu attempts` |
+
+### `src/cmat_analysis/ppa/adaptation_audit.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `augment_repeat_transition_context` | function | 13 | `def augment_repeat_transition_context(transitions: pd.DataFrame, mu_attempts: pd.DataFrame) -> pd.DataFrame` | Attach absolute strictly-prior instructor outcomes to repeat transitions. | `src cmat_analysis ppa adaptation_audit py augment_repeat_transition_context attach absolute strictly-prior instructor outcomes to repeat transitions` |
+| `observed_course_instructor_counts` | function | 86 | `def observed_course_instructor_counts(academics: pd.DataFrame, *, passing_grade: float, subject_code: str, subject_name: str, period_col: str='PERIOD_INDEX', instructor_col: str='CLAVEPROFESOR') -> pd.DataFrame` | Count instructors observed teaching a course in each academic period. | `src cmat_analysis ppa adaptation_audit py observed_course_instructor_counts count instructors observed teaching a course in each` |
+| `attach_observed_choice_set_size` | function | 138 | `def attach_observed_choice_set_size(choices: pd.DataFrame, period_counts: pd.DataFrame, *, choice_period_col: str='CALC_FIRST_PERIOD_INDEX', count_period_col: str='PERIOD_INDEX', output_col: str='CALC_CHOICE_SET_OBSERVED_N') -> pd.DataFrame` | Attach period-wide observed instructor counts to student choices. | `src cmat_analysis ppa adaptation_audit py attach_observed_choice_set_size attach period-wide observed instructor counts to student choices` |
 
 ### `src/cmat_analysis/ppa/adaptation_confirmatory.py`
 
