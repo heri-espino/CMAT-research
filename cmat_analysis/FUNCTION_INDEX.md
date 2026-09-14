@@ -20,8 +20,8 @@
 
 ## Inventory
 
-- Python files scanned: **118**
-- Reusable symbols: **445**
+- Python files scanned: **119**
+- Reusable symbols: **446**
 - Test symbols: **47**
 
 ## Reusable symbols
@@ -359,6 +359,12 @@
 | `experience_profile_summary` | function | 502 | `def experience_profile_summary(df: pd.DataFrame, *, profile_col: str='MU_EXPERIENCE_PROFILE', min_n: int=20) -> pd.DataFrame` | Summarize parsimonious first-MU experience profiles and later adaptation traces. | `src cmat_analysis ppa adaptation py experience_profile_summary summarize parsimonious first-mu experience profiles later traces` |
 | `calc_choice_association_models` | function | 548 | `def calc_choice_association_models(df: pd.DataFrame, *, outcome_col: str='CALC_CHOSEN_EASINESS_PERCENTILE', career_col: str='MU_FIRST_CAREER', calc_period_col: str='CALC_FIRST_PERIOD_LABEL', cluster_col: str='MU_FIRST_CLASSROOM_ID', min_career_n: int=30) -> pd.DataFrame` | Estimate how prior MU experience is associated with later instructor-context choice. | `src cmat_analysis ppa adaptation py calc_choice_association_models estimate how prior mu experience is associated later` |
 | `repeat_attempt_summary` | function | 639 | `def repeat_attempt_summary(transitions: pd.DataFrame) -> pd.DataFrame` | Summarize behavioral and instructor-context changes after failed MU attempts. | `src cmat_analysis ppa adaptation py repeat_attempt_summary summarize behavioral instructor-context changes after failed mu attempts` |
+
+### `src/cmat_analysis/ppa/adaptation_summary.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `repeat_attempt_summary` | function | 9 | `def repeat_attempt_summary(transitions: pd.DataFrame) -> pd.DataFrame` | Summarize behavioral and instructor-context changes after failed MU attempts. | `src cmat_analysis ppa adaptation_summary py repeat_attempt_summary summarize behavioral instructor-context changes after failed mu attempts` |
 
 ### `src/cmat_analysis/ppa/baseline.py`
 
