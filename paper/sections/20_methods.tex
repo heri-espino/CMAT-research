@@ -1,0 +1,68 @@
+\section{Institutional setting and data}
+
+\subsection{Mathematics support and first-year mathematics}
+
+CMAT is UDLAP's institutional mathematics learning-support centre. It provides formal assistance in mathematics and statistics outside regular course instruction, with visits recorded through an administrative advising system. A recorded visit therefore indicates formal contact with the support centre. It does not identify the student's help-seeking goal, the quality of the interaction, or other support used outside CMAT.
+
+MU is a first-year university mathematics course taken by students from multiple degree programmes. The university assigns students to MU sections, and section composition is strongly related to degree programme. This makes the first MU classroom an institutional context that students largely receive rather than select. Calculus I occurs later for programmes requiring further mathematics. Students enrol in sections offered in the relevant period, although the available data do not contain schedule, section-capacity, room, or individual registration-option fields sufficient to reconstruct the set of instructors feasible for each student.
+
+\draftnote{Confirm the institutional wording of the MU section-assignment process and the Calculus I registration process with the relevant administrative unit before submission.}
+
+\subsection{Administrative records and analytic populations}
+
+The study uses pseudonymized administrative academic records linked to CMAT visit records. Academic records provide course, period, instructor, degree programme, and final academic outcome. The longitudinal data pipeline distinguishes real course attempts from administrative replications associated with processes such as programme changes or revalidation. CMAT coverage is defined at the academic-period level so that a recorded zero is interpreted as non-use only when the support-centre records for that period are considered available.
+
+The first-MU analytic cohort contains 6,627 students whose first real observed MU attempt occurred during a CMAT-coverage period. Across their histories, 8,979 real MU attempt rows are observed. A later-Calculus cohort contains 4,151 students with a first later Calculus attempt in a CMAT-coverage period after an observed MU pass. For 3,224 of these later enrolments, the instructor can be ranked using strictly prior academic outcomes. The repeated-attempt cohort contains 1,007 transitions from a failed or adverse MU attempt to a subsequent MU attempt for which both periods have CMAT coverage.
+
+\subsection{Classroom-relative performance and contextual difficulty}
+
+Individual academic performance is measured relative to the student's MU classroom. A classroom is defined by course, instructor, and academic period. For student $i$ in classroom $c$, the standardized classroom-relative grade is defined in \Cref{eq:classroom-z}.
+\begin{equation}
+Z_{ic}=\frac{Y_{ic}-\bar{Y}_{c}}{s_c}.
+\label{eq:classroom-z}
+\end{equation}
+Here, $Y_{ic}$ is the student's numeric course grade and the reference distribution is constructed from eligible real attempts in that classroom.
+
+Contextual difficulty is measured using the leave-one-out classroom pass rate. The pass-rate denominator includes eligible real attempts in the classroom, including adverse nonnumeric outcomes treated as non-passes, while the focal student's own outcome is removed. The leave-one-out construction reduces the direct mechanical contribution of the focal student's grade to the contextual measure. The measure is still a realized classroom outcome rather than an intrinsic property of the instructor: it can reflect student composition, pedagogy, assessment, scheduling, and other course-context factors.
+
+\subsection{Primary first-MU experience states}
+
+The primary classification separates individual relative performance from classroom pass-rate context. Individual strain is defined as $Z\leq -0.5$. High contextual difficulty is defined as membership in the bottom quartile of the leave-one-out classroom pass-rate distribution, recalculated within the covered analytic cohort. These two dimensions yield four numeric states:
+\begin{enumerate}
+    \item \textbf{lower strain}: $Z>-0.5$ and the classroom is outside the bottom pass-rate quartile;
+    \item \textbf{contextual challenge}: $Z>-0.5$ and the classroom is in the bottom pass-rate quartile;
+    \item \textbf{individual strain}: $Z\leq-0.5$ and the classroom is outside the bottom pass-rate quartile;
+    \item \textbf{compounded strain}: $Z\leq-0.5$ and the classroom is in the bottom pass-rate quartile.
+\end{enumerate}
+A fifth state, \textbf{adverse/non-numeric}, contains first MU attempts without a numeric grade. A measurement audit confirms that all first-MU observations lacking $Z$ also lack a numeric grade, so numeric students are not silently assigned to the adverse group because of missing standardization inputs. Classroom pass-rate context is observed throughout the analytic cohort.
+
+The state definition intentionally excludes CMAT attendance. This is central to the design: the state summarizes the realized academic experience, while formal support use is analyzed as a separate behavioural trace.
+
+\subsection{Formal support use and later instructor context}
+
+Same-period formal help-seeking is measured using any CMAT use and the number of recorded visits during the first MU period. Because the academic state and visits are both realized during the same period, their association is contemporaneous and is not interpreted as ``difficulty causing help-seeking.''
+
+For later Calculus and repeated-attempt analyses, instructor context is constructed using only academic periods strictly before the focal enrolment. For each instructor, prior pass rate and prior mean grade are calculated from earlier course offerings. Where possible, the chosen instructor's historical outcome is ranked among instructors observed teaching the relevant course in the focal period, producing a percentile from lower to higher historical academic outcomes. These measures describe historical outcome context; they do not identify instructor quality, grading leniency, or causal teaching effects.
+
+The observed instructor set is a period-level proxy rather than an individual choice set. An administrative audit found no usable section identifier, schedule time, capacity, or room fields that could restrict the observed set to the options feasible for a particular student. Sensitivity analyses therefore restrict attention to periods with progressively more rankable instructors and, separately, periods with high historical coverage.
+
+\draftnote{If timetable, section-capacity, or registration-option data become available, use them to refine the feasible instructor set; this would strengthen interpretation but is not required for the present observational claim.}
+
+\subsection{Statistical analysis}
+
+The empirical analysis has four pre-specified blocks. First, the stability of the experience-state results is assessed across nine alternative definitions formed by crossing individual-performance cutoffs of $-0.25$, $-0.50$, and $-0.75$ with contextual-difficulty thresholds at the 20th, 25th, and 33.3rd percentiles of the classroom pass-rate distribution. We report whether the ordering of CMAT-use rates is preserved across the grid. A continuous linear probability model provides a threshold-free complement, as shown in \Cref{eq:cmat-lpm}:
+\begin{equation}
+CMAT_i = \alpha + \beta_1 Z_i + \beta_2 P_i
++ \beta_3(Z_i\times P_i)+\lambda_{d(i)}+\tau_{t(i)}+\varepsilon_i.
+\label{eq:cmat-lpm}
+\end{equation}
+Here, $P_i$ is the standardized leave-one-out pass-rate context, $\lambda_{d(i)}$ denotes degree-programme controls, and $\tau_{t(i)}$ denotes academic-period controls. Standard errors are clustered by first-MU classroom.
+
+Second, later Calculus instructor context is modeled as a function of first-MU experience state, prior CMAT-use group, degree programme, and Calculus period, with standard errors clustered by first-MU classroom. The primary outcome is the percentile of the subsequently enrolled Calculus instructor's strictly prior academic outcomes. Choice-set sensitivities progressively require at least two, three, four, or five rankable instructors in the period, with an additional specification requiring at least 75\% historical coverage.
+
+Third, post-failure adaptation is analyzed at the transition level. Descriptive summaries report professor switching, CMAT use before and after failure, next-attempt pass rate, and movement in historical instructor-outcome context after the first, second, and later failures. Formal linear probability models examine three outcomes: movement toward a historically higher-outcome instructor, any CMAT use in the next attempt, and increased CMAT use. Models adjust for attempt number, prior CMAT use, degree programme, period, and prior instructor context where applicable, with standard errors clustered by student. A numeric-failure analysis additionally relates the standardized relative performance of the failed attempt to subsequent adaptation.
+
+Fourth, degree-programme heterogeneity is evaluated through omnibus tests rather than separate programme-specific regressions. We compare models with and without degree programme for first-MU CMAT use, later Calculus CMAT use, and later instructor-context rank. Programme-by-experience-state interactions are evaluated under increasingly aggressive pooling of smaller programmes to avoid relying on an over-parameterized interaction.
+
+All analyses are observational. Statistical adjustment addresses measured differences only and is not used to claim causal effects of CMAT use, instructor movement, course failure, or degree programme.
+

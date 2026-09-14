@@ -1,0 +1,50 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,top=1.8cm,bottom=1.8cm,left=1.8cm,right=1.8cm]{geometry}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{pdflscape}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+
+\providecommand{\PaperCommented}{0}
+\newcommand{\draftnote}[1]{%
+  \ifnum\PaperCommented=1
+    \par\medskip\noindent\textbf{TODO:} #1\par\medskip
+  \fi
+}
+
+\title{From Assigned to Chosen Academic Contexts: Longitudinal Traces of Student Engagement and Adaptation in First-Year University Mathematics}
+\author{Heriberto Espino-Montelongo\\Universidad de las Am\'ericas Puebla}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Student engagement in higher education is shaped by the interaction between students and their academic environment, yet administrative studies often collapse context, behaviour, and outcomes into a single indicator. This paper develops a longitudinal, Kahu-aligned approach to administrative data by distinguishing academic context, experienced performance, formal help-seeking, subsequent context selection, and later outcomes. We study 6,627 students whose first observed attempt at a first-year university mathematics course occurred during periods covered by the institutional mathematics support centre. First-course experiences are summarized into five states that distinguish classroom-relative performance from leave-one-out classroom pass-rate context. Students who maintained relatively stronger performance in low-pass-rate classrooms had the highest same-period mathematics-support use (28.6\%), whereas students experiencing individual strain (9.5\%) or compounded individual and contextual strain (8.0\%) used formal support much less despite substantially weaker progression. This ordering persists across nine pre-specified definitions of performance and contextual difficulty. We then examine later adaptation. Among 3,224 students for whom the instructor in a later Calculus course can be ranked using strictly prior instructor outcomes, difficult first-course experiences do not predict subsequent enrolment with historically higher-outcome instructors; individual-strain students instead enrol with instructors about 4.4 percentile points lower on the historical-outcome distribution than lower-strain students. By contrast, after a failed first-course attempt, 97.0\% of students change instructor and, among comparable cases, 62.3\% move toward an instructor with historically higher outcomes; the direction is similar when using absolute prior pass rates and prior mean grades. Degree programme contributes statistically clear but modest additional heterogeneity in support use and later academic context. The results do not identify causal effects or latent engagement. They show that academic need, formal help-seeking, and subsequent adaptation are distinct processes, and that administrative traces can complement engagement theory when their temporal and conceptual boundaries are made explicit.
+\end{abstract}
+
+\noindent\textbf{Keywords:} student engagement; academic help-seeking; mathematics support; first-year transition; academic adaptation; higher education; repeated course attempts
+
+\section{Introduction}
+
+Student engagement is widely treated as central to learning, persistence, and achievement in higher education, but the construct is often difficult to operationalize without reducing it to a convenient observable behaviour. Attendance, course participation, use of university services, grades, and persistence all provide information about students' interaction with the institution, yet they do not represent the same phenomenon. Kahu's framework was developed partly in response to this problem, distinguishing the state of engagement from its antecedents and consequences and emphasizing the interaction between students, institutions, and sociocultural context \citep{kahu2013}. This distinction becomes especially important when engagement is studied through administrative records, where behaviour and outcomes are observed more readily than motivation, affect, belonging, self-regulation, or students' interpretations of their experiences.
+
+Formal academic help-seeking is a useful case through which to study this distinction. Seeking help from instructors or academic support centres is an observable behaviour that may reflect adaptive self-regulation, but non-use cannot be equated with disengagement, and use itself can arise from different forms of need, familiarity, confidence, institutional encouragement, or disciplinary norms. A meta-analysis of postsecondary help-seeking research found that the relationship between help-seeking and achievement depends on the source and quality of help, with formal and instrumental help-seeking generally associated with more favourable outcomes than avoidant or executive forms \citep{fong2023}. Within mathematics support, research similarly shows that voluntary services can be valuable for students who attend, while substantial numbers of students do not engage even when support is available \citep{macanbhaird2013,lawson2020,mullen2024}. The resulting empirical challenge is not simply to estimate whether support ``works,'' but to understand who uses it, under what academic conditions, and how students alter their behaviour after academic feedback.
+
+This paper studies those processes in a setting that contains two useful transitions. At Universidad de las Am\'ericas Puebla (UDLAP), students in the first-year course Matem\'aticas Universitarias (MU) are assigned to sections by the university, with assignment strongly structured by degree programme. In the later Calculus I context, students subsequently enrol with an instructor from the sections offered in that period. The administrative data do not reveal each student's feasible set of sections, schedules, or capacity constraints, so this later enrolment cannot be interpreted as unconstrained preference. Nevertheless, the institutional transition changes the role of instructor context: the first MU instructor is primarily assigned, whereas later instructor enrolment occurs in a setting where students have more scope for selection. A second transition arises when students fail MU and return for another attempt. Repeated attempts allow us to observe whether students change instructor, alter formal support use, or move toward instructors associated with historically different academic outcomes.
+
+The study therefore asks how observable responses differ across forms of academic challenge and how those responses evolve over time. The empirical design first separates \emph{individual strain}, measured through classroom-relative performance, from \emph{contextual challenge}, measured through the leave-one-out pass-rate environment of the classroom. This yields a parsimonious five-state description of the first MU experience. Crucially, formal support use is not part of the state definition. Instead, mathematics-support use is treated as a behavioural response observed alongside the realized first-course experience, while later Calculus enrolment and repeated-attempt behaviour are treated as subsequent adaptation traces. The same-period relationship between MU experience and support use is descriptive and contemporaneous; only the later transitions establish temporal ordering.
+
+The paper makes four contributions. First, it provides a quantitative operationalization that is deliberately narrower than the engagement construct itself. Rather than labeling every administrative event as engagement, it separates structural context, experienced academic outcomes, formal help-seeking, later context selection, and subsequent outcomes in a way that is consistent with Kahu's conceptual distinctions \citep{kahu2013}. Second, it shows that academic need and formal help-seeking do not align monotonically. Students facing difficult classroom contexts while maintaining stronger relative performance are substantially more likely to use formal mathematics support than students experiencing much poorer individual outcomes. Third, it examines academic adaptation longitudinally by comparing a transition from an assigned instructional context to a later, partly selectable one and by following students after failed MU attempts. Fourth, it tests whether these patterns vary across degree programmes without reducing the analysis to a catalogue of programme-specific significance tests.
+
+The findings complicate a simple ``difficulty induces help-seeking'' account. The group facing contextual challenge uses formal support most, while the groups experiencing individual or compounded strain use it least. This pattern is robust to alternative definitions of difficulty. A poor MU experience also does not translate into later enrolment with instructors associated with historically higher academic outcomes in Calculus. By contrast, instructor change is nearly universal immediately after a failed MU attempt, and most comparable students move toward instructors with historically higher prior outcomes. These results suggest that students respond to academic challenge through multiple channels, and that the channel chosen after difficulty cannot be inferred from academic need alone.
+
