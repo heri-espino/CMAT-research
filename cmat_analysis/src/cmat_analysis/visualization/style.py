@@ -8,6 +8,22 @@ from __future__ import annotations
 
 FONT_CANDIDATES = ("CMU Serif", "Latin Modern Roman", "DejaVu Serif")
 
+# Seaborn's default ``deep`` palette, with the project blue in its first slot.
+# Keeping the remaining colours preserves categorical distinctions in existing
+# figures while making the primary series consistently use the CMAT navy.
+CMAT_PALETTE = (
+    "#00166c",
+    "#dd8452",
+    "#55a868",
+    "#c44e52",
+    "#8172b3",
+    "#937860",
+    "#da8bc3",
+    "#8c8c8c",
+    "#ccb974",
+    "#64b5cd",
+)
+
 
 def _resolve_font_family() -> str:
     """Return the first available publication serif font family."""
@@ -33,6 +49,7 @@ def mpl_apply() -> None:
     sns.set_theme(
         context="paper",
         style="whitegrid",
+        palette=CMAT_PALETTE,
         font=font_family,
         rc={
             "font.family": "serif",
