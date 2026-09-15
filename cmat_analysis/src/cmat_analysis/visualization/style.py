@@ -6,7 +6,7 @@ construct cohorts, transform analytical data, or alter statistical estimands.
 
 from __future__ import annotations
 
-FONT_CANDIDATES = ("CMU Serif", "Latin Modern Roman", "DejaVu Serif")
+FONT_CANDIDATES = ("Libertinus Serif", "CMU Serif", "Latin Modern Roman", "DejaVu Serif")
 
 # Seaborn's default ``deep`` palette, with the project blue in its first slot.
 # Keeping the remaining colours preserves categorical distinctions in existing
@@ -32,6 +32,21 @@ def _resolve_font_family() -> str:
     except Exception:
         return "DejaVu Serif"
 
+    # Matplotlib does not always discover fonts installed for the current
+    # Windows user (rather than system-wide).  Register Libertinus explicitly
+    # when it is available in the standard per-user Fonts directory.  Other
+    # systems, and installations without Libertinus, continue to use the
+    # portable fallbacks below.
+    try:
+        from os import environ
+        from pathlib import Path
+
+        user_fonts = Path(environ.get("LOCALAPPDATA", "")) / "Microsoft" / "Windows" / "Fonts"
+        for font_path in user_fonts.glob("LibertinusSerif-*.otf"):
+            font_manager.fontManager.addfont(font_path)
+    except (OSError, ValueError):
+        pass
+
     for family in FONT_CANDIDATES:
         try:
             font_manager.findfont(family, fallback_to_default=False)
@@ -52,12 +67,12 @@ def mpl_apply() -> None:
         palette=CMAT_PALETTE,
         font=font_family,
         rc={
-            # CMU Serif lacks a few Unicode mathematical glyphs used in
-            # labels (for example, \u2265). Matplotlib falls back only after the
-            # primary family, so ordinary text remains CMU Serif.
+            # Libertinus Serif is used for publication text.  The fallbacks
+            # cover mathematical Unicode glyphs not included in a font.
             "font.family": [font_family, "DejaVu Serif"],
             "font.serif": [
                 font_family,
+                "Libertinus Serif",
                 "CMU Serif",
                 "Latin Modern Roman",
                 "DejaVu Serif",
@@ -77,7 +92,7 @@ def set_style() -> None:
 def plotly_apply(
     palette: list[str] = ["#ffa600", "#ffd380"],
     fontsize: float = 18,
-    fontstack: str = "CMU Serif, Latin Modern Roman, DejaVu Serif, serif",
+    fontstack: str = "Libertinus Serif, CMU Serif, Latin Modern Roman, DejaVu Serif, serif",
 ) -> None:
     """Apply a light Plotly template aligned with the publication figure style.
 
