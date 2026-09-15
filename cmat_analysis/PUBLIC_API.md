@@ -114,6 +114,7 @@ Calculus, so instructor-linked uptake is not estimated only among progressors.
 
 ## `cmat_analysis.reporting`
 
+- `save_figure_variants` — function
 - `write_run_log` — function
 
 ## `cmat_analysis.privacy`
@@ -121,5 +122,5 @@ Calculus, so instructor-linked uptake is not estimated only among progressors.
 - `canonical_identifier` — function
 - `hmac_pseudonym` — function
 
-Public functions: **73**  
+Public functions: **74**  
 Public classes: **3**
