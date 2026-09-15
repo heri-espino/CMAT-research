@@ -35,15 +35,15 @@ def run(command: list[str]) -> None:
 def build_target(stem: str) -> None:
     latexmk = shutil.which("latexmk")
     if latexmk:
-        run([latexmk, "-pdf", "-interaction=nonstopmode", "-halt-on-error", f"{stem}.tex"])
+        run([latexmk, "-xelatex", "-interaction=nonstopmode", "-halt-on-error", f"{stem}.tex"])
         return
 
-    pdflatex = shutil.which("pdflatex")
+    xelatex = shutil.which("xelatex")
     bibtex = shutil.which("bibtex")
-    if not pdflatex or not bibtex:
-        fail("install latexmk or both pdflatex and bibtex, then rerun")
+    if not xelatex or not bibtex:
+        fail("install latexmk or both xelatex and bibtex, then rerun")
 
-    latex = [pdflatex, "-interaction=nonstopmode", "-halt-on-error", f"{stem}.tex"]
+    latex = [xelatex, "-interaction=nonstopmode", "-halt-on-error", f"{stem}.tex"]
     run(latex)
     run([bibtex, stem])
     run(latex)
