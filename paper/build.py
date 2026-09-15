@@ -14,6 +14,7 @@ from pathlib import Path
 
 MANUSCRIPT_DIR = Path(__file__).resolve().parent
 TARGETS = ("main", "main_commented")
+OUTPUT_STEM = "espino_2026_mathematics_support_classroom_relative_performance"
 REQUIRED_FILES = (
     MANUSCRIPT_DIR / "main.tex",
     MANUSCRIPT_DIR / "main_commented.tex",
@@ -62,6 +63,15 @@ def build() -> None:
         fail("missing required source files: " + ", ".join(missing))
     for stem in TARGETS:
         build_target(stem)
+
+    # Keep the canonical wrappers and their main*.pdf outputs intact while
+    # publishing descriptive filenames for use outside the repository.
+    descriptive_outputs = {
+        "main": f"{OUTPUT_STEM}.pdf",
+        "main_commented": f"{OUTPUT_STEM}_commented.pdf",
+    }
+    for stem, output_name in descriptive_outputs.items():
+        shutil.copy2(MANUSCRIPT_DIR / f"{stem}.pdf", MANUSCRIPT_DIR / output_name)
 
 
 if __name__ == "__main__":
