@@ -20,9 +20,9 @@
 
 ## Inventory
 
-- Python files scanned: **120**
-- Reusable symbols: **446**
-- Test symbols: **48**
+- Python files scanned: **127**
+- Reusable symbols: **463**
+- Test symbols: **58**
 
 ## Reusable symbols
 
@@ -360,6 +360,38 @@
 | `calc_choice_association_models` | function | 548 | `def calc_choice_association_models(df: pd.DataFrame, *, outcome_col: str='CALC_CHOSEN_EASINESS_PERCENTILE', career_col: str='MU_FIRST_CAREER', calc_period_col: str='CALC_FIRST_PERIOD_LABEL', cluster_col: str='MU_FIRST_CLASSROOM_ID', min_career_n: int=30) -> pd.DataFrame` | Estimate how prior MU experience is associated with later instructor-context choice. | `src cmat_analysis ppa adaptation py calc_choice_association_models estimate how prior mu experience is associated later` |
 | `repeat_attempt_summary` | function | 639 | `def repeat_attempt_summary(transitions: pd.DataFrame) -> pd.DataFrame` | Summarize behavioral and instructor-context changes after failed MU attempts. | `src cmat_analysis ppa adaptation py repeat_attempt_summary summarize behavioral instructor-context changes after failed mu attempts` |
 
+### `src/cmat_analysis/ppa/adaptation_audit.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `augment_repeat_transition_context` | function | 13 | `def augment_repeat_transition_context(transitions: pd.DataFrame, mu_attempts: pd.DataFrame) -> pd.DataFrame` | Attach absolute strictly-prior instructor outcomes to repeat transitions. | `src cmat_analysis ppa adaptation_audit py augment_repeat_transition_context attach absolute strictly-prior instructor outcomes to repeat transitions` |
+| `observed_course_instructor_counts` | function | 86 | `def observed_course_instructor_counts(academics: pd.DataFrame, *, passing_grade: float, subject_code: str, subject_name: str, period_col: str='PERIOD_INDEX', instructor_col: str='CLAVEPROFESOR') -> pd.DataFrame` | Count instructors observed teaching a course in each academic period. | `src cmat_analysis ppa adaptation_audit py observed_course_instructor_counts count instructors observed teaching a course in each` |
+| `attach_observed_choice_set_size` | function | 138 | `def attach_observed_choice_set_size(choices: pd.DataFrame, period_counts: pd.DataFrame, *, choice_period_col: str='CALC_FIRST_PERIOD_INDEX', count_period_col: str='PERIOD_INDEX', output_col: str='CALC_CHOICE_SET_OBSERVED_N') -> pd.DataFrame` | Attach period-wide observed instructor counts to student choices. | `src cmat_analysis ppa adaptation_audit py attach_observed_choice_set_size attach period-wide observed instructor counts to student choices` |
+
+### `src/cmat_analysis/ppa/adaptation_confirmatory.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `_collapse_rare` | function | 18 | `def _collapse_rare(series: pd.Series, min_n: int) -> pd.Series` | No docstring; inspect implementation before reuse. | `src cmat_analysis ppa adaptation_confirmatory py collapse_rare` |
+| `_standardize` | function | 24 | `def _standardize(series: pd.Series) -> pd.Series` | No docstring; inspect implementation before reuse. | `src cmat_analysis ppa adaptation_confirmatory py standardize` |
+| `_joint_wald` | function | 32 | `def _joint_wald(fit, *, contains: str) -> tuple[float, int, float]` | No docstring; inspect implementation before reuse. | `src cmat_analysis ppa adaptation_confirmatory py joint_wald` |
+| `classify_experience_state` | function | 47 | `def classify_experience_state(df: pd.DataFrame, *, z_col: str='MU_FIRST_Z', pass_rate_col: str='MU_FIRST_LOO_PASS_RATE', performance_cut: float=-0.5, difficulty_quantile: float=0.25) -> pd.Series` | Classify first-MU experience into five parsimonious academic-strain states. | `src cmat_analysis ppa adaptation_confirmatory py classify_experience_state classify first-mu experience five parsimonious academic-strain states` |
+| `experience_state_sensitivity` | function | 110 | `def experience_state_sensitivity(mu_students: pd.DataFrame, *, later_calc_student_ids: Iterable[object] \| None=None, performance_cuts: tuple[float, ...]=(-0.25, -0.5, -0.75), difficulty_quantiles: tuple[float, ...]=(0.2, 0.25, 1 / 3)) -> pd.DataFrame` | Summarize experience states across a pre-specified threshold grid. | `src cmat_analysis ppa adaptation_confirmatory py experience_state_sensitivity summarize experience states across a pre-specified threshold grid` |
+| `continuous_challenge_response_model` | function | 185 | `def continuous_challenge_response_model(mu_students: pd.DataFrame, *, min_career_n: int=30) -> pd.DataFrame` | Model first-MU CMAT use continuously as performance and context vary. | `src cmat_analysis ppa adaptation_confirmatory py continuous_challenge_response_model model first-mu cmat use continuously as performance context` |
+| `post_failure_response_models` | function | 241 | `def post_failure_response_models(transitions: pd.DataFrame, *, min_career_n: int=30) -> pd.DataFrame` | Estimate formal response models after a failed or adverse MU attempt. | `src cmat_analysis ppa adaptation_confirmatory py post_failure_response_models estimate formal response models after a failed or` |
+| `career_heterogeneity_tests` | function | 390 | `def career_heterogeneity_tests(mu_students: pd.DataFrame, calc_choices: pd.DataFrame, *, min_career_n: int=30) -> pd.DataFrame` | Test whether degree programme adds joint explanatory information to key responses. | `src cmat_analysis ppa adaptation_confirmatory py career_heterogeneity_tests test whether degree programme adds joint explanatory information` |
+| `choice_set_audit` | function | 512 | `def choice_set_audit(calc_choices: pd.DataFrame, *, observed_col: str='CALC_CHOICE_SET_OBSERVED_N', rankable_col: str='CALC_CHOICE_SET_RANKABLE_N', period_col: str='CALC_FIRST_PERIOD_LABEL') -> pd.DataFrame` | Audit the observed-period instructor set used as a choice-set proxy. | `src cmat_analysis ppa adaptation_confirmatory py choice_set_audit audit observed-period instructor set used as a choice-set` |
+| `choice_set_audit.<locals>.add` | function | 555 | `def add(metric: str, value: float \| int, level: str) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis ppa adaptation_confirmatory py choice_set_audit locals add` |
+| `choice_set_sensitivity_models` | function | 577 | `def choice_set_sensitivity_models(calc_choices: pd.DataFrame, *, min_career_n: int=30, rankable_thresholds: tuple[int, ...]=(2, 3, 4, 5), min_history_coverage: float=0.75) -> pd.DataFrame` | Re-estimate experience-state choice associations under stricter set support. | `src cmat_analysis ppa adaptation_confirmatory py choice_set_sensitivity_models re-estimate experience-state choice associations under stricter set support` |
+| `administrative_choice_constraint_audit` | function | 666 | `def administrative_choice_constraint_audit(academic_df: pd.DataFrame, *, additional_groups: Mapping[str, tuple[str, ...]] \| None=None) -> pd.DataFrame` | Audit whether administrative fields can refine individual instructor choice sets. | `src cmat_analysis ppa adaptation_confirmatory py administrative_choice_constraint_audit audit whether administrative fields can refine individual instructor` |
+
+### `src/cmat_analysis/ppa/adaptation_confirmatory_extra.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `career_heterogeneity_reduced_interactions` | function | 17 | `def career_heterogeneity_reduced_interactions(mu_students: pd.DataFrame, *, min_career_ns: tuple[int, ...]=(100, 150, 200)) -> pd.DataFrame` | Test degree-programme by experience-state heterogeneity with controlled dimension. | `src cmat_analysis ppa adaptation_confirmatory_extra py career_heterogeneity_reduced_interactions test degree-programme by experience-state heterogeneity controlled dimension` |
+| `post_failure_numeric_severity_models` | function | 90 | `def post_failure_numeric_severity_models(transitions: pd.DataFrame, *, min_career_n: int=30) -> pd.DataFrame` | Relate numeric failure severity to subsequent adaptation responses. | `src cmat_analysis ppa adaptation_confirmatory_extra py post_failure_numeric_severity_models relate numeric failure severity to subsequent adaptation responses` |
+
 ### `src/cmat_analysis/ppa/adaptation_summary.py`
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
@@ -447,6 +479,12 @@
 | `clean_materias_with_tracking` | function | 93 | `def clean_materias_with_tracking(materias_raw: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting descriptive_pipeline py clean_materias_with_tracking` |
 | `enrich_materias_with_visits` | function | 185 | `def enrich_materias_with_visits(materias_cleaned: pd.DataFrame, asesorias_raw: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting descriptive_pipeline py enrich_materias_with_visits` |
 | `build_analytical_bundle` | function | 233 | `def build_analytical_bundle(project_root: Path, materias_path: Path, asesorias_path: Path) -> AnalyticalBundle` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting descriptive_pipeline py build_analytical_bundle` |
+
+### `src/cmat_analysis/reporting/figures.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `save_figure_variants` | function | 10 | `def save_figure_variants(fig: plt.Figure, output_dir: Path, stem: str) -> list[Path]` | Save a Matplotlib figure as both PDF and PNG. | `src cmat_analysis reporting figures py save_figure_variants save a matplotlib figure as both pdf png` |
 
 ### `src/cmat_analysis/reporting/methodology_build.py`
 
@@ -707,11 +745,10 @@
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
 |---|---|---:|---|---|---|
-| `_candidate_font_roots` | function | 16 | `def _candidate_font_roots() -> list[Path]` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization style py candidate_font_roots` |
-| `_register_local_eb_garamond` | function | 25 | `def _register_local_eb_garamond() -> str` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization style py register_local_eb_garamond` |
-| `mpl_apply` | function | 42 | `def mpl_apply() -> None` | Aplica un estilo personalizado a las gráficas de Matplotlib y Seaborn. | `src cmat_analysis visualization style py mpl_apply aplica un estilo personalizado a las gr ficas` |
-| `set_style` | function | 109 | `def set_style() -> None` | Apply the project Matplotlib and Seaborn plotting defaults. | `src cmat_analysis visualization style py set_style apply project matplotlib seaborn plotting defaults` |
-| `plotly_apply` | function | 117 | `def plotly_apply(palette: list[str]=['#ffa600', '#ffd380'], fontsize: float=18, fontstack: str="EB Garamond, Garamond, Georgia, 'Times New Roman', serif") -> None` | Aplica un estilo personalizado a las gráficas de Plotly, poner: from style import plotly_apply plotly_apply() Parameters ---------- palette : list[str], default=['#ffa600', '#ffd380'] Plotly discrete color sequence used by the registered template. | `src cmat_analysis visualization style py plotly_apply aplica un estilo personalizado a las gr ficas` |
+| `_resolve_font_family` | function | 12 | `def _resolve_font_family() -> str` | Return the first available publication serif font family. | `src cmat_analysis visualization style py resolve_font_family return first available publication serif font family` |
+| `mpl_apply` | function | 28 | `def mpl_apply() -> None` | Apply a reproducible Seaborn whitegrid publication theme. | `src cmat_analysis visualization style py mpl_apply apply a reproducible seaborn whitegrid publication theme` |
+| `set_style` | function | 52 | `def set_style() -> None` | Apply the project Matplotlib and Seaborn plotting defaults. | `src cmat_analysis visualization style py set_style apply project matplotlib seaborn plotting defaults` |
+| `plotly_apply` | function | 57 | `def plotly_apply(palette: list[str]=['#ffa600', '#ffd380'], fontsize: float=18, fontstack: str='CMU Serif, Latin Modern Roman, DejaVu Serif, serif') -> None` | Apply a light Plotly template aligned with the publication figure style. | `src cmat_analysis visualization style py plotly_apply apply a light plotly template aligned publication figure` |
 
 ### `src/create_anonymized_release.py`
 
@@ -798,6 +835,25 @@
 | `test_instructor_choice_percentiles_rank_only_within_period` | function | 44 | `def test_instructor_choice_percentiles_rank_only_within_period() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation py test_instructor_choice_percentiles_rank_only_within_period` |
 | `test_repeat_attempt_summary_tracks_post_failure_changes` | function | 67 | `def test_repeat_attempt_summary_tracks_post_failure_changes() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation py test_repeat_attempt_summary_tracks_post_failure_changes` |
 
+### `tests/test_ppa_adaptation_confirmatory.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `test_classify_experience_state_separates_individual_and_contextual_strain` | function | 19 | `def test_classify_experience_state_separates_individual_and_contextual_strain() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory py test_classify_experience_state_separates_individual_and_contextual_strain` |
+| `test_experience_state_sensitivity_returns_predefined_grid` | function | 34 | `def test_experience_state_sensitivity_returns_predefined_grid() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory py test_experience_state_sensitivity_returns_predefined_grid` |
+| `test_choice_set_audit_uses_observed_and_rankable_counts` | function | 59 | `def test_choice_set_audit_uses_observed_and_rankable_counts() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory py test_choice_set_audit_uses_observed_and_rankable_counts` |
+| `test_augment_repeat_transition_context_adds_absolute_history_changes` | function | 72 | `def test_augment_repeat_transition_context_adds_absolute_history_changes() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory py test_augment_repeat_transition_context_adds_absolute_history_changes` |
+| `test_attach_observed_choice_set_size_is_many_to_one` | function | 89 | `def test_attach_observed_choice_set_size_is_many_to_one() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory py test_attach_observed_choice_set_size_is_many_to_one` |
+| `test_administrative_choice_constraint_audit_finds_schedule_but_not_capacity` | function | 96 | `def test_administrative_choice_constraint_audit_finds_schedule_but_not_capacity() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory py test_administrative_choice_constraint_audit_finds_schedule_but_not_capacity` |
+| `test_post_failure_response_models_runs_clustered_lpm` | function | 104 | `def test_post_failure_response_models_runs_clustered_lpm() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory py test_post_failure_response_models_runs_clustered_lpm` |
+
+### `tests/test_ppa_adaptation_confirmatory_extra.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `test_career_interaction_models_reduce_dimension_as_threshold_rises` | function | 12 | `def test_career_interaction_models_reduce_dimension_as_threshold_rises() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory_extra py test_career_interaction_models_reduce_dimension_as_threshold_rises` |
+| `test_numeric_failure_severity_models_report_prior_z` | function | 35 | `def test_numeric_failure_severity_models_report_prior_z() -> None` | No docstring; inspect implementation before reuse. | `tests test_ppa_adaptation_confirmatory_extra py test_numeric_failure_severity_models_report_prior_z` |
+
 ### `tests/test_ppa_adaptation_rank_denominator.py`
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
@@ -859,6 +915,12 @@
 | `test_public_api_is_explicit_and_stable` | function | 120 | `def test_public_api_is_explicit_and_stable() -> None` | Ensure canonical namespaces expose exactly the reviewed API. | `tests test_public_api_documentation py test_public_api_is_explicit_and_stable ensure canonical namespaces expose exactly reviewed api` |
 | `test_public_api_has_numpy_style_docstrings` | function | 127 | `def test_public_api_has_numpy_style_docstrings() -> None` | Require public callables to carry minimally complete NumPy docstrings. | `tests test_public_api_documentation py test_public_api_has_numpy_style_docstrings require public callables to carry minimally complete numpy docstrings` |
 | `test_sphinx_api_page_excludes_compatibility_and_private_modules` | function | 159 | `def test_sphinx_api_page_excludes_compatibility_and_private_modules() -> None` | Keep the main Sphinx reference restricted to namespace-level public API. | `tests test_public_api_documentation py test_sphinx_api_page_excludes_compatibility_and_private_modules keep main sphinx reference restricted to namespace-level public api` |
+
+### `tests/test_reporting_figures.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `test_save_figure_variants_writes_pdf_and_png` | function | 10 | `def test_save_figure_variants_writes_pdf_and_png(tmp_path) -> None` | Write both variants in a deterministic order and close the figure. | `tests test_reporting_figures py test_save_figure_variants_writes_pdf_and_png write both variants in a deterministic order close figure` |
 
 ### `tests/test_study_helpers.py`
 
