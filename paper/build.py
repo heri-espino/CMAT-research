@@ -1,38 +1,62 @@
+"""Build the official and commented LaTeX manuscripts.
+
+This builder performs no scientific calculations. ``main.tex`` is the official
+clean wrapper and ``main_commented.tex`` exposes development TODO annotations;
+both include the single shared source ``manuscript.tex``.
+"""
+
 from __future__ import annotations
 
 import shutil
 import subprocess
+import sys
 from pathlib import Path
 
+MANUSCRIPT_DIR = Path(__file__).resolve().parent
+TARGETS = ("main", "main_commented")
+REQUIRED_FILES = (
+    MANUSCRIPT_DIR / "main.tex",
+    MANUSCRIPT_DIR / "main_commented.tex",
+    MANUSCRIPT_DIR / "manuscript.tex",
+    MANUSCRIPT_DIR / "references.bib",
+)
 
-PAPER_DIR = Path(__file__).resolve().parent
-MAIN = PAPER_DIR / "main.tex"
+
+def fail(message: str) -> None:
+    print(f"Paper build error: {message}", file=sys.stderr)
+    raise SystemExit(1)
 
 
 def run(command: list[str]) -> None:
-    subprocess.run(command, cwd=PAPER_DIR, check=True)
+    print("+", " ".join(command))
+    subprocess.run(command, cwd=MANUSCRIPT_DIR, check=True)
 
 
-def main() -> int:
-    if not MAIN.exists():
-        raise SystemExit(f"Missing manuscript: {MAIN}")
+def build_target(stem: str) -> None:
+    latexmk = shutil.which("latexmk")
+    if latexmk:
+        run([latexmk, "-pdf", "-interaction=nonstopmode", "-halt-on-error", f"{stem}.tex"])
+        return
 
-    if shutil.which("latexmk"):
-        run(["latexmk", "-pdf", "-interaction=nonstopmode", "-halt-on-error", MAIN.name])
-    elif shutil.which("pdflatex") and shutil.which("bibtex"):
-        run(["pdflatex", "-interaction=nonstopmode", "-halt-on-error", MAIN.name])
-        run(["bibtex", MAIN.stem])
-        run(["pdflatex", "-interaction=nonstopmode", "-halt-on-error", MAIN.name])
-        run(["pdflatex", "-interaction=nonstopmode", "-halt-on-error", MAIN.name])
-    else:
-        raise SystemExit("Paper 3 requires latexmk or pdflatex + bibtex.")
+    pdflatex = shutil.which("pdflatex")
+    bibtex = shutil.which("bibtex")
+    if not pdflatex or not bibtex:
+        fail("install latexmk or both pdflatex and bibtex, then rerun")
 
-    pdf = PAPER_DIR / "main.pdf"
-    if not pdf.exists():
-        raise SystemExit("LaTeX completed without producing main.pdf")
-    print(f"Compiled: {pdf}")
-    return 0
+    latex = [pdflatex, "-interaction=nonstopmode", "-halt-on-error", f"{stem}.tex"]
+    run(latex)
+    run([bibtex, stem])
+    run(latex)
+    run(latex)
+
+
+def build() -> None:
+    missing = [str(path) for path in REQUIRED_FILES if not path.is_file()]
+    if missing:
+        fail("missing required source files: " + ", ".join(missing))
+    for stem in TARGETS:
+        build_target(stem)
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    build()

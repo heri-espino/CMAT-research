@@ -1,0 +1,51 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,top=1.8cm,bottom=1.8cm,left=1.8cm,right=1.8cm]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{pdflscape}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+
+\providecommand{\PaperCommented}{0}
+\newcommand{\draftnote}[1]{%
+  \ifnum\PaperCommented=1
+    \par\medskip\noindent\textbf{TODO:} #1\par\medskip
+  \fi
+}
+
+\title{Are Course Grades Comparable Across Classrooms?\\Instructor-by-Term Heterogeneity in Undergraduate Mathematics Assessment}
+\author{Heriberto Espino-Montelongo\\Universidad de las Am\'ericas Puebla}
+\date{September 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Course grades are routinely combined across instructors and academic periods in institutional reporting and educational research, although the same numerical scale may be produced within substantially different assessment contexts. We examine this comparability problem using administrative records from undergraduate mathematics at Universidad de las Am\'ericas Puebla. The analytical unit is the classroom, defined as an instructor teaching the same course in the same academic period. A retained exploratory analysis contains 26,140 student--classroom observations, 77 instructors and 769 classrooms from 2019--2025, with a median classroom size of 30. That analysis shows visible differences in the location, spread and shape of grade distributions across instructors and period-to-period variation for the same instructor; an exploratory distribution-distance analysis also identified nontrivial clustering of grading profiles. Rather than interpreting these differences as pure instructor severity, the present paper treats them as context-associated variation that may combine assessment practice, assessment design, student composition and realized performance. The confirmatory specification therefore conditions comparisons on course and period, separates numeric awarded grades from nonnumeric adverse outcomes, evaluates distributional distances and temporal stability, and quantifies the reclassification produced when raw grades are replaced by classroom-relative standardization. The central measurement claim is deliberately limited: a common numerical grade scale does not by itself guarantee empirical exchangeability across classrooms. Classroom-relative standardization can reduce one source of contextual incomparability, but it changes the estimand from recorded achievement on an absolute institutional scale to relative position within a local distribution and should not be interpreted as a universal measure of mathematical proficiency.
+\end{abstract}
+
+\noindent\textbf{Keywords:} grading; assessment; grade comparability; higher education; mathematics; classroom effects; standardization
+
+\section{Introduction}
+
+Grades occupy an unusual position in higher education because they are simultaneously records of individual achievement, inputs to progression and award decisions, and convenient quantitative outcomes for institutional research. Their apparent simplicity encourages aggregation: a numerical grade can be averaged across courses, compared across students and inserted into statistical models without requiring a new measurement instrument. Yet that convenience depends on a strong assumption that is often left implicit, namely that the scale is sufficiently commensurable across the local contexts in which grades are produced. A grade of 8.5 on a 0--10 scale has the same numerical value wherever it appears, but numerical identity does not establish that it represents an equivalent position in an assessment distribution or that it was generated under equivalent criteria.
+
+This distinction between a common scale and a common measurement meaning is well established in assessment scholarship. \citet{sadler2009} frames grade integrity in terms of the relationship between awarded grades and the quality, breadth and depth of the evidence on which they are based, while research on marking practices shows that academic judgement is not reducible to the mechanical application of written criteria \citep{bloxham2011,bloxham2016}. Broader reviews likewise show that grades can incorporate multiple cognitive and non-cognitive elements rather than a single latent construct \citep{brookhart2016}, and empirical work across disciplines has documented differences in both grading criteria and assessment cultures \citep{lipnevich2020,ylonen2018}. These findings do not imply that grades are useless measures; indeed, aggregate college grades can be highly reliable \citep{beatty2015}. They do imply, however, that reliability and cross-context comparability are different questions.
+
+The present study examines that distinction in undergraduate mathematics at Universidad de las Am\'ericas Puebla (UDLAP). It emerged from a broader institutional study in which course grades were used to evaluate students' relative academic performance while studying use of the Centro de Aprendizaje de Matem\'aticas (CMAT). During that work, pooling raw grades across instructors and academic periods proved difficult to justify because classroom distributions differed visibly in location, spread and shape. The solution used in the performance study was to standardise outcomes within classroom, where a classroom means the same instructor teaching the same course in the same academic period. Paper 3 turns that methodological adjustment into the object of study rather than treating it as a preprocessing detail.
+
+Our research questions are therefore about measurement rather than instructor ranking. First, how much do classroom grade distributions vary when comparisons are restricted to the same course and academic period? Second, how stable are an instructor's course-specific grade distributions across periods? Third, how much does student ranking or classification change when a raw course grade is replaced by a classroom-relative standardised outcome? Fourth, how sensitive are conclusions about comparability to classroom-size restrictions and to the treatment of nonnumeric adverse academic outcomes?
+
+The contribution is twofold. Empirically, the study quantifies grading-context heterogeneity in a multi-year mathematics setting in which the numerical grade scale is nominally common. Conceptually, it distinguishes three objects that are often conflated: the recorded course grade, the student's position relative to classmates evaluated in the same local context, and latent mathematical proficiency. The first is observed, the second can be constructed, and the third is not identified by administrative course grades alone. Maintaining those distinctions allows grade standardisation to be evaluated as a contextual measurement choice without presenting it as a correction that reveals a student's ``true'' ability.
+
+\draftnote{The manuscript is intentionally ahead of the final controlled-data rerun. Historical quantities are included where they are directly recoverable from the retained \texttt{proyecto\_visitas} report, but the variance decomposition, within-course-period distance summaries and raw-versus-standardised reclassification estimates must be regenerated under the specification in \path{ANALYSIS_PLAN.md} before submission.}
+

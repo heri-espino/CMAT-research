@@ -1,0 +1,38 @@
+The first analytical layer describes each eligible classroom using the number of numeric grades, mean, standard deviation, median, interquartile range and numeric-grade pass rate, while adverse outcomes are tabulated in parallel. The primary minimum classroom size is 20 numeric awarded grades; thresholds of 10 and 30 form sensitivity analyses. The threshold is a distribution-estimation rule rather than a substantive exclusion criterion, because smaller classes are educationally meaningful but provide less stable empirical distribution estimates.
+
+Heterogeneity is then evaluated primarily within course by academic-period strata. This restriction matters because a difference between, for example, an introductory course and a later calculus course is not evidence of instructor grading heterogeneity, nor is a change between academic years automatically attributable to an instructor. Conditioning on the nominal course and period creates a more defensible comparison set, although it still does not eliminate non-random sorting of students across instructors.
+
+\subsection{Distributional distance}
+
+Means and pass rates capture only parts of a grade distribution, so the confirmatory analysis will compare classroom empirical distributions using two complementary distances. The two-sample Kolmogorov--Smirnov distance records the maximum vertical separation between empirical cumulative distribution functions and is sensitive to differences in distributional shape, while the first Wasserstein distance summarises the amount of movement on the grade scale required to align two distributions. For each course-period stratum containing at least two eligible classrooms, we will summarise the median, interquartile range and upper tail of pairwise distances rather than treating a single pair as representative.
+
+The historical analysis also clustered professor-level distributions using KS distances and K-Medoids, with the highest reported Silhouette Score at three clusters. That result is useful as exploratory evidence that grade distributions contained recognizable structure, but it is not a confirmatory taxonomy. The new analysis will condition clustering on course-period comparability and will not label clusters as ``strict'', ``lenient'' or ``high-quality'', because distributional shape alone cannot identify the mechanism that generated it.
+
+\subsection{Context-associated variance}
+
+The third layer will estimate a multilevel or cross-classified decomposition of numeric grades, beginning with course-by-period fixed effects and accounting for repeated students and classroom or instructor context when the observed overlap supports identification. The purpose is to quantify how much residual variation is associated with local classroom context after nominal course-period differences are absorbed. The classroom component will not be called an instructor causal effect: students are not randomly assigned to instructors, and assessment design, cohort composition and realized performance can all contribute to the same component.
+
+If the preferred cross-classified model is unstable, we will use a simpler course-period fixed-effect model and report classroom residual distributions with cluster-robust uncertainty rather than forcing a poorly identified random-effects structure. This fallback is methodologically preferable to obtaining an apparently precise variance partition from a model unsupported by the data structure.
+
+\subsection{Temporal stability}
+
+For instructor-course combinations observed in at least three eligible periods, we will examine stability in mean grade, within-classroom dispersion, pass rate and full-distribution distance. This converts the historical visual observation of period-to-period movement into a formal question: to what extent does an instructor-course grading profile persist when the academic period changes? A stable instructor-course component would support the idea that part of the distribution is persistent, whereas large within-instructor-course shifts would show why an instructor-only adjustment is insufficient.
+
+\subsection{Consequences of classroom-relative standardisation}
+
+Finally, we will quantify how much a student's position changes when analysis moves from the raw grade to $Z_{ic}$. Planned diagnostics include the Spearman association between the two measures, movement in pooled percentile rank, quintile or decile reclassification, and examples in which similar raw grades correspond to materially different relative positions. These diagnostics are direct measurement consequences: they do not require a causal claim about instructors and make clear what information is changed by standardisation.
+
+\section{Results}
+
+\subsection{Exploratory evidence of heterogeneous classroom contexts}
+
+The historical analysis already provides a strong reason not to assume homogeneous grading distributions. Across the retained 2019--2025 workspace, 26,140 student--classroom observations were distributed among 77 instructors and 769 instructor-course-period classrooms, with a median of 30 students per classroom. Because 65.2\% of students appeared in more than one classroom, the data represent overlapping academic trajectories rather than isolated cross-sections, creating the possibility of comparing local grading contexts while recognising repeated observations.
+
+Plots retained in the historical report show substantial differences across instructors in the location, dispersion and shape of final-grade distributions. Some distributions concentrate more heavily near the upper end of the scale, others are broader, and others place more observed mass near the passing boundary. Those plots establish heterogeneity descriptively, but they do not establish that instructors alone produced it. In particular, the broad professor-level figures pooled different courses and periods, so the dedicated Paper 3 rerun must determine how much of the apparent separation survives within course-period comparisons.
+
+\draftnote{Replace this paragraph before submission with the distribution of classroom means, SDs and pass rates under the $N\geq20$ primary rule, together with within-course-period KS and Wasserstein summaries. Report the same quantities at $N\geq10$ and $N\geq30$ in supplementary material.}
+
+\subsection{Outcome construction materially changes the lower tail}
+
+The historical data contain 3,217 nonnumeric final-grade observations, corresponding to 12.3\% of student--classroom records. This is too large a component to disappear silently through complete-case analysis, but it is also too substantively distinct from an awarded grade to be treated as numeric without explicit qualification. The old report illustrates the consequence: the aggregate passing share is 90.57\% when calculated from observed numeric grades, whereas the historical adverse-outcome imputation produces 79.67\% passing after nonnumeric adverse states are placed into the lower grade range.
+

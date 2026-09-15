@@ -1,0 +1,52 @@
+\section{Grades as contextual measures in higher education}
+
+A grade can be dependable for one purpose without being exchangeable for every other purpose. \citet{beatty2015}, for example, report high reliability for first-year and overall college grade-point averages in very large multi-institutional data, which supports the use of accumulated grades as stable summaries of academic performance. That result does not establish that every component course grade has the same meaning across instructors or assessment contexts, because aggregation can be reliable even when local components contain systematic contextual variation. For the present study, comparability therefore concerns whether observations expressed on the same numerical scale can reasonably be treated as if instructor-course-period context were irrelevant.
+
+Assessment research provides several reasons to doubt that assumption. In a think-aloud study of university grading, \citet{bloxham2011} found that assessors frequently made holistic judgements and did not simply apply written criteria analytically, while \citet{bloxham2016} documented variation in the criteria noticed, ranked and scored by experienced assessors. These studies concern judgement processes rather than administrative grade distributions, but they establish a plausible mechanism through which local marking practice can generate heterogeneity even when formal standards exist. \citet{lipnevich2020} similarly found substantial variation in the criteria used to construct course grades across American college and university syllabi, including differences in the balance between product and process criteria and in the use of examinations.
+
+At a broader institutional level, \citet{ylonen2018} show that mark distributions vary across disciplinary assessment cultures and caution against treating student marks as straightforwardly comparable measures of learning gain. Their argument is particularly relevant here because the same problem can occur at a finer scale: even within one disciplinary family, different courses, instructors and periods can constitute different assessment environments. Paper 3 does not presume that all observed distributional differences are undesirable or that uniform distributions would be evidence of higher assessment quality. Instead, heterogeneity matters because downstream analyses often assume away the context that produced the grade.
+
+This distinction also constrains interpretation of standardisation. If student $i$ receives raw grade $G_{ic}$ in classroom $c$, the classroom-relative score in \Cref{eq:classroom-standardization} is
+\begin{equation}
+Z_{ic}=\frac{G_{ic}-\bar G_c}{s_c},
+\label{eq:classroom-standardization}
+\end{equation}
+where $\bar G_c$ and $s_c$ are the classroom mean and standard deviation. The transformation removes classroom-specific location and scale from the outcome by construction, making $Z_{ic}$ a statement about relative position rather than absolute recorded attainment. A positive value means that the student is above the classroom mean; it does not mean that the student has mastered an externally fixed amount of mathematics. Consequently, raw grades and classroom-relative scores answer different questions, and the empirical issue is not which one is universally correct but how much substantive inference depends on choosing between them.
+
+\section{Institutional context and data}
+
+UDLAP records final course outcomes on a 0--10 numerical scale, with 7.5 as the passing threshold in the study data. The broader administrative extract covers undergraduate mathematics enrolments over multiple academic periods between 2019 and 2025. A student can appear repeatedly because degree programmes contain multiple mathematics courses, and the same instructor can teach the same or different courses in more than one period. This repeated structure is analytically useful because it provides both within-student and within-instructor-course information, but it also makes a simple independent-observation model inappropriate for the final variance decomposition.
+
+The classroom is defined as an instructor teaching the same course in the same academic period, independently of section when multiple sections share that instructor-course-period combination. This definition was adopted in the earlier project because the period itself can change the assessment context: the historical analysis displays changes in mean grades for the same instructor over time, so instructor identity alone is not treated as a stable grading environment. Conversely, combining all instructors within a course-period would erase precisely the variation that Paper 3 seeks to measure.
+
+\Cref{tab:historical} records the quantities that can be verified from the retained historical report. They describe the old broad analytical workspace and are not yet the final Paper 3 sample, because the confirmatory rerun will apply a more explicit attempt/revalidation rule and a minimum numeric classroom size.
+
+\begin{table}[tbp]
+\centering
+\caption{Retained exploratory evidence from the historical grading analysis.}
+\label{tab:historical}
+\begin{tabular}{lr}
+\toprule
+Quantity & Historical value \\
+\midrule
+Student--classroom observations & 26,140 \\
+Instructors & 77 \\
+Instructor--course--period classrooms & 769 \\
+Median students per classroom & 30 \\
+Students appearing in multiple classrooms & 65.2\% \\
+Nonnumeric final-grade observations & 3,217 (12.3\%) \\
+Passing share among observed numeric grades & 90.57\% \\
+Passing share after historical adverse-outcome imputation & 79.67\% \\
+Exploratory K-Medoids solution with maximum Silhouette Score & $k=3$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+Nonnumeric outcomes require particular care because `BV', `RT' and `BA' are not neutral missing values in the institutional context; they represent adverse academic states such as withdrawal or temporary withdrawal. For a paper about student academic performance, retaining these events through an explicit adverse-outcome construction can be preferable to complete-case deletion. For a paper about the distribution of grades actually awarded by instructors, however, assigning these states simulated numeric grades changes the construct being studied. We therefore use observed numeric final grades as the primary grading-distribution outcome, describe adverse-state composition separately, and reserve the project's preserved lower-tail imputation procedure for sensitivity analysis.
+
+Administrative equivalencies, revalidations and other non-attempt records are also excluded from the construct of a newly awarded course grade. This is important because a course can reappear under a later programme or degree record without representing a second independent grading event. The final Paper 3 cohort will use the canonical attempt/revalidation logic maintained in the shared analysis library rather than relying on simple row-level deduplication.
+
+\section{Analytical strategy}
+
+\subsection{Classroom summaries and comparability strata}
+
