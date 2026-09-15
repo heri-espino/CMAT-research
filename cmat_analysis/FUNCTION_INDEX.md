@@ -20,9 +20,9 @@
 
 ## Inventory
 
-- Python files scanned: **125**
-- Reusable symbols: **462**
-- Test symbols: **57**
+- Python files scanned: **127**
+- Reusable symbols: **463**
+- Test symbols: **58**
 
 ## Reusable symbols
 
@@ -480,6 +480,12 @@
 | `enrich_materias_with_visits` | function | 185 | `def enrich_materias_with_visits(materias_cleaned: pd.DataFrame, asesorias_raw: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting descriptive_pipeline py enrich_materias_with_visits` |
 | `build_analytical_bundle` | function | 233 | `def build_analytical_bundle(project_root: Path, materias_path: Path, asesorias_path: Path) -> AnalyticalBundle` | No docstring; inspect implementation before reuse. | `src cmat_analysis reporting descriptive_pipeline py build_analytical_bundle` |
 
+### `src/cmat_analysis/reporting/figures.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `save_figure_variants` | function | 10 | `def save_figure_variants(fig: plt.Figure, output_dir: Path, stem: str) -> list[Path]` | Save a Matplotlib figure as both PDF and PNG. | `src cmat_analysis reporting figures py save_figure_variants save a matplotlib figure as both pdf png` |
+
 ### `src/cmat_analysis/reporting/methodology_build.py`
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
@@ -739,10 +745,10 @@
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
 |---|---|---:|---|---|---|
-| `_resolve_font_family` | function | 13 | `def _resolve_font_family() -> str` | Return the installed Computer Modern family used in publication plots. | `src cmat_analysis visualization style py resolve_font_family return installed computer modern family used in publication` |
-| `mpl_apply` | function | 27 | `def mpl_apply() -> None` | Apply Seaborn's native ``whitegrid`` theme with CMU Serif text. | `src cmat_analysis visualization style py mpl_apply apply seaborn s native whitegrid theme cmu serif` |
-| `set_style` | function | 38 | `def set_style() -> None` | Apply the project Matplotlib and Seaborn plotting defaults. | `src cmat_analysis visualization style py set_style apply project matplotlib seaborn plotting defaults` |
-| `plotly_apply` | function | 46 | `def plotly_apply(palette: list[str]=['#ffa600', '#ffd380'], fontsize: float=18, fontstack: str='CMU Serif, Computer Modern, serif') -> None` | Aplica un estilo personalizado a las gráficas de Plotly, poner: from style import plotly_apply plotly_apply() Parameters ---------- palette : list[str], default=['#ffa600', '#ffd380'] Plotly discrete color sequence used by the registered template. | `src cmat_analysis visualization style py plotly_apply aplica un estilo personalizado a las gr ficas` |
+| `_resolve_font_family` | function | 12 | `def _resolve_font_family() -> str` | Return the first available publication serif font family. | `src cmat_analysis visualization style py resolve_font_family return first available publication serif font family` |
+| `mpl_apply` | function | 28 | `def mpl_apply() -> None` | Apply a reproducible Seaborn whitegrid publication theme. | `src cmat_analysis visualization style py mpl_apply apply a reproducible seaborn whitegrid publication theme` |
+| `set_style` | function | 52 | `def set_style() -> None` | Apply the project Matplotlib and Seaborn plotting defaults. | `src cmat_analysis visualization style py set_style apply project matplotlib seaborn plotting defaults` |
+| `plotly_apply` | function | 57 | `def plotly_apply(palette: list[str]=['#ffa600', '#ffd380'], fontsize: float=18, fontstack: str='CMU Serif, Latin Modern Roman, DejaVu Serif, serif') -> None` | Apply a light Plotly template aligned with the publication figure style. | `src cmat_analysis visualization style py plotly_apply apply a light plotly template aligned publication figure` |
 
 ### `src/create_anonymized_release.py`
 
@@ -909,6 +915,12 @@
 | `test_public_api_is_explicit_and_stable` | function | 120 | `def test_public_api_is_explicit_and_stable() -> None` | Ensure canonical namespaces expose exactly the reviewed API. | `tests test_public_api_documentation py test_public_api_is_explicit_and_stable ensure canonical namespaces expose exactly reviewed api` |
 | `test_public_api_has_numpy_style_docstrings` | function | 127 | `def test_public_api_has_numpy_style_docstrings() -> None` | Require public callables to carry minimally complete NumPy docstrings. | `tests test_public_api_documentation py test_public_api_has_numpy_style_docstrings require public callables to carry minimally complete numpy docstrings` |
 | `test_sphinx_api_page_excludes_compatibility_and_private_modules` | function | 159 | `def test_sphinx_api_page_excludes_compatibility_and_private_modules() -> None` | Keep the main Sphinx reference restricted to namespace-level public API. | `tests test_public_api_documentation py test_sphinx_api_page_excludes_compatibility_and_private_modules keep main sphinx reference restricted to namespace-level public api` |
+
+### `tests/test_reporting_figures.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `test_save_figure_variants_writes_pdf_and_png` | function | 10 | `def test_save_figure_variants_writes_pdf_and_png(tmp_path) -> None` | Write both variants in a deterministic order and close the figure. | `tests test_reporting_figures py test_save_figure_variants_writes_pdf_and_png write both variants in a deterministic order close figure` |
 
 ### `tests/test_study_helpers.py`
 

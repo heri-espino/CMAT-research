@@ -1,14 +1,19 @@
 # CMAT research AI handoff
 
-This file defines repository-wide conventions for AI-assisted work, with special emphasis on paper authoring and reproducible figures. It should remain present on every maintained long-lived branch so that paper branches do not silently drift in style or build behaviour.
+This file defines repository-wide conventions for AI-assisted work, with special emphasis on branch discipline, paper authoring, and reproducible figures. Keep it synchronized into every maintained paper branch so branch-local work does not drift from the project architecture.
 
 ## Repository and branch discipline
 
-- `main` owns reusable scientific code, shared plotting style, data contracts, and repository-wide conventions.
-- `brainstorm/proyecto-visitas` is the shared exploratory workspace.
-- `paper/paper1-ppa-persistence`, `paper/paper2-mu-performance`, `paper/paper3-grading-heterogeneity`, `paper/paper4-degree-help-seeking`, and `paper/paper5-longitudinal-trajectories` own paper-specific prose, analyses, and outputs.
-- When a reusable method or plotting convention changes, implement/review it in `main` and then sync the long-lived branches. Do not let paper branches develop incompatible copies of shared scientific utilities.
-- Preserve each paper's scientific scope. Formatting synchronization must not silently move estimands, analyses, or claims between papers.
+- The only long-lived branches are `main` and paper branches under `paper/*`.
+- `main` owns all shared work: reusable scientific code, data contracts and controlled data, literature infrastructure, `brainstorm/` exploration, documentation, CI, repository configuration, plotting style, fixes, migrations, and shared outputs.
+- Do not create or preserve `admin/*`, `brainstorm/*`, `chore/*`, `data/*`, `docs/*`, `fix/*`, `feature/*`, `integrate/*`, or other auxiliary branches unless the user explicitly authorizes a temporary exception for a specific task.
+- Current paper branches are `paper/paper1-ppa-persistence`, `paper/paper2-mu-performance`, `paper/paper3-grading-heterogeneity`, `paper/paper4-degree-help-seeking`, and `paper/paper5-longitudinal-trajectories`.
+- Paper branches contain only paper-specific deltas: manuscript prose, paper-local recipes, selected literature, paper results, submission material, and other artifacts whose meaning belongs to that paper.
+- Synchronization flows `main -> paper/*`. If paper work reveals a reusable method, data transformation, plotting convention, documentation rule, or shared fix, implement and validate it on `main` first, then sync `main` into the relevant paper branch.
+- Do not merge an entire paper branch back into `main` to recover shared code. Promote only the reusable capability to `main`, then bring `main` back down into the paper branch.
+- Before creating a new branch, first determine whether the work is genuinely a new paper. If not, use `main`. A new permanent branch is acceptable only for a new paper and should use `paper/<paper-id>-<short-slug>`.
+- If a temporary branch is ever explicitly authorized, integrate its durable content into `main` and delete that temporary branch before the task ends.
+- Preserve each paper's scientific scope. Synchronization must not silently move estimands, analyses, or claims between papers.
 
 ## Canonical paper outputs
 
