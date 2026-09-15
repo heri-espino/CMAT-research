@@ -1,0 +1,51 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,top=1.8cm,bottom=1.8cm,left=1.8cm,right=1.8cm]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{pdflscape}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+
+\providecommand{\PaperCommented}{0}
+\newcommand{\draftnote}[1]{%
+  \ifnum\PaperCommented=1
+    \par\medskip\noindent\textbf{TODO:} #1\par\medskip
+  \fi
+}
+
+\title{Mathematics Support Use and Classroom-Relative Performance in First-Year University Mathematics}
+\author{Heriberto Espino-Montelongo\\Universidad de las Am\'ericas Puebla}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Observational evaluations of mathematics support can be distorted when attendance accumulated across different academic periods is attached to a focal course outcome and when grades awarded in different instructional settings are treated as directly comparable. We address both measurement problems in an administrative study of 6,627 students taking their first eligible attempt at a first-year university mathematics course during periods with observable support-centre coverage. Support registrations are aligned to the same academic period as the focal course, performance is standardised within instructor--course--period classrooms, and visit count is modelled nonlinearly rather than assumed to represent a simple treatment dose. Overall, 18.6\% of students recorded at least one same-period CMAT registration. Mean classroom-relative performance was $-0.060$ standard deviations among students with no visits, compared with $0.218$ for 1--2 visits, $0.325$ for exactly 3 visits, and $0.342$ for 4 or more visits. Games--Howell contrasts separated each positive-use group from non-users, whereas none of the contrasts among the three positive-use groups was statistically distinguishable at the 5\% level. Classroom fixed-effect models produced the same qualitative pattern, with estimated contrasts of $0.318$, $0.443$, and $0.468$ standard deviations relative to zero visits. The contribution is therefore not a new claim that mathematics-support users outperform non-users, but a cleaner measurement and interpretation of that association: after aligning exposure temporally and comparing students within a common grading context, the dominant pattern is formal engagement versus non-engagement rather than a clearly graded dose-response among users. Because attendance remains voluntary and important determinants of both help-seeking and achievement are incompletely observed, the estimates are associational rather than causal.
+\end{abstract}
+
+\noindent\textbf{Keywords:} mathematics support; academic help-seeking; tutoring; first-year mathematics; academic performance; observational study
+
+\section{Introduction}
+
+Mathematics learning support has become an established component of higher education provision, particularly where students enter mathematically demanding programmes with heterogeneous prior preparation. Reviews of mathematics and statistics support describe a field that has expanded from remedial provision toward broader, institutionally embedded forms of academic support, while also noting persistent difficulty in evaluating impact because participation is usually voluntary and definitions of attendance vary across studies \citep{lawson2020,mullen2024}. The resulting identification problem is substantive rather than merely statistical, since students who seek help may differ from non-users in prior attainment, motivation, perceived difficulty, study effort, time availability, or willingness to use institutional resources.
+
+A positive association between mathematics-support use and academic performance is not itself novel. Studies at mathematics support centres have repeatedly reported higher grades or pass rates among users while acknowledging the difficulty of separating support from selection into help-seeking \citep{macanbhaird2009,jacob2019}. In particular, \citet{jacob2019} showed that students who attended once should be distinguished from students who never engaged, reporting a significant difference between those groups even after considering prior mathematical achievement and module studied. The relevant question for a new observational study is therefore not whether any recorded use can be separated from non-use, but whether the exposure and outcome are measured in a way that makes the resulting comparison more interpretable.
+
+The broader help-seeking literature gives this distinction a useful conceptual basis. Academic help-seeking is generally treated as a self-regulated and motivated strategy rather than a passive treatment received by otherwise exchangeable students, and its relationship with achievement varies with the form of help-seeking and student characteristics \citep{fong2023}. A count of support-centre registrations should consequently not be read automatically as a production-function measure in which each additional visit constitutes a comparable increment of tutoring. It may instead record a behavioural transition into formal help-seeking, followed by heterogeneous patterns of subsequent use.
+
+This study examines administrative data from the Centro de Aprendizaje de Matem\'aticas (CMAT) at Universidad de las Am\'ericas Puebla and makes three related measurement contributions. First, support use is reconstructed contemporaneously, so that only registrations occurring in the same academic period as a student's first eligible attempt at Matem\'aticas Universitarias (MU) contribute to the exposure. Second, the outcome is expressed relative to the immediate grading environment by standardising the final course result within an instructor--course--period classroom. Third, visit count is analysed nonlinearly in order to test whether the observed association resembles a graded dose-response or is concentrated in the distinction between no recorded use and positive use. None of these choices eliminates student-level self-selection, but together they remove two avoidable sources of measurement contamination---historical accumulation of visits and cross-classroom grading heterogeneity---while making the functional form of the attendance association explicit.
+
+We therefore ask two questions. How is same-period CMAT use associated with classroom-relative performance in first-attempt MU, and, conditional on observing an association, does performance continue to increase systematically across positive levels of use? The second question is especially important in this institutional setting because three registrations are administratively salient through a participation incentive, which means that the distribution of visit counts is partly shaped by institutional architecture rather than by unconstrained demand for tutoring alone.
+
+\section{Institutional context}
+

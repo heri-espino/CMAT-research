@@ -1,78 +1,62 @@
-#!/usr/bin/env python3
-"""Build the Paper 2 manuscript from retained or freshly generated aggregate tables."""
+"""Build the official and commented LaTeX manuscripts.
+
+This builder performs no scientific calculations. ``main.tex`` is the official
+clean wrapper and ``main_commented.tex`` exposes development TODO annotations;
+both include the single shared source ``manuscript.tex``.
+"""
 
 from __future__ import annotations
 
-import os
-from pathlib import Path
 import shutil
 import subprocess
 import sys
+from pathlib import Path
+
+MANUSCRIPT_DIR = Path(__file__).resolve().parent
+TARGETS = ("main", "main_commented")
+REQUIRED_FILES = (
+    MANUSCRIPT_DIR / "main.tex",
+    MANUSCRIPT_DIR / "main_commented.tex",
+    MANUSCRIPT_DIR / "manuscript.tex",
+    MANUSCRIPT_DIR / "references.bib",
+)
 
 
-PAPER_DIR = Path(__file__).resolve().parent
-REPO_ROOT = PAPER_DIR.parent
-TEX = PAPER_DIR / "main.tex"
-BIB = PAPER_DIR / "references.bib"
-FIGURE_SCRIPT = REPO_ROOT / "code" / "figures.py"
-FIGURE_SOURCE = os.environ.get("PAPER2_FIGURE_SOURCE", "retained").strip().lower()
+def fail(message: str) -> None:
+    print(f"Paper build error: {message}", file=sys.stderr)
+    raise SystemExit(1)
 
 
-def _run(command: list[str], *, cwd: Path = PAPER_DIR) -> None:
-    subprocess.run(command, cwd=cwd, check=True)
+def run(command: list[str]) -> None:
+    print("+", " ".join(command))
+    subprocess.run(command, cwd=MANUSCRIPT_DIR, check=True)
 
 
-def _generate_figures() -> None:
-    if FIGURE_SOURCE not in {"retained", "generated"}:
-        raise RuntimeError(
-            "PAPER2_FIGURE_SOURCE must be either 'retained' or 'generated'."
-        )
-    _run(
-        [sys.executable, str(FIGURE_SCRIPT), "--source", FIGURE_SOURCE],
-        cwd=REPO_ROOT,
-    )
-
-
-def _compile_latex() -> Path:
+def build_target(stem: str) -> None:
     latexmk = shutil.which("latexmk")
     if latexmk:
-        _run(
-            [
-                latexmk,
-                "-pdf",
-                "-interaction=nonstopmode",
-                "-halt-on-error",
-                TEX.name,
-            ]
-        )
-    else:
-        pdflatex = shutil.which("pdflatex")
-        bibtex = shutil.which("bibtex")
-        if not pdflatex or not bibtex:
-            raise RuntimeError(
-                "Compilation requires latexmk, or both pdflatex and bibtex."
-            )
-        _run([pdflatex, "-interaction=nonstopmode", "-halt-on-error", TEX.name])
-        _run([bibtex, TEX.stem])
-        _run([pdflatex, "-interaction=nonstopmode", "-halt-on-error", TEX.name])
-        _run([pdflatex, "-interaction=nonstopmode", "-halt-on-error", TEX.name])
+        run([latexmk, "-pdf", "-interaction=nonstopmode", "-halt-on-error", f"{stem}.tex"])
+        return
 
-    pdf = PAPER_DIR / "main.pdf"
-    if not pdf.is_file():
-        raise RuntimeError("LaTeX completed without creating paper/main.pdf")
-    return pdf
+    pdflatex = shutil.which("pdflatex")
+    bibtex = shutil.which("bibtex")
+    if not pdflatex or not bibtex:
+        fail("install latexmk or both pdflatex and bibtex, then rerun")
+
+    latex = [pdflatex, "-interaction=nonstopmode", "-halt-on-error", f"{stem}.tex"]
+    run(latex)
+    run([bibtex, stem])
+    run(latex)
+    run(latex)
 
 
-def main() -> int:
-    for path in (TEX, BIB, FIGURE_SCRIPT):
-        if not path.is_file():
-            raise FileNotFoundError(f"Required Paper 2 build input is missing: {path}")
-    _generate_figures()
-    pdf = _compile_latex()
-    print(f"Paper 2 figure source: {FIGURE_SOURCE}")
-    print(f"Compiled: {pdf}")
-    return 0
+def build() -> None:
+    missing = [str(path) for path in REQUIRED_FILES if not path.is_file()]
+    if missing:
+        fail("missing required source files: " + ", ".join(missing))
+    for stem in TARGETS:
+        build_target(stem)
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    build()

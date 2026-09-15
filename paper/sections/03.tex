@@ -1,0 +1,74 @@
+We then estimate ordinary least-squares models with classroom fixed effects and standard errors clustered by classroom. The principal model includes indicators for 1--2, 3, and 4+ visits, with zero visits as the reference category. The coefficients estimate conditional within-classroom associations and should not be interpreted as causal effects of receiving tutoring. As a secondary upper-tail sensitivity, we compare four or more visits with zero to three visits and repeat that contrast under alternative outcome constructions. The secondary contrast summarizes the robustness of the upper-use association but is not a threshold design.
+
+Propensity-score methods can improve balance on observed pre-exposure characteristics when an appropriate covariate set is available \citep{rosenbaum1983,austin2011}. We do not present observed-covariate weighting as a solution to the current identification problem because the available administrative extract lacks sufficiently rich measures of baseline mathematics preparation. The primary interpretation therefore remains associational throughout.
+
+\section{Results}
+
+\subsection{Observed CMAT use in first-attempt MU}
+
+Among the 6,627 students in the primary cohort, 5,393 recorded no CMAT registration during the focal MU period, while 1,234 (18.6\%) recorded at least one. Exact positive-use counts were 517 students with one visit, 245 with two, 170 with three, and 302 with four or more. \Cref{fig:visits} shows the resulting distribution, which is strongly concentrated at zero and has a comparatively small positive-use tail. The institutional significance of three visits should be kept in mind when reading this distribution, since bunching near that value can reflect the participation incentive as well as demand for mathematics support.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.82\textwidth]{../results/figures/fig01_mu_visit_distribution.pdf}
+\caption{Distribution of same-period CMAT registrations in the first-attempt MU analytical cohort. The dashed line marks the institutionally salient three-visit PPA value for context. The figure is descriptive and does not represent a regression-discontinuity design.}
+\label{fig:visits}
+\end{figure}
+
+\subsection{Classroom-relative performance by support-use group}
+
+\Cref{tab:means} and \Cref{fig:means} show a pronounced separation between students with no recorded CMAT use and each positive-use category. Mean classroom-relative performance was $-0.060$ for non-users, $0.218$ for students with 1--2 visits, $0.325$ for exactly three visits, and $0.342$ for students with four or more visits.
+
+\begin{table}[tbp]
+\centering
+\caption{Classroom-relative performance by same-period CMAT-use group.}
+\label{tab:means}
+\begin{tabular}{lrrrr}
+\toprule
+CMAT visits & $N$ & Mean $Z$ & SD & 95\% CI \\
+\midrule
+0   & 5,393 & -0.060 & 1.017 & [-0.087, -0.033] \\
+1--2 & 762 & 0.218 & 0.817 & [0.160, 0.276] \\
+3   & 170 & 0.325 & 0.724 & [0.216, 0.434] \\
+4+  & 302 & 0.342 & 0.712 & [0.262, 0.423] \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.78\textwidth]{../results/figures/fig02_mu_performance_by_visit_group.pdf}
+\caption{Mean classroom-relative performance by same-period CMAT-use group. Error bars show 95\% confidence intervals.}
+\label{fig:means}
+\end{figure}
+
+The Brown--Forsythe test rejected homogeneity of variance ($p<0.001$), supporting use of the heteroskedastic Welch procedure. Welch's omnibus test also rejected equality of means, $F(3,546.4)=56.21$, $p<0.001$. The pairwise pattern is more informative than the omnibus rejection. Games--Howell comparisons found differences between zero visits and 1--2, three, and four-or-more visits, with adjusted $p\leq0.001$ in each case. By contrast, comparisons among positive-use groups were not statistically distinguishable at the 5\% level: 1--2 versus three visits had $p=0.327$, 1--2 versus 4+ had $p=0.069$, and three versus 4+ had $p=0.900$.
+
+The substantive result is therefore not the omnibus $p$-value but the shape of the association. The observed gradient is dominated by the separation between no recorded use and positive use, while the data provide much weaker evidence that progressively higher registration counts among users correspond to progressively higher classroom-relative performance. This pattern is consistent with treating recorded CMAT use as an indicator of formal help-seeking behaviour more readily than as a simple tutoring dose.
+
+\subsection{Within-classroom associations}
+
+Classroom fixed-effect models retain the same qualitative pattern. Relative to students with zero visits in the same classroom environment, the estimated contrasts are $0.318$ standard deviations for 1--2 visits, $0.443$ for exactly three visits, and $0.468$ for four or more visits. All three confidence intervals exclude zero (\Cref{fig:dose}). Because the outcome itself is already standardised within classroom, these models are best understood as an additional restriction of the comparison to students sharing the same instructor-period environment, not as evidence that student-level selection has been removed.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.80\textwidth]{../results/figures/fig03_adjusted_dose_coefficients.pdf}
+\caption{Classroom fixed-effect associations between same-period CMAT-use groups and classroom-relative MU performance, with zero visits as the reference group. Error bars show 95\% confidence intervals; standard errors are clustered by classroom.}
+\label{fig:dose}
+\end{figure}
+
+As a secondary upper-tail summary, comparing students with four or more visits against those with zero to three visits yields an unadjusted mean difference of $0.359Z$ (95\% CI $[0.277,0.439]$). A classroom fixed-effect specification estimates $0.388Z$, and adding degree-programme indicators yields $0.375Z$ (95\% CI $[0.257,0.493]$). These estimates show that the upper-use association is not an artifact of the unadjusted comparison, but they do not imply that crossing from three to four registrations causes a discrete increase in performance.
+
+\subsection{Outcome sensitivity}
+
+The secondary upper-tail contrast is smaller when the analysis is restricted to numeric final grades but remains above zero. The primary adverse-outcome construction gives a mean difference of $0.359Z$ for four-or-more versus zero-to-three visits, the uniform adverse-imputation sensitivity gives $0.343Z$, and the complete-case specification gives $0.211Z$ (95\% CI $[0.137,0.281]$). \Cref{fig:sensitivity} shows that the magnitude depends on how adverse non-numeric outcomes are handled, reinforcing the decision to treat this binary upper-tail contrast as a sensitivity rather than the main estimand.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.82\textwidth]{../results/figures/fig04_outcome_sensitivity.pdf}
+\caption{Sensitivity of the secondary four-or-more versus zero-to-three visit association to alternative constructions of the continuous outcome. This comparison is secondary to the four-group analysis.}
+\label{fig:sensitivity}
+\end{figure}
+
+\section{Discussion}
+
