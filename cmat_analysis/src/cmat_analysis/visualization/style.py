@@ -52,7 +52,10 @@ def mpl_apply() -> None:
         palette=CMAT_PALETTE,
         font=font_family,
         rc={
-            "font.family": "serif",
+            # CMU Serif lacks a few Unicode mathematical glyphs used in
+            # labels (for example, \u2265). Matplotlib falls back only after the
+            # primary family, so ordinary text remains CMU Serif.
+            "font.family": [font_family, "DejaVu Serif"],
             "font.serif": [
                 font_family,
                 "CMU Serif",
