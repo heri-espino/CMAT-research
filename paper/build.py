@@ -33,19 +33,25 @@ def run(command: list[str]) -> None:
 
 
 def build_target(stem: str) -> None:
+    bbl = MANUSCRIPT_DIR / f"{stem}.bbl"
+    if bbl.exists() and "\\refsection" not in bbl.read_text(encoding="utf-8", errors="ignore"):
+        # A legacy BibTeX .bbl cannot be read by biblatex.  Remove only that
+        # generated compatibility artifact so latexmk can run Biber.
+        bbl.unlink()
+
     latexmk = shutil.which("latexmk")
     if latexmk:
-        run([latexmk, "-xelatex", "-interaction=nonstopmode", "-halt-on-error", f"{stem}.tex"])
+        run([latexmk, "-g", "-xelatex", "-interaction=nonstopmode", "-halt-on-error", f"{stem}.tex"])
         return
 
     xelatex = shutil.which("xelatex")
-    bibtex = shutil.which("bibtex")
-    if not xelatex or not bibtex:
-        fail("install latexmk or both xelatex and bibtex, then rerun")
+    biber = shutil.which("biber")
+    if not xelatex or not biber:
+        fail("install latexmk or both xelatex and biber, then rerun")
 
     latex = [xelatex, "-interaction=nonstopmode", "-halt-on-error", f"{stem}.tex"]
     run(latex)
-    run([bibtex, stem])
+    run([biber, stem])
     run(latex)
     run(latex)
 
