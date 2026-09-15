@@ -746,9 +746,9 @@
 | Symbol | Kind | Line | Signature | Summary | Tags |
 |---|---|---:|---|---|---|
 | `_resolve_font_family` | function | 28 | `def _resolve_font_family() -> str` | Return the first available publication serif font family. | `src cmat_analysis visualization style py resolve_font_family return first available publication serif font family` |
-| `mpl_apply` | function | 44 | `def mpl_apply() -> None` | Apply a reproducible Seaborn whitegrid publication theme. | `src cmat_analysis visualization style py mpl_apply apply a reproducible seaborn whitegrid publication theme` |
-| `set_style` | function | 72 | `def set_style() -> None` | Apply the project Matplotlib and Seaborn plotting defaults. | `src cmat_analysis visualization style py set_style apply project matplotlib seaborn plotting defaults` |
-| `plotly_apply` | function | 77 | `def plotly_apply(palette: list[str]=['#ffa600', '#ffd380'], fontsize: float=18, fontstack: str='CMU Serif, Latin Modern Roman, DejaVu Serif, serif') -> None` | Apply a light Plotly template aligned with the publication figure style. | `src cmat_analysis visualization style py plotly_apply apply a light plotly template aligned publication figure` |
+| `mpl_apply` | function | 59 | `def mpl_apply() -> None` | Apply a reproducible Seaborn whitegrid publication theme. | `src cmat_analysis visualization style py mpl_apply apply a reproducible seaborn whitegrid publication theme` |
+| `set_style` | function | 87 | `def set_style() -> None` | Apply the project Matplotlib and Seaborn plotting defaults. | `src cmat_analysis visualization style py set_style apply project matplotlib seaborn plotting defaults` |
+| `plotly_apply` | function | 92 | `def plotly_apply(palette: list[str]=['#ffa600', '#ffd380'], fontsize: float=18, fontstack: str='Libertinus Serif, CMU Serif, Latin Modern Roman, DejaVu Serif, serif') -> None` | Apply a light Plotly template aligned with the publication figure style. | `src cmat_analysis visualization style py plotly_apply apply a light plotly template aligned publication figure` |
 
 ### `src/create_anonymized_release.py`
 
