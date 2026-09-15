@@ -81,7 +81,7 @@ jobs:
         if: steps.manuscript.outputs.buildable == 'true'
         run: python paper/build.py
 
-      - name: Upload compiled PDF, logs, and vector figures
+      - name: Upload compiled PDFs, logs, and vector figures
         if: always() && steps.manuscript.outputs.buildable == 'true'
         uses: actions/upload-artifact@v4
         with:
@@ -91,6 +91,10 @@ jobs:
             paper/main.log
             paper/main.blg
             paper/main.bbl
+            paper/main_commented.pdf
+            paper/main_commented.log
+            paper/main_commented.blg
+            paper/main_commented.bbl
             results/figures/*.pdf
           if-no-files-found: warn
           retention-days: 30
@@ -105,6 +109,7 @@ jobs:
             code/**
             PAPER_BRANCH.md
             !paper/main.pdf
+            !paper/main_commented.pdf
             !paper/*.aux
             !paper/*.bbl
             !paper/*.blg
