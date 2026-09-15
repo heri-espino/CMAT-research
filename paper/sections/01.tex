@@ -1,0 +1,49 @@
+\documentclass[11pt,a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage{microtype}
+\usepackage[a4paper,top=1.8cm,bottom=1.8cm,left=1.8cm,right=1.8cm]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{array}
+\usepackage{caption}
+\usepackage{pdflscape}
+\usepackage[numbers,sort&compress]{natbib}
+\usepackage[hidelinks]{hyperref}
+\usepackage[nameinlink,noabbrev]{cleveref}
+
+\providecommand{\PaperCommented}{0}
+\newcommand{\draftnote}[1]{%
+  \ifnum\PaperCommented=1
+    \par\medskip\noindent\textbf{TODO:} #1\par\medskip
+  \fi
+}
+
+\title{Beyond the Incentive Threshold: Academic Support Use and Persistence After a First-Year Participation Incentive}
+\author{Heriberto Espino-Montelongo\\Universidad de las Am\'ericas Puebla}
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Universities increasingly use structured first-year participation requirements and academic-support services to encourage student engagement, yet much less is known about whether engagement with support services persists after a particular incentive-linked context has passed. We study formal mathematics-support use at the Centro de Aprendizaje de Matem\'aticas (CMAT) of Universidad de las Am\'ericas Puebla. In the institutional setting examined here, participation in CMAT during first-year Matem\'aticas Universitarias (MU) could contribute to a broader first-year participation requirement, while later Calculus I use is treated as occurring outside that same PPA1-linked incentive context. We follow 3,241 students who passed their first observed MU attempt, progressed to Calculus I in the next regular academic term, had CMAT coverage in both periods, and had valid classroom-relative performance measures. The probability of any later CMAT use in Calculus increased from 17.25\% among students with no MU visits to 43.43\% for 1--2 visits, 54.37\% for exactly three visits, and 66.84\% for four or more visits. The association was strong overall ($\chi^2(3)=392.47$, $p<.001$, Cram\'er's $V=.348$). Students with four or more MU visits were 12.47 percentage points more likely to use CMAT later than students with exactly three visits (95\% CI [0.92, 23.90] percentage points). Adjusted logistic models controlling for prior classroom-relative performance, degree programme, and term preserved the gradient in later use. These findings do not identify a causal effect of the participation incentive or of CMAT attendance. Instead, they show substantial behavioural persistence in formal academic help-seeking across a change in incentive context and illustrate why evaluations of voluntary support services should distinguish initial exposure, threshold-linked participation, and later self-selected continuation.
+\end{abstract}
+
+\noindent\textbf{Keywords:} academic help-seeking; student engagement; mathematics support; higher education; incentives; persistence; first-year transition
+
+\section{Introduction}
+
+Formal academic-support services are a common part of higher-education infrastructure. Mathematics and statistics support centres, tutoring programmes, supplemental instruction, and related services are designed to provide students with opportunities to seek help outside the standard classroom environment \citep{lawson2020,mullen2024}. Yet evaluating these services is difficult because use is typically voluntary. Students decide whether to attend, how often to return, and when to stop. As a result, observed attendance combines the institutional availability of support with student-level need, preferences, prior experiences, scheduling constraints, and other forms of selection.
+
+This distinction matters because engagement is not a single construct. Higher-education research has long separated institutional conditions and student characteristics from behavioural manifestations of engagement and from later consequences \citep{kahu2013,kahuNelson2018}. Formal help-seeking is itself associated with academic achievement, but the direction and meaning of that relationship depend on the type of help-seeking and on the process through which students enter support \citep{fong2023}. Within mathematics support specifically, prior research documents both potential benefits and persistent non-engagement, while also emphasizing methodological difficulties created by self-selection \citep{macanbhaird2013,jacob2019,mullen2024}.
+
+Institutional incentives add another layer. Interventions can change participation directly, but the behaviour observed while an incentive is active need not reveal what students will do once that incentive is removed or becomes irrelevant. Economic and behavioural research therefore distinguishes the immediate response to incentives from behaviour after the incentivized context ends \citep{gneezy2011}. In education, randomized and quasi-experimental studies show that incentives, encouragements, and nudges can alter service use or intermediate behaviours, although effects on academic outcomes are often heterogeneous or limited \citep{angrist2009,paloyo2016,pugatch2018,damgaard2018,blondeel2024}. Evidence on behaviour after incentive removal is less common, but it is particularly informative when the substantive question is whether participation is confined to the incentivized context or persists beyond it \citep{agnew2021}.
+
+This paper uses a longitudinal administrative setting in which these issues can be examined directly, although not causally. At Universidad de las Am\'ericas Puebla (UDLAP), the Centro de Aprendizaje de Matem\'aticas (CMAT) provides mathematics and statistics support to undergraduate students. During the first-year context considered here, CMAT participation could contribute to the institutional Programa de Primer A\~no (PPA1), a broader participation requirement. The operational threshold relevant to this study is three recorded CMAT visits during the MU period. Later Calculus I use is treated as occurring after that same PPA1-linked CMAT incentive is generally no longer operative.
+
+The design asks a simple longitudinal question: \emph{does formal support use observed in an incentive-linked first-year context persist into later use when that same incentive context is no longer assumed to apply?} We do not observe why an individual student attended CMAT, whether a particular visit was motivated by PPA, or the exact date at which every student completed PPA1. We therefore do not estimate a causal effect of PPA. Instead, we compare observable patterns of formal support use over time and keep three explanations visible throughout: threshold-limited participation, persistence or familiarization with formal support, and stable student selection into help-seeking.
+

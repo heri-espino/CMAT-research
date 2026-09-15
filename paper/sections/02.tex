@@ -1,0 +1,41 @@
+The paper makes three contributions. First, it shifts the outcome of interest from contemporaneous grades to \emph{later support use}, treating persistence in formal help-seeking as substantively important in its own right. Second, it exploits the institutional threshold to distinguish students who stop exactly at three recorded visits from those who continue beyond the threshold, without treating that threshold as exogenous. Third, it connects mathematics-support research to broader higher-education debates on engagement and institutional participation by separating incentive-linked participation from later self-selected continuation. This broader framing is important for a setting-specific study to contribute beyond the local service itself, particularly for journals that expect empirical work to speak to general higher-education processes \citep{kahu2013,bowden2021,vanHerpen2020,blondeel2024,felby2026}.
+
+\draftnote{Before submission, sharpen the general higher-education contribution further: the central claim should be about persistence in formal support-seeking across changing institutional incentive conditions, not about whether one local mathematics centre ``works''.}
+
+\section{Conceptual framing}
+
+\subsection{Institutional conditions, engagement, and formal help-seeking}
+
+A useful starting point is to distinguish institutional antecedents, student characteristics, behavioural engagement, and outcomes. In Kahu's framework, engagement emerges from the interaction between institutional and student factors rather than being reducible to a single student trait \citep{kahu2013}. The educational-interface formulation similarly treats engagement as situated within an interaction between students and their learning environment \citep{kahuNelson2018}. This distinction is important for administrative attendance data: a CMAT visit is an observed behaviour, not a direct measure of motivation, belonging, self-regulation, or need.
+
+Formal academic help-seeking can be adaptive, but its empirical relationship with achievement varies across forms of help-seeking and across students \citep{fong2023}. Mathematics-support research likewise shows that centre use is neither randomly distributed nor universal \citep{lawson2020,macanbhaird2013,mullen2024}. Students who use support may differ from non-users before the first recorded visit. Consequently, persistence in CMAT use can reflect both experiences acquired through prior contact with the service and stable propensities that make some students more likely to seek help repeatedly.
+
+\subsection{Incentive-linked participation and post-incentive behaviour}
+
+The literature on incentives provides a second distinction: behaviour while an incentive is active and behaviour after its removal are different outcomes. Incentives can alter the immediate cost-benefit structure of participation, while later behaviour may reflect learning about the service, reduced search costs, familiarity, crowding effects, or simply persistent differences between individuals \citep{gneezy2011}. Educational interventions illustrate the same separation between treatment assignment, actual uptake, and later outcomes. For example, encouragement designs can increase use of academic support without making attendance itself exogenous \citep{paloyo2016,pugatch2018}, and randomized nudges can show weak average treatment effects even when voluntary intensity of engagement is associated with performance \citep{blondeel2024}.
+
+For the present study, three observable patterns are therefore conceptually useful. A \emph{threshold-limited pattern} occurs when a student reaches exactly the operational threshold in MU and does not use CMAT later. A \emph{persistent-use pattern} occurs when a student uses CMAT during MU and later returns during Calculus. A \emph{late-adoption pattern} occurs when a student has no recorded MU use but begins using CMAT in Calculus. These are behavioural descriptions, not diagnoses of motivation.
+
+The comparison between exactly three and four or more MU visits is especially informative descriptively. If students who stop exactly at three were much less likely to return later than students who continue beyond three, this would be compatible with heterogeneity between threshold-limited and more persistent use. However, because students choose their own visit counts, the comparison is not a regression-discontinuity design and cannot identify a treatment effect of crossing the threshold.
+
+\section{Institutional setting and data}
+
+CMAT is an institutional mathematics-learning support centre at UDLAP. It serves undergraduate students across mathematics and statistics subjects. Advising encounters are recorded through a Google Forms process, with one row representing one recorded visit. The form includes a student identifier and contemporaneous information about the advisory encounter. Multiple visits on the same day can be legitimate because faculty advisers operate in time blocks and students may continue working with another adviser; same-day concentration is therefore not treated as evidence of manipulation.
+
+The academic-record data contain course attempts, final academic outcomes, professor, academic period, and official degree programme. A key administrative complication is that academic records can contain revalidation or programme-change rows that do not represent a new course attempt. The longitudinal pipeline therefore distinguishes likely real attempts from later administrative replications of already passed courses. For classroom-relative outcomes, a classroom is defined as professor $\times$ same course $\times$ academic period.
+
+PPA1 is a first-year institutional participation requirement that can be completed through different university activities, including CMAT-related activities. PPA1 is not part of the MU course grade. The study uses an operational threshold of three recorded CMAT visits during the MU period; it does not equate one recorded visit with one PPA point. The design assumes that MU typically occurs in the PPA1-linked first-semester context and treats later Calculus I as a context in which the same PPA1-linked CMAT incentive is generally no longer operative. Individual motivation and exact PPA completion timing are not observed.
+
+\draftnote{A direct administrative measure of each student's actual PPA1 completion date would materially strengthen the paper. If it can be obtained, replace the current institutional timing assumption with observed incentive status.}
+
+\section{Study design}
+
+\subsection{Longitudinal cohort}
+
+The primary analysis uses a strict MU-to-Calculus progression cohort. Students must have: (1) a first real observed attempt at Matem\'aticas Universitarias; (2) a numeric passing grade of at least 7.5 in that attempt; (3) a later first real Calculus I attempt; (4) a numeric Calculus I grade; (5) CMAT coverage in both periods; (6) valid classroom-relative performance measures in both courses; and (7) Calculus I in the next regular spring/fall academic period after MU.
+
+\Cref{fig:cohort-flow} summarizes the cohort construction. The resulting primary cohort contains 3,241 students.
+
+\begin{figure}[htbp]
+\centering
+\includegraphics[width=0.82\textwidth]{../results/figures/figure_01_cohort_flow.png}
