@@ -1,0 +1,104 @@
+# CMAT research AI handoff
+
+This file defines repository-wide conventions for AI-assisted work, with special emphasis on paper authoring and reproducible figures. It should remain present on every maintained long-lived branch so that paper branches do not silently drift in style or build behaviour.
+
+## Repository and branch discipline
+
+- `main` owns reusable scientific code, shared plotting style, data contracts, and repository-wide conventions.
+- `brainstorm/proyecto-visitas` is the shared exploratory workspace.
+- `paper/paper1-ppa-persistence`, `paper/paper2-mu-performance`, `paper/paper3-grading-heterogeneity`, `paper/paper4-degree-help-seeking`, and `paper/paper5-longitudinal-trajectories` own paper-specific prose, analyses, and outputs.
+- When a reusable method or plotting convention changes, implement/review it in `main` and then sync the long-lived branches. Do not let paper branches develop incompatible copies of shared scientific utilities.
+- Preserve each paper's scientific scope. Formatting synchronization must not silently move estimands, analyses, or claims between papers.
+
+## Canonical paper outputs
+
+When a branch contains a LaTeX paper under `paper/`:
+
+- `paper/manuscript.tex` is the single canonical manuscript source (it may itself include section files).
+- `paper/main.tex` is the official clean wrapper and must hide development TODOs.
+- `paper/main_commented.tex` is the development wrapper and must show TODOs.
+- Do not maintain two independent prose copies. Both wrappers must compile the same `manuscript.tex` content.
+- `paper/references.bib` is the paper bibliography database.
+- `python paper/build.py` must build both `main.pdf` and `main_commented.pdf` whenever a buildable manuscript exists.
+- Put development tasks in `\draftnote{...}`. Do not leave TODO prose as ordinary manuscript text when it is not intended for submission.
+
+A standard wrapper pattern is:
+
+```tex
+% main.tex
+\def\PaperCommented{0}
+\input{manuscript.tex}
+```
+
+and:
+
+```tex
+% main_commented.tex
+\def\PaperCommented{1}
+\input{manuscript.tex}
+```
+
+The manuscript preamble should define `\draftnote` conditionally from `\PaperCommented`.
+
+## Page, author, and typography conventions
+
+- Use `\documentclass[11pt,a4paper]{article}` unless a target journal template later overrides it.
+- Use explicit A4 margins of 1.8 cm on all sides with `geometry` for the current house draft.
+- Author name: `Heriberto Espino-Montelongo`.
+- Affiliation: `Universidad de las Américas Puebla` unless a journal requires anonymization.
+- Use Latin Modern/Computer Modern in LaTeX; do not commit or distribute font files.
+
+## Citations and cross-references
+
+- References are numeric in current drafts.
+- Use `\usepackage[numbers,sort&compress]{natbib}` and `\bibliographystyle{unsrtnat}`. Do not depend on `IEEEtranN.bst` unless CI is deliberately changed to install and test it.
+- Load `hyperref` before `cleveref`.
+- Use `\usepackage[nameinlink,noabbrev]{cleveref}`.
+- Prefer `\cref{...}` / `\Cref{...}` for figures, tables, equations, sections, and appendices instead of manual forms such as `Figure~\ref{...}`.
+- Use semantic labels: `fig:...`, `tab:...`, `eq:...`, `sec:...`, and `app:...`.
+- Ordinary literature citations should remain `\citep{...}` / `\citet{...}` as grammatically appropriate; `cleveref` is for document cross-references, not bibliography citations.
+
+## Mathematics
+
+- Every standalone/displayed mathematical expression must use a numbered, referenceable environment, normally `equation`; use `align` only when multiple aligned lines are genuinely needed.
+- Every displayed equation must have a `\label{eq:...}`.
+- Refer to displayed equations with `\cref`/`\Cref` whenever the prose discusses or reuses them.
+- Do not use `\[...\]`, `$$...$$`, `equation*`, or other unnumbered display environments in paper manuscripts.
+- Inline notation and routine inline statistics such as `$p<.001$`, `$R^2$`, `$Z$`, or `$N=6627$` remain inline.
+
+## Tables and appendices
+
+- Keep readable tables in the main text when they fit cleanly.
+- Wide or highly detailed tables that would create material `overfull` boxes belong in an appendix rather than being shrunk to illegible sizes.
+- Use `pdflscape` and a `landscape` environment for genuinely wide appendix tables so the PDF page has correct landscape orientation metadata.
+- Main-text prose may forward-reference appendix tables with `\Cref{tab:...}`.
+- After layout changes, inspect both the LaTeX log and rendered PDF rather than relying only on successful compilation.
+
+## Figures and shared plotting style
+
+The canonical plotting style is `cmat_analysis.visualization.style` and should be synchronized from `main`.
+
+- Matplotlib/Seaborn: use Seaborn `whitegrid` with `context="paper"`.
+- Serif font resolution: prefer `CMU Serif`, then `Latin Modern Roman`, then `DejaVu Serif` so CI remains reproducible when CMU is unavailable.
+- Mathematical text in Matplotlib should use Computer Modern via `mathtext.fontset="cm"`.
+- Use a light Plotly publication template aligned with the paper figures; do not retain an unrelated dark Plotly theme in the shared publication style.
+- Do not commit font files merely to force a local font choice.
+- Styling code must affect presentation only; it must never alter cohorts, variables, estimands, or statistical calculations.
+- Figure recipes should call the shared style rather than reimplementing fonts/grid/theme ad hoc in each paper.
+
+## Build and QA checklist
+
+Before treating a paper build as clean:
+
+- compile both official and commented versions;
+- verify BibTeX resolves all citations;
+- verify `cleveref` resolves all document labels;
+- confirm the official PDF contains no visible TODO annotations;
+- inspect the log for material `Overfull \\hbox` / `Overfull \\vbox` warnings;
+- verify wide appendix tables are legible and correctly oriented;
+- visually inspect the PDF after typography, margin, table, or figure changes;
+- keep scientific interpretation constraints and observational/causal language unchanged unless the underlying design actually changes.
+
+## Current paper-state note
+
+Paper 1–4 have buildable LaTeX manuscripts and should follow the official/commented convention above. Paper 5 currently does not contain a buildable manuscript; do not invent placeholder scientific prose solely to satisfy the format. When its manuscript is created, start directly from these conventions.
