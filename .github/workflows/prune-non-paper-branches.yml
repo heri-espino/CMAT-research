@@ -1,0 +1,41 @@
+name: Prune obsolete non-paper branches
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '.github/workflows/prune-non-paper-branches.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  prune:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Delete obsolete branch refs
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          remote="https://x-access-token:${GH_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
+          branches=(
+            'admin/audit-legacy-functions'
+            'admin/port-legacy-save-figure-variants'
+            'brainstorm/proyecto-visitas'
+            'chore/canonical-local-data-dir'
+            'chore/repository-metadata'
+            'data/add-controlled-pseudonymized-release'
+            'data/normalized-relational-model'
+            'docs/privacy-controlled-pseudonymized-release'
+            'fix/preserve-advisory-fields-release'
+            'fix/pseudonymized-release-reproducibility'
+            'integrate/admin-port-legacy-figures'
+            'integrate/brainstorm-proyecto-visitas'
+          )
+          for branch in "${branches[@]}"; do
+            echo "Deleting $branch"
+            git push "$remote" --delete "$branch" || true
+          done
