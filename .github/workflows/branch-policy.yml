@@ -1,0 +1,29 @@
+name: Branch architecture policy
+
+on:
+  push:
+    branches:
+      - '**'
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-branch-name:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Enforce main plus paper branches only
+        shell: bash
+        env:
+          BRANCH_NAME: ${{ github.head_ref || github.ref_name }}
+        run: |
+          case "$BRANCH_NAME" in
+            main|paper/*)
+              echo "Allowed branch: $BRANCH_NAME"
+              ;;
+            *)
+              echo "::error::Branch '$BRANCH_NAME' violates repository policy. Shared work belongs directly on main; only paper/* branches are permanent."
+              exit 1
+              ;;
+          esac
