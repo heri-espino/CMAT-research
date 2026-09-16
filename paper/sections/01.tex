@@ -1,5 +1,9 @@
 \documentclass[11pt,a4paper]{article}
-\usepackage[general,draft]{velvetblue}
+\ifnum\PaperCommented=1
+  \usepackage[general,draft,generous]{velvetblue}
+\else
+  \usepackage[general,final,compact]{velvetblue}
+\fi
 \addbibresource{references.bib}
 
 \providecommand{\PaperCommented}{0}
