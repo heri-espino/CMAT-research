@@ -28,6 +28,8 @@ Thumbs.db
 *.out
 *.run.xml
 *.synctex.gz
+*.xdv
+*-ERROR
 *.toc
 *.lof
 *.lot

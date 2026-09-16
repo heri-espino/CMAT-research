@@ -1,32 +1,11 @@
 \documentclass[11pt,a4paper]{article}
 
-\usepackage{libertinus}
-\usepackage{amsmath}
-\usepackage{microtype}
-\usepackage[a4paper,top=1.8cm,bottom=1.8cm,left=1.8cm,right=1.8cm]{geometry}
-\usepackage{graphicx}
-\usepackage{booktabs}
-\usepackage{array}
-\usepackage{caption}
-\usepackage{pdflscape}
-\usepackage{xcolor}
-\definecolor{CMATNavy}{HTML}{00166C}
-\usepackage[
-  backend=biber,
-  style=authoryear-comp,
-  sorting=nyt,
-  maxcitenames=2,
-  maxbibnames=99,
-  giveninits=true,
-  doi=true,
-  url=false,
-  isbn=false
-]{biblatex}
+\ifnum\PaperCommented=1
+  \usepackage[general,draft,generous]{velvetblue}
+\else
+  \usepackage[general,final,compact]{velvetblue}
+\fi
 \addbibresource{references.bib}
-\let\citep\parencite
-\let\citet\textcite
-\usepackage[colorlinks=true,linkcolor=CMATNavy,citecolor=CMATNavy,urlcolor=CMATNavy]{hyperref}
-\usepackage[nameinlink,noabbrev]{cleveref}
 
 \providecommand{\PaperCommented}{0}
 \newcommand{\draftnote}[1]{%
