@@ -193,6 +193,27 @@ def run_analysis(args: argparse.Namespace) -> int:
     for filename, frame in primary_exact.items():
         _save_csv(frame, TABLES_DIR / filename)
 
+    # Outcome-construction sensitivity using the same transparent visit groups.
+    outcome_sensitivity_frames: list[pd.DataFrame] = []
+    for outcome_col, outcome_label in [
+        ("Z_GRADE_PRIMARY", "primary_adverse_outcome_rule"),
+        ("Z_GRADE_UNIFORM_SENS", "uniform_adverse_imputation"),
+        ("Z_GRADE_COMPLETE_CASE", "numeric_complete_case"),
+    ]:
+        frame = exact_visit_group_summary(
+            mu,
+            visits_col=visits_col,
+            outcome_col=outcome_col,
+            population=population,
+        ).copy()
+        frame.insert(1, "outcome_definition", outcome_label)
+        outcome_sensitivity_frames.append(frame)
+    outcome_sensitivity = pd.concat(outcome_sensitivity_frames, ignore_index=True)
+    _save_csv(
+        outcome_sensitivity,
+        TABLES_DIR / "37_exact_visit_groups_outcome_sensitivity.csv",
+    )
+
     # Secondary/provenance analyses retained so prior project claims remain
     # reproducible. They no longer define the main Paper 2 estimand.
     pooled_equivalence = one_two_pooling_analysis(
