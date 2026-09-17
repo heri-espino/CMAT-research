@@ -55,12 +55,17 @@ jobs:
             results/tables/31_exact_visit_groups_welch_anova.csv \
             results/tables/32_exact_visit_groups_games_howell.csv \
             results/tables/33_exact_visit_groups_fe_pairwise.csv \
-            results/tables/34_exact_visit_groups_fe_model_info.csv; do
+            results/tables/34_exact_visit_groups_fe_model_info.csv \
+            results/tables/37_exact_visit_groups_outcome_sensitivity.csv; do
             test -s "$f"
           done
-          test -f results/figures/fig01_mu_visit_distribution.pdf
-          test -f results/figures/fig02_mu_performance_by_visit_group.pdf
-          test -f results/figures/fig03_adjusted_dose_coefficients.pdf
+          for f in \
+            results/figures/fig01_mu_visit_distribution.pdf \
+            results/figures/fig02_mu_performance_by_visit_group.pdf \
+            results/figures/fig03_adjusted_dose_coefficients.pdf \
+            results/figures/fig04_outcome_sensitivity.pdf; do
+            test -s "$f"
+          done
           if find results/figures -maxdepth 1 -type f -name '*.png' | grep -q .; then
             echo 'Unexpected PNG publication figure found.' >&2
             exit 1
