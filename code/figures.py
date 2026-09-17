@@ -181,7 +181,7 @@ def plot_outcome_sensitivity(table_dir: Path, output_dir: Path) -> Path:
             x + offset,
             means,
             yerr=np.vstack([means - lows, highs - means]),
-            fmt="o-",
+            fmt="o",
             capsize=3,
             linewidth=1.0,
             markersize=4,
