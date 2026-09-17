@@ -1,0 +1,9 @@
+metric,value
+n_classrooms,190.0
+classroom_size_mean,34.87894736842105
+classroom_size_median,30.0
+classroom_size_q1,24.0
+classroom_size_q3,48.0
+classroom_size_min,10.0
+classroom_size_max,88.0
+classrooms_with_any_user_and_nonuser,176.0
