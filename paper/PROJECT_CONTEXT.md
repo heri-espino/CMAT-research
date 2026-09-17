@@ -14,7 +14,7 @@ First eligible MU attempts in academic periods with observable CMAT registration
 
 ## Exposure
 
-CMAT registrations occurring in the same academic period as the focal MU attempt. The principal presentation uses `0 / 1–2 / 3 / 4+` visits. Exact 1 versus 2 visits are retained as a pooling diagnostic, and threshold contrasts are secondary historical sensitivities.
+CMAT registrations occurring in the same academic period as the focal MU attempt. The **primary presentation is `0 / 1 / 2 / 3 / 4+` visits** so that the analysis does not hide the exact one- and two-visit groups. The historical `1–2` pooling is retained only as a secondary equivalence/parsimony sensitivity, and threshold-oriented PPA contrasts are secondary provenance analyses rather than the Paper 2 estimand.
 
 The global historical `VISITAS` variable from `proyecto_visitas`, which accumulated registrations over the available advisory workbook, is provenance only and must not be substituted for the temporally aligned exposure.
 
@@ -26,9 +26,15 @@ Continuous final performance standardised within classroom:
 
 where classroom is professor × course × academic period. The primary outcome retains adverse non-numeric academic outcomes using the canonical project rule; complete-case and alternative adverse-imputation outcomes are sensitivities.
 
+## Baseline preparation
+
+The available optional DMU diagnostic exam is **not used as a Paper 2 covariate or sensitivity**, because participation is incomplete/selective and does not provide a sufficiently uniform baseline across the analytic cohorts. Do not condition the main analysis on diagnostic participation.
+
+A potentially useful future improvement is to request a genuinely pre-enrolment university entrance-exam score, provided that its coverage and scale are sufficiently comparable across cohorts. If obtained, it may be used as an observed-preparation sensitivity after auditing missingness, cohort coverage, scale comparability, and temporal ordering. It would not convert the study into a causal effect design.
+
 ## Current retained interpretation
 
-The strongest reproducible feature is the distinction between zero visits and positive CMAT use. In the retained first-MU snapshot, means are approximately `-0.060 / 0.218 / 0.325 / 0.342` for `0 / 1–2 / 3 / 4+`, respectively. Games–Howell comparisons distinguish each positive-use group from zero but do not distinguish the positive-use groups from one another at the 5% level. Classroom fixed-effect group contrasts relative to zero are positive for all three positive-use categories.
+The strongest reproducible feature is the distinction between zero visits and positive CMAT use. The exact-group controlled-data rerun is now the primary reporting basis; manuscript numbers should be taken from the current `30`–`34` exact-group tables rather than reconstructed from the older pooled `1–2` summary.
 
 This is an observational association. Do not write that CMAT attendance causes improvement or that visit count is a causal dose.
 
@@ -46,10 +52,12 @@ This is an observational association. Do not write that CMAT attendance causes i
 2. *International Journal of Mathematical Education in Science and Technology* (IJMEST) — second choice.
 3. *International Journal of Research in Undergraduate Mathematics Education* (IJRUME) — ambitious option if the mathematics-education contribution is strengthened.
 
+For TEAMAT, follow `paper/AI_HANDOFF.md`: use the official IMA template, Harvard author–year references, exact visit groups in the main presentation, minimal PPA framing, and a real research-ethics statement before submission.
+
 ## Reproducibility
 
 Paper-local runner: `code/run_paper.py`.
 
-Retained aggregate checkpoint: `brainstorm/shared/historical_outputs/study/tables/`.
+Controlled Paper 2 inputs are the pseudonymized academic and CMAT advisory records. The recipe does not use the optional DMU diagnostic file.
 
-Before submission, run the controlled-data recipe with `--compare-retained` and reconcile any discrepancy with later methodology-restoration snapshots before changing manuscript numbers.
+Primary publication outputs are generated under `results/tables/` and `results/figures/`; tables `30`–`34` define the exact-group analysis, while the `80+` tables retain secondary/provenance analyses.
