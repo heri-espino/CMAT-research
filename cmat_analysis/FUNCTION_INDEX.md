@@ -22,7 +22,7 @@
 
 - Python files scanned: **128**
 - Reusable symbols: **466**
-- Test symbols: **58**
+- Test symbols: **60**
 
 ## Reusable symbols
 
@@ -831,9 +831,11 @@
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
 |---|---|---:|---|---|---|
-| `test_methodology_primary_outcome_uses_scipy_kde_and_uniform_fallback` | function | 12 | `def test_methodology_primary_outcome_uses_scipy_kde_and_uniform_fallback()` | No docstring; inspect implementation before reuse. | `tests test_methodology_report_helpers py test_methodology_primary_outcome_uses_scipy_kde_and_uniform_fallback` |
-| `test_methodology_exact_visit_grouping_has_all_ten_pairwise_contrasts` | function | 31 | `def test_methodology_exact_visit_grouping_has_all_ten_pairwise_contrasts()` | No docstring; inspect implementation before reuse. | `tests test_methodology_report_helpers py test_methodology_exact_visit_grouping_has_all_ten_pairwise_contrasts` |
-| `test_methodology_report_atomic_runner_resolves_root_code_dependencies` | function | 42 | `def test_methodology_report_atomic_runner_resolves_root_code_dependencies()` | No docstring; inspect implementation before reuse. | `tests test_methodology_report_helpers py test_methodology_report_atomic_runner_resolves_root_code_dependencies` |
+| `test_methodology_primary_outcome_uses_scipy_kde_and_uniform_fallback` | function | 16 | `def test_methodology_primary_outcome_uses_scipy_kde_and_uniform_fallback()` | No docstring; inspect implementation before reuse. | `tests test_methodology_report_helpers py test_methodology_primary_outcome_uses_scipy_kde_and_uniform_fallback` |
+| `test_methodology_exact_visit_grouping_has_all_ten_pairwise_contrasts` | function | 35 | `def test_methodology_exact_visit_grouping_has_all_ten_pairwise_contrasts()` | No docstring; inspect implementation before reuse. | `tests test_methodology_report_helpers py test_methodology_exact_visit_grouping_has_all_ten_pairwise_contrasts` |
+| `test_same_term_diagnostic_matching_drops_ambiguous_duplicate_scores` | function | 46 | `def test_same_term_diagnostic_matching_drops_ambiguous_duplicate_scores()` | No docstring; inspect implementation before reuse. | `tests test_methodology_report_helpers py test_same_term_diagnostic_matching_drops_ambiguous_duplicate_scores` |
+| `test_diagnostic_adjustment_uses_identical_complete_case_sample` | function | 71 | `def test_diagnostic_adjustment_uses_identical_complete_case_sample()` | No docstring; inspect implementation before reuse. | `tests test_methodology_report_helpers py test_diagnostic_adjustment_uses_identical_complete_case_sample` |
+| `test_methodology_report_atomic_runner_resolves_root_code_dependencies` | function | 98 | `def test_methodology_report_atomic_runner_resolves_root_code_dependencies()` | No docstring; inspect implementation before reuse. | `tests test_methodology_report_helpers py test_methodology_report_atomic_runner_resolves_root_code_dependencies` |
 
 ### `tests/test_ppa_adaptation.py`
 
