@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Reproduce the Paper 2 MU-performance analysis from controlled local inputs.
+"""Reproduce the Paper 2 MU-performance analysis from controlled inputs.
 
-This branch-local entry point fixes the publication specification and execution
-order while delegating cohort construction, outcome definitions, estimators,
-confidence intervals, and tests to the public :mod:`cmat_analysis` API.
+Paper 2 treats exact same-term visit groups (0, 1, 2, 3, 4+) as the primary
+exposure presentation. The historical 1--2 pooling and threshold-oriented
+contrasts are retained only as secondary/provenance outputs. Reusable cohort,
+outcome, estimation, and diagnostic-adjustment logic lives in ``cmat_analysis``.
 """
 
 from __future__ import annotations
@@ -19,7 +20,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from figures import generate_paper_figures, validate_figure_inputs
+from figures import generate_paper_figures
 
 try:
     from cmat_analysis.cohorts import build_study_cohorts, load_and_clean_inputs
@@ -27,14 +28,17 @@ try:
     from cmat_analysis.measures import add_primary_outcomes
     from cmat_analysis.reporting import write_run_log
     from cmat_analysis.statistics import (
-        dose_group_fixed_effect_model,
-        group_summary,
+        attach_same_term_diagnostic,
+        diagnostic_adjusted_exact_visit_models,
+        exact_visit_group_summary,
+        fixed_effect_pairwise_exact_groups,
+        games_howell_exact_groups,
         one_two_pooling_analysis,
         primary_fixed_effect_models,
         robust_two_group_tests,
         secondary_pass_model,
         visit_distribution,
-        welch_anova_visit_groups,
+        welch_anova_exact_groups,
     )
     from cmat_analysis.visualization import set_style
 except ModuleNotFoundError as exc:
@@ -51,21 +55,7 @@ TABLES_DIR = RESULTS_ROOT / "tables"
 FIGURES_DIR = RESULTS_ROOT / "figures"
 LOGS_DIR = RESULTS_ROOT / "logs"
 PAPER_DIR = REPO_ROOT / "paper"
-RETAINED_TABLES_DIR = (
-    REPO_ROOT / "brainstorm" / "shared" / "historical_outputs" / "study" / "tables"
-)
-
-RETAINED_COMPARISON_FILES = (
-    "10_primary_outcome_by_visit_group.csv",
-    "11_primary_robust_gt3_vs_le3.csv",
-    "12_primary_fixed_effect_models.csv",
-    "13_primary_dose_group_model.csv",
-    "14_continuous_outcome_sensitivity.csv",
-    "80_justify_pooling_exact_1_vs_2.csv",
-    "81_visit_groups_welch_anova.csv",
-    "82_visit_groups_welch_summary.csv",
-    "83_visit_groups_games_howell.csv",
-)
+DEFAULT_DIAGNOSTIC_PATH = REPO_ROOT / "data" / "controlled" / "Diagnostico_pseudonymized.csv"
 
 
 def _save_csv(frame: pd.DataFrame, path: Path) -> None:
@@ -81,56 +71,16 @@ def _package_version() -> str:
         return "editable/unknown"
 
 
-def _compare_retained() -> None:
-    """Require regenerated core tables to reproduce the retained shared snapshot."""
-    mismatches: list[str] = []
-    for filename in RETAINED_COMPARISON_FILES:
-        generated_path = TABLES_DIR / filename
-        retained_path = RETAINED_TABLES_DIR / filename
-        if not generated_path.exists():
-            mismatches.append(f"{filename}: generated file missing")
-            continue
-        if not retained_path.exists():
-            mismatches.append(f"{filename}: retained reference missing")
-            continue
-        generated = pd.read_csv(generated_path)
-        retained = pd.read_csv(retained_path)
-        try:
-            pd.testing.assert_frame_equal(
-                generated,
-                retained,
-                check_dtype=False,
-                check_exact=False,
-                rtol=1e-9,
-                atol=1e-12,
-            )
-        except AssertionError as exc:
-            mismatches.append(f"{filename}: {str(exc).splitlines()[0]}")
-
-    if mismatches:
-        joined = "\n  - ".join(mismatches)
-        raise RuntimeError(
-            "Generated Paper 2 tables do not reproduce the retained canonical snapshot:\n"
-            f"  - {joined}\n"
-            "Do not update manuscript numbers until the discrepancy is reviewed."
-        )
-    print(
-        "Retained-output comparison passed for "
-        f"{len(RETAINED_COMPARISON_FILES)} Paper 2 tables."
-    )
-
-
 def check_environment() -> int:
-    """Validate imports and publication-local structure without private data."""
+    """Validate imports and publication-local structure without reading microdata."""
     required_paths = [
         REPO_ROOT / "cmat_analysis" / "pyproject.toml",
         REPO_ROOT / "code" / "figures.py",
         PAPER_DIR / "main.tex",
+        PAPER_DIR / "main_commented.tex",
+        PAPER_DIR / "manuscript.tex",
         PAPER_DIR / "references.bib",
-        PAPER_DIR / "DECOMPOSITION_FROM_PROYECTO_VISITAS.md",
-        RETAINED_TABLES_DIR / "01_cohort_flow.csv",
-        RETAINED_TABLES_DIR / "02_visit_distribution_mu_vs_calculus.csv",
-        *[RETAINED_TABLES_DIR / name for name in RETAINED_COMPARISON_FILES],
+        PAPER_DIR / "ima-authoring-template" / "ima-authoring-template.cls",
     ]
     missing = [
         str(path.relative_to(REPO_ROOT)) for path in required_paths if not path.exists()
@@ -141,36 +91,33 @@ def check_environment() -> int:
             print(f"  - {path}", file=sys.stderr)
         return 1
 
-    try:
-        validate_figure_inputs(RETAINED_TABLES_DIR, source="retained")
-    except (FileNotFoundError, ValueError) as exc:
-        print(f"Paper 2 retained figure-input check failed: {exc}", file=sys.stderr)
-        return 1
-
     print("Paper 2 recipe check: OK")
     print(f"cmat-analysis version: {_package_version()}")
     print("Population: first eligible MU attempt in a period with CMAT coverage")
-    print("Exposure: same-period CMAT registrations")
+    print("Exposure: exact same-period CMAT groups 0, 1, 2, 3, 4+")
     print("Primary outcome: classroom-relative continuous final performance")
-    print("Historical proyecto_visitas exposure is provenance only, not the estimand")
-    print("No private data were read.")
+    print("Diagnostic analysis: observed same-student/same-term DMU sensitivity only")
+    print("No private row-level data were read.")
     return 0
 
 
 def run_analysis(args: argparse.Namespace) -> int:
-    """Execute the Paper 2 recipe with the canonical shared scientific functions."""
+    """Execute the Paper 2 recipe with canonical shared scientific functions."""
     base_config = get_study_config(REPO_ROOT)
     materias_path = (args.materias or base_config.materias_path).expanduser().resolve()
     asesorias_path = (args.asesorias or base_config.asesorias_path).expanduser().resolve()
+    diagnostico_path = (args.diagnostico or DEFAULT_DIAGNOSTIC_PATH).expanduser().resolve()
 
-    missing_inputs = [path for path in (materias_path, asesorias_path) if not path.is_file()]
+    missing_inputs = [
+        path for path in (materias_path, asesorias_path, diagnostico_path) if not path.is_file()
+    ]
     if missing_inputs:
         paths = "\n".join(f"  - {path}" for path in missing_inputs)
         raise FileNotFoundError(
-            "Controlled local inputs were not found:\n"
+            "Controlled inputs were not found:\n"
             f"{paths}\n"
-            "Pass them explicitly with --materias and --asesorias. "
-            "Administrative microdata must not be committed to Git."
+            "Pass academic, advisory, and diagnostic files explicitly. "
+            "Row-level administrative outputs must not be committed as publication results."
         )
 
     config = replace(
@@ -190,14 +137,14 @@ def run_analysis(args: argparse.Namespace) -> int:
 
     if config.primary_visit_measure == "course_specific":
         visits_col = "VISITS_COURSE"
-        group_col = "VISIT_GROUP_COURSE"
-        treatment_col = "PERSISTENT_GT3_COURSE"
-        reached_col = "PPA_REACHED_COURSE"
+        pooled_group_col = "VISIT_GROUP_COURSE"
+        historical_treatment_col = "PERSISTENT_GT3_COURSE"
     else:
         visits_col = "VISITS_CMAT_PERIOD"
-        group_col = "VISIT_GROUP_PERIOD"
-        treatment_col = "PERSISTENT_GT3_PERIOD"
-        reached_col = "PPA_REACHED_PERIOD"
+        pooled_group_col = "VISIT_GROUP_PERIOD"
+        historical_treatment_col = "PERSISTENT_GT3_PERIOD"
+
+    population = "First eligible MU attempt with CMAT coverage"
 
     flow = pd.DataFrame(
         [
@@ -206,20 +153,8 @@ def run_analysis(args: argparse.Namespace) -> int:
                 "n": len(cohorts["mu_all_first_attempts"]),
             },
             {
-                "stage": "primary MU cohort with advisory coverage",
+                "stage": "primary MU cohort with CMAT coverage",
                 "n": len(mu),
-            },
-            {
-                "stage": "first Calculus I attempts with advisory coverage (comparator)",
-                "n": len(cohorts["calc_comparator"]),
-            },
-            {
-                "stage": "students progressing from MU to later Calculus I",
-                "n": len(cohorts["longitudinal"]),
-            },
-            {
-                "stage": "longitudinal pairs with Calculus advisory coverage",
-                "n": int(cohorts["longitudinal"]["CALC_VISIT_COVERAGE"].sum()),
             },
         ]
     )
@@ -229,65 +164,110 @@ def run_analysis(args: argparse.Namespace) -> int:
         TABLES_DIR / "02_mu_visit_distribution.csv",
     )
 
-    primary_summary = group_summary(mu, group_col, "Z_GRADE_PRIMARY")
-    robust = robust_two_group_tests(
-        mu, treatment_col, "Z_GRADE_PRIMARY", seed=config.random_seed
+    # Primary transparent exposure specification: 0, 1, 2, 3, 4+.
+    exact_summary = exact_visit_group_summary(
+        mu,
+        visits_col=visits_col,
+        outcome_col="Z_GRADE_PRIMARY",
+        population=population,
     )
-    fixed_effect = primary_fixed_effect_models(mu, "Z_GRADE_PRIMARY", treatment_col)
-    dose = dose_group_fixed_effect_model(mu, "Z_GRADE_PRIMARY", group_col)
-
-    sensitivity_rows: list[pd.DataFrame] = []
-    for outcome in ("Z_GRADE_UNIFORM_SENS", "Z_GRADE_COMPLETE_CASE"):
-        frame = robust_two_group_tests(
-            mu, treatment_col, outcome, seed=config.random_seed
-        )
-        frame.insert(0, "outcome", outcome)
-        sensitivity_rows.append(frame)
-    sensitivity = pd.concat(sensitivity_rows, ignore_index=True)
-
-    reached_robust = robust_two_group_tests(
-        mu, reached_col, "Z_GRADE_PRIMARY", seed=config.random_seed
+    exact_welch = welch_anova_exact_groups(
+        mu,
+        visits_col=visits_col,
+        outcome_col="Z_GRADE_PRIMARY",
+        population=population,
     )
-    reached_fixed_effect = primary_fixed_effect_models(
-        mu, "Z_GRADE_PRIMARY", reached_col
+    exact_gh = games_howell_exact_groups(
+        mu,
+        visits_col=visits_col,
+        outcome_col="Z_GRADE_PRIMARY",
+        population=population,
     )
-    pass_model = secondary_pass_model(mu, treatment_col)
+    exact_fe, exact_fe_info = fixed_effect_pairwise_exact_groups(
+        mu,
+        visits_col=visits_col,
+        outcome_col="Z_GRADE_PRIMARY",
+        population=population,
+        include_career=True,
+    )
 
-    one_two = one_two_pooling_analysis(
+    primary_exact = {
+        "30_exact_visit_groups_summary.csv": exact_summary,
+        "31_exact_visit_groups_welch_anova.csv": exact_welch,
+        "32_exact_visit_groups_games_howell.csv": exact_gh,
+        "33_exact_visit_groups_fe_pairwise.csv": exact_fe,
+        "34_exact_visit_groups_fe_model_info.csv": exact_fe_info,
+    }
+    for filename, frame in primary_exact.items():
+        _save_csv(frame, TABLES_DIR / filename)
+
+    # Observed preparation sensitivity using the legacy DMU diagnostic. Matching
+    # is deliberately same-student/same-term and ambiguous duplicate scores are
+    # not resolved arbitrarily. The analysis remains observational.
+    diagnostics = pd.read_csv(diagnostico_path)
+    mu_diag = attach_same_term_diagnostic(mu, diagnostics)
+    diagnostic_coverage, diagnostic_models = diagnostic_adjusted_exact_visit_models(
+        mu_diag,
+        visits_col=visits_col,
+        outcome_col="Z_GRADE_PRIMARY",
+    )
+    _save_csv(
+        diagnostic_coverage,
+        TABLES_DIR / "35_diagnostic_coverage_by_exact_visit_group.csv",
+    )
+    _save_csv(
+        diagnostic_models,
+        TABLES_DIR / "36_diagnostic_adjusted_exact_visit_models.csv",
+    )
+
+    # Secondary/provenance analyses retained so prior project claims remain
+    # reproducible. They no longer define the main Paper 2 estimand.
+    pooled_equivalence = one_two_pooling_analysis(
         mu,
         visits_col=visits_col,
         outcome_col="Z_GRADE_PRIMARY",
         equivalence_margin_z=config.one_two_equivalence_margin_z,
     )
-    welch, welch_summary, games_howell = welch_anova_visit_groups(
-        mu, group_col=group_col, outcome_col="Z_GRADE_PRIMARY"
+    _save_csv(
+        pooled_equivalence,
+        TABLES_DIR / "80_secondary_pooling_exact_1_vs_2.csv",
     )
 
-    generated = {
-        "10_primary_outcome_by_visit_group.csv": primary_summary,
-        "11_primary_robust_gt3_vs_le3.csv": robust,
-        "12_primary_fixed_effect_models.csv": fixed_effect,
-        "13_primary_dose_group_model.csv": dose,
-        "14_continuous_outcome_sensitivity.csv": sensitivity,
-        "15_ppa_reached_ge3_vs_lt3_robust.csv": reached_robust,
-        "16_ppa_reached_ge3_vs_lt3_fixed_effect.csv": reached_fixed_effect,
-        "20_secondary_pass_model.csv": pass_model,
-        "80_justify_pooling_exact_1_vs_2.csv": one_two,
-        "81_visit_groups_welch_anova.csv": welch,
-        "82_visit_groups_welch_summary.csv": welch_summary,
-        "83_visit_groups_games_howell.csv": games_howell,
-    }
-    for filename, frame in generated.items():
-        _save_csv(frame, TABLES_DIR / filename)
+    historical_upper_tail = robust_two_group_tests(
+        mu,
+        historical_treatment_col,
+        "Z_GRADE_PRIMARY",
+        seed=config.random_seed,
+    )
+    _save_csv(
+        historical_upper_tail,
+        TABLES_DIR / "81_secondary_historical_upper_tail.csv",
+    )
+    _save_csv(
+        primary_fixed_effect_models(
+            mu, "Z_GRADE_PRIMARY", historical_treatment_col
+        ),
+        TABLES_DIR / "82_secondary_historical_upper_tail_fe.csv",
+    )
+    _save_csv(
+        secondary_pass_model(mu, historical_treatment_col),
+        TABLES_DIR / "83_secondary_historical_pass_model.csv",
+    )
 
-    figure_paths = generate_paper_figures(TABLES_DIR, FIGURES_DIR, source="generated")
+    figure_paths = generate_paper_figures(TABLES_DIR, FIGURES_DIR)
 
+    diagnostic_n = 0
+    if not diagnostic_models.empty:
+        diagnostic_n = int(diagnostic_models["n"].max())
     summary = {
         "paper": "paper2-mu-performance",
         "cmat_analysis_version": _package_version(),
         "primary_mu_n": int(len(mu)),
         "same_period_any_cmat_use_n": int((mu[visits_col] > 0).sum()),
         "primary_visit_measure": config.primary_visit_measure,
+        "primary_visit_groups": ["0", "1", "2", "3", "4+"],
+        "diagnostic_complete_case_n": diagnostic_n,
+        "diagnostic_path": str(diagnostico_path.relative_to(REPO_ROOT)),
         "tables": sorted(
             str(path.relative_to(REPO_ROOT)) for path in TABLES_DIR.glob("*.csv")
         ),
@@ -302,27 +282,25 @@ def run_analysis(args: argparse.Namespace) -> int:
         logs_dir=LOGS_DIR,
         materias_path=materias_path,
         asesorias_path=asesorias_path,
-        mode="paper2_mu_performance",
+        mode="paper2_mu_performance_exact_groups",
         status="success",
         details={
             "primary_mu_n": int(len(mu)),
             "same_period_any_cmat_use_n": int((mu[visits_col] > 0).sum()),
             "primary_visit_measure": config.primary_visit_measure,
+            "diagnostic_complete_case_n": diagnostic_n,
         },
     )
 
     print(f"Paper 2 primary first-MU cohort: N={len(mu):,}")
+    print(f"Diagnostic complete-case sensitivity: N={diagnostic_n:,}")
     print(f"Generated tables: {TABLES_DIR}")
     print("Generated figures:")
     for path in figure_paths:
         print(f"  - {path}")
 
-    if args.compare_retained:
-        _compare_retained()
-
     if args.compile:
         build_env = os.environ.copy()
-        build_env["PAPER2_FIGURE_SOURCE"] = "generated"
         subprocess.run(
             [sys.executable, str(PAPER_DIR / "build.py")],
             check=True,
@@ -341,20 +319,16 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--materias", type=Path, help="Controlled academic-record input file.")
     parser.add_argument("--asesorias", type=Path, help="Controlled CMAT advisory-record input file.")
-    parser.add_argument(
-        "--compare-retained",
-        action="store_true",
-        help="Require regenerated core tables to reproduce the retained shared snapshot.",
-    )
+    parser.add_argument("--diagnostico", type=Path, help="Controlled DMU diagnostic input file.")
     parser.add_argument(
         "--compile",
         action="store_true",
-        help="Compile paper/main.tex using freshly generated figure inputs.",
+        help="Compile the manuscript after generating current aggregate results and figures.",
     )
     parser.add_argument(
         "--check",
         action="store_true",
-        help="Validate imports and repository structure without reading private data.",
+        help="Validate imports and repository structure without reading row-level data.",
     )
     return parser.parse_args()
 
