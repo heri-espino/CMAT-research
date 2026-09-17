@@ -26,10 +26,6 @@ from .methodology import (
     games_howell_exact_groups,
     welch_anova_exact_groups,
 )
-from .diagnostic_adjustment import (
-    attach_same_term_diagnostic,
-    diagnostic_adjusted_exact_visit_models,
-)
 from .group_comparisons import (
     career_performance_analysis,
     career_usage_association,
@@ -46,8 +42,6 @@ from .group_comparisons import (
 
 __all__ = [
     "add_exact_visit_group",
-    "attach_same_term_diagnostic",
-    "diagnostic_adjusted_exact_visit_models",
     "exact_visit_group_summary",
     "fixed_effect_pairwise_exact_groups",
     "games_howell_exact_groups",
