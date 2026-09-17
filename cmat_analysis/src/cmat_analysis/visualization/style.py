@@ -23,7 +23,7 @@ FONT_CANDIDATES = (
 # Keeping the remaining colours preserves categorical distinctions in existing
 # figures while making the primary series consistently use the CMAT navy.
 CMAT_PALETTE = (
-    "#00166c",
+    "#14349b",
     "#dd8452",
     "#55a868",
     "#c44e52",
