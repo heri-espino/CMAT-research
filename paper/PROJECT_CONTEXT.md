@@ -54,6 +54,19 @@ This is an observational association. Do not write that CMAT attendance causes i
 
 For TEAMAT, follow `paper/AI_HANDOFF.md`: use the official IMA template, Harvard author–year references, exact visit groups in the main presentation, minimal PPA framing, and a real research-ethics statement before submission.
 
+## Submission metadata
+
+Current author order:
+
+1. Heriberto Espino-Montelongo — Universidad de las Américas Puebla; ORCID `0009-0009-1230-2931`.
+2. Daniela Cortés-Toto — affiliation, email, ORCID (if any), and concise biography still to be supplied.
+
+Funding: **None declared.**
+
+Protected row-level administrative data are not planned for public release; the manuscript states that privacy and institutional data-governance restrictions prevent public release of the microdata, while code and non-disclosive aggregate or synthetic replication materials may be shared.
+
+TEAMAT currently requires concise biographies for all authors and the online submission system requests author biographies, affiliations, and email addresses. Remaining submission metadata therefore include both author biographies, Daniela's affiliation/contact details, the corresponding-author email, and the exact institutional ethics/data-use authorization statement.
+
 ## Reproducibility
 
 Paper-local runner: `code/run_paper.py`.
