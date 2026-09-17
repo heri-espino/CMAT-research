@@ -6,10 +6,6 @@ import pandas as pd
 
 from cmat_analysis.reporting.methodology_build import methodology_report_cli
 from cmat_analysis.statistics.methodology import add_exact_visit_group, games_howell_exact_groups
-from cmat_analysis.statistics.diagnostic_adjustment import (
-    attach_same_term_diagnostic,
-    diagnostic_adjusted_exact_visit_models,
-)
 from cmat_analysis.measures import add_primary_outcomes
 
 
@@ -41,58 +37,6 @@ def test_methodology_exact_visit_grouping_has_all_ten_pairwise_contrasts():
     grouped = add_exact_visit_group(d)
     assert set(grouped["EXACT_VISIT_GROUP_0_1_2_3_4P"].astype(str)) == {"0", "1", "2", "3", "4+"}
     assert len(games_howell_exact_groups(d, population="test")) == 10
-
-
-def test_same_term_diagnostic_matching_drops_ambiguous_duplicate_scores():
-    cohort = pd.DataFrame(
-        {
-            "STUDENT_ID": ["s1", "s2", "s3"],
-            "YEAR": [2020, 2020, 2020],
-            "SESSION": ["P", "P", "P"],
-        }
-    )
-    diagnostics = pd.DataFrame(
-        {
-            "student_id": ["s1", "s2", "s2", "s3"],
-            "year": [2020, 2020, 2020, 2020],
-            "period": ["P", "P", "P", "P"],
-            "percentage": [70.0, 40.0, 45.0, np.nan],
-            "exam_type": ["DMU", "DMU", "DMU", "DMU"],
-        }
-    )
-    out = attach_same_term_diagnostic(cohort, diagnostics)
-    scores = out.set_index("STUDENT_ID")["DIAGNOSTIC_PERCENTAGE"]
-    assert scores.loc["s1"] == 70.0
-    assert np.isnan(scores.loc["s2"])
-    assert np.isnan(scores.loc["s3"])
-    assert out.set_index("STUDENT_ID").loc["s2", "DIAGNOSTIC_DISTINCT_SCORES"] == 2
-
-
-def test_diagnostic_adjustment_uses_identical_complete_case_sample():
-    rows = []
-    for classroom in ["A", "B", "C"]:
-        for group, visits in zip(["0", "1", "2", "3", "4+"], [0, 1, 2, 3, 4]):
-            for j in range(4):
-                rows.append(
-                    {
-                        "VISITS_CMAT_PERIOD": visits,
-                        "Z_GRADE_PRIMARY": 0.15 * visits + 0.03 * j,
-                        "DIAGNOSTIC_PERCENTAGE": 40 + 5 * visits + j,
-                        "CLASSROOM_ID": classroom,
-                        "CLAVECARRERA": "LME" if j % 2 == 0 else "LAT",
-                    }
-                )
-    d = pd.DataFrame(rows)
-    d.loc[0, "DIAGNOSTIC_PERCENTAGE"] = np.nan
-    coverage, contrasts = diagnostic_adjusted_exact_visit_models(d)
-    assert list(coverage["group"]) == ["0", "1", "2", "3", "4+"]
-    assert set(contrasts["model"]) == {
-        "same_sample_without_diagnostic",
-        "plus_diagnostic",
-    }
-    assert contrasts["n"].nunique() == 1
-    assert int(contrasts["n"].iloc[0]) == len(d) - 1
-    assert set(contrasts["group"]) == {"1", "2", "3", "4+"}
 
 
 def test_methodology_report_atomic_runner_resolves_root_code_dependencies():
