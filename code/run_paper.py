@@ -193,6 +193,77 @@ def run_analysis(args: argparse.Namespace) -> int:
     for filename, frame in primary_exact.items():
         _save_csv(frame, TABLES_DIR / filename)
 
+    # Identification diagnostics for the within-classroom comparisons. These are
+    # aggregate publication outputs only and do not expose student identifiers.
+    classroom_sizes = mu.groupby("CLASSROOM_ID", observed=True).size().astype(int)
+    any_use = mu[visits_col].fillna(0).astype(float).gt(0)
+    overlap = (
+        pd.DataFrame({"CLASSROOM_ID": mu["CLASSROOM_ID"], "any_use": any_use})
+        .groupby("CLASSROOM_ID", observed=True)["any_use"]
+        .agg(["size", "sum"])
+        .rename(columns={"size": "n", "sum": "users"})
+    )
+    overlap["nonusers"] = overlap["n"] - overlap["users"]
+    overlap["has_user_nonuser_overlap"] = (overlap["users"] > 0) & (overlap["nonusers"] > 0)
+
+    exact_labels = pd.Series("4+", index=mu.index, dtype="object")
+    v = mu[visits_col].fillna(0).astype(float)
+    exact_labels.loc[v.eq(0)] = "0"
+    exact_labels.loc[v.eq(1)] = "1"
+    exact_labels.loc[v.eq(2)] = "2"
+    exact_labels.loc[v.eq(3)] = "3"
+    exact_overlap_rows = []
+    for group in ("1", "2", "3", "4+"):
+        tmp = pd.DataFrame({"CLASSROOM_ID": mu["CLASSROOM_ID"], "group": exact_labels})
+        present = tmp.groupby("CLASSROOM_ID", observed=True)["group"].agg(lambda x: set(x.astype(str)))
+        n_overlap = int(present.map(lambda groups: "0" in groups and group in groups).sum())
+        exact_overlap_rows.append({"comparison": f"0_vs_{group}", "classrooms_with_both_groups": n_overlap})
+
+    diagnostics = pd.DataFrame(
+        [
+            {"metric": "n_classrooms", "value": float(classroom_sizes.size)},
+            {"metric": "classroom_size_mean", "value": float(classroom_sizes.mean())},
+            {"metric": "classroom_size_median", "value": float(classroom_sizes.median())},
+            {"metric": "classroom_size_q1", "value": float(classroom_sizes.quantile(0.25))},
+            {"metric": "classroom_size_q3", "value": float(classroom_sizes.quantile(0.75))},
+            {"metric": "classroom_size_min", "value": float(classroom_sizes.min())},
+            {"metric": "classroom_size_max", "value": float(classroom_sizes.max())},
+            {
+                "metric": "classrooms_with_any_user_and_nonuser",
+                "value": float(overlap["has_user_nonuser_overlap"].sum()),
+            },
+        ]
+    )
+    _save_csv(diagnostics, TABLES_DIR / "35_classroom_identification_diagnostics.csv")
+    _save_csv(pd.DataFrame(exact_overlap_rows), TABLES_DIR / "36_exact_group_classroom_overlap.csv")
+
+    # Sensitivity of the adjusted 0-vs-positive contrasts to excluding very
+    # small classrooms. Thresholds are reported together rather than selected
+    # after inspecting one preferred result.
+    small_class_rows: list[pd.DataFrame] = []
+    classroom_n = mu.groupby("CLASSROOM_ID", observed=True)["CLASSROOM_ID"].transform("size")
+    for min_n in (1, 10, 20):
+        sub = mu.loc[classroom_n >= min_n].copy()
+        pairwise, info = fixed_effect_pairwise_exact_groups(
+            sub,
+            visits_col=visits_col,
+            outcome_col="Z_GRADE_PRIMARY",
+            population=f"{population}; classrooms n>={min_n}",
+            include_career=True,
+        )
+        pairwise = pairwise.loc[
+            (pairwise["group1"].astype(str) == "0")
+            & pairwise["group2"].astype(str).isin(["1", "2", "3", "4+"])
+        ].copy()
+        pairwise.insert(0, "minimum_classroom_n", min_n)
+        pairwise.insert(1, "analysis_n", int(len(sub)))
+        pairwise.insert(2, "analysis_classrooms", int(sub["CLASSROOM_ID"].nunique()))
+        small_class_rows.append(pairwise)
+    _save_csv(
+        pd.concat(small_class_rows, ignore_index=True),
+        TABLES_DIR / "38_small_classroom_fe_sensitivity.csv",
+    )
+
     # Outcome-construction sensitivity using the same transparent visit groups.
     outcome_sensitivity_frames: list[pd.DataFrame] = []
     for outcome_col, outcome_label in [
