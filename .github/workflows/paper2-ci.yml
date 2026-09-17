@@ -56,7 +56,10 @@ jobs:
             results/tables/32_exact_visit_groups_games_howell.csv \
             results/tables/33_exact_visit_groups_fe_pairwise.csv \
             results/tables/34_exact_visit_groups_fe_model_info.csv \
-            results/tables/37_exact_visit_groups_outcome_sensitivity.csv; do
+            results/tables/35_classroom_identification_diagnostics.csv \
+            results/tables/36_exact_group_classroom_overlap.csv \
+            results/tables/37_exact_visit_groups_outcome_sensitivity.csv \
+            results/tables/38_small_classroom_fe_sensitivity.csv; do
             test -s "$f"
           done
           for f in \
