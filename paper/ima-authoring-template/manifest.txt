@@ -1,0 +1,36 @@
+%% %% Copyright 2021 OXFORD UNIVERSITY PRESS %% %% This file is
+part of the 'ima-authoring-template Bundle'. %%
+--------------------------------------------- %% %% It may be
+distributed under the conditions of the LaTeX Project Public %%
+License, either version 1.2 of this license or (at your option) any
+%% later version. The latest version of this license is in %%
+http://www.latex-project.org/lppl.txt %% and version 1.2 or later
+is part of all distributions of LaTeX %% version 1999/12/01 or
+later. %% %% The list of all files belonging to the
+'ima-authoring-template Bundle' is %% given in the file
+`manifest.txt'. %% %% Template article for OXFORD UNIVERSITY
+PRESS's document class `ima-authoring-template' %% with
+bibliographic references %%
+
+% CONTENTS OF THE IMA-AUTHORING-TEMPLATE BUNDLE %
+=================================================
+
+Directory ima-authoring-template/
+
+ima-authoring-template.tex
+  article template for a document with author-year and numbered citation
+
+manifest.txt
+  this file
+
+README
+  small readme documentation
+
+Equations sample - equations-sample.tex file -- covers basic AMS
+  equation formats - equations-sample.pdf file -- output of basic AMS
+  equation formats
+
+Directory ima-authoring-template/doc/
+
+ima-authoring-template-doc.tex -- LaTeX source file of documentation
+ima-authoring-template-doc.pdf -- documentation for ima-authoring-template.cls

@@ -1,0 +1,473 @@
+%%
+%% Copyright 2021 OXFORD UNIVERSITY PRESS
+%%
+%% This file is part of the 'ima-authoring-template Bundle'.
+%% ---------------------------------------------
+%%
+%% It may be distributed under the conditions of the LaTeX Project Public
+%% License, either version 1.2 of this license or (at your option) any
+%% later version.  The latest version of this license is in
+%%    http://www.latex-project.org/lppl.txt
+%% and version 1.2 or later is part of all distributions of LaTeX
+%% version 1999/12/01 or later.
+%%
+%% The list of all files belonging to the 'ima-authoring-template Bundle' is
+%% given in the file `manifest.txt'.
+%%
+%% Template article for OXFORD UNIVERSITY PRESS's document class `ima-authoring-template'
+%% with bibliographic references
+%%
+
+\documentclass[numbers,webpdf,imaiai]{ima-authoring-template}%
+%\documentclass[namedate,webpdf]{ima-authoring-template}
+
+%\usepackage{showframe}
+
+\graphicspath{{Fig/}}
+
+% line numbers
+%\usepackage[mathlines, switch]{lineno}
+%\usepackage[right]{lineno}
+
+\theoremstyle{thmstyleone}%
+\newtheorem{theorem}{Theorem}%  meant for continuous numbers
+%%\newtheorem{theorem}{Theorem}[section]% meant for sectionwise numbers
+%% optional argument [theorem] produces theorem numbering sequence instead of independent numbers for Proposition
+\newtheorem{proposition}[theorem]{Proposition}%
+%%\newtheorem{proposition}{Proposition}% to get separate numbers for theorem and proposition etc.
+
+\theoremstyle{thmstyletwo}%
+\newtheorem{example}{Example}%
+\newtheorem{remark}{Remark}%
+
+\theoremstyle{thmstylethree}%
+\newtheorem{definition}{Definition}
+
+\numberwithin{equation}{section}
+
+\begin{document}
+
+\DOI{DOI HERE}
+\copyrightyear{2021}
+\vol{00}
+\pubyear{2021}
+\access{Advance Access Publication Date: Day Month Year}
+\appnotes{Paper}
+\copyrightstatement{Published by Oxford University Press on behalf of the Institute of Mathematics and its Applications. All rights reserved.}
+\firstpage{1}
+
+%\subtitle{Subject Section}
+
+\title[Math in LaTeX]{Math in LaTeX}
+
+
+\author{\textsc{First Author*}
+\address{\orgdiv{Department}, \orgname{Organization}, \orgaddress{\street{Street}, \postcode{Postcode}, \state{State}, \country{Country}}}}
+
+\authormark{Author Name et al.}
+
+\corresp[*]{Corresponding author. \href{email:email-id.com}{email-id.com}}
+
+\received{Date}{0}{Year}
+\revised{Date}{0}{Year}
+\accepted{Date}{0}{Year}
+
+%\editor{Associate Editor: Name}
+
+%\abstract{
+%\textbf{Motivation:} .\\
+%\textbf{Results:} .\\
+%\textbf{Availability:} .\\
+%\textbf{Contact:} \href{name@bio.com}{name@bio.com}\\
+%\textbf{Supplementary information:} Supplementary data are available at \textit{Briefings in Bioinformatics}
+%online.}
+
+\abstract{Abstracts must be able to stand alone and so cannot contain citations to
+the paper's references, equations, etc. An abstract must consist of a single
+paragraph and be concise. Because of online formatting, abstracts must appear
+as plain as possible.}
+
+\keywords{keyword1; Keyword2; Keyword3; Keyword4.}
+
+% \boxedtext{
+% \begin{itemize}
+% \item Key boxed text here.
+% \item Key boxed text here.
+% \item Key boxed text here.
+% \end{itemize}}
+
+\maketitle
+
+
+\section{Introduction}
+
+There are two major modes for typesetting math in LaTeX --- one is embedding the math directly into your text by encapsulating
+your formula either using single dollar signs --- \verb+$...$+ or by enclosing the inline math with the following symbol
+\verb+\(...\)+ and the other is using a predefined math environment. This file provide basic samples for inline and display
+math equations. However, for detailed explanation, you are requested to refer ``amsmath'' package documentation.
+
+\section{Inline math examples}
+
+LaTeX needs to know when text is mathematical. This is because LaTeX typesets maths $a^{2}_{b}$ notation differently
+\([a+b]^{2}\) from normal text. Therefore, special \(\sqrt{x^{2}+y^{2}}\) environments have been declared for this purpose.
+
+
+
+\section{Display math examples}
+
+\subsection{Default math environments}
+
+The \verb+\begin{equation}...\end{equation}+ environment is used for numbered single line equations:
+\begin{equation}
+\mathbf{P} = \lim_{\Delta v\to 0} \varepsilon
+\left[\frac{1}{\Delta v}\sum_{i=1}^{N_{e}\Delta v}d\mathbf{p}_{i}\right] =
+N_{e}d\mathbf{p}_{\mathrm{av}}
+\end{equation}
+
+The \verb+\begin{equation*}...\end{equation*}+ environment is used for unnumbered single line equations:
+\begin{equation*}
+L_s=\mu_1h=\mu_1=\frac{BW}{\omega_o\sqrt{\mu_2\epsilon_2}}=\frac{\mu_1}{\sqrt{\mu_2\epsilon_2}}
+\end{equation*}
+
+\subsection{amsmath package --- math environments}
+
+The \verb+\begin{align}...\end{align}+ environment is used for two or more equations when vertical alignment is desired;
+usually binary relations such as equal signs are aligned. To have several equation columns side-by-side, use extra ampersands
+to separate the columns. You can suppress the number on any particular line by putting \verb+\notag+ before the end of that line;
+\verb+\notag+ should not be used outside a display environment as it will mess up the numbering. You can also override a number
+with a tag of your own by using \verb+\tag{<label>}+, where \verb+<label>+ means arbitrary text such as \verb+*+ or \verb+\dag+
+used to `number' the equation:
+\begin{align}
+z &= x+y &z &= x+y \\
+  &= z+y &x &= z+y \nonumber\\
+a &= b+c &a &= b+c \tag{*} \\
+  &= z+y &x &= z+y \notag\\
+b &= b+c &a &= b+c \tag{\dag} \\
+c &= b+c &a &= b+c \tag{\ddag}
+\end{align}
+
+The \verb+\begin{align*}...\end{align*}+ environment is used for unnumbered math environments:
+\begin{align*}
+z &= x+y &z &= x+y \\
+a &= b+c &a &= b+c
+\end{align*}
+
+The \verb+gather+ environment is used for a group of consecutive equations when there
+is no alignment desired among them; each one is centered separately within
+the text width. Equations inside gather are separated by a \verb+\\+ command.
+\begin{gather}
+(a+b)^{2} = a^{2} + 2ab + b^{2} \nonumber \\
+a_{2} = b_{2} + c_{2} - d_{2} + e_{2}
+\end{gather}
+
+The \verb+gather*+ environment is used for a group of consecutive unnumbered equations for which no alignment is required.
+\begin{gather*}
+(a+b)^{2} = a^{2} + 2ab + b^{2} \\
+a_{2} = b_{2} + c_{2} - d_{2} + e_{2}
+\end{gather*}
+
+A variant environment \verb+\begin{alignat}...\end{alignat}+ allows the horizontal space between equations
+to be explicitly specified. This environment takes one argument, the number of ``equation columns'' (the number of
+pairs of right-left aligned columns; the argument is the number of pairs): count the maximum number of \verb+&s+ in any row,
+add 1 and divide by 2
+\begin{alignat}{2}
+x &= y_1 - y_2 + y_3 - y_5 + y_8 - \dots  &\quad &\text{by Axiom 1.} \nonumber \\
+  &= y' \circ y^{*} &\quad &\text{by Axiom 2.} \nonumber\\
+  &= y(0) y' &\quad &\text{by Axiom 3.}
+\end{alignat}
+
+The \verb+\begin{alignat*}...\end{alignat*}+ is available for setting unnumbered equation
+with the above preferences.
+\begin{alignat*}{2}
+x &= y_1 - y_2 + y_3 - y_5 + y_8 - \dots  &\quad &\text{by Axiom 1.} \\
+  &= y' \circ y^{*} & &\text{by Axiom 2.} \\
+  &= y(0) y' & &\text{by Axiom 3.}
+\end{alignat*}
+
+The \verb+aligned+ environment inside \verb+equation+ environment can be used to produce the below
+equation: \verb+\begin{equation}\begin{aligned}...\end{aligned}\end{equation}+
+\begin{equation}
+\left.\begin{aligned}
+B' &= -\partial\times E,\\
+   &= -\partial\times Z,\\
+E' &= \partial\times B - 4\pi j,
+\end{aligned}\right\} \qquad \text{Maxwell's equations}
+\end{equation}
+
+Example for \verb+aligned+ environment inside \verb+equation*+ environment:
+\verb+\begin{equation*}+ \verb+\begin{aligned}...\end{aligned}\end{equation*}+
+\begin{equation*}
+\left.\begin{aligned}
+B' &= -\partial\times E,\\
+   &= -\partial\times Z,\\
+E' &= \partial\times B - 4\pi j,
+\end{aligned}\right\} \qquad \text{Maxwell's equations}
+\end{equation*}
+
+The \verb+subarray+ environment can be used to produce centered multiline subscript or
+superscript --- \verb+\begin{subarray}{c}. . .\end{subarray}+
+\begin{equation}
+\sum_{\begin{subarray}{c}
+i\in\Lambda\\
+0<j<n
+\end{subarray}} P(i,j) = \partial\times B - 4\pi j,
+\end{equation}
+
+Example for \verb+subarray+ with left aligned multiline subscript
+inside \verb+equation+ --- \verb+\begin{subarray}{l}...\end{subarray}+
+\begin{equation}
+\sum_{\begin{subarray}{l}
+i\in\Lambda\\
+0<j<n
+\end{subarray}} P(i,j) = \partial\times B - 4\pi j,
+\end{equation}
+
+The environment flalign (``full length alignment'') stretches the space between
+the equation columns to the maximum possible width, leaving only enough space
+at the margin for the equation number, if present.
+\begin{flalign}
+a_{11} &=b_{11} &a_{12} &=b_{12} \nonumber\\
+a_{21} &=b_{21} &a_{22} &=b_{22} + c_{22} \\
+       &=b_{21} &a_{22} &=b_{22} + c_{22}
+\end{flalign}
+
+Example for \verb+\begin{flalign*}...\end{flalign*}+ environment.
+\begin{flalign*}
+a_{11} &=b_{11} &a_{12} &=b_{12}\\
+a_{21} &=b_{21} &a_{22} &=b_{22} + c_{22} \\
+       &=b_{21} &a_{22} &=b_{22} + c_{22}
+\end{flalign*}
+
+The \verb+multline+ environment is a variation of the equation environment used for
+equations that don't fit on a single line. The first line of a multline will be at
+the left margin and the last line at the right margin. Any additional lines in between
+will be centered independently within the display width \verb+\begin{multline}...\end{multline}+
+\begin{multline}
+a+b+c+d+e+f \\
+a+b+c+d+e+f \\
+a+b+c+d+e+f \\
++i+j+k+l+m+n
+\end{multline}
+
+The \verb+multline*+ environment
+\begin{multline*}
+a+b+c+d+e+f \\
+a+b+c+d+e+f \\
+a+b+c+d+e+f \\
++i+j+k+l+m+n
+\end{multline*}
+
+For cases like constructions, \verb+\begin{cases}...\end{cases}+ inside \verb+equation+ environment can be used.
+\begin{equation}
+P_{r-j}=\begin{cases}
+0& \text{if $r-j$ is odd},\\
+r!\,(-1)^{(r-j)/2}& \text{if $r-j$ is even}.
+\end{cases}
+\end{equation}
+
+For unnumbered cases like constructions, \verb+\begin{cases}...\end{cases}+ inside \verb+equation*+ environment can be used.
+\begin{equation*}
+P_{r-j}=\begin{cases}
+0& \text{if $r-j$ is odd},\\
+r!\,(-1)^{(r-j)/2}& \text{if $r-j$ is even}.
+\end{cases}
+\end{equation*}
+
+\subsection{Matrices}
+
+The amsmath package provides some environments for matrices beyond the basic array environment of LaTeX.
+The \verb+pmatrix+, \verb+bmatrix+, \verb+Bmatrix+, \verb+vmatrix+ and \verb+Vmatrix+ have (respectively)
+\verb+( )+, \verb+[ ]+, \verb+{ }+, \verb+| |+, and \verb+|| ||+ delimiters built in. Example for
+\verb+\begin{pmatrix}...\end{pmatrix}+ environment
+\begin{equation*}
+\alpha + \gamma_{2} = \begin{pmatrix}
+1 &2-3 &a+b\\
+1 &2-3 &c+d\\
+1 &2-3 &c+d
+\end{pmatrix}
+\end{equation*}
+
+Example for \verb+\begin{bmatrix}...\end{bmatrix}+ environment
+\begin{equation}
+\alpha + \gamma_{2} = \begin{bmatrix}
+1 &2-3 &a+b\\
+1 &2-3 &c+d\\
+1 &2-3 &c+d
+\end{bmatrix}
+\end{equation}
+
+Example for \verb+\begin{Bmatrix}...\end{Bmatrix}+ environment
+\begin{equation*}
+\alpha + \gamma_{2} = \begin{Bmatrix}
+1 &2-3 &a+b\\
+1 &2-3 &c+d\\
+  &2-3 &c+d
+\end{Bmatrix}
+\end{equation*}
+
+Example for \verb+\begin{vmatrix}...\end{vmatrix}+ environment
+\begin{equation*}
+\alpha + \gamma_{2} = \begin{vmatrix}
+1 &2-3 &a+b\\
+1 &2-3 &c+d\\
+1 &2-3 &c+d
+\end{vmatrix}
+\end{equation*}
+
+Example for \verb+\begin{Vmatrix}...\end{Vmatrix}+ environment
+\begin{equation*}
+\alpha + \gamma_{2} = \begin{Vmatrix}
+1 &2-3 &a+b\\
+1 &2-3 &c+d\\
+1 &2-3 &c+d
+\end{Vmatrix}
+\end{equation*}
+
+%If you need ``border'' or ``indexes'' on your matrix, plain TeX provides the macro \verb+\bordermatrix+
+%\[ M = \bordermatrix[{[]}]{  & x & y \cr
+%                  A & 1 & 0 \cr
+%                  B & 0 & 1 \cr} \qquad \bordermatrix[{\{\}}]{  & x & y \cr
+%                  A & 1 & 0 \cr
+%                  B & 0 & 1 \cr} \qquad \bordermatrix[{()}]{  & x & y \cr
+%                  A & 1 & 0 \cr
+%                  B & 0 & 1 \cr}
+%\]
+
+
+The wrapper environment \verb+\begin{subequations}...\end{subequations}+ can be used along with a particular
+\verb+align+ or similar groups to produce a subordinate numbereing sequence.
+\begin{subequations}
+\begin{align}
+A_1 &= N_0(\lambda;\Omega')-\phi(\lambda;\Omega'), \nonumber\\
+A_2 &= \phi(\lambda;\Omega')-\phi(\lambda;\Omega), \\
+A_3 &= \mathcal{N}(\lambda;\omega).
+\end{align}
+\end{subequations}
+
+The \verb+split+ environment is for single equations that are too long to fit on one line and hence must be split into
+multiple lines. The \verb+split+ environment provides for alignment among the split lines, using \verb+&+ to mark alignment
+points. Unlike the other amsmath equation structures, the split environment provides no numbering, because it is intended
+to be used only inside some other displayed equation structure, usually an \verb+equation+, \verb+align+,
+or \verb+gather+ environment, which provides the numbering. For example:
+\begin{equation}
+\begin{split}
+H_{c} &= \frac{1}{2n} \sum^{n}_{l=0}(-1)^{l} (n-{l})^{p-2} \sum_{l_1+\dots+l_p=l} \prod^{p}_{i=1} \binom{n_i}{l _i}\\
+&\quad\cdot[(n-l)-(n_i-l_i)]^{n_i - l_i}\cdot \Bigl[(n-l)^2 - \sum^{p}_{j=1}(n_{i} - l_{i})^2\Bigr].
+\end{split}
+\end{equation}
+
+\subsection{Additional math samples}
+
+Integration with side limits - superscript and subscript:
+\[
+\int^{A}\qquad \int_{A}\qquad \int_{A}^{B}
+\]
+
+Summation with under/over limits:
+\[
+\sum_{A}\qquad \sum^{z+y}\qquad \sum_{a+b}^{b}
+\]
+
+Math with \verb+underline+:
+\[\underline{b+c=d}\]
+
+Math with \verb+underbar+:
+\[\underbar{b+c+z=y}\]
+
+Math with \verb+underbrace+:
+\[\underbrace{a+b=c^2 + y_2 (a^2)^2}\]
+
+\subsection{Over and under arrows}
+
+Basic LaTeX provides \verb+\overrightarrow+ and \verb+\overleftarrow+ commands. Some
+additional over and under arrow commands are provided by the amsmath package to extend the set.
+
+
+Math with \verb+underrightarrow+:
+\[\underrightarrow{a+b_c+y}\]
+
+Math with \verb+underleftarrow+:
+\[\underleftarrow{a+b_c+y}\]
+
+Math with \verb+underleftrightarrow+:
+\[\underleftrightarrow{a+b_c+y}\]
+
+Math with \verb+overline+:
+\[\overline{(a+b=c)}\]
+
+Math with \verb+overbrace+:
+\[\overbrace{a+b+c}\]
+
+Math with \verb+overrightarrow+:
+\[\overrightarrow{a+b+c} \]
+
+Math with \verb+overleftarrow+:
+\[\overleftarrow{a + b + c}\]
+
+Math with \verb+overleftrightarrow+:
+\[\overleftrightarrow{a + b + c}\]
+
+Math with \verb+\underset{...}+:
+\[ = 2\cos (2\cdot \underset{\mbox{frequency}}{\underset{\mbox{average}}{\underbrace{327}}} \pi t) \cos
+(\underset{\mbox{second}}{\underset{\mbox{beats per}}{\underbrace{130}}} \pi t)\]
+
+Math with \verb+\overset{...}+:
+\begin{equation*}
+\left(\frac{BW}{\omega_o}\right)
+\overset{\overbrace{a+b}}{=} B
+\left(\frac{BW}{\omega_o}\right)
+\overset{\overset{a}{b}}{=} B
+\left(\frac{BW}{\omega_o}\right)
+\overset{\mu_1=\mu_2}{\overbrace{=}} B
+\left(\frac{BW}{\omega_o}\right)
+\overset{\underbrace{\mu_1=\mu_2}}{=} B
+\left(\frac{BW}{\omega_o}\right)
+\end{equation*}
+
+Boxed equation: \verb+\begin{equation}\boxed{...}+ \verb+\end{equation}+
+\begin{equation}
+ \boxed{x^2+y^2 = z^2}
+\end{equation}
+
+\subsection{Extensible arrows}
+
+\verb+\xleftarrow+ and \verb+\xrightarrow+ produce arrows that extend automatically to
+accommodate unusually wide subscripts or superscripts. These commands take
+one optional argument (the subscript) and one mandatory argument (the superscript, possibly empty):
+\[
+\xleftarrow[a+c]{x^2+2xy+y^2} \qquad
+\xrightarrow[a+c]{x^2+2xy+y^2}\qquad
+\xleftarrow[x+y^2]{\text{maps to}}\qquad
+\xrightarrow[x+y^2]{\text{maps to}}\qquad
+\xleftarrow[a+c]{\text{maps to}}
+\]
+
+\subsection{Math accents}
+
+\begin{equation*}
+\begin{array}{ll@{\hskip36pt}ll}
+\verb+\hat{a}+ & \hat{a} & \verb+\bar{a}+ & \bar{a}  \\
+\verb+\grave{a}+ & \grave{a} & \verb+\acute{a}+ & \acute{a} \\
+\verb+\dot{a}+ & \dot{a} & \verb+\ddot{a}+ & \ddot{a}  \\
+\verb+\breve{a}+ & \breve{a} & \verb+\mathring{a}+ & \mathring{a}\\
+\verb+\stackrel\frown{a}+ & \stackrel\frown{a} & \verb+\check{a}+ & \check{a}\\
+\verb+\vec{a}+ & \vec{a} & \verb+\tilde{a}+ & \tilde{a} \\
+%%\verb+\widehat{a+b}+ & $\widehat{a+b}$ & \verb+\widetilde{a+b}+ & $\widetilde{a+b}$ \\
+\end{array}
+\end{equation*}
+
+\section*{Revision history}
+
+\begin{tabular}{|l|l|l|l|}
+\hline
+Revision State & Revision Date & Version Number & Revision History \\
+\hline
+00   & 16 December, 2021 & Version 1.0 & \\
+\hline
+\end{tabular}
+
+\end{document}
+
+
+
+
