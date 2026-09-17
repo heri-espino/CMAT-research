@@ -20,6 +20,10 @@ from .inference import (
 )
 from .selection import propensity_att_sensitivity
 from .methodology import add_exact_visit_group, games_howell_exact_groups
+from .diagnostic_adjustment import (
+    attach_same_term_diagnostic,
+    diagnostic_adjusted_exact_visit_models,
+)
 from .group_comparisons import (
     career_performance_analysis,
     career_usage_association,
@@ -36,6 +40,8 @@ from .group_comparisons import (
 
 __all__ = [
     "add_exact_visit_group",
+    "attach_same_term_diagnostic",
+    "diagnostic_adjusted_exact_visit_models",
     "games_howell_exact_groups",
     "bunching_metrics",
     "career_performance_analysis",
