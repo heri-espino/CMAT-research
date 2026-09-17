@@ -2,34 +2,35 @@
 
 This directory contains the publication manuscript and build recipe for Paper 2, currently titled *Mathematics Support Use and Classroom-Relative Performance in First-Year University Mathematics*.
 
-The manuscript is a decomposition of the historical `proyecto_visitas` work rather than a copy of that report. The scientific boundary and provenance mapping are recorded in `DECOMPOSITION_FROM_PROYECTO_VISITAS.md`.
+The manuscript is a decomposition of the historical `proyecto_visitas` work rather than a copy of that report. The scientific boundary and provenance mapping are recorded in `DECOMPOSITION_FROM_PROYECTO_VISITAS.md`; TEAMAT-specific submission rules are recorded in `AI_HANDOFF.md`.
 
-## Build from the retained aggregate snapshot
+## Check the publication recipe
 
 From the repository root on branch `paper/paper2-mu-performance`:
 
 ```bash
 python -m pip install -e './cmat_analysis[dev]'
 python code/run_paper.py --check
-python paper/build.py
 ```
 
-`paper/build.py` generates the publication figures as vector PDFs from the retained aggregate tables under `brainstorm/shared/historical_outputs/study/` and then compiles `main.tex`. No private microdata are needed for this mode.
+The check validates imports and repository structure without reading row-level administrative data.
 
 ## Reproduce from controlled institutional inputs
 
 ```bash
 python code/run_paper.py \
-  --materias '/path/to/Materias.xlsx' \
-  --asesorias '/path/to/Asesorias.xlsx' \
-  --compare-retained \
-  --compile
+  --materias data/controlled/Materias_pseudonymized.csv \
+  --asesorias data/controlled/Asesorias_pseudonymized.csv
 ```
 
-This regenerates the Paper 2 tables in `results/tables/`, checks the core outputs against the retained snapshot, creates vector PDF figures in `results/figures/`, records provenance under `results/logs/`, and compiles the manuscript using the generated outputs.
+This regenerates aggregate Paper 2 outputs in `results/tables/`, creates vector PDF figures in `results/figures/`, and records run provenance under `results/logs/`. The primary exposure specification is `0 / 1 / 2 / 3 / 4+` same-term CMAT registrations; tables `30`–`34` are the primary exact-group outputs and tables `80+` retain secondary/provenance analyses.
 
-Administrative microdata must remain local and must not be committed to Git.
+The Paper 2 recipe intentionally does **not** use the optional DMU diagnostic exam. A future commented-manuscript TODO proposes requesting a broadly covered university entrance-exam score as a genuinely pre-enrolment observed-preparation sensitivity.
 
-## Numerical provenance
+To compile the official and commented manuscripts after aggregate results are available:
 
-The current first draft uses one internally consistent retained state: `brainstorm/shared/historical_outputs/study/`. A later methodology-restoration workspace contains some exact-dose summaries from another retained state; those values must not be mixed into this manuscript before a controlled rerun reconciles the difference.
+```bash
+python paper/build.py
+```
+
+Administrative microdata must remain controlled and must not be committed as publication outputs.
