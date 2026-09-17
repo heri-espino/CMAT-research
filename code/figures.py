@@ -122,10 +122,18 @@ def plot_performance_by_exact_visit_group(table_dir: Path, output_dir: Path) -> 
         ax.annotate(
             f"n={int(row.n):,}",
             (xpos, float(row.mean_z)),
-            xytext=(0, 10),
+            xytext=(8, 14),
             textcoords="offset points",
-            ha="center",
+            ha="left",
+            va="bottom",
             fontsize=8,
+            arrowprops={
+                "arrowstyle": "-",
+                "color": "0.35",
+                "linewidth": 0.7,
+                "shrinkA": 0,
+                "shrinkB": 2,
+            },
         )
     return _save_pdf(fig, output_dir, "fig02_mu_performance_by_visit_group.pdf")
 
