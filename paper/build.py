@@ -1,18 +1,21 @@
-"""Build the official and commented LaTeX manuscripts.
+"""Build the official and commented Paper 2 manuscripts with the IMA class.
 
-This builder performs no scientific calculations. ``main.tex`` is the official
-clean wrapper and ``main_commented.tex`` exposes development TODO annotations;
-both include the single shared source ``manuscript.tex``.
+The journal-supplied ``ima-authoring-template`` bundle is kept intact under
+``paper/ima-authoring-template``. The builder exposes that directory through
+``TEXINPUTS`` rather than copying class/style files into the manuscript root.
+Both wrappers include the same manuscript source; only TODO visibility differs.
 """
 
 from __future__ import annotations
 
+import os
 import shutil
 import subprocess
 import sys
 from pathlib import Path
 
 MANUSCRIPT_DIR = Path(__file__).resolve().parent
+TEMPLATE_DIR = MANUSCRIPT_DIR / "ima-authoring-template"
 TARGETS = ("main", "main_commented")
 OUTPUT_STEM = "espino_2026_mathematics_support_classroom_relative_performance"
 REQUIRED_FILES = (
@@ -20,39 +23,50 @@ REQUIRED_FILES = (
     MANUSCRIPT_DIR / "main_commented.tex",
     MANUSCRIPT_DIR / "manuscript.tex",
     MANUSCRIPT_DIR / "references.bib",
+    TEMPLATE_DIR / "ima-authoring-template.cls",
 )
 
 
 def fail(message: str) -> None:
-    print(f"Paper build error: {message}", file=sys.stderr)
+    print(f"Paper 2 build error: {message}", file=sys.stderr)
     raise SystemExit(1)
+
+
+def build_env() -> dict[str, str]:
+    env = os.environ.copy()
+    current = env.get("TEXINPUTS", "")
+    env["TEXINPUTS"] = f"{TEMPLATE_DIR}//:{current}"
+    return env
 
 
 def run(command: list[str]) -> None:
     print("+", " ".join(command))
-    subprocess.run(command, cwd=MANUSCRIPT_DIR, check=True)
+    subprocess.run(command, cwd=MANUSCRIPT_DIR, check=True, env=build_env())
+
+
+def clean_legacy_bibliography(stem: str) -> None:
+    """Remove generated biblatex artifacts from the former house-style build."""
+    for suffix in ("bbl", "bcf", "run.xml"):
+        path = MANUSCRIPT_DIR / f"{stem}.{suffix}"
+        if path.exists():
+            path.unlink()
 
 
 def build_target(stem: str) -> None:
-    bbl = MANUSCRIPT_DIR / f"{stem}.bbl"
-    if bbl.exists() and "\\refsection" not in bbl.read_text(encoding="utf-8", errors="ignore"):
-        # A legacy BibTeX .bbl cannot be read by biblatex.  Remove only that
-        # generated compatibility artifact so latexmk can run Biber.
-        bbl.unlink()
-
+    clean_legacy_bibliography(stem)
     latexmk = shutil.which("latexmk")
     if latexmk:
-        run([latexmk, "-g", "-xelatex", "-interaction=nonstopmode", "-halt-on-error", f"{stem}.tex"])
+        run([latexmk, "-g", "-pdf", "-interaction=nonstopmode", "-halt-on-error", f"{stem}.tex"])
         return
 
-    xelatex = shutil.which("xelatex")
-    biber = shutil.which("biber")
-    if not xelatex or not biber:
-        fail("install latexmk or both xelatex and biber, then rerun")
+    pdflatex = shutil.which("pdflatex")
+    bibtex = shutil.which("bibtex")
+    if not pdflatex or not bibtex:
+        fail("install latexmk or both pdflatex and bibtex, then rerun")
 
-    latex = [xelatex, "-interaction=nonstopmode", "-halt-on-error", f"{stem}.tex"]
+    latex = [pdflatex, "-interaction=nonstopmode", "-halt-on-error", f"{stem}.tex"]
     run(latex)
-    run([biber, stem])
+    run([bibtex, stem])
     run(latex)
     run(latex)
 
@@ -64,8 +78,6 @@ def build() -> None:
     for stem in TARGETS:
         build_target(stem)
 
-    # Keep the canonical wrappers and their main*.pdf outputs intact while
-    # publishing descriptive filenames for use outside the repository.
     descriptive_outputs = {
         "main": f"{OUTPUT_STEM}.pdf",
         "main_commented": f"{OUTPUT_STEM}_commented.pdf",
