@@ -1,0 +1,2 @@
+population,k_groups,F_welch,df_num,df_denom,p_value,brown_forsythe_F,brown_forsythe_p
+First eligible MU attempt with CMAT coverage,5,43.45870053343344,4,594.827885562319,5.233241479405092e-32,15.880610725110813,6.072350887810797e-13

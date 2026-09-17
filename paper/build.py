@@ -35,7 +35,7 @@ def fail(message: str) -> None:
 def build_env() -> dict[str, str]:
     env = os.environ.copy()
     current = env.get("TEXINPUTS", "")
-    env["TEXINPUTS"] = f"{TEMPLATE_DIR}//:{current}"
+    env["TEXINPUTS"] = f"{TEMPLATE_DIR}//{os.pathsep}{current}"
     return env
 
 
@@ -45,8 +45,8 @@ def run(command: list[str]) -> None:
 
 
 def clean_legacy_bibliography(stem: str) -> None:
-    """Remove generated biblatex artifacts from the former house-style build."""
-    for suffix in ("bbl", "bcf", "run.xml"):
+    """Remove auxiliary files produced by the former biblatex/Biber build."""
+    for suffix in ("aux", "bbl", "bcf", "blg", "fdb_latexmk", "fls", "run.xml"):
         path = MANUSCRIPT_DIR / f"{stem}.{suffix}"
         if path.exists():
             path.unlink()

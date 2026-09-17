@@ -1,0 +1,25 @@
+{
+  "run_started_at": "2026-09-17T10:24:45-06:00",
+  "timezone": "America/Mexico_City",
+  "mode": "paper2_mu_performance_exact_groups",
+  "status": "success",
+  "input_files": {
+    "materias": {
+      "path": "C:\\git\\CMAT-research\\data\\controlled\\Materias_pseudonymized.csv",
+      "exists": true,
+      "size_bytes": 3517698,
+      "modified_at": "2026-09-15T01:01:29-06:00"
+    },
+    "asesorias": {
+      "path": "C:\\git\\CMAT-research\\data\\controlled\\Asesorias_pseudonymized.csv",
+      "exists": true,
+      "size_bytes": 2801458,
+      "modified_at": "2026-09-15T01:01:29-06:00"
+    }
+  },
+  "details": {
+    "primary_mu_n": 6627,
+    "same_period_any_cmat_use_n": 1234,
+    "primary_visit_measure": "period_wide"
+  }
+}

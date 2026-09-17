@@ -1,0 +1,34 @@
+{
+  "paper": "paper2-mu-performance",
+  "cmat_analysis_version": "0.2.0",
+  "primary_mu_n": 6627,
+  "same_period_any_cmat_use_n": 1234,
+  "primary_visit_measure": "period_wide",
+  "primary_visit_groups": [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4+"
+  ],
+  "tables": [
+    "results\\tables\\01_cohort_flow.csv",
+    "results\\tables\\02_mu_visit_distribution.csv",
+    "results\\tables\\30_exact_visit_groups_summary.csv",
+    "results\\tables\\31_exact_visit_groups_welch_anova.csv",
+    "results\\tables\\32_exact_visit_groups_games_howell.csv",
+    "results\\tables\\33_exact_visit_groups_fe_pairwise.csv",
+    "results\\tables\\34_exact_visit_groups_fe_model_info.csv",
+    "results\\tables\\37_exact_visit_groups_outcome_sensitivity.csv",
+    "results\\tables\\80_secondary_pooling_exact_1_vs_2.csv",
+    "results\\tables\\81_secondary_historical_upper_tail.csv",
+    "results\\tables\\82_secondary_historical_upper_tail_fe.csv",
+    "results\\tables\\83_secondary_historical_pass_model.csv"
+  ],
+  "figures": [
+    "results\\figures\\fig01_mu_visit_distribution.pdf",
+    "results\\figures\\fig02_mu_performance_by_visit_group.pdf",
+    "results\\figures\\fig03_adjusted_dose_coefficients.pdf",
+    "results\\figures\\fig04_outcome_sensitivity.pdf"
+  ]
+}
