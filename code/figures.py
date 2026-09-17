@@ -29,12 +29,11 @@ GROUP_LABELS = ["0", "1", "2", "3", "4+"]
 
 
 def validate_figure_inputs(table_dir: Path) -> None:
-    """Validate aggregate tables required for the four primary figures."""
+    """Validate aggregate tables required for the three primary figures."""
     required = [
         "02_mu_visit_distribution.csv",
         "30_exact_visit_groups_summary.csv",
         "33_exact_visit_groups_fe_pairwise.csv",
-        "36_diagnostic_adjusted_exact_visit_models.csv",
     ]
     missing = [name for name in required if not (table_dir / name).is_file()]
     if missing:
@@ -134,8 +133,6 @@ def plot_exact_group_fe_contrasts(table_dir: Path, output_dir: Path) -> Path:
     d["group2"] = pd.Categorical(d["group2"], GROUP_ORDER[1:], ordered=True)
     d = d.sort_values("group2")
 
-    # Stored pairwise contrast is group1 - group2, hence negate to display
-    # positive-use group minus zero-use reference.
     estimates = -d["adjusted_mean_difference_group1_minus_group2"].to_numpy(float)
     lows = -d["ci95_high"].to_numpy(float)
     highs = -d["ci95_low"].to_numpy(float)
@@ -151,63 +148,21 @@ def plot_exact_group_fe_contrasts(table_dir: Path, output_dir: Path) -> Path:
         linewidth=1.3,
     )
     ax.axvline(0, linestyle="--", linewidth=1.0)
-    ax.set_yticks(y, [f"{g} visit" if g == "1" else f"{g} visits" for g in d["group2"].astype(str)])
+    ax.set_yticks(
+        y,
+        [f"{g} visit" if g == "1" else f"{g} visits" for g in d["group2"].astype(str)],
+    )
     ax.set_xlabel("Adjusted difference versus 0 visits (classroom-relative Z)")
     ax.set_ylabel("Exact CMAT visit group")
     ax.invert_yaxis()
     return _save_pdf(fig, output_dir, "fig03_adjusted_dose_coefficients.pdf")
 
 
-def plot_diagnostic_sensitivity(table_dir: Path, output_dir: Path) -> Path:
-    """Compare exact-group estimates before and after diagnostic adjustment."""
-    d = pd.read_csv(table_dir / "36_diagnostic_adjusted_exact_visit_models.csv").copy()
-    if d.empty:
-        raise ValueError("Diagnostic sensitivity table is empty.")
-    d["group"] = pd.Categorical(d["group"].astype(str), GROUP_ORDER[1:], ordered=True)
-    d = d.sort_values(["group", "model"])
-    models = ["same_sample_without_diagnostic", "plus_diagnostic"]
-    labels = {
-        "same_sample_without_diagnostic": "Same diagnostic-complete sample",
-        "plus_diagnostic": "+ diagnostic preparation score",
-    }
-    offsets = {
-        "same_sample_without_diagnostic": -0.10,
-        "plus_diagnostic": 0.10,
-    }
-
-    fig, ax = plt.subplots(figsize=(7.8, 4.8))
-    base_y = {group: i for i, group in enumerate(GROUP_ORDER[1:])}
-    for model in models:
-        g = d.loc[d["model"] == model].copy()
-        if g.empty:
-            continue
-        y = np.array([base_y[str(x)] + offsets[model] for x in g["group"].astype(str)])
-        est = g["estimate_z"].to_numpy(float)
-        lo = g["ci95_low"].to_numpy(float)
-        hi = g["ci95_high"].to_numpy(float)
-        ax.errorbar(
-            est,
-            y,
-            xerr=np.vstack([est - lo, hi - est]),
-            fmt="o",
-            capsize=3,
-            linewidth=1.1,
-            label=labels[model],
-        )
-    ax.axvline(0, linestyle="--", linewidth=1.0)
-    ax.set_yticks(np.arange(4), ["1 visit", "2 visits", "3 visits", "4+ visits"])
-    ax.set_xlabel("Difference versus 0 visits (classroom-relative Z), 95% CI")
-    ax.set_ylabel("Exact CMAT visit group")
-    ax.invert_yaxis()
-    ax.legend(frameon=False)
-    return _save_pdf(fig, output_dir, "fig04_outcome_sensitivity.pdf")
-
-
 def generate_paper_figures(
     table_dir: Path = GENERATED_TABLES_DIR,
     output_dir: Path = DEFAULT_FIGURES_DIR,
 ) -> list[Path]:
-    """Generate all Paper 2 figures as vector PDFs."""
+    """Generate the three primary Paper 2 figures as vector PDFs."""
     validate_figure_inputs(table_dir)
     set_style()
     plt.rcParams["pdf.fonttype"] = 42
@@ -216,7 +171,6 @@ def generate_paper_figures(
         plot_mu_visit_distribution(table_dir, output_dir),
         plot_performance_by_exact_visit_group(table_dir, output_dir),
         plot_exact_group_fe_contrasts(table_dir, output_dir),
-        plot_diagnostic_sensitivity(table_dir, output_dir),
     ]
 
 
