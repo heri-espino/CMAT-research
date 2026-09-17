@@ -4,7 +4,7 @@
 Paper 2 treats exact same-term visit groups (0, 1, 2, 3, 4+) as the primary
 exposure presentation. The historical 1--2 pooling and threshold-oriented
 contrasts are retained only as secondary/provenance outputs. Reusable cohort,
-outcome, estimation, and diagnostic-adjustment logic lives in ``cmat_analysis``.
+outcome, and estimation logic lives in ``cmat_analysis``.
 """
 
 from __future__ import annotations
@@ -28,8 +28,6 @@ try:
     from cmat_analysis.measures import add_primary_outcomes
     from cmat_analysis.reporting import write_run_log
     from cmat_analysis.statistics import (
-        attach_same_term_diagnostic,
-        diagnostic_adjusted_exact_visit_models,
         exact_visit_group_summary,
         fixed_effect_pairwise_exact_groups,
         games_howell_exact_groups,
@@ -55,7 +53,6 @@ TABLES_DIR = RESULTS_ROOT / "tables"
 FIGURES_DIR = RESULTS_ROOT / "figures"
 LOGS_DIR = RESULTS_ROOT / "logs"
 PAPER_DIR = REPO_ROOT / "paper"
-DEFAULT_DIAGNOSTIC_PATH = REPO_ROOT / "data" / "controlled" / "Diagnostico_pseudonymized.csv"
 
 
 def _save_csv(frame: pd.DataFrame, path: Path) -> None:
@@ -96,7 +93,7 @@ def check_environment() -> int:
     print("Population: first eligible MU attempt in a period with CMAT coverage")
     print("Exposure: exact same-period CMAT groups 0, 1, 2, 3, 4+")
     print("Primary outcome: classroom-relative continuous final performance")
-    print("Diagnostic analysis: observed same-student/same-term DMU sensitivity only")
+    print("No diagnostic-test adjustment is used in Paper 2.")
     print("No private row-level data were read.")
     return 0
 
@@ -106,17 +103,14 @@ def run_analysis(args: argparse.Namespace) -> int:
     base_config = get_study_config(REPO_ROOT)
     materias_path = (args.materias or base_config.materias_path).expanduser().resolve()
     asesorias_path = (args.asesorias or base_config.asesorias_path).expanduser().resolve()
-    diagnostico_path = (args.diagnostico or DEFAULT_DIAGNOSTIC_PATH).expanduser().resolve()
 
-    missing_inputs = [
-        path for path in (materias_path, asesorias_path, diagnostico_path) if not path.is_file()
-    ]
+    missing_inputs = [path for path in (materias_path, asesorias_path) if not path.is_file()]
     if missing_inputs:
         paths = "\n".join(f"  - {path}" for path in missing_inputs)
         raise FileNotFoundError(
             "Controlled inputs were not found:\n"
             f"{paths}\n"
-            "Pass academic, advisory, and diagnostic files explicitly. "
+            "Pass academic and advisory files explicitly. "
             "Row-level administrative outputs must not be committed as publication results."
         )
 
@@ -137,11 +131,9 @@ def run_analysis(args: argparse.Namespace) -> int:
 
     if config.primary_visit_measure == "course_specific":
         visits_col = "VISITS_COURSE"
-        pooled_group_col = "VISIT_GROUP_COURSE"
         historical_treatment_col = "PERSISTENT_GT3_COURSE"
     else:
         visits_col = "VISITS_CMAT_PERIOD"
-        pooled_group_col = "VISIT_GROUP_PERIOD"
         historical_treatment_col = "PERSISTENT_GT3_PERIOD"
 
     population = "First eligible MU attempt with CMAT coverage"
@@ -201,25 +193,6 @@ def run_analysis(args: argparse.Namespace) -> int:
     for filename, frame in primary_exact.items():
         _save_csv(frame, TABLES_DIR / filename)
 
-    # Observed preparation sensitivity using the legacy DMU diagnostic. Matching
-    # is deliberately same-student/same-term and ambiguous duplicate scores are
-    # not resolved arbitrarily. The analysis remains observational.
-    diagnostics = pd.read_csv(diagnostico_path)
-    mu_diag = attach_same_term_diagnostic(mu, diagnostics)
-    diagnostic_coverage, diagnostic_models = diagnostic_adjusted_exact_visit_models(
-        mu_diag,
-        visits_col=visits_col,
-        outcome_col="Z_GRADE_PRIMARY",
-    )
-    _save_csv(
-        diagnostic_coverage,
-        TABLES_DIR / "35_diagnostic_coverage_by_exact_visit_group.csv",
-    )
-    _save_csv(
-        diagnostic_models,
-        TABLES_DIR / "36_diagnostic_adjusted_exact_visit_models.csv",
-    )
-
     # Secondary/provenance analyses retained so prior project claims remain
     # reproducible. They no longer define the main Paper 2 estimand.
     pooled_equivalence = one_two_pooling_analysis(
@@ -256,9 +229,6 @@ def run_analysis(args: argparse.Namespace) -> int:
 
     figure_paths = generate_paper_figures(TABLES_DIR, FIGURES_DIR)
 
-    diagnostic_n = 0
-    if not diagnostic_models.empty:
-        diagnostic_n = int(diagnostic_models["n"].max())
     summary = {
         "paper": "paper2-mu-performance",
         "cmat_analysis_version": _package_version(),
@@ -266,8 +236,6 @@ def run_analysis(args: argparse.Namespace) -> int:
         "same_period_any_cmat_use_n": int((mu[visits_col] > 0).sum()),
         "primary_visit_measure": config.primary_visit_measure,
         "primary_visit_groups": ["0", "1", "2", "3", "4+"],
-        "diagnostic_complete_case_n": diagnostic_n,
-        "diagnostic_path": str(diagnostico_path.relative_to(REPO_ROOT)),
         "tables": sorted(
             str(path.relative_to(REPO_ROOT)) for path in TABLES_DIR.glob("*.csv")
         ),
@@ -288,12 +256,10 @@ def run_analysis(args: argparse.Namespace) -> int:
             "primary_mu_n": int(len(mu)),
             "same_period_any_cmat_use_n": int((mu[visits_col] > 0).sum()),
             "primary_visit_measure": config.primary_visit_measure,
-            "diagnostic_complete_case_n": diagnostic_n,
         },
     )
 
     print(f"Paper 2 primary first-MU cohort: N={len(mu):,}")
-    print(f"Diagnostic complete-case sensitivity: N={diagnostic_n:,}")
     print(f"Generated tables: {TABLES_DIR}")
     print("Generated figures:")
     for path in figure_paths:
@@ -319,7 +285,6 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--materias", type=Path, help="Controlled academic-record input file.")
     parser.add_argument("--asesorias", type=Path, help="Controlled CMAT advisory-record input file.")
-    parser.add_argument("--diagnostico", type=Path, help="Controlled DMU diagnostic input file.")
     parser.add_argument(
         "--compile",
         action="store_true",
