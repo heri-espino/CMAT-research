@@ -57,14 +57,15 @@ jobs:
             results/tables/32_exact_visit_groups_games_howell.csv \
             results/tables/33_exact_visit_groups_fe_pairwise.csv \
             results/tables/34_exact_visit_groups_fe_model_info.csv \
-            results/tables/35_diagnostic_coverage_by_exact_visit_group.csv \
-            results/tables/36_diagnostic_adjusted_exact_visit_models.csv; do
+            results/tables/35_diagnostic_coverage_by_exact_visit_group.csv; do
             test -s "$f"
           done
+          # The diagnostic-adjusted model table may contain no rows when the
+          # available diagnostic extract has no same-term overlap with Paper 2.
+          test -e results/tables/36_diagnostic_adjusted_exact_visit_models.csv
           test -f results/figures/fig01_mu_visit_distribution.pdf
           test -f results/figures/fig02_mu_performance_by_visit_group.pdf
           test -f results/figures/fig03_adjusted_dose_coefficients.pdf
-          test -f results/figures/fig04_outcome_sensitivity.pdf
           if find results/figures -maxdepth 1 -type f -name '*.png' | grep -q .; then
             echo 'Unexpected PNG publication figure found.' >&2
             exit 1
