@@ -20,8 +20,8 @@
 
 ## Inventory
 
-- Python files scanned: **127**
-- Reusable symbols: **463**
+- Python files scanned: **128**
+- Reusable symbols: **466**
 - Test symbols: **58**
 
 ## Reusable symbols
@@ -628,6 +628,14 @@
 | `_weighted_mean` | function | 12 | `def _weighted_mean(x: np.ndarray, w: np.ndarray) -> float` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics selection py weighted_mean` |
 | `_smd_binary` | function | 16 | `def _smd_binary(x: np.ndarray, t: np.ndarray, w: np.ndarray \| None=None) -> float` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics selection py smd_binary` |
 | `propensity_att_sensitivity` | function | 29 | `def propensity_att_sensitivity(df: pd.DataFrame, *, treatment_col: str, outcome_col: str, categorical_covariates: list[str], numeric_covariates: list[str] \| None=None) -> tuple[pd.DataFrame, pd.DataFrame, dict[str, float \| int \| str]]` | Observed-covariate ATT weighting sensitivity analysis. | `src cmat_analysis statistics selection py propensity_att_sensitivity observed-covariate att weighting sensitivity analysis` |
+
+### `src/cmat_analysis/statistics/diagnostic_adjustment.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `attach_same_term_diagnostic` | function | 20 | `def attach_same_term_diagnostic(df: pd.DataFrame, diagnostics: pd.DataFrame, *, student_col: str='STUDENT_ID', year_col: str='YEAR', session_col: str='SESSION', diagnostic_student_col: str='student_id', diagnostic_year_col: str='year', diagnostic_session_col: str='period', diagnostic_score_col: str='percentage', diagnostic_type_col: str='exam_type', diagnostic_type: str \| None='DMU') -> pd.DataFrame` | Attach an unambiguous same-student/same-term diagnostic score. | `src cmat_analysis statistics diagnostic_adjustment py attach_same_term_diagnostic attach an unambiguous same-student same-term diagnostic score` |
+| `attach_same_term_diagnostic.<locals>._summarize` | function | 98 | `def _summarize(group: pd.DataFrame) -> pd.Series` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics diagnostic_adjustment py attach_same_term_diagnostic locals summarize` |
+| `diagnostic_adjusted_exact_visit_models` | function | 122 | `def diagnostic_adjusted_exact_visit_models(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', outcome_col: str='Z_GRADE_PRIMARY', diagnostic_col: str='DIAGNOSTIC_PERCENTAGE', classroom_col: str='CLASSROOM_ID', career_col: str='CLAVECARRERA') -> tuple[pd.DataFrame, pd.DataFrame]` | Compare exact visit-group associations before/after diagnostic adjustment. | `src cmat_analysis statistics diagnostic_adjustment py diagnostic_adjusted_exact_visit_models compare exact visit-group associations after diagnostic adjustment` |
 
 ### `src/cmat_analysis/statistics/methodology.py`
 
