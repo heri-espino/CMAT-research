@@ -49,11 +49,19 @@ The contribution should be stated as:
 
 The comparison with Jacob & Ní Fhloinn should be explicit: their TEAMAT study found a meaningful separation even between one visit and never attending and reported stronger increases at high attendance levels; Paper 2 asks whether the same qualitative dose interpretation persists under same-term exposure and classroom-relative outcomes in a different institutional setting.
 
-## Diagnostic-score sensitivity
+## Baseline-preparation covariate
 
-A reusable same-student/same-term DMU diagnostic linkage exists in `cmat_analysis.statistics`. Use it only when the controlled diagnostic extract actually overlaps the Paper 2 cohort.
+Do **not** use the available DMU diagnostic exam as a baseline covariate for Paper 2. Participation in that exam is incomplete/selective, and its coverage is not sufficiently uniform for the main observational comparison. Do not treat missing diagnostic participation as random and do not build a complete-case Paper 2 analysis around it.
 
-Never relax the temporal match simply to obtain a non-empty model. If there is no overlap, report that fact as a data limitation and retain baseline mathematical preparation as an unresolved confounding concern. Do not describe a 2020 diagnostic score as a pretreatment covariate for later cohorts without a valid student/term alignment.
+A potentially useful future improvement is to request the **university entrance-exam score**, provided that the institution can supply a genuinely pre-enrolment measure with broad and comparable coverage across the Paper 2 cohorts. This should remain a TODO in the commented manuscript until the data are actually obtained and audited. Before using such a score, verify:
+
+- that it precedes MU and CMAT exposure;
+- coverage by cohort/period and visit group;
+- whether exam versions/scales are comparable across admission cohorts;
+- whether missingness is small enough that a sensitivity analysis is interpretable;
+- whether the relevant quantitative/mathematics component can be isolated, if applicable.
+
+If obtained, use the entrance-exam measure only as an observed-preparation sensitivity/control. It still would not eliminate unmeasured confounding or turn the paper into a causal tutoring-effect study.
 
 ## TEAMAT ethics requirement
 
