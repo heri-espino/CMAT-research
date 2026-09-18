@@ -1,4 +1,4 @@
-We then fit linear regression models with fixed effects for class and indicators for degree programme, with standard errors clustered by class. The main model includes separate indicators for 1, 2, 3, and 4 or more visits, using students with no recorded visits as the reference group. We also report all ten pairwise comparisons among the five attendance groups and adjust the corresponding $p$-values using the Holm procedure. The regression coefficients describe adjusted within-class associations and are not interpreted as causal effects of mathematics support.
+We then fit linear regression models with fixed effects for instructor--period group and indicators for degree programme, with standard errors clustered by instructor--period group. The main model includes separate indicators for 1, 2, 3, and 4 or more visits, using students with no recorded visits as the reference group. We also report all ten pairwise comparisons among the five attendance groups and adjust the corresponding $p$-values using the Holm procedure. The regression coefficients describe adjusted associations within instructor--period groups and are not interpreted as causal effects of mathematics support.
 
 \section{Results}
 
@@ -15,11 +15,11 @@ Among the 6,627 students in the study sample, 5,393 had no recorded CMAT visit d
 
 \subsection{Standardised grades by attendance group}
 
-\Cref{tab:means} and \Cref{fig:means} show higher mean within-class standardised grades among students who attended CMAT than among those with no recorded visits. Mean $Z$ was $-0.061$ for students with no visits and $0.219$, $0.247$, $0.278$, and $0.355$ for students with 1, 2, 3, and 4 or more visits, respectively. The means increase with attendance frequency in the main analysis; the pairwise comparisons show whether the four groups of attendees differ clearly from one another.
+\Cref{tab:means} and \Cref{fig:means} show higher mean standardised grades among students who attended CMAT than among those with no recorded visits. Mean $Z$ was $-0.061$ for students with no visits and $0.219$, $0.247$, $0.278$, and $0.355$ for students with 1, 2, 3, and 4 or more visits, respectively. The means increase with attendance frequency in the main analysis; the pairwise comparisons show whether the four groups of attendees differ clearly from one another.
 
 \begin{table}[tbp]
 \centering
-\caption{Within-class standardised MU grade by number of CMAT visits during the same academic period.}
+\caption{Standardised MU grade by number of CMAT visits during the same academic period.}
 \label{tab:means}
 \begin{tabular}{lrrrr}
 \toprule
@@ -37,7 +37,7 @@ CMAT visits & $N$ & Mean $Z$ & SD & 95\% CI \\
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=0.78\textwidth]{../results/figures/fig02_mu_performance_by_visit_group.pdf}
-\caption{Mean within-class standardised MU grade by number of recorded CMAT visits. Error bars show 95\% confidence intervals.}
+\caption{Mean standardised MU grade by number of recorded CMAT visits. Error bars show 95\% confidence intervals.}
 \label{fig:means}
 \end{figure}
 
@@ -47,18 +47,18 @@ Each group of students who attended CMAT differed from students with no recorded
 
 \subsection{Adjusted regression results}
 
-Compared with students with no recorded visits in the same class, the adjusted mean $Z$ score was $0.305$ standard deviations higher for students with one visit, $0.359$ higher for those with two visits, $0.373$ higher for those with three visits, and $0.461$ higher for those with four or more visits (\Cref{fig:adjusted}). The 95\% confidence intervals were $[0.221,0.388]$, $[0.262,0.457]$, $[0.248,0.498]$, and $[0.350,0.572]$, respectively. All four coefficients remained statistically significant after Holm adjustment across the ten pairwise comparisons.
+Compared with students with no recorded visits in the same instructor--period group, the adjusted mean $Z$ score was $0.305$ standard deviations higher for students with one visit, $0.359$ higher for those with two visits, $0.373$ higher for those with three visits, and $0.461$ higher for those with four or more visits (\Cref{fig:adjusted}). The 95\% confidence intervals were $[0.221,0.388]$, $[0.262,0.457]$, $[0.248,0.498]$, and $[0.350,0.572]$, respectively. All four coefficients remained statistically significant after Holm adjustment across the ten pairwise comparisons.
 
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=0.80\textwidth]{../results/figures/fig03_adjusted_dose_coefficients.pdf}
-\caption{Adjusted differences in within-class standardised MU grade by number of recorded CMAT visits, using students with no recorded visits as the reference group. Models include class fixed effects and indicators for degree programme; error bars show 95\% confidence intervals and standard errors are clustered by class.}
+\caption{Adjusted differences in standardised MU grade by number of recorded CMAT visits, using students with no recorded visits as the reference group. Models include instructor--period fixed effects and indicators for degree programme; error bars show 95\% confidence intervals and standard errors are clustered by instructor--period group.}
 \label{fig:adjusted}
 \end{figure}
 
 Differences among the four groups of attendees were again less clear. None of the six pairwise comparisons among these groups remained significant after Holm adjustment. The largest adjusted difference among attendees was between one visit and four or more visits ($0.156$ standard deviations); the unadjusted $p$-value was $0.025$, but the Holm-adjusted value was $0.153$. The adjusted results again distinguish students who attended CMAT from those who did not, while providing little evidence of differences among the four attendance-frequency groups.
 
-Excluding smaller classes produced very similar estimates. The coefficients for one, two, three, and four-or-more visits were $0.305Z$, $0.359Z$, $0.373Z$, and $0.461Z$ in the full sample. Restricting the analysis to classes with at least 20 students retained 6,255 students across 165 classes and yielded corresponding estimates of $0.312Z$, $0.367Z$, $0.384Z$, and $0.457Z$.
+Excluding smaller instructor--period groups produced very similar estimates. The coefficients for one, two, three, and four-or-more visits were $0.305Z$, $0.359Z$, $0.373Z$, and $0.461Z$ in the full sample. Restricting the analysis to instructor--period groups with at least 20 students retained 6,255 students across 165 groups and yielded corresponding estimates of $0.312Z$, $0.367Z$, $0.384Z$, and $0.457Z$.
 
 \subsection{Sensitivity analyses}
 
@@ -67,7 +67,7 @@ The comparison between attendees and non-attendees was also retained when the no
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=0.82\textwidth]{../results/figures/fig04_outcome_sensitivity.pdf}
-\caption{Mean within-class standardised MU grade by CMAT attendance group under alternative treatments of non-numeric course outcomes. Points show group means and error bars show 95\% confidence intervals.}
+\caption{Mean standardised MU grade by CMAT attendance group under alternative treatments of non-numeric course outcomes. Points show group means and error bars show 95\% confidence intervals.}
 \label{fig:sensitivity}
 \end{figure}
 
