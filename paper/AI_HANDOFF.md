@@ -43,11 +43,11 @@ The historical PPA three-visit requirement is not a Paper 2 estimand. Mention it
 The contribution should be stated in the terminology normally used in the mathematics-support literature:
 
 1. matching CMAT attendance to the same academic period as the mathematics course being analysed;
-2. standardising final grades within the local class grading context;
+2. standardising final grades within instructor--period grading groups;
 3. examining students with 0, 1, 2, 3, and 4+ recorded visits separately rather than assuming a linear relationship between number of visits and performance;
 4. distinguishing the attendance--non-attendance difference from evidence of differences associated with attendance frequency among students who used CMAT.
 
-The comparison with Jacob & Ní Fhloinn should be explicit: their TEAMAT study found that students who attended once should be distinguished from those who never attended and reported more favourable outcomes at higher levels of attendance. Paper 2 asks whether differences among attendance-frequency groups remain clear when visits are matched to the course period and grades are compared within classes in a different institutional setting.
+The comparison with Jacob & Ní Fhloinn should be explicit: their TEAMAT study found that students who attended once should be distinguished from those who never attended and reported more favourable outcomes at higher levels of attendance. Paper 2 asks whether differences among attendance-frequency groups remain clear when visits are matched to the course period and grades are standardised within instructor--period groups in a different institutional setting.
 
 ## Baseline-preparation covariate
 
@@ -87,10 +87,10 @@ Preferred manuscript vocabulary:
 - **engagement with mathematics support** when discussing the broader behavioural literature;
 - **academic help-seeking** only when explicitly connecting the findings to the help-seeking literature;
 - **prior mathematical attainment/background/preparation**;
-- **academic performance**, **final grades**, and **within-class standardised grade (Z)** after the metric has been defined;
+- **academic performance**, **final grades**, and **standardised grade (Z)** after the metric has been defined;
 - **self-selection bias**, **association/relationship**, and **observational analysis**.
 
-Avoid manuscript prose such as **positive-use group**, **support contact**, **formal help-seeking contact**, **dose/dose-response/dose gradient**, **production-function measure**, **performance regime**, **measurement contamination**, **temporal exogeneity**, **exchangeable students**, **exposure overlap**, **identified from fewer classrooms**, **exact/folded groups**, **analytical cohort/population**, **outcome construction**, **treatment intensity**, and **provenance checks**. These may be meaningful technical shorthand in code or internal notes, but they are not the natural register of the target literature. Prefer **study sample**, **sensitivity analysis**, and direct descriptions of attendance and grades. Keep `classroom-relative` in code/variable documentation if needed, but in manuscript prose normally describe the outcome as a **within-class standardised grade** once the Z-score has been defined.
+Avoid manuscript prose such as **positive-use group**, **support contact**, **formal help-seeking contact**, **dose/dose-response/dose gradient**, **production-function measure**, **performance regime**, **measurement contamination**, **temporal exogeneity**, **exchangeable students**, **exposure overlap**, **identified from fewer classrooms**, **exact/folded groups**, **analytical cohort/population**, **outcome construction**, **treatment intensity**, and **provenance checks**. These may be meaningful technical shorthand in code or internal notes, but they are not the natural register of the target literature. Prefer **study sample**, **sensitivity analysis**, and direct descriptions of attendance and grades. Keep `classroom-relative` in code/variable documentation if needed, but in manuscript prose normally describe the outcome as a **standardised grade** once the Z-score has been defined; the grouping variable is instructor × academic period, not an observed section ID.
 
 ## Transferable implications
 
@@ -114,8 +114,8 @@ Primary figures should use exact visit categories and the shared `cmat_analysis.
 - Prefer **main analysis** to **primary specification** unless distinguishing formally defined estimands.
 - Prefer **students who attended / students with no recorded visits** to abstract labels when space permits.
 - Prefer **number/frequency of visits** to **intensity** in manuscript prose.
-- Describe the non-numeric grade handling concretely: BV/RT/BA are treated as non-passes; the continuous outcome imputes below-pass values within class and is checked against uniform-imputation and numeric-only sensitivities.
-- Figure axes and captions should follow the same terminology as the manuscript; do not use `registrations`, `dose`, or `classroom-relative performance` in user-visible figure labels.
+- Describe the non-numeric grade handling concretely: BV/RT/BA are treated as non-passes; the continuous outcome imputes below-pass values within instructor--period group and is checked against uniform-imputation and numeric-only sensitivities.
+- Figure axes and captions should follow the same terminology as the manuscript; do not use `registrations`, `dose`, or `classroom-relative performance` in user-visible figure labels. Do not call the analytic instructor--period grouping an observed class/section unless section identifiers become available.
 
 
 ## Third-pass prose rules
