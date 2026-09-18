@@ -24,7 +24,7 @@ REPO_ROOT = MANUSCRIPT_DIR.parent
 TEMPLATE_DIR = MANUSCRIPT_DIR / "ima-authoring-template"
 FIGURE_SCRIPT = REPO_ROOT / "code" / "figures.py"
 TARGETS = ("main", "main_commented")
-OUTPUT_STEM = "espino_2026_mathematics_support_classroom_relative_performance"
+OUTPUT_STEM = "espino_2026_mathematics_support_attendance_performance"
 REQUIRED_FILES = (
     MANUSCRIPT_DIR / "main.tex",
     MANUSCRIPT_DIR / "main_commented.tex",
