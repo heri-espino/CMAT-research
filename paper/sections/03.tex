@@ -1,27 +1,25 @@
-We then estimate ordinary least-squares models with classroom fixed effects, degree-programme indicators, and standard errors clustered by classroom. The principal model includes indicators for 1, 2, 3, and 4 or more visits, with zero visits as the reference category. We report all ten pre-specified pairwise group contrasts and apply a Holm adjustment across those comparisons. The coefficients estimate conditional within-classroom associations and should not be interpreted as causal effects of receiving tutoring. The historical 1--2 pooling and upper-tail binary contrasts are retained only as secondary sensitivities and provenance checks.
-
-Propensity-score methods can improve balance on observed pre-exposure characteristics when an appropriate covariate set is available \citep{rosenbaum1983,austin2011}. We do not present observed-covariate weighting as a solution to the current identification problem because the available administrative extract lacks a sufficiently broad and uniform pre-enrolment measure of baseline mathematics preparation. The primary interpretation therefore remains associational throughout.
+We then fit ordinary least-squares models with class fixed effects, indicators for degree programme, and standard errors clustered by class. The main model includes indicators for 1, 2, 3, and 4 or more visits, with students who recorded no visits as the reference group. We also report all ten pairwise comparisons among the five attendance groups and adjust the corresponding $p$-values using the Holm procedure. The coefficients describe within-class associations between attendance and performance and should not be interpreted as causal effects of mathematics support.
 
 \section{Results}
 
-\subsection{Observed CMAT use in first-attempt MU}
+\subsection{CMAT attendance in first-attempt MU}
 
-Among the 6,627 students in the primary cohort, 5,393 recorded no CMAT registration during the focal MU period, while 1,234 (18.6\%) recorded at least one. Exact positive-use counts were 517 students with one visit, 245 with two, 170 with three, and 302 with four or more. \Cref{fig:visits} shows the full observed distribution, which is strongly concentrated at zero and has a comparatively small positive-use tail.
+Among the 6,627 students in the primary cohort, 5,393 had no recorded CMAT visit during the MU academic period and 1,234 (18.6\%) attended at least once. Among students who attended, 517 made one visit, 245 made two visits, 170 made three visits, and 302 made four or more visits. \Cref{fig:visits} shows the full distribution of recorded attendance. Most students did not attend CMAT during the period, and higher visit counts were progressively less common.
 
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=0.82\textwidth]{../results/figures/fig01_mu_visit_distribution.pdf}
-\caption{Distribution of same-period CMAT registrations in the first-attempt MU analytical cohort. Counts above five visits are grouped as 6+ for display only; the inferential exposure categories are 0, 1, 2, 3, and 4 or more registrations.}
+\caption{Distribution of recorded CMAT visits during the MU academic period. Counts above five visits are grouped as 6+ for display only; the attendance groups used in the analysis are 0, 1, 2, 3, and 4 or more visits.}
 \label{fig:visits}
 \end{figure}
 
-\subsection{Classroom-relative performance by support-use group}
+\subsection{Classroom-relative performance by attendance group}
 
-\Cref{tab:means} and \Cref{fig:means} show a clear separation between students with no recorded CMAT use and each positive-use category. Mean classroom-relative performance was $-0.061$ for non-users and $0.219$, $0.247$, $0.278$, and $0.355$ for students with 1, 2, 3, and 4 or more visits, respectively. The descriptive means are ordered upward across the exact categories, but the uncertainty around the smaller positive-use groups is substantial enough that pairwise inference is important before interpreting this pattern as a dose-response.
+\Cref{tab:means} and \Cref{fig:means} show higher mean classroom-relative performance among students who attended CMAT than among those with no recorded visits. Mean $Z$ was $-0.061$ for students with no visits and $0.219$, $0.247$, $0.278$, and $0.355$ for students with 1, 2, 3, and 4 or more visits, respectively. The means increase with attendance frequency in the primary specification, but pairwise comparisons are needed before interpreting this ordering as evidence that students who attended more often also performed progressively better.
 
 \begin{table}[tbp]
 \centering
-\caption{Classroom-relative performance by exact same-period CMAT-use group.}
+\caption{Classroom-relative performance by number of CMAT visits during the MU academic period.}
 \label{tab:means}
 \begin{tabular}{lrrrr}
 \toprule
@@ -39,37 +37,37 @@ CMAT visits & $N$ & Mean $Z$ & SD & 95\% CI \\
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=0.78\textwidth]{../results/figures/fig02_mu_performance_by_visit_group.pdf}
-\caption{Mean classroom-relative performance by exact same-period CMAT-use group. Error bars show 95\% confidence intervals.}
+\caption{Mean classroom-relative performance by number of recorded CMAT visits. Error bars show 95\% confidence intervals.}
 \label{fig:means}
 \end{figure}
 
-The Brown--Forsythe test rejected homogeneity of variance ($F=15.88$, $p<0.001$), supporting use of the heteroskedastic Welch procedure. Welch's omnibus test also rejected equality of the five group means, $F(4,594.83)=43.46$, $p<0.001$. The pairwise pattern is more informative than the omnibus rejection. Games--Howell comparisons separated zero visits from each positive-use group, with adjusted $p\leq0.000002$ in all four comparisons. By contrast, none of the six comparisons among positive-use groups was statistically distinguishable at the 5\% level: adjusted $p$-values ranged from $0.090$ for one versus four-or-more visits to $0.994$ for two versus three visits.
+The Brown--Forsythe test indicated unequal variances across the five groups ($F=15.88$, $p<0.001$), and Welch's ANOVA showed an overall difference in group means, $F(4,594.83)=43.46$, $p<0.001$. Games--Howell post hoc comparisons showed that each group of students who attended CMAT had significantly higher mean $Z$ than students with no recorded visits, with adjusted $p\leq0.000002$ in all four comparisons. By contrast, none of the six comparisons among students who attended different numbers of times was significant at the 5\% level: adjusted $p$-values ranged from $0.090$ for one versus four-or-more visits to $0.994$ for two versus three visits.
 
-The substantive result is therefore not simply that the sample means rise with visit count. The stable inferential separation is between no recorded use and positive formal help-seeking, while the data provide much weaker evidence that the positive-use levels represent distinct performance regimes. This distinction is important because a monotone sequence of point estimates does not by itself establish a graded tutoring dose-response.
+The clearest statistical distinction is therefore between students who attended CMAT and those who did not. Although the mean $Z$ score increased across the five attendance groups in the primary specification, the differences among students who attended one, two, three, or at least four times were not statistically significant.
 
-\subsection{Within-classroom associations}
+\subsection{Within-class associations}
 
-Classroom fixed-effect models with degree-programme adjustment retain the same qualitative pattern. Relative to students with zero visits in the same classroom environment, the estimated contrasts are $0.305$ standard deviations for one visit, $0.359$ for two visits, $0.373$ for three visits, and $0.461$ for four or more visits (\Cref{fig:dose}). The corresponding 95\% confidence intervals are $[0.221,0.388]$, $[0.262,0.457]$, $[0.248,0.498]$, and $[0.350,0.572]$, respectively. All four contrasts remain statistically distinguishable from zero after the pre-specified Holm correction across ten pairwise comparisons.
+Models with class fixed effects and adjustment for degree programme gave the same overall pattern. Compared with students with no recorded visits in the same class, the estimated differences were $0.305$ standard deviations for one visit, $0.359$ for two visits, $0.373$ for three visits, and $0.461$ for four or more visits (\Cref{fig:adjusted}). The corresponding 95\% confidence intervals were $[0.221,0.388]$, $[0.262,0.457]$, $[0.248,0.498]$, and $[0.350,0.572]$, respectively. All four coefficients remained statistically significant after the prespecified Holm adjustment across the ten pairwise comparisons.
 
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=0.80\textwidth]{../results/figures/fig03_adjusted_dose_coefficients.pdf}
-\caption{Classroom fixed-effect associations between exact same-period CMAT-use groups and classroom-relative MU performance, with zero visits as the reference group. Models also adjust for degree programme; error bars show 95\% confidence intervals and standard errors are clustered by classroom.}
-\label{fig:dose}
+\caption{Estimated within-class differences in classroom-relative MU performance by number of recorded CMAT visits, with students who recorded no visits as the reference group. Models also adjust for degree programme; error bars show 95\% confidence intervals and standard errors are clustered by class.}
+\label{fig:adjusted}
 \end{figure}
 
-The adjusted positive-use groups are again much less clearly separated from one another. None of the six positive-positive contrasts survives the Holm correction. The largest adjusted difference is between one visit and four-or-more visits ($0.156Z$ in favour of the latter); its unadjusted $p$-value is $0.025$, but the Holm-adjusted value is $0.153$. Thus, even after restricting the comparison to a common classroom context and adjusting for degree programme, the evidence is considerably stronger for a broad positive-use versus non-use distinction than for sharply separated levels of positive use.
+Differences among the four groups of students who attended CMAT were again less clear. None of the six pairwise comparisons among these groups remained significant after Holm adjustment. The largest adjusted difference was between one visit and four-or-more visits ($0.156Z$ in favour of the latter); the unadjusted $p$-value was $0.025$, but the Holm-adjusted value was $0.153$. Thus, the adjusted analysis provides stronger evidence of a difference between attendance and non-attendance than of differences associated with the frequency of attendance among students who used CMAT.
 
-The adjusted contrasts are also insensitive to excluding smaller classrooms. The primary estimates for one, two, three, and four-or-more visits are $0.305Z$, $0.359Z$, $0.373Z$, and $0.461Z$, respectively. Restricting the analysis to classrooms with at least 20 students retains 6,255 students across 165 classrooms and yields corresponding estimates of $0.312Z$, $0.367Z$, $0.384Z$, and $0.457Z$. Because the smallest classroom in the primary cohort contains 10 students, a 10-student minimum reproduces the full-sample specification exactly.
+A sensitivity analysis excluding smaller classes produced very similar estimates. The primary coefficients for one, two, three, and four-or-more visits were $0.305Z$, $0.359Z$, $0.373Z$, and $0.461Z$, respectively. Restricting the analysis to classes with at least 20 students retained 6,255 students across 165 classes and yielded corresponding estimates of $0.312Z$, $0.367Z$, $0.384Z$, and $0.457Z$.
 
 \subsection{Sensitivity to outcome construction}
 
-The broad pattern is not dependent on a single treatment of adverse non-numeric course outcomes. \Cref{fig:sensitivity} compares exact visit-group means under the primary adverse-outcome rule, a uniform adverse-imputation sensitivity, and a numeric complete-case specification. Under all three constructions, the zero-visit group has a negative mean classroom-relative score and each positive-use group has a positive mean. The ordering among positive-use categories is less stable: the primary construction is monotonically increasing, whereas the uniform-imputation and complete-case specifications show local reversals. In the numeric complete-case sample, for example, the means for 1, 2, 3, and 4+ visits are approximately $0.256$, $0.193$, $0.326$, and $0.200$, respectively. This sensitivity strengthens the interpretation that the robust feature is the separation of non-use from observed formal help-seeking, not a precise dose gradient among users.
+The main result was also retained under alternative treatments of non-numeric adverse course outcomes. \Cref{fig:sensitivity} compares mean $Z$ scores by attendance group under the primary outcome construction, a sensitivity analysis using a common imputed value for adverse non-numeric outcomes, and a complete-case analysis restricted to numeric final grades. In all three specifications, students with no recorded visits had a negative mean classroom-relative score and each group of students who attended CMAT had a positive mean. However, the ordering of the attendance groups was not consistently monotonic. In the numeric complete-case analysis, for example, the means for 1, 2, 3, and 4+ visits were approximately $0.256$, $0.193$, $0.326$, and $0.200$, respectively. The result that is most consistent across outcome definitions is therefore the difference between students who attended CMAT and those who did not, rather than a progressively stronger association with increasing attendance frequency.
 
 \begin{figure}[tbp]
 \centering
 \includegraphics[width=0.82\textwidth]{../results/figures/fig04_outcome_sensitivity.pdf}
-\caption{Sensitivity of the exact $0/1/2/3/4+$ visit-group pattern to alternative constructions of the classroom-relative outcome. Points show group means and error bars show 95\% confidence intervals.}
+\caption{Mean classroom-relative performance by CMAT attendance group under alternative constructions of the outcome. Points show group means and error bars show 95\% confidence intervals.}
 \label{fig:sensitivity}
 \end{figure}
 
