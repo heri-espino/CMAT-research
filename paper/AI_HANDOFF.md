@@ -116,3 +116,14 @@ Primary figures should use exact visit categories and the shared `cmat_analysis.
 - Prefer **number/frequency of visits** to **intensity** in manuscript prose.
 - Describe the non-numeric grade handling concretely: BV/RT/BA are treated as non-passes; the continuous outcome imputes below-pass values within class and is checked against uniform-imputation and numeric-only sensitivities.
 - Figure axes and captions should follow the same terminology as the manuscript; do not use `registrations`, `dose`, or `classroom-relative performance` in user-visible figure labels.
+
+
+## Third-pass prose rules
+
+- Write from the study rather than from the reviewer: avoid sentences such as `a new study needs to...`, `the reader should...`, or other meta-commentary about how the paper ought to be interpreted.
+- State results concretely before summarising them. Prefer `each attendance group differed from students with no recorded visits, whereas the attendance-frequency groups did not differ from one another` to abstract phrases such as `the strongest inferential separation`.
+- Keep the abstract intelligible to general TEAMAT readers and below the journal's 300-word limit; include the main sample, attendance definition, outcome, central result, and observational limitation without reproducing every diagnostic statistic.
+- Make the educational rationale explicit: explain why the distinction between no attendance, a single visit, and repeated attendance matters for evaluation and interpretation of routine mathematics-support usage data.
+- Avoid repeating the same attendance-versus-non-attendance conclusion in adjacent Results or Discussion paragraphs. Sensitivity results should add what changes under alternative outcome definitions, not restate the main result verbatim.
+- Do not add generic limitations unless they are supported by an actual audit or by the data structure. For example, do not claim duplicate attendance records may exist unless duplication has been assessed.
+- When comparing with prior studies, describe methodological or contextual differences without implying that one result invalidates another and without inventing mechanisms.
