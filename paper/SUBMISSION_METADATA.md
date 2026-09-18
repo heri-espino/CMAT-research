@@ -10,7 +10,7 @@ This file stores submission-system metadata for the Paper 2 TEAMAT submission. I
 - Affiliation: Universidad de las Américas Puebla
 - Email: heriberto.espinomo@udlap.mx
 - ORCID: 0009-0009-1230-2931
-- Biography: Heriberto Espino-Montelongo studies Data Science at Universidad de las Américas Puebla. His interests include applied data analysis, statistical modelling, educational data, and the evaluation of mathematics learning support in higher education. His current work with the Centro de Aprendizaje de Matemáticas examines patterns of support use, academic performance, and student adaptation in first-year university mathematics.
+- Biography: Heriberto Espino-Montelongo studies Data Science at Universidad de las Américas Puebla. His interests include applied data analysis, statistical modelling, educational data, and the evaluation of mathematics learning support in higher education. His current work with the Centro de Aprendizaje de Matemáticas examines mathematics-support attendance, academic performance, and student adaptation in first-year university mathematics.
 
 ### Daniela Cortés-Toto
 
