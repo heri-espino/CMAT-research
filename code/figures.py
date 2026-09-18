@@ -27,8 +27,8 @@ DEFAULT_FIGURES_DIR = REPO_ROOT / "results" / "figures"
 GROUP_ORDER = ["0", "1", "2", "3", "4+"]
 GROUP_LABELS = ["0", "1", "2", "3", "4+"]
 OUTCOME_LABELS = {
-    "primary_adverse_outcome_rule": "Primary",
-    "uniform_adverse_imputation": "Uniform below-pass imputation",
+    "primary_adverse_outcome_rule": "Main outcome",
+    "uniform_adverse_imputation": "Uniform imputation below pass mark",
     "numeric_complete_case": "Numeric grades only",
 }
 
@@ -65,7 +65,7 @@ def _save_pdf(fig: plt.Figure, output_dir: Path, filename: str) -> Path:
 
 
 def plot_mu_visit_distribution(table_dir: Path, output_dir: Path) -> Path:
-    """Plot same-term CMAT visit intensity without emphasizing the PPA threshold."""
+    """Plot the distribution of CMAT visits without emphasising the PPA threshold."""
     d = pd.read_csv(table_dir / "02_mu_visit_distribution.csv").copy()
     exact: dict[int, float] = {}
     high = 0.0
@@ -166,7 +166,7 @@ def plot_exact_group_fe_contrasts(table_dir: Path, output_dir: Path) -> Path:
         y,
         [f"{g} visit" if g == "1" else f"{g} visits" for g in d["group2"].astype(str)],
     )
-    ax.set_xlabel("Adjusted difference in standardised grade versus 0 visits (Z)")
+    ax.set_xlabel("Difference in standardised grade relative to 0 visits (Z)")
     ax.set_ylabel("CMAT visits during the MU academic period")
     ax.invert_yaxis()
     return _save_pdf(fig, output_dir, "fig03_adjusted_visit_group_coefficients.pdf")
