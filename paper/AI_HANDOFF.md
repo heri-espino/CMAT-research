@@ -87,10 +87,10 @@ Preferred manuscript vocabulary:
 - **engagement with mathematics support** when discussing the broader behavioural literature;
 - **academic help-seeking** only when explicitly connecting the findings to the help-seeking literature;
 - **prior mathematical attainment/background/preparation**;
-- **academic performance**, **final grades**, and **classroom-relative performance** after the metric has been defined;
+- **academic performance**, **final grades**, and **within-class standardised grade (Z)** after the metric has been defined;
 - **self-selection bias**, **association/relationship**, and **observational analysis**.
 
-Avoid manuscript prose such as **positive-use group**, **support contact**, **formal help-seeking contact**, **dose/dose-response/dose gradient**, **production-function measure**, **performance regime**, **measurement contamination**, **temporal exogeneity**, **exchangeable students**, **exposure overlap**, **identified from fewer classrooms**, **exact/folded groups**, and **provenance checks**. These may be meaningful technical shorthand in code or internal notes, but they are not the natural register of the target literature.
+Avoid manuscript prose such as **positive-use group**, **support contact**, **formal help-seeking contact**, **dose/dose-response/dose gradient**, **production-function measure**, **performance regime**, **measurement contamination**, **temporal exogeneity**, **exchangeable students**, **exposure overlap**, **identified from fewer classrooms**, **exact/folded groups**, **analytical cohort/population**, **outcome construction**, **treatment intensity**, and **provenance checks**. These may be meaningful technical shorthand in code or internal notes, but they are not the natural register of the target literature. Prefer **study sample**, **sensitivity analysis**, and direct descriptions of attendance and grades. Keep `classroom-relative` in code/variable documentation if needed, but in manuscript prose normally describe the outcome as a **within-class standardised grade** once the Z-score has been defined.
 
 ## Transferable implications
 
@@ -106,3 +106,13 @@ The Discussion should extract evaluation practices that another mathematics-supp
 ## Figures
 
 Primary figures should use exact visit categories and the shared `cmat_analysis.visualization` style. No PPA threshold annotation should appear in the primary visit-distribution figure. Publication figures remain vector PDFs during analysis; journal production requirements for accepted artwork can be handled at submission/acceptance stage.
+
+
+## Second-pass wording guardrails
+
+- Do not state without qualification that CMAT attendance is fully **voluntary**: during part of the study period attendance could also be influenced by the institutional three-visit requirement. Prefer **attendance was not randomly assigned** and describe both student choice and institutional incentives where relevant.
+- Prefer **main analysis** to **primary specification** unless distinguishing formally defined estimands.
+- Prefer **students who attended / students with no recorded visits** to abstract labels when space permits.
+- Prefer **number/frequency of visits** to **intensity** in manuscript prose.
+- Describe the non-numeric grade handling concretely: BV/RT/BA are treated as non-passes; the continuous outcome imputes below-pass values within class and is checked against uniform-imputation and numeric-only sensitivities.
+- Figure axes and captions should follow the same terminology as the manuscript; do not use `registrations`, `dose`, or `classroom-relative performance` in user-visible figure labels.
