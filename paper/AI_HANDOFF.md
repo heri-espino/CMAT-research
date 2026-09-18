@@ -139,3 +139,15 @@ Primary figures should use exact visit categories and the shared `cmat_analysis.
 - Avoid reviewer-directed wording such as `should not be read as evidence`; state the empirical result directly instead.
 - Avoid unnecessary connectors (`therefore`, `thus`, `consequently`) when the logical relation is already clear from the sentence sequence.
 - Keep terminology stable across text and figures: **attendance group** for the 0/1/2/3/4+ grouping; **attendance frequency** when discussing how often students attended; **standardised grade** for Z after its definition.
+
+
+## Fifth-pass prose rules
+
+- Keep Methods and Results predominantly in the past tense; reserve present tense for definitions, general claims, and interpretation.
+- Develop `Matemáticas Universitarias (MU)` at first manuscript use before relying on the abbreviation.
+- Prefer direct descriptions of students and visits to abstractions such as `attendance--non-attendance difference` when space permits.
+- Treat **usage data** as attendance information: they record whether/how often students attended, not what happened during a visit or how useful it was.
+- Avoid long speculative lists of reasons for repeated attendance; it is enough to note that repeated attendance may reflect both continuing need and continued engagement.
+- Avoid repeating the causal disclaimer in every subsection. State the observational interpretation clearly in the abstract/Introduction/Methods and let Results report the comparisons directly.
+- In comparisons with prior studies, identify differences in setting, attendance grouping, or outcome definition rather than speculating about unobserved mechanisms.
+- Keep the conclusion concrete: visit counts represent **attendance frequency**, not the amount of support received.
