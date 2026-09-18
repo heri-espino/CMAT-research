@@ -81,6 +81,21 @@ jobs:
         if: steps.manuscript.outputs.buildable == 'true'
         run: python paper/build.py
 
+      - name: Verify compiled manuscript
+        if: steps.manuscript.outputs.buildable == 'true'
+        shell: bash
+        run: |
+          for f in \
+            paper/main.pdf \
+            paper/main_commented.pdf \
+            paper/espino_2026_mathematics_support_attendance_performance.pdf \
+            paper/espino_2026_mathematics_support_attendance_performance_commented.pdf; do
+            test -s "$f" || {
+              echo "::error::Expected compiled PDF is missing or empty: $f"
+              exit 1
+            }
+          done
+
       - name: Upload compiled PDFs, logs, and vector figures
         if: always() && steps.manuscript.outputs.buildable == 'true'
         uses: actions/upload-artifact@v4
@@ -88,15 +103,17 @@ jobs:
           name: paper-${{ steps.meta.outputs.branch }}-${{ steps.meta.outputs.sha }}
           path: |
             paper/main.pdf
+            paper/main_commented.pdf
+            paper/espino_2026_mathematics_support_attendance_performance.pdf
+            paper/espino_2026_mathematics_support_attendance_performance_commented.pdf
             paper/main.log
             paper/main.blg
             paper/main.bbl
-            paper/main_commented.pdf
             paper/main_commented.log
             paper/main_commented.blg
             paper/main_commented.bbl
             results/figures/*.pdf
-          if-no-files-found: warn
+          if-no-files-found: error
           retention-days: 30
 
       - name: Upload paper source
@@ -110,6 +127,8 @@ jobs:
             PAPER_BRANCH.md
             !paper/main.pdf
             !paper/main_commented.pdf
+            !paper/espino_2026_mathematics_support_attendance_performance.pdf
+            !paper/espino_2026_mathematics_support_attendance_performance_commented.pdf
             !paper/*.aux
             !paper/*.bbl
             !paper/*.blg
