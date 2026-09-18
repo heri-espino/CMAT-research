@@ -127,3 +127,15 @@ Primary figures should use exact visit categories and the shared `cmat_analysis.
 - Avoid repeating the same attendance-versus-non-attendance conclusion in adjacent Results or Discussion paragraphs. Sensitivity results should add what changes under alternative outcome definitions, not restate the main result verbatim.
 - Do not add generic limitations unless they are supported by an actual audit or by the data structure. For example, do not claim duplicate attendance records may exist unless duplication has been assessed.
 - When comparing with prior studies, describe methodological or contextual differences without implying that one result invalidates another and without inventing mechanisms.
+
+
+## Fourth-pass microstyle rules
+
+- Use British English consistently: **analysed, standardised, programme, centre, modelling, pass mark**.
+- Prefer **students who attended / students with no recorded visits** to shorthand such as `attendees/non-attendees` in manuscript prose.
+- Prefer **non-passing outcome**, **grade below the pass mark**, and **uniform imputation below the pass mark** to `non-pass`, `failing grade`, or `below-pass imputation` when writing for readers.
+- Write regression specifications compactly as **instructor--period fixed effects**, **degree-programme indicators**, and **standard errors clustered at the instructor--period level**.
+- Report extreme p-values at an informative precision (for example, `p < 0.001`) unless an exact value changes interpretation. Retain exact adjusted p-values when they matter, such as the one-versus-four-or-more comparison after Holm correction.
+- Avoid reviewer-directed wording such as `should not be read as evidence`; state the empirical result directly instead.
+- Avoid unnecessary connectors (`therefore`, `thus`, `consequently`) when the logical relation is already clear from the sentence sequence.
+- Keep terminology stable across text and figures: **attendance group** for the 0/1/2/3/4+ grouping; **attendance frequency** when discussing how often students attended; **standardised grade** for Z after its definition.
