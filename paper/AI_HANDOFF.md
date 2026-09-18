@@ -21,7 +21,7 @@ The repository-wide house draft currently prefers numerical references, but TEAM
 
 ## Scientific framing
 
-Paper 2 is an observational measurement/interpretation paper, not an impact evaluation.
+Paper 2 is an observational study of mathematics-support attendance and academic performance, not a causal impact evaluation.
 
 Primary exposure presentation:
 
@@ -40,14 +40,14 @@ The historical PPA three-visit requirement is not a Paper 2 estimand. Mention it
 - imply that crossing three visits identifies a treatment effect;
 - organize the abstract, introduction, or conclusion around PPA.
 
-The contribution should be stated as:
+The contribution should be stated in the terminology normally used in the mathematics-support literature:
 
-1. aligning formal-support exposure to the same academic period as the focal mathematics course;
-2. expressing performance relative to the classroom grading context;
-3. transparently examining exact positive-use intensities rather than imposing a linear dose-response;
-4. distinguishing a broad zero-versus-positive-use pattern from evidence for progressively larger associations among users.
+1. matching CMAT attendance to the same academic period as the mathematics course being analysed;
+2. standardising final grades within the local class grading context;
+3. examining students with 0, 1, 2, 3, and 4+ recorded visits separately rather than assuming a linear relationship between number of visits and performance;
+4. distinguishing the attendance--non-attendance difference from evidence of differences associated with attendance frequency among students who used CMAT.
 
-The comparison with Jacob & Ní Fhloinn should be explicit: their TEAMAT study found a meaningful separation even between one visit and never attending and reported stronger increases at high attendance levels; Paper 2 asks whether the same qualitative dose interpretation persists under same-term exposure and classroom-relative outcomes in a different institutional setting.
+The comparison with Jacob & Ní Fhloinn should be explicit: their TEAMAT study found that students who attended once should be distinguished from those who never attended and reported more favourable outcomes at higher levels of attendance. Paper 2 asks whether differences among attendance-frequency groups remain clear when visits are matched to the course period and grades are compared within classes in a different institutional setting.
 
 ## Baseline-preparation covariate
 
@@ -74,16 +74,34 @@ TEAMAT requires a brief research-ethics statement in the Methods description. Th
 
 **Never invent an approval status, body, or identifier.** The official manuscript should not contain a guessed statement; it remains incomplete for submission until the real institutional wording is supplied.
 
+## Terminology and disciplinary wording
+
+Use wording that is standard in mathematics learning support (MLS) and TEAMAT rather than econometric shorthand.
+
+Preferred manuscript vocabulary:
+
+- **mathematics learning support / mathematics support** for the provision;
+- **mathematics support centre** for CMAT when a generic English description is needed;
+- **attendance**, **visits**, **number/frequency of visits**, and **attendance records** for the administrative measure;
+- **students who attended**, **students with no recorded visits**, **users/non-users** where concise labels are needed;
+- **engagement with mathematics support** when discussing the broader behavioural literature;
+- **academic help-seeking** only when explicitly connecting the findings to the help-seeking literature;
+- **prior mathematical attainment/background/preparation**;
+- **academic performance**, **final grades**, and **classroom-relative performance** after the metric has been defined;
+- **self-selection bias**, **association/relationship**, and **observational analysis**.
+
+Avoid manuscript prose such as **positive-use group**, **support contact**, **formal help-seeking contact**, **dose/dose-response/dose gradient**, **production-function measure**, **performance regime**, **measurement contamination**, **temporal exogeneity**, **exchangeable students**, **exposure overlap**, **identified from fewer classrooms**, **exact/folded groups**, and **provenance checks**. These may be meaningful technical shorthand in code or internal notes, but they are not the natural register of the target literature.
+
 ## Transferable implications
 
 The Discussion should extract evaluation practices that another mathematics-support centre could reproduce:
 
-- align visits to the focal course period;
-- do not merge cumulative lifetime attendance onto a single course outcome;
-- inspect whether raw grades are comparable across local grading contexts;
-- separate non-use from positive formal help-seeking;
-- inspect exact or flexible visit intensities before assuming a linear dose-response;
-- distinguish observational association from tutoring efficacy.
+- match attendance records to the academic period of the course outcome being analysed;
+- do not assign attendance accumulated across unrelated periods to a single course grade;
+- consider whether raw grades are comparable across local grading contexts;
+- distinguish students who did not attend from students who attended at least once;
+- examine attendance-frequency groups before assuming a linear relationship between number of visits and performance;
+- distinguish an observational association from evidence of mathematics-support effectiveness.
 
 ## Figures
 
