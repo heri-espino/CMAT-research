@@ -1,4 +1,4 @@
-We then fit linear regression models with fixed effects for instructor--period group and indicators for degree programme, with standard errors clustered by instructor--period group. The main model includes separate indicators for 1, 2, 3, and 4 or more visits, using students with no recorded visits as the reference group. We also report all ten pairwise comparisons among the five attendance groups and adjust the corresponding $p$-values using the Holm procedure. The regression coefficients describe adjusted associations within instructor--period groups and are not interpreted as causal effects of mathematics support.
+We then fitted linear regression models with instructor--period fixed effects and degree-programme indicators, with standard errors clustered at the instructor--period level. The main model includes separate indicators for 1, 2, 3, and 4 or more visits, using students with no recorded visits as the reference group. We also report all ten pairwise comparisons among the five attendance groups and adjust the corresponding $p$-values using the Holm procedure. The regression coefficients describe adjusted associations within instructor--period groups and are not interpreted as causal effects of mathematics support.
 
 \section{Results}
 
@@ -15,7 +15,7 @@ Among the 6,627 students in the study sample, 5,393 had no recorded CMAT visit d
 
 \subsection{Standardised grades by attendance group}
 
-\Cref{tab:means} and \Cref{fig:means} show higher mean standardised grades among students who attended CMAT than among those with no recorded visits. Mean $Z$ was $-0.061$ for students with no visits and $0.219$, $0.247$, $0.278$, and $0.355$ for students with 1, 2, 3, and 4 or more visits, respectively. The means increase with attendance frequency in the main analysis; the pairwise comparisons show whether the four groups of attendees differ clearly from one another.
+\Cref{tab:means} and \Cref{fig:means} show higher mean standardised grades among students who attended CMAT than among those with no recorded visits. Mean $Z$ was $-0.061$ for students with no visits and $0.219$, $0.247$, $0.278$, and $0.355$ for students with 1, 2, 3, and 4 or more visits, respectively. The mean standardised grade increased across the five attendance groups in the main analysis.
 
 \begin{table}[tbp]
 \centering
@@ -41,13 +41,13 @@ CMAT visits & $N$ & Mean $Z$ & SD & 95\% CI \\
 \label{fig:means}
 \end{figure}
 
-The Brown--Forsythe test indicated unequal variances across the five groups ($F=15.88$, $p<0.001$), and Welch's ANOVA showed an overall difference in group means, $F(4,594.83)=43.46$, $p<0.001$. Games--Howell post hoc comparisons showed that students in each of the four attendance groups had a significantly higher mean $Z$ than students with no recorded visits, with adjusted $p\leq0.000002$ in all four comparisons. By contrast, none of the six comparisons among students who attended different numbers of times was significant at the 5\% level: adjusted $p$-values ranged from $0.090$ for one versus four-or-more visits to $0.994$ for two versus three visits.
+The Brown--Forsythe test indicated unequal variances across the five groups ($F=15.88$, $p<0.001$), and Welch's ANOVA showed an overall difference in group means, $F(4,594.83)=43.46$, $p<0.001$. Games--Howell post hoc comparisons showed that each of the four groups of students who attended CMAT had a higher mean $Z$ than students with no recorded visits (all $p<0.001$). By contrast, none of the six comparisons among students who attended different numbers of times was significant at the 5\% level; $p$-values ranged from $0.090$ for one versus four or more visits to $0.994$ for two versus three visits.
 
-Each group of students who attended CMAT differed from students with no recorded visits, whereas the four groups of attendees did not differ significantly from one another. The descriptive increase in mean standardised grade with attendance frequency should therefore not be read as evidence that the attendance groups represent distinct levels of academic performance.
+Each group of students who attended CMAT differed from students with no recorded visits, whereas the four attendance-frequency groups did not differ significantly from one another. Thus, the descriptive increase in mean grade was not accompanied by statistically significant differences among students who attended at different frequencies.
 
 \subsection{Adjusted regression results}
 
-Compared with students with no recorded visits in the same instructor--period group, the adjusted mean $Z$ score was $0.305$ standard deviations higher for students with one visit, $0.359$ higher for those with two visits, $0.373$ higher for those with three visits, and $0.461$ higher for those with four or more visits (\Cref{fig:adjusted}). The 95\% confidence intervals were $[0.221,0.388]$, $[0.262,0.457]$, $[0.248,0.498]$, and $[0.350,0.572]$, respectively. All four coefficients remained statistically significant after Holm adjustment across the ten pairwise comparisons.
+Compared with students with no recorded visits in the same instructor--period group, the estimated differences in $Z$ were $0.305$ standard deviations for one visit, $0.359$ for two visits, $0.373$ for three visits, and $0.461$ for four or more visits (\Cref{fig:adjusted}). The 95\% confidence intervals were $[0.221,0.388]$, $[0.262,0.457]$, $[0.248,0.498]$, and $[0.350,0.572]$, respectively. All four comparisons with zero visits remained statistically significant after Holm adjustment across the ten pairwise comparisons.
 
 \begin{figure}[tbp]
 \centering
@@ -56,13 +56,13 @@ Compared with students with no recorded visits in the same instructor--period gr
 \label{fig:adjusted}
 \end{figure}
 
-Differences among the four groups of attendees were again less clear. None of the six pairwise comparisons among these groups remained significant after Holm adjustment. The largest adjusted difference among attendees was between one visit and four or more visits ($0.156$ standard deviations); the unadjusted $p$-value was $0.025$, but the Holm-adjusted value was $0.153$. The adjusted results again distinguish students who attended CMAT from those who did not, while providing little evidence of differences among the four attendance-frequency groups.
+None of the six pairwise comparisons among students who attended at different frequencies remained significant after Holm adjustment. The largest adjusted difference was between one visit and four or more visits ($0.156$ standard deviations); the unadjusted $p$-value was $0.025$ and the Holm-adjusted value was $0.153$. The adjusted results therefore distinguish students who attended CMAT from those with no recorded visits, while providing little evidence of differences among attendance frequencies.
 
 Excluding smaller instructor--period groups produced very similar estimates. The coefficients for one, two, three, and four-or-more visits were $0.305Z$, $0.359Z$, $0.373Z$, and $0.461Z$ in the full sample. Restricting the analysis to instructor--period groups with at least 20 students retained 6,255 students across 165 groups and yielded corresponding estimates of $0.312Z$, $0.367Z$, $0.384Z$, and $0.457Z$.
 
 \subsection{Sensitivity analyses}
 
-The comparison between attendees and non-attendees was also retained when the non-numeric course outcomes were handled differently. \Cref{fig:sensitivity} compares mean standardised grades by attendance group under the primary outcome definition, the uniform below-pass imputation, and the complete-case analysis restricted to numeric final grades. In all three analyses, students with no recorded visits had a negative mean $Z$ score and each group of students who attended CMAT had a positive mean. However, mean performance did not increase consistently with attendance frequency across all three analyses. In the numeric complete-case analysis, for example, the means for 1, 2, 3, and 4+ visits were approximately $0.256$, $0.193$, $0.326$, and $0.200$, respectively. Across the sensitivity analyses, the most consistent result is therefore the difference between students who attended CMAT and those who did not; evidence of progressively higher performance with more visits is less stable.
+The attendance--non-attendance difference was also observed when the non-numeric course outcomes were handled differently. \Cref{fig:sensitivity} compares mean standardised grades under the main outcome, uniform imputation below the pass mark, and an analysis restricted to numeric final grades. In all three analyses, students with no recorded visits had a negative mean $Z$ score and each group of students who attended CMAT had a positive mean. However, mean performance did not increase consistently with attendance frequency across all three analyses. In the numeric complete-case analysis, for example, the means for 1, 2, 3, and 4+ visits were approximately $0.256$, $0.193$, $0.326$, and $0.200$, respectively. Across the sensitivity analyses, the most consistent result is therefore the difference between students who attended CMAT and those who did not; evidence of progressively higher performance with more visits is less stable.
 
 \begin{figure}[tbp]
 \centering
