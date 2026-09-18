@@ -1,29 +1,29 @@
 CMAT is a mathematics support centre that provides additional support outside students' regular mathematics teaching. Each recorded attendance event is treated as one visit. These usage data show whether and how often a student attended, but not the duration or content of a visit, the amount of independent study that followed, or the nature of the interaction with support staff. Visit counts are therefore used as a measure of attendance frequency, not as a direct measure of tutoring received.
 
-During part of the study period, three CMAT visits were relevant to a first-semester participation requirement. This institutional context may have influenced attendance patterns, but the present study does not evaluate the requirement or treat three visits as a causal threshold.
+During part of the study period, three CMAT visits were linked to a first-semester participation requirement. This may have influenced attendance patterns; the requirement itself is not evaluated in this study.
 
-The administrative records may contain CMAT visits from more than one academic period for the same student. Using cumulative attendance could assign visits made before or after MU to the grade from a particular MU attempt. To avoid this mismatch, the analysis counts only visits recorded in the same academic period as the MU attempt being analysed.
+The administrative records can contain CMAT visits from more than one academic period for the same student. Using cumulative attendance could therefore assign visits made before or after MU to the grade from a particular MU attempt. We consequently counted only visits recorded in the same academic period as the MU attempt being analysed.
 
 \section{Data and methods}
 
 \subsection{Study sample}
 
-The study sample contains one observation per student, corresponding to the first MU attempt that meets the inclusion criteria. Institutional equivalency, revalidation, and other administrative records that do not represent an observed course attempt are excluded. Numeric grades are retained together with the non-numeric outcomes BV, RT and BA, which are treated as non-passing outcomes as described below. The analysis is restricted to academic periods covered by the CMAT attendance records, because a student can be classified as having no recorded attendance only when the attendance system covered that period. Of 7,777 eligible first-MU attempts across all observed periods, 6,627 occur during periods with CMAT attendance coverage and form the study sample.
+The study sample contained one observation per student, corresponding to the first MU attempt that met the inclusion criteria. Institutional equivalency, revalidation, and other administrative records that do not represent an observed course attempt are excluded. Numeric grades were retained together with the non-numeric outcomes BV, RT and BA, which were treated as non-passing outcomes as described below. The analysis is restricted to academic periods covered by the CMAT attendance records, because a student can be classified as having no recorded attendance only when the attendance system covered that period. Of 7,777 eligible first-MU attempts across all observed periods, 6,627 occurred during periods with CMAT attendance coverage and formed the study sample.
 
-The 6,627 students are distributed across 190 instructor--period groups, defined by instructor and academic period. Median group size is 30 students (IQR 24--48; range 10--88), with a mean of 34.9. In 176 groups there is at least one student who attended CMAT and at least one with no recorded visits. For the individual attendance-frequency comparisons, 152 groups include both zero- and one-visit students, 114 both zero- and two-visit students, 84 both zero- and three-visit students, and 102 both zero- and four-or-more-visit students. Most adjusted comparisons are based on instructor--period groups containing both students who attended CMAT and students with no recorded visits.
+The 6,627 students are distributed across 190 instructor--period groups, defined by instructor and academic period. Median group size is 30 students (IQR 24--48; range 10--88), with a mean of 34.9. In 176 groups there is at least one student who attended CMAT and at least one with no recorded visits. For the individual attendance-frequency comparisons, 152 groups included both zero- and one-visit students, 114 both zero- and two-visit students, 84 both zero- and three-visit students, and 102 both zero- and four-or-more-visit students. Most adjusted comparisons were therefore based on instructor--period groups containing both students who attended CMAT and students with no recorded visits.
 
 \subsection{Attendance}
 
-For each student, attendance is measured as the number of CMAT visits recorded during the same academic period as the MU attempt. The main analysis uses the five attendance groups shown in \Cref{eq:mu-visit-groups}:
+For each student, attendance was measured as the number of CMAT visits recorded during the same academic period as the MU attempt. The main analysis used the five attendance groups shown in \Cref{eq:mu-visit-groups}:
 \begin{equation}
 V\in\{0,\;1,\;2,\;3,\;4+\}.
 \label{eq:mu-visit-groups}
 \end{equation}
-This grouping distinguishes students with no recorded attendance from students who attended once, twice, three times, or at least four times without assuming a linear relationship between number of visits and academic performance. The four-or-more category is used because individual visit counts become increasingly sparse at higher levels of attendance.
+This grouping distinguished students with no recorded attendance from students who attended once, twice, three times, or at least four times without assuming a linear relationship between number of visits and academic performance. The four-or-more category was used because individual visit counts became increasingly sparse at higher levels of attendance.
 
 \subsection{Course performance}
 
-The primary outcome is the final MU grade standardised within instructor--period group. For student $i$ in group $c$,
+The primary outcome was the final MU grade standardised within instructor--period group. For student $i$ in group $c$,
 \begin{equation}
 Z_{ic}=\frac{Y_{ic}-\bar{Y}_{c}}{s_c},
 \label{eq:standardised-grade}
@@ -32,9 +32,9 @@ where $c$ denotes an instructor--period group. We refer to $Z$ as the standardis
 
 Standardising grades within these groups does not imply that all differences between instructors or academic periods are measurement error. Raw grades may reflect differences in assessment, grading practice, cohort composition, or other contextual conditions. The purpose of the standardisation is to reduce the influence of between-group differences in grade distributions when comparing attendance and performance. It does not address student-level self-selection into mathematics support, and the resulting $Z$ score should not be interpreted as a general measure of mathematical proficiency.
 
-The non-numeric outcomes BV, RT and BA are treated as non-passing outcomes. For the continuous outcome, they are assigned values below the pass mark of 7.5 using observed numeric grades below the pass mark within the same instructor--period group. When those grades show variation, values are drawn from a Gaussian kernel density estimate; empirical resampling is used when the observed below-pass grades are degenerate, and a uniform draw below 7.5 is used when no numeric below-pass grade is available in the group. Two sensitivity analyses are reported: uniform imputation below the pass mark for all three non-numeric outcomes and an analysis restricted to students with numeric final grades.
+The non-numeric outcomes BV, RT and BA were treated as non-passing outcomes. For the continuous outcome, they were assigned values below the pass mark of 7.5 using observed numeric grades below the pass mark within the same instructor--period group. When those grades showed variation, values were drawn from a Gaussian kernel density estimate; empirical resampling was used when the observed grades below the pass mark were degenerate, and a uniform draw below 7.5 was used when no numeric grade below the pass mark was available in the group. Two sensitivity analyses were used: uniform imputation below the pass mark for all three non-numeric outcomes and an analysis restricted to students with numeric final grades.
 
 \subsection{Statistical analysis}
 
-We first report mean standardised grades and 95\% confidence intervals across the five attendance groups. Group means are compared using Welch's one-way ANOVA, with Games--Howell post hoc comparisons; these procedures accommodate unequal variances and group sizes. These analyses describe differences in academic performance across attendance groups and do not establish that attendance at mathematics support caused those differences.
+We first compared mean standardised grades across the five attendance groups, reporting 95\% confidence intervals. Group means were compared using Welch's one-way ANOVA, followed by Games--Howell post hoc comparisons; these procedures accommodate unequal variances and group sizes. All results are interpreted as observational associations rather than causal effects of mathematics support.
 
