@@ -162,6 +162,19 @@ Primary figures should use exact visit categories and the shared `cmat_analysis.
 - The official meanings of the non-numeric administrative codes are: BV = baja voluntaria (voluntary withdrawal), RT = retiro temporal (temporary withdrawal), and BA = baja académica (academic withdrawal). In the analysis all three are adverse/non-passing outcomes; retain the Spanish institutional label alongside an English gloss when first introduced.
 - When reporting null comparisons among attendance-frequency groups, say that the relevant pairwise contrasts were not statistically significant after the stated multiplicity adjustment; do not translate this into evidence that the groups were equal or equivalent unless an equivalence design is actually reported.
 
+## Scientific-referee priorities
+
+The next review layer is scientific rather than stylistic. Preserve these priorities:
+
+- **Inferential hierarchy:** descriptive means are useful, but the primary inferential comparisons are the instructor--period fixed-effect models with cluster-robust standard errors and Holm adjustment. Welch/Games--Howell is secondary because it does not model instructor--period dependence.
+- **Withdrawal opportunity window:** BV/RT/BA cases may leave before the end of the term, and exact withdrawal dates are unavailable. They may therefore have less opportunity to accumulate visits. Numeric complete cases remove these outcomes but condition on completion; neither approach fully solves the timing problem.
+- **Exposure specificity:** the primary exposure is all CMAT attendance during the MU term, not necessarily MU-tagged support. The Paper 2 recipe now generates course-specific sensitivity models and a period-wide/course-specific attendance cross-tab.
+- **Outcome robustness:** regenerate adjusted exact-group results for numeric complete cases and for the binary PASS outcome. PASS requires no latent numeric grade for BV/RT/BA and is therefore an important check on the continuous-outcome construction.
+- **Period stability:** attendance rates vary substantially across the 11 observed periods. The recipe now produces leave-one-period-out FE estimates so the aggregate result can be checked for dependence on a particular term.
+- **Dependence across periods:** many MU instructors recur across academic periods. Before submission, compare the current instructor--period clustered standard errors with an instructor-level clustering sensitivity.
+- **Grading reference:** the current Z-score reference is formed within the analytic first-attempt cohort. A separate audit found that repeat attempts exist in covered instructor--period groups, so consider a sensitivity in which the grading reference distribution is formed from all eligible observed MU attempts in the instructor--period and then applied to the first-attempt cohort.
+- **Baseline confounding:** do not treat propensity-score methods as a substitute for missing prior attainment. With the current covariates they can balance only observed baseline variables; the entrance-exam score, if obtained and audited, would be a materially stronger sensitivity.
+
 ## Fifth-pass literature alignment
 
 - Prefer wording already established in the mathematics-support literature where it fits the data. In particular, **usage data** can refer to who uses mathematics support, when, and how often; do not imply that visit counts measure the quality or success of support.

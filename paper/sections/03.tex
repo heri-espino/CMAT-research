@@ -1,5 +1,3 @@
-We then fitted linear regression models with instructor--period fixed effects and degree-programme indicators, with standard errors clustered at the instructor--period level. The main model included separate indicators for 1, 2, 3, and 4 or more visits, with no recorded visits as the reference category. We also calculated all ten pairwise comparisons among the five attendance groups and adjusted the corresponding $p$-values using the Holm procedure.
-
 \section{Results}
 
 \subsection{CMAT attendance during the first MU attempt}
@@ -41,9 +39,7 @@ CMAT visits & $N$ & Mean $Z$ & SD & 95\% CI \\
 \label{fig:means}
 \end{figure}
 
-The Brown--Forsythe test indicated unequal variances across the five groups ($F=15.88$, $p<0.001$), and Welch's ANOVA showed an overall difference in group means, $F(4,594.83)=43.46$, $p<0.001$. Games--Howell post hoc comparisons showed that each of the four groups of students who attended CMAT had a higher mean $Z$ than students with no recorded visits (all $p<0.001$). By contrast, none of the six comparisons among students who attended different numbers of times was significant at the 5\% level; $p$-values ranged from $0.090$ for one versus four or more visits to $0.994$ for two versus three visits.
-
-Although mean $Z$ increased from one visit through four or more visits in the main analysis, none of the six Games--Howell comparisons among these four attendance groups was statistically significant.
+As an unadjusted secondary analysis, the Brown--Forsythe test indicated unequal variances across the five groups ($F=15.88$, $p<0.001$), and Welch's ANOVA showed an overall difference in group means, $F(4,594.83)=43.46$, $p<0.001$. Games--Howell post hoc comparisons gave lower mean $Z$ for students with no recorded visits than for each of the four attendance groups (all $p<0.001$), while none of the six comparisons among students who attended different numbers of times was significant at the 5\% level; $p$-values ranged from $0.090$ for one versus four or more visits to $0.994$ for two versus three visits. Because these comparisons do not account for instructor--period clustering, the cluster-robust regression results below provide the primary inferential comparisons.
 
 \subsection{Adjusted regression results}
 
