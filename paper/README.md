@@ -1,6 +1,6 @@
 # Paper 2 — CMAT use and MU performance
 
-This directory contains the publication manuscript and build recipe for Paper 2, currently titled *Mathematics Support Use and Classroom-Relative Performance in First-Year University Mathematics*.
+This directory contains the publication manuscript and build recipe for Paper 2, currently titled *Attendance at a Mathematics Support Centre and Academic Performance in First-Year University Mathematics*.
 
 The manuscript is a decomposition of the historical `proyecto_visitas` work rather than a copy of that report. The scientific boundary and provenance mapping are recorded in `DECOMPOSITION_FROM_PROYECTO_VISITAS.md`; TEAMAT-specific submission rules are recorded in `AI_HANDOFF.md`.
 
@@ -23,7 +23,7 @@ python code/run_paper.py \
   --asesorias data/controlled/Asesorias_pseudonymized.csv
 ```
 
-This regenerates aggregate Paper 2 outputs in `results/tables/`, creates vector PDF figures in `results/figures/`, and records run provenance under `results/logs/`. The primary exposure specification is `0 / 1 / 2 / 3 / 4+` same-term CMAT registrations; tables `30`–`34` are the primary exact-group outputs and tables `80+` retain secondary/provenance analyses.
+This regenerates aggregate Paper 2 outputs in `results/tables/`, creates vector PDF figures in `results/figures/`, and records run provenance under `results/logs/`. The main attendance groups are `0 / 1 / 2 / 3 / 4+` CMAT visits during the same academic period as MU; tables `30`–`34` contain the main group comparisons and tables `80+` retain secondary and provenance analyses.
 
 The Paper 2 recipe intentionally does **not** use the optional DMU diagnostic exam. A future commented-manuscript TODO proposes requesting a broadly covered university entrance-exam score as a genuinely pre-enrolment observed-preparation sensitivity.
 
