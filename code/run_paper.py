@@ -323,65 +323,6 @@ def run_analysis(args: argparse.Namespace) -> int:
     _save_csv(pass_fe, TABLES_DIR / "41_exact_visit_groups_pass_fe_pairwise.csv")
     _save_csv(pass_fe_info, TABLES_DIR / "42_exact_visit_groups_pass_fe_model_info.csv")
 
-    # Course-specific attendance sensitivity. The main exposure counts all CMAT
-    # use in the MU term because this is the institutional usage measure; these
-    # outputs ask whether conclusions change when visits are restricted to
-    # records tagged specifically to Matemáticas Universitarias.
-    course_population = population + "; MU-tagged CMAT visits only"
-    course_summary = exact_visit_group_summary(
-        mu,
-        visits_col="VISITS_COURSE",
-        outcome_col="Z_GRADE_PRIMARY",
-        population=course_population,
-    )
-    course_fe, course_fe_info = fixed_effect_pairwise_exact_groups(
-        mu,
-        visits_col="VISITS_COURSE",
-        outcome_col="Z_GRADE_PRIMARY",
-        population=course_population,
-        include_career=True,
-    )
-    course_complete_fe, _ = fixed_effect_pairwise_exact_groups(
-        mu,
-        visits_col="VISITS_COURSE",
-        outcome_col="Z_GRADE_COMPLETE_CASE",
-        population=course_population,
-        include_career=True,
-    )
-    course_pass_fe, _ = fixed_effect_pairwise_exact_groups(
-        mu,
-        visits_col="VISITS_COURSE",
-        outcome_col="PASS",
-        population=course_population,
-        include_career=True,
-    )
-    _save_csv(course_summary, TABLES_DIR / "43_course_specific_visit_groups_summary.csv")
-    _save_csv(course_fe, TABLES_DIR / "44_course_specific_visit_groups_fe_pairwise.csv")
-    _save_csv(course_fe_info, TABLES_DIR / "45_course_specific_visit_groups_fe_model_info.csv")
-    _save_csv(
-        course_complete_fe,
-        TABLES_DIR / "46_course_specific_complete_case_fe_pairwise.csv",
-    )
-    _save_csv(course_pass_fe, TABLES_DIR / "47_course_specific_pass_fe_pairwise.csv")
-
-    course_labels = pd.Series("4+", index=mu.index, dtype="object")
-    course_v = mu["VISITS_COURSE"].fillna(0).astype(float)
-    course_labels.loc[course_v.eq(0)] = "0"
-    course_labels.loc[course_v.eq(1)] = "1"
-    course_labels.loc[course_v.eq(2)] = "2"
-    course_labels.loc[course_v.eq(3)] = "3"
-    exposure_crosswalk = (
-        pd.crosstab(
-            pd.Categorical(exact_labels, categories=["0", "1", "2", "3", "4+"], ordered=True),
-            pd.Categorical(course_labels, categories=["0", "1", "2", "3", "4+"], ordered=True),
-            rownames=["all_CMAT_visits_in_MU_period"],
-            colnames=["MU_tagged_CMAT_visits"],
-            dropna=False,
-        )
-        .reset_index()
-    )
-    _save_csv(exposure_crosswalk, TABLES_DIR / "48_period_vs_course_specific_visit_groups.csv")
-
     withdrawal_diagnostic = (
         pd.DataFrame(
             {
