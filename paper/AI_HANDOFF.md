@@ -153,6 +153,14 @@ Primary figures should use exact visit categories and the shared `cmat_analysis.
 - Keep the conclusion concrete: visit counts represent **attendance frequency**, not the amount of support received.
 
 
+## Corpus-grounded construct rules
+
+- Treat CMAT visit counts as **usage data / attendance records**, not as a direct measure of a student's academic help-seeking tendency. Fong et al. distinguish formal help sources (including academic support centres) from behavioural indicators such as tutoring-attendance frequency; the latter do not directly measure help-seeking dispositions.
+- Use Lawson et al.'s meaning of **usage data** narrowly: who uses mathematics support, when, and how often. Usage records do not by themselves establish motivation for attendance, what occurred during a visit, the quality of the student experience, or the success of the support.
+- Because the institutional three-visit requirement affected part of the study period, avoid treating every recorded visit as voluntary or intrinsically motivated engagement.
+- Describe the operational format of CMAT (for example, drop-in versus appointment-based provision, tutor type, opening/session arrangements) only once it is verified from institutional documentation. Mullen et al. emphasise that MSS formats vary substantially and that evaluation methods depend on how provision operates.
+- When reporting null comparisons among attendance-frequency groups, say that the relevant pairwise contrasts were not statistically significant after the stated multiplicity adjustment; do not translate this into evidence that the groups were equal or equivalent unless an equivalence design is actually reported.
+
 ## Fifth-pass literature alignment
 
 - Prefer wording already established in the mathematics-support literature where it fits the data. In particular, **usage data** can refer to who uses mathematics support, when, and how often; do not imply that visit counts measure the quality or success of support.
