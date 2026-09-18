@@ -28,8 +28,8 @@ GROUP_ORDER = ["0", "1", "2", "3", "4+"]
 GROUP_LABELS = ["0", "1", "2", "3", "4+"]
 OUTCOME_LABELS = {
     "primary_adverse_outcome_rule": "Primary",
-    "uniform_adverse_imputation": "Uniform adverse imputation",
-    "numeric_complete_case": "Numeric complete case",
+    "uniform_adverse_imputation": "Uniform below-pass imputation",
+    "numeric_complete_case": "Numeric grades only",
 }
 
 
@@ -88,8 +88,8 @@ def plot_mu_visit_distribution(table_dir: Path, output_dir: Path) -> Path:
     x = np.arange(len(labels))
     ax.bar(x, values)
     ax.set_xticks(x, labels)
-    ax.set_xlabel("CMAT registrations during the same MU term")
-    ax.set_ylabel("Students")
+    ax.set_xlabel("CMAT visits during the MU academic period")
+    ax.set_ylabel("Percentage of students")
     ax.yaxis.set_major_formatter(PercentFormatter(1.0))
     ax.set_ylim(0, max(values) * 1.12)
     return _save_pdf(fig, output_dir, "fig01_mu_visit_distribution.pdf")
@@ -116,8 +116,8 @@ def plot_performance_by_exact_visit_group(table_dir: Path, output_dir: Path) -> 
     )
     ax.axhline(0, linestyle="--", linewidth=1.0)
     ax.set_xticks(x, GROUP_LABELS)
-    ax.set_xlabel("Same-term CMAT registrations in MU")
-    ax.set_ylabel("Mean classroom-relative performance (Z), 95% CI")
+    ax.set_xlabel("CMAT visits during the MU academic period")
+    ax.set_ylabel("Mean within-class standardised grade (Z), 95% CI")
     for xpos, row in zip(x, d.itertuples(index=False)):
         ax.annotate(
             f"n={int(row.n):,}",
@@ -166,8 +166,8 @@ def plot_exact_group_fe_contrasts(table_dir: Path, output_dir: Path) -> Path:
         y,
         [f"{g} visit" if g == "1" else f"{g} visits" for g in d["group2"].astype(str)],
     )
-    ax.set_xlabel("Adjusted difference versus 0 visits (classroom-relative Z)")
-    ax.set_ylabel("Exact CMAT visit group")
+    ax.set_xlabel("Adjusted difference in standardised grade versus 0 visits (Z)")
+    ax.set_ylabel("CMAT visits during the MU academic period")
     ax.invert_yaxis()
     return _save_pdf(fig, output_dir, "fig03_adjusted_dose_coefficients.pdf")
 
