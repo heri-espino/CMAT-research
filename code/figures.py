@@ -96,7 +96,7 @@ def plot_mu_visit_distribution(table_dir: Path, output_dir: Path) -> Path:
 
 
 def plot_performance_by_exact_visit_group(table_dir: Path, output_dir: Path) -> Path:
-    """Plot mean classroom-relative performance for 0, 1, 2, 3, and 4+ visits."""
+    """Plot mean standardised grade for 0, 1, 2, 3, and 4+ visits."""
     d = pd.read_csv(table_dir / "30_exact_visit_groups_summary.csv").copy()
     d["group"] = pd.Categorical(d["group"].astype(str), GROUP_ORDER, ordered=True)
     d = d.sort_values("group")
@@ -117,7 +117,7 @@ def plot_performance_by_exact_visit_group(table_dir: Path, output_dir: Path) -> 
     ax.axhline(0, linestyle="--", linewidth=1.0)
     ax.set_xticks(x, GROUP_LABELS)
     ax.set_xlabel("CMAT visits during the MU academic period")
-    ax.set_ylabel("Mean within-class standardised grade (Z), 95% CI")
+    ax.set_ylabel("Mean standardised MU grade (Z), 95% CI")
     for xpos, row in zip(x, d.itertuples(index=False)):
         ax.annotate(
             f"n={int(row.n):,}",
@@ -173,7 +173,7 @@ def plot_exact_group_fe_contrasts(table_dir: Path, output_dir: Path) -> Path:
 
 
 def plot_outcome_sensitivity(table_dir: Path, output_dir: Path) -> Path:
-    """Plot the exact-group pattern under three outcome constructions."""
+    """Plot attendance-group means under three outcome definitions."""
     d = pd.read_csv(table_dir / "37_exact_visit_groups_outcome_sensitivity.csv").copy()
     d["group"] = pd.Categorical(d["group"].astype(str), GROUP_ORDER, ordered=True)
     x = np.arange(len(GROUP_ORDER), dtype=float)
@@ -198,8 +198,8 @@ def plot_outcome_sensitivity(table_dir: Path, output_dir: Path) -> Path:
 
     ax.axhline(0, linestyle="--", linewidth=1.0)
     ax.set_xticks(x, GROUP_LABELS)
-    ax.set_xlabel("Same-term CMAT registrations in MU")
-    ax.set_ylabel("Mean classroom-relative performance (Z), 95% CI")
+    ax.set_xlabel("CMAT visits during the MU academic period")
+    ax.set_ylabel("Mean standardised MU grade (Z), 95% CI")
     ax.legend(frameon=False)
     return _save_pdf(fig, output_dir, "fig04_outcome_sensitivity.pdf")
 
