@@ -151,3 +151,14 @@ Primary figures should use exact visit categories and the shared `cmat_analysis.
 - Avoid repeating the causal disclaimer in every subsection. State the observational interpretation clearly in the abstract/Introduction/Methods and let Results report the comparisons directly.
 - In comparisons with prior studies, identify differences in setting, attendance grouping, or outcome definition rather than speculating about unobserved mechanisms.
 - Keep the conclusion concrete: visit counts represent **attendance frequency**, not the amount of support received.
+
+
+## Fifth-pass literature alignment
+
+- Prefer wording already established in the mathematics-support literature where it fits the data. In particular, **usage data** can refer to who uses mathematics support, when, and how often; do not imply that visit counts measure the quality or success of support.
+- Keep literature claims at the level actually supported by the cited source. Do not add detailed lists of possible self-selection mechanisms unless the cited literature supports them directly.
+- Once the instructor--period grouping has been defined precisely, avoid repeating the full term in every sentence; use **group** where the referent is unambiguous and **instructor--period level** for fixed effects or clustering.
+- Present the 0/1/2/3/4+ attendance categories in prose rather than as a displayed equation. They are descriptive categories, not a mathematical estimand requiring display notation.
+- Research questions should be concrete and map directly onto the reported comparisons. For the second question, name the one-, two-, three-, and four-or-more-visit groups rather than asking abstractly whether performance `varies with intensity`.
+- Avoid unexplained institution-specific English. If equivalency/revalidation records must be mentioned, make clear that they are administrative records that do not represent observed course attempts; do not invent expanded meanings for the underlying institutional codes.
+- Prefer direct statements of what sensitivity analyses preserve or change rather than abstract phrases such as `robust pattern` or `inferential separation`.
