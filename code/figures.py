@@ -169,7 +169,7 @@ def plot_exact_group_fe_contrasts(table_dir: Path, output_dir: Path) -> Path:
     ax.set_xlabel("Adjusted difference in standardised grade versus 0 visits (Z)")
     ax.set_ylabel("CMAT visits during the MU academic period")
     ax.invert_yaxis()
-    return _save_pdf(fig, output_dir, "fig03_adjusted_dose_coefficients.pdf")
+    return _save_pdf(fig, output_dir, "fig03_adjusted_visit_group_coefficients.pdf")
 
 
 def plot_outcome_sensitivity(table_dir: Path, output_dir: Path) -> Path:
