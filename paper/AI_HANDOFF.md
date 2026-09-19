@@ -177,6 +177,7 @@ The next review layer is scientific rather than stylistic. Preserve these priori
 
 ## Fifth-pass literature alignment
 
+- **Literature coverage in the manuscript is intentionally broader than the original five-source core.** The current text now cites Matthews et al. (2013) on mathematics-support evaluation, Mac an Bhaird et al. (2013) on non-engagement, Rickard & Mills (2018) on adjusted observational tutoring-grade associations, and Paloyo et al. (2016), Pugatch & Wilson (2018), and B\"uchele & Sch\"urmann (2024) as identification-oriented counterpoints with more mixed performance evidence. Preserve the distinction between observational association and causal evidence when revising these paragraphs.
 - Prefer wording already established in the mathematics-support literature where it fits the data. In particular, **usage data** can refer to who uses mathematics support, when, and how often; do not imply that visit counts measure the quality or success of support.
 - Keep literature claims at the level actually supported by the cited source. Do not add detailed lists of possible self-selection mechanisms unless the cited literature supports them directly.
 - Once the instructor--period grouping has been defined precisely, avoid repeating the full term in every sentence; use **group** where the referent is unambiguous and **instructor--period level** for fixed effects or clustering.
