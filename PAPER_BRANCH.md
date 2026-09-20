@@ -1,29 +1,50 @@
-# Paper 2 — MU performance branch
+# Paper 2.1 — CMAT visit-frequency structure
 
-This branch is the canonical publication workspace for Paper 2. It inherits shared infrastructure from `main` and owns only publication-specific selection and production.
+This branch is the canonical exploratory/publication workspace for **Paper 2.1**, a denser extension of Paper 2 focused on the structure of academic outcomes across different frequencies of CMAT attendance among students who use the centre.
 
-**New-agent entry point:** after this file, read `paper/STATUS_AND_ROADMAP.md` before making changes. It records the current checkpoint, external dependencies, milestone status, and exact next tasks.
+**Parent checkpoint:** created from `paper/paper2-mu-performance` at commit `1956ef4bfe6073c9b28881a9da34d14cd22239a8`.
 
-- `literature_selected/`: selected literature and reading notes;
-- `code/`: paper-specific orchestration importing `cmat_analysis`;
-- `results/`: generated/selected paper outputs;
-- `paper/`: manuscript and build material;
-- `submission/`: journal-specific material.
+Paper 2 remains the simpler attendance-versus-non-attendance manuscript. Paper 2.1 asks a different question: once students have attended CMAT at least once, how similar or different are outcomes across increasingly frequent attendance groups?
 
-## Scientific scope
+Read in this order:
 
-Paper 2 studies the association between CMAT attendance during the same academic period and standardised academic performance in the first eligible attempt at Matemáticas Universitarias. Its main empirical distinction is no recorded attendance versus recorded attendance, while the 1, 2, 3, and 4+ attendance groups are examined separately without assuming a causal monotone dose-response.
+1. `PAPER_BRANCH.md`
+2. `paper/PROJECT_CONTEXT.md`
+3. `paper/ANALYSIS_PLAN.md`
+4. `paper/STATUS_AND_ROADMAP.md`
+5. `paper/AI_HANDOFF.md`
 
-The historical `proyecto_visitas` work is decomposed rather than copied. `paper/DECOMPOSITION_FROM_PROYECTO_VISITAS.md` is the binding scope map: student support use/performance belongs here; professor grade distributions, grading-profile clusters, and grading-regime stability belong to Paper 3; general service-load material remains brainstorm/provenance.
+## Scientific boundary
 
-## Coordination contract
+Paper 2.1 inherits from Paper 2:
 
-This branch may be developed by a paper-specific research/writing chat, but repository-wide governance belongs to the designated repo-admin / integrator / upstream-maintainer workflow. The user retains final scientific authority.
+- first eligible MU attempt in periods with CMAT coverage;
+- period-wide CMAT attendance, irrespective of visit subject label;
+- instructor × academic-period grading context;
+- observational framing;
+- institutional pass mark of 7.5;
+- BA, BV, and RT as adverse/non-passing outcomes.
 
-Chats cannot communicate directly with one another. Durable decisions, requested upstream changes, methodological caveats, and handoffs must therefore be written into repository documentation rather than assumed to exist in another chat's context.
+Paper 2.1 **does not inherit the 4+ top-code as a fixed scientific decision**. The upper visit grouping must be chosen using an outcome-blind support/precision rule documented before pairwise outcome comparisons are inspected.
 
-Do **not** open or merge a pull request that brings this entire paper branch into `main`. This branch is intentionally ahead of `main` because it owns publication-specific material.
+## Main contribution
 
-If Paper 2 work discovers reusable scientific logic, do not maintain a divergent implementation here. Escalate the reusable capability for upstream review, implement and validate it under `main/cmat_analysis/src/cmat_analysis/`, and then bring the updated `main` back into this branch. Cross-paper empirical or methodological knowledge should similarly move through shared `brainstorm/` when appropriate rather than being copied manually between paper branches.
+The branch will investigate whether the familiar contrast between students with no recorded CMAT attendance and students who attend at least once is followed by:
 
-When `main` is synchronized into this branch, follow `docs/REPO_GOVERNANCE.md` and the root `AI_HANDOFF.md` as the canonical repository-wide contract.
+- meaningful differences among positive attendance frequencies;
+- plateaus in which adjacent visit counts are practically similar;
+- a gradual pattern;
+- or a more irregular relationship.
+
+The analysis will be run in parallel for:
+
+1. **binary academic success:** PASS versus non-PASS, where PASS means numeric grade >= 7.5 and non-PASS includes numeric grade < 7.5 plus BA, BV, and RT;
+2. **continuous performance:** the Paper 2 imputed final-grade outcome standardised within instructor × academic-period group.
+
+A numeric-only complete-case analysis may remain a robustness check, but it is not one of the two principal Paper 2.1 outcome families.
+
+## Repository governance
+
+This is a long-lived `paper/*` branch. Do not merge the whole branch into `main` or back into Paper 2. Reusable estimators or support diagnostics that belong across papers should be proposed for upstream integration into `cmat_analysis` and then brought back into this branch.
+
+The user retains final scientific authority.
