@@ -6,6 +6,7 @@ on:
       - 'paper/paper2.1-visit-frequency'
     paths:
       - 'code/run_paper21.py'
+      - 'code/run_paper21_outcomes.py'
       - 'paper/**'
       - 'cmat_analysis/**'
       - 'data/controlled/**'
@@ -69,6 +70,7 @@ jobs:
             results/paper21/tables/13_primary_pairwise_continuous.csv \
             results/paper21/tables/14_primary_pairwise_pass.csv \
             results/paper21/tables/15_primary_outcome_state_composition.csv \
+            results/paper21/tables/15b_primary_distribution_profile.csv \
             results/paper21/tables/16_complete_case_pairwise_continuous.csv \
             results/paper21/tables/17_complete_case_omnibus.csv \
             results/paper21/tables/18_primary_z_heatmap_matrix.csv \
@@ -77,7 +79,8 @@ jobs:
             results/paper21/tables/21_sensitivity_7plus_omnibus.csv \
             results/paper21/tables/22_sensitivity_7plus_pairwise_continuous.csv \
             results/paper21/tables/23_sensitivity_7plus_pairwise_pass.csv \
-            results/paper21/tables/24_sensitivity_7plus_outcome_state_composition.csv; do
+            results/paper21/tables/24_sensitivity_7plus_outcome_state_composition.csv \
+            results/paper21/tables/25_sensitivity_7plus_distribution_profile.csv; do
             test -s "$f"
           done
 
