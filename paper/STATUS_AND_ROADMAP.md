@@ -51,21 +51,21 @@ The current `4+` top-code is not binding on this branch.
 - [x] document the three-layer outcome framework in `paper/OUTCOME_FRAMEWORK.md`;
 - [x] document the administrative-withdrawal attendance context and manuscript guardrail in `paper/ADMINISTRATIVE_OUTCOME_NOTE.md`;
 - [x] implement the reproducible Paper 2.1 outcome runner;
-- [ ] verify the current controlled-data run in CI;
-- [ ] reproduce 0 vs 1+ benchmark for PASS and continuous Z;
-- [ ] run user-only omnibus model for continuous Z;
-- [ ] run user-only omnibus model for PASS probability;
-- [ ] estimate all positive-group pairwise contrasts;
-- [ ] apply Holm adjustment separately by outcome family;
-- [ ] extract adjacent contrasts explicitly;
+- [x] verify the current controlled-data run in CI;
+- [x] reproduce 0 vs 1+ benchmark for PASS and continuous Z;
+- [x] run user-only omnibus model for continuous Z;
+- [x] run user-only omnibus model for PASS probability;
+- [x] estimate all positive-group pairwise contrasts;
+- [x] apply Holm adjustment separately by outcome family;
+- [x] flag adjacent contrasts explicitly in the pairwise outputs;
 - [ ] run instructor-level clustering sensitivity;
-- [ ] retain numeric-only continuous complete-case sensitivity;
+- [x] retain numeric-only continuous complete-case sensitivity;
 - [x] implement PASS / numeric grade <7.5 / BV-RT / BA composition by frequency;
 - [x] implement exact BV / RT / BA composition tables;
 - [x] implement non-PASS administrative-vs-numeric benchmark and frequency models;
 - [x] implement narrower non-PASS BV/RT-vs-numeric models;
 - [x] implement imputed and complete-case Z-score quantile profiles;
-- [ ] verify and interpret the new academic-management outputs from controlled-data CI.
+- [x] verify and interpret the academic-management outputs from controlled-data CI, including BV-specific and RT-specific contrasts.
 
 ### M4 — Equivalence and visual synthesis
 
