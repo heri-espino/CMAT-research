@@ -64,7 +64,6 @@ def _descriptives(d: pd.DataFrame, group_col: str, group_order: list[str], spec:
         pass_se = math.sqrt(pass_rate * (1 - pass_rate) / len(p)) if len(p) and np.isfinite(pass_rate) else np.nan
         rows.append({
             "specification": spec,
-            "outcome": outcome_label,
             "group": group,
             "n": int(len(g)),
             "mean_z": float(z.mean()) if n_z else np.nan,
@@ -237,6 +236,7 @@ def _distribution_profile(
         nonpassing_z = g.loc[g["PASS"].eq(0), outcome_col].dropna().astype(float)
         rows.append({
             "specification": spec,
+            "outcome": outcome_label,
             "group": group,
             "n": int(len(g)),
             "z_q10": float(z.quantile(0.10)) if len(z) else np.nan,
