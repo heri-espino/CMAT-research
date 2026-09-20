@@ -102,6 +102,9 @@ statistics
 .. autofunction:: cmat_analysis.statistics.group_outcome_summary
    :no-index-entry:
 
+.. autofunction:: cmat_analysis.statistics.mixture_component_density
+   :no-index-entry:
+
 .. autofunction:: cmat_analysis.statistics.fixed_effect_group_comparisons
    :no-index-entry:
 
@@ -295,6 +298,9 @@ visualization
 .. automodule:: cmat_analysis.visualization
 
 .. autofunction:: cmat_analysis.visualization.mpl_apply
+   :no-index-entry:
+
+.. autofunction:: cmat_analysis.visualization.plot_stacked_ridgeline
    :no-index-entry:
 
 .. autofunction:: cmat_analysis.visualization.plotly_apply
