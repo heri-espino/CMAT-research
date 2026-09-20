@@ -32,19 +32,20 @@ Paper 2.1 **does not inherit the 4+ top-code as a fixed scientific decision**. T
 
 ## Main contribution
 
-The branch will investigate whether the familiar contrast between students with no recorded CMAT attendance and students who attend at least once is followed by:
+Paper 2.1 now has two linked contributions.
 
-- meaningful differences among positive attendance frequencies;
-- plateaus in which adjacent visit counts are practically similar;
-- a gradual pattern;
-- or a more irregular relationship.
+First, it separates **initial CMAT use** from **frequency among users**. The primary positive-attendance groups are outcome-blind `1 / 2 / 3 / 4 / 5 / 6+`, with `1 / 2 / 3 / 4 / 5 / 6 / 7+` as an exploratory sensitivity. The current controlled-data results show a large 0-versus-1+ association in both standardised performance and pass probability, but no robust multiplicity-adjusted separation among positive frequency groups.
 
-The analysis will be run in parallel for:
+Second, it distinguishes a **performance margin** from an **academic-management margin**. Non-PASS is decomposed into numeric failure and administrative outcomes, with BV, RT and BA preserved separately. The current adjusted zero-versus-any-attendance pattern is specifically concentrated in BV versus numeric failure; RT does not show the same contrast. This may be discussed as compatible with broader academic engagement or institutional navigation, but those mechanisms are not directly measured.
 
-1. **binary academic success:** PASS versus non-PASS, where PASS means numeric grade >= 7.5 and non-PASS includes numeric grade < 7.5 plus BA, BV, and RT;
-2. **continuous performance:** the Paper 2 imputed final-grade outcome standardised within instructor × academic-period group.
+The manuscript analyses:
 
-A numeric-only complete-case analysis may remain a robustness check, but it is not one of the two principal Paper 2.1 outcome families.
+1. continuous instructor-period-standardised final performance;
+2. PASS versus non-PASS;
+3. the composition of PASS / numeric <7.5 / BV-RT / BA, with exact BV / RT / BA diagnostics;
+4. conditional non-PASS management contrasts.
+
+A numeric-only complete-case outcome is retained as a sensitivity, especially for interpreting how administrative outcomes affect the lower tail of the continuous outcome.
 
 ## Repository governance
 
