@@ -1,6 +1,10 @@
-# Paper 2 — TEAMAT submission metadata
+# Paper 2.1 — TEAMAT submission metadata
 
-This file stores submission-system metadata for the Paper 2 TEAMAT submission. It is not manuscript prose and should not be cited as scientific evidence.
+This file stores submission-system metadata for the Paper 2.1 TEAMAT submission. It is not manuscript prose and should not be cited as scientific evidence.
+
+## Current manuscript title
+
+*Beyond First Attendance: Frequency of Mathematics Support Use and the Composition of Academic Outcomes*
 
 ## Authors
 
@@ -10,7 +14,7 @@ This file stores submission-system metadata for the Paper 2 TEAMAT submission. I
 - Affiliation: Universidad de las Américas Puebla
 - Email: heriberto.espinomo@udlap.mx
 - ORCID: 0009-0009-1230-2931
-- Biography: Heriberto Espino-Montelongo studies Data Science at Universidad de las Américas Puebla. His interests include applied data analysis, statistical modelling, educational data, and the evaluation of mathematics learning support in higher education. His current work with the Centro de Aprendizaje de Matemáticas examines mathematics-support attendance, academic performance, and student adaptation in first-year university mathematics.
+- Biography: Heriberto Espino-Montelongo studies Data Science at Universidad de las Américas Puebla. His interests include applied data analysis, statistical modelling, educational data, and the evaluation of mathematics learning support in higher education. His current work with the Centro de Aprendizaje de Matemáticas examines mathematics-support attendance, academic performance, attendance frequency, and the composition of academic outcomes in first-year university mathematics.
 
 ### Daniela Cortés-Toto
 
@@ -35,3 +39,15 @@ Still required before submission: insert the exact UDLAP ethics/IRB approval, ex
 ## Generative AI disclosure
 
 The current manuscript states that generative AI tools assisted with code development, manuscript drafting, editing, and language refinement, while responsibility for the analysis, interpretation, and final text remains with the authors.
+
+
+## Pre-submission blockers specific to Paper 2.1
+
+- instructor-level clustering sensitivity;
+- entrance-exam sensitivity if the requested data are usable;
+- verification of historical institutional definitions/consequences of BV, RT and BA before making policy claims;
+- exact ethics/data-use authorization wording and identifier;
+- final literature and numerical audit;
+- decision on whether a defensible formal equivalence margin exists.
+
+The Gokhool & Lawson (2026) article is currently available to the project only through its abstract; see `paper/LITERATURE_ACCESS_NOTES.md`.
