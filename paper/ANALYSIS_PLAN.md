@@ -141,22 +141,42 @@ Purpose: assess whether the pairwise pattern resembles a plateau, gradual increa
 
 Do not use the spline to choose the categorical cut retrospectively. The support-based grouping must already have been fixed.
 
-## Stage 8 — outcome-construction robustness
+## Stage 8 — academic-outcome composition and management margin
 
-The two principal outcome families are themselves a robustness structure:
+For the zero-inclusive primary grouping and for positive attendance frequencies, report four final-outcome states:
+
+- PASS;
+- numeric grade below 7.5;
+- BV/RT;
+- BA.
+
+Also preserve a five-state table separating BV and RT.
+
+Among non-PASS cases, estimate two mechanism-oriented conditional outcomes:
+
+1. administrative outcome (BA/BV/RT) versus numeric grade below 7.5;
+2. BV/RT versus numeric grade below 7.5, excluding BA from this narrower comparison.
+
+For each conditional outcome, reproduce the 0-versus-1+ benchmark and estimate frequency-group contrasts among CMAT users where support is adequate. Interpret these as differences in **outcome composition**, not causal effects of attendance on withdrawal behaviour.
+
+The broader interpretation is documented in `paper/ACADEMIC_MANAGEMENT_HYPOTHESIS.md`. Zero attendance must never be translated into lack of interest or engagement.
+
+## Stage 9 — outcome-construction robustness
+
+The two principal performance outcomes are themselves a robustness structure:
 
 - PASS requires no numerical imputation for BA/BV/RT;
 - continuous Z uses the canonical imputation and contains more outcome information.
 
-Retain the numeric-only complete-case continuous outcome as an additional sensitivity because it removes BA/BV/RT and the imputation assumption.
+Retain the numeric-only complete-case continuous outcome as an additional sensitivity because it removes BA/BV/RT and the imputation assumption. Compare distributional quantiles under the imputed and complete-case outcomes.
 
-**Manuscript treatment of withdrawal timing should remain brief:** when BA/BV/RT are defined, one sentence may note that students with an administrative withdrawal may have had less time to accumulate CMAT visits. Do not expand this into a major interpretive theme unless a dedicated timing analysis later provides new evidence.
+**Manuscript treatment of withdrawal timing should remain brief:** when administrative outcomes are defined, one sentence may note that a student who leaves before the end of the academic period can have less opportunity to accumulate visits.
 
-## Stage 9 — clustering sensitivity
+## Stage 10 — clustering sensitivity
 
 Because instructors recur across periods, compare instructor-period clustering with clustering by instructor for the main pairwise models. Do not change the estimand or the instructor-period grade standardisation.
 
-## Stage 10 — entrance-exam sensitivity when available
+## Stage 11 — entrance-exam sensitivity when available
 
 If the requested university entrance-exam score becomes available and passes the Paper 2 intake/comparability audit, repeat the principal adjusted frequency analysis with the baseline score included.
 
@@ -175,6 +195,10 @@ At minimum generate aggregate, reproducible files for:
 - equivalence results if used;
 - instructor-level clustering sensitivity;
 - heatmap source matrices;
+- four-state and exact five-state academic-outcome composition;
+- non-PASS administrative-vs-numeric benchmark and frequency contrasts;
+- non-PASS BV/RT-vs-numeric benchmark and frequency contrasts;
+- imputed and complete-case distributional profiles;
 - optional smooth/spline diagnostics;
 - entrance-exam sensitivity when available.
 
