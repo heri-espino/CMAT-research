@@ -48,6 +48,7 @@ The current `4+` top-code is not binding on this branch.
 
 ### M3 — Dual-outcome inference
 
+- [x] document the administrative-withdrawal attendance context and manuscript guardrail in `paper/ADMINISTRATIVE_OUTCOME_NOTE.md`;
 - [ ] reproduce 0 vs 1+ benchmark for PASS and continuous Z;
 - [ ] run user-only omnibus model for continuous Z;
 - [ ] run user-only omnibus model for PASS probability;
