@@ -1,31 +1,34 @@
 #!/usr/bin/env python3
-"""Paper 2.1 dual-outcome analysis after the visit grouping has been frozen.
+"""Paper 2.1 dual-outcome analysis using the shared cmat_analysis library.
 
-Primary positive-attendance groups are read conceptually from the documented
-Paper 2.1 decision: 1, 2, 3, 4, 5, 6+. A more granular 1..6, 7+ grouping is
-retained as an exploratory sensitivity.
-
-The analysis is observational. Reported contrasts are associations, not causal
-effects of additional CMAT visits.
+Paper-specific code constructs the cohort, freezes the documented grouping, and
+formats publication outputs. Reusable grouping, outcome-state construction,
+clustered fixed-effect comparisons, distribution profiles, and effect matrices
+live in cmat_analysis on main.
 """
 
 from __future__ import annotations
 
 import argparse
 import json
-import math
 from dataclasses import replace
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
-import statsmodels.formula.api as smf
-from statsmodels.stats.multitest import multipletests
 
 try:
     from cmat_analysis.cohorts import build_study_cohorts, load_and_clean_inputs
     from cmat_analysis.config.study_config import get_study_config
-    from cmat_analysis.measures import add_primary_outcomes
+    from cmat_analysis.measures import add_academic_outcome_states, add_primary_outcomes
+    from cmat_analysis.statistics import (
+        add_topcoded_visit_group,
+        distribution_profile,
+        fixed_effect_group_comparisons,
+        group_outcome_summary,
+        outcome_state_composition,
+        pairwise_effect_matrix,
+    )
 except ModuleNotFoundError as exc:
     raise SystemExit(
         "Paper 2.1 requires the shared editable library. From the repository root run:\n"
@@ -44,318 +47,230 @@ def _save(frame: pd.DataFrame, name: str) -> None:
     frame.to_csv(TABLES_DIR / name, index=False)
 
 
-def _group_positive(visits: pd.Series, top_exact: int) -> pd.Categorical:
-    labels = visits.astype(int).astype(str)
-    labels = labels.where(visits <= top_exact, f"{top_exact + 1}+")
-    order = [str(k) for k in range(1, top_exact + 1)] + [f"{top_exact + 1}+"]
-    return pd.Categorical(labels, categories=order, ordered=True)
+def _format_descriptives(
+    frame: pd.DataFrame,
+    *,
+    specification: str,
+) -> pd.DataFrame:
+    out = frame.rename(
+        columns={
+            "outcome_mean": "mean_z",
+            "outcome_sd": "sd_z",
+            "outcome_ci95_low": "z_ci95_low",
+            "outcome_ci95_high": "z_ci95_high",
+            "binary_rate": "pass_rate",
+            "binary_ci95_low": "pass_ci95_low",
+            "binary_ci95_high": "pass_ci95_high",
+        }
+    ).copy()
+    out.insert(0, "specification", specification)
+    return out
 
 
-def _descriptives(d: pd.DataFrame, group_col: str, group_order: list[str], spec: str) -> pd.DataFrame:
-    rows = []
-    for group in group_order:
-        g = d.loc[d[group_col].astype(str) == group].copy()
-        z = g["Z_GRADE_PRIMARY"].dropna().astype(float)
-        n_z = len(z)
-        sd = float(z.std(ddof=1)) if n_z > 1 else np.nan
-        se = sd / math.sqrt(n_z) if n_z > 1 else np.nan
-        p = g["PASS"].dropna().astype(float)
-        pass_rate = float(p.mean()) if len(p) else np.nan
-        pass_se = math.sqrt(pass_rate * (1 - pass_rate) / len(p)) if len(p) and np.isfinite(pass_rate) else np.nan
-        rows.append({
-            "specification": spec,
-            "group": group,
-            "n": int(len(g)),
-            "mean_z": float(z.mean()) if n_z else np.nan,
-            "sd_z": sd,
-            "z_ci95_low": float(z.mean() - 1.96 * se) if np.isfinite(se) else np.nan,
-            "z_ci95_high": float(z.mean() + 1.96 * se) if np.isfinite(se) else np.nan,
-            "pass_rate": pass_rate,
-            "pass_ci95_low": max(0.0, pass_rate - 1.96 * pass_se) if np.isfinite(pass_se) else np.nan,
-            "pass_ci95_high": min(1.0, pass_rate + 1.96 * pass_se) if np.isfinite(pass_se) else np.nan,
-        })
-    return pd.DataFrame(rows)
+def _format_pairwise(
+    pairwise: pd.DataFrame,
+    info: pd.DataFrame,
+    *,
+    outcome: str,
+    specification: str,
+) -> pd.DataFrame:
+    out = pairwise.rename(
+        columns={
+            "estimate_group1_minus_group2": "adjusted_difference_group1_minus_group2",
+            "ci_low": "ci95_low",
+            "ci_high": "ci95_high",
+            "p_adjusted": "p_holm",
+            "reject_adjusted": "reject_holm_0_05",
+        }
+    ).copy()
+    out.insert(0, "outcome", outcome)
+    out.insert(0, "specification", specification)
+    out["n_instructor_period_groups"] = int(info.loc[0, "n_fixed_effect_levels"])
+    return out
 
 
-def _fit_pairwise(
-    d: pd.DataFrame,
+def _format_omnibus(
+    omnibus: pd.DataFrame,
+    info: pd.DataFrame,
+    *,
+    outcome: str,
+    specification: str,
+) -> pd.DataFrame:
+    out = omnibus.copy()
+    out.insert(0, "outcome", outcome)
+    out.insert(0, "specification", specification)
+    out["n_instructor_period_groups"] = int(info.loc[0, "n_fixed_effect_levels"])
+    out["covariance"] = f"cluster-robust by {info.loc[0, 'cluster_col']}"
+    out["adjustment"] = "instructor-period fixed effects + degree-programme indicators"
+    return out
+
+
+def _fit(
+    data: pd.DataFrame,
     *,
     group_col: str,
     group_order: list[str],
     outcome_col: str,
     outcome_label: str,
     specification: str,
+    cluster_col: str = "CLASSROOM_ID",
 ) -> tuple[pd.DataFrame, pd.DataFrame]:
-    x = d.dropna(subset=[group_col, outcome_col, "CLASSROOM_ID", "CLAVECARRERA"]).copy()
-    x[group_col] = pd.Categorical(x[group_col].astype(str), categories=group_order, ordered=True)
-    reference = group_order[0]
-    term = f"C({group_col}, Treatment(reference='{reference}'))"
-    formula = f"{outcome_col} ~ {term} + C(CLASSROOM_ID) + C(CLAVECARRERA)"
-    model = smf.ols(formula, data=x).fit(
-        cov_type="cluster",
-        cov_kwds={"groups": x["CLASSROOM_ID"]},
+    pairwise, omnibus, info = fixed_effect_group_comparisons(
+        data,
+        group_col=group_col,
+        group_order=group_order,
+        outcome_col=outcome_col,
+        fixed_effect_col="CLASSROOM_ID",
+        cluster_col=cluster_col,
+        categorical_covariates=["CLAVECARRERA"],
+        multiplicity_method="holm",
+    )
+    return (
+        _format_pairwise(
+            pairwise, info, outcome=outcome_label, specification=specification
+        ),
+        _format_omnibus(
+            omnibus, info, outcome=outcome_label, specification=specification
+        ),
     )
 
-    names = list(model.params.index)
 
-    def coef_name(group: str) -> str | None:
-        if group == reference:
-            return None
-        candidate = f"{term}[T.{group}]"
-        return candidate if candidate in names else None
-
-    tmp = []
-    raw_ps = []
-    for i, g1 in enumerate(group_order):
-        for g2 in group_order[i + 1:]:
-            R = np.zeros(len(names), dtype=float)
-            n1 = coef_name(g1)
-            n2 = coef_name(g2)
-            if n1 is not None:
-                R[names.index(n1)] += 1.0
-            if n2 is not None:
-                R[names.index(n2)] -= 1.0
-            test = model.t_test(R)
-            est = float(np.asarray(test.effect).reshape(-1)[0])
-            se = float(np.asarray(test.sd).reshape(-1)[0])
-            p = float(np.asarray(test.pvalue).reshape(-1)[0])
-            ci = np.asarray(test.conf_int(alpha=0.05)).reshape(-1, 2)[0]
-            raw_ps.append(p)
-            tmp.append((g1, g2, est, se, p, float(ci[0]), float(ci[1])))
-
-    holm = multipletests(raw_ps, alpha=0.05, method="holm")
-    rows = []
-    for j, (g1, g2, est, se, p, lo, hi) in enumerate(tmp):
-        rows.append({
-            "specification": specification,
-            "outcome": outcome_label,
-            "group1": g1,
-            "group2": g2,
-            "adjusted_difference_group1_minus_group2": est,
-            "cluster_robust_se": se,
-            "ci95_low": lo,
-            "ci95_high": hi,
-            "p_raw": p,
-            "p_holm": float(holm[1][j]),
-            "reject_holm_0_05": bool(holm[0][j]),
-            "adjacent_groups": bool(j is not None and group_order.index(g2) - group_order.index(g1) == 1),
-            "n": int(model.nobs),
-            "n_instructor_period_groups": int(x["CLASSROOM_ID"].nunique()),
-        })
-
-    # Joint null: every non-reference frequency coefficient is zero.
-    coefficient_names = [coef_name(g) for g in group_order[1:]]
-    coefficient_names = [n for n in coefficient_names if n is not None]
-    R = np.zeros((len(coefficient_names), len(names)), dtype=float)
-    for row_i, n in enumerate(coefficient_names):
-        R[row_i, names.index(n)] = 1.0
-    omnibus = model.f_test(R)
-    omnibus_frame = pd.DataFrame([{
-        "specification": specification,
-        "outcome": outcome_label,
-        "null_hypothesis": "equal adjusted outcomes across all positive attendance-frequency groups",
-        "test_statistic": float(np.asarray(omnibus.fvalue).reshape(-1)[0]),
-        "df_num": int(len(coefficient_names)),
-        "p_value": float(np.asarray(omnibus.pvalue).reshape(-1)[0]),
-        "n": int(model.nobs),
-        "n_instructor_period_groups": int(x["CLASSROOM_ID"].nunique()),
-        "covariance": "cluster-robust by instructor-period group",
-        "adjustment": "instructor-period fixed effects + degree-programme indicators",
-    }])
-    return pd.DataFrame(rows), omnibus_frame
-
-
-def _benchmark(d: pd.DataFrame, outcome_col: str, outcome_label: str) -> dict[str, object]:
-    x = d.dropna(subset=[outcome_col, "CLASSROOM_ID", "CLAVECARRERA"]).copy()
-    x["ANY_CMAT"] = (x["VISITS_CMAT_PERIOD"] > 0).astype(int)
-    formula = f"{outcome_col} ~ ANY_CMAT + C(CLASSROOM_ID) + C(CLAVECARRERA)"
-    model = smf.ols(formula, data=x).fit(
-        cov_type="cluster", cov_kwds={"groups": x["CLASSROOM_ID"]}
+def _benchmark(
+    data: pd.DataFrame,
+    outcome_col: str,
+    outcome_label: str,
+    *,
+    cluster_col: str = "CLASSROOM_ID",
+) -> dict[str, object]:
+    x = data.copy()
+    x["ATTENDANCE_BINARY_GROUP"] = np.where(
+        x["VISITS_CMAT_PERIOD"].gt(0), "1+", "0"
     )
+    pairwise, _, info = fixed_effect_group_comparisons(
+        x,
+        group_col="ATTENDANCE_BINARY_GROUP",
+        group_order=["0", "1+"],
+        outcome_col=outcome_col,
+        fixed_effect_col="CLASSROOM_ID",
+        cluster_col=cluster_col,
+        categorical_covariates=["CLAVECARRERA"],
+    )
+    row = pairwise.iloc[0]
     return {
         "outcome": outcome_label,
         "comparison": "1+ visits minus 0 visits",
-        "adjusted_difference": float(model.params["ANY_CMAT"]),
-        "cluster_robust_se": float(model.bse["ANY_CMAT"]),
-        "ci95_low": float(model.conf_int().loc["ANY_CMAT", 0]),
-        "ci95_high": float(model.conf_int().loc["ANY_CMAT", 1]),
-        "p_value": float(model.pvalues["ANY_CMAT"]),
-        "n": int(model.nobs),
-        "n_instructor_period_groups": int(x["CLASSROOM_ID"].nunique()),
+        "adjusted_difference": -float(row["estimate_group1_minus_group2"]),
+        "cluster_robust_se": float(row["cluster_robust_se"]),
+        "ci95_low": -float(row["ci_high"]),
+        "ci95_high": -float(row["ci_low"]),
+        "p_value": float(row["p_raw"]),
+        "n": int(row["n"]),
+        "n_instructor_period_groups": int(info.loc[0, "n_fixed_effect_levels"]),
+        "cluster_col": cluster_col,
+        "n_clusters": int(info.loc[0, "n_clusters"]),
     }
 
 
-def _add_academic_outcome_states(d: pd.DataFrame) -> pd.DataFrame:
-    """Add descriptive academic-result states without changing the study outcomes."""
-    x = d.copy()
-    token = x["GRADE_TOKEN"].fillna("").astype(str).str.upper()
-
-    x["OUTCOME_STATE4"] = np.select(
-        [
-            x["PASS"].eq(1),
-            x["GRADE_CLASS"].eq("numeric") & x["PASS"].eq(0),
-            token.isin(["BV", "RT"]),
-            token.eq("BA"),
-        ],
-        [
-            "pass",
-            "numeric_grade_below_7.5",
-            "BV_RT",
-            "BA",
-        ],
-        default="other",
-    )
-    x["OUTCOME_STATE5"] = np.select(
-        [
-            x["PASS"].eq(1),
-            x["GRADE_CLASS"].eq("numeric") & x["PASS"].eq(0),
-            token.eq("BV"),
-            token.eq("RT"),
-            token.eq("BA"),
-        ],
-        [
-            "pass",
-            "numeric_grade_below_7.5",
-            "BV",
-            "RT",
-            "BA",
-        ],
-        default="other",
-    )
-
-    # Conditional composition outcomes among non-pass cases.
-    x["ADMIN_OUTCOME_AMONG_NONPASS"] = np.nan
-    nonpass = x["PASS"].eq(0)
-    x.loc[nonpass & x["GRADE_CLASS"].eq("numeric"), "ADMIN_OUTCOME_AMONG_NONPASS"] = 0.0
-    x.loc[nonpass & x["GRADE_CLASS"].eq("adverse"), "ADMIN_OUTCOME_AMONG_NONPASS"] = 1.0
-
-    # The narrower mechanism contrast treats BV/RT as the active-withdrawal
-    # category and compares it only with completed numeric grades below 7.5.
-    x["BVRT_VS_NUMERIC_NONPASS"] = np.nan
-    x.loc[nonpass & x["GRADE_CLASS"].eq("numeric"), "BVRT_VS_NUMERIC_NONPASS"] = 0.0
-    x.loc[nonpass & token.isin(["BV", "RT"]), "BVRT_VS_NUMERIC_NONPASS"] = 1.0
-
-    x["BV_VS_NUMERIC_NONPASS"] = np.nan
-    x.loc[nonpass & x["GRADE_CLASS"].eq("numeric"), "BV_VS_NUMERIC_NONPASS"] = 0.0
-    x.loc[nonpass & token.eq("BV"), "BV_VS_NUMERIC_NONPASS"] = 1.0
-
-    x["RT_VS_NUMERIC_NONPASS"] = np.nan
-    x.loc[nonpass & x["GRADE_CLASS"].eq("numeric"), "RT_VS_NUMERIC_NONPASS"] = 0.0
-    x.loc[nonpass & token.eq("RT"), "RT_VS_NUMERIC_NONPASS"] = 1.0
-    return x
-
-
-def _state_composition(
-    d: pd.DataFrame,
+def _composition(
+    data: pd.DataFrame,
+    *,
     group_col: str,
     group_order: list[str],
-    spec: str,
-    *,
     state_col: str,
-    states: list[str],
+    state_order: list[str],
+    specification: str,
 ) -> pd.DataFrame:
-    rows = []
-    for group in group_order:
-        g = d.loc[d[group_col].astype(str) == group].copy()
-        denom = len(g)
-        counts = g[state_col].value_counts()
-        for state in states:
-            n = int(counts.get(state, 0))
-            rows.append({
-                "specification": spec,
-                "group": group,
-                "outcome_state": state,
-                "n": n,
-                "group_n": int(denom),
-                "share_within_group": float(n / denom) if denom else np.nan,
-            })
-    return pd.DataFrame(rows)
+    out = outcome_state_composition(
+        data,
+        group_col=group_col,
+        group_order=group_order,
+        state_col=state_col,
+        state_order=state_order,
+    ).rename(columns={"state": "outcome_state"})
+    out["outcome_state"] = out["outcome_state"].replace(
+        {"numeric_nonpass": "numeric_grade_below_7.5"}
+    )
+    out.insert(0, "specification", specification)
+    return out
 
 
-def _nonpass_management_summary(d: pd.DataFrame) -> pd.DataFrame:
-    """Describe adverse-outcome composition conditional on non-PASS."""
-    x = d.loc[d["PASS"].eq(0)].copy()
+def _profile(
+    data: pd.DataFrame,
+    *,
+    group_col: str,
+    group_order: list[str],
+    outcome_col: str,
+    outcome_label: str,
+    specification: str,
+) -> pd.DataFrame:
+    out = distribution_profile(
+        data,
+        group_col=group_col,
+        group_order=group_order,
+        outcome_col=outcome_col,
+        pass_col="PASS",
+    )
+    out.insert(0, "outcome", outcome_label)
+    out.insert(0, "specification", specification)
+    out["interpretation"] = (
+        "descriptive distribution profile; conditional means are not causal subgroup effects"
+    )
+    return out
+
+
+def _matrix(
+    pairwise: pd.DataFrame,
+    *,
+    group_order: list[str],
+    outcome: str,
+) -> pd.DataFrame:
+    out = pairwise_effect_matrix(
+        pairwise,
+        group_order=group_order,
+        estimate_col="adjusted_difference_group1_minus_group2",
+    )
+    out.insert(0, "outcome", outcome)
+    return out
+
+
+def _nonpass_management_summary(data: pd.DataFrame) -> pd.DataFrame:
+    x = data.loc[data["PASS"].eq(0)].copy()
     x["attendance"] = np.where(x["VISITS_CMAT_PERIOD"].gt(0), "1+", "0")
     token = x["GRADE_TOKEN"].fillna("").astype(str).str.upper()
     rows = []
     for attendance in ["0", "1+"]:
-        g = x.loc[x["attendance"].eq(attendance)].copy()
-        tok = token.loc[g.index]
-        numeric_n = int((g["GRADE_CLASS"] == "numeric").sum())
-        bv_n = int(tok.eq("BV").sum())
-        rt_n = int(tok.eq("RT").sum())
-        ba_n = int(tok.eq("BA").sum())
+        group = x.loc[x["attendance"].eq(attendance)]
+        group_token = token.loc[group.index]
+        numeric_n = int(group["GRADE_CLASS"].eq("numeric").sum())
+        bv_n = int(group_token.eq("BV").sum())
+        rt_n = int(group_token.eq("RT").sum())
+        ba_n = int(group_token.eq("BA").sum())
         admin_n = bv_n + rt_n + ba_n
-        nonpass_n = int(len(g))
-        rows.append({
-            "attendance": attendance,
-            "nonpass_n": nonpass_n,
-            "numeric_below_7_5_n": numeric_n,
-            "BV_n": bv_n,
-            "RT_n": rt_n,
-            "BA_n": ba_n,
-            "administrative_n": admin_n,
-            "administrative_share_among_nonpass": admin_n / nonpass_n if nonpass_n else np.nan,
-            "BV_RT_share_among_numeric_or_BV_RT": (
-                (bv_n + rt_n) / (numeric_n + bv_n + rt_n)
-                if (numeric_n + bv_n + rt_n) else np.nan
-            ),
-            "BV_share_among_numeric_or_BV": (
-                bv_n / (numeric_n + bv_n) if (numeric_n + bv_n) else np.nan
-            ),
-            "RT_share_among_numeric_or_RT": (
-                rt_n / (numeric_n + rt_n) if (numeric_n + rt_n) else np.nan
-            ),
-        })
+        n = int(len(group))
+        rows.append(
+            {
+                "attendance": attendance,
+                "nonpass_n": n,
+                "numeric_below_7_5_n": numeric_n,
+                "BV_n": bv_n,
+                "RT_n": rt_n,
+                "BA_n": ba_n,
+                "administrative_n": admin_n,
+                "administrative_share_among_nonpass": admin_n / n if n else np.nan,
+                "BV_RT_share_among_numeric_or_BV_RT": (
+                    (bv_n + rt_n) / (numeric_n + bv_n + rt_n)
+                    if numeric_n + bv_n + rt_n
+                    else np.nan
+                ),
+                "BV_share_among_numeric_or_BV": (
+                    bv_n / (numeric_n + bv_n) if numeric_n + bv_n else np.nan
+                ),
+                "RT_share_among_numeric_or_RT": (
+                    rt_n / (numeric_n + rt_n) if numeric_n + rt_n else np.nan
+                ),
+            }
+        )
     return pd.DataFrame(rows)
-
-
-def _distribution_profile(
-    d: pd.DataFrame,
-    group_col: str,
-    group_order: list[str],
-    spec: str,
-    *,
-    outcome_col: str = "Z_GRADE_PRIMARY",
-    outcome_label: str = "continuous_standardised_grade",
-) -> pd.DataFrame:
-    """Describe where the continuous outcome distribution moves, not only its mean."""
-    rows = []
-    for group in group_order:
-        g = d.loc[d[group_col].astype(str) == group].copy()
-        z = g[outcome_col].dropna().astype(float)
-        passing_z = g.loc[g["PASS"].eq(1), outcome_col].dropna().astype(float)
-        nonpassing_z = g.loc[g["PASS"].eq(0), outcome_col].dropna().astype(float)
-        rows.append({
-            "specification": spec,
-            "outcome": outcome_label,
-            "group": group,
-            "n": int(len(g)),
-            "z_q10": float(z.quantile(0.10)) if len(z) else np.nan,
-            "z_q25": float(z.quantile(0.25)) if len(z) else np.nan,
-            "z_median": float(z.quantile(0.50)) if len(z) else np.nan,
-            "z_q75": float(z.quantile(0.75)) if len(z) else np.nan,
-            "z_q90": float(z.quantile(0.90)) if len(z) else np.nan,
-            "mean_z_among_pass": float(passing_z.mean()) if len(passing_z) else np.nan,
-            "mean_z_among_nonpass": float(nonpassing_z.mean()) if len(nonpassing_z) else np.nan,
-            "n_pass": int(g["PASS"].eq(1).sum()),
-            "n_nonpass": int(g["PASS"].eq(0).sum()),
-            "interpretation": "descriptive distribution profile; conditional means are not causal subgroup effects",
-        })
-    return pd.DataFrame(rows)
-
-
-def _effect_matrix(pairwise: pd.DataFrame, group_order: list[str], value_col: str, outcome: str) -> pd.DataFrame:
-    mat = pd.DataFrame(np.nan, index=group_order, columns=group_order)
-    for g in group_order:
-        mat.loc[g, g] = 0.0
-    for row in pairwise.itertuples(index=False):
-        est = float(getattr(row, value_col))
-        mat.loc[str(row.group1), str(row.group2)] = est
-        mat.loc[str(row.group2), str(row.group1)] = -est
-    out = mat.reset_index().rename(columns={"index": "group"})
-    out.insert(0, "outcome", outcome)
-    return out
 
 
 def check_environment() -> int:
@@ -364,116 +279,127 @@ def check_environment() -> int:
         GROUP_SPEC,
         REPO_ROOT / "cmat_analysis" / "pyproject.toml",
     ]
-    missing = [str(p.relative_to(REPO_ROOT)) for p in required if not p.exists()]
+    missing = [str(path.relative_to(REPO_ROOT)) for path in required if not path.exists()]
     if missing:
         raise SystemExit("Missing Paper 2.1 outcome-analysis paths: " + ", ".join(missing))
     spec = json.loads(GROUP_SPEC.read_text(encoding="utf-8"))
     if spec["positive_user_primary_groups"] != ["1", "2", "3", "4", "5", "6+"]:
-        raise SystemExit("Paper 2.1 primary visit grouping differs from the frozen decision.")
+        raise SystemExit("Paper 2.1 primary visit grouping differs from frozen decision.")
     print("Paper 2.1 dual-outcome analysis check: OK")
+    print("Reusable estimators: cmat_analysis 0.3 attendance-frequency API")
     print("Frozen primary groups: 1, 2, 3, 4, 5, 6+")
-    print("Exploratory sensitivity: 1, 2, 3, 4, 5, 6, 7+")
     return 0
 
 
 def run(args: argparse.Namespace) -> int:
     base = get_study_config(REPO_ROOT)
-    materias = (args.materias or base.materias_path).expanduser().resolve()
-    asesorias = (args.asesorias or base.asesorias_path).expanduser().resolve()
-    config = replace(base, materias_path=materias, asesorias_path=asesorias)
-
+    config = replace(
+        base,
+        materias_path=(args.materias or base.materias_path).expanduser().resolve(),
+        asesorias_path=(args.asesorias or base.asesorias_path).expanduser().resolve(),
+    )
     data = load_and_clean_inputs(config)
-    cohorts = build_study_cohorts(data, config)
-    mu = add_primary_outcomes(cohorts["mu_primary"], config)
+    mu = add_primary_outcomes(build_study_cohorts(data, config)["mu_primary"], config)
     mu["PASS"] = mu["PASS"].astype(float)
-    mu = _add_academic_outcome_states(mu)
+    mu = add_academic_outcome_states(mu)
 
-    benchmark = pd.DataFrame([
-        _benchmark(mu, "Z_GRADE_PRIMARY", "continuous_standardised_grade"),
-        _benchmark(mu, "PASS", "pass_probability"),
-    ])
+    benchmark = pd.DataFrame(
+        [
+            _benchmark(mu, "Z_GRADE_PRIMARY", "continuous_standardised_grade"),
+            _benchmark(mu, "PASS", "pass_probability"),
+        ]
+    )
     _save(benchmark, "10_benchmark_0_vs_1plus.csv")
 
-    # Zero-inclusive descriptive decomposition using the frozen positive-frequency
-    # grouping. This shows whether differences in non-passing outcomes reflect a
-    # numeric grade below 7.5 or an administrative BA/BV/RT outcome.
-    zero_plus = mu.copy()
-    positive_group = _group_positive(
-        zero_plus.loc[zero_plus["VISITS_CMAT_PERIOD"] > 0, "VISITS_CMAT_PERIOD"], 5
-    )
-    zero_plus["P21_GROUP_WITH_ZERO"] = "0"
-    zero_plus.loc[zero_plus["VISITS_CMAT_PERIOD"] > 0, "P21_GROUP_WITH_ZERO"] = (
-        positive_group.astype(str)
-    )
     zero_order = ["0", "1", "2", "3", "4", "5", "6+"]
+    zero_plus = add_topcoded_visit_group(
+        mu,
+        top_exact=5,
+        include_zero=True,
+        output_col="P21_GROUP_WITH_ZERO",
+    )
+    zero_desc = group_outcome_summary(
+        zero_plus,
+        group_col="P21_GROUP_WITH_ZERO",
+        group_order=zero_order,
+        outcome_col="Z_GRADE_PRIMARY",
+        pass_col="PASS",
+    )
     _save(
-        _descriptives(
-            zero_plus,
-            "P21_GROUP_WITH_ZERO",
-            zero_order,
-            "zero_inclusive_primary_0_1_2_3_4_5_6plus",
+        _format_descriptives(
+            zero_desc, specification="zero_inclusive_primary_0_1_2_3_4_5_6plus"
         ),
         "10b_zero_inclusive_descriptives.csv",
     )
     _save(
-        _state_composition(
+        _composition(
             zero_plus,
-            "P21_GROUP_WITH_ZERO",
-            zero_order,
-            "zero_inclusive_primary_0_1_2_3_4_5_6plus",
-            state_col="OUTCOME_STATE4",
-            states=["pass", "numeric_grade_below_7.5", "BV_RT", "BA"],
+            group_col="P21_GROUP_WITH_ZERO",
+            group_order=zero_order,
+            state_col="ACADEMIC_OUTCOME_STATE_4",
+            state_order=["pass", "numeric_nonpass", "BV_RT", "BA"],
+            specification="zero_inclusive_primary_0_1_2_3_4_5_6plus",
         ),
         "10c_zero_inclusive_outcome_state_composition.csv",
     )
     _save(
-        _state_composition(
+        _composition(
             zero_plus,
-            "P21_GROUP_WITH_ZERO",
-            zero_order,
-            "zero_inclusive_primary_0_1_2_3_4_5_6plus",
-            state_col="OUTCOME_STATE5",
-            states=["pass", "numeric_grade_below_7.5", "BV", "RT", "BA"],
+            group_col="P21_GROUP_WITH_ZERO",
+            group_order=zero_order,
+            state_col="ACADEMIC_OUTCOME_STATE_5",
+            state_order=["pass", "numeric_nonpass", "BV", "RT", "BA"],
+            specification="zero_inclusive_primary_0_1_2_3_4_5_6plus",
         ),
         "10d_zero_inclusive_exact_administrative_composition.csv",
     )
 
-    # Mechanism-oriented benchmark among students who did not pass.
     nonpass = mu.loc[mu["PASS"].eq(0)].copy()
-    management_benchmark = pd.DataFrame([
-        _benchmark(
-            nonpass,
-            "ADMIN_OUTCOME_AMONG_NONPASS",
-            "administrative_outcome_vs_numeric_failure_among_nonpass",
-        ),
-        _benchmark(
-            nonpass,
-            "BVRT_VS_NUMERIC_NONPASS",
-            "BV_RT_vs_numeric_failure_among_nonpass_excluding_BA",
-        ),
-        _benchmark(
-            nonpass,
-            "BV_VS_NUMERIC_NONPASS",
-            "BV_vs_numeric_failure_among_nonpass_excluding_RT_BA",
-        ),
-        _benchmark(
-            nonpass,
-            "RT_VS_NUMERIC_NONPASS",
-            "RT_vs_numeric_failure_among_nonpass_excluding_BV_BA",
-        ),
-    ])
+    management_benchmark = pd.DataFrame(
+        [
+            _benchmark(
+                nonpass,
+                "ADMINISTRATIVE_VS_NUMERIC_NONPASS",
+                "administrative_outcome_vs_numeric_failure_among_nonpass",
+            ),
+            _benchmark(
+                nonpass,
+                "BVRT_VS_NUMERIC_NONPASS",
+                "BV_RT_vs_numeric_failure_among_nonpass_excluding_BA",
+            ),
+            _benchmark(
+                nonpass,
+                "BV_VS_NUMERIC_NONPASS",
+                "BV_vs_numeric_failure_among_nonpass_excluding_RT_BA",
+            ),
+            _benchmark(
+                nonpass,
+                "RT_VS_NUMERIC_NONPASS",
+                "RT_vs_numeric_failure_among_nonpass_excluding_BV_BA",
+            ),
+        ]
+    )
     _save(management_benchmark, "10e_nonpass_management_benchmark_0_vs_1plus.csv")
     _save(_nonpass_management_summary(mu), "10f_nonpass_management_descriptives_0_vs_1plus.csv")
 
-    users = mu.loc[mu["VISITS_CMAT_PERIOD"] > 0].copy()
-
-    # Primary: 1, 2, 3, 4, 5, 6+
+    users = mu.loc[mu["VISITS_CMAT_PERIOD"].gt(0)].copy()
     primary_order = ["1", "2", "3", "4", "5", "6+"]
-    users["P21_GROUP"] = _group_positive(users["VISITS_CMAT_PERIOD"], 5)
-    primary_desc = _descriptives(users, "P21_GROUP", primary_order, "primary_1_2_3_4_5_6plus")
-    _save(primary_desc, "11_primary_group_descriptives.csv")
+    users = add_topcoded_visit_group(
+        users, top_exact=5, output_col="P21_GROUP"
+    )
+    primary_desc = group_outcome_summary(
+        users,
+        group_col="P21_GROUP",
+        group_order=primary_order,
+        outcome_col="Z_GRADE_PRIMARY",
+        pass_col="PASS",
+    )
+    _save(
+        _format_descriptives(primary_desc, specification="primary_1_2_3_4_5_6plus"),
+        "11_primary_group_descriptives.csv",
+    )
 
-    z_pair, z_omni = _fit_pairwise(
+    z_pair, z_omni = _fit(
         users,
         group_col="P21_GROUP",
         group_order=primary_order,
@@ -481,7 +407,7 @@ def run(args: argparse.Namespace) -> int:
         outcome_label="continuous_standardised_grade",
         specification="primary_1_2_3_4_5_6plus",
     )
-    p_pair, p_omni = _fit_pairwise(
+    p_pair, p_omni = _fit(
         users,
         group_col="P21_GROUP",
         group_order=primary_order,
@@ -492,39 +418,62 @@ def run(args: argparse.Namespace) -> int:
     _save(pd.concat([z_omni, p_omni], ignore_index=True), "12_primary_omnibus.csv")
     _save(z_pair, "13_primary_pairwise_continuous.csv")
     _save(p_pair, "14_primary_pairwise_pass.csv")
+
     _save(
-        _state_composition(
+        _composition(
             users,
-            "P21_GROUP",
-            primary_order,
-            "primary_1_2_3_4_5_6plus",
-            state_col="OUTCOME_STATE4",
-            states=["pass", "numeric_grade_below_7.5", "BV_RT", "BA"],
+            group_col="P21_GROUP",
+            group_order=primary_order,
+            state_col="ACADEMIC_OUTCOME_STATE_4",
+            state_order=["pass", "numeric_nonpass", "BV_RT", "BA"],
+            specification="primary_1_2_3_4_5_6plus",
         ),
         "15_primary_outcome_state_composition.csv",
     )
     _save(
-        _state_composition(
+        _composition(
             users,
-            "P21_GROUP",
-            primary_order,
-            "primary_1_2_3_4_5_6plus",
-            state_col="OUTCOME_STATE5",
-            states=["pass", "numeric_grade_below_7.5", "BV", "RT", "BA"],
+            group_col="P21_GROUP",
+            group_order=primary_order,
+            state_col="ACADEMIC_OUTCOME_STATE_5",
+            state_order=["pass", "numeric_nonpass", "BV", "RT", "BA"],
+            specification="primary_1_2_3_4_5_6plus",
         ),
         "15a_primary_exact_administrative_composition.csv",
     )
+    _save(
+        _profile(
+            users,
+            group_col="P21_GROUP",
+            group_order=primary_order,
+            outcome_col="Z_GRADE_PRIMARY",
+            outcome_label="continuous_standardised_grade",
+            specification="primary_1_2_3_4_5_6plus",
+        ),
+        "15b_primary_distribution_profile.csv",
+    )
+    _save(
+        _profile(
+            users,
+            group_col="P21_GROUP",
+            group_order=primary_order,
+            outcome_col="Z_GRADE_COMPLETE_CASE",
+            outcome_label="numeric_complete_case_standardised_grade",
+            specification="primary_1_2_3_4_5_6plus_complete_case",
+        ),
+        "15c_primary_complete_case_distribution_profile.csv",
+    )
 
     nonpass_users = users.loc[users["PASS"].eq(0)].copy()
-    admin_pair, admin_omni = _fit_pairwise(
+    admin_pair, admin_omni = _fit(
         nonpass_users,
         group_col="P21_GROUP",
         group_order=primary_order,
-        outcome_col="ADMIN_OUTCOME_AMONG_NONPASS",
+        outcome_col="ADMINISTRATIVE_VS_NUMERIC_NONPASS",
         outcome_label="administrative_outcome_vs_numeric_failure_among_nonpass",
         specification="primary_1_2_3_4_5_6plus_nonpass",
     )
-    bvrt_pair, bvrt_omni = _fit_pairwise(
+    bvrt_pair, bvrt_omni = _fit(
         nonpass_users,
         group_col="P21_GROUP",
         group_order=primary_order,
@@ -532,7 +481,7 @@ def run(args: argparse.Namespace) -> int:
         outcome_label="BV_RT_vs_numeric_failure_among_nonpass_excluding_BA",
         specification="primary_1_2_3_4_5_6plus_nonpass",
     )
-    bv_pair, bv_omni = _fit_pairwise(
+    bv_pair, bv_omni = _fit(
         nonpass_users,
         group_col="P21_GROUP",
         group_order=primary_order,
@@ -548,30 +497,7 @@ def run(args: argparse.Namespace) -> int:
     _save(bvrt_pair, "15f_nonpass_BVRT_pairwise.csv")
     _save(bv_pair, "15g_nonpass_BV_pairwise.csv")
 
-    _save(
-        _distribution_profile(
-            users,
-            "P21_GROUP",
-            primary_order,
-            "primary_1_2_3_4_5_6plus",
-            outcome_col="Z_GRADE_PRIMARY",
-            outcome_label="continuous_standardised_grade",
-        ),
-        "15b_primary_distribution_profile.csv",
-    )
-    _save(
-        _distribution_profile(
-            users,
-            "P21_GROUP",
-            primary_order,
-            "primary_1_2_3_4_5_6plus_complete_case",
-            outcome_col="Z_GRADE_COMPLETE_CASE",
-            outcome_label="numeric_complete_case_standardised_grade",
-        ),
-        "15c_primary_complete_case_distribution_profile.csv",
-    )
-
-    cc_pair, cc_omni = _fit_pairwise(
+    cc_pair, cc_omni = _fit(
         users,
         group_col="P21_GROUP",
         group_order=primary_order,
@@ -581,35 +507,44 @@ def run(args: argparse.Namespace) -> int:
     )
     _save(cc_pair, "16_complete_case_pairwise_continuous.csv")
     _save(cc_omni, "17_complete_case_omnibus.csv")
-
     _save(
-        _effect_matrix(z_pair, primary_order, "adjusted_difference_group1_minus_group2",
-                       "continuous_standardised_grade"),
+        _matrix(z_pair, group_order=primary_order, outcome="continuous_standardised_grade"),
         "18_primary_z_heatmap_matrix.csv",
     )
     _save(
-        _effect_matrix(p_pair, primary_order, "adjusted_difference_group1_minus_group2",
-                       "pass_probability"),
+        _matrix(p_pair, group_order=primary_order, outcome="pass_probability"),
         "19_primary_pass_heatmap_matrix.csv",
     )
 
-    # Exploratory sensitivity: 1, 2, 3, 4, 5, 6, 7+
     sensitivity_order = ["1", "2", "3", "4", "5", "6", "7+"]
-    users["P21_GROUP_7P"] = _group_positive(users["VISITS_CMAT_PERIOD"], 6)
+    sensitivity = add_topcoded_visit_group(
+        users.drop(columns=["P21_GROUP"]),
+        top_exact=6,
+        output_col="P21_GROUP_7P",
+    )
+    sensitivity_desc = group_outcome_summary(
+        sensitivity,
+        group_col="P21_GROUP_7P",
+        group_order=sensitivity_order,
+        outcome_col="Z_GRADE_PRIMARY",
+        pass_col="PASS",
+    )
     _save(
-        _descriptives(users, "P21_GROUP_7P", sensitivity_order, "sensitivity_1_to_6_7plus"),
+        _format_descriptives(
+            sensitivity_desc, specification="sensitivity_1_to_6_7plus"
+        ),
         "20_sensitivity_7plus_group_descriptives.csv",
     )
-    sz_pair, sz_omni = _fit_pairwise(
-        users,
+    sz_pair, sz_omni = _fit(
+        sensitivity,
         group_col="P21_GROUP_7P",
         group_order=sensitivity_order,
         outcome_col="Z_GRADE_PRIMARY",
         outcome_label="continuous_standardised_grade",
         specification="sensitivity_1_to_6_7plus",
     )
-    sp_pair, sp_omni = _fit_pairwise(
-        users,
+    sp_pair, sp_omni = _fit(
+        sensitivity,
         group_col="P21_GROUP_7P",
         group_order=sensitivity_order,
         outcome_col="PASS",
@@ -620,60 +555,105 @@ def run(args: argparse.Namespace) -> int:
     _save(sz_pair, "22_sensitivity_7plus_pairwise_continuous.csv")
     _save(sp_pair, "23_sensitivity_7plus_pairwise_pass.csv")
     _save(
-        _state_composition(
-            users,
-            "P21_GROUP_7P",
-            sensitivity_order,
-            "sensitivity_1_to_6_7plus",
-            state_col="OUTCOME_STATE4",
-            states=["pass", "numeric_grade_below_7.5", "BV_RT", "BA"],
+        _composition(
+            sensitivity,
+            group_col="P21_GROUP_7P",
+            group_order=sensitivity_order,
+            state_col="ACADEMIC_OUTCOME_STATE_4",
+            state_order=["pass", "numeric_nonpass", "BV_RT", "BA"],
+            specification="sensitivity_1_to_6_7plus",
         ),
         "24_sensitivity_7plus_outcome_state_composition.csv",
     )
     _save(
-        _state_composition(
-            users,
-            "P21_GROUP_7P",
-            sensitivity_order,
-            "sensitivity_1_to_6_7plus",
-            state_col="OUTCOME_STATE5",
-            states=["pass", "numeric_grade_below_7.5", "BV", "RT", "BA"],
+        _composition(
+            sensitivity,
+            group_col="P21_GROUP_7P",
+            group_order=sensitivity_order,
+            state_col="ACADEMIC_OUTCOME_STATE_5",
+            state_order=["pass", "numeric_nonpass", "BV", "RT", "BA"],
+            specification="sensitivity_1_to_6_7plus",
         ),
         "24a_sensitivity_7plus_exact_administrative_composition.csv",
     )
     _save(
-        _distribution_profile(
-            users,
-            "P21_GROUP_7P",
-            sensitivity_order,
-            "sensitivity_1_to_6_7plus",
+        _profile(
+            sensitivity,
+            group_col="P21_GROUP_7P",
+            group_order=sensitivity_order,
             outcome_col="Z_GRADE_PRIMARY",
             outcome_label="continuous_standardised_grade",
+            specification="sensitivity_1_to_6_7plus",
         ),
         "25_sensitivity_7plus_distribution_profile.csv",
     )
 
+    z_prof_pair, z_prof_omni = _fit(
+        users,
+        group_col="P21_GROUP",
+        group_order=primary_order,
+        outcome_col="Z_GRADE_PRIMARY",
+        outcome_label="continuous_standardised_grade",
+        specification="primary_instructor_cluster_sensitivity",
+        cluster_col="CLAVEPROFESOR",
+    )
+    p_prof_pair, p_prof_omni = _fit(
+        users,
+        group_col="P21_GROUP",
+        group_order=primary_order,
+        outcome_col="PASS",
+        outcome_label="pass_probability",
+        specification="primary_instructor_cluster_sensitivity",
+        cluster_col="CLAVEPROFESOR",
+    )
+    _save(z_prof_pair, "26_instructor_cluster_pairwise_continuous.csv")
+    _save(p_prof_pair, "27_instructor_cluster_pairwise_pass.csv")
+    _save(
+        pd.concat([z_prof_omni, p_prof_omni], ignore_index=True),
+        "28_instructor_cluster_omnibus.csv",
+    )
+    _save(
+        pd.DataFrame(
+            [
+                _benchmark(
+                    mu,
+                    "Z_GRADE_PRIMARY",
+                    "continuous_standardised_grade",
+                    cluster_col="CLAVEPROFESOR",
+                ),
+                _benchmark(
+                    mu,
+                    "PASS",
+                    "pass_probability",
+                    cluster_col="CLAVEPROFESOR",
+                ),
+            ]
+        ),
+        "29_instructor_cluster_benchmark_0_vs_1plus.csv",
+    )
+
     print(f"Paper 2.1 study cohort: N={len(mu):,}")
     print(f"Positive-attendance analysis: N={len(users):,}")
-    print("Primary frequency groups: 1, 2, 3, 4, 5, 6+")
+    print("Primary groups: 1, 2, 3, 4, 5, 6+")
     print("Sensitivity groups: 1, 2, 3, 4, 5, 6, 7+")
+    print("Shared methods: cmat_analysis 0.3 public API")
     print(f"Outputs: {TABLES_DIR}")
     return 0
 
 
 def parse_args() -> argparse.Namespace:
-    p = argparse.ArgumentParser(description="Paper 2.1 dual-outcome frequency analysis.")
-    p.add_argument("--materias", type=Path)
-    p.add_argument("--asesorias", type=Path)
-    p.add_argument("--check", action="store_true")
-    return p.parse_args()
+    parser = argparse.ArgumentParser(
+        description="Paper 2.1 dual-outcome frequency analysis."
+    )
+    parser.add_argument("--materias", type=Path)
+    parser.add_argument("--asesorias", type=Path)
+    parser.add_argument("--check", action="store_true")
+    return parser.parse_args()
 
 
 def main() -> int:
     args = parse_args()
-    if args.check:
-        return check_environment()
-    return run(args)
+    return check_environment() if args.check else run(args)
 
 
 if __name__ == "__main__":
