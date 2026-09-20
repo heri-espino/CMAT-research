@@ -1,6 +1,6 @@
 # Paper 2 — TEAMAT AI handoff
 
-This file adds Paper-2-specific submission rules on top of the repository-wide `.ai_handoff`.
+This file adds Paper-2-specific submission rules on top of the repository-wide `.ai_handoff`.\n\nFor live project status, milestone state, external dependencies, and the next-agent queue, use `paper/STATUS_AND_ROADMAP.md`. This file remains the binding record of scientific and manuscript rules rather than a task tracker.
 
 ## Target journal
 
@@ -61,7 +61,7 @@ A potentially useful future improvement is to request the **university entrance-
 - whether missingness is small enough that a sensitivity analysis is interpretable;
 - whether the relevant quantitative/mathematics component can be isolated, if applicable.
 
-If obtained, use the entrance-exam measure only as an observed-preparation sensitivity/control. It still would not eliminate unmeasured confounding or turn the paper into a causal tutoring-effect study.
+If obtained, use the entrance-exam measure only as an observed-preparation sensitivity/control. It still would not eliminate unmeasured confounding or turn the paper into a causal tutoring-effect study.\n\nThe entrance-exam data were requested on **2026-09-19**. Before any modelling, follow the staged intake, linkage, comparability, missingness, and modelling protocol in `paper/ENTRANCE_EXAM_PLAN.md`.
 
 ## TEAMAT ethics requirement
 
