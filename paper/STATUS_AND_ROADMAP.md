@@ -59,7 +59,8 @@ The current `4+` top-code is not binding on this branch.
 - [x] estimate all positive-group pairwise contrasts;
 - [x] apply Holm adjustment separately by outcome family;
 - [x] flag adjacent contrasts explicitly in the pairwise outputs;
-- [ ] run instructor-level clustering sensitivity;
+- [x] implement instructor-level clustering sensitivity through the shared cmat_analysis API;
+- [ ] review the canonical instructor-level clustering outputs and decide whether they belong in the manuscript or supplement;
 - [x] retain numeric-only continuous complete-case sensitivity;
 - [x] implement PASS / numeric grade <7.5 / BV-RT / BA composition by frequency;
 - [x] implement exact BV / RT / BA composition tables;
@@ -94,6 +95,10 @@ The current `4+` top-code is not binding on this branch.
 - [x] integrate the two heatmaps;
 - [x] write a compact conclusion about what can and cannot be distinguished among attendance frequencies;
 - [x] preserve observational/non-causal language.
+
+## Shared-library status
+
+Paper 2.1 reusable methods are upstream on `main` in **cmat-analysis 0.3.0** and documented through Sphinx and the generated function index. The paper runners are downstream consumers; future methodological improvements should be made in `main/cmat_analysis` first whenever they are reusable across education studies.
 
 ## Immediate next task
 
