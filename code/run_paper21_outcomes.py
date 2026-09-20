@@ -26,6 +26,7 @@ try:
         distribution_profile,
         fixed_effect_group_comparisons,
         group_outcome_summary,
+        mixture_component_density,
         outcome_state_composition,
         pairwise_effect_matrix,
     )
@@ -364,6 +365,17 @@ def run(args: argparse.Namespace) -> int:
         ),
         "10d_zero_inclusive_exact_administrative_composition.csv",
     )
+
+    ridge_density = mixture_component_density(
+        zero_plus,
+        group_col="P21_GROUP_WITH_ZERO",
+        group_order=zero_order,
+        outcome_col="Z_GRADE_PRIMARY",
+        component_col="ACADEMIC_OUTCOME_STATE_5",
+        component_order=["pass", "numeric_nonpass", "BV", "RT", "BA"],
+        grid_size=400,
+    )
+    _save(ridge_density, "10g_zero_inclusive_stacked_ridgeline_density.csv")
 
     nonpass = mu.loc[mu["PASS"].eq(0)].copy()
     management_benchmark = pd.DataFrame(
