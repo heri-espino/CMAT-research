@@ -35,7 +35,7 @@ Use the canonical Paper 2 adverse-outcome imputation and standardise final perfo
 ### Academic-result composition
 Primary descriptive states are PASS / numeric <7.5 / BV-RT / BA. Also preserve BV, RT and BA separately in an exact administrative-token table.
 
-Among non-PASS cases, analyse administrative outcome versus numeric failure and the narrower BV/RT versus numeric-failure contrast. Do not merge BA with BV/RT when discussing a student-initiated academic-management mechanism.
+Among non-PASS cases, analyse administrative outcome versus numeric failure, BV/RT versus numeric failure, and **BV versus numeric failure**. Current controlled-data evidence is specifically concentrated in BV; RT does not show the same adjusted 0-versus-1+ pattern. Do not generalise the BV result to all administrative codes, and do not merge BA with BV/RT when discussing a student-initiated academic-management mechanism.
 
 In manuscript prose, any timing caveat should normally be limited to one sentence noting that administrative outcomes may occur before the end of the academic period and can therefore provide less opportunity to accumulate visits.
 
