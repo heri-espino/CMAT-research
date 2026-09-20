@@ -124,3 +124,37 @@ Scientific boundaries
   student-level selection.
 * When withdrawal can occur before period end, opportunity to accumulate visits
   can differ across final outcome states.
+
+
+Stacked ridgeline distributions
+-------------------------------
+
+For figures that need to show both a continuous outcome distribution and the
+composition of categorical final states, first build weighted KDE components:
+
+.. code-block:: python
+
+   from cmat_analysis.statistics import mixture_component_density
+   from cmat_analysis.visualization import plot_stacked_ridgeline
+
+   density = mixture_component_density(
+       outcomes,
+       group_col="VISIT_GROUP_WITH_ZERO",
+       group_order=["0", "1", "2", "3", "4", "5", "6+"],
+       outcome_col="Z_GRADE_PRIMARY",
+       component_col="ACADEMIC_OUTCOME_STATE_5",
+       component_order=["pass", "numeric_nonpass", "BV", "RT", "BA"],
+   )
+
+   ax = plot_stacked_ridgeline(
+       density,
+       group_order=["0", "1", "2", "3", "4", "5", "6+"],
+       component_order=["pass", "numeric_nonpass", "BV", "RT", "BA"],
+       summary=group_summary,
+   )
+
+Within each attendance group all components use the same kernel bandwidth.
+Component densities are weighted by the full group size, so their areas recover
+the observed state shares and their sum is the total group density. This is
+preferable to colouring arbitrary x-axis segments because the colours remain
+tied to the actual observations contributing to each part of the distribution.
