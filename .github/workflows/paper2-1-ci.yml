@@ -73,6 +73,7 @@ jobs:
             results/paper21/tables/14_primary_pairwise_pass.csv \
             results/paper21/tables/15_primary_outcome_state_composition.csv \
             results/paper21/tables/15b_primary_distribution_profile.csv \
+            results/paper21/tables/15c_primary_complete_case_distribution_profile.csv \
             results/paper21/tables/16_complete_case_pairwise_continuous.csv \
             results/paper21/tables/17_complete_case_omnibus.csv \
             results/paper21/tables/18_primary_z_heatmap_matrix.csv \
