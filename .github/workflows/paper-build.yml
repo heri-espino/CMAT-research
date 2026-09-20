@@ -63,6 +63,16 @@ jobs:
         if: steps.manuscript.outputs.buildable == 'true'
         run: python -m pip install -e './cmat_analysis[dev]'
 
+      - name: Reproduce Paper 2.1 aggregate outputs
+        if: steps.manuscript.outputs.buildable == 'true'
+        shell: bash
+        run: |
+          if [[ -f code/run_paper21_outcomes.py ]]; then
+            python code/run_paper21_outcomes.py \
+              --materias data/controlled/Materias_pseudonymized.csv \
+              --asesorias data/controlled/Asesorias_pseudonymized.csv
+          fi
+
       - name: Install LaTeX toolchain
         if: steps.manuscript.outputs.buildable == 'true'
         run: |
@@ -88,8 +98,8 @@ jobs:
           for f in \
             paper/main.pdf \
             paper/main_commented.pdf \
-            paper/espino_2026_mathematics_support_attendance_performance.pdf \
-            paper/espino_2026_mathematics_support_attendance_performance_commented.pdf; do
+            paper/espino_2026_beyond_first_attendance.pdf \
+            paper/espino_2026_beyond_first_attendance_commented.pdf; do
             test -s "$f" || {
               echo "::error::Expected compiled PDF is missing or empty: $f"
               exit 1
@@ -104,15 +114,15 @@ jobs:
           path: |
             paper/main.pdf
             paper/main_commented.pdf
-            paper/espino_2026_mathematics_support_attendance_performance.pdf
-            paper/espino_2026_mathematics_support_attendance_performance_commented.pdf
+            paper/espino_2026_beyond_first_attendance.pdf
+            paper/espino_2026_beyond_first_attendance_commented.pdf
             paper/main.log
             paper/main.blg
             paper/main.bbl
             paper/main_commented.log
             paper/main_commented.blg
             paper/main_commented.bbl
-            results/figures/*.pdf
+            results/paper21/figures/*.pdf
           if-no-files-found: error
           retention-days: 30
 
@@ -127,8 +137,8 @@ jobs:
             PAPER_BRANCH.md
             !paper/main.pdf
             !paper/main_commented.pdf
-            !paper/espino_2026_mathematics_support_attendance_performance.pdf
-            !paper/espino_2026_mathematics_support_attendance_performance_commented.pdf
+            !paper/espino_2026_beyond_first_attendance.pdf
+            !paper/espino_2026_beyond_first_attendance_commented.pdf
             !paper/*.aux
             !paper/*.bbl
             !paper/*.blg
