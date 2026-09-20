@@ -88,6 +88,23 @@ Do not claim diminishing returns before the Paper 2.1 analyses support that shap
 
 The draft is **not submission-ready** until the TODOs in `paper/STATUS_AND_ROADMAP.md` are resolved, especially instructor-level clustering, entrance-exam sensitivity if available, institutional rule verification, and ethics/data-use wording.
 
+## Shared-library provenance
+
+The reusable methods developed during Paper 2.1 were upstreamed to `main` as **cmat-analysis 0.3.0**. Canonical shared functions now include:
+
+- `add_academic_outcome_states` in `cmat_analysis.measures`;
+- `add_topcoded_visit_group`;
+- `visit_frequency_support_audit`;
+- `visit_frequency_cut_frontier`;
+- `visit_group_pair_overlap`;
+- `fixed_effect_group_comparisons`;
+- `group_outcome_summary`;
+- `outcome_state_composition`;
+- `distribution_profile`;
+- `pairwise_effect_matrix` in `cmat_analysis.statistics`.
+
+The Paper 2.1 runners now delegate those calculations to the library. Do not reintroduce local copies unless the shared API cannot represent a scientifically different estimand. Shared API documentation lives in the Sphinx guide `cmat_analysis/docs/user_guide/attendance_frequency.rst` and in `cmat_analysis/FUNCTION_INDEX.md`.
+
 ## Repository governance
 
-Do not merge the whole branch into `main` or Paper 2. Shared scientific functions discovered here should go through the repository upstream-maintainer process before they become canonical across papers.
+Do not merge the whole paper branch into `main` or Paper 2. Shared scientific functions discovered here should go through the upstream library process first; Paper 2.1 is now a downstream consumer of the reviewed main-library capability.
