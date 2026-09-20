@@ -297,6 +297,37 @@ def run(args: argparse.Namespace) -> int:
     ])
     _save(benchmark, "10_benchmark_0_vs_1plus.csv")
 
+    # Zero-inclusive descriptive decomposition using the frozen positive-frequency
+    # grouping. This shows whether differences in non-passing outcomes reflect a
+    # numeric grade below 7.5 or an administrative BA/BV/RT outcome.
+    zero_plus = mu.copy()
+    positive_group = _group_positive(
+        zero_plus.loc[zero_plus["VISITS_CMAT_PERIOD"] > 0, "VISITS_CMAT_PERIOD"], 5
+    )
+    zero_plus["P21_GROUP_WITH_ZERO"] = "0"
+    zero_plus.loc[zero_plus["VISITS_CMAT_PERIOD"] > 0, "P21_GROUP_WITH_ZERO"] = (
+        positive_group.astype(str)
+    )
+    zero_order = ["0", "1", "2", "3", "4", "5", "6+"]
+    _save(
+        _descriptives(
+            zero_plus,
+            "P21_GROUP_WITH_ZERO",
+            zero_order,
+            "zero_inclusive_primary_0_1_2_3_4_5_6plus",
+        ),
+        "10b_zero_inclusive_descriptives.csv",
+    )
+    _save(
+        _nonpass_composition(
+            zero_plus,
+            "P21_GROUP_WITH_ZERO",
+            zero_order,
+            "zero_inclusive_primary_0_1_2_3_4_5_6plus",
+        ),
+        "10c_zero_inclusive_outcome_state_composition.csv",
+    )
+
     users = mu.loc[mu["VISITS_CMAT_PERIOD"] > 0].copy()
 
     # Primary: 1, 2, 3, 4, 5, 6+
