@@ -10,6 +10,7 @@ from cmat_analysis.statistics import (
     add_topcoded_visit_group,
     distribution_profile,
     fixed_effect_group_comparisons,
+    mixture_component_density,
     outcome_state_composition,
     pairwise_effect_matrix,
     visit_frequency_cut_frontier,
@@ -137,3 +138,32 @@ def test_composition_distribution_and_matrix_outputs_are_consistent():
     wide = matrix.set_index("group")
     assert np.allclose(np.diag(wide.to_numpy()), 0.0)
     assert np.isclose(wide.loc["1", "2"], -wide.loc["2", "1"])
+
+
+
+def test_mixture_component_density_areas_recover_component_shares():
+    d = _fixture().copy()
+    d["STATE"] = np.where(d["PASS"].eq(1), "pass", "nonpass")
+    density = mixture_component_density(
+        d,
+        group_col="GROUP",
+        group_order=["0", "1", "2", "3+"],
+        outcome_col="Y",
+        component_col="STATE",
+        component_order=["pass", "nonpass"],
+        grid_size=512,
+    )
+    for group in ["0", "1", "2", "3+"]:
+        g = density.loc[density["group"].eq(group)]
+        x = g["x"].drop_duplicates().to_numpy(float)
+        total = (
+            g.drop_duplicates("x")
+            .sort_values("x")["density_total"]
+            .to_numpy(float)
+        )
+        assert np.isclose(np.trapz(total, x), 1.0, atol=0.02)
+        for component in ["pass", "nonpass"]:
+            c = g.loc[g["component"].eq(component)].sort_values("x")
+            area = np.trapz(c["density_component"].to_numpy(float), c["x"].to_numpy(float))
+            share = float(c["component_share"].iloc[0])
+            assert np.isclose(area, share, atol=0.02)
