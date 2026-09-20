@@ -50,6 +50,38 @@ def validate() -> None:
         )
 
 
+
+def _central_density_limits(
+    density: pd.DataFrame,
+    *,
+    lower: float = 0.005,
+    upper: float = 0.995,
+) -> tuple[float, float]:
+    limits = []
+    for group in GROUPS:
+        subset = (
+            density.loc[density["group"].astype(str).eq(group)]
+            .drop_duplicates("x")
+            .sort_values("x")
+        )
+        x = subset["x"].to_numpy(float)
+        y = subset["density_total"].to_numpy(float)
+        increments = (y[:-1] + y[1:]) * 0.5 * np.diff(x)
+        cumulative = np.concatenate([[0.0], np.cumsum(increments)])
+        if cumulative[-1] <= 0:
+            continue
+        cumulative /= cumulative[-1]
+        limits.append(
+            (
+                float(np.interp(lower, cumulative, x)),
+                float(np.interp(upper, cumulative, x)),
+            )
+        )
+    left = min(value[0] for value in limits)
+    right = max(value[1] for value in limits)
+    margin = 0.04 * (right - left)
+    return left - margin, right + margin
+
 def plot_distribution_and_composition() -> Path:
     density = pd.read_csv(
         TABLES_DIR / "10g_zero_inclusive_stacked_ridgeline_density.csv"
@@ -80,6 +112,7 @@ def plot_distribution_and_composition() -> Path:
         ax=ax,
     )
     ax.axvline(0, linestyle="--", linewidth=0.9, alpha=0.65)
+    ax.set_xlim(*_central_density_limits(density))
     ax.set_xlabel("Instructor-period-standardised MU grade (Z)")
     ax.set_ylabel("CMAT visits during the MU academic period")
     ax.grid(axis="y", visible=False)
