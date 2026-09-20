@@ -218,6 +218,37 @@ def _nonpass_composition(d: pd.DataFrame, group_col: str, group_order: list[str]
     return pd.DataFrame(rows)
 
 
+def _distribution_profile(
+    d: pd.DataFrame,
+    group_col: str,
+    group_order: list[str],
+    spec: str,
+) -> pd.DataFrame:
+    """Describe where the continuous outcome distribution moves, not only its mean."""
+    rows = []
+    for group in group_order:
+        g = d.loc[d[group_col].astype(str) == group].copy()
+        z = g["Z_GRADE_PRIMARY"].dropna().astype(float)
+        passing_z = g.loc[g["PASS"].eq(1), "Z_GRADE_PRIMARY"].dropna().astype(float)
+        nonpassing_z = g.loc[g["PASS"].eq(0), "Z_GRADE_PRIMARY"].dropna().astype(float)
+        rows.append({
+            "specification": spec,
+            "group": group,
+            "n": int(len(g)),
+            "z_q10": float(z.quantile(0.10)) if len(z) else np.nan,
+            "z_q25": float(z.quantile(0.25)) if len(z) else np.nan,
+            "z_median": float(z.quantile(0.50)) if len(z) else np.nan,
+            "z_q75": float(z.quantile(0.75)) if len(z) else np.nan,
+            "z_q90": float(z.quantile(0.90)) if len(z) else np.nan,
+            "mean_z_among_pass": float(passing_z.mean()) if len(passing_z) else np.nan,
+            "mean_z_among_nonpass": float(nonpassing_z.mean()) if len(nonpassing_z) else np.nan,
+            "n_pass": int(g["PASS"].eq(1).sum()),
+            "n_nonpass": int(g["PASS"].eq(0).sum()),
+            "interpretation": "descriptive distribution profile; conditional means are not causal subgroup effects",
+        })
+    return pd.DataFrame(rows)
+
+
 def _effect_matrix(pairwise: pd.DataFrame, group_order: list[str], value_col: str, outcome: str) -> pd.DataFrame:
     mat = pd.DataFrame(np.nan, index=group_order, columns=group_order)
     for g in group_order:
@@ -295,6 +326,10 @@ def run(args: argparse.Namespace) -> int:
     _save(p_pair, "14_primary_pairwise_pass.csv")
     _save(_nonpass_composition(users, "P21_GROUP", primary_order, "primary_1_2_3_4_5_6plus"),
           "15_primary_outcome_state_composition.csv")
+    _save(
+        _distribution_profile(users, "P21_GROUP", primary_order, "primary_1_2_3_4_5_6plus"),
+        "15b_primary_distribution_profile.csv",
+    )
 
     cc_pair, cc_omni = _fit_pairwise(
         users,
@@ -347,6 +382,10 @@ def run(args: argparse.Namespace) -> int:
     _save(
         _nonpass_composition(users, "P21_GROUP_7P", sensitivity_order, "sensitivity_1_to_6_7plus"),
         "24_sensitivity_7plus_outcome_state_composition.csv",
+    )
+    _save(
+        _distribution_profile(users, "P21_GROUP_7P", sensitivity_order, "sensitivity_1_to_6_7plus"),
+        "25_sensitivity_7plus_distribution_profile.csv",
     )
 
     print(f"Paper 2.1 study cohort: N={len(mu):,}")
