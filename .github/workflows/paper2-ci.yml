@@ -59,13 +59,19 @@ jobs:
             results/tables/35_classroom_identification_diagnostics.csv \
             results/tables/36_exact_group_classroom_overlap.csv \
             results/tables/37_exact_visit_groups_outcome_sensitivity.csv \
-            results/tables/38_small_classroom_fe_sensitivity.csv; do
+            results/tables/38_small_classroom_fe_sensitivity.csv \
+            results/tables/39_exact_visit_groups_fe_outcome_sensitivity.csv \
+            results/tables/40_exact_visit_groups_pass_summary.csv \
+            results/tables/41_exact_visit_groups_pass_fe_pairwise.csv \
+            results/tables/42_exact_visit_groups_pass_fe_model_info.csv \
+            results/tables/49_withdrawal_share_by_visit_group.csv \
+            results/tables/50_leave_one_period_out_fe_pairwise.csv; do
             test -s "$f"
           done
           for f in \
             results/figures/fig01_mu_visit_distribution.pdf \
             results/figures/fig02_mu_performance_by_visit_group.pdf \
-            results/figures/fig03_adjusted_dose_coefficients.pdf \
+            results/figures/fig03_adjusted_visit_group_coefficients.pdf \
             results/figures/fig04_outcome_sensitivity.pdf; do
             test -s "$f"
           done
