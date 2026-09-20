@@ -2,7 +2,7 @@
 
 This file contains branch-specific rules for `paper/paper2.1-visit-frequency`.
 
-Paper 2.1 was created from Paper 2 at commit `1956ef4bfe6073c9b28881a9da34d14cd22239a8`. Read `paper/PROJECT_CONTEXT.md`, `paper/ANALYSIS_PLAN.md`, and `paper/STATUS_AND_ROADMAP.md` before analysis or writing.
+Paper 2.1 was created from Paper 2 at commit `1956ef4bfe6073c9b28881a9da34d14cd22239a8`. The branch now contains a complete Paper 2.1 manuscript draft. Before changing it, read `paper/STATUS_AND_ROADMAP.md`, `paper/PROJECT_CONTEXT.md`, `paper/ANALYSIS_PLAN.md`, `paper/PRELIMINARY_RESULTS.md`, `paper/ACADEMIC_MANAGEMENT_HYPOTHESIS.md`, and `paper/LITERATURE_ACCESS_NOTES.md`.
 
 ## What Paper 2.1 changes
 
@@ -74,15 +74,19 @@ Before claiming a specific GPA or transcript consequence of BV/RT, verify the in
 
 ## Literature framing
 
-Paper 2.1 should begin with a dense state of the art. The literature review must lead to the gap concerning the **shape and distinguishability of repeated mathematics-support attendance**, not merely repeat that support users often outperform non-users.
+Paper 2.1 now begins with a dense state of the art. The literature review must lead to the gap concerning the **shape and distinguishability of repeated mathematics-support attendance**, not merely repeat that support users often outperform non-users.
 
 Use prior observational and identification-oriented evidence together, preserving the distinction between association and causal evidence.
 
 Do not claim diminishing returns before the Paper 2.1 analyses support that shape.
 
+`gokhool2026` is currently **abstract-only**. It may be cited for the two-dimensional engagement framing (0 vs 1+; visit count among users), the Coventry/12-discipline scope, listed demographic predictors, and the hurdle-model specification stated in the abstract. Do not attribute results, effect sizes, limitations, or conclusions not present in the supplied abstract. See `paper/LITERATURE_ACCESS_NOTES.md`.
+
 ## Manuscript status
 
-The inherited Paper 2 LaTeX files are currently baseline/provenance material only. Do not treat them as the Paper 2.1 manuscript until the visit-group support audit and dual-outcome analysis have stabilized.
+`paper/sections/01.tex`--`04.tex` are now the canonical Paper 2.1 draft. They include the dense state of the art, frozen grouping rationale, benchmark and user-frequency results, academic-management/BV results, distributional sensitivity, limitations and conclusion. Do not revert them to the inherited Paper 2 wording.
+
+The draft is **not submission-ready** until the TODOs in `paper/STATUS_AND_ROADMAP.md` are resolved, especially instructor-level clustering, entrance-exam sensitivity if available, institutional rule verification, and ethics/data-use wording.
 
 ## Repository governance
 
