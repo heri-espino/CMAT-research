@@ -52,7 +52,8 @@ jobs:
             results/paper21/tables/01_exact_positive_visit_support.csv \
             results/paper21/tables/02_candidate_tail_support.csv \
             results/paper21/tables/03_candidate_group_support.csv \
-            results/paper21/tables/04_candidate_pair_overlap.csv; do
+            results/paper21/tables/04_candidate_pair_overlap.csv \
+            results/paper21/tables/05_cut_overlap_frontier.csv; do
             test -s "$f"
           done
 
