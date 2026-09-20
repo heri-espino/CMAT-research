@@ -141,21 +141,16 @@ Purpose: assess whether the pairwise pattern resembles a plateau, gradual increa
 
 Do not use the spline to choose the categorical cut retrospectively. The support-based grouping must already have been fixed.
 
-## Stage 8 — outcome-construction and exposure-opportunity robustness
+## Stage 8 — outcome-construction robustness
 
 The two principal outcome families are themselves a robustness structure:
 
 - PASS requires no numerical imputation for BA/BV/RT;
 - continuous Z uses the canonical imputation and contains more outcome information.
 
-However, PASS does **not** solve exposure-opportunity bias. A student who withdraws early has less time to accumulate visits, so high visit counts mechanically require more opportunity to remain enrolled long enough to attend. A positive frequency--PASS pattern could therefore partly reflect persistence in the course rather than a benefit of additional CMAT attendance.
+Retain the numeric-only complete-case continuous outcome as an additional sensitivity because it removes BA/BV/RT and the imputation assumption.
 
-Retain the numeric-only complete-case continuous outcome as an additional sensitivity because it removes BA/BV/RT and the imputation assumption, while recognizing that it conditions on observed numeric course completion and therefore does not fully identify a causal frequency effect.
-
-When interpreting frequency patterns, explicitly separate:
-- robustness to numerical imputation;
-- robustness to excluding administrative withdrawals;
-- unresolved same-period timing and opportunity-to-accumulate-visits concerns.
+**Manuscript treatment of withdrawal timing should remain brief:** when BA/BV/RT are defined, one sentence may note that students with an administrative withdrawal may have had less time to accumulate CMAT visits. Do not expand this into a major interpretive theme unless a dedicated timing analysis later provides new evidence.
 
 ## Stage 9 — clustering sensitivity
 
