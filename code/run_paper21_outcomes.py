@@ -210,6 +210,17 @@ def _profile(
         outcome_col=outcome_col,
         pass_col="PASS",
     )
+    out = out.rename(
+        columns={
+            "q10": "z_q10",
+            "q25": "z_q25",
+            "q50": "z_median",
+            "q75": "z_q75",
+            "q90": "z_q90",
+            "mean_outcome_among_pass": "mean_z_among_pass",
+            "mean_outcome_among_nonpass": "mean_z_among_nonpass",
+        }
+    )
     out.insert(0, "outcome", outcome_label)
     out.insert(0, "specification", specification)
     out["interpretation"] = (
