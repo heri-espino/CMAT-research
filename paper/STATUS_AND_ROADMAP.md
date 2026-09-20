@@ -2,7 +2,7 @@
 
 **Branch:** `paper/paper2.1-visit-frequency`  
 **Created from Paper 2:** 2026-09-20  
-**Stage:** design and analysis specification
+**Stage:** full manuscript draft + remaining pre-submission robustness
 
 ## Current scientific idea
 
@@ -25,14 +25,15 @@ The current `4+` top-code is not binding on this branch.
 - [x] document outcome-blind upper-frequency grouping principle;
 - [x] document pairwise, heatmap, and equivalence strategy.
 
-### M1 — State of the art — NEXT
+### M1 — State of the art — DRAFTED
 
-- [ ] review the selected mathematics-support literature specifically for visit-frequency grouping and repeated attendance;
-- [ ] extract how prior studies define 0, 1, repeated, and high-frequency attendance;
-- [ ] identify evidence about non-engagement, self-selection, and repeated use;
+- [x] review the selected mathematics-support literature specifically for visit-frequency grouping and repeated attendance;
+- [x] extract how prior studies define 0, 1, repeated, and high-frequency attendance;
+- [x] identify evidence about non-engagement, self-selection, and repeated use;
 - [ ] identify whether any study formally tests equivalence or saturation/plateau patterns;
-- [ ] draft a dense state-of-the-art section ending in the Paper 2.1 research gap;
-- [ ] add further literature only when it materially informs frequency grouping, repeated attendance, or outcome interpretation.
+- [x] draft a dense state-of-the-art section ending in the Paper 2.1 research gap;
+- [ ] perform a final literature audit before submission and add only sources that materially inform frequency grouping, repeated attendance, outcome composition, or interpretation;
+- [x] cite Gokhool & Lawson (2026) only for abstract-supported claims and record the access limitation in `paper/LITERATURE_ACCESS_NOTES.md`.
 
 ### M2 — Support audit and final visit grouping — COMPLETE
 
@@ -71,8 +72,8 @@ The current `4+` top-code is not binding on this branch.
 
 - [ ] decide whether defensible equivalence margins exist before testing;
 - [ ] if yes, freeze margins and run equivalence tests;
-- [ ] produce continuous-Z pairwise heatmap;
-- [ ] produce pass-probability pairwise heatmap;
+- [x] produce continuous-Z pairwise heatmap;
+- [x] produce pass-probability pairwise heatmap;
 - [ ] optionally produce zero-inclusive supplementary heatmaps;
 - [ ] fit an exploratory smooth/spline among users without using it to choose the categorical cut;
 - [ ] write a synthesis classifying the observed structure as plateau/gradual/separated/irregular only to the extent supported by uncertainty.
@@ -84,18 +85,16 @@ The current `4+` top-code is not binding on this branch.
 - [ ] rerun the principal models with observed baseline preparation if the score is usable;
 - [ ] compare the frequency structure before and after baseline adjustment.
 
-### M6 — Paper 2.1 manuscript
+### M6 — Paper 2.1 manuscript — FULL DRAFT COMPLETE
 
-- [ ] replace the inherited Paper 2 manuscript with a Paper 2.1-specific manuscript only after M2–M4 stabilize;
-- [ ] begin with the dense state-of-the-art section;
-- [ ] keep 0 vs 1+ as a short benchmark rather than the main result;
-- [ ] make the pairwise frequency structure, performance margin, and academic-management margin the central Results section;
-- [ ] integrate the two heatmaps;
-- [ ] write a compact conclusion about what can and cannot be distinguished among attendance frequencies;
-- [ ] preserve observational/non-causal language.
+- [x] replace the inherited Paper 2 manuscript with a Paper 2.1-specific manuscript;
+- [x] begin with the dense state-of-the-art section;
+- [x] keep 0 vs 1+ as a short benchmark rather than the main result;
+- [x] make the pairwise frequency structure, performance margin, and academic-management margin the central Results section;
+- [x] integrate the two heatmaps;
+- [x] write a compact conclusion about what can and cannot be distinguished among attendance frequencies;
+- [x] preserve observational/non-causal language.
 
 ## Immediate next task
 
-Proceed to M1 and complete M3 validation: build the dense state-of-the-art review, verify the new academic-management outputs, and preserve the frozen `1/2/3/4/5/6+` grouping. Do not change the grouping in response to outcome significance.
-
-The inherited Paper 2 LaTeX manuscript currently remains in this branch as a baseline/provenance artifact; it is not yet the Paper 2.1 manuscript.
+Treat `paper/sections/01.tex`--`04.tex` as the current Paper 2.1 manuscript draft. Immediate pre-submission priorities are: (1) instructor-level clustering sensitivity; (2) entrance-exam sensitivity if usable; (3) verify historical institutional rules for BV/RT/BA before making GPA/transcript claims; (4) resolve the ethics/data-use statement; (5) decide whether defensible equivalence margins exist; and (6) final referee-style literature/numbers audit. Do not change the frozen `1/2/3/4/5/6+` grouping in response to outcome significance.
