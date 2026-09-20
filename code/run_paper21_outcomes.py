@@ -64,6 +64,7 @@ def _descriptives(d: pd.DataFrame, group_col: str, group_order: list[str], spec:
         pass_se = math.sqrt(pass_rate * (1 - pass_rate) / len(p)) if len(p) and np.isfinite(pass_rate) else np.nan
         rows.append({
             "specification": spec,
+            "outcome": outcome_label,
             "group": group,
             "n": int(len(g)),
             "mean_z": float(z.mean()) if n_z else np.nan,
@@ -223,14 +224,17 @@ def _distribution_profile(
     group_col: str,
     group_order: list[str],
     spec: str,
+    *,
+    outcome_col: str = "Z_GRADE_PRIMARY",
+    outcome_label: str = "continuous_standardised_grade",
 ) -> pd.DataFrame:
     """Describe where the continuous outcome distribution moves, not only its mean."""
     rows = []
     for group in group_order:
         g = d.loc[d[group_col].astype(str) == group].copy()
-        z = g["Z_GRADE_PRIMARY"].dropna().astype(float)
-        passing_z = g.loc[g["PASS"].eq(1), "Z_GRADE_PRIMARY"].dropna().astype(float)
-        nonpassing_z = g.loc[g["PASS"].eq(0), "Z_GRADE_PRIMARY"].dropna().astype(float)
+        z = g[outcome_col].dropna().astype(float)
+        passing_z = g.loc[g["PASS"].eq(1), outcome_col].dropna().astype(float)
+        nonpassing_z = g.loc[g["PASS"].eq(0), outcome_col].dropna().astype(float)
         rows.append({
             "specification": spec,
             "group": group,
@@ -358,8 +362,26 @@ def run(args: argparse.Namespace) -> int:
     _save(_nonpass_composition(users, "P21_GROUP", primary_order, "primary_1_2_3_4_5_6plus"),
           "15_primary_outcome_state_composition.csv")
     _save(
-        _distribution_profile(users, "P21_GROUP", primary_order, "primary_1_2_3_4_5_6plus"),
+        _distribution_profile(
+            users,
+            "P21_GROUP",
+            primary_order,
+            "primary_1_2_3_4_5_6plus",
+            outcome_col="Z_GRADE_PRIMARY",
+            outcome_label="continuous_standardised_grade",
+        ),
         "15b_primary_distribution_profile.csv",
+    )
+    _save(
+        _distribution_profile(
+            users,
+            "P21_GROUP",
+            primary_order,
+            "primary_1_2_3_4_5_6plus_complete_case",
+            outcome_col="Z_GRADE_COMPLETE_CASE",
+            outcome_label="numeric_complete_case_standardised_grade",
+        ),
+        "15c_primary_complete_case_distribution_profile.csv",
     )
 
     cc_pair, cc_omni = _fit_pairwise(
@@ -415,7 +437,14 @@ def run(args: argparse.Namespace) -> int:
         "24_sensitivity_7plus_outcome_state_composition.csv",
     )
     _save(
-        _distribution_profile(users, "P21_GROUP_7P", sensitivity_order, "sensitivity_1_to_6_7plus"),
+        _distribution_profile(
+            users,
+            "P21_GROUP_7P",
+            sensitivity_order,
+            "sensitivity_1_to_6_7plus",
+            outcome_col="Z_GRADE_PRIMARY",
+            outcome_label="continuous_standardised_grade",
+        ),
         "25_sensitivity_7plus_distribution_profile.csv",
     )
 
