@@ -34,15 +34,17 @@ The current `4+` top-code is not binding on this branch.
 - [ ] draft a dense state-of-the-art section ending in the Paper 2.1 research gap;
 - [ ] add further literature only when it materially informs frequency grouping, repeated attendance, or outcome interpretation.
 
-### M2 — Support audit and final visit grouping
+### M2 — Support audit and final visit grouping — COMPLETE
 
-- [ ] generate exact positive-visit counts with instructor-period support;
-- [ ] quantify within-instructor-period overlap among positive groups;
-- [ ] apply the outcome-blind grouping rule;
-- [ ] freeze the final exact-plus-tail grouping before inspecting pairwise outcomes;
-- [ ] record the grouping decision in a machine-readable/Markdown decision note.
+- [x] generate exact positive-visit counts with instructor-period support;
+- [x] quantify within-instructor-period overlap among positive groups;
+- [x] compare candidate top-codes using the pair-overlap frontier;
+- [x] freeze the final grouping before inspecting Paper 2.1 outcomes;
+- [x] record the decision in `paper/VISIT_GROUPING_DECISION.md` and `paper/visit_grouping_spec.json`.
 
-Current candidate only: `1 / 2 / 3 / 4 / 5 / 6 / 7+`.
+**Primary:** `1 / 2 / 3 / 4 / 5 / 6+`.
+
+**Exploratory sensitivity:** `1 / 2 / 3 / 4 / 5 / 6 / 7+`.
 
 ### M3 — Dual-outcome inference
 
@@ -84,6 +86,6 @@ Current candidate only: `1 / 2 / 3 / 4 / 5 / 6 / 7+`.
 
 ## Immediate next task
 
-Implement M2 first: exact-count support by instructor-period and the outcome-blind grouping decision. Do **not** inspect pairwise grades/pass rates while choosing the tail cut.
+Proceed to M1 and M3: build the dense state-of-the-art review and implement the dual-outcome inference using the now-frozen `1/2/3/4/5/6+` grouping. Do not change the grouping in response to outcome significance.
 
 The inherited Paper 2 LaTeX manuscript currently remains in this branch as a baseline/provenance artifact; it is not yet the Paper 2.1 manuscript.
