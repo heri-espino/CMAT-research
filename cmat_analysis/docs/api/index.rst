@@ -1,17 +1,14 @@
 Public API reference
 ====================
 
-This reference is intentionally restricted to symbols exported by the
-reviewed canonical namespace ``__all__`` declarations. Compatibility
-namespaces, private implementation modules, historical pipelines, and
-non-exported helpers are excluded.
+This reference is restricted to symbols exported by reviewed canonical
+namespace declarations. Compatibility and private implementation modules are
+excluded.
 
 io
 --
 
 .. automodule:: cmat_analysis.io
-
-This namespace currently exposes no stable public callables.
 
 preprocessing
 -------------
@@ -67,6 +64,9 @@ measures
 
 .. automodule:: cmat_analysis.measures
 
+.. autofunction:: cmat_analysis.measures.add_academic_outcome_states
+   :no-index-entry:
+
 .. autofunction:: cmat_analysis.measures.add_primary_outcomes
    :no-index-entry:
 
@@ -76,6 +76,42 @@ statistics
 .. automodule:: cmat_analysis.statistics
 
 .. autofunction:: cmat_analysis.statistics.add_exact_visit_group
+   :no-index-entry:
+
+.. autofunction:: cmat_analysis.statistics.exact_visit_group_summary
+   :no-index-entry:
+
+.. autofunction:: cmat_analysis.statistics.fixed_effect_pairwise_exact_groups
+   :no-index-entry:
+
+.. autofunction:: cmat_analysis.statistics.welch_anova_exact_groups
+   :no-index-entry:
+
+.. autofunction:: cmat_analysis.statistics.add_topcoded_visit_group
+   :no-index-entry:
+
+.. autofunction:: cmat_analysis.statistics.visit_frequency_support_audit
+   :no-index-entry:
+
+.. autofunction:: cmat_analysis.statistics.visit_frequency_cut_frontier
+   :no-index-entry:
+
+.. autofunction:: cmat_analysis.statistics.visit_group_pair_overlap
+   :no-index-entry:
+
+.. autofunction:: cmat_analysis.statistics.group_outcome_summary
+   :no-index-entry:
+
+.. autofunction:: cmat_analysis.statistics.fixed_effect_group_comparisons
+   :no-index-entry:
+
+.. autofunction:: cmat_analysis.statistics.outcome_state_composition
+   :no-index-entry:
+
+.. autofunction:: cmat_analysis.statistics.distribution_profile
+   :no-index-entry:
+
+.. autofunction:: cmat_analysis.statistics.pairwise_effect_matrix
    :no-index-entry:
 
 .. autofunction:: cmat_analysis.statistics.games_howell_exact_groups
