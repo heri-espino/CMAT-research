@@ -611,3 +611,156 @@ def pairwise_effect_matrix(
             matrix.loc[group1, group2] = estimate
             matrix.loc[group2, group1] = -estimate
     return matrix.reset_index(names="group")
+
+
+
+def mixture_component_density(
+    df: pd.DataFrame,
+    *,
+    group_col: str,
+    group_order: Sequence[str],
+    outcome_col: str,
+    component_col: str,
+    component_order: Sequence[str],
+    grid_size: int = 256,
+    cut: float = 3.0,
+    min_bandwidth: float = 1e-3,
+) -> pd.DataFrame:
+    """Build stacked KDE components whose areas equal observed group shares.
+
+    A common Gaussian-kernel bandwidth is used for all components within each
+    group. Each component density is divided by the full group size rather than
+    the component size, so integrating a component over the x-axis yields its
+    observed within-group share and summing components reconstructs the group's
+    total kernel density.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Analytical table containing group, continuous outcome, and component
+        state columns.
+    group_col : str
+        Column identifying the ridgeline/exposure groups.
+    group_order : sequence of str
+        Ordered group labels to include.
+    outcome_col : str
+        Continuous variable whose distribution is estimated.
+    component_col : str
+        Column identifying stacked outcome components.
+    component_order : sequence of str
+        Ordered component labels to include.
+    grid_size : int, default=256
+        Number of common x-grid points used for every group.
+    cut : float, default=3.0
+        Number of maximum group bandwidths added beyond the observed global
+        minimum and maximum.
+    min_bandwidth : float, default=1e-3
+        Lower bound for the Gaussian kernel bandwidth.
+
+    Returns
+    -------
+    pandas.DataFrame
+        Long-format density grid containing group, component, x,
+        density_component, density_total, component_share, n_group,
+        n_component, and bandwidth.
+
+    Notes
+    -----
+    This is a descriptive visualization transform. Administrative or imputed
+    values retain whatever meaning they have in the supplied outcome column.
+    """
+    if grid_size < 32:
+        raise ValueError("grid_size must be at least 32")
+    if cut < 0:
+        raise ValueError("cut must be non-negative")
+    if min_bandwidth <= 0:
+        raise ValueError("min_bandwidth must be positive")
+    _require(df, [group_col, outcome_col, component_col])
+
+    groups = [str(value) for value in group_order]
+    components = [str(value) for value in component_order]
+    work = df[[group_col, outcome_col, component_col]].copy()
+    work[group_col] = work[group_col].astype("string")
+    work[component_col] = work[component_col].astype("string")
+    work[outcome_col] = pd.to_numeric(work[outcome_col], errors="coerce")
+    work = work.loc[
+        work[group_col].isin(groups)
+        & work[component_col].isin(components)
+        & work[outcome_col].notna()
+    ].copy()
+    if work.empty:
+        return pd.DataFrame(
+            columns=[
+                "group", "component", "x", "density_component",
+                "density_total", "component_share", "n_group",
+                "n_component", "bandwidth",
+            ]
+        )
+
+    bandwidths: dict[str, float] = {}
+    for group in groups:
+        values = work.loc[work[group_col].eq(group), outcome_col].to_numpy(float)
+        if len(values) == 0:
+            continue
+        sd = float(np.std(values, ddof=1)) if len(values) > 1 else 0.0
+        if not np.isfinite(sd) or sd <= 0:
+            iqr = (
+                float(np.subtract(*np.percentile(values, [75, 25])))
+                if len(values) > 1
+                else 0.0
+            )
+            scale = iqr / 1.349 if np.isfinite(iqr) and iqr > 0 else 1.0
+        else:
+            scale = sd
+        bandwidths[group] = max(
+            float(scale * len(values) ** (-0.2)), min_bandwidth
+        )
+
+    maximum_bandwidth = max(bandwidths.values())
+    global_values = work[outcome_col].to_numpy(float)
+    x_min = float(np.min(global_values) - cut * maximum_bandwidth)
+    x_max = float(np.max(global_values) + cut * maximum_bandwidth)
+    grid = np.linspace(x_min, x_max, int(grid_size))
+    normalizer = math.sqrt(2.0 * math.pi)
+
+    rows: list[pd.DataFrame] = []
+    for group in groups:
+        subset = work.loc[work[group_col].eq(group)]
+        if subset.empty:
+            continue
+        n_group = int(len(subset))
+        bandwidth = bandwidths[group]
+        component_density: dict[str, np.ndarray] = {}
+        for component in components:
+            values = subset.loc[
+                subset[component_col].eq(component), outcome_col
+            ].to_numpy(float)
+            if len(values):
+                z = (grid[:, None] - values[None, :]) / bandwidth
+                density = np.exp(-0.5 * z**2).sum(axis=1)
+                density /= n_group * bandwidth * normalizer
+            else:
+                density = np.zeros_like(grid)
+            component_density[component] = density
+
+        total_density = np.sum(
+            np.vstack([component_density[c] for c in components]), axis=0
+        )
+        for component in components:
+            n_component = int(subset[component_col].eq(component).sum())
+            rows.append(
+                pd.DataFrame(
+                    {
+                        "group": group,
+                        "component": component,
+                        "x": grid,
+                        "density_component": component_density[component],
+                        "density_total": total_density,
+                        "component_share": n_component / n_group,
+                        "n_group": n_group,
+                        "n_component": n_component,
+                        "bandwidth": bandwidth,
+                    }
+                )
+            )
+    return pd.concat(rows, ignore_index=True) if rows else pd.DataFrame()
