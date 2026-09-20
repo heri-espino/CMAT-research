@@ -73,6 +73,7 @@ The current `4+` top-code is not binding on this branch.
 
 - [ ] decide whether defensible equivalence margins exist before testing;
 - [ ] if yes, freeze margins and run equivalence tests;
+- [x] replace the separate mean-Z and outcome-composition figures with one combined real-data ridgeline whose stacked component areas reproduce PASS / numeric <7.5 / BV / RT / BA shares;
 - [x] produce continuous-Z pairwise heatmap;
 - [x] produce pass-probability pairwise heatmap;
 - [ ] optionally produce zero-inclusive supplementary heatmaps;
