@@ -9,7 +9,7 @@ Read:
 - `STATUS_AND_ROADMAP.md` for current milestones;
 - `AI_HANDOFF.md` for binding branch-specific rules.
 
-The candidate frequency grouping `1 / 2 / 3 / 4 / 5 / 6 / 7+` is provisional. The final tail cut must come from an outcome-blind support audit, not from where pairwise p-values happen to become significant or non-significant.
+The primary frequency grouping is now frozen as `1 / 2 / 3 / 4 / 5 / 6+` from an outcome-blind support and pair-overlap audit. `1 / 2 / 3 / 4 / 5 / 6 / 7+` is exploratory sensitivity only. See `VISIT_GROUPING_DECISION.md`.
 
 Two principal outcomes are planned: PASS/non-PASS and the continuous imputed instructor-period-standardised grade.
 
