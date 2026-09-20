@@ -29,11 +29,7 @@ Before looking at group means, pass rates, pairwise effects, or p-values, comput
 
 The grouping rule should **maximize retained frequency resolution subject to pre-declared support requirements**, rather than selecting the cut where statistical significance happens to disappear.
 
-Candidate starting point from marginal counts: `1 / 2 / 3 / 4 / 5 / 6 / 7+`.
-
-The support audit may move the top-code lower if the 5- or 6-visit groups are concentrated in too few instructor-period groups, or higher only if the exact upper categories remain adequately supported.
-
-Record the final rule and its rationale before running the pairwise outcome analysis.
+The support audit is now complete and froze the primary grouping as **`1 / 2 / 3 / 4 / 5 / 6+`** before any Paper 2.1 outcome comparisons were inspected. The decision is documented in `paper/VISIT_GROUPING_DECISION.md` and machine-readable in `paper/visit_grouping_spec.json`. The more granular `1 / 2 / 3 / 4 / 5 / 6 / 7+` grouping is an exploratory sensitivity only.
 
 ## Stage 2 — descriptive outcome profiles
 
