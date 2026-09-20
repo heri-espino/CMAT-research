@@ -4,15 +4,18 @@ This branch is the canonical exploratory/publication workspace for **Paper 2.1**
 
 **Parent checkpoint:** created from `paper/paper2-mu-performance` at commit `1956ef4bfe6073c9b28881a9da34d14cd22239a8`.
 
-Paper 2 remains the simpler attendance-versus-non-attendance manuscript. Paper 2.1 asks a different question: once students have attended CMAT at least once, how similar or different are outcomes across increasingly frequent attendance groups?
+Paper 2 remains the simpler attendance-versus-non-attendance manuscript. Paper 2.1 asks a broader question: after the large zero-versus-any-attendance separation, how do outcomes vary across positive attendance frequencies, and does attendance also relate to the composition of adverse outcomes, particularly voluntary withdrawal versus numeric failure?
 
 Read in this order:
 
 1. `PAPER_BRANCH.md`
 2. `paper/PROJECT_CONTEXT.md`
 3. `paper/ANALYSIS_PLAN.md`
-4. `paper/STATUS_AND_ROADMAP.md`
-5. `paper/AI_HANDOFF.md`
+4. `paper/PRELIMINARY_RESULTS.md`
+5. `paper/ACADEMIC_MANAGEMENT_HYPOTHESIS.md`
+6. `paper/LITERATURE_ACCESS_NOTES.md`
+7. `paper/STATUS_AND_ROADMAP.md`
+8. `paper/AI_HANDOFF.md`
 
 ## Scientific boundary
 
