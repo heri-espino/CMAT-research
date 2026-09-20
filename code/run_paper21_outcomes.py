@@ -234,6 +234,14 @@ def _add_academic_outcome_states(d: pd.DataFrame) -> pd.DataFrame:
     x["BVRT_VS_NUMERIC_NONPASS"] = np.nan
     x.loc[nonpass & x["GRADE_CLASS"].eq("numeric"), "BVRT_VS_NUMERIC_NONPASS"] = 0.0
     x.loc[nonpass & token.isin(["BV", "RT"]), "BVRT_VS_NUMERIC_NONPASS"] = 1.0
+
+    x["BV_VS_NUMERIC_NONPASS"] = np.nan
+    x.loc[nonpass & x["GRADE_CLASS"].eq("numeric"), "BV_VS_NUMERIC_NONPASS"] = 0.0
+    x.loc[nonpass & token.eq("BV"), "BV_VS_NUMERIC_NONPASS"] = 1.0
+
+    x["RT_VS_NUMERIC_NONPASS"] = np.nan
+    x.loc[nonpass & x["GRADE_CLASS"].eq("numeric"), "RT_VS_NUMERIC_NONPASS"] = 0.0
+    x.loc[nonpass & token.eq("RT"), "RT_VS_NUMERIC_NONPASS"] = 1.0
     return x
 
 
@@ -261,6 +269,44 @@ def _state_composition(
                 "group_n": int(denom),
                 "share_within_group": float(n / denom) if denom else np.nan,
             })
+    return pd.DataFrame(rows)
+
+
+def _nonpass_management_summary(d: pd.DataFrame) -> pd.DataFrame:
+    """Describe adverse-outcome composition conditional on non-PASS."""
+    x = d.loc[d["PASS"].eq(0)].copy()
+    x["attendance"] = np.where(x["VISITS_CMAT_PERIOD"].gt(0), "1+", "0")
+    token = x["GRADE_TOKEN"].fillna("").astype(str).str.upper()
+    rows = []
+    for attendance in ["0", "1+"]:
+        g = x.loc[x["attendance"].eq(attendance)].copy()
+        tok = token.loc[g.index]
+        numeric_n = int((g["GRADE_CLASS"] == "numeric").sum())
+        bv_n = int(tok.eq("BV").sum())
+        rt_n = int(tok.eq("RT").sum())
+        ba_n = int(tok.eq("BA").sum())
+        admin_n = bv_n + rt_n + ba_n
+        nonpass_n = int(len(g))
+        rows.append({
+            "attendance": attendance,
+            "nonpass_n": nonpass_n,
+            "numeric_below_7_5_n": numeric_n,
+            "BV_n": bv_n,
+            "RT_n": rt_n,
+            "BA_n": ba_n,
+            "administrative_n": admin_n,
+            "administrative_share_among_nonpass": admin_n / nonpass_n if nonpass_n else np.nan,
+            "BV_RT_share_among_numeric_or_BV_RT": (
+                (bv_n + rt_n) / (numeric_n + bv_n + rt_n)
+                if (numeric_n + bv_n + rt_n) else np.nan
+            ),
+            "BV_share_among_numeric_or_BV": (
+                bv_n / (numeric_n + bv_n) if (numeric_n + bv_n) else np.nan
+            ),
+            "RT_share_among_numeric_or_RT": (
+                rt_n / (numeric_n + rt_n) if (numeric_n + rt_n) else np.nan
+            ),
+        })
     return pd.DataFrame(rows)
 
 
@@ -405,8 +451,19 @@ def run(args: argparse.Namespace) -> int:
             "BVRT_VS_NUMERIC_NONPASS",
             "BV_RT_vs_numeric_failure_among_nonpass_excluding_BA",
         ),
+        _benchmark(
+            nonpass,
+            "BV_VS_NUMERIC_NONPASS",
+            "BV_vs_numeric_failure_among_nonpass_excluding_RT_BA",
+        ),
+        _benchmark(
+            nonpass,
+            "RT_VS_NUMERIC_NONPASS",
+            "RT_vs_numeric_failure_among_nonpass_excluding_BV_BA",
+        ),
     ])
     _save(management_benchmark, "10e_nonpass_management_benchmark_0_vs_1plus.csv")
+    _save(_nonpass_management_summary(mu), "10f_nonpass_management_descriptives_0_vs_1plus.csv")
 
     users = mu.loc[mu["VISITS_CMAT_PERIOD"] > 0].copy()
 
@@ -475,9 +532,21 @@ def run(args: argparse.Namespace) -> int:
         outcome_label="BV_RT_vs_numeric_failure_among_nonpass_excluding_BA",
         specification="primary_1_2_3_4_5_6plus_nonpass",
     )
-    _save(pd.concat([admin_omni, bvrt_omni], ignore_index=True), "15d_nonpass_management_omnibus.csv")
+    bv_pair, bv_omni = _fit_pairwise(
+        nonpass_users,
+        group_col="P21_GROUP",
+        group_order=primary_order,
+        outcome_col="BV_VS_NUMERIC_NONPASS",
+        outcome_label="BV_vs_numeric_failure_among_nonpass_excluding_RT_BA",
+        specification="primary_1_2_3_4_5_6plus_nonpass",
+    )
+    _save(
+        pd.concat([admin_omni, bvrt_omni, bv_omni], ignore_index=True),
+        "15d_nonpass_management_omnibus.csv",
+    )
     _save(admin_pair, "15e_nonpass_administrative_pairwise.csv")
     _save(bvrt_pair, "15f_nonpass_BVRT_pairwise.csv")
+    _save(bv_pair, "15g_nonpass_BV_pairwise.csv")
 
     _save(
         _distribution_profile(
