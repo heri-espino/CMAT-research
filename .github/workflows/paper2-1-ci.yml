@@ -65,6 +65,8 @@ jobs:
             results/paper21/tables/04_candidate_pair_overlap.csv \
             results/paper21/tables/05_cut_overlap_frontier.csv \
             results/paper21/tables/10_benchmark_0_vs_1plus.csv \
+            results/paper21/tables/10b_zero_inclusive_descriptives.csv \
+            results/paper21/tables/10c_zero_inclusive_outcome_state_composition.csv \
             results/paper21/tables/11_primary_group_descriptives.csv \
             results/paper21/tables/12_primary_omnibus.csv \
             results/paper21/tables/13_primary_pairwise_continuous.csv \
