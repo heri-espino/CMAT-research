@@ -51,7 +51,7 @@ The observed positive-visit counts currently include:
 - 15: 5
 - >15: 14
 
-This makes `1, 2, 3, 4, 5, 6, 7+` a plausible **candidate** grouping, not a pre-declared final grouping. The final upper cut must be selected from an outcome-blind support audit described in `paper/ANALYSIS_PLAN.md`.
+The outcome-blind support audit has now frozen the primary positive-frequency grouping as **`1 / 2 / 3 / 4 / 5 / 6+`**. The more granular `1 / 2 / 3 / 4 / 5 / 6 / 7+` specification is retained only as an exploratory sensitivity. See `paper/VISIT_GROUPING_DECISION.md` for the decision record.
 
 ## Two principal outcome families
 
