@@ -70,6 +70,7 @@ jobs:
             results/paper21/tables/10d_zero_inclusive_exact_administrative_composition.csv \
             results/paper21/tables/10e_nonpass_management_benchmark_0_vs_1plus.csv \
             results/paper21/tables/10f_nonpass_management_descriptives_0_vs_1plus.csv \
+            results/paper21/tables/10g_zero_inclusive_stacked_ridgeline_density.csv \
             results/paper21/tables/11_primary_group_descriptives.csv \
             results/paper21/tables/12_primary_omnibus.csv \
             results/paper21/tables/13_primary_pairwise_continuous.csv \
