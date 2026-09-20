@@ -20,9 +20,9 @@
 
 ## Inventory
 
-- Python files scanned: **127**
-- Reusable symbols: **463**
-- Test symbols: **58**
+- Python files scanned: **131**
+- Reusable symbols: **477**
+- Test symbols: **63**
 
 ## Reusable symbols
 
@@ -303,6 +303,13 @@
 | `peak_spacing_summary` | function | 392 | `def peak_spacing_summary(peaks: pd.DataFrame, intervals: pd.DataFrame, config: TemporalPeakConfig \| None=None) -> pd.DataFrame` | Summarize the number and spacing of detected service-use peaks. | `src cmat_analysis longitudinal temporal py peak_spacing_summary summarize number spacing of detected service-use peaks` |
 | `student_temporal_regularity` | function | 447 | `def student_temporal_regularity(mu: pd.DataFrame, mu_events: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', assessment_cycles: int=4) -> pd.DataFrame` | Construct student-level temporal-distribution measures for CMAT use. | `src cmat_analysis longitudinal temporal py student_temporal_regularity construct student-level temporal-distribution measures cmat use` |
 | `monthly_periodicity_diagnostics` | function | 572 | `def monthly_periodicity_diagnostics(events: pd.DataFrame, *, lag_min: int=14, lag_max: int=45, candidate_period_low: int=21, candidate_period_high: int=42, population: str='All CMAT') -> tuple[pd.DataFrame, pd.DataFrame]` | Estimate descriptive monthly-cycle diagnostics from daily service load. | `src cmat_analysis longitudinal temporal py monthly_periodicity_diagnostics estimate descriptive monthly-cycle diagnostics daily service load` |
+
+### `src/cmat_analysis/measures/_academic_outcomes.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `add_academic_outcome_states` | function | 14 | `def add_academic_outcome_states(df: pd.DataFrame, *, pass_col: str='PASS', grade_class_col: str='GRADE_CLASS', grade_token_col: str='GRADE_TOKEN', numeric_class: str='numeric', adverse_class: str='adverse') -> pd.DataFrame` | Add exact/compact result states and conditional non-pass contrasts. | `src cmat_analysis measures academic_outcomes py add_academic_outcome_states add exact compact result states conditional non-pass contrasts` |
+| `add_academic_outcome_states.<locals>.contrast` | function | 76 | `def contrast(positive: pd.Series) -> pd.Series` | No docstring; inspect implementation before reuse. | `src cmat_analysis measures academic_outcomes py add_academic_outcome_states locals contrast` |
 
 ### `src/cmat_analysis/measures/_grades.py`
 
@@ -629,6 +636,23 @@
 | `_smd_binary` | function | 16 | `def _smd_binary(x: np.ndarray, t: np.ndarray, w: np.ndarray \| None=None) -> float` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics selection py smd_binary` |
 | `propensity_att_sensitivity` | function | 29 | `def propensity_att_sensitivity(df: pd.DataFrame, *, treatment_col: str, outcome_col: str, categorical_covariates: list[str], numeric_covariates: list[str] \| None=None) -> tuple[pd.DataFrame, pd.DataFrame, dict[str, float \| int \| str]]` | Observed-covariate ATT weighting sensitivity analysis. | `src cmat_analysis statistics selection py propensity_att_sensitivity observed-covariate att weighting sensitivity analysis` |
 
+### `src/cmat_analysis/statistics/attendance_frequency.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `_require` | function | 19 | `def _require(df: pd.DataFrame, columns: Sequence[str]) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics attendance_frequency py require` |
+| `_formula_name` | function | 25 | `def _formula_name(name: str) -> str` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics attendance_frequency py formula_name` |
+| `add_topcoded_visit_group` | function | 31 | `def add_topcoded_visit_group(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', top_exact: int=5, include_zero: bool=False, output_col: str='VISIT_FREQUENCY_GROUP') -> pd.DataFrame` | Add an ordered exact-plus-tail attendance-frequency grouping. | `src cmat_analysis statistics attendance_frequency py add_topcoded_visit_group add an ordered exact-plus-tail attendance-frequency grouping` |
+| `visit_frequency_support_audit` | function | 77 | `def visit_frequency_support_audit(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', cluster_col: str='CLASSROOM_ID', instructor_col: str \| None=None) -> pd.DataFrame` | Audit exact positive visit counts without using academic outcomes. | `src cmat_analysis statistics attendance_frequency py visit_frequency_support_audit audit exact positive visit counts without using academic` |
+| `visit_group_pair_overlap` | function | 144 | `def visit_group_pair_overlap(df: pd.DataFrame, *, group_col: str, group_order: Sequence[str], cluster_col: str='CLASSROOM_ID') -> pd.DataFrame` | Count cluster overlap for every pair of attendance groups. | `src cmat_analysis statistics attendance_frequency py visit_group_pair_overlap count cluster overlap every pair of attendance groups` |
+| `visit_frequency_cut_frontier` | function | 190 | `def visit_frequency_cut_frontier(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', cluster_col: str='CLASSROOM_ID', min_top_exact: int=1, max_top_exact: int=10) -> pd.DataFrame` | Compare candidate exact-plus-tail cuts using outcome-blind support. | `src cmat_analysis statistics attendance_frequency py visit_frequency_cut_frontier compare candidate exact-plus-tail cuts using outcome-blind support` |
+| `group_outcome_summary` | function | 268 | `def group_outcome_summary(df: pd.DataFrame, *, group_col: str, group_order: Sequence[str], outcome_col: str, pass_col: str \| None=None) -> pd.DataFrame` | Summarise continuous and optional binary outcomes by ordered group. | `src cmat_analysis statistics attendance_frequency py group_outcome_summary summarise continuous optional binary outcomes by ordered group` |
+| `fixed_effect_group_comparisons` | function | 329 | `def fixed_effect_group_comparisons(df: pd.DataFrame, *, group_col: str, group_order: Sequence[str], outcome_col: str, fixed_effect_col: str, cluster_col: str, categorical_covariates: Sequence[str]=(), alpha: float=0.05, multiplicity_method: str='holm') -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]` | Estimate omnibus and all-pair contrasts from one clustered FE model. | `src cmat_analysis statistics attendance_frequency py fixed_effect_group_comparisons estimate omnibus all-pair contrasts one clustered fe model` |
+| `fixed_effect_group_comparisons.<locals>.coefficient` | function | 399 | `def coefficient(group: str) -> str \| None` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics attendance_frequency py fixed_effect_group_comparisons locals coefficient` |
+| `outcome_state_composition` | function | 464 | `def outcome_state_composition(df: pd.DataFrame, *, group_col: str, group_order: Sequence[str], state_col: str, state_order: Sequence[str]) -> pd.DataFrame` | Tabulate academic-result state composition within exposure groups. | `src cmat_analysis statistics attendance_frequency py outcome_state_composition tabulate academic-result state composition within exposure groups` |
+| `distribution_profile` | function | 512 | `def distribution_profile(df: pd.DataFrame, *, group_col: str, group_order: Sequence[str], outcome_col: str, pass_col: str \| None=None, quantiles: Sequence[float]=(0.1, 0.25, 0.5, 0.75, 0.9)) -> pd.DataFrame` | Describe where a continuous outcome distribution differs by group. | `src cmat_analysis statistics attendance_frequency py distribution_profile describe where a continuous outcome distribution differs by` |
+| `pairwise_effect_matrix` | function | 574 | `def pairwise_effect_matrix(pairwise: pd.DataFrame, *, group_order: Sequence[str], estimate_col: str='estimate_group1_minus_group2', group1_col: str='group1', group2_col: str='group2') -> pd.DataFrame` | Convert long pairwise contrasts into a signed symmetric matrix. | `src cmat_analysis statistics attendance_frequency py pairwise_effect_matrix convert long pairwise contrasts a signed symmetric matrix` |
+
 ### `src/cmat_analysis/statistics/methodology.py`
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
@@ -800,6 +824,16 @@
 | `main` | function | 17 | `def main() -> int` | No docstring; inspect implementation before reuse. | `src run_study py main` |
 
 ## Test symbols
+
+### `tests/test_attendance_frequency.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `_fixture` | function | 21 | `def _fixture() -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `tests test_attendance_frequency py fixture` |
+| `test_academic_outcome_states_preserve_exact_administrative_codes` | function | 48 | `def test_academic_outcome_states_preserve_exact_administrative_codes()` | No docstring; inspect implementation before reuse. | `tests test_attendance_frequency py test_academic_outcome_states_preserve_exact_administrative_codes` |
+| `test_grouping_support_and_cut_frontier_use_exposure_only` | function | 64 | `def test_grouping_support_and_cut_frontier_use_exposure_only()` | No docstring; inspect implementation before reuse. | `tests test_attendance_frequency py test_grouping_support_and_cut_frontier_use_exposure_only` |
+| `test_clustered_fe_pairwise_family_and_overlap_are_complete` | function | 84 | `def test_clustered_fe_pairwise_family_and_overlap_are_complete()` | No docstring; inspect implementation before reuse. | `tests test_attendance_frequency py test_clustered_fe_pairwise_family_and_overlap_are_complete` |
+| `test_composition_distribution_and_matrix_outputs_are_consistent` | function | 107 | `def test_composition_distribution_and_matrix_outputs_are_consistent()` | No docstring; inspect implementation before reuse. | `tests test_attendance_frequency py test_composition_distribution_and_matrix_outputs_are_consistent` |
 
 ### `tests/test_data_catalogs.py`
 
