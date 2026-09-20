@@ -20,8 +20,8 @@
 
 ## Inventory
 
-- Python files scanned: **131**
-- Reusable symbols: **478**
+- Python files scanned: **132**
+- Reusable symbols: **479**
 - Test symbols: **63**
 
 ## Reusable symbols
@@ -765,6 +765,12 @@
 | `plot_periodicity_acf_by_population` | function | 71 | `def plot_periodicity_acf_by_population(acf: pd.DataFrame, out: Path, filename: str='09_monthly_periodicity_acf_by_population.pdf') -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization methodology py plot_periodicity_acf_by_population` |
 | `plot_peak_spacing_by_population` | function | 89 | `def plot_peak_spacing_by_population(intervals: pd.DataFrame, out: Path, filename: str='08_peak_spacing_by_population.pdf') -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization methodology py plot_peak_spacing_by_population` |
 | `plot_exact_visit_count_curve` | function | 104 | `def plot_exact_visit_count_curve(summary: pd.DataFrame, out: Path, filename: str='13_exact_visit_counts_0_to_12.pdf') -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization methodology py plot_exact_visit_count_curve` |
+
+### `src/cmat_analysis/visualization/ridgeline.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `plot_stacked_ridgeline` | function | 14 | `def plot_stacked_ridgeline(density: pd.DataFrame, *, group_order: Sequence[str], component_order: Sequence[str], summary: pd.DataFrame \| None=None, colors: Mapping[str, str] \| None=None, component_labels: Mapping[str, str] \| None=None, ridge_height: float=0.82, ax: Axes \| None=None) -> Axes` | Plot horizontally oriented stacked component densities by group. | `src cmat_analysis visualization ridgeline py plot_stacked_ridgeline plot horizontally oriented stacked component densities by group` |
 
 ### `src/cmat_analysis/visualization/style.py`
 
