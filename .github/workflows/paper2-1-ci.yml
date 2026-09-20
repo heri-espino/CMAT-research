@@ -32,11 +32,14 @@ jobs:
       - name: Install shared CMAT library
         run: python -m pip install -e './cmat_analysis[dev]'
 
-      - name: Compile Paper 2.1 runner
-        run: python -m py_compile code/run_paper21.py
+      - name: Compile Paper 2.1 runners
+        run: python -m py_compile code/run_paper21.py code/run_paper21_outcomes.py
 
       - name: Check Paper 2.1 support-audit contract
         run: python code/run_paper21.py --check
+
+      - name: Check Paper 2.1 dual-outcome contract
+        run: python code/run_paper21_outcomes.py --check
 
       - name: Run outcome-blind support audit
         run: |
@@ -44,6 +47,12 @@ jobs:
             --materias data/controlled/Materias_pseudonymized.csv \
             --asesorias data/controlled/Asesorias_pseudonymized.csv \
             --candidate-top-exact 5
+
+      - name: Run dual-outcome frequency analysis
+        run: |
+          python code/run_paper21_outcomes.py \
+            --materias data/controlled/Materias_pseudonymized.csv \
+            --asesorias data/controlled/Asesorias_pseudonymized.csv
 
       - name: Verify support outputs
         shell: bash
@@ -53,14 +62,29 @@ jobs:
             results/paper21/tables/02_candidate_tail_support.csv \
             results/paper21/tables/03_candidate_group_support.csv \
             results/paper21/tables/04_candidate_pair_overlap.csv \
-            results/paper21/tables/05_cut_overlap_frontier.csv; do
+            results/paper21/tables/05_cut_overlap_frontier.csv \
+            results/paper21/tables/10_benchmark_0_vs_1plus.csv \
+            results/paper21/tables/11_primary_group_descriptives.csv \
+            results/paper21/tables/12_primary_omnibus.csv \
+            results/paper21/tables/13_primary_pairwise_continuous.csv \
+            results/paper21/tables/14_primary_pairwise_pass.csv \
+            results/paper21/tables/15_primary_outcome_state_composition.csv \
+            results/paper21/tables/16_complete_case_pairwise_continuous.csv \
+            results/paper21/tables/17_complete_case_omnibus.csv \
+            results/paper21/tables/18_primary_z_heatmap_matrix.csv \
+            results/paper21/tables/19_primary_pass_heatmap_matrix.csv \
+            results/paper21/tables/20_sensitivity_7plus_group_descriptives.csv \
+            results/paper21/tables/21_sensitivity_7plus_omnibus.csv \
+            results/paper21/tables/22_sensitivity_7plus_pairwise_continuous.csv \
+            results/paper21/tables/23_sensitivity_7plus_pairwise_pass.csv \
+            results/paper21/tables/24_sensitivity_7plus_outcome_state_composition.csv; do
             test -s "$f"
           done
 
-      - name: Upload Paper 2.1 support audit
+      - name: Upload Paper 2.1 aggregate analysis
         uses: actions/upload-artifact@v4
         with:
-          name: paper21-support-audit-${{ github.sha }}
+          name: paper21-analysis-${{ github.sha }}
           path: results/paper21/tables/*.csv
           if-no-files-found: error
           retention-days: 30
