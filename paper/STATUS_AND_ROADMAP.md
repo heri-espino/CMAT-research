@@ -6,7 +6,7 @@
 
 ## Current scientific idea
 
-Paper 2.1 starts from a concise state-of-the-art review and treats the known 0-versus-1+ attendance association as a benchmark. Its substantive focus is the structure of outcomes **among CMAT users**, with attendance frequency resolved as finely as the data support.
+Paper 2.1 starts from a dense state-of-the-art review and treats the known 0-versus-1+ attendance association as a benchmark. Its substantive focus is the structure of outcomes **among CMAT users**, with attendance frequency resolved as finely as the data support.
 
 Two principal outcome families will be analysed in parallel:
 
@@ -46,9 +46,12 @@ The current `4+` top-code is not binding on this branch.
 
 **Exploratory sensitivity:** `1 / 2 / 3 / 4 / 5 / 6 / 7+`.
 
-### M3 — Dual-outcome inference
+### M3 — Dual-outcome and distributional inference
 
+- [x] document the three-layer outcome framework in `paper/OUTCOME_FRAMEWORK.md`;
 - [x] document the administrative-withdrawal attendance context and manuscript guardrail in `paper/ADMINISTRATIVE_OUTCOME_NOTE.md`;
+- [x] implement the reproducible Paper 2.1 outcome runner;
+- [ ] verify the current controlled-data run in CI;
 - [ ] reproduce 0 vs 1+ benchmark for PASS and continuous Z;
 - [ ] run user-only omnibus model for continuous Z;
 - [ ] run user-only omnibus model for PASS probability;
@@ -56,7 +59,9 @@ The current `4+` top-code is not binding on this branch.
 - [ ] apply Holm adjustment separately by outcome family;
 - [ ] extract adjacent contrasts explicitly;
 - [ ] run instructor-level clustering sensitivity;
-- [ ] retain numeric-only continuous complete-case sensitivity.
+- [ ] retain numeric-only continuous complete-case sensitivity;
+- [ ] examine PASS / numeric grade <7.5 / BA-BV-RT composition by frequency;
+- [ ] examine Z-score quantiles to determine whether frequency differences shift the distribution broadly or mainly its upper/lower tails.
 
 ### M4 — Equivalence and visual synthesis
 
