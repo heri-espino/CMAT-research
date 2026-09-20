@@ -60,8 +60,12 @@ The current `4+` top-code is not binding on this branch.
 - [ ] extract adjacent contrasts explicitly;
 - [ ] run instructor-level clustering sensitivity;
 - [ ] retain numeric-only continuous complete-case sensitivity;
-- [ ] examine PASS / numeric grade <7.5 / BA-BV-RT composition by frequency;
-- [ ] examine Z-score quantiles to determine whether frequency differences shift the distribution broadly or mainly its upper/lower tails.
+- [x] implement PASS / numeric grade <7.5 / BV-RT / BA composition by frequency;
+- [x] implement exact BV / RT / BA composition tables;
+- [x] implement non-PASS administrative-vs-numeric benchmark and frequency models;
+- [x] implement narrower non-PASS BV/RT-vs-numeric models;
+- [x] implement imputed and complete-case Z-score quantile profiles;
+- [ ] verify and interpret the new academic-management outputs from controlled-data CI.
 
 ### M4 — Equivalence and visual synthesis
 
@@ -85,13 +89,13 @@ The current `4+` top-code is not binding on this branch.
 - [ ] replace the inherited Paper 2 manuscript with a Paper 2.1-specific manuscript only after M2–M4 stabilize;
 - [ ] begin with the dense state-of-the-art section;
 - [ ] keep 0 vs 1+ as a short benchmark rather than the main result;
-- [ ] make the pairwise frequency structure and dual-outcome comparison the central Results section;
+- [ ] make the pairwise frequency structure, performance margin, and academic-management margin the central Results section;
 - [ ] integrate the two heatmaps;
 - [ ] write a compact conclusion about what can and cannot be distinguished among attendance frequencies;
 - [ ] preserve observational/non-causal language.
 
 ## Immediate next task
 
-Proceed to M1 and M3: build the dense state-of-the-art review and implement the dual-outcome inference using the now-frozen `1/2/3/4/5/6+` grouping. Do not change the grouping in response to outcome significance.
+Proceed to M1 and complete M3 validation: build the dense state-of-the-art review, verify the new academic-management outputs, and preserve the frozen `1/2/3/4/5/6+` grouping. Do not change the grouping in response to outcome significance.
 
 The inherited Paper 2 LaTeX manuscript currently remains in this branch as a baseline/provenance artifact; it is not yet the Paper 2.1 manuscript.
