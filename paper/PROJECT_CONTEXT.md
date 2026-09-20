@@ -22,7 +22,7 @@ The literature backbone should distinguish:
 - identification-oriented evidence with more mixed performance findings: Paloyo et al. (2016), Pugatch & Wilson (2018), Büchele & Schürmann (2024);
 - how prior studies group attendance frequency, especially Jacob & Ní Fhloinn's separation of one visit from no visits and their progressively pooled upper-frequency groups.
 
-The gap is not simply whether mathematics-support users perform differently from non-users. Paper 2.1 asks how finely attendance frequency can be resolved with adequate statistical support and whether adjacent or more distant attendance frequencies are distinguishable or practically similar.
+The gap is not simply whether mathematics-support users perform differently from non-users. Paper 2.1 asks how finely attendance frequency can be resolved with adequate statistical support, whether adjacent or more distant attendance frequencies are distinguishable or practically similar, and whether attendance is associated with **how adverse course outcomes are recorded** when a student does not pass.
 
 ## Population and exposure
 
@@ -53,7 +53,7 @@ The observed positive-visit counts currently include:
 
 The outcome-blind support audit has now frozen the primary positive-frequency grouping as **`1 / 2 / 3 / 4 / 5 / 6+`**. The more granular `1 / 2 / 3 / 4 / 5 / 6 / 7+` specification is retained only as an exploratory sensitivity. See `paper/VISIT_GROUPING_DECISION.md` for the decision record.
 
-## Two principal outcome families
+## Performance outcomes and academic-result composition
 
 ### 1. PASS / non-PASS
 
@@ -78,6 +78,21 @@ Retain the Paper 2 continuous construction:
 
 This captures more information than PASS but depends on the adverse-outcome numerical representation, so it should be interpreted alongside the binary analysis rather than in isolation.
 
+### 3. Academic-result composition
+
+Paper 2.1 also treats the **type of final academic outcome** as substantively informative rather than collapsing all non-PASS cases together.
+
+Primary descriptive states:
+
+- PASS;
+- numeric final grade below 7.5;
+- BV/RT;
+- BA.
+
+An exact table preserves BV, RT and BA separately. Conditional on non-PASS, the analysis compares administrative outcomes with numeric failure and isolates BV versus numeric failure as the most directly relevant observed contrast for the academic-management hypothesis.
+
+This is not a third causal outcome. It is a decomposition of the observed final record intended to distinguish the performance margin from the academic-management margin described in `paper/OUTCOME_FRAMEWORK.md`.
+
 ## Main questions
 
 1. Does the established 0-versus-1+ contrast appear under both outcome families?
@@ -86,9 +101,14 @@ This captures more information than PASS but depends on the adverse-outcome nume
 4. Which adjacent groups are statistically compatible with practical equivalence, if defensible equivalence margins can be specified before testing?
 5. Does the pairwise structure suggest a plateau, gradual change, separated attendance regimes, or an irregular pattern?
 6. Are conclusions similar for PASS probability and the continuous standardised-grade outcome?
+7. Among students who do not pass, does the composition of the final outcome differ between zero attendance and any attendance?
+8. Is that composition specifically associated with BV rather than with RT or BA?
+9. Does the academic-management composition vary further across positive attendance frequencies, or is the main separation again zero versus any attendance?
 
 ## Interpretation
 
 Do not describe increasing visit count as a causal treatment dose. Repeated attendance can reflect continued need, engagement, institutional requirements, or other unmeasured characteristics. Paper 2.1 studies the **shape of an observational association**.
 
 The phrase “diminishing returns” is a hypothesis to investigate, not an established result. It may be used only if the fitted pattern and uncertainty genuinely support it.
+
+Likewise, the academic-management pattern may be discussed as compatible with broader engagement or institutional navigation, but attendance is not a direct measure of motivation, knowledge of university procedures, or concern for GPA. Current evidence is specifically concentrated in BV; do not generalise that pattern to RT or BA. See `paper/ACADEMIC_MANAGEMENT_HYPOTHESIS.md`.
