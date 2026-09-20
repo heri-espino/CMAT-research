@@ -940,15 +940,15 @@
 |---|---|---:|---|---|---|
 | `test_root_import_is_small_and_versioned` | function | 4 | `def test_root_import_is_small_and_versioned()` | No docstring; inspect implementation before reuse. | `tests test_public_api py test_root_import_is_small_and_versioned` |
 | `test_representative_public_imports` | function | 12 | `def test_representative_public_imports()` | No docstring; inspect implementation before reuse. | `tests test_public_api py test_representative_public_imports` |
-| `test_compatibility_paths_delegate_to_canonical_objects` | function | 35 | `def test_compatibility_paths_delegate_to_canonical_objects()` | No docstring; inspect implementation before reuse. | `tests test_public_api py test_compatibility_paths_delegate_to_canonical_objects` |
+| `test_compatibility_paths_delegate_to_canonical_objects` | function | 43 | `def test_compatibility_paths_delegate_to_canonical_objects()` | No docstring; inspect implementation before reuse. | `tests test_public_api py test_compatibility_paths_delegate_to_canonical_objects` |
 
 ### `tests/test_public_api_documentation.py`
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
 |---|---|---:|---|---|---|
-| `test_public_api_is_explicit_and_stable` | function | 120 | `def test_public_api_is_explicit_and_stable() -> None` | Ensure canonical namespaces expose exactly the reviewed API. | `tests test_public_api_documentation py test_public_api_is_explicit_and_stable ensure canonical namespaces expose exactly reviewed api` |
-| `test_public_api_has_numpy_style_docstrings` | function | 127 | `def test_public_api_has_numpy_style_docstrings() -> None` | Require public callables to carry minimally complete NumPy docstrings. | `tests test_public_api_documentation py test_public_api_has_numpy_style_docstrings require public callables to carry minimally complete numpy docstrings` |
-| `test_sphinx_api_page_excludes_compatibility_and_private_modules` | function | 159 | `def test_sphinx_api_page_excludes_compatibility_and_private_modules() -> None` | Keep the main Sphinx reference restricted to namespace-level public API. | `tests test_public_api_documentation py test_sphinx_api_page_excludes_compatibility_and_private_modules keep main sphinx reference restricted to namespace-level public api` |
+| `test_public_api_is_explicit_and_stable` | function | 132 | `def test_public_api_is_explicit_and_stable() -> None` | Ensure canonical namespaces expose exactly the reviewed API. | `tests test_public_api_documentation py test_public_api_is_explicit_and_stable ensure canonical namespaces expose exactly reviewed api` |
+| `test_public_api_has_numpy_style_docstrings` | function | 139 | `def test_public_api_has_numpy_style_docstrings() -> None` | Require public callables to carry minimally complete NumPy docstrings. | `tests test_public_api_documentation py test_public_api_has_numpy_style_docstrings require public callables to carry minimally complete numpy docstrings` |
+| `test_sphinx_api_page_excludes_compatibility_and_private_modules` | function | 170 | `def test_sphinx_api_page_excludes_compatibility_and_private_modules() -> None` | Keep the main Sphinx reference restricted to namespace-level public API. | `tests test_public_api_documentation py test_sphinx_api_page_excludes_compatibility_and_private_modules keep main sphinx reference restricted to namespace-level public api` |
 
 ### `tests/test_reporting_figures.py`
 
