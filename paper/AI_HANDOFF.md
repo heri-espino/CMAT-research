@@ -108,3 +108,24 @@ The Paper 2.1 runners now delegate those calculations to the library. Do not rei
 ## Repository governance
 
 Do not merge the whole paper branch into `main` or Paper 2. Shared scientific functions discovered here should go through the upstream library process first; Paper 2.1 is now a downstream consumer of the reviewed main-library capability.
+
+
+## Combined ridgeline figure
+
+Paper 2.1 no longer uses separate figures for mean standardised performance and final-outcome composition. The canonical descriptive figure is:
+
+`results/paper21/figures/fig01_distribution_composition_ridgeline.pdf`
+
+It combines the former Figure 1 and Figure 4. For each `0/1/2/3/4/5/6+` attendance group:
+
+- the horizontal axis is the primary instructor-period-standardised outcome;
+- the ridge is a real-data Gaussian KDE;
+- PASS, numeric <7.5, BV, RT, and BA are stacked as weighted KDE components;
+- all components within a group use one common bandwidth;
+- each component is divided by the full group N, so its area equals the observed within-group share and the components sum to the total group KDE;
+- the point and horizontal interval show the group mean and 95% CI;
+- the plotted x-window shows the central 99% of each smoothed group distribution so extreme imputed lower-tail values do not compress the visual display; those observations remain in the underlying analysis.
+
+For BV, RT, and BA, horizontal position uses the numerical value assigned by the canonical primary adverse-outcome imputation. This must be stated in the caption.
+
+The reusable density calculation is `cmat_analysis.statistics.mixture_component_density`; the reusable plotter is `cmat_analysis.visualization.plot_stacked_ridgeline`. Do not recreate paper-local KDE logic.
