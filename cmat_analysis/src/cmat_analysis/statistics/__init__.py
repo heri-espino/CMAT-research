@@ -1,10 +1,20 @@
 """Statistical estimation, uncertainty, diagnostics, and selection adjustment.
 
-This namespace contains reusable estimators and inferential diagnostics. It does
-not define cohorts or mutate source data. Observational estimators remain
-associational unless their original design and assumptions identify otherwise.
+This namespace contains reusable estimators and inferential diagnostics.
+Observational estimators remain associational unless a design identifies more.
 """
 
+from .attendance_frequency import (
+    add_topcoded_visit_group,
+    distribution_profile,
+    fixed_effect_group_comparisons,
+    group_outcome_summary,
+    outcome_state_composition,
+    pairwise_effect_matrix,
+    visit_frequency_cut_frontier,
+    visit_frequency_support_audit,
+    visit_group_pair_overlap,
+)
 from .inference import (
     bunching_metrics,
     continuation_curve,
@@ -42,10 +52,16 @@ from .group_comparisons import (
 
 __all__ = [
     "add_exact_visit_group",
-    "exact_visit_group_summary",
-    "fixed_effect_pairwise_exact_groups",
+    "add_topcoded_visit_group",
+    "distribution_profile",
+    "fixed_effect_group_comparisons",
+    "group_outcome_summary",
+    "outcome_state_composition",
+    "pairwise_effect_matrix",
+    "visit_frequency_cut_frontier",
+    "visit_frequency_support_audit",
+    "visit_group_pair_overlap",
     "games_howell_exact_groups",
-    "welch_anova_exact_groups",
     "bunching_metrics",
     "career_performance_analysis",
     "career_usage_association",
