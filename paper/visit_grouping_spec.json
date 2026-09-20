@@ -1,0 +1,11 @@
+{
+  "paper": "paper2.1-visit-frequency",
+  "decision_date": "2026-09-20",
+  "visits_column": "VISITS_CMAT_PERIOD",
+  "positive_user_primary_groups": ["1", "2", "3", "4", "5", "6+"],
+  "top_exact_visit_count": 5,
+  "tail_minimum_visits": 6,
+  "selection_basis": "outcome-blind student support and instructor-period pair-overlap frontier",
+  "exploratory_sensitivity_groups": ["1", "2", "3", "4", "5", "6", "7+"],
+  "benchmark": ["0", "1+"]
+}
