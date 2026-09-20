@@ -59,6 +59,18 @@ The objective is not to find a mathematically unique “optimal n”, which does
 
 Under that rule, `1/2/3/4/5/6+` is the primary specification.
 
+## Manuscript-ready rationale
+
+The final paper should explain the cut as a **support-based design choice rather than a result-driven threshold**. A compact Methods version can state that exact visit counts were retained while they remained sufficiently represented across instructor--period groups for the planned pairwise comparisons; separating six visits from the upper tail reduced the weakest adjacent-group overlap from 26 to 15 instructor--period groups, so six or more visits were pooled. This rule was fixed before examining Paper 2.1 grade means, pass rates, or pairwise outcome tests.
+
+The purpose of this wording is to make three points explicit without overexplaining the internal audit:
+
+1. the top-code was not inherited arbitrarily from Paper 2;
+2. it was not selected from favourable p-values or effect sizes;
+3. the relevant constraint was not only the number of students, but the instructor--period overlap needed for the planned adjusted pairwise comparisons.
+
+Do not describe `6+` as a mathematically unique or universally optimal cut. It is the highest-resolution grouping that preserved reasonable comparison support under this study's design.
+
 ## Sensitivity grouping
 
 The more granular:
