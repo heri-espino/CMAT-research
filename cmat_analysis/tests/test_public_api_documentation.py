@@ -26,9 +26,21 @@ EXPECTED_PUBLIC_API = {
         "period_label",
         "visit_group",
     ),
-    "cmat_analysis.measures": ("add_primary_outcomes",),
+    "cmat_analysis.measures": (
+        "add_academic_outcome_states",
+        "add_primary_outcomes",
+    ),
     "cmat_analysis.statistics": (
         "add_exact_visit_group",
+        "add_topcoded_visit_group",
+        "distribution_profile",
+        "fixed_effect_group_comparisons",
+        "group_outcome_summary",
+        "outcome_state_composition",
+        "pairwise_effect_matrix",
+        "visit_frequency_cut_frontier",
+        "visit_frequency_support_audit",
+        "visit_group_pair_overlap",
         "games_howell_exact_groups",
         "bunching_metrics",
         "career_performance_analysis",
@@ -141,16 +153,15 @@ def test_public_api_has_numpy_style_docstrings() -> None:
                 continue
             signature = inspect.signature(obj)
             params = [
-                p
-                for p in signature.parameters.values()
+                p for p in signature.parameters.values()
                 if p.name not in {"self", "cls"}
             ]
             if params and "Parameters\n----------" not in doc:
                 failures.append(f"{module_name}.{name}: missing NumPy Parameters section")
             if inspect.isfunction(obj):
-                return_annotation = signature.return_annotation
-                void_annotations = {None, type(None), "None", "NoneType"}
-                if return_annotation is not inspect.Signature.empty and return_annotation not in void_annotations:
+                annotation = signature.return_annotation
+                void = {None, type(None), "None", "NoneType"}
+                if annotation is not inspect.Signature.empty and annotation not in void:
                     if "Returns\n-------" not in doc:
                         failures.append(f"{module_name}.{name}: missing NumPy Returns section")
     assert not failures, "\n" + "\n".join(failures)

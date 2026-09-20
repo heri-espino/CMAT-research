@@ -28,8 +28,8 @@ jobs:
       - name: Verify public imports
         run: |
           python -c "import cmat_analysis"
-          python -c "from cmat_analysis.cohorts import build_study_cohorts; from cmat_analysis.measures import add_primary_outcomes"
-          python -c "from cmat_analysis.statistics import robust_two_group_tests; from cmat_analysis.longitudinal import TemporalPeakConfig; from cmat_analysis.ppa import build_ppa_progression_cohort"
+          python -c "from cmat_analysis.cohorts import build_study_cohorts; from cmat_analysis.measures import add_primary_outcomes, add_academic_outcome_states"
+          python -c "from cmat_analysis.statistics import robust_two_group_tests, visit_frequency_support_audit, fixed_effect_group_comparisons; from cmat_analysis.longitudinal import TemporalPeakConfig; from cmat_analysis.ppa import build_ppa_progression_cohort"
       - name: Run test suite
         run: pytest cmat_analysis/tests/
       - name: Build Sphinx documentation with warnings as errors

@@ -12,20 +12,28 @@ def test_root_import_is_small_and_versioned():
 def test_representative_public_imports():
     from cmat_analysis.cohorts import build_study_cohorts
     from cmat_analysis.longitudinal import TemporalPeakConfig, student_temporal_regularity
-    from cmat_analysis.measures import add_primary_outcomes
+    from cmat_analysis.measures import add_academic_outcome_states, add_primary_outcomes
     from cmat_analysis.ppa import build_ppa_progression_cohort
     from cmat_analysis.reporting import write_run_log
-    from cmat_analysis.statistics import propensity_att_sensitivity, robust_two_group_tests
+    from cmat_analysis.statistics import (
+        fixed_effect_group_comparisons,
+        propensity_att_sensitivity,
+        robust_two_group_tests,
+        visit_frequency_support_audit,
+    )
     from cmat_analysis.visualization import mpl_apply
 
     objects = [
         build_study_cohorts,
         student_temporal_regularity,
+        add_academic_outcome_states,
         add_primary_outcomes,
         build_ppa_progression_cohort,
         write_run_log,
+        fixed_effect_group_comparisons,
         propensity_att_sensitivity,
         robust_two_group_tests,
+        visit_frequency_support_audit,
         mpl_apply,
     ]
     assert all(callable(obj) for obj in objects)
