@@ -1,6 +1,6 @@
 # Paper 2.1 — preliminary controlled-data results
 
-**Status:** verified from GitHub Actions run `35513628711` at commit `48bdbef5f361db0d9d4008d99f65d77ca79053a5`.  
+**Status:** core performance results verified in the Paper 2.1 controlled recipe; academic-management extension verified from GitHub Actions run `35515296397` at commit `871c0583fc76cd8f22e2bbe8882219acbd5a3467`.  
 These are reproducible intermediate results, not frozen manuscript claims. Reverify against the current branch head before submission.
 
 ## 1. Benchmark: no recorded attendance versus any attendance
@@ -66,42 +66,79 @@ Adjusted omnibus tests remained non-significant:
 
 No pairwise contrast survived Holm adjustment in this sensitivity.
 
-## 4. What non-PASS means among CMAT users
+## 4. Academic-result composition and the management margin
 
-Across all 1,234 students with at least one recorded visit:
+The four-state decomposition separates PASS, numeric grades below 7.5, BV/RT, and BA.
 
-- 1,017 passed (82.4%);
-- 39 received a numeric final grade below 7.5 (3.2%);
-- 178 had BA/BV/RT (14.4%).
+### Zero visits versus any attendance
 
-Among the 217 users classified as non-PASS, **178 (82.0%) were BA/BV/RT** and only **39 (18.0%)** had a numeric final grade below 7.5.
+For students with zero visits:
 
-By primary attendance group:
+- 72.1% passed;
+- 10.8% received a numeric grade below 7.5;
+- 15.9% had BV/RT;
+- 1.2% had BA.
 
-| visits | pass | numeric <7.5 | BA/BV/RT |
-| ---: | ---: | ---: | ---: |
-| 1 | 81.0% | 2.9% | 16.1% |
-| 2 | 80.8% | 4.5% | 14.7% |
-| 3 | 81.8% | 2.9% | 15.3% |
-| 4 | 86.5% | 1.0% | 12.5% |
-| 5 | 85.5% | 3.6% | 10.9% |
-| 6+ | 86.8% | 3.3% | 9.9% |
+For students with one or more visits, aggregating the positive-frequency groups:
 
-This decomposition is substantively useful: among students who attended CMAT but did not pass, administrative withdrawal codes dominate over completed numeric grades below the pass mark.
+- 82.4% passed;
+- 3.2% received a numeric grade below 7.5;
+- 14.3% had BV/RT;
+- 0.2% had BA.
 
-Do not infer that CMAT attendance prevents withdrawal, that students withdrew because they did not attend, or that students with BA/BV/RT would otherwise have failed. The table describes the composition of observed final outcomes.
+Thus users did **not** have more administrative outcomes overall. The important difference is that numeric failure was substantially less common.
 
-## 5. Interpretation emerging from the first run
+### Conditional on non-PASS
 
-The current evidence is more consistent with:
+Among the 1,504 zero-visit students who did not pass, 923 (61.4%) had an administrative outcome and 581 (38.6%) had a numeric grade below 7.5.
 
-1. a large and precisely estimated difference between **zero attendance and any attendance**;
-2. descriptively higher outcomes at some higher attendance frequencies;
-3. insufficient adjusted evidence to distinguish the positive attendance-frequency groups from one another under the current sample and multiplicity control;
-4. an important distinction between **continuous final performance**, **crossing the 7.5 pass threshold**, and **the composition of non-passing outcomes**.
+Among the 217 CMAT users who did not pass, 178 (82.0%) had an administrative outcome and 39 (18.0%) had a numeric grade below 7.5.
 
-The paper should not yet use the phrase “diminishing returns”, “frequency effect”, or “two types of CMAT users”. The distributional profile provides an additional qualification. Under the primary imputed outcome, the higher-frequency groups differ more visibly in the lower tail than in the upper tail: the 90th percentile is broadly similar across groups, while the 10th and 25th percentiles are less negative for some higher-frequency groups. This does **not** look like a simple story in which a small number of very high-performing users pull up the mean.
+With instructor-period fixed effects, degree-programme indicators, and clustered standard errors, any attendance versus zero visits was associated with **+13.2 percentage points** in the probability that a non-PASS outcome was administrative rather than numeric (95% CI 6.8 to 19.6 pp; p < 0.001).
 
-However, the numeric complete-case profile is substantially flatter: medians and lower quartiles do not display the same upward pattern, and the complete-case omnibus test across positive frequency groups is non-significant (p = 0.397). The contrast between the imputed and complete-case distributions is consistent with the descriptive frequency pattern being strongly related to the changing prevalence of BA/BV/RT across attendance groups.
+### The pattern is specifically concentrated in BV
 
-This should be stated carefully. The data show that administrative withdrawals are less common in the higher-frequency groups and that including them as adverse outcomes changes the lower tail of the continuous distribution. They do not establish that additional CMAT attendance prevents withdrawal, because withdrawal timing and opportunity to accumulate visits are not randomized.
+The exact administrative-token decomposition shows that the broad category BA/BV/RT hides different patterns:
+
+- BV represented 9.8% of all zero-visit outcomes and 12.9% of all positive-attendance outcomes;
+- RT represented 6.1% of zero-visit outcomes but only 1.4% among users;
+- BA represented 1.2% of zero-visit outcomes and 0.2% among users.
+
+Among non-PASS cases restricted to BV or numeric failure, any attendance was associated with **+16.8 percentage points** in the adjusted probability of BV rather than a numeric failure (95% CI 9.5 to 24.1 pp; p < 0.001).
+
+The analogous adjusted contrast for RT versus numeric failure was essentially null: **+0.5 percentage points** (95% CI -15.1 to 16.2 pp; p = 0.945).
+
+This makes BV, rather than administrative withdrawal in general, the relevant observed component for the academic-engagement/institutional-navigation hypothesis.
+
+### Frequency among users
+
+The management composition did not show a clear adjusted frequency gradient among users:
+
+- administrative versus numeric non-PASS omnibus: p = 0.495;
+- BV/RT versus numeric failure omnibus: p = 0.599;
+- BV versus numeric failure omnibus: p = 0.523.
+
+No positive-frequency pairwise contrast survived Holm adjustment. As with the performance outcomes, the main empirical separation is currently zero attendance versus any attendance.
+
+## 5. Distributional interpretation
+
+The imputed continuous outcome and the numeric complete-case outcome tell an important joint story.
+
+Under the primary imputed outcome, higher-frequency groups differ more visibly in the lower tail than in the upper tail: the 90th percentile is broadly similar, while the 10th and 25th percentiles are less negative for some higher-frequency groups. This is not consistent with a simple story in which a small number of very high-performing users pull up the mean.
+
+The numeric complete-case profile is substantially flatter, and the complete-case omnibus test across positive frequency groups is non-significant (p = 0.397). The contrast between the imputed and complete-case distributions is consistent with a meaningful part of the lower-tail pattern being linked to the composition of administrative outcomes.
+
+This does not establish that attendance prevents withdrawal or causes students to use BV. It shows that the **type of adverse final outcome** differs systematically with attendance and therefore deserves separate analysis rather than being hidden inside a single non-PASS category.
+
+## 6. Interpretation emerging from the current results
+
+The current evidence supports a four-part descriptive structure:
+
+1. a large adjusted difference between **zero attendance and any attendance** in both continuous final performance and probability of passing;
+2. no clear adjusted separation among the positive attendance-frequency groups after multiplicity control;
+3. a substantial difference in the **composition of non-PASS outcomes** between zero-attendance students and CMAT users;
+4. within that management composition, the most distinctive administrative code is **BV**, whereas RT shows no analogous adjusted contrast.
+
+The academic-management mechanism is therefore worth developing in the Discussion, but it must remain an explanation compatible with the data rather than a measured engagement construct. The records do not show whether students knew the withdrawal rules, received advice, cared more about GPA, or chose BV for a particular reason.
+
+The requested entrance-exam data will be especially useful here because prior preparation may explain part of both help-seeking and adverse-outcome management, although it will not measure engagement or institutional knowledge directly.
