@@ -213,7 +213,7 @@ def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description="Paper 2.1 outcome-blind visit-frequency support audit.")
     p.add_argument("--materias", type=Path)
     p.add_argument("--asesorias", type=Path)
-    p.add_argument("--candidate-top-exact", type=int, default=6)
+    p.add_argument("--candidate-top-exact", type=int, default=5)
     p.add_argument("--check", action="store_true")
     return p.parse_args()
 
