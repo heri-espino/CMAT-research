@@ -69,6 +69,7 @@ jobs:
             results/paper21/tables/10c_zero_inclusive_outcome_state_composition.csv \
             results/paper21/tables/10d_zero_inclusive_exact_administrative_composition.csv \
             results/paper21/tables/10e_nonpass_management_benchmark_0_vs_1plus.csv \
+            results/paper21/tables/10f_nonpass_management_descriptives_0_vs_1plus.csv \
             results/paper21/tables/11_primary_group_descriptives.csv \
             results/paper21/tables/12_primary_omnibus.csv \
             results/paper21/tables/13_primary_pairwise_continuous.csv \
@@ -78,6 +79,7 @@ jobs:
             results/paper21/tables/15d_nonpass_management_omnibus.csv \
             results/paper21/tables/15e_nonpass_administrative_pairwise.csv \
             results/paper21/tables/15f_nonpass_BVRT_pairwise.csv \
+            results/paper21/tables/15g_nonpass_BV_pairwise.csv \
             results/paper21/tables/15b_primary_distribution_profile.csv \
             results/paper21/tables/15c_primary_complete_case_distribution_profile.csv \
             results/paper21/tables/16_complete_case_pairwise_continuous.csv \
