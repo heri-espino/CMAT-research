@@ -1,9 +1,9 @@
 cmat_analysis documentation
 ===========================
 
-``cmat_analysis`` is the reusable scientific analysis library for the CMAT
-research programme. Its public API is organized by scientific responsibility;
-report- and paper-specific orchestration lives outside the reusable layer.
+cmat_analysis is the reusable scientific analysis library for the CMAT research
+programme. Public capabilities are organized by scientific responsibility;
+paper-specific orchestration remains downstream.
 
 .. toctree::
    :maxdepth: 2
@@ -11,4 +11,5 @@ report- and paper-specific orchestration lives outside the reusable layer.
 
    installation
    user_guide/architecture
+   user_guide/attendance_frequency
    api/index
