@@ -185,27 +185,73 @@ def _benchmark(d: pd.DataFrame, outcome_col: str, outcome_label: str) -> dict[st
     }
 
 
-def _nonpass_composition(d: pd.DataFrame, group_col: str, group_order: list[str], spec: str) -> pd.DataFrame:
+def _add_academic_outcome_states(d: pd.DataFrame) -> pd.DataFrame:
+    """Add descriptive academic-result states without changing the study outcomes."""
     x = d.copy()
-    x["OUTCOME_STATE"] = np.select(
+    token = x["GRADE_TOKEN"].fillna("").astype(str).str.upper()
+
+    x["OUTCOME_STATE4"] = np.select(
         [
             x["PASS"].eq(1),
             x["GRADE_CLASS"].eq("numeric") & x["PASS"].eq(0),
-            x["GRADE_CLASS"].eq("adverse"),
+            token.isin(["BV", "RT"]),
+            token.eq("BA"),
         ],
         [
             "pass",
             "numeric_grade_below_7.5",
-            "BA_BV_RT",
+            "BV_RT",
+            "BA",
         ],
         default="other",
     )
+    x["OUTCOME_STATE5"] = np.select(
+        [
+            x["PASS"].eq(1),
+            x["GRADE_CLASS"].eq("numeric") & x["PASS"].eq(0),
+            token.eq("BV"),
+            token.eq("RT"),
+            token.eq("BA"),
+        ],
+        [
+            "pass",
+            "numeric_grade_below_7.5",
+            "BV",
+            "RT",
+            "BA",
+        ],
+        default="other",
+    )
+
+    # Conditional composition outcomes among non-pass cases.
+    x["ADMIN_OUTCOME_AMONG_NONPASS"] = np.nan
+    nonpass = x["PASS"].eq(0)
+    x.loc[nonpass & x["GRADE_CLASS"].eq("numeric"), "ADMIN_OUTCOME_AMONG_NONPASS"] = 0.0
+    x.loc[nonpass & x["GRADE_CLASS"].eq("adverse"), "ADMIN_OUTCOME_AMONG_NONPASS"] = 1.0
+
+    # The narrower mechanism contrast treats BV/RT as the active-withdrawal
+    # category and compares it only with completed numeric grades below 7.5.
+    x["BVRT_VS_NUMERIC_NONPASS"] = np.nan
+    x.loc[nonpass & x["GRADE_CLASS"].eq("numeric"), "BVRT_VS_NUMERIC_NONPASS"] = 0.0
+    x.loc[nonpass & token.isin(["BV", "RT"]), "BVRT_VS_NUMERIC_NONPASS"] = 1.0
+    return x
+
+
+def _state_composition(
+    d: pd.DataFrame,
+    group_col: str,
+    group_order: list[str],
+    spec: str,
+    *,
+    state_col: str,
+    states: list[str],
+) -> pd.DataFrame:
     rows = []
     for group in group_order:
-        g = x.loc[x[group_col].astype(str) == group].copy()
+        g = d.loc[d[group_col].astype(str) == group].copy()
         denom = len(g)
-        counts = g["OUTCOME_STATE"].value_counts()
-        for state in ["pass", "numeric_grade_below_7.5", "BA_BV_RT"]:
+        counts = g[state_col].value_counts()
+        for state in states:
             n = int(counts.get(state, 0))
             rows.append({
                 "specification": spec,
@@ -294,6 +340,7 @@ def run(args: argparse.Namespace) -> int:
     cohorts = build_study_cohorts(data, config)
     mu = add_primary_outcomes(cohorts["mu_primary"], config)
     mu["PASS"] = mu["PASS"].astype(float)
+    mu = _add_academic_outcome_states(mu)
 
     benchmark = pd.DataFrame([
         _benchmark(mu, "Z_GRADE_PRIMARY", "continuous_standardised_grade"),
@@ -323,14 +370,43 @@ def run(args: argparse.Namespace) -> int:
         "10b_zero_inclusive_descriptives.csv",
     )
     _save(
-        _nonpass_composition(
+        _state_composition(
             zero_plus,
             "P21_GROUP_WITH_ZERO",
             zero_order,
             "zero_inclusive_primary_0_1_2_3_4_5_6plus",
+            state_col="OUTCOME_STATE4",
+            states=["pass", "numeric_grade_below_7.5", "BV_RT", "BA"],
         ),
         "10c_zero_inclusive_outcome_state_composition.csv",
     )
+    _save(
+        _state_composition(
+            zero_plus,
+            "P21_GROUP_WITH_ZERO",
+            zero_order,
+            "zero_inclusive_primary_0_1_2_3_4_5_6plus",
+            state_col="OUTCOME_STATE5",
+            states=["pass", "numeric_grade_below_7.5", "BV", "RT", "BA"],
+        ),
+        "10d_zero_inclusive_exact_administrative_composition.csv",
+    )
+
+    # Mechanism-oriented benchmark among students who did not pass.
+    nonpass = mu.loc[mu["PASS"].eq(0)].copy()
+    management_benchmark = pd.DataFrame([
+        _benchmark(
+            nonpass,
+            "ADMIN_OUTCOME_AMONG_NONPASS",
+            "administrative_outcome_vs_numeric_failure_among_nonpass",
+        ),
+        _benchmark(
+            nonpass,
+            "BVRT_VS_NUMERIC_NONPASS",
+            "BV_RT_vs_numeric_failure_among_nonpass_excluding_BA",
+        ),
+    ])
+    _save(management_benchmark, "10e_nonpass_management_benchmark_0_vs_1plus.csv")
 
     users = mu.loc[mu["VISITS_CMAT_PERIOD"] > 0].copy()
 
@@ -359,8 +435,50 @@ def run(args: argparse.Namespace) -> int:
     _save(pd.concat([z_omni, p_omni], ignore_index=True), "12_primary_omnibus.csv")
     _save(z_pair, "13_primary_pairwise_continuous.csv")
     _save(p_pair, "14_primary_pairwise_pass.csv")
-    _save(_nonpass_composition(users, "P21_GROUP", primary_order, "primary_1_2_3_4_5_6plus"),
-          "15_primary_outcome_state_composition.csv")
+    _save(
+        _state_composition(
+            users,
+            "P21_GROUP",
+            primary_order,
+            "primary_1_2_3_4_5_6plus",
+            state_col="OUTCOME_STATE4",
+            states=["pass", "numeric_grade_below_7.5", "BV_RT", "BA"],
+        ),
+        "15_primary_outcome_state_composition.csv",
+    )
+    _save(
+        _state_composition(
+            users,
+            "P21_GROUP",
+            primary_order,
+            "primary_1_2_3_4_5_6plus",
+            state_col="OUTCOME_STATE5",
+            states=["pass", "numeric_grade_below_7.5", "BV", "RT", "BA"],
+        ),
+        "15a_primary_exact_administrative_composition.csv",
+    )
+
+    nonpass_users = users.loc[users["PASS"].eq(0)].copy()
+    admin_pair, admin_omni = _fit_pairwise(
+        nonpass_users,
+        group_col="P21_GROUP",
+        group_order=primary_order,
+        outcome_col="ADMIN_OUTCOME_AMONG_NONPASS",
+        outcome_label="administrative_outcome_vs_numeric_failure_among_nonpass",
+        specification="primary_1_2_3_4_5_6plus_nonpass",
+    )
+    bvrt_pair, bvrt_omni = _fit_pairwise(
+        nonpass_users,
+        group_col="P21_GROUP",
+        group_order=primary_order,
+        outcome_col="BVRT_VS_NUMERIC_NONPASS",
+        outcome_label="BV_RT_vs_numeric_failure_among_nonpass_excluding_BA",
+        specification="primary_1_2_3_4_5_6plus_nonpass",
+    )
+    _save(pd.concat([admin_omni, bvrt_omni], ignore_index=True), "15d_nonpass_management_omnibus.csv")
+    _save(admin_pair, "15e_nonpass_administrative_pairwise.csv")
+    _save(bvrt_pair, "15f_nonpass_BVRT_pairwise.csv")
+
     _save(
         _distribution_profile(
             users,
@@ -433,8 +551,26 @@ def run(args: argparse.Namespace) -> int:
     _save(sz_pair, "22_sensitivity_7plus_pairwise_continuous.csv")
     _save(sp_pair, "23_sensitivity_7plus_pairwise_pass.csv")
     _save(
-        _nonpass_composition(users, "P21_GROUP_7P", sensitivity_order, "sensitivity_1_to_6_7plus"),
+        _state_composition(
+            users,
+            "P21_GROUP_7P",
+            sensitivity_order,
+            "sensitivity_1_to_6_7plus",
+            state_col="OUTCOME_STATE4",
+            states=["pass", "numeric_grade_below_7.5", "BV_RT", "BA"],
+        ),
         "24_sensitivity_7plus_outcome_state_composition.csv",
+    )
+    _save(
+        _state_composition(
+            users,
+            "P21_GROUP_7P",
+            sensitivity_order,
+            "sensitivity_1_to_6_7plus",
+            state_col="OUTCOME_STATE5",
+            states=["pass", "numeric_grade_below_7.5", "BV", "RT", "BA"],
+        ),
+        "24a_sensitivity_7plus_exact_administrative_composition.csv",
     )
     _save(
         _distribution_profile(
