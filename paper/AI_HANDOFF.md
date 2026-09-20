@@ -22,19 +22,22 @@ The inherited Paper 2 rule `0 / 1 / 2 / 3 / 4+` is superseded here. The outcome-
 - entrance exam, if received and usable, is only an observed-preparation sensitivity;
 - exact institutional ethics/data-use wording remains required before submission.
 
-## Principal outcomes
+## Principal outcomes and academic-result states
 
-### Binary
+### Binary performance
 PASS = numeric grade >=7.5.
 
 non-PASS = numeric grade <7.5, BA, BV, or RT.
 
-This outcome has no numerical imputation for BA/BV/RT. In manuscript prose, any timing caveat should normally be limited to one sentence noting that administrative withdrawals may have had less time to accumulate visits; do not make this a major theme without additional timing evidence.
+### Continuous performance
+Use the canonical Paper 2 adverse-outcome imputation and standardise final performance within instructor-period group. Keep the numeric complete-case standardised outcome as a sensitivity.
 
-### Continuous
-Use the canonical Paper 2 adverse-outcome imputation and standardise completed grades within instructor-period group.
+### Academic-result composition
+Primary descriptive states are PASS / numeric <7.5 / BV-RT / BA. Also preserve BV, RT and BA separately in an exact administrative-token table.
 
-Do not alter the instructor-period standardisation in pursuit of a simpler model.
+Among non-PASS cases, analyse administrative outcome versus numeric failure and the narrower BV/RT versus numeric-failure contrast. Do not merge BA with BV/RT when discussing a student-initiated academic-management mechanism.
+
+In manuscript prose, any timing caveat should normally be limited to one sentence noting that administrative outcomes may occur before the end of the academic period and can therefore provide less opportunity to accumulate visits.
 
 ## Inference hierarchy
 
@@ -60,6 +63,14 @@ Heatmap colour represents effect magnitude/direction:
 Do not colour by p-value. Statistical/equivalence status may be indicated separately.
 
 The main heatmaps focus on positive attendance-frequency groups. A zero-inclusive version may appear as a benchmark/supplement.
+
+## Academic-management mechanism guardrail
+
+Paper 2.1 may discuss the hypothesis that CMAT attendance marks broader academic engagement or institutional navigation, but only as a mechanism compatible with the observed outcome composition. Read `paper/ACADEMIC_MANAGEMENT_HYPOTHESIS.md`.
+
+Never infer from zero recorded visits that a student did not care about the course, university, GPA, or withdrawal options. Never write that CMAT users are definitively more engaged unless a direct engagement measure is obtained.
+
+Before claiming a specific GPA or transcript consequence of BV/RT, verify the institutional rule and its historical applicability to the study years.
 
 ## Literature framing
 
