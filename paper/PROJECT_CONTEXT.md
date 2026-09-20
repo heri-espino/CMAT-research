@@ -1,6 +1,6 @@
 # Paper 2.1 — frequency of mathematics-support attendance
 
-**Working title:** *Beyond First Attendance: Visit Frequency at a Mathematics Support Centre and Academic Performance*
+**Working title:** *Beyond First Attendance: Frequency of Mathematics Support Use and the Composition of Academic Outcomes*
 
 **Canonical branch:** `paper/paper2.1-visit-frequency`
 
