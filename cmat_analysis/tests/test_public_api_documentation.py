@@ -36,6 +36,7 @@ EXPECTED_PUBLIC_API = {
         "distribution_profile",
         "fixed_effect_group_comparisons",
         "group_outcome_summary",
+        "mixture_component_density",
         "outcome_state_composition",
         "pairwise_effect_matrix",
         "visit_frequency_cut_frontier",
@@ -118,6 +119,7 @@ EXPECTED_PUBLIC_API = {
     ),
     "cmat_analysis.visualization": (
         "mpl_apply",
+        "plot_stacked_ridgeline",
         "plotly_apply",
         "set_style",
     ),
