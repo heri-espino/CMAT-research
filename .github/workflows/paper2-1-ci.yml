@@ -43,7 +43,7 @@ jobs:
           python code/run_paper21.py \
             --materias data/controlled/Materias_pseudonymized.csv \
             --asesorias data/controlled/Asesorias_pseudonymized.csv \
-            --candidate-top-exact 6
+            --candidate-top-exact 5
 
       - name: Verify support outputs
         shell: bash
