@@ -161,9 +161,9 @@ def test_mixture_component_density_areas_recover_component_shares():
             .sort_values("x")["density_total"]
             .to_numpy(float)
         )
-        assert np.isclose(np.trapz(total, x), 1.0, atol=0.02)
+        assert np.isclose(np.trapezoid(total, x), 1.0, atol=0.02)
         for component in ["pass", "nonpass"]:
             c = g.loc[g["component"].eq(component)].sort_values("x")
-            area = np.trapz(c["density_component"].to_numpy(float), c["x"].to_numpy(float))
+            area = np.trapezoid(c["density_component"].to_numpy(float), c["x"].to_numpy(float))
             share = float(c["component_share"].iloc[0])
             assert np.isclose(area, share, atol=0.02)
