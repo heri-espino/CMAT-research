@@ -92,7 +92,11 @@ jobs:
             results/paper21/tables/23_sensitivity_7plus_pairwise_pass.csv \
             results/paper21/tables/24_sensitivity_7plus_outcome_state_composition.csv \
             results/paper21/tables/24a_sensitivity_7plus_exact_administrative_composition.csv \
-            results/paper21/tables/25_sensitivity_7plus_distribution_profile.csv; do
+            results/paper21/tables/25_sensitivity_7plus_distribution_profile.csv \
+            results/paper21/tables/26_instructor_cluster_pairwise_continuous.csv \
+            results/paper21/tables/27_instructor_cluster_pairwise_pass.csv \
+            results/paper21/tables/28_instructor_cluster_omnibus.csv \
+            results/paper21/tables/29_instructor_cluster_benchmark_0_vs_1plus.csv; do
             test -s "$f"
           done
 
