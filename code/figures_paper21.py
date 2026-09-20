@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate Paper 2.1 publication figures from aggregate analysis tables."""
+"""Generate Paper 2.1 publication figures from aggregate analysis outputs."""
 
 from __future__ import annotations
 
@@ -7,12 +7,11 @@ import argparse
 from pathlib import Path
 
 import matplotlib.pyplot as plt
-from matplotlib.ticker import PercentFormatter
 import numpy as np
 import pandas as pd
 
 try:
-    from cmat_analysis.visualization import set_style
+    from cmat_analysis.visualization import plot_stacked_ridgeline, set_style
 except ModuleNotFoundError as exc:
     raise SystemExit(
         "Paper 2.1 figures require the shared editable library. Run:\n"
@@ -25,6 +24,7 @@ TABLES_DIR = REPO_ROOT / "results" / "paper21" / "tables"
 FIGURES_DIR = REPO_ROOT / "results" / "paper21" / "figures"
 GROUPS = ["0", "1", "2", "3", "4", "5", "6+"]
 USER_GROUPS = ["1", "2", "3", "4", "5", "6+"]
+OUTCOME_STATES = ["pass", "numeric_nonpass", "BV", "RT", "BA"]
 
 
 def _save(fig: plt.Figure, name: str) -> Path:
@@ -39,35 +39,57 @@ def _save(fig: plt.Figure, name: str) -> Path:
 def validate() -> None:
     required = [
         "10b_zero_inclusive_descriptives.csv",
-        "10d_zero_inclusive_exact_administrative_composition.csv",
+        "10g_zero_inclusive_stacked_ridgeline_density.csv",
         "18_primary_z_heatmap_matrix.csv",
         "19_primary_pass_heatmap_matrix.csv",
     ]
-    missing = [f for f in required if not (TABLES_DIR / f).is_file()]
+    missing = [name for name in required if not (TABLES_DIR / name).is_file()]
     if missing:
-        raise FileNotFoundError("Missing Paper 2.1 figure inputs: " + ", ".join(missing))
+        raise FileNotFoundError(
+            "Missing Paper 2.1 figure inputs: " + ", ".join(missing)
+        )
 
 
-def plot_outcomes_by_group() -> Path:
-    d = pd.read_csv(TABLES_DIR / "10b_zero_inclusive_descriptives.csv").copy()
-    d["group"] = pd.Categorical(d["group"].astype(str), GROUPS, ordered=True)
-    d = d.sort_values("group")
-    x = np.arange(len(d))
-
-    fig, ax = plt.subplots(figsize=(7.6, 4.8))
-    means = d["mean_z"].to_numpy(float)
-    lows = d["z_ci95_low"].to_numpy(float)
-    highs = d["z_ci95_high"].to_numpy(float)
-    ax.errorbar(
-        x, means,
-        yerr=np.vstack([means - lows, highs - means]),
-        fmt="o", capsize=4, linewidth=1.2,
+def plot_distribution_and_composition() -> Path:
+    density = pd.read_csv(
+        TABLES_DIR / "10g_zero_inclusive_stacked_ridgeline_density.csv"
     )
-    ax.axhline(0, linestyle="--", linewidth=1)
-    ax.set_xticks(x, d["group"].astype(str))
-    ax.set_xlabel("CMAT visits during the MU academic period")
-    ax.set_ylabel("Mean instructor-period-standardised grade (Z), 95% CI")
-    return _save(fig, "fig01_standardised_grade_by_frequency.pdf")
+    summary = pd.read_csv(TABLES_DIR / "10b_zero_inclusive_descriptives.csv")
+    summary = summary.rename(
+        columns={
+            "mean_z": "outcome_mean",
+            "z_ci95_low": "outcome_ci95_low",
+            "z_ci95_high": "outcome_ci95_high",
+        }
+    )
+
+    fig, ax = plt.subplots(figsize=(8.4, 6.0))
+    plot_stacked_ridgeline(
+        density,
+        group_order=GROUPS,
+        component_order=OUTCOME_STATES,
+        summary=summary,
+        component_labels={
+            "pass": "Pass",
+            "numeric_nonpass": "Numeric <7.5",
+            "BV": "BV",
+            "RT": "RT",
+            "BA": "BA",
+        },
+        ridge_height=0.82,
+        ax=ax,
+    )
+    ax.axvline(0, linestyle="--", linewidth=0.9, alpha=0.65)
+    ax.set_xlabel("Instructor-period-standardised MU grade (Z)")
+    ax.set_ylabel("CMAT visits during the MU academic period")
+    ax.grid(axis="y", visible=False)
+    ax.legend(
+        frameon=False,
+        ncol=5,
+        loc="lower center",
+        bbox_to_anchor=(0.5, 1.01),
+    )
+    return _save(fig, "fig01_distribution_composition_ridgeline.pdf")
 
 
 def _heatmap(path: Path, value_scale: float, label: str, filename: str) -> Path:
@@ -113,33 +135,6 @@ def plot_pass_heatmap() -> Path:
     )
 
 
-def plot_outcome_composition() -> Path:
-    d = pd.read_csv(TABLES_DIR / "10d_zero_inclusive_exact_administrative_composition.csv").copy()
-    d["group"] = pd.Categorical(d["group"].astype(str), GROUPS, ordered=True)
-    pivot = (
-        d.pivot(index="group", columns="outcome_state", values="share_within_group")
-        .reindex(GROUPS)
-        .fillna(0.0)
-    )
-    states = ["pass", "numeric_grade_below_7.5", "BV", "RT", "BA"]
-    labels = ["Pass", "Numeric <7.5", "BV", "RT", "BA"]
-    x = np.arange(len(GROUPS))
-    bottom = np.zeros(len(GROUPS))
-
-    fig, ax = plt.subplots(figsize=(8.0, 5.0))
-    for state, label in zip(states, labels):
-        values = pivot.get(state, pd.Series(0.0, index=pivot.index)).to_numpy(float)
-        ax.bar(x, values, bottom=bottom, label=label)
-        bottom += values
-    ax.set_xticks(x, GROUPS)
-    ax.set_xlabel("CMAT visits during the MU academic period")
-    ax.set_ylabel("Share of students")
-    ax.yaxis.set_major_formatter(PercentFormatter(1.0))
-    ax.set_ylim(0, 1)
-    ax.legend(frameon=False, ncol=3, loc="upper center", bbox_to_anchor=(0.5, 1.18))
-    return _save(fig, "fig04_outcome_composition.pdf")
-
-
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.parse_args()
@@ -148,10 +143,9 @@ def main() -> int:
     plt.rcParams["pdf.fonttype"] = 42
     plt.rcParams["ps.fonttype"] = 42
     for path in [
-        plot_outcomes_by_group(),
+        plot_distribution_and_composition(),
         plot_z_heatmap(),
         plot_pass_heatmap(),
-        plot_outcome_composition(),
     ]:
         print(path.relative_to(REPO_ROOT))
     return 0
