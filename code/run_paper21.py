@@ -167,6 +167,41 @@ def run(args: argparse.Namespace) -> int:
             )
     _save(pd.DataFrame(overlap_rows), "04_candidate_pair_overlap.csv")
 
+    # Compare several outcome-blind candidate cuts using pairwise classroom
+    # overlap. This is especially relevant because Paper 2.1 is designed around
+    # adjacent and all-pair contrasts among positive attendance frequencies.
+    frontier_rows = []
+    for cut in range(2, min(max_k - 1, 10) + 1):
+        tmp = users[["CLASSROOM_ID", visits_col]].copy()
+        tmp["group"] = _candidate_group(tmp[visits_col], cut).astype(str)
+        tmp = tmp[["CLASSROOM_ID", "group"]].drop_duplicates()
+        order = [str(k) for k in range(1, cut + 1)] + [f"{cut + 1}+"]
+        sets = {
+            g: set(tmp.loc[tmp["group"] == g, "CLASSROOM_ID"])
+            for g in order
+        }
+        adjacent = [
+            len(sets[a] & sets[b])
+            for a, b in zip(order, order[1:])
+        ]
+        all_pairs = [
+            len(sets[a] & sets[b])
+            for i, a in enumerate(order)
+            for b in order[i + 1 :]
+        ]
+        frontier_rows.append(
+            {
+                "top_exact_visit_count": cut,
+                "tail_label": f"{cut + 1}+",
+                "n_frequency_groups": len(order),
+                "minimum_adjacent_pair_overlap_groups": int(min(adjacent)),
+                "median_adjacent_pair_overlap_groups": float(pd.Series(adjacent).median()),
+                "minimum_all_pair_overlap_groups": int(min(all_pairs)),
+                "median_all_pair_overlap_groups": float(pd.Series(all_pairs).median()),
+            }
+        )
+    _save(pd.DataFrame(frontier_rows), "05_cut_overlap_frontier.csv")
+
     print(f"Paper 2.1 positive-attendance students: N={n_users:,}")
     print(f"Maximum observed same-period visits: {max_k}")
     print(f"Candidate grouping audit: 1..{top_exact}, {top_exact + 1}+")
