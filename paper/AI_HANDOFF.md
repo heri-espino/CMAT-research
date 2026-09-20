@@ -8,7 +8,7 @@ Paper 2.1 was created from Paper 2 at commit `1956ef4bfe6073c9b28881a9da34d14cd2
 
 Paper 2.1 is not simply Paper 2 with more categories. Its central estimand is the observational structure of outcomes across **positive CMAT attendance frequencies**.
 
-The inherited Paper 2 rule `0 / 1 / 2 / 3 / 4+` is superseded here. The positive-frequency top-code must be chosen using an outcome-blind support audit before outcome comparisons are inspected.
+The inherited Paper 2 rule `0 / 1 / 2 / 3 / 4+` is superseded here. The outcome-blind audit has frozen the primary positive-frequency grouping as **`1 / 2 / 3 / 4 / 5 / 6+`**. The decision must not be changed after inspecting outcome significance; see `paper/VISIT_GROUPING_DECISION.md`.
 
 ## What remains inherited from Paper 2
 
