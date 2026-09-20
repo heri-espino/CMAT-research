@@ -2,6 +2,8 @@
 
 This branch is the canonical publication workspace for Paper 2. It inherits shared infrastructure from `main` and owns only publication-specific selection and production.
 
+**New-agent entry point:** after this file, read `paper/STATUS_AND_ROADMAP.md` before making changes. It records the current checkpoint, external dependencies, milestone status, and exact next tasks.
+
 - `literature_selected/`: selected literature and reading notes;
 - `code/`: paper-specific orchestration importing `cmat_analysis`;
 - `results/`: generated/selected paper outputs;
@@ -10,7 +12,7 @@ This branch is the canonical publication workspace for Paper 2. It inherits shar
 
 ## Scientific scope
 
-Paper 2 studies the association between same-period CMAT use and classroom-relative academic performance in the first eligible attempt at Matemáticas Universitarias. Its main empirical distinction is use versus non-use, while positive-use dose categories are examined without assuming a causal monotone dose-response.
+Paper 2 studies the association between CMAT attendance during the same academic period and standardised academic performance in the first eligible attempt at Matemáticas Universitarias. Its main empirical distinction is no recorded attendance versus recorded attendance, while the 1, 2, 3, and 4+ attendance groups are examined separately without assuming a causal monotone dose-response.
 
 The historical `proyecto_visitas` work is decomposed rather than copied. `paper/DECOMPOSITION_FROM_PROYECTO_VISITAS.md` is the binding scope map: student support use/performance belongs here; professor grade distributions, grading-profile clusters, and grading-regime stability belong to Paper 3; general service-load material remains brainstorm/provenance.
 
