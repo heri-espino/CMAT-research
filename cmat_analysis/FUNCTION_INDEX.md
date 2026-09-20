@@ -21,7 +21,7 @@
 ## Inventory
 
 - Python files scanned: **131**
-- Reusable symbols: **477**
+- Reusable symbols: **478**
 - Test symbols: **63**
 
 ## Reusable symbols
@@ -652,6 +652,7 @@
 | `outcome_state_composition` | function | 464 | `def outcome_state_composition(df: pd.DataFrame, *, group_col: str, group_order: Sequence[str], state_col: str, state_order: Sequence[str]) -> pd.DataFrame` | Tabulate academic-result state composition within exposure groups. | `src cmat_analysis statistics attendance_frequency py outcome_state_composition tabulate academic-result state composition within exposure groups` |
 | `distribution_profile` | function | 512 | `def distribution_profile(df: pd.DataFrame, *, group_col: str, group_order: Sequence[str], outcome_col: str, pass_col: str \| None=None, quantiles: Sequence[float]=(0.1, 0.25, 0.5, 0.75, 0.9)) -> pd.DataFrame` | Describe where a continuous outcome distribution differs by group. | `src cmat_analysis statistics attendance_frequency py distribution_profile describe where a continuous outcome distribution differs by` |
 | `pairwise_effect_matrix` | function | 574 | `def pairwise_effect_matrix(pairwise: pd.DataFrame, *, group_order: Sequence[str], estimate_col: str='estimate_group1_minus_group2', group1_col: str='group1', group2_col: str='group2') -> pd.DataFrame` | Convert long pairwise contrasts into a signed symmetric matrix. | `src cmat_analysis statistics attendance_frequency py pairwise_effect_matrix convert long pairwise contrasts a signed symmetric matrix` |
+| `mixture_component_density` | function | 617 | `def mixture_component_density(df: pd.DataFrame, *, group_col: str, group_order: Sequence[str], outcome_col: str, component_col: str, component_order: Sequence[str], grid_size: int=256, cut: float=3.0, min_bandwidth: float=0.001) -> pd.DataFrame` | Build stacked KDE components whose areas equal observed group shares. | `src cmat_analysis statistics attendance_frequency py mixture_component_density build stacked kde components whose areas equal observed` |
 
 ### `src/cmat_analysis/statistics/methodology.py`
 
