@@ -1,78 +1,94 @@
-# Paper 2 — CMAT attendance and MU performance
+# Paper 2.1 — frequency of mathematics-support attendance
 
-**Working title:** *Attendance at a Mathematics Support Centre and Academic Performance in First-Year University Mathematics*
+**Working title:** *Beyond First Attendance: Visit Frequency at a Mathematics Support Centre and Academic Performance*
 
-**Operational status:** see `paper/STATUS_AND_ROADMAP.md`.
+**Canonical branch:** `paper/paper2.1-visit-frequency`
 
-This directory is the canonical home for Paper 2. Shared scientific implementation remains in `cmat_analysis/`; Paper 2 owns only its publication specification, selected literature, outputs, manuscript, and submission materials.
+## Motivation
 
-## Research question
+Paper 2 establishes a reproducible observational contrast between students with no recorded CMAT attendance and students who attend during the same MU academic period. Paper 2.1 takes that result as a benchmark rather than as its endpoint.
 
-How is CMAT attendance during the same academic period associated with the standardised grade in a student's first eligible attempt at Matemáticas Universitarias (MU), and do standardised grades differ among students who attend once, twice, three times, or four or more times?
+The central question is what happens **among students who actually use CMAT**. A student who attends once may resemble a student who attends twice; two and three visits may also be difficult to distinguish; alternatively, differences may emerge only after attendance frequencies become sufficiently separated. The existing Paper 2 top-code of `4+` cannot answer this because it combines students with four visits and students with substantially higher attendance.
 
-## Primary population
+## State-of-the-art orientation
 
-First eligible MU attempts in academic periods with observable CMAT registration coverage. The retained shared-study snapshot contains `N=6,627` students. Future-Calculus cohorts are not the Paper 2 estimand and belong primarily to Papers 1 and 5.
+The manuscript should begin with a comparatively dense state-of-the-art section rather than a short conventional introduction.
 
-## Exposure
+The literature backbone should distinguish:
 
-CMAT registrations occurring in the same academic period as the focal MU attempt, **irrespective of the subject label attached to an individual visit**. The primary presentation is `0 / 1 / 2 / 3 / 4+` visits so that the analysis does not hide the exact one- and two-visit groups. The historical `1–2` pooling is retained only as a secondary equivalence/parsimony sensitivity, and threshold-oriented PPA contrasts are secondary provenance analyses rather than the Paper 2 estimand.
+- mathematics-support evaluation and the limits of routine usage data: Matthews et al. (2013), Lawson et al. (2020), Mullen et al. (2024);
+- observational attendance/performance studies: Mac an Bhaird et al. (2009), Jacob & Ní Fhloinn (2019), Rickard & Mills (2018);
+- non-engagement and selection into support: Mac an Bhaird et al. (2013) and the review literature;
+- identification-oriented evidence with more mixed performance findings: Paloyo et al. (2016), Pugatch & Wilson (2018), Büchele & Schürmann (2024);
+- how prior studies group attendance frequency, especially Jacob & Ní Fhloinn's separation of one visit from no visits and their progressively pooled upper-frequency groups.
 
-The global historical `VISITAS` variable from `proyecto_visitas`, which accumulated registrations over the available advisory workbook, is provenance only and must not be substituted for the temporally aligned exposure.
+The gap is not simply whether mathematics-support users perform differently from non-users. Paper 2.1 asks how finely attendance frequency can be resolved with adequate statistical support and whether adjacent or more distant attendance frequencies are distinguishable or practically similar.
 
-## Primary outcome
+## Population and exposure
 
-Continuous final performance standardised within the existing instructor × academic-period grading group:
+Population: the same Paper 2 first-eligible-MU cohort with CMAT coverage, currently N = 6,627.
 
-`Z = (grade - instructor-period mean) / instructor-period sample SD`.
+Exposure: number of CMAT visits during the same academic period as MU, irrespective of the subject label attached to the visit.
 
-In the code this grouping is `CLASSROOM_ID = professor × year × academic session`; because the Paper 2 cohort is MU, the course is already fixed by the study population. This grouping is substantive: instructors set and grade their own assessments, so raw grade distributions may differ across teaching contexts. The primary outcome retains adverse non-numeric academic outcomes using the canonical project rule; complete-case and alternative adverse-imputation outcomes are sensitivities.
+The benchmark comparison `0 vs 1+` should be reproduced briefly as a bridge to Paper 2 and prior literature. The main analysis then focuses on students with at least one recorded visit.
 
-## Baseline preparation
+The observed positive-visit counts currently include:
 
-The available optional DMU diagnostic exam is **not used as a Paper 2 covariate or sensitivity**, because participation is incomplete/selective and does not provide a sufficiently uniform baseline across the analytic cohorts. Do not condition the main analysis on diagnostic participation.
+- 1: 517
+- 2: 245
+- 3: 170
+- 4: 96
+- 5: 55
+- 6: 50
+- 7: 25
+- 8: 19
+- 9: 11
+- 10: 13
+- 11: 2
+- 12: 4
+- 13: 2
+- 14: 6
+- 15: 5
+- >15: 14
 
-The university entrance-exam results were requested on **2026-09-19** and are currently an external dependency. If received, they may be used as an observed-preparation sensitivity only after auditing missingness, linkage coverage, cohort/scale comparability, score meaning, and temporal ordering. Follow `paper/ENTRANCE_EXAM_PLAN.md`; receiving a score does not convert the study into a causal effect design.
+This makes `1, 2, 3, 4, 5, 6, 7+` a plausible **candidate** grouping, not a pre-declared final grouping. The final upper cut must be selected from an outcome-blind support audit described in `paper/ANALYSIS_PLAN.md`.
 
-## Current retained interpretation
+## Two principal outcome families
 
-The strongest reproducible feature is the distinction between zero visits and positive CMAT use. The exact-group controlled-data rerun is the primary reporting basis; manuscript numbers should be taken from the canonical generated exact-group outputs rather than reconstructed from older pooled summaries.
+### 1. PASS / non-PASS
 
-This is an observational association. Do not write that CMAT attendance causes improvement or that visit count is a causal dose.
+PASS = 1 for a numeric final grade >= 7.5.
 
-## Historical decomposition
+PASS = 0 for:
 
-`paper/DECOMPOSITION_FROM_PROYECTO_VISITAS.md` is the binding map for reusing the old `brainstorm/proyecto_visitas` work:
+- numeric grade < 7.5;
+- BA (baja académica);
+- BV (baja voluntaria);
+- RT (retiro temporal).
 
-- student support use and student performance → Paper 2;
-- professor grade distributions, grading profiles, clustering, and stability → Paper 3;
-- general service-load/report artifacts → remain brainstorm/provenance unless later justified.
+This outcome requires **no latent numeric-grade imputation** and therefore provides the cleanest analysis of academic success versus non-success.
 
-## Journal strategy
+### 2. Continuous standardised grade with adverse-outcome imputation
 
-1. *Teaching Mathematics and its Applications* (TEAMAT) — primary target.
-2. *International Journal of Mathematical Education in Science and Technology* (IJMEST) — second choice.
-3. *International Journal of Research in Undergraduate Mathematics Education* (IJRUME) — ambitious option if the mathematics-education contribution is strengthened.
+Retain the Paper 2 continuous construction:
 
-For TEAMAT, follow `paper/AI_HANDOFF.md`: use the official IMA template, Harvard author–year references, exact visit groups in the main presentation, minimal PPA framing, and a real research-ethics statement before submission.
+- numeric grades unchanged;
+- BA/BV/RT assigned values below 7.5 under the canonical within-instructor-period imputation rule;
+- completed final grades standardised within instructor × academic-period grading group.
 
-## Submission metadata
+This captures more information than PASS but depends on the adverse-outcome numerical representation, so it should be interpreted alongside the binary analysis rather than in isolation.
 
-Current author order:
+## Main questions
 
-1. Heriberto Espino-Montelongo — Universidad de las Américas Puebla; ORCID `0009-0009-1230-2931`.
-2. Daniela Cortés-Toto — Universidad de las Américas Puebla; email and biography are recorded in `paper/SUBMISSION_METADATA.md`; ORCID is not provided and must not be invented.
+1. Does the established 0-versus-1+ contrast appear under both outcome families?
+2. Among CMAT users, is there evidence that outcomes differ across attendance-frequency groups?
+3. Which specific pairs differ after multiplicity adjustment?
+4. Which adjacent groups are statistically compatible with practical equivalence, if defensible equivalence margins can be specified before testing?
+5. Does the pairwise structure suggest a plateau, gradual change, separated attendance regimes, or an irregular pattern?
+6. Are conclusions similar for PASS probability and the continuous standardised-grade outcome?
 
-Funding: **None declared.**
+## Interpretation
 
-Protected row-level administrative data are not planned for public release; the manuscript states that privacy and institutional data-governance restrictions prevent public release of the microdata, while code and non-disclosive aggregate or synthetic replication materials may be shared.
+Do not describe increasing visit count as a causal treatment dose. Repeated attendance can reflect continued need, engagement, institutional requirements, or other unmeasured characteristics. Paper 2.1 studies the **shape of an observational association**.
 
-The major remaining submission metadata blocker is the exact institutional ethics/data-use authorization statement and identifier.
-
-## Reproducibility
-
-Paper-local runner: `code/run_paper.py`.
-
-Controlled Paper 2 inputs are the pseudonymized academic and CMAT advisory records. The recipe does not use the optional DMU diagnostic file.
-
-Primary publication outputs are generated under `results/tables/` and `results/figures/`. Tables `30`–`34` define the main exact-group analysis; table `37` and table `38` contain current outcome/small-group sensitivities; the current referee-oriented recipe additionally generates tables `39`–`42` and `49`–`50`; tables `80+` retain secondary/provenance analyses. See `paper/STATUS_AND_ROADMAP.md` for which outputs have been scientifically reviewed versus merely implemented.
+The phrase “diminishing returns” is a hypothesis to investigate, not an established result. It may be used only if the fitted pattern and uncertainty genuinely support it.
