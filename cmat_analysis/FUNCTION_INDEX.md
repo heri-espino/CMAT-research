@@ -22,7 +22,7 @@
 
 - Python files scanned: **132**
 - Reusable symbols: **479**
-- Test symbols: **63**
+- Test symbols: **64**
 
 ## Reusable symbols
 
@@ -836,11 +836,12 @@
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
 |---|---|---:|---|---|---|
-| `_fixture` | function | 21 | `def _fixture() -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `tests test_attendance_frequency py fixture` |
-| `test_academic_outcome_states_preserve_exact_administrative_codes` | function | 48 | `def test_academic_outcome_states_preserve_exact_administrative_codes()` | No docstring; inspect implementation before reuse. | `tests test_attendance_frequency py test_academic_outcome_states_preserve_exact_administrative_codes` |
-| `test_grouping_support_and_cut_frontier_use_exposure_only` | function | 64 | `def test_grouping_support_and_cut_frontier_use_exposure_only()` | No docstring; inspect implementation before reuse. | `tests test_attendance_frequency py test_grouping_support_and_cut_frontier_use_exposure_only` |
-| `test_clustered_fe_pairwise_family_and_overlap_are_complete` | function | 84 | `def test_clustered_fe_pairwise_family_and_overlap_are_complete()` | No docstring; inspect implementation before reuse. | `tests test_attendance_frequency py test_clustered_fe_pairwise_family_and_overlap_are_complete` |
-| `test_composition_distribution_and_matrix_outputs_are_consistent` | function | 107 | `def test_composition_distribution_and_matrix_outputs_are_consistent()` | No docstring; inspect implementation before reuse. | `tests test_attendance_frequency py test_composition_distribution_and_matrix_outputs_are_consistent` |
+| `_fixture` | function | 22 | `def _fixture() -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `tests test_attendance_frequency py fixture` |
+| `test_academic_outcome_states_preserve_exact_administrative_codes` | function | 49 | `def test_academic_outcome_states_preserve_exact_administrative_codes()` | No docstring; inspect implementation before reuse. | `tests test_attendance_frequency py test_academic_outcome_states_preserve_exact_administrative_codes` |
+| `test_grouping_support_and_cut_frontier_use_exposure_only` | function | 65 | `def test_grouping_support_and_cut_frontier_use_exposure_only()` | No docstring; inspect implementation before reuse. | `tests test_attendance_frequency py test_grouping_support_and_cut_frontier_use_exposure_only` |
+| `test_clustered_fe_pairwise_family_and_overlap_are_complete` | function | 85 | `def test_clustered_fe_pairwise_family_and_overlap_are_complete()` | No docstring; inspect implementation before reuse. | `tests test_attendance_frequency py test_clustered_fe_pairwise_family_and_overlap_are_complete` |
+| `test_composition_distribution_and_matrix_outputs_are_consistent` | function | 108 | `def test_composition_distribution_and_matrix_outputs_are_consistent()` | No docstring; inspect implementation before reuse. | `tests test_attendance_frequency py test_composition_distribution_and_matrix_outputs_are_consistent` |
+| `test_mixture_component_density_areas_recover_component_shares` | function | 144 | `def test_mixture_component_density_areas_recover_component_shares()` | No docstring; inspect implementation before reuse. | `tests test_attendance_frequency py test_mixture_component_density_areas_recover_component_shares` |
 
 ### `tests/test_data_catalogs.py`
 
@@ -953,9 +954,9 @@
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
 |---|---|---:|---|---|---|
-| `test_public_api_is_explicit_and_stable` | function | 132 | `def test_public_api_is_explicit_and_stable() -> None` | Ensure canonical namespaces expose exactly the reviewed API. | `tests test_public_api_documentation py test_public_api_is_explicit_and_stable ensure canonical namespaces expose exactly reviewed api` |
-| `test_public_api_has_numpy_style_docstrings` | function | 139 | `def test_public_api_has_numpy_style_docstrings() -> None` | Require public callables to carry minimally complete NumPy docstrings. | `tests test_public_api_documentation py test_public_api_has_numpy_style_docstrings require public callables to carry minimally complete numpy docstrings` |
-| `test_sphinx_api_page_excludes_compatibility_and_private_modules` | function | 170 | `def test_sphinx_api_page_excludes_compatibility_and_private_modules() -> None` | Keep the main Sphinx reference restricted to namespace-level public API. | `tests test_public_api_documentation py test_sphinx_api_page_excludes_compatibility_and_private_modules keep main sphinx reference restricted to namespace-level public api` |
+| `test_public_api_is_explicit_and_stable` | function | 134 | `def test_public_api_is_explicit_and_stable() -> None` | Ensure canonical namespaces expose exactly the reviewed API. | `tests test_public_api_documentation py test_public_api_is_explicit_and_stable ensure canonical namespaces expose exactly reviewed api` |
+| `test_public_api_has_numpy_style_docstrings` | function | 141 | `def test_public_api_has_numpy_style_docstrings() -> None` | Require public callables to carry minimally complete NumPy docstrings. | `tests test_public_api_documentation py test_public_api_has_numpy_style_docstrings require public callables to carry minimally complete numpy docstrings` |
+| `test_sphinx_api_page_excludes_compatibility_and_private_modules` | function | 172 | `def test_sphinx_api_page_excludes_compatibility_and_private_modules() -> None` | Keep the main Sphinx reference restricted to namespace-level public API. | `tests test_public_api_documentation py test_sphinx_api_page_excludes_compatibility_and_private_modules keep main sphinx reference restricted to namespace-level public api` |
 
 ### `tests/test_reporting_figures.py`
 
