@@ -29,7 +29,7 @@ PASS = numeric grade >=7.5.
 
 non-PASS = numeric grade <7.5, BA, BV, or RT.
 
-This outcome has no numerical imputation for BA/BV/RT. It does not remove the timing problem that students who withdraw earlier have less opportunity to accumulate visits; do not interpret a higher pass rate at higher visit counts as a causal frequency effect.
+This outcome has no numerical imputation for BA/BV/RT. In manuscript prose, any timing caveat should normally be limited to one sentence noting that administrative withdrawals may have had less time to accumulate visits; do not make this a major theme without additional timing evidence.
 
 ### Continuous
 Use the canonical Paper 2 adverse-outcome imputation and standardise completed grades within instructor-period group.
