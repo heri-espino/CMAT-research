@@ -92,7 +92,7 @@ def check_environment() -> int:
     print(f"cmat-analysis version: {_package_version()}")
     print("Population: first eligible MU attempt in a period with CMAT coverage")
     print("Exposure: exact same-period CMAT groups 0, 1, 2, 3, 4+")
-    print("Primary outcome: classroom-relative continuous final performance")
+    print("Primary outcome: final MU grade standardised within instructor-period group")
     print("No diagnostic-test adjustment is used in Paper 2.")
     print("No private row-level data were read.")
     return 0
