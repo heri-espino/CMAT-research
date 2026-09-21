@@ -7,7 +7,7 @@ The analysis deliberately separates:
 3. the same Gaussian-mixture analysis on the primary imputed Z outcome only as
    a sensitivity to administrative-outcome imputation.
 
-Reusable estimation is delegated to cmat_analysis 0.4.
+Reusable estimation is delegated to cmat_analysis 0.4.1.
 """
 
 from __future__ import annotations
@@ -26,10 +26,12 @@ try:
     from cmat_analysis.statistics import (
         add_topcoded_visit_group,
         fixed_effect_logistic_group_comparisons,
+        fixed_effect_logistic_adjusted_probabilities,
         gaussian_mixture_component_summary,
         gaussian_mixture_model_selection,
         gaussian_mixture_responsibilities,
         parametric_bootstrap_gmm_lrt,
+        mixture_component_density,
         soft_component_composition,
     )
 except ModuleNotFoundError as exc:
@@ -104,7 +106,16 @@ def _logit_outputs(
     *,
     group_order: list[str],
     specification: str,
-) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    adjusted = fixed_effect_logistic_adjusted_probabilities(
+        numeric,
+        group_col="P21_GROUP_WITH_ZERO",
+        group_order=group_order,
+        outcome_col="NUMERIC_FAIL",
+        fixed_effect_col="CLASSROOM_ID",
+        cluster_col="CLASSROOM_ID",
+        categorical_covariates=["CLAVECARRERA"],
+    )
     pairwise, omnibus, info = fixed_effect_logistic_group_comparisons(
         numeric,
         group_col="P21_GROUP_WITH_ZERO",
@@ -115,10 +126,11 @@ def _logit_outputs(
         categorical_covariates=["CLAVECARRERA"],
         multiplicity_method="holm",
     )
+    adjusted.insert(0, "specification", specification)
     pairwise.insert(0, "specification", specification)
     omnibus.insert(0, "specification", specification)
     info.insert(0, "specification", specification)
-    return pairwise, omnibus, info
+    return adjusted, pairwise, omnibus, info
 
 
 def _gmm_starts(values: np.ndarray) -> tuple[tuple[float, float], ...]:
@@ -224,21 +236,23 @@ def run(args: argparse.Namespace) -> int:
 
     _save(_numeric_failure_descriptives(cohort), "30_numeric_failure_descriptives.csv")
 
-    pairwise_all, omnibus_all, info_all = _logit_outputs(
+    adjusted_all, pairwise_all, omnibus_all, info_all = _logit_outputs(
         numeric,
         group_order=GROUP_ORDER,
         specification="numeric_final_grade_zero_inclusive",
     )
+    _save(adjusted_all, "31a_numeric_failure_adjusted_probabilities_zero_inclusive.csv")
     _save(pairwise_all, "31_numeric_failure_logit_pairwise_zero_inclusive.csv")
     _save(omnibus_all, "32_numeric_failure_logit_omnibus_zero_inclusive.csv")
     _save(info_all, "33_numeric_failure_logit_model_info_zero_inclusive.csv")
 
     numeric_users = numeric.loc[numeric["VISITS_CMAT_PERIOD"].gt(0)].copy()
-    pairwise_users, omnibus_users, info_users = _logit_outputs(
+    adjusted_users, pairwise_users, omnibus_users, info_users = _logit_outputs(
         numeric_users,
         group_order=USER_GROUP_ORDER,
         specification="numeric_final_grade_positive_attendance",
     )
+    _save(adjusted_users, "34a_numeric_failure_adjusted_probabilities_users.csv")
     _save(pairwise_users, "34_numeric_failure_logit_pairwise_users.csv")
     _save(omnibus_users, "35_numeric_failure_logit_omnibus_users.csv")
     _save(info_users, "36_numeric_failure_logit_model_info_users.csv")
@@ -274,6 +288,19 @@ def run(args: argparse.Namespace) -> int:
     )
     _save(comparison, "45_gmm_component_comparison_complete_vs_imputed.csv")
 
+    density_source = cohort.copy()
+    density_source["_GMM_DENSITY_COMPONENT"] = "all"
+    cc_density = mixture_component_density(
+        density_source,
+        group_col="P21_GROUP_WITH_ZERO",
+        group_order=GROUP_ORDER,
+        outcome_col="Z_GRADE_COMPLETE_CASE",
+        component_col="_GMM_DENSITY_COMPONENT",
+        component_order=["all"],
+        grid_size=512,
+    )
+    _save(cc_density, "46_complete_case_gmm_ridgeline_density.csv")
+
     print(f"Paper 2.1 study cohort: N={len(cohort):,}")
     print(f"Numeric final grades: N={len(numeric):,}")
     print(f"GMM bootstrap replicates per group/specification: {args.gmm_bootstrap}")
@@ -288,7 +315,7 @@ def parse_args() -> argparse.Namespace:
     )
     parser.add_argument("--materias", type=Path)
     parser.add_argument("--asesorias", type=Path)
-    parser.add_argument("--gmm-bootstrap", type=int, default=99)
+    parser.add_argument("--gmm-bootstrap", type=int, default=999)
     parser.add_argument("--check", action="store_true")
     return parser.parse_args()
 
