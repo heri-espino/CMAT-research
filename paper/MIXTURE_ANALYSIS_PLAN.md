@@ -16,7 +16,7 @@ Define numeric failure as a final numeric grade below 7.5 and numeric pass as a 
 
 For each attendance group 0 / 1 / 2 / 3 / 4 / 5 / 6+, report the number of numeric final grades, the number and probability of numeric failure, and raw failure odds.
 
-Then fit a logistic model with attendance-frequency indicators, instructor-period fixed effects, degree-programme indicators, and cluster-robust standard errors at instructor-period level. Report pairwise odds ratios with Holm adjustment and repeat the omnibus/pairwise analysis among positive-attendance groups only.
+Then fit a logistic model with attendance-frequency indicators, instructor-period fixed effects, degree-programme indicators, and cluster-robust standard errors at instructor-period level. Report model-standardized adjusted failure probabilities, pairwise odds ratios with Holm adjustment, and repeat the adjusted-probability/omnibus/pairwise analysis among positive-attendance groups only.
 
 Odds ratios are complementary to probabilities, not intrinsically more interpretable. Manuscript prose should normally report observed probabilities first and use ORs as model-based relative comparisons.
 
@@ -73,10 +73,13 @@ Accumulating many visits also requires remaining enrolled long enough to do so, 
 The controlled Paper 2.1 recipe produces:
 
 - 30_numeric_failure_descriptives.csv;
-- 31--36 adjusted numeric-failure logit outputs;
+- 31--36 adjusted numeric-failure logit outputs, including 31a/34a model-standardized failure probabilities;
 - 37--40 complete-case GMM model selection, parameters, bootstrap, and soft composition;
 - 41--44 corresponding imputed-outcome sensitivity outputs;
-- 45_gmm_component_comparison_complete_vs_imputed.csv.
+- 45_gmm_component_comparison_complete_vs_imputed.csv;
+- 46_complete_case_gmm_ridgeline_density.csv;
+- fig04_complete_case_gmm_ridgeline.pdf, showing the observed complete-case density with the two weighted Gaussian components;
+- fig05_lower_component_weight.pdf, showing the estimated lower-performance component weight by attendance frequency for complete-case and imputed sensitivity specifications.
 
 No row-level responsibilities are written to artifacts.
 
