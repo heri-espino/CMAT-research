@@ -1,0 +1,183 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage{csquotes}
+\makeatletter
+\def\input@path{{../}}
+\makeatother
+\usepackage[general,final,compact]{velvetblue}
+\usepackage{amssymb}
+\usepackage{listings}
+\usepackage{enumitem}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.65em}
+\lstset{basicstyle=\ttfamily\small,breaklines=true,frame=single,columns=fullflexible,showstringspaces=false}
+
+\title{Pseudonimización criptográfica de identificadores en \texttt{CMAT-research}\\\large Versión técnica}
+\author{Centro de Aprendizaje de Matemáticas (CMAT)}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Qué hace realmente el repositorio}
+
+\texttt{CMAT-research} no cifra los identificadores mediante un esquema reversible; los \textbf{pseudonimiza de manera determinística con HMAC-SHA256}. La implementación principal está en \path{cmat_analysis/src/cmat_analysis/privacy.py} y se aplica a las bases mediante \path{create_anonymized_release.py}.
+
+La distinción es importante. En un cifrado existe, para quien posee la clave adecuada, una operación de descifrado que recupera el texto original. En HMAC no existe esa operación: a partir del valor producido no se ``descifra'' el ID. La forma correcta de expresar la garantía es que, \textbf{sin la llave secreta}, recuperar o incluso comprobar candidatos al identificador original a partir del pseudónimo es computacionalmente impracticable bajo los supuestos estándar de seguridad de HMAC-SHA256.
+
+\section{Un mecanismo criptográfico ampliamente utilizado}
+
+HMAC no es una construcción ad hoc del CMAT. Fue estandarizado en RFC~2104 y HMAC-SHA256 forma parte de numerosos sistemas de seguridad reales. Por ejemplo:
+
+\begin{itemize}[leftmargin=*]
+    \item \textbf{AWS Signature Version 4} utiliza \texttt{AWS4-HMAC-SHA256} para autenticar solicitudes a servicios de Amazon Web Services.
+    \item \textbf{GitHub} recomienda HMAC-SHA256 para verificar que los webhooks provienen de GitHub y que su contenido no fue alterado.
+    \item El estándar \textbf{JSON Web Algorithms} define \texttt{HS256} como HMAC usando SHA-256, utilizado en firmas/MAC de JSON Web Tokens y JSON Web Signatures cuando se emplea una clave compartida.
+    \item \textbf{IPsec, IKE e IKEv2} tienen variantes estandarizadas basadas en HMAC-SHA256 para autenticación, integridad y funciones pseudoaleatorias.
+    \item Diversas suites de \textbf{TLS 1.2} históricamente estandarizaron HMAC-SHA256 como código de autenticación de mensajes.
+\end{itemize}
+
+Esto no significa que AWS, GitHub, JWT, IPsec y CMAT protejan exactamente el mismo tipo de dato o sigan el mismo protocolo completo; significa que \textbf{utilizan la misma primitiva criptográfica madura y ampliamente analizada}, HMAC con SHA-256, para construir valores dependientes de un secreto que un tercero sin la clave no puede reproducir eficientemente.
+
+\section{Ejemplo completo con un ID}
+
+Supóngase el ID
+\[
+x=175199.
+\]
+
+Para evitar cualquier confusión, la siguiente llave es \textbf{ficticia y se usa solamente para esta demostración}:
+\begin{center}
+\small $K={}$\nolinkurl{7b41e7a1c76f6b50f58a0c628a3f0e8daed7ad4f6dd6c7e97ad31e8f8ad1e933}
+\end{center}
+
+La llave real del proyecto no debe aparecer en documentación, datos compartidos, Git, artefactos de ejecución ni archivos de resultados.
+
+El repositorio incorpora además un espacio de nombres. Para estudiantes se utiliza \texttt{stu}, por lo que el mensaje que realmente entra a HMAC es
+\[
+m=\texttt{stu:175199}.
+\]
+
+Con la llave de demostración anterior, HMAC-SHA256 produce el resumen completo
+\begin{center}
+\small\nolinkurl{c504a778e1e4b331721d7c88f22c65e0008707cede372864628d04a20bbe27fb}
+\end{center}
+
+El código conserva los primeros 32 caracteres hexadecimales y antepone el espacio de nombres:
+\[
+\boxed{\texttt{stu\_c504a778e1e4b331721d7c88f22c65e0}}.
+\]
+
+Por tanto, en una base de investigación ya no aparece \texttt{175199}. Aparece una etiqueta estable que permite reconocer al mismo estudiante en distintas tablas sin guardar su identificador institucional.
+
+\section{Por qué la llave es tan larga}
+
+El script recomienda generar la llave mediante:
+
+\begin{lstlisting}
+python -c "import secrets; print(secrets.token_hex(32))"
+\end{lstlisting}
+
+\texttt{token\_hex(32)} genera 32 bytes aleatorios y los representa mediante 64 caracteres hexadecimales. Cada dígito hexadecimal codifica 4 bits, de modo que
+\[
+64\times 4=256\text{ bits}.
+\]
+
+Una llave aleatoria de 256 bits tiene
+\[
+2^{256}\approx 1.16\times10^{77}
+\]
+valores posibles. Incluso suponiendo de forma irrealista que un atacante pudiera probar
+\[
+10^{18}
+\]
+llaves por segundo de manera sostenida, recorrer todo el espacio requeriría aproximadamente
+\[
+3.7\times10^{51}\text{ años}.
+\]
+
+La longitud por sí sola no basta: la clave debe ser \textbf{aleatoria y secreta}. Una cadena larga pero predecible, por ejemplo una frase conocida, no ofrece la misma seguridad.
+
+\section{Cómo funciona HMAC por dentro}
+
+Sea $H=\mathrm{SHA256}$, sea $m$ el mensaje y sea $K'$ la llave ajustada al tamaño de bloque de SHA-256. HMAC calcula
+
+\[
+\operatorname{HMAC}_H(K,m)
+=
+H\!\left(
+(K'\oplus \mathrm{opad})
+\;\Vert\;
+H\!\left((K'\oplus \mathrm{ipad})\Vert m\right)
+\right),
+\]
+
+donde $\Vert$ representa concatenación, $\oplus$ es XOR, e \texttt{ipad} y \texttt{opad} son dos patrones constantes distintos definidos por el estándar.
+
+Conceptualmente hay dos capas. Primero se mezcla la llave con un patrón interno y se calcula un hash del mensaje; después ese resultado se vuelve a combinar con la llave, ahora mediante un patrón externo, y se calcula SHA-256 otra vez. Esta estructura evita las debilidades que tendría una construcción ingenua del tipo $\mathrm{SHA256}(K\Vert m)$ y cuenta con un análisis criptográfico formal desarrollado específicamente para HMAC.
+
+En \texttt{CMAT-research} la función relevante es esencialmente:
+
+\begin{lstlisting}[language=Python]
+message = f"{namespace}:{canonical_identifier(value)}".encode("utf-8")
+digest = hmac.new(key, message, hashlib.sha256).hexdigest()
+return f"{namespace}_{digest[:32]}"
+\end{lstlisting}
+
+La canonicalización evita que un identificador numérico leído como entero y el mismo identificador leído como flotante integral produzcan representaciones diferentes. El espacio de nombres, por su parte, realiza \textit{domain separation}: el mismo valor puede producir pseudónimos independientes como \texttt{stu\_...}, \texttt{prof\_...} o \texttt{advisor\_...}.
+
+\section{Determinismo, truncamiento y colisiones}
+
+HMAC es determinístico: con el mismo ID, la misma llave y el mismo espacio de nombres se obtiene exactamente el mismo valor. Esa propiedad permite enlazar registros longitudinales.
+
+El HMAC completo de SHA-256 tiene 256 bits, pero el repositorio conserva 32 caracteres hexadecimales, es decir, 128 bits. Para $N$ pseudónimos distintos, la probabilidad aproximada de al menos una colisión accidental es, mediante la aproximación de cumpleaños,
+
+\[
+\Pr(\text{colisión})
+\approx
+\frac{N(N-1)}{2^{129}}.
+\]
+
+Incluso para $N=10^6$ registros distintos, esta probabilidad es del orden de $10^{-27}$, despreciable para la escala del proyecto.
+
+\section{¿Es ``indescifrable''?}
+
+En lenguaje informal puede decirse que el pseudónimo \textbf{no se puede descifrar}, porque HMAC no es cifrado y no existe una función inversa que recupere el ID. Técnicamente, la afirmación más precisa es:
+
+\begin{quote}
+Sin la llave secreta, obtener o verificar eficientemente el identificador original a partir del pseudónimo es computacionalmente impracticable; con la llave, en cambio, pueden probarse candidatos conocidos.
+\end{quote}
+
+Esto último es esencial. Si alguien obtuviera simultáneamente la llave secreta y una lista plausible de IDs institucionales, podría calcular HMAC para cada ID y comparar los resultados. Por ello la seguridad práctica depende de mantener la llave separada de los datos.
+
+\section{Qué protege y qué no protege}
+
+La transformación protege \textbf{identificadores directos}, pero no convierte automáticamente el conjunto de datos en anónimo. Fechas, carrera, semestre, materia, tema, calificaciones y patrones longitudinales pueden actuar como cuasi-identificadores y permitir inferencias mediante información externa.
+
+Por ello, el esquema completo de CMAT combina
+\[
+\boxed{
+\text{HMAC-SHA256}
++
+\text{llave secreta externa}
++
+\text{control de acceso}
++
+\text{minimización de datos}
+}
+\]
+y debe describirse como \textbf{pseudonimización}, no como anonimización absoluta.
+
+\section{Referencias técnicas}
+
+\begin{itemize}[leftmargin=*]
+    \item RFC 2104, \emph{HMAC: Keyed-Hashing for Message Authentication}: \url{https://www.rfc-editor.org/rfc/rfc2104}
+    \item AWS, \emph{Signature Version 4}: \url{https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_sigv-signing-elements.html}
+    \item GitHub, \emph{Validating webhook deliveries}: \url{https://docs.github.com/en/webhooks/using-webhooks/validating-webhook-deliveries}
+    \item RFC 7518, \emph{JSON Web Algorithms (JWA)}: \url{https://www.rfc-editor.org/rfc/rfc7518}
+    \item RFC 4868, \emph{Using HMAC-SHA-256, HMAC-SHA-384, and HMAC-SHA-512 with IPsec}: \url{https://www.rfc-editor.org/rfc/rfc4868}
+\end{itemize}
+
+\end{document}
