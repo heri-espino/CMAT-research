@@ -36,6 +36,7 @@ EXPECTED_PUBLIC_API = {
         "distribution_profile",
         "fixed_effect_group_comparisons",
         "fixed_effect_logistic_group_comparisons",
+        "fixed_effect_logistic_adjusted_probabilities",
         "group_outcome_summary",
         "mixture_component_density",
         "outcome_state_composition",
