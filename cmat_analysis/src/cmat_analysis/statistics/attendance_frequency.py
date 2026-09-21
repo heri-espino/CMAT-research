@@ -12,6 +12,7 @@ from collections.abc import Sequence
 
 import numpy as np
 import pandas as pd
+import statsmodels.api as sm
 import statsmodels.formula.api as smf
 from statsmodels.stats.multitest import multipletests
 
@@ -458,6 +459,171 @@ def fixed_effect_group_comparisons(
         "multiplicity_method": multiplicity_method,
         "alpha": float(alpha),
     }])
+    return pd.DataFrame(rows), omnibus, info
+
+
+
+def fixed_effect_logistic_group_comparisons(
+    df: pd.DataFrame,
+    *,
+    group_col: str,
+    group_order: Sequence[str],
+    outcome_col: str,
+    fixed_effect_col: str,
+    cluster_col: str,
+    categorical_covariates: Sequence[str] = (),
+    alpha: float = 0.05,
+    multiplicity_method: str = "holm",
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    """Estimate pairwise odds ratios from a clustered fixed-effect logit.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Analytical table containing a binary 0/1 outcome and model variables.
+    group_col : str
+        Categorical exposure/group column.
+    group_order : sequence of str
+        Ordered labels; the first is the regression reference category.
+    outcome_col : str
+        Binary outcome coded 0/1.
+    fixed_effect_col : str
+        Categorical fixed-effect context.
+    cluster_col : str
+        Cluster identifier for the sandwich covariance estimator.
+    categorical_covariates : sequence of str, default=()
+        Additional categorical adjustment variables.
+    alpha : float, default=0.05
+        Two-sided confidence and rejection level.
+    multiplicity_method : str, default='holm'
+        Method passed to statsmodels multipletests for pairwise p-values.
+
+    Returns
+    -------
+    tuple of pandas.DataFrame
+        Pairwise log-odds differences and odds ratios, omnibus group test, and
+        model metadata.
+
+    Notes
+    -----
+    Odds ratios are conditional model contrasts and are not risk ratios. Sparse
+    or separated outcome patterns can make logistic estimates unstable; callers
+    should inspect counts and confidence intervals before interpretation.
+    """
+    order = [str(group) for group in group_order]
+    if len(order) < 2 or len(order) != len(set(order)):
+        raise ValueError("group_order must contain at least two unique labels")
+    names = [group_col, outcome_col, fixed_effect_col, cluster_col, *categorical_covariates]
+    for name in names:
+        _formula_name(name)
+    _require(df, names)
+
+    d = df.dropna(subset=names).copy()
+    y = pd.to_numeric(d[outcome_col], errors="coerce")
+    valid = y.isin([0, 1])
+    d = d.loc[valid].copy()
+    d[outcome_col] = y.loc[valid].astype(float)
+    d[group_col] = d[group_col].astype(str)
+    missing = [group for group in order if group not in set(d[group_col])]
+    if missing:
+        raise ValueError(f"group_order contains unobserved groups: {missing}")
+    d = d.loc[d[group_col].isin(order)].copy()
+    d[group_col] = pd.Categorical(d[group_col], categories=order, ordered=True)
+
+    reference = order[0]
+    group_term = f"C({group_col}, Treatment(reference='{reference}'))"
+    formula = f"{outcome_col} ~ {group_term} + C({fixed_effect_col})"
+    if categorical_covariates:
+        formula += " + " + " + ".join(f"C({name})" for name in categorical_covariates)
+
+    model = smf.glm(formula, data=d, family=sm.families.Binomial()).fit(
+        cov_type="cluster",
+        cov_kwds={"groups": d[cluster_col]},
+        maxiter=200,
+    )
+    param_names = list(model.params.index)
+
+    def coefficient(group: str) -> str | None:
+        if group == reference:
+            return None
+        name = f"{group_term}[T.{group}]"
+        return name if name in param_names else None
+
+    rows: list[dict[str, object]] = []
+    raw_p: list[float] = []
+    for i, group1 in enumerate(order):
+        for j in range(i + 1, len(order)):
+            group2 = order[j]
+            contrast = np.zeros(len(param_names))
+            name1, name2 = coefficient(group1), coefficient(group2)
+            if name1:
+                contrast[param_names.index(name1)] += 1
+            if name2:
+                contrast[param_names.index(name2)] -= 1
+            test = model.t_test(contrast)
+            log_or = float(np.asarray(test.effect).reshape(-1)[0])
+            se = float(np.asarray(test.sd).reshape(-1)[0])
+            p_value = float(np.asarray(test.pvalue).reshape(-1)[0])
+            ci = np.asarray(test.conf_int(alpha=alpha)).reshape(-1, 2)[0]
+            raw_p.append(p_value)
+            rows.append(
+                {
+                    "group1": group1,
+                    "group2": group2,
+                    "log_odds_difference_group1_minus_group2": log_or,
+                    "odds_ratio_group1_vs_group2": float(np.exp(log_or)),
+                    "cluster_robust_se_log_odds": se,
+                    "or_ci_low": float(np.exp(ci[0])),
+                    "or_ci_high": float(np.exp(ci[1])),
+                    "p_raw": p_value,
+                    "adjacent_groups": bool(j == i + 1),
+                }
+            )
+
+    reject, adjusted, _, _ = multipletests(
+        raw_p, alpha=alpha, method=multiplicity_method
+    )
+    for index, row in enumerate(rows):
+        row["p_adjusted"] = float(adjusted[index])
+        row["reject_adjusted"] = bool(reject[index])
+        row["n"] = int(model.nobs)
+        row["n_clusters"] = int(d[cluster_col].nunique())
+
+    coefficient_names = [coefficient(group) for group in order[1:]]
+    coefficient_names = [name for name in coefficient_names if name]
+    restriction = np.zeros((len(coefficient_names), len(param_names)))
+    for index, name in enumerate(coefficient_names):
+        restriction[index, param_names.index(name)] = 1
+    joint = model.wald_test(restriction, scalar=True)
+
+    omnibus = pd.DataFrame(
+        [
+            {
+                "null_hypothesis": "equal adjusted log odds across listed groups",
+                "test_statistic": float(np.asarray(joint.statistic).reshape(-1)[0]),
+                "df_num": int(len(coefficient_names)),
+                "p_value": float(np.asarray(joint.pvalue).reshape(-1)[0]),
+                "n": int(model.nobs),
+                "n_clusters": int(d[cluster_col].nunique()),
+            }
+        ]
+    )
+    info = pd.DataFrame(
+        [
+            {
+                "formula": formula,
+                "reference_group": reference,
+                "n": int(model.nobs),
+                "n_groups": int(len(order)),
+                "n_fixed_effect_levels": int(d[fixed_effect_col].nunique()),
+                "n_clusters": int(d[cluster_col].nunique()),
+                "cluster_col": cluster_col,
+                "multiplicity_method": multiplicity_method,
+                "alpha": float(alpha),
+                "converged": bool(model.converged),
+            }
+        ]
+    )
     return pd.DataFrame(rows), omnibus, info
 
 
