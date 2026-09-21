@@ -111,9 +111,11 @@ jobs:
             results/paper21/tables/29_instructor_cluster_benchmark_0_vs_1plus.csv \
             results/paper21/tables/30_numeric_failure_descriptives.csv \
             results/paper21/tables/31_numeric_failure_logit_pairwise_zero_inclusive.csv \
+            results/paper21/tables/31a_numeric_failure_adjusted_probabilities_zero_inclusive.csv \
             results/paper21/tables/32_numeric_failure_logit_omnibus_zero_inclusive.csv \
             results/paper21/tables/33_numeric_failure_logit_model_info_zero_inclusive.csv \
             results/paper21/tables/34_numeric_failure_logit_pairwise_users.csv \
+            results/paper21/tables/34a_numeric_failure_adjusted_probabilities_users.csv \
             results/paper21/tables/35_numeric_failure_logit_omnibus_users.csv \
             results/paper21/tables/36_numeric_failure_logit_model_info_users.csv \
             results/paper21/tables/37_complete_case_gmm_selection.csv \
@@ -124,7 +126,20 @@ jobs:
             results/paper21/tables/42_imputed_gmm_two_component_parameters.csv \
             results/paper21/tables/43_imputed_gmm_bootstrap_1_vs_2.csv \
             results/paper21/tables/44_imputed_gmm_soft_component_composition.csv \
-            results/paper21/tables/45_gmm_component_comparison_complete_vs_imputed.csv; do
+            results/paper21/tables/45_gmm_component_comparison_complete_vs_imputed.csv \
+            results/paper21/tables/46_complete_case_gmm_ridgeline_density.csv; do
+            test -s "$f"
+          done
+
+      - name: Generate Paper 2.1 figures
+        run: python code/figures_paper21.py
+
+      - name: Verify GMM figures
+        shell: bash
+        run: |
+          for f in \
+            results/paper21/figures/fig04_complete_case_gmm_ridgeline.pdf \
+            results/paper21/figures/fig05_lower_component_weight.pdf; do
             test -s "$f"
           done
 
@@ -132,6 +147,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: paper21-analysis-${{ github.sha }}
-          path: results/paper21/tables/*.csv
+          path: |
+            results/paper21/tables/*.csv
+            results/paper21/figures/*.pdf
           if-no-files-found: error
           retention-days: 30
