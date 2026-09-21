@@ -15,7 +15,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: paper-build-${{ github.ref }}
@@ -81,43 +81,18 @@ jobs:
         if: steps.manuscript.outputs.buildable == 'true'
         run: python paper/build.py
 
-      - name: Upload compiled PDFs, logs, and vector figures
-        if: always() && steps.manuscript.outputs.buildable == 'true'
-        uses: actions/upload-artifact@v4
-        with:
-          name: paper-${{ steps.meta.outputs.branch }}-${{ steps.meta.outputs.sha }}
-          path: |
-            paper/main.pdf
-            paper/main.log
-            paper/main.blg
-            paper/main.bbl
-            paper/main_commented.pdf
-            paper/main_commented.log
-            paper/main_commented.blg
-            paper/main_commented.bbl
-            results/figures/*.pdf
-          if-no-files-found: warn
-          retention-days: 30
-
-      - name: Upload paper source
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: paper-source-${{ steps.meta.outputs.branch }}-${{ steps.meta.outputs.sha }}
-          path: |
-            paper/**
-            code/**
-            PAPER_BRANCH.md
-            !paper/main.pdf
-            !paper/main_commented.pdf
-            !paper/*.aux
-            !paper/*.bbl
-            !paper/*.blg
-            !paper/*.fdb_latexmk
-            !paper/*.fls
-            !paper/*.log
-            !paper/*.out
-            !paper/*.toc
-            !paper/*.synctex.gz
-          if-no-files-found: warn
-          retention-days: 30
+      - name: Commit compiled PDFs to the paper branch
+        if: steps.manuscript.outputs.buildable == 'true'
+        shell: bash
+        run: |
+          git add -f paper/*.pdf 2>/dev/null || true
+          git add -f results/figures/*.pdf 2>/dev/null || true
+          git add -f results/paper21/figures/*.pdf 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo 'Compiled PDFs are already current.'
+            exit 0
+          fi
+          git config user.name 'CMAT build bot'
+          git config user.email 'actions@users.noreply.github.com'
+          git commit -m 'build: refresh compiled PDFs [skip ci]'
+          git push origin HEAD:"$GITHUB_REF_NAME"
