@@ -8,6 +8,7 @@ from .attendance_frequency import (
     add_topcoded_visit_group,
     distribution_profile,
     fixed_effect_group_comparisons,
+    fixed_effect_logistic_group_comparisons,
     group_outcome_summary,
     mixture_component_density,
     outcome_state_composition,
@@ -30,6 +31,14 @@ from .inference import (
     visit_distribution,
 )
 from .selection import propensity_att_sensitivity
+from .mixtures import (
+    fit_univariate_gaussian_mixture,
+    gaussian_mixture_component_summary,
+    gaussian_mixture_model_selection,
+    gaussian_mixture_responsibilities,
+    parametric_bootstrap_gmm_lrt,
+    soft_component_composition,
+)
 from .methodology import (
     add_exact_visit_group,
     exact_visit_group_summary,
@@ -56,6 +65,7 @@ __all__ = [
     "add_topcoded_visit_group",
     "distribution_profile",
     "fixed_effect_group_comparisons",
+    "fixed_effect_logistic_group_comparisons",
     "group_outcome_summary",
     "mixture_component_density",
     "outcome_state_composition",
@@ -81,6 +91,12 @@ __all__ = [
     "longitudinal_summary",
     "one_two_pooling_analysis",
     "primary_fixed_effect_models",
+    "fit_univariate_gaussian_mixture",
+    "gaussian_mixture_component_summary",
+    "gaussian_mixture_model_selection",
+    "gaussian_mixture_responsibilities",
+    "parametric_bootstrap_gmm_lrt",
+    "soft_component_composition",
     "propensity_att_sensitivity",
     "robust_two_group_tests",
     "secondary_pass_model",
