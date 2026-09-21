@@ -16,7 +16,7 @@ Define numeric failure as a final numeric grade below 7.5 and numeric pass as a 
 
 For each attendance group 0 / 1 / 2 / 3 / 4 / 5 / 6+, report the number of numeric final grades, the number and probability of numeric failure, and raw failure odds.
 
-Then fit a logistic model with attendance-frequency indicators, instructor-period fixed effects, degree-programme indicators, and cluster-robust standard errors at instructor-period level. Report model-standardized adjusted failure probabilities, pairwise odds ratios with Holm adjustment, and repeat the adjusted-probability/omnibus/pairwise analysis among positive-attendance groups only.
+Then fit a logistic model with attendance-frequency indicators, instructor-period fixed effects, degree-programme indicators, and cluster-robust standard errors at instructor-period level. Report model-standardized adjusted failure probabilities with cluster-robust delta-method 95% confidence intervals, pairwise odds ratios with Holm adjustment, and repeat the adjusted-probability/omnibus/pairwise analysis among positive-attendance groups only.
 
 Odds ratios are complementary to probabilities, not intrinsically more interpretable. Manuscript prose should normally report observed probabilities first and use ORs as model-based relative comparisons.
 
