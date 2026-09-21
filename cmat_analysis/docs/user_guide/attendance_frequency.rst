@@ -172,8 +172,10 @@ with cmat_analysis.statistics.fixed_effect_logistic_group_comparisons. Report
 these alongside model-standardized adjusted probabilities from
 cmat_analysis.statistics.fixed_effect_logistic_adjusted_probabilities, which
 averages fitted risks after assigning each group over the empirical
-fixed-effect and covariate distribution of the model sample. Sparse frequency
-groups should be inspected before interpreting either quantity.
+fixed-effect and covariate distribution of the model sample. Its reported
+standard errors and 95 percent intervals use the cluster-robust model
+covariance and the delta method. Sparse frequency groups should be inspected
+before interpreting either quantity.
 
 For continuous distributional heterogeneity, use the Gaussian-mixture helpers
 on a genuinely observed continuous outcome before repeating the analysis on an
