@@ -8,6 +8,7 @@ on:
       - 'code/run_paper21.py'
       - 'code/run_paper21_outcomes.py'
       - 'code/run_paper21_mixture.py'
+      - 'code/figures_paper21.py'
       - 'paper/**'
       - 'cmat_analysis/**'
       - 'data/controlled/**'
