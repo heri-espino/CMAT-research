@@ -282,8 +282,8 @@ def plot_complete_case_gmm_ridgeline() -> Path:
                 0.995,
                 (baseline + 0.08) / max(len(available_groups), 1),
                 (
-                    rf"$\pi_L={float(lo['weight']):.0%},\ \mu_L={float(lo['mean']):.2f};\ "
-                    rf"\pi_H={float(hi['weight']):.0%},\ \mu_H={float(hi['mean']):.2f}$"
+                    f"πL={float(lo['weight']):.0%}, μL={float(lo['mean']):.2f}; "
+                    f"πH={float(hi['weight']):.0%}, μH={float(hi['mean']):.2f}"
                 ),
                 transform=ax.transAxes,
                 ha="right",
