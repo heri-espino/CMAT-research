@@ -11,6 +11,7 @@ dependencies = [
     "scipy==1.17.1",
     "scikit-learn==1.8.0",
     "statsmodels==0.14.6",
+    "patsy==1.0.2",
     "openpyxl==3.1.5",
 ]
 
