@@ -51,6 +51,18 @@
 
 % ============================================================
 % Page geometry
+%
+% A4:
+%   210 mm × 297 mm
+%
+% Text block:
+%   148.5 mm × 210 mm
+%
+% Linear scale:
+%   1/sqrt(2)
+%
+% Area ratio:
+%   1/2
 % ============================================================
 
 \ifVelvetCompact
@@ -94,6 +106,9 @@
 % ============================================================
 
 \ifVelvetMath
+
+    % Mathematical drafts:
+    % compact numerical citations, e.g. [3--7, 11]
     \RequirePackage[
         backend=biber,
         style=numeric-comp,
@@ -105,7 +120,11 @@
         isbn=false,
         eprint=false
     ]{biblatex}
+
 \else
+
+    % General / ML / statistics drafts:
+    % compact author-year citations
     \RequirePackage[
         backend=biber,
         style=authoryear-comp,
@@ -119,8 +138,10 @@
         isbn=false,
         eprint=false
     ]{biblatex}
+
 \fi
 
+% natbib-like aliases
 \let\citep\parencite
 \let\citet\textcite
 
