@@ -65,7 +65,7 @@ jobs:
             python code/run_paper21_mixture.py \
               --materias data/controlled/Materias_pseudonymized.csv \
               --asesorias data/controlled/Asesorias_pseudonymized.csv \
-              --gmm-bootstrap 999
+              --gmm-bootstrap 99
           fi
 
       - name: Install LaTeX toolchain
