@@ -90,7 +90,7 @@ The draft is **not submission-ready** until the TODOs in `paper/STATUS_AND_ROADM
 
 ## Shared-library provenance
 
-The reusable methods developed during Paper 2.1 were upstreamed to `main` as **cmat-analysis 0.3.0**. Canonical shared functions now include:
+The reusable methods developed during Paper 2.1 are upstreamed to `main`. The current reusable API version is **cmat-analysis 0.4.0**. Canonical shared functions now include:
 
 - `add_academic_outcome_states` in `cmat_analysis.measures`;
 - `add_topcoded_visit_group`;
@@ -129,3 +129,24 @@ It combines the former Figure 1 and Figure 4. For each `0/1/2/3/4/5/6+` attendan
 For BV, RT, and BA, horizontal position uses the numerical value assigned by the canonical primary adverse-outcome imputation. This must be stated in the caption.
 
 The reusable density calculation is `cmat_analysis.statistics.mixture_component_density`; the reusable plotter is `cmat_analysis.visualization.plot_stacked_ridgeline`. Do not recreate paper-local KDE logic.
+
+
+## Observed numeric failure and Gaussian mixtures
+
+Read `paper/MIXTURE_ANALYSIS_PLAN.md` before interpreting or modifying this analysis.
+
+The evidence hierarchy is binding:
+
+1. observed numeric-failure probability/odds;
+2. GMM on `Z_GRADE_COMPLETE_CASE` as the primary multimodality analysis;
+3. GMM on `Z_GRADE_PRIMARY` only as sensitivity to BV/RT/BA imputation.
+
+The mixture runner is `code/run_paper21_mixture.py` and writes aggregate outputs 30--45. It compares K=1/2/3 with BIC/ICL and uses a parametric-bootstrap likelihood-ratio test for K=1 vs K=2. The proposed means (-1.1, 0.5) are only one additional EM initialization; default multistart EM and empirical-quantile starts are also used.
+
+Never call the components "good students" and "students who tried but failed". Use `lower-performance component` and `higher-performance component`, because the model identifies distributional components rather than psychological or causal student types.
+
+Posterior responsibilities are aggregated softly. No row-level component assignments are saved.
+
+Do not claim that a low-performance component disappears after six visits unless the complete-case analysis supports this robustly; even then, high-frequency attendance is vulnerable to persistence/opportunity-time selection.
+
+At the time this section was added, GitHub Actions jobs were failing before executing any steps across both `main` and the paper branch. Therefore the implementation is present but no controlled-data GMM result has yet been accepted into the manuscript.
