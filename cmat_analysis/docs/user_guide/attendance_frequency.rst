@@ -158,3 +158,52 @@ Component densities are weighted by the full group size, so their areas recover
 the observed state shares and their sum is the total group density. This is
 preferable to colouring arbitrary x-axis segments because the colours remain
 tied to the actual observations contributing to each part of the distribution.
+
+
+Observed numeric failure and Gaussian mixtures
+----------------------------------------------
+
+When apparent multimodality may be affected by imputed administrative outcomes,
+analyse observed numeric grades first.
+
+For an observed binary outcome such as numeric failure among students who
+received numeric grades, clustered fixed-effect odds ratios can be estimated
+with cmat_analysis.statistics.fixed_effect_logistic_group_comparisons. Sparse
+frequency groups should be inspected before interpreting odds ratios.
+
+For continuous distributional heterogeneity, use the Gaussian-mixture helpers
+on a genuinely observed continuous outcome before repeating the analysis on an
+imputed outcome as a sensitivity:
+
+.. code-block:: python
+
+   from cmat_analysis.statistics import (
+       gaussian_mixture_component_summary,
+       gaussian_mixture_model_selection,
+       parametric_bootstrap_gmm_lrt,
+   )
+
+   selection, models = gaussian_mixture_model_selection(
+       numeric_complete_case_z,
+       component_counts=(1, 2, 3),
+       two_component_mean_starts=((-1.1, 0.5),),
+   )
+
+   components = gaussian_mixture_component_summary(models[2])
+
+   bootstrap = parametric_bootstrap_gmm_lrt(
+       numeric_complete_case_z,
+       n_bootstrap=199,
+       two_component_mean_starts=((-1.1, 0.5),),
+   )
+
+The proposed means are additional EM starts rather than the unique
+initialization. BIC and ICL compare candidate component counts; the parametric
+bootstrap supplies a valid empirical reference for the one-versus-two-component
+likelihood-ratio statistic, for which the ordinary chi-square approximation is
+not valid.
+
+Two-component models are labeled lower_performance and higher_performance only
+after sorting estimated means. These labels describe distributional components,
+not observed or psychological student types. Posterior responsibilities should
+be retained whenever possible instead of hard class assignments.
