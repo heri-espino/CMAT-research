@@ -120,6 +120,9 @@ statistics
 .. autofunction:: cmat_analysis.statistics.fixed_effect_logistic_group_comparisons
    :no-index-entry:
 
+.. autofunction:: cmat_analysis.statistics.fixed_effect_logistic_adjusted_probabilities
+   :no-index-entry:
+
 .. autofunction:: cmat_analysis.statistics.outcome_state_composition
    :no-index-entry:
 
