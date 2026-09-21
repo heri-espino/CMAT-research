@@ -11,6 +11,7 @@ from cmat_analysis.statistics import (
     distribution_profile,
     fixed_effect_group_comparisons,
     fixed_effect_logistic_group_comparisons,
+    fixed_effect_logistic_adjusted_probabilities,
     mixture_component_density,
     outcome_state_composition,
     pairwise_effect_matrix,
@@ -187,3 +188,21 @@ def test_clustered_fixed_effect_logit_returns_odds_ratios():
     assert pairwise["p_adjusted"].between(0, 1).all()
     assert omnibus.loc[0, "df_num"] == 2
     assert info.loc[0, "converged"]
+
+
+def test_clustered_fixed_effect_logit_returns_adjusted_probabilities():
+    d = _fixture().loc[lambda x: x["VISITS_CMAT_PERIOD"].gt(0)].copy()
+    adjusted = fixed_effect_logistic_adjusted_probabilities(
+        d,
+        group_col="GROUP",
+        group_order=["1", "2", "3+"],
+        outcome_col="PASS",
+        fixed_effect_col="CLASSROOM_ID",
+        cluster_col="CLASSROOM_ID",
+        categorical_covariates=["CAREER"],
+    )
+    assert adjusted["group"].tolist() == ["1", "2", "3+"]
+    assert adjusted["adjusted_probability"].between(0, 1).all()
+    assert adjusted["observed_probability"].between(0, 1).all()
+    assert adjusted["n_standardization_sample"].nunique() == 1
+    assert adjusted["converged"].all()
