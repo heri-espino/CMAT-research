@@ -26,6 +26,9 @@ FIGURE_INPUTS = (
     REPO_ROOT / "results" / "paper21" / "tables" / "10g_zero_inclusive_stacked_ridgeline_density.csv",
     REPO_ROOT / "results" / "paper21" / "tables" / "18_primary_z_heatmap_matrix.csv",
     REPO_ROOT / "results" / "paper21" / "tables" / "19_primary_pass_heatmap_matrix.csv",
+    REPO_ROOT / "results" / "paper21" / "tables" / "38_complete_case_gmm_two_component_parameters.csv",
+    REPO_ROOT / "results" / "paper21" / "tables" / "42_imputed_gmm_two_component_parameters.csv",
+    REPO_ROOT / "results" / "paper21" / "tables" / "46_complete_case_gmm_ridgeline_density.csv",
 )
 
 
