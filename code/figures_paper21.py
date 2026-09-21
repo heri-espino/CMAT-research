@@ -42,6 +42,9 @@ def validate() -> None:
         "10g_zero_inclusive_stacked_ridgeline_density.csv",
         "18_primary_z_heatmap_matrix.csv",
         "19_primary_pass_heatmap_matrix.csv",
+        "38_complete_case_gmm_two_component_parameters.csv",
+        "42_imputed_gmm_two_component_parameters.csv",
+        "46_complete_case_gmm_ridgeline_density.csv",
     ]
     missing = [name for name in required if not (TABLES_DIR / name).is_file()]
     if missing:
@@ -168,6 +171,164 @@ def plot_pass_heatmap() -> Path:
     )
 
 
+
+def _gaussian_density(
+    x: np.ndarray,
+    *,
+    mean: float,
+    sd: float,
+    weight: float = 1.0,
+) -> np.ndarray:
+    sd = max(float(sd), 1e-9)
+    z = (x - float(mean)) / sd
+    return float(weight) * np.exp(-0.5 * z**2) / (sd * np.sqrt(2.0 * np.pi))
+
+
+def plot_complete_case_gmm_ridgeline() -> Path:
+    density = pd.read_csv(TABLES_DIR / "46_complete_case_gmm_ridgeline_density.csv")
+    params = pd.read_csv(TABLES_DIR / "38_complete_case_gmm_two_component_parameters.csv")
+    density["group"] = density["group"].astype(str)
+    params["group"] = params["group"].astype(str)
+
+    fig, ax = plt.subplots(figsize=(9.2, 6.2))
+    ridge_height = 0.76
+    available_groups = [
+        group
+        for group in GROUPS
+        if group in set(density["group"]) and group in set(params["group"])
+    ]
+
+    for position, group in enumerate(available_groups):
+        observed = (
+            density.loc[density["group"].eq(group)]
+            .drop_duplicates("x")
+            .sort_values("x")
+        )
+        x = observed["x"].to_numpy(float)
+        y = observed["density_total"].to_numpy(float)
+        scale = float(np.nanmax(y))
+        if not np.isfinite(scale) or scale <= 0:
+            continue
+
+        baseline = float(position)
+        observed_scaled = baseline + ridge_height * y / scale
+        ax.fill_between(x, baseline, observed_scaled, alpha=0.14)
+        ax.plot(
+            x,
+            observed_scaled,
+            linewidth=1.15,
+            label="Observed complete-case KDE" if position == 0 else None,
+        )
+
+        group_params = params.loc[params["group"].eq(group)].copy()
+        component_curves: dict[str, np.ndarray] = {}
+        for component, linestyle in [
+            ("lower_performance", "--"),
+            ("higher_performance", "-."),
+        ]:
+            row = group_params.loc[group_params["component"].eq(component)]
+            if row.empty:
+                continue
+            row = row.iloc[0]
+            curve = _gaussian_density(
+                x,
+                mean=float(row["mean"]),
+                sd=float(row["sd"]),
+                weight=float(row["weight"]),
+            )
+            component_curves[component] = curve
+            ax.plot(
+                x,
+                baseline + ridge_height * curve / scale,
+                linestyle=linestyle,
+                linewidth=1.35,
+                label=(
+                    "Lower-performance Gaussian"
+                    if position == 0 and component == "lower_performance"
+                    else "Higher-performance Gaussian"
+                    if position == 0 and component == "higher_performance"
+                    else None
+                ),
+            )
+
+        if len(component_curves) == 2:
+            fitted = (
+                component_curves["lower_performance"]
+                + component_curves["higher_performance"]
+            )
+            ax.plot(
+                x,
+                baseline + ridge_height * fitted / scale,
+                linewidth=0.9,
+                alpha=0.8,
+                label="Two-component fitted density" if position == 0 else None,
+            )
+
+        lower = group_params.loc[
+            group_params["component"].eq("lower_performance")
+        ]
+        higher = group_params.loc[
+            group_params["component"].eq("higher_performance")
+        ]
+        if not lower.empty and not higher.empty:
+            lo = lower.iloc[0]
+            hi = higher.iloc[0]
+            ax.text(
+                0.995,
+                (baseline + 0.08) / max(len(available_groups), 1),
+                (
+                    rf"$\pi_L={float(lo['weight']):.0%},\ \mu_L={float(lo['mean']):.2f};\ "
+                    rf"\pi_H={float(hi['weight']):.0%},\ \mu_H={float(hi['mean']):.2f}$"
+                ),
+                transform=ax.transAxes,
+                ha="right",
+                va="bottom",
+                fontsize=7.5,
+            )
+
+    left, right = _central_density_limits(density)
+    ax.set_xlim(left, right)
+    ax.set_yticks(np.arange(len(available_groups)), available_groups)
+    ax.set_ylim(-0.15, max(len(available_groups) - 0.05, 0.85))
+    ax.set_xlabel("Instructor-period-standardised numeric final grade (complete case)")
+    ax.set_ylabel("CMAT visits during the MU academic period")
+    ax.grid(axis="y", visible=False)
+    ax.legend(frameon=False, ncol=2, loc="lower center", bbox_to_anchor=(0.5, 1.01))
+    return _save(fig, "fig04_complete_case_gmm_ridgeline.pdf")
+
+
+def plot_lower_component_weight() -> Path:
+    complete = pd.read_csv(
+        TABLES_DIR / "38_complete_case_gmm_two_component_parameters.csv"
+    )
+    imputed = pd.read_csv(
+        TABLES_DIR / "42_imputed_gmm_two_component_parameters.csv"
+    )
+    for frame in (complete, imputed):
+        frame["group"] = frame["group"].astype(str)
+
+    fig, ax = plt.subplots(figsize=(7.2, 4.2))
+    x = np.arange(len(GROUPS))
+    for frame, label, linestyle in [
+        (complete, "Numeric complete case", "-"),
+        (imputed, "Imputed-outcome sensitivity", "--"),
+    ]:
+        lower = (
+            frame.loc[frame["component"].eq("lower_performance"), ["group", "weight"]]
+            .set_index("group")
+            .reindex(GROUPS)
+        )
+        y = lower["weight"].to_numpy(float)
+        ax.plot(x, y, marker="o", linestyle=linestyle, linewidth=1.4, label=label)
+
+    ax.set_xticks(x, GROUPS)
+    ax.set_ylim(0, 1)
+    ax.set_xlabel("CMAT visits during the MU academic period")
+    ax.set_ylabel(r"Estimated lower-component weight $\hat{\pi}_{L,k}$")
+    ax.legend(frameon=False)
+    ax.grid(axis="x", visible=False)
+    return _save(fig, "fig05_lower_component_weight.pdf")
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.parse_args()
@@ -179,6 +340,8 @@ def main() -> int:
         plot_distribution_and_composition(),
         plot_z_heatmap(),
         plot_pass_heatmap(),
+        plot_complete_case_gmm_ridgeline(),
+        plot_lower_component_weight(),
     ]:
         print(path.relative_to(REPO_ROOT))
     return 0
