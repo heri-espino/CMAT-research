@@ -73,7 +73,7 @@ The current `4+` top-code is not binding on this branch.
 
 - [x] freeze the analysis hierarchy in `paper/MIXTURE_ANALYSIS_PLAN.md`;
 - [x] implement observed numeric-failure descriptives by `0/1/2/3/4/5/6+`;
-- [x] implement clustered fixed-effect logistic comparisons and Holm-adjusted odds ratios;
+- [x] implement model-standardized numeric-failure probabilities plus clustered fixed-effect logistic comparisons and Holm-adjusted odds ratios;
 - [x] implement complete-case univariate GMM comparison for K=1/2/3;
 - [x] include multiple EM starts, with (-1.1, 0.5) only as one additional two-component initialization;
 - [x] implement BIC, ICL, posterior entropy, responsibilities, Ashman's D, and parametric-bootstrap 1-vs-2 component test;
@@ -81,7 +81,9 @@ The current `4+` top-code is not binding on this branch.
 - [x] repeat the GMM on the imputed primary Z only as a sensitivity;
 - [ ] obtain a successful controlled-data CI run and inspect outputs 30--45;
 - [ ] decide whether complete-case evidence is strong/stable enough for manuscript inclusion;
-- [ ] if included, add a component-weight visualization and conservative manuscript interpretation.
+- [x] implement the complete-case ridgeline with weighted lower/higher Gaussian overlays;
+- [x] implement the compact lower-component weight figure, with the imputed specification shown as sensitivity;
+- [ ] if included, add a conservative manuscript interpretation after inspecting the controlled-data estimates.
 
 ### M4 — Equivalence and visual synthesis
 
