@@ -60,12 +60,12 @@ jobs:
             --materias data/controlled/Materias_pseudonymized.csv \
             --asesorias data/controlled/Asesorias_pseudonymized.csv
 
-      - name: Run observed-failure and Gaussian-mixture analysis
+      - name: Run observed-failure and Gaussian-mixture analysis (CI smoke bootstrap)
         run: |
           python code/run_paper21_mixture.py \
             --materias data/controlled/Materias_pseudonymized.csv \
             --asesorias data/controlled/Asesorias_pseudonymized.csv \
-            --gmm-bootstrap 99
+            --gmm-bootstrap 19
 
       - name: Verify support outputs
         shell: bash
