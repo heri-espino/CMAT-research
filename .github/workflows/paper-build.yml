@@ -72,6 +72,12 @@ jobs:
               --materias data/controlled/Materias_pseudonymized.csv \
               --asesorias data/controlled/Asesorias_pseudonymized.csv
           fi
+          if [[ -f code/run_paper21_mixture.py ]]; then
+            python code/run_paper21_mixture.py \
+              --materias data/controlled/Materias_pseudonymized.csv \
+              --asesorias data/controlled/Asesorias_pseudonymized.csv \
+              --gmm-bootstrap 999
+          fi
 
       - name: Install LaTeX toolchain
         if: steps.manuscript.outputs.buildable == 'true'
