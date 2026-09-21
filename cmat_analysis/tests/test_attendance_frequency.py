@@ -10,6 +10,7 @@ from cmat_analysis.statistics import (
     add_topcoded_visit_group,
     distribution_profile,
     fixed_effect_group_comparisons,
+    fixed_effect_logistic_group_comparisons,
     mixture_component_density,
     outcome_state_composition,
     pairwise_effect_matrix,
@@ -167,3 +168,22 @@ def test_mixture_component_density_areas_recover_component_shares():
             area = np.trapezoid(c["density_component"].to_numpy(float), c["x"].to_numpy(float))
             share = float(c["component_share"].iloc[0])
             assert np.isclose(area, share, atol=0.02)
+
+
+
+def test_clustered_fixed_effect_logit_returns_odds_ratios():
+    d = _fixture().loc[lambda x: x["VISITS_CMAT_PERIOD"].gt(0)].copy()
+    pairwise, omnibus, info = fixed_effect_logistic_group_comparisons(
+        d,
+        group_col="GROUP",
+        group_order=["1", "2", "3+"],
+        outcome_col="PASS",
+        fixed_effect_col="CLASSROOM_ID",
+        cluster_col="CLASSROOM_ID",
+        categorical_covariates=["CAREER"],
+    )
+    assert len(pairwise) == 3
+    assert pairwise["odds_ratio_group1_vs_group2"].gt(0).all()
+    assert pairwise["p_adjusted"].between(0, 1).all()
+    assert omnibus.loc[0, "df_num"] == 2
+    assert info.loc[0, "converged"]
