@@ -14,6 +14,7 @@ import numpy as np
 import pandas as pd
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
+from patsy import build_design_matrices
 from statsmodels.stats.multitest import multipletests
 
 
@@ -660,8 +661,9 @@ def fixed_effect_logistic_adjusted_probabilities(
     Returns
     -------
     pandas.DataFrame
-        One row per group with the observed probability and the
-        model-standardized adjusted probability.
+        One row per group with the observed probability, model-standardized
+        adjusted probability, cluster-robust delta-method standard error, and
+        95 percent confidence interval.
 
     Notes
     -----
@@ -713,6 +715,23 @@ def fixed_effect_logistic_adjusted_probabilities(
             ordered=True,
         )
         fitted = np.asarray(model.predict(counterfactual), dtype=float)
+        design = np.asarray(
+            build_design_matrices(
+                [model.model.data.design_info],
+                counterfactual,
+                return_type="dataframe",
+            )[0],
+            dtype=float,
+        )
+        gradient = np.mean(
+            (fitted * (1.0 - fitted))[:, None] * design,
+            axis=0,
+        )
+        covariance = np.asarray(model.cov_params(), dtype=float)
+        adjusted_se = float(
+            np.sqrt(max(float(gradient @ covariance @ gradient), 0.0))
+        )
+        adjusted_probability = float(np.mean(fitted))
         observed = pd.to_numeric(
             d.loc[observed_labels.eq(group), outcome_col], errors="coerce"
         ).dropna()
@@ -720,7 +739,14 @@ def fixed_effect_logistic_adjusted_probabilities(
             {
                 "group": group,
                 "observed_probability": float(observed.mean()),
-                "adjusted_probability": float(np.mean(fitted)),
+                "adjusted_probability": adjusted_probability,
+                "adjusted_probability_se": adjusted_se,
+                "adjusted_ci95_low": max(
+                    0.0, adjusted_probability - 1.96 * adjusted_se
+                ),
+                "adjusted_ci95_high": min(
+                    1.0, adjusted_probability + 1.96 * adjusted_se
+                ),
                 "n_observed_group": int(len(observed)),
                 "n_standardization_sample": int(model.nobs),
                 "n_clusters": int(d[cluster_col].nunique()),
