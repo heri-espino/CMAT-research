@@ -627,6 +627,109 @@ def fixed_effect_logistic_group_comparisons(
     return pd.DataFrame(rows), omnibus, info
 
 
+
+def fixed_effect_logistic_adjusted_probabilities(
+    df: pd.DataFrame,
+    *,
+    group_col: str,
+    group_order: Sequence[str],
+    outcome_col: str,
+    fixed_effect_col: str,
+    cluster_col: str,
+    categorical_covariates: Sequence[str] = (),
+) -> pd.DataFrame:
+    """Estimate model-standardized probabilities from a clustered FE logit.
+
+    Parameters
+    ----------
+    df : pandas.DataFrame
+        Analytical table containing a binary 0/1 outcome and model variables.
+    group_col : str
+        Categorical exposure/group column.
+    group_order : sequence of str
+        Ordered labels; the first is the regression reference category.
+    outcome_col : str
+        Binary outcome coded 0/1.
+    fixed_effect_col : str
+        Categorical fixed-effect context.
+    cluster_col : str
+        Cluster identifier for the sandwich covariance estimator.
+    categorical_covariates : sequence of str, default=()
+        Additional categorical adjustment variables.
+
+    Returns
+    -------
+    pandas.DataFrame
+        One row per group with the observed probability and the
+        model-standardized adjusted probability.
+
+    Notes
+    -----
+    Standardization uses the empirical distribution of fixed-effect levels and
+    covariates in the fitted model sample. For each group, all observations are
+    counterfactually assigned that group while every other observed model
+    variable is retained, and the resulting fitted probabilities are averaged.
+    The estimates are descriptive model-adjusted associations, not causal risks.
+    """
+    order = [str(group) for group in group_order]
+    if len(order) < 2 or len(order) != len(set(order)):
+        raise ValueError("group_order must contain at least two unique labels")
+    names = [group_col, outcome_col, fixed_effect_col, cluster_col, *categorical_covariates]
+    for name in names:
+        _formula_name(name)
+    _require(df, names)
+
+    d = df.dropna(subset=names).copy()
+    y = pd.to_numeric(d[outcome_col], errors="coerce")
+    valid = y.isin([0, 1])
+    d = d.loc[valid].copy()
+    d[outcome_col] = y.loc[valid].astype(float)
+    d[group_col] = d[group_col].astype(str)
+    missing = [group for group in order if group not in set(d[group_col])]
+    if missing:
+        raise ValueError(f"group_order contains unobserved groups: {missing}")
+    d = d.loc[d[group_col].isin(order)].copy()
+    d[group_col] = pd.Categorical(d[group_col], categories=order, ordered=True)
+
+    reference = order[0]
+    group_term = f"C({group_col}, Treatment(reference='{reference}'))"
+    formula = f"{outcome_col} ~ {group_term} + C({fixed_effect_col})"
+    if categorical_covariates:
+        formula += " + " + " + ".join(f"C({name})" for name in categorical_covariates)
+
+    model = smf.glm(formula, data=d, family=sm.families.Binomial()).fit(
+        cov_type="cluster",
+        cov_kwds={"groups": d[cluster_col]},
+        maxiter=200,
+    )
+
+    rows: list[dict[str, object]] = []
+    observed_labels = d[group_col].astype("string")
+    for group in order:
+        counterfactual = d.copy()
+        counterfactual[group_col] = pd.Categorical(
+            [group] * len(counterfactual),
+            categories=order,
+            ordered=True,
+        )
+        fitted = np.asarray(model.predict(counterfactual), dtype=float)
+        observed = pd.to_numeric(
+            d.loc[observed_labels.eq(group), outcome_col], errors="coerce"
+        ).dropna()
+        rows.append(
+            {
+                "group": group,
+                "observed_probability": float(observed.mean()),
+                "adjusted_probability": float(np.mean(fitted)),
+                "n_observed_group": int(len(observed)),
+                "n_standardization_sample": int(model.nobs),
+                "n_clusters": int(d[cluster_col].nunique()),
+                "converged": bool(model.converged),
+                "formula": formula,
+            }
+        )
+    return pd.DataFrame(rows)
+
 def outcome_state_composition(
     df: pd.DataFrame,
     *,
