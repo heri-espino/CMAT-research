@@ -115,7 +115,7 @@ The current `4+` top-code is not binding on this branch.
 
 ## Shared-library status
 
-Paper 2.1 reusable methods are upstream on `main`; the current mixture/logit extension is **cmat-analysis 0.4.0** and documented through Sphinx and the generated function index. The paper runners are downstream consumers; future methodological improvements should be made in `main/cmat_analysis` first whenever they are reusable across education studies.
+Paper 2.1 reusable methods are upstream on `main`; the current mixture/logit and standardized-probability extension is **cmat-analysis 0.4.1** and documented through Sphinx and the generated function index. The paper runners are downstream consumers; future methodological improvements should be made in `main/cmat_analysis` first whenever they are reusable across education studies.
 
 ## Immediate next task
 
