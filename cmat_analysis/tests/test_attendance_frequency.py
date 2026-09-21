@@ -203,6 +203,11 @@ def test_clustered_fixed_effect_logit_returns_adjusted_probabilities():
     )
     assert adjusted["group"].tolist() == ["1", "2", "3+"]
     assert adjusted["adjusted_probability"].between(0, 1).all()
+    assert adjusted["adjusted_probability_se"].ge(0).all()
+    assert adjusted["adjusted_ci95_low"].between(0, 1).all()
+    assert adjusted["adjusted_ci95_high"].between(0, 1).all()
+    assert (adjusted["adjusted_ci95_low"] <= adjusted["adjusted_probability"]).all()
+    assert (adjusted["adjusted_probability"] <= adjusted["adjusted_ci95_high"]).all()
     assert adjusted["observed_probability"].between(0, 1).all()
     assert adjusted["n_standardization_sample"].nunique() == 1
     assert adjusted["converged"].all()
