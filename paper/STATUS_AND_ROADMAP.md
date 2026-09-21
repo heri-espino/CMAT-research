@@ -69,6 +69,20 @@ The current `4+` top-code is not binding on this branch.
 - [x] implement imputed and complete-case Z-score quantile profiles;
 - [x] verify and interpret the academic-management outputs from controlled-data CI, including BV-specific and RT-specific contrasts.
 
+### M3A — Observed failure and Gaussian mixtures — IMPLEMENTED, WAITING ON CONTROLLED RUN
+
+- [x] freeze the analysis hierarchy in `paper/MIXTURE_ANALYSIS_PLAN.md`;
+- [x] implement observed numeric-failure descriptives by `0/1/2/3/4/5/6+`;
+- [x] implement clustered fixed-effect logistic comparisons and Holm-adjusted odds ratios;
+- [x] implement complete-case univariate GMM comparison for K=1/2/3;
+- [x] include multiple EM starts, with (-1.1, 0.5) only as one additional two-component initialization;
+- [x] implement BIC, ICL, posterior entropy, responsibilities, Ashman's D, and parametric-bootstrap 1-vs-2 component test;
+- [x] implement soft component composition rather than hard class assignment;
+- [x] repeat the GMM on the imputed primary Z only as a sensitivity;
+- [ ] obtain a successful controlled-data CI run and inspect outputs 30--45;
+- [ ] decide whether complete-case evidence is strong/stable enough for manuscript inclusion;
+- [ ] if included, add a component-weight visualization and conservative manuscript interpretation.
+
 ### M4 — Equivalence and visual synthesis
 
 - [ ] decide whether defensible equivalence margins exist before testing;
@@ -99,8 +113,8 @@ The current `4+` top-code is not binding on this branch.
 
 ## Shared-library status
 
-Paper 2.1 reusable methods are upstream on `main` in **cmat-analysis 0.3.0** and documented through Sphinx and the generated function index. The paper runners are downstream consumers; future methodological improvements should be made in `main/cmat_analysis` first whenever they are reusable across education studies.
+Paper 2.1 reusable methods are upstream on `main`; the current mixture/logit extension is **cmat-analysis 0.4.0** and documented through Sphinx and the generated function index. The paper runners are downstream consumers; future methodological improvements should be made in `main/cmat_analysis` first whenever they are reusable across education studies.
 
 ## Immediate next task
 
-Treat `paper/sections/01.tex`--`04.tex` as the current Paper 2.1 manuscript draft. Immediate pre-submission priorities are: (1) instructor-level clustering sensitivity; (2) entrance-exam sensitivity if usable; (3) verify historical institutional rules for BV/RT/BA before making GPA/transcript claims; (4) resolve the ethics/data-use statement; (5) decide whether defensible equivalence margins exist; and (6) final referee-style literature/numbers audit. Do not change the frozen `1/2/3/4/5/6+` grouping in response to outcome significance.
+Treat `paper/sections/01.tex`--`04.tex` as the current Paper 2.1 manuscript draft. Immediate pre-submission priorities are: (1) complete and review the new observed-failure/GMM controlled-data run; (2) instructor-level clustering sensitivity; (2) entrance-exam sensitivity if usable; (3) verify historical institutional rules for BV/RT/BA before making GPA/transcript claims; (4) resolve the ethics/data-use statement; (5) decide whether defensible equivalence margins exist; and (6) final referee-style literature/numbers audit. Do not change the frozen `1/2/3/4/5/6+` grouping in response to outcome significance.
