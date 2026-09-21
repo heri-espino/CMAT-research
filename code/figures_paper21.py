@@ -67,6 +67,8 @@ def _central_density_limits(
             .drop_duplicates("x")
             .sort_values("x")
         )
+        if subset.empty:
+            continue
         x = subset["x"].to_numpy(float)
         y = subset["density_total"].to_numpy(float)
         increments = (y[:-1] + y[1:]) * 0.5 * np.diff(x)
@@ -212,19 +214,20 @@ def plot_complete_case_gmm_ridgeline() -> Path:
 
         baseline = float(position)
         observed_scaled = baseline + ridge_height * y / scale
-        ax.fill_between(x, baseline, observed_scaled, alpha=0.14)
+        ax.fill_between(x, baseline, observed_scaled, color="0.75", alpha=0.30)
         ax.plot(
             x,
             observed_scaled,
             linewidth=1.15,
+            color="0.25",
             label="Observed complete-case KDE" if position == 0 else None,
         )
 
         group_params = params.loc[params["group"].eq(group)].copy()
         component_curves: dict[str, np.ndarray] = {}
-        for component, linestyle in [
-            ("lower_performance", "--"),
-            ("higher_performance", "-."),
+        for component, linestyle, color in [
+            ("lower_performance", "--", "C1"),
+            ("higher_performance", "-.", "C2"),
         ]:
             row = group_params.loc[group_params["component"].eq(component)]
             if row.empty:
@@ -241,6 +244,7 @@ def plot_complete_case_gmm_ridgeline() -> Path:
                 x,
                 baseline + ridge_height * curve / scale,
                 linestyle=linestyle,
+                color=color,
                 linewidth=1.35,
                 label=(
                     "Lower-performance Gaussian"
@@ -260,6 +264,7 @@ def plot_complete_case_gmm_ridgeline() -> Path:
                 x,
                 baseline + ridge_height * fitted / scale,
                 linewidth=0.9,
+                color="C3",
                 alpha=0.8,
                 label="Two-component fitted density" if position == 0 else None,
             )
