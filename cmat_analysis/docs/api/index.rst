@@ -78,15 +78,6 @@ statistics
 .. autofunction:: cmat_analysis.statistics.add_exact_visit_group
    :no-index-entry:
 
-.. autofunction:: cmat_analysis.statistics.exact_visit_group_summary
-   :no-index-entry:
-
-.. autofunction:: cmat_analysis.statistics.fixed_effect_pairwise_exact_groups
-   :no-index-entry:
-
-.. autofunction:: cmat_analysis.statistics.welch_anova_exact_groups
-   :no-index-entry:
-
 .. autofunction:: cmat_analysis.statistics.add_topcoded_visit_group
    :no-index-entry:
 
@@ -102,10 +93,34 @@ statistics
 .. autofunction:: cmat_analysis.statistics.group_outcome_summary
    :no-index-entry:
 
+.. autofunction:: cmat_analysis.statistics.fit_univariate_gaussian_mixture
+   :no-index-entry:
+
+.. autofunction:: cmat_analysis.statistics.gaussian_mixture_model_selection
+   :no-index-entry:
+
+.. autofunction:: cmat_analysis.statistics.gaussian_mixture_component_summary
+   :no-index-entry:
+
+.. autofunction:: cmat_analysis.statistics.gaussian_mixture_responsibilities
+   :no-index-entry:
+
+.. autofunction:: cmat_analysis.statistics.soft_component_composition
+   :no-index-entry:
+
+.. autofunction:: cmat_analysis.statistics.parametric_bootstrap_gmm_lrt
+   :no-index-entry:
+
 .. autofunction:: cmat_analysis.statistics.mixture_component_density
    :no-index-entry:
 
 .. autofunction:: cmat_analysis.statistics.fixed_effect_group_comparisons
+   :no-index-entry:
+
+.. autofunction:: cmat_analysis.statistics.fixed_effect_logistic_group_comparisons
+   :no-index-entry:
+
+.. autofunction:: cmat_analysis.statistics.fixed_effect_logistic_adjusted_probabilities
    :no-index-entry:
 
 .. autofunction:: cmat_analysis.statistics.outcome_state_composition
