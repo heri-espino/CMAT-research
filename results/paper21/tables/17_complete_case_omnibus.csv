@@ -1,0 +1,2 @@
+specification,outcome,null_hypothesis,test_statistic,df_num,p_value,n,n_clusters,n_instructor_period_groups,covariance,adjustment
+primary_1_2_3_4_5_6plus,numeric_complete_case_standardised_grade,equal adjusted outcomes across listed groups,1.0381059209179264,5,0.39693758791474304,1055,171,171,cluster-robust by CLASSROOM_ID,instructor-period fixed effects + degree-programme indicators

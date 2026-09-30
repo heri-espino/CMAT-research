@@ -1,0 +1,2 @@
+specification,formula,reference_group,n,n_groups,n_fixed_effect_levels,n_clusters,cluster_col,multiplicity_method,alpha,converged
+numeric_final_grade_zero_inclusive,"NUMERIC_FAIL ~ C(P21_GROUP_WITH_ZERO, Treatment(reference='0')) + C(CLASSROOM_ID) + C(CLAVECARRERA)",0,5526,7,190,190,CLASSROOM_ID,holm,0.05,True

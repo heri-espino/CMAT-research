@@ -1,0 +1,3 @@
+attendance,nonpass_n,numeric_below_7_5_n,BV_n,RT_n,BA_n,administrative_n,administrative_share_among_nonpass,BV_RT_share_among_numeric_or_BV_RT,BV_share_among_numeric_or_BV,RT_share_among_numeric_or_RT
+0,1504,581,527,329,67,923,0.6136968085106383,0.5956854558107167,0.4756317689530686,0.36153846153846153
+1+,217,39,159,17,2,178,0.8202764976958525,0.8186046511627907,0.803030303030303,0.30357142857142855

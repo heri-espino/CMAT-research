@@ -1,0 +1,3 @@
+outcome,comparison,adjusted_difference,cluster_robust_se,ci95_low,ci95_high,p_value,n,n_instructor_period_groups,cluster_col,n_clusters
+continuous_standardised_grade,1+ visits minus 0 visits,0.3611839991043114,0.030340395831663064,0.30171791599756265,0.4206500822110602,1.122771719030993e-32,6627,190,CLASSROOM_ID,190
+pass_probability,1+ visits minus 0 visits,0.15291657131113712,0.014561780626307096,0.1243760057328021,0.18145713688947213,8.526407034802576e-26,6627,190,CLASSROOM_ID,190
