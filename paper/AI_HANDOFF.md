@@ -62,7 +62,7 @@ Heatmap colour represents effect magnitude/direction:
 
 Do not colour by p-value. Statistical/equivalence status may be indicated separately.
 
-The main heatmaps focus on positive attendance-frequency groups. A zero-inclusive version may appear as a benchmark/supplement.
+The main heatmaps focus on positive attendance-frequency groups. Zero-inclusive versions are retained as appendix/supplement benchmarks, using the full `0 / 1 / 2 / 3 / 4 / 5 / 6+` grouping and the same adjusted pairwise estimands; the aggregate `0 vs 1+` benchmark remains reported separately because initial engagement and frequency among users are distinct empirical questions.
 
 ## Academic-management mechanism guardrail
 
@@ -132,7 +132,7 @@ It combines the former Figure 1 and Figure 4. For each `0/1/2/3/4/5/6+` attendan
 - all components within a group use one common bandwidth;
 - each component is divided by the full group N, so its area equals the observed within-group share and the components sum to the total group KDE;
 - the point and horizontal interval show the group mean and 95% CI;
-- the plotted x-window shows the central 99% of each smoothed group distribution so extreme imputed lower-tail values do not compress the visual display; those observations remain in the underlying analysis.
+- the plotted x-window is fixed at $Z\in[-2,2]$ so the descriptive ridgeline and complete-case mixture ridgeline use the same central scale; observations outside that display window remain in the underlying analysis.
 
 For BV, RT, and BA, horizontal position uses the numerical value assigned by the canonical primary adverse-outcome imputation. This must be stated in the caption.
 
