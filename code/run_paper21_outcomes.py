@@ -377,6 +377,41 @@ def run(args: argparse.Namespace) -> int:
     )
     _save(ridge_density, "10g_zero_inclusive_stacked_ridgeline_density.csv")
 
+    zero_z_pair, _ = _fit(
+        zero_plus,
+        group_col="P21_GROUP_WITH_ZERO",
+        group_order=zero_order,
+        outcome_col="Z_GRADE_PRIMARY",
+        outcome_label="continuous_standardised_grade",
+        specification="zero_inclusive_primary_0_1_2_3_4_5_6plus",
+    )
+    zero_p_pair, _ = _fit(
+        zero_plus,
+        group_col="P21_GROUP_WITH_ZERO",
+        group_order=zero_order,
+        outcome_col="PASS",
+        outcome_label="pass_probability",
+        specification="zero_inclusive_primary_0_1_2_3_4_5_6plus",
+    )
+    _save(zero_z_pair, "10h_zero_inclusive_pairwise_continuous.csv")
+    _save(zero_p_pair, "10i_zero_inclusive_pairwise_pass.csv")
+    _save(
+        _matrix(
+            zero_z_pair,
+            group_order=zero_order,
+            outcome="continuous_standardised_grade",
+        ),
+        "10j_zero_inclusive_z_heatmap_matrix.csv",
+    )
+    _save(
+        _matrix(
+            zero_p_pair,
+            group_order=zero_order,
+            outcome="pass_probability",
+        ),
+        "10k_zero_inclusive_pass_heatmap_matrix.csv",
+    )
+
     nonpass = mu.loc[mu["PASS"].eq(0)].copy()
     management_benchmark = pd.DataFrame(
         [
