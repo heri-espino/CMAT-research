@@ -6,6 +6,9 @@ This file tracks repository-level infrastructure and research-compendium changes
 
 ### Added
 
+- `cmat_analysis.statistics.skew_normal_fit_summary` as a reusable one-component skew-normal specification check for mixture analyses, with synthetic tests and Sphinx documentation.
+- A dedicated mixture-model user guide covering Gaussian-mixture selection, posterior responsibilities, bootstrap component testing, and Gaussian-versus-skew-normal interpretation.
+
 - Repository-level `pyproject.toml` for shared tooling configuration.
 - Conda environment definition in `environment.yml`.
 - Citation metadata in `CITATION.cff`, `CITATION.bib`, and `codemeta.json`.

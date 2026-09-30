@@ -1,4 +1,4 @@
-"""Univariate Gaussian-mixture tools for distributional heterogeneity.
+"""Univariate mixture and skew-normal tools for distributional heterogeneity.
 
 These helpers fit and compare one-dimensional Gaussian mixture models using
 expectation-maximization through scikit-learn. Components are ordered by their
@@ -14,6 +14,7 @@ from collections.abc import Iterable, Sequence
 
 import numpy as np
 import pandas as pd
+from scipy.stats import skewnorm
 from sklearn.mixture import GaussianMixture
 
 
@@ -22,6 +23,52 @@ def _clean_values(values: Iterable[float]) -> np.ndarray:
     if len(array) < 3:
         raise ValueError("At least three finite observations are required.")
     return array.reshape(-1, 1)
+
+
+def skew_normal_fit_summary(values: Iterable[float]) -> pd.DataFrame:
+    """Fit a single univariate skew-normal distribution and summarize its fit.
+
+    Parameters
+    ----------
+    values : iterable of float
+        One-dimensional observations. Non-numeric and missing values are
+        removed before estimation.
+
+    Returns
+    -------
+    pandas.DataFrame
+        One-row summary containing sample size, parameter count, fitted
+        skew-normal shape, location and scale parameters, log-likelihood, AIC,
+        and BIC.
+
+    Notes
+    -----
+    A skew-normal is a single continuous component with one shape parameter.
+    Comparing it with a one-component Gaussian and a two-component Gaussian
+    mixture helps distinguish simple asymmetry from distributional structure
+    that still requires a finite mixture. A preferred mixture remains a density
+    result and does not by itself identify substantive latent classes.
+    """
+    x = _clean_values(values).ravel()
+    shape, loc, scale = (float(value) for value in skewnorm.fit(x))
+    if not np.isfinite([shape, loc, scale]).all() or scale <= 0:
+        raise RuntimeError("Skew-normal fit returned invalid parameters.")
+
+    log_likelihood = float(np.sum(skewnorm.logpdf(x, shape, loc=loc, scale=scale)))
+    n = int(len(x))
+    n_parameters = 3
+    aic = float(2 * n_parameters - 2 * log_likelihood)
+    bic = float(np.log(n) * n_parameters - 2 * log_likelihood)
+    return pd.DataFrame([{
+        "n": n,
+        "n_parameters": n_parameters,
+        "shape": shape,
+        "loc": loc,
+        "scale": scale,
+        "log_likelihood": log_likelihood,
+        "aic": aic,
+        "bic": bic,
+    }])
 
 
 def _candidate_model(

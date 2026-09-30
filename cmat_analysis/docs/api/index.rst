@@ -108,6 +108,9 @@ statistics
 .. autofunction:: cmat_analysis.statistics.soft_component_composition
    :no-index-entry:
 
+.. autofunction:: cmat_analysis.statistics.skew_normal_fit_summary
+   :no-index-entry:
+
 .. autofunction:: cmat_analysis.statistics.parametric_bootstrap_gmm_lrt
    :no-index-entry:
 

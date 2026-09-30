@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import numpy as np
+from scipy.stats import skewnorm
 
 from cmat_analysis.statistics import (
     gaussian_mixture_component_summary,
@@ -10,6 +11,7 @@ from cmat_analysis.statistics import (
     gaussian_mixture_responsibilities,
     parametric_bootstrap_gmm_lrt,
     soft_component_composition,
+    skew_normal_fit_summary,
 )
 
 
@@ -80,3 +82,34 @@ def test_parametric_bootstrap_gmm_lrt_returns_valid_empirical_p_value():
     )
     assert result.loc[0, "likelihood_ratio"] > 0
     assert 0 < result.loc[0, "bootstrap_p_value"] <= 1
+
+
+def test_single_skew_normal_beats_single_gaussian_for_skewed_unimodal_data():
+    """A flexible one-component shape should absorb ordinary unimodal skew."""
+    rng = np.random.default_rng(2027)
+    values = skewnorm.rvs(8.0, loc=-0.7, scale=1.0, size=900, random_state=rng)
+    skew = skew_normal_fit_summary(values).iloc[0]
+    gaussian, _ = gaussian_mixture_model_selection(
+        values, component_counts=(1,), random_state=42, n_init=8
+    )
+    assert skew["scale"] > 0
+    assert skew["bic"] < gaussian.loc[0, "bic"]
+
+
+def test_two_gaussians_can_beat_single_skew_normal_for_clear_bimodality():
+    """A single skewed density should not erase clear two-mode structure."""
+    rng = np.random.default_rng(2028)
+    values = np.concatenate([
+        rng.normal(-1.5, 0.20, size=250),
+        rng.normal(0.65, 0.25, size=500),
+    ])
+    skew = skew_normal_fit_summary(values).iloc[0]
+    gaussian, _ = gaussian_mixture_model_selection(
+        values,
+        component_counts=(1, 2),
+        random_state=42,
+        n_init=10,
+        two_component_mean_starts=((-1.5, 0.65),),
+    )
+    bic2 = float(gaussian.loc[gaussian["n_components"].eq(2), "bic"].iloc[0])
+    assert bic2 < skew["bic"]

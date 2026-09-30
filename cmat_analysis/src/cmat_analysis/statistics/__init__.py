@@ -39,6 +39,7 @@ from .mixtures import (
     gaussian_mixture_responsibilities,
     parametric_bootstrap_gmm_lrt,
     soft_component_composition,
+    skew_normal_fit_summary,
 )
 from .methodology import (
     add_exact_visit_group,
@@ -99,6 +100,7 @@ __all__ = [
     "gaussian_mixture_responsibilities",
     "parametric_bootstrap_gmm_lrt",
     "soft_component_composition",
+    "skew_normal_fit_summary",
     "propensity_att_sensitivity",
     "robust_two_group_tests",
     "secondary_pass_model",

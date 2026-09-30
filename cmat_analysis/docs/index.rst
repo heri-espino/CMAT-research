@@ -12,4 +12,5 @@ paper-specific orchestration remains downstream.
    installation
    user_guide/architecture
    user_guide/attendance_frequency
+   user_guide/mixture_models
    api/index

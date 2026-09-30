@@ -213,3 +213,20 @@ Two-component models are labeled lower_performance and higher_performance only
 after sorting estimated means. These labels describe distributional components,
 not observed or psychological student types. Posterior responsibilities should
 be retained whenever possible instead of hard class assignments.
+
+
+Skew-normal specification check
+-------------------------------
+
+A Gaussian-mixture preference can arise because several symmetric components
+approximate one asymmetric continuous distribution. Before giving a substantive
+interpretation to mixture components, compare the Gaussian candidates with a
+one-component skew-normal using
+:func:`cmat_analysis.statistics.skew_normal_fit_summary`. Compare
+log-likelihood, AIC, and BIC on exactly the same observations. If a single
+skew-normal performs as well as or better than the two-Gaussian mixture,
+ordinary asymmetry is a parsimonious explanation; if the two-Gaussian mixture
+remains materially preferred, simple skewness is insufficient, although the
+components still need not be literal or causal student types.
+
+See :doc:`mixture_models` for the full interpretation hierarchy.

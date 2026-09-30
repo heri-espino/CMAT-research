@@ -1,10 +1,6 @@
 # cmat_analysis public API
 
-This inventory defines the reviewed documentation surface. A symbol is
-public here only when it is exported from the canonical namespace
-`__all__`. Compatibility namespaces and non-exported helpers are not API.
-The test suite verifies this inventory contract and requires NumPy-style
-docstrings for every exported callable.
+This inventory defines the reviewed documentation surface. A symbol is public here only when it is exported from the canonical namespace `__all__`. Compatibility namespaces and non-exported helpers are not API. The Sphinx reference documents the same canonical surface.
 
 ## `cmat_analysis.io`
 
@@ -31,11 +27,24 @@ No public callables.
 
 ## `cmat_analysis.measures`
 
+- `add_academic_outcome_states` — function
 - `add_primary_outcomes` — function
 
 ## `cmat_analysis.statistics`
 
 - `add_exact_visit_group` — function
+- `add_topcoded_visit_group` — function
+- `distribution_profile` — function
+- `fixed_effect_group_comparisons` — function
+- `fixed_effect_logistic_group_comparisons` — function
+- `fixed_effect_logistic_adjusted_probabilities` — function
+- `group_outcome_summary` — function
+- `mixture_component_density` — function
+- `outcome_state_composition` — function
+- `pairwise_effect_matrix` — function
+- `visit_frequency_cut_frontier` — function
+- `visit_frequency_support_audit` — function
+- `visit_group_pair_overlap` — function
 - `games_howell_exact_groups` — function
 - `bunching_metrics` — function
 - `career_performance_analysis` — function
@@ -54,6 +63,13 @@ No public callables.
 - `longitudinal_summary` — function
 - `one_two_pooling_analysis` — function
 - `primary_fixed_effect_models` — function
+- `fit_univariate_gaussian_mixture` — function
+- `gaussian_mixture_component_summary` — function
+- `gaussian_mixture_model_selection` — function
+- `gaussian_mixture_responsibilities` — function
+- `parametric_bootstrap_gmm_lrt` — function
+- `soft_component_composition` — function
+- `skew_normal_fit_summary` — function
 - `propensity_att_sensitivity` — function
 - `robust_two_group_tests` — function
 - `secondary_pass_model` — function
@@ -76,39 +92,47 @@ No public callables.
 
 ## `cmat_analysis.ppa`
 
+- `EngagementTrajectoryData` — class
 - `PPAProgressionCohorts` — class
+- `academic_context_uptake_models` — function
+- `build_engagement_trajectory_data` — function
+- `build_mu_classroom_outcome_context` — function
 - `build_ppa_mu_baseline_cohort` — function
 - `build_ppa_progression_cohort` — function
+- `calc_choice_association_models` — function
 - `classify_revalidation_records` — function
+- `clustered_academic_context_uptake_models` — function
 - `course_specific_transition` — function
+- `experience_profile_summary` — function
 - `familiarization_professor_persistence_models` — function
 - `form_career_crosswalk` — function
+- `instructor_choice_percentiles` — function
 - `later_performance_models` — function
+- `leave_period_out_professor_academic_context` — function
 - `leave_period_out_professor_propensity` — function
 - `major_delta_z_welch` — function
 - `major_persistence_joint_test` — function
 - `major_persistence_summary` — function
+- `major_uptake_increment` — function
+- `major_visit_group_multinomial_increment` — function
+- `major_visit_group_summary` — function
 - `persistence_by_mu_group` — function
 - `persistence_logistic_models` — function
 - `piecewise_threshold_persistence_model` — function
 - `ppa_behavior_profiles` — function
 - `ppa_persistence_association_tests` — function
 - `professor_familiarization_interaction_model` — function
+- `professor_period_context_correlations` — function
 - `professor_uptake_increment` — function
 - `professor_visit_group_distribution` — function
 - `professor_visit_group_multinomial_increment` — function
-
-The instructor-linked uptake helpers are descriptive. Instructor identity and
-leave-period-out instructor uptake rates are not randomized treatments or valid
-instruments by themselves; their purpose is to quantify implementation-linked
-variation and to test whether prior CMAT familiarity predicts later use after
-conditioning on later-course instructor context. `build_ppa_mu_baseline_cohort`
-keeps the initial MU participation analysis independent of later progression to
-Calculus, so instructor-linked uptake is not estimated only among progressors.
+- `repeat_attempt_summary` — function
+- `strict_prior_instructor_context` — function
 
 ## `cmat_analysis.visualization`
 
 - `mpl_apply` — function
+- `plot_stacked_ridgeline` — function
 - `plotly_apply` — function
 - `set_style` — function
 
@@ -122,5 +146,5 @@ Calculus, so instructor-linked uptake is not estimated only among progressors.
 - `canonical_identifier` — function
 - `hmac_pseudonym` — function
 
-Public functions: **74**  
-Public classes: **3**
+Public functions: **109**  
+Public classes: **4**

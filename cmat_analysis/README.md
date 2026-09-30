@@ -32,7 +32,7 @@ The historical `analysis`, `study`, and `pipeline` namespaces are not public API
 ```python
 from cmat_analysis.cohorts import build_study_cohorts, load_and_clean_inputs
 from cmat_analysis.measures import add_primary_outcomes
-from cmat_analysis.statistics import robust_two_group_tests, propensity_att_sensitivity
+from cmat_analysis.statistics import robust_two_group_tests, propensity_att_sensitivity, skew_normal_fit_summary
 from cmat_analysis.longitudinal import student_temporal_regularity
 from cmat_analysis.ppa import build_ppa_progression_cohort
 ```
@@ -67,7 +67,7 @@ python -m pip install -e "./cmat_analysis[docs]"
 sphinx-build -W -b html cmat_analysis/docs cmat_analysis/docs/_build/html
 ```
 
-The Sphinx API reference is user/developer documentation generated from module and function docstrings. `FUNCTION_INDEX.md` is a separate generated inventory intended for development and AI-assisted code discovery.
+The Sphinx API reference is user/developer documentation generated from module and function docstrings. The mixture-model guide covers Gaussian mixtures, posterior responsibilities, bootstrap component tests, and skew-normal specification checks. `FUNCTION_INDEX.md` is a separate generated inventory intended for development and AI-assisted code discovery.
 
 ## What belongs here
 
