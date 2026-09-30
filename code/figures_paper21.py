@@ -46,6 +46,8 @@ def validate() -> None:
         "38_complete_case_gmm_two_component_parameters.csv",
         "42_imputed_gmm_two_component_parameters.csv",
         "46_complete_case_gmm_ridgeline_density.csv",
+        "10j_zero_inclusive_z_heatmap_matrix.csv",
+        "10k_zero_inclusive_pass_heatmap_matrix.csv",
     ]
     missing = [name for name in required if not (TABLES_DIR / name).is_file()]
     if missing:
@@ -127,7 +129,7 @@ def plot_distribution_and_composition() -> Path:
         ax=ax,
     )
     ax.axvline(0, linestyle="--", linewidth=0.9, alpha=0.65)
-    ax.set_xlim(*_central_density_limits(density))
+    ax.set_xlim(-2, 2)
     ax.set_xlabel("Instructor-period-standardised MU grade (Z)")
     ax.set_ylabel("CMAT visits during the MU academic period")
     ax.grid(axis="y", visible=False)
@@ -147,24 +149,31 @@ def plot_distribution_and_composition() -> Path:
     return _save(fig, "fig01_distribution_composition_ridgeline.pdf")
 
 
-def _heatmap(path: Path, value_scale: float, label: str, filename: str) -> Path:
+def _heatmap(
+    path: Path,
+    value_scale: float,
+    label: str,
+    filename: str,
+    *,
+    group_order: list[str],
+) -> Path:
     d = pd.read_csv(path).copy()
     d["group"] = d["group"].astype(str)
     d = d.set_index("group")
-    matrix = d[USER_GROUPS].loc[USER_GROUPS].astype(float).to_numpy() * value_scale
+    matrix = d[group_order].loc[group_order].astype(float).to_numpy() * value_scale
     vmax = float(np.nanmax(np.abs(matrix)))
     if not np.isfinite(vmax) or vmax == 0:
         vmax = 1.0
 
     fig, ax = plt.subplots(figsize=(6.7, 5.8))
     im = ax.imshow(matrix, cmap="RdBu_r", vmin=-vmax, vmax=vmax)
-    ax.set_xticks(np.arange(len(USER_GROUPS)), USER_GROUPS)
-    ax.set_yticks(np.arange(len(USER_GROUPS)), USER_GROUPS)
+    ax.set_xticks(np.arange(len(group_order)), group_order)
+    ax.set_yticks(np.arange(len(group_order)), group_order)
     ax.set_xlabel("Comparison group")
     ax.set_ylabel("Reference group")
     ax.grid(False)
-    for i in range(len(USER_GROUPS)):
-        for j in range(len(USER_GROUPS)):
+    for i in range(len(group_order)):
+        for j in range(len(group_order)):
             value = matrix[i, j]
             if np.isfinite(value):
                 ax.text(j, i, f"{value:.2f}", ha="center", va="center", fontsize=8)
@@ -179,6 +188,7 @@ def plot_z_heatmap() -> Path:
         1.0,
         "Adjusted difference in standardised grade (row minus column)",
         "fig02_pairwise_z_heatmap.pdf",
+        group_order=USER_GROUPS,
     )
 
 
@@ -188,8 +198,28 @@ def plot_pass_heatmap() -> Path:
         100.0,
         "Adjusted difference in pass probability, percentage points (row minus column)",
         "fig03_pairwise_pass_heatmap.pdf",
+        group_order=USER_GROUPS,
     )
 
+
+def plot_zero_inclusive_z_heatmap() -> Path:
+    return _heatmap(
+        TABLES_DIR / "10j_zero_inclusive_z_heatmap_matrix.csv",
+        1.0,
+        "Adjusted difference in standardised grade (row minus column)",
+        "figS01_zero_inclusive_z_heatmap.pdf",
+        group_order=GROUPS,
+    )
+
+
+def plot_zero_inclusive_pass_heatmap() -> Path:
+    return _heatmap(
+        TABLES_DIR / "10k_zero_inclusive_pass_heatmap_matrix.csv",
+        100.0,
+        "Adjusted difference in pass probability, percentage points (row minus column)",
+        "figS02_zero_inclusive_pass_heatmap.pdf",
+        group_order=GROUPS,
+    )
 
 
 def _gaussian_density(
@@ -309,8 +339,7 @@ def plot_complete_case_gmm_ridgeline() -> Path:
                 fontsize=7.5,
             )
 
-    left, right = _central_density_limits(density)
-    ax.set_xlim(left, right)
+    ax.set_xlim(-2, 2)
     ax.set_yticks(np.arange(len(available_groups)), available_groups)
     ax.set_ylim(-0.15, max(len(available_groups) - 0.05, 0.85))
     ax.set_xlabel("Instructor-period-standardised numeric final grade (complete case)")
@@ -363,6 +392,8 @@ def main() -> int:
         plot_distribution_and_composition(),
         plot_z_heatmap(),
         plot_pass_heatmap(),
+        plot_zero_inclusive_z_heatmap(),
+        plot_zero_inclusive_pass_heatmap(),
         plot_complete_case_gmm_ridgeline(),
         plot_lower_component_weight(),
     ]:
