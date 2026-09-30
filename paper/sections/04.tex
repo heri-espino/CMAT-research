@@ -50,16 +50,54 @@ Students with recorded CMAT attendance differed substantially from students with
 
 These findings suggest that routine mathematics-support records may contain information about two related dimensions of the student trajectory: final academic performance and the way an adverse course outcome is recorded. The latter pattern is compatible with broader differences in academic engagement or institutional navigation, but those mechanisms are not directly observed. The study therefore supports separating initial support use from repeated attendance and separating numeric failure from administrative outcomes, while retaining a strictly observational interpretation of all attendance-associated differences.
 
+\appendix
+
+\section{Zero-inclusive attendance benchmarks}
+\label{app:zero-inclusive-benchmark}
+
+The main heatmaps deliberately condition on positive CMAT attendance because Paper 2.1 asks whether outcomes can be distinguished across repeated-use frequencies after a student has entered the support system. For completeness, this appendix restores the zero-attendance group in two complementary ways. First, \Cref{tab:supp-zero-any-benchmark} reports the pre-specified binary benchmark comparing any attendance with no recorded attendance. Second, \Cref{fig:supp-zero-z-heatmap,fig:supp-zero-pass-heatmap} expand the adjusted pairwise matrices to the full $0/1/2/3/4/5/6+$ grouping using the same instructor--period fixed effects, degree-programme adjustment and instructor--period clustered covariance estimator as the main figures.
+
+\begin{table}[tbp]
+\centering
+\caption{Adjusted zero-versus-any-attendance benchmark. Differences are reported as 1+ visits minus 0 visits.}
+\label{tab:supp-zero-any-benchmark}
+\begin{tabular}{lrrr}
+\toprule
+Outcome & Adjusted difference & 95\% CI & $p$-value \\
+\midrule
+Standardised final performance & 0.361 SD & 0.302 to 0.421 & $<0.001$ \\
+Pass probability & 15.3 pp & 12.4 to 18.1 pp & $<0.001$ \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.84\textwidth]{../results/paper21/figures/figS01_zero_inclusive_z_heatmap.pdf}
+\caption{Supplementary zero-inclusive adjusted pairwise differences in standardised final performance. Each cell is the row group minus the column group in standard-deviation units for the full $0/1/2/3/4/5/6+$ attendance grouping. The model and covariance specification are identical to those used for the main user-only heatmap.}
+\label{fig:supp-zero-z-heatmap}
+\end{figure}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.84\textwidth]{../results/paper21/figures/figS02_zero_inclusive_pass_heatmap.pdf}
+\caption{Supplementary zero-inclusive adjusted pairwise differences in pass probability. Each cell is the row group minus the column group in percentage points for the full $0/1/2/3/4/5/6+$ attendance grouping, using the same adjustment structure as the main pass-probability heatmap.}
+\label{fig:supp-zero-pass-heatmap}
+\end{figure}
+
+The supplementary display is intended to clarify the two-stage empirical pattern rather than to redefine the primary frequency estimand. The aggregate benchmark shows a large favourable association between any recorded attendance and both outcomes, with a 0.361-standard-deviation difference in standardised performance and a 15.3 percentage-point difference in pass probability. Once the zero-attendance group is included in the pairwise matrices, that broad zero-versus-positive separation provides the natural visual reference, whereas the contrasts among positive-frequency groups remain smaller and less regular. This is consistent with the main user-only analysis, in which no pairwise contrast survived Holm adjustment under the primary covariance specification. The appendix therefore supports describing a pronounced observational separation associated with entering CMAT, while avoiding the stronger claim that one visit itself causes an improvement or that each additional visit produces a monotone dose response.
+
 \section*{Acknowledgments}
 Funding: None declared.
 
 Generative AI tools were used to assist with code development, manuscript drafting, editing and language refinement; responsibility for the analysis, interpretation and final text remains with the authors.
 
-\section*{Author biographies}
-
-\textbf{Heriberto Espino-Montelongo} is a Data Science student at Universidad de las Am\'ericas Puebla. His interests include applied data analysis, statistical modelling, educational data and the evaluation of mathematics learning support in higher education.
-
-\textbf{Daniela Cort\'es-Toto} is a full-time professor in the Departamento de Actuar\'ia, F\'isica y Matem\'aticas at Universidad de las Am\'ericas Puebla and coordinator of the university's Centro de Aprendizaje de Matem\'aticas. She holds a PhD and an MSc in Mathematical Sciences and a BSc in Applied Mathematics from Benem\'erita Universidad Aut\'onoma de Puebla. Her research focuses on statistics, probability, time-series analysis and forecasting, with applications to water quality and quantity and climate change.
+% Author biographies retained for restoration at submission stage.
+% \section*{Author biographies}
+%
+% \textbf{Heriberto Espino-Montelongo} is a Data Science student at Universidad de las Am\'ericas Puebla. His interests include applied data analysis, statistical modelling, educational data and the evaluation of mathematics learning support in higher education.
+%
+% \textbf{Daniela Cort\'es-Toto} is a full-time professor in the Departamento de Actuar\'ia, F\'isica y Matem\'aticas at Universidad de las Am\'ericas Puebla and coordinator of the university's Centro de Aprendizaje de Matem\'aticas. She holds a PhD and an MSc in Mathematical Sciences and a BSc in Applied Mathematics from Benem\'erita Universidad Aut\'onoma de Puebla. Her research focuses on statistics, probability, time-series analysis and forecasting, with applications to water quality and quantity and climate change.
 
 \bibliographystyle{abbrvnat}
 \bibliography{references}
