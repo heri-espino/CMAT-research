@@ -89,6 +89,7 @@ The current `4+` top-code is not binding on this branch.
 - [x] document the refined result: imputed GMM K=2 beats a single skew-normal in every group, while the complete-case result is mixed;
 - [x] quantify soft component composition among users, showing strong enrichment of BV/RT/BA in the imputed lower component;
 - [x] promote the skew-normal and generic shape-comparison functions to `main/cmat_analysis`.
+- [x] validate the fully integrated Paper 2.1 recipe after upstream synchronization (run `36685329947`, head `93b16efb40efd7ed6803ab50568bc5fb075a10b9`), verifying tables 01--48 and figures 01--05 in artifact `paper21-analysis-93b16efb40efd7ed6803ab50568bc5fb075a10b9`.
 
 ### M4 — Equivalence and visual synthesis
 

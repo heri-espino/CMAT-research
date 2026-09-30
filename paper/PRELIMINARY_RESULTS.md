@@ -1,6 +1,6 @@
 # Paper 2.1 — preliminary controlled-data results
 
-**Status:** current controlled recipe verified successfully in GitHub Actions run `35657154301` at branch head `50876b0e66f4893b4a447018be33f35bba4054e1`. The run completed the outcome, numeric-failure and Gaussian-mixture analyses with 199 bootstrap replicates, generated figures 01--05, verified outputs 01--46 and uploaded artifact `paper21-analysis-50876b0e66f4893b4a447018be33f35bba4054e1`.  
+**Status:** the current integrated controlled recipe was verified successfully in GitHub Actions run `36685329947` at branch head `93b16efb40efd7ed6803ab50568bc5fb075a10b9`. The run completed the outcome, numeric-failure, Gaussian-mixture and skew-normal specification analyses with 199 GMM bootstrap replicates, generated figures 01--05, verified outputs 01--48 and uploaded artifact `paper21-analysis-93b16efb40efd7ed6803ab50568bc5fb075a10b9` (artifact ID `11084615356`).  
 These results are reproducible controlled-data outputs; claims that depend on future entrance-exam data or institutional policy verification remain provisional.
 
 ## 1. Benchmark: no recorded attendance versus any attendance

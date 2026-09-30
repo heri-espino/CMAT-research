@@ -1,6 +1,6 @@
 # Paper 2.1 — observed numeric failure, Gaussian-mixture, and skew-normal analysis
 
-**Status:** implemented and controlled-data validated. Full GMM validation completed in GitHub Actions run `35657154301`; the skew-normal specification check completed in run `36678572075`. See `MIXTURE_ANALYSIS_RESULTS.md` for the verified numerical results.
+**Status:** implemented and controlled-data validated. The original full GMM validation completed in GitHub Actions run `35657154301`, the isolated skew-normal specification check completed in run `36678572075`, and the current integrated implementation was revalidated successfully in run `36685329947` at `93b16efb40efd7ed6803ab50568bc5fb075a10b9`, verifying tables 01--48 and figures 01--05. See `MIXTURE_ANALYSIS_RESULTS.md` for the verified numerical results and development provenance.
 
 ## Scientific motivation
 

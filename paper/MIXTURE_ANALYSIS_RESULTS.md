@@ -285,6 +285,20 @@ No row-level responsibilities are uploaded as artifacts.
 - artifact ID: `10666204196`
 - verified outputs: tables 01--46 and figures 01--05.
 
+### Current integrated validation
+
+After promoting the reusable shape comparison to `main/cmat_analysis` and making the Paper 2.1 runners downstream consumers, the complete recipe was run again on the current branch code:
+
+- GitHub Actions run: `36685329947`
+- branch head: `93b16efb40efd7ed6803ab50568bc5fb075a10b9`
+- conclusion: success
+- bootstrap replicates: 199 per GMM group/specification
+- artifact: `paper21-analysis-93b16efb40efd7ed6803ab50568bc5fb075a10b9`
+- artifact ID: `11084615356`
+- verified outputs: tables 01--48 and figures 01--05.
+
+This is the canonical validation for the integrated implementation. The earlier full GMM and fast shape-check runs below remain useful provenance because they isolate the two development stages that produced the final workflow.
+
 ### Skew-normal specification validation
 
 - implementation commit: `5a03ab0074142613ab258c4104c354bcee51cfa9`
