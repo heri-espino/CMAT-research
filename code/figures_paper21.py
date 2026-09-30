@@ -7,6 +7,7 @@ import argparse
 from pathlib import Path
 
 import matplotlib.pyplot as plt
+from matplotlib.patches import Patch
 import numpy as np
 import pandas as pd
 
@@ -101,18 +102,27 @@ def plot_distribution_and_composition() -> Path:
     )
 
     fig, ax = plt.subplots(figsize=(8.4, 6.0))
+    component_labels = {
+        "pass": "Pass",
+        "numeric_nonpass": "Numeric <7.5",
+        "BV": "BV",
+        "RT": "RT",
+        "BA": "BA",
+    }
+    cycle = plt.rcParams["axes.prop_cycle"].by_key().get("color", [])
+    if not cycle:
+        cycle = [f"C{i}" for i in range(len(OUTCOME_STATES))]
+    component_colors = {
+        component: cycle[index % len(cycle)]
+        for index, component in enumerate(OUTCOME_STATES)
+    }
     plot_stacked_ridgeline(
         density,
         group_order=GROUPS,
         component_order=OUTCOME_STATES,
         summary=summary,
-        component_labels={
-            "pass": "Pass",
-            "numeric_nonpass": "Numeric <7.5",
-            "BV": "BV",
-            "RT": "RT",
-            "BA": "BA",
-        },
+        colors=component_colors,
+        component_labels=component_labels,
         ridge_height=0.82,
         ax=ax,
     )
@@ -122,6 +132,13 @@ def plot_distribution_and_composition() -> Path:
     ax.set_ylabel("CMAT visits during the MU academic period")
     ax.grid(axis="y", visible=False)
     ax.legend(
+        handles=[
+            Patch(
+                facecolor=component_colors[component],
+                label=component_labels[component],
+            )
+            for component in OUTCOME_STATES
+        ],
         frameon=False,
         ncol=5,
         loc="lower center",
@@ -145,6 +162,7 @@ def _heatmap(path: Path, value_scale: float, label: str, filename: str) -> Path:
     ax.set_yticks(np.arange(len(USER_GROUPS)), USER_GROUPS)
     ax.set_xlabel("Comparison group")
     ax.set_ylabel("Reference group")
+    ax.grid(False)
     for i in range(len(USER_GROUPS)):
         for j in range(len(USER_GROUPS)):
             value = matrix[i, j]
