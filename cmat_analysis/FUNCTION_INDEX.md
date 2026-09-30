@@ -21,8 +21,8 @@
 ## Inventory
 
 - Python files scanned: **134**
-- Reusable symbols: **490**
-- Test symbols: **70**
+- Reusable symbols: **491**
+- Test symbols: **72**
 
 ## Reusable symbols
 
@@ -681,14 +681,15 @@
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
 |---|---|---:|---|---|---|
-| `_clean_values` | function | 20 | `def _clean_values(values: Iterable[float]) -> np.ndarray` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics mixtures py clean_values` |
-| `_candidate_model` | function | 27 | `def _candidate_model(x: np.ndarray, *, n_components: int, random_state: int, n_init: int, reg_covar: float, means_init: Sequence[float] \| None=None) -> GaussianMixture` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics mixtures py candidate_model` |
-| `fit_univariate_gaussian_mixture` | function | 53 | `def fit_univariate_gaussian_mixture(values: Iterable[float], *, n_components: int, random_state: int=42, n_init: int=20, reg_covar: float=1e-06, custom_mean_starts: Sequence[Sequence[float]]=()) -> GaussianMixture` | Fit a one-dimensional Gaussian mixture using multiple EM starts. | `src cmat_analysis statistics mixtures py fit_univariate_gaussian_mixture fit a one-dimensional gaussian mixture using multiple em` |
-| `gaussian_mixture_model_selection` | function | 122 | `def gaussian_mixture_model_selection(values: Iterable[float], *, component_counts: Sequence[int]=(1, 2, 3), random_state: int=42, n_init: int=20, reg_covar: float=1e-06, two_component_mean_starts: Sequence[Sequence[float]]=()) -> tuple[pd.DataFrame, dict[int, GaussianMixture]]` | Fit candidate univariate GMMs and summarize model-selection diagnostics. | `src cmat_analysis statistics mixtures py gaussian_mixture_model_selection fit candidate univariate gmms summarize model-selection diagnostics` |
-| `gaussian_mixture_component_summary` | function | 201 | `def gaussian_mixture_component_summary(model: GaussianMixture) -> pd.DataFrame` | Summarize Gaussian components ordered from lower to higher mean. | `src cmat_analysis statistics mixtures py gaussian_mixture_component_summary summarize gaussian components ordered lower to higher mean` |
-| `gaussian_mixture_responsibilities` | function | 255 | `def gaussian_mixture_responsibilities(model: GaussianMixture, values: Iterable[float]) -> pd.DataFrame` | Return posterior component responsibilities ordered by component mean. | `src cmat_analysis statistics mixtures py gaussian_mixture_responsibilities return posterior component responsibilities ordered by mean` |
-| `soft_component_composition` | function | 293 | `def soft_component_composition(states: Iterable[object], responsibilities: pd.DataFrame, *, state_order: Sequence[str]) -> pd.DataFrame` | Aggregate categorical-state composition using posterior responsibilities. | `src cmat_analysis statistics mixtures py soft_component_composition aggregate categorical-state composition using posterior responsibilities` |
-| `parametric_bootstrap_gmm_lrt` | function | 347 | `def parametric_bootstrap_gmm_lrt(values: Iterable[float], *, n_bootstrap: int=199, random_state: int=42, n_init: int=20, reg_covar: float=1e-06, two_component_mean_starts: Sequence[Sequence[float]]=()) -> pd.DataFrame` | Bootstrap the one- versus two-component GMM likelihood-ratio statistic. | `src cmat_analysis statistics mixtures py parametric_bootstrap_gmm_lrt bootstrap one- versus two-component gmm likelihood-ratio statistic` |
+| `_clean_values` | function | 21 | `def _clean_values(values: Iterable[float]) -> np.ndarray` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics mixtures py clean_values` |
+| `skew_normal_fit_summary` | function | 28 | `def skew_normal_fit_summary(values: Iterable[float]) -> pd.DataFrame` | Fit a single univariate skew-normal distribution and summarize its fit. | `src cmat_analysis statistics mixtures py skew_normal_fit_summary fit a single univariate skew-normal distribution summarize its` |
+| `_candidate_model` | function | 74 | `def _candidate_model(x: np.ndarray, *, n_components: int, random_state: int, n_init: int, reg_covar: float, means_init: Sequence[float] \| None=None) -> GaussianMixture` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics mixtures py candidate_model` |
+| `fit_univariate_gaussian_mixture` | function | 100 | `def fit_univariate_gaussian_mixture(values: Iterable[float], *, n_components: int, random_state: int=42, n_init: int=20, reg_covar: float=1e-06, custom_mean_starts: Sequence[Sequence[float]]=()) -> GaussianMixture` | Fit a one-dimensional Gaussian mixture using multiple EM starts. | `src cmat_analysis statistics mixtures py fit_univariate_gaussian_mixture fit a one-dimensional gaussian mixture using multiple em` |
+| `gaussian_mixture_model_selection` | function | 169 | `def gaussian_mixture_model_selection(values: Iterable[float], *, component_counts: Sequence[int]=(1, 2, 3), random_state: int=42, n_init: int=20, reg_covar: float=1e-06, two_component_mean_starts: Sequence[Sequence[float]]=()) -> tuple[pd.DataFrame, dict[int, GaussianMixture]]` | Fit candidate univariate GMMs and summarize model-selection diagnostics. | `src cmat_analysis statistics mixtures py gaussian_mixture_model_selection fit candidate univariate gmms summarize model-selection diagnostics` |
+| `gaussian_mixture_component_summary` | function | 248 | `def gaussian_mixture_component_summary(model: GaussianMixture) -> pd.DataFrame` | Summarize Gaussian components ordered from lower to higher mean. | `src cmat_analysis statistics mixtures py gaussian_mixture_component_summary summarize gaussian components ordered lower to higher mean` |
+| `gaussian_mixture_responsibilities` | function | 302 | `def gaussian_mixture_responsibilities(model: GaussianMixture, values: Iterable[float]) -> pd.DataFrame` | Return posterior component responsibilities ordered by component mean. | `src cmat_analysis statistics mixtures py gaussian_mixture_responsibilities return posterior component responsibilities ordered by mean` |
+| `soft_component_composition` | function | 340 | `def soft_component_composition(states: Iterable[object], responsibilities: pd.DataFrame, *, state_order: Sequence[str]) -> pd.DataFrame` | Aggregate categorical-state composition using posterior responsibilities. | `src cmat_analysis statistics mixtures py soft_component_composition aggregate categorical-state composition using posterior responsibilities` |
+| `parametric_bootstrap_gmm_lrt` | function | 394 | `def parametric_bootstrap_gmm_lrt(values: Iterable[float], *, n_bootstrap: int=199, random_state: int=42, n_init: int=20, reg_covar: float=1e-06, two_component_mean_starts: Sequence[Sequence[float]]=()) -> pd.DataFrame` | Bootstrap the one- versus two-component GMM likelihood-ratio statistic. | `src cmat_analysis statistics mixtures py parametric_bootstrap_gmm_lrt bootstrap one- versus two-component gmm likelihood-ratio statistic` |
 
 ### `src/cmat_analysis/statistics/nonparametric.py`
 
@@ -891,10 +892,12 @@
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
 |---|---|---:|---|---|---|
-| `_bimodal_sample` | function | 16 | `def _bimodal_sample() -> tuple[np.ndarray, np.ndarray]` | No docstring; inspect implementation before reuse. | `tests test_mixtures py bimodal_sample` |
-| `test_two_component_model_recovers_ordered_bimodal_structure` | function | 25 | `def test_two_component_model_recovers_ordered_bimodal_structure()` | No docstring; inspect implementation before reuse. | `tests test_mixtures py test_two_component_model_recovers_ordered_bimodal_structure` |
-| `test_responsibilities_and_soft_composition_are_probabilistic` | function | 47 | `def test_responsibilities_and_soft_composition_are_probabilistic()` | No docstring; inspect implementation before reuse. | `tests test_mixtures py test_responsibilities_and_soft_composition_are_probabilistic` |
-| `test_parametric_bootstrap_gmm_lrt_returns_valid_empirical_p_value` | function | 72 | `def test_parametric_bootstrap_gmm_lrt_returns_valid_empirical_p_value()` | No docstring; inspect implementation before reuse. | `tests test_mixtures py test_parametric_bootstrap_gmm_lrt_returns_valid_empirical_p_value` |
+| `_bimodal_sample` | function | 18 | `def _bimodal_sample() -> tuple[np.ndarray, np.ndarray]` | No docstring; inspect implementation before reuse. | `tests test_mixtures py bimodal_sample` |
+| `test_two_component_model_recovers_ordered_bimodal_structure` | function | 27 | `def test_two_component_model_recovers_ordered_bimodal_structure()` | No docstring; inspect implementation before reuse. | `tests test_mixtures py test_two_component_model_recovers_ordered_bimodal_structure` |
+| `test_responsibilities_and_soft_composition_are_probabilistic` | function | 49 | `def test_responsibilities_and_soft_composition_are_probabilistic()` | No docstring; inspect implementation before reuse. | `tests test_mixtures py test_responsibilities_and_soft_composition_are_probabilistic` |
+| `test_parametric_bootstrap_gmm_lrt_returns_valid_empirical_p_value` | function | 74 | `def test_parametric_bootstrap_gmm_lrt_returns_valid_empirical_p_value()` | No docstring; inspect implementation before reuse. | `tests test_mixtures py test_parametric_bootstrap_gmm_lrt_returns_valid_empirical_p_value` |
+| `test_single_skew_normal_beats_single_gaussian_for_skewed_unimodal_data` | function | 87 | `def test_single_skew_normal_beats_single_gaussian_for_skewed_unimodal_data()` | A flexible one-component shape should absorb ordinary unimodal skew. | `tests test_mixtures py test_single_skew_normal_beats_single_gaussian_for_skewed_unimodal_data a flexible one-component shape should absorb ordinary unimodal skew` |
+| `test_two_gaussians_can_beat_single_skew_normal_for_clear_bimodality` | function | 99 | `def test_two_gaussians_can_beat_single_skew_normal_for_clear_bimodality()` | A single skewed density should not erase clear two-mode structure. | `tests test_mixtures py test_two_gaussians_can_beat_single_skew_normal_for_clear_bimodality a single skewed density should not erase clear two-mode structure` |
 
 ### `tests/test_ppa_adaptation.py`
 
