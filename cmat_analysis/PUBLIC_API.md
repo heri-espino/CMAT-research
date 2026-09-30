@@ -32,6 +32,7 @@ No public callables.
 
 ## `cmat_analysis.statistics`
 
+- `compare_univariate_shape_models` — function
 - `add_exact_visit_group` — function
 - `add_topcoded_visit_group` — function
 - `distribution_profile` — function
@@ -146,5 +147,5 @@ No public callables.
 - `canonical_identifier` — function
 - `hmac_pseudonym` — function
 
-Public functions: **109**  
+Public functions: **110**  
 Public classes: **4**

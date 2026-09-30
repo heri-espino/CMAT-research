@@ -93,6 +93,9 @@ statistics
 .. autofunction:: cmat_analysis.statistics.group_outcome_summary
    :no-index-entry:
 
+.. autofunction:: cmat_analysis.statistics.compare_univariate_shape_models
+   :no-index-entry:
+
 .. autofunction:: cmat_analysis.statistics.fit_univariate_gaussian_mixture
    :no-index-entry:
 

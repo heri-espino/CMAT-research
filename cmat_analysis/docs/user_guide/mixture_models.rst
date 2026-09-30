@@ -73,6 +73,8 @@ replicates it is 0.005.
 Skew-normal comparator
 ----------------------
 
+For the standard three-way specification check, use :func:`cmat_analysis.statistics.compare_univariate_shape_models`, which fits all three candidates on the same observations and returns their likelihood, AIC/BIC values, criterion advantages, skew-normal parameters, and the AIC/BIC-preferred model in one row.
+
 :func:`cmat_analysis.statistics.skew_normal_fit_summary` fits a single
 skew-normal distribution and returns shape, location, scale, log-likelihood,
 AIC and BIC.

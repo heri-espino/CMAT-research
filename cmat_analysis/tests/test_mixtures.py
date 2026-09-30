@@ -6,6 +6,7 @@ import numpy as np
 from scipy.stats import skewnorm
 
 from cmat_analysis.statistics import (
+    compare_univariate_shape_models,
     gaussian_mixture_component_summary,
     gaussian_mixture_model_selection,
     gaussian_mixture_responsibilities,
@@ -113,3 +114,21 @@ def test_two_gaussians_can_beat_single_skew_normal_for_clear_bimodality():
     )
     bic2 = float(gaussian.loc[gaussian["n_components"].eq(2), "bic"].iloc[0])
     assert bic2 < skew["bic"]
+
+
+def test_shape_model_comparison_prefers_two_gaussians_for_clear_bimodality():
+    """The reusable comparator should identify a clearly bimodal density."""
+    rng = np.random.default_rng(2029)
+    values = np.concatenate([
+        rng.normal(-1.6, 0.18, size=260),
+        rng.normal(0.70, 0.24, size=520),
+    ])
+    result = compare_univariate_shape_models(
+        values,
+        random_state=42,
+        n_init=10,
+        two_component_mean_starts=((-1.6, 0.70),),
+    ).iloc[0]
+    assert result["bic_preferred_model"] == "gaussian_mixture_k2"
+    assert result["bic_advantage_gmm_k2_over_skew_normal"] > 0
+    assert result["n"] == len(values)
