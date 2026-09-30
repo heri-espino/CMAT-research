@@ -2,7 +2,7 @@
 
 **Branch:** `paper/paper2.1-visit-frequency`  
 **Created from Paper 2:** 2026-09-20  
-**Stage:** full manuscript draft + remaining pre-submission robustness
+**Stage:** controlled analysis complete + manuscript integrated; external pre-submission inputs remain
 
 ## Current scientific idea
 
@@ -60,7 +60,7 @@ The current `4+` top-code is not binding on this branch.
 - [x] apply Holm adjustment separately by outcome family;
 - [x] flag adjacent contrasts explicitly in the pairwise outputs;
 - [x] implement instructor-level clustering sensitivity through the shared cmat_analysis API;
-- [ ] review the canonical instructor-level clustering outputs and decide whether they belong in the manuscript or supplement;
+- [x] review the canonical instructor-level clustering outputs and report them in the manuscript as a sensitivity;
 - [x] retain numeric-only continuous complete-case sensitivity;
 - [x] implement PASS / numeric grade <7.5 / BV-RT / BA composition by frequency;
 - [x] implement exact BV / RT / BA composition tables;
@@ -69,7 +69,7 @@ The current `4+` top-code is not binding on this branch.
 - [x] implement imputed and complete-case Z-score quantile profiles;
 - [x] verify and interpret the academic-management outputs from controlled-data CI, including BV-specific and RT-specific contrasts.
 
-### M3A — Observed failure and Gaussian mixtures — IMPLEMENTED, WAITING ON CONTROLLED RUN
+### M3A — Observed failure and Gaussian mixtures — COMPLETE
 
 - [x] freeze the analysis hierarchy in `paper/MIXTURE_ANALYSIS_PLAN.md`;
 - [x] implement observed numeric-failure descriptives by `0/1/2/3/4/5/6+`;
@@ -79,22 +79,22 @@ The current `4+` top-code is not binding on this branch.
 - [x] implement BIC, ICL, posterior entropy, responsibilities, Ashman's D, and parametric-bootstrap 1-vs-2 component test;
 - [x] implement soft component composition rather than hard class assignment;
 - [x] repeat the GMM on the imputed primary Z only as a sensitivity;
-- [ ] obtain a successful controlled-data CI run and inspect outputs 30--45;
-- [ ] decide whether complete-case evidence is strong/stable enough for manuscript inclusion;
+- [x] obtain a successful controlled-data CI run and inspect outputs 30--46 (GitHub Actions run `35657154301`, head `50876b0e66f4893b4a447018be33f35bba4054e1`);
+- [x] decide that the complete-case mixture evidence belongs in the manuscript only as exploratory distributional sensitivity, not as latent-class evidence;
 - [x] implement the complete-case ridgeline with weighted lower/higher Gaussian overlays;
 - [x] implement the compact lower-component weight figure, with the imputed specification shown as sensitivity;
-- [ ] if included, add a conservative manuscript interpretation after inspecting the controlled-data estimates.
+- [x] add a conservative manuscript interpretation after inspecting the controlled-data estimates.
 
 ### M4 — Equivalence and visual synthesis
 
-- [ ] decide whether defensible equivalence margins exist before testing;
-- [ ] if yes, freeze margins and run equivalence tests;
+- [x] decide that no defensible equivalence margin has been specified independently of the observed data, so no formal equivalence claim will be made;
+- [x] do not run post-hoc equivalence tests; non-significant contrasts are not interpreted as equivalence;
 - [x] replace the separate mean-Z and outcome-composition figures with one combined real-data ridgeline whose stacked component areas reproduce PASS / numeric <7.5 / BV / RT / BA shares;
 - [x] produce continuous-Z pairwise heatmap;
 - [x] produce pass-probability pairwise heatmap;
 - [ ] optionally produce zero-inclusive supplementary heatmaps;
 - [ ] fit an exploratory smooth/spline among users without using it to choose the categorical cut;
-- [ ] write a synthesis classifying the observed structure as plateau/gradual/separated/irregular only to the extent supported by uncertainty.
+- [x] write a synthesis: strong zero-versus-positive separation, irregular positive-frequency structure, and no multiplicity-supported adjacent staircase; instructor-level clustering leaves open a broader low-versus-high separation.
 
 ### M5 — Entrance-exam extension — WAITING ON DATA
 
@@ -119,4 +119,6 @@ Paper 2.1 reusable methods are upstream on `main`; the current mixture/logit and
 
 ## Immediate next task
 
-Treat `paper/sections/01.tex`--`04.tex` as the current Paper 2.1 manuscript draft. Immediate pre-submission priorities are: (1) complete and review the new observed-failure/GMM controlled-data run; (2) instructor-level clustering sensitivity; (2) entrance-exam sensitivity if usable; (3) verify historical institutional rules for BV/RT/BA before making GPA/transcript claims; (4) resolve the ethics/data-use statement; (5) decide whether defensible equivalence margins exist; and (6) final referee-style literature/numbers audit. Do not change the frozen `1/2/3/4/5/6+` grouping in response to outcome significance.
+The controlled Paper 2.1 analysis is now complete through the observed-failure, instructor-clustering and Gaussian-mixture extensions, and the corresponding interpretation is integrated into `paper/sections/01.tex`--`04.tex`. The latest successful validation is GitHub Actions run `35657154301` at `50876b0e66f4893b4a447018be33f35bba4054e1`; its aggregate artifact contains tables 01--46 and figures 01--05.
+
+Remaining pre-submission work depends partly on inputs not contained in the repository: (1) add the university entrance-exam sensitivity if the requested data are usable; (2) verify historical institutional rules for BV/RT/BA before making any GPA/transcript claim; (3) insert the exact ethics/IRB/data-use authorization statement; and (4) run a final referee-style literature, numerical-consistency and typesetting audit. The frozen `1/2/3/4/5/6+` grouping must not be changed in response to outcome significance.

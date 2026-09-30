@@ -1,7 +1,7 @@
 # Paper 2.1 — preliminary controlled-data results
 
-**Status:** core performance results verified in the Paper 2.1 controlled recipe; academic-management extension verified from GitHub Actions run `35515296397` at commit `871c0583fc76cd8f22e2bbe8882219acbd5a3467`.  
-These are reproducible intermediate results, not frozen manuscript claims. Reverify against the current branch head before submission.
+**Status:** current controlled recipe verified successfully in GitHub Actions run `35657154301` at branch head `50876b0e66f4893b4a447018be33f35bba4054e1`. The run completed the outcome, numeric-failure and Gaussian-mixture analyses with 199 bootstrap replicates, generated figures 01--05, verified outputs 01--46 and uploaded artifact `paper21-analysis-50876b0e66f4893b4a447018be33f35bba4054e1`.  
+These results are reproducible controlled-data outputs; claims that depend on future entrance-exam data or institutional policy verification remain provisional.
 
 ## 1. Benchmark: no recorded attendance versus any attendance
 
@@ -130,14 +130,75 @@ The numeric complete-case profile is substantially flatter, and the complete-cas
 
 This does not establish that attendance prevents withdrawal or causes students to use BV. It shows that the **type of adverse final outcome** differs systematically with attendance and therefore deserves separate analysis rather than being hidden inside a single non-PASS category.
 
-## 6. Interpretation emerging from the current results
+## 6. Numeric failure among students with numeric final grades
 
-The current evidence supports a four-part descriptive structure:
+The observed-failure extension removes BV, RT and BA from the endpoint and asks directly whether a completed numeric grade fell below 7.5.
+
+Model-standardised failure probabilities in the zero-inclusive model were:
+
+| visits | adjusted P(numeric grade < 7.5) | 95% CI |
+| ---: | ---: | ---: |
+| 0 | 13.3% | 13.0%–13.5% |
+| 1 | 3.3% | 1.9%–4.8% |
+| 2 | 4.6% | 2.0%–7.2% |
+| 3 | 3.6% | 0.4%–6.7% |
+| 4 | 1.3% | 0.0%–3.7% |
+| 5 | 3.7% | 0.0%–8.3% |
+| 6+ | 3.8% | 0.6%–6.9% |
+
+The zero-inclusive logit omnibus test strongly rejected equal adjusted log odds ($p=3.41\times10^{-17}$). After Holm adjustment, zero visits differed from 1, 2, 3 and 6+ visits; the sparse 4- and 5-visit contrasts were less precise.
+
+Among users only, adjusted failure probabilities were 2.5%, 4.8%, 5.3%, 2.0%, 6.6% and 4.6% for 1, 2, 3, 4, 5 and 6+ visits. The user-only omnibus test was not significant ($p=0.480$), and no pairwise odds ratio survived Holm adjustment. Thus the broad user/non-user difference persists even when administrative outcomes are excluded, while repeated attendance still does not show a regular numeric-failure gradient.
+
+## 7. Instructor-level clustering sensitivity
+
+The primary models cluster by instructor-period. Re-clustering by instructor preserves the same point estimates but allows dependence across periods taught by the same instructor.
+
+The zero-versus-positive benchmark remained essentially unchanged:
+
+- continuous outcome: +0.361 SD (95% CI 0.305 to 0.417; 53 instructor clusters);
+- pass probability: +15.3 percentage points (95% CI 12.8 to 17.8 pp; 53 instructor clusters).
+
+Among users, with 51 instructor clusters:
+
+- continuous-outcome omnibus: **p = 0.0477**;
+- pass-probability omnibus: **p = 0.0551**.
+
+No continuous pairwise contrast survived Holm adjustment. One pass-probability contrast did: 6+ visits versus one visit was +12.0 percentage points (95% CI 4.3 to 19.8 pp; Holm-adjusted p = 0.0358). No adjacent pass-frequency contrast survived Holm adjustment.
+
+This sensitivity means the manuscript should not say that the positive-frequency groups are simply identical. A broader low-versus-high separation is plausible under instructor-level clustering, but the evidence still does not support a visit-by-visit staircase.
+
+## 8. Gaussian-mixture sensitivity
+
+The GMM analysis is exploratory and is intended to describe distributional shape, not to discover literal latent student classes.
+
+For the numeric complete-case outcome, the 199-replicate parametric-bootstrap comparison of K=1 versus K=2 rejected the single-Gaussian fit in every group (bootstrap p = 0.005 except the five-visit group, p = 0.015). However, BIC and ICL disagreed substantially:
+
+- among positive-frequency groups, BIC preferred K=2 for 1, 2 and 5 visits and K=3 for 3, 4 and 6+;
+- ICL preferred K=1 for 1, 2, 3, 4 and 6+ and K=2 only for 5 visits.
+
+For the two-component complete-case fits, lower-component weights were:
+
+1: 15.7% / 2: 13.0% / 3: 44.4% / 4: 25.4% / 5: 4.1% / 6+: 14.8%.
+
+The imputed-outcome sensitivity produced:
+
+1: 25.2% / 2: 21.4% / 3: 21.2% / 4: 35.7% / 5: 9.1% / 6+: 19.1%.
+
+Five of the six positive-frequency complete-case fits had Ashman's D below 2, indicating substantial component overlap; the exception was the sparse five-visit group (n = 49), where the lower component contained only about 4% of the group. The three-visit group was especially sensitive to imputation, with its estimated lower-component weight changing from 44.4% to 21.2%.
+
+The correct interpretation is therefore that the grade distributions depart from a single Gaussian, but neither component weights nor model-selection criteria support a stable, monotone two-class attendance-response structure. The mixture figures belong in the paper as distributional diagnostics, not as a latent-class result.
+
+## 9. Interpretation emerging from the current results
+
+The current evidence supports a six-part descriptive structure:
 
 1. a large adjusted difference between **zero attendance and any attendance** in both continuous final performance and probability of passing;
-2. no clear adjusted separation among the positive attendance-frequency groups after multiplicity control;
-3. a substantial difference in the **composition of non-PASS outcomes** between zero-attendance students and CMAT users;
-4. within that management composition, the most distinctive administrative code is **BV**, whereas RT shows no analogous adjusted contrast.
+2. a similarly large zero-versus-positive separation in **completed numeric failure**, showing that the benchmark is not created solely by administrative-outcome imputation;
+3. no multiplicity-supported **adjacent** visit-frequency contrasts among users, although instructor-level clustering leaves open a broader low-versus-high separation and yields one non-adjacent 1-versus-6+ pass contrast;
+4. a substantial difference in the **composition of non-PASS outcomes** between zero-attendance students and CMAT users;
+5. within that management composition, the most distinctive administrative code is **BV**, whereas RT shows no analogous adjusted contrast;
+6. non-Gaussian complete-case grade distributions whose finite-mixture representation is irregular and imputation-sensitive, arguing against a stable latent-class or dose-response interpretation.
 
 The academic-management mechanism is therefore worth developing in the Discussion, but it must remain an explanation compatible with the data rather than a measured engagement construct. The records do not show whether students knew the withdrawal rules, received advice, cared more about GPA, or chose BV for a particular reason.
 
