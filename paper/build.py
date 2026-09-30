@@ -29,6 +29,8 @@ FIGURE_INPUTS = (
     REPO_ROOT / "results" / "paper21" / "tables" / "38_complete_case_gmm_two_component_parameters.csv",
     REPO_ROOT / "results" / "paper21" / "tables" / "42_imputed_gmm_two_component_parameters.csv",
     REPO_ROOT / "results" / "paper21" / "tables" / "46_complete_case_gmm_ridgeline_density.csv",
+    REPO_ROOT / "results" / "paper21" / "tables" / "10j_zero_inclusive_z_heatmap_matrix.csv",
+    REPO_ROOT / "results" / "paper21" / "tables" / "10k_zero_inclusive_pass_heatmap_matrix.csv",
 )
 
 
