@@ -114,3 +114,22 @@ Before the manuscript states that a BV or RT protects the student's GPA or has a
 ## Manuscript role
 
 If the empirical predictions are supported, this mechanism belongs in the Discussion as an interpretation of the outcome-composition results, not as the main causal conclusion. The Results section should report the observed four-state composition and conditional non-PASS comparisons without motivational language.
+
+
+## Mixture evidence related to the mechanism
+
+The distributional extension provides an additional observable result that is compatible with the academic-management hypothesis without identifying it.
+
+Using posterior responsibilities from the two-component GMM on the imputed primary outcome and aggregating the positive-attendance groups, the lower component is approximately:
+
+- 34.4% PASS;
+- 10.1% numeric non-PASS;
+- 49.5% BV;
+- 5.3% RT;
+- 0.7% BA.
+
+Thus approximately **55.5%** of the expected lower-component mass is administrative, compared with approximately **2.0%** in the higher component, which is about 97.0% PASS.
+
+A one-component skew-normal specification check strengthens the distributional result. The imputed outcome prefers a two-Gaussian mixture over a single strongly left-skewed distribution by BIC in all seven attendance groups. In the numeric complete-case outcome, however, the result is mixed: the two-Gaussian model remains preferred for 0, 1 and 2 visits, while a single skew-normal is preferred by BIC for 3, 4, 5 and 6+.
+
+This pattern is consistent with administrative-outcome representation materially sharpening the lower component of the imputed distribution, particularly through BV, while also showing that imputation is not the sole source of non-Gaussian structure. It still does not show why a student receives BV, whether the student knew institutional rules, or whether CMAT participation changed that decision. See MIXTURE_ANALYSIS_RESULTS.md for the full model and code provenance.

@@ -10,6 +10,8 @@ Read:
 - `OUTCOME_FRAMEWORK.md` for the performance and academic-management margins;
 - `ACADEMIC_MANAGEMENT_HYPOTHESIS.md` for the mechanism hypothesis and its guardrails;
 - `PRELIMINARY_RESULTS.md` for verified intermediate results;
+- `MIXTURE_ANALYSIS_PLAN.md` for the pre-specified density-analysis hierarchy;
+- `MIXTURE_ANALYSIS_RESULTS.md` for the complete GMM/skew-normal results, code map, validation provenance, and interpretation guardrails;
 - `LITERATURE_ACCESS_NOTES.md` for source-access limitations, including the abstract-only Gokhool & Lawson citation;
 - `AI_HANDOFF.md` for binding branch-specific rules.
 
@@ -18,3 +20,5 @@ The primary frequency grouping is now frozen as `1 / 2 / 3 / 4 / 5 / 6+` from an
 The manuscript now analyses two performance outcomes—PASS/non-PASS and the continuous imputed instructor-period-standardised grade—together with the composition of adverse outcomes, including the BV-specific academic-management contrast.
 
 `sections/01.tex`--`04.tex` now contain the full Paper 2.1 draft. The build regenerates Paper 2.1 aggregate results and vector figures before compiling the clean and commented TEAMAT/IMA PDFs.
+
+The distributional extension now includes a one-component skew-normal specification check against the one-Gaussian and two-Gaussian candidates. Reusable estimators live in `main/cmat_analysis`; Paper 2.1 runners contain only publication-specific orchestration.

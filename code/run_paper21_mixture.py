@@ -7,7 +7,7 @@ The analysis deliberately separates:
 3. the same Gaussian-mixture analysis on the primary imputed Z outcome only as
    a sensitivity to administrative-outcome imputation.
 
-Reusable estimation is delegated to cmat_analysis 0.4.1.
+Reusable estimation is delegated to cmat_analysis 0.4.2.
 """
 
 from __future__ import annotations
@@ -25,6 +25,7 @@ try:
     from cmat_analysis.measures import add_academic_outcome_states, add_primary_outcomes
     from cmat_analysis.statistics import (
         add_topcoded_visit_group,
+        compare_univariate_shape_models,
         fixed_effect_logistic_group_comparisons,
         fixed_effect_logistic_adjusted_probabilities,
         gaussian_mixture_component_summary,
@@ -33,7 +34,6 @@ try:
         parametric_bootstrap_gmm_lrt,
         mixture_component_density,
         soft_component_composition,
-        skew_normal_fit_summary,
     )
 except ModuleNotFoundError as exc:
     raise SystemExit(
@@ -180,56 +180,15 @@ def _run_gmm_family(
         selection["delta_icl_vs_1_component"] = selection["icl"] - icl1
         selection_rows.append(selection)
 
-        normal = selection.loc[selection["n_components"].eq(1)].iloc[0]
-        gmm2 = selection.loc[selection["n_components"].eq(2)].iloc[0]
-        skew = skew_normal_fit_summary(values).iloc[0]
-        candidates_bic = {
-            "gaussian_k1": float(normal["bic"]),
-            "skew_normal_k1": float(skew["bic"]),
-            "gaussian_mixture_k2": float(gmm2["bic"]),
-        }
-        candidates_aic = {
-            "gaussian_k1": float(normal["aic"]),
-            "skew_normal_k1": float(skew["aic"]),
-            "gaussian_mixture_k2": float(gmm2["aic"]),
-        }
-        shape_comparison_rows.append(
-            pd.DataFrame(
-                [
-                    {
-                        "outcome_specification": outcome_spec,
-                        "group": group,
-                        "n": int(len(values)),
-                        "gaussian_k1_log_likelihood": float(normal["log_likelihood"]),
-                        "gaussian_k1_aic": float(normal["aic"]),
-                        "gaussian_k1_bic": float(normal["bic"]),
-                        "skew_normal_k1_shape": float(skew["shape"]),
-                        "skew_normal_k1_loc": float(skew["loc"]),
-                        "skew_normal_k1_scale": float(skew["scale"]),
-                        "skew_normal_k1_log_likelihood": float(skew["log_likelihood"]),
-                        "skew_normal_k1_aic": float(skew["aic"]),
-                        "skew_normal_k1_bic": float(skew["bic"]),
-                        "gaussian_mixture_k2_log_likelihood": float(gmm2["log_likelihood"]),
-                        "gaussian_mixture_k2_aic": float(gmm2["aic"]),
-                        "gaussian_mixture_k2_bic": float(gmm2["bic"]),
-                        "bic_advantage_skew_normal_over_gaussian_k1": (
-                            float(normal["bic"]) - float(skew["bic"])
-                        ),
-                        "bic_advantage_gmm_k2_over_skew_normal": (
-                            float(skew["bic"]) - float(gmm2["bic"])
-                        ),
-                        "aic_advantage_skew_normal_over_gaussian_k1": (
-                            float(normal["aic"]) - float(skew["aic"])
-                        ),
-                        "aic_advantage_gmm_k2_over_skew_normal": (
-                            float(skew["aic"]) - float(gmm2["aic"])
-                        ),
-                        "bic_preferred_model": min(candidates_bic, key=candidates_bic.get),
-                        "aic_preferred_model": min(candidates_aic, key=candidates_aic.get),
-                    }
-                ]
-            )
+        shape = compare_univariate_shape_models(
+            values,
+            random_state=42,
+            n_init=30,
+            two_component_mean_starts=starts,
         )
+        shape.insert(0, "group", group)
+        shape.insert(0, "outcome_specification", outcome_spec)
+        shape_comparison_rows.append(shape)
 
         components = gaussian_mixture_component_summary(models[2])
         components.insert(0, "group", group)

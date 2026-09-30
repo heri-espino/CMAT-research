@@ -83,7 +83,12 @@ The current `4+` top-code is not binding on this branch.
 - [x] decide that the complete-case mixture evidence belongs in the manuscript only as exploratory distributional sensitivity, not as latent-class evidence;
 - [x] implement the complete-case ridgeline with weighted lower/higher Gaussian overlays;
 - [x] implement the compact lower-component weight figure, with the imputed specification shown as sensitivity;
-- [x] add a conservative manuscript interpretation after inspecting the controlled-data estimates.
+- [x] add a conservative manuscript interpretation after inspecting the controlled-data estimates;
+- [x] implement a one-component skew-normal specification check against one Gaussian and a two-Gaussian mixture;
+- [x] validate tables 47--48 in the fast controlled workflow (run `36678572075`, commit `dc12a547acd726a6d8289115641813c0e5723c5a`);
+- [x] document the refined result: imputed GMM K=2 beats a single skew-normal in every group, while the complete-case result is mixed;
+- [x] quantify soft component composition among users, showing strong enrichment of BV/RT/BA in the imputed lower component;
+- [x] promote the skew-normal and generic shape-comparison functions to `main/cmat_analysis`.
 
 ### M4 — Equivalence and visual synthesis
 
@@ -115,10 +120,10 @@ The current `4+` top-code is not binding on this branch.
 
 ## Shared-library status
 
-Paper 2.1 reusable methods are upstream on `main`; the current mixture/logit and standardized-probability extension is **cmat-analysis 0.4.1** and documented through Sphinx and the generated function index. The paper runners are downstream consumers; future methodological improvements should be made in `main/cmat_analysis` first whenever they are reusable across education studies.
+Paper 2.1 reusable methods are upstream on `main`; the current mixture/logit, standardized-probability, skew-normal and shape-comparison extension is **cmat-analysis 0.4.2** and documented through Sphinx and the generated function index. The paper runners are downstream consumers; future methodological improvements should be made in `main/cmat_analysis` first whenever they are reusable across education studies.
 
 ## Immediate next task
 
-The controlled Paper 2.1 analysis is now complete through the observed-failure, instructor-clustering and Gaussian-mixture extensions, and the corresponding interpretation is integrated into `paper/sections/01.tex`--`04.tex`. The latest successful validation is GitHub Actions run `35657154301` at `50876b0e66f4893b4a447018be33f35bba4054e1`; its aggregate artifact contains tables 01--46 and figures 01--05.
+The controlled Paper 2.1 analysis is now complete through the observed-failure, instructor-clustering and Gaussian-mixture extensions, and the corresponding interpretation is integrated into `paper/sections/01.tex`--`04.tex`. The full GMM validation is GitHub Actions run `35657154301` at `50876b0e66f4893b4a447018be33f35bba4054e1`, with tables 01--46 and figures 01--05. The subsequent skew-normal shape check is run `36678572075` at `dc12a547acd726a6d8289115641813c0e5723c5a`, which verified tables 47--48. `paper/MIXTURE_ANALYSIS_RESULTS.md` is the canonical record of the combined distributional analysis.
 
 Remaining pre-submission work depends partly on inputs not contained in the repository: (1) add the university entrance-exam sensitivity if the requested data are usable; (2) verify historical institutional rules for BV/RT/BA before making any GPA/transcript claim; (3) insert the exact ethics/IRB/data-use authorization statement; and (4) run a final referee-style literature, numerical-consistency and typesetting audit. The frozen `1/2/3/4/5/6+` grouping must not be changed in response to outcome significance.

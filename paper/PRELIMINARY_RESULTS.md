@@ -198,8 +198,43 @@ The current evidence supports a six-part descriptive structure:
 3. no multiplicity-supported **adjacent** visit-frequency contrasts among users, although instructor-level clustering leaves open a broader low-versus-high separation and yields one non-adjacent 1-versus-6+ pass contrast;
 4. a substantial difference in the **composition of non-PASS outcomes** between zero-attendance students and CMAT users;
 5. within that management composition, the most distinctive administrative code is **BV**, whereas RT shows no analogous adjusted contrast;
-6. non-Gaussian complete-case grade distributions whose finite-mixture representation is irregular and imputation-sensitive, arguing against a stable latent-class or dose-response interpretation.
+6. non-Gaussian grade distributions in which the imputed outcome remains better represented by a two-Gaussian mixture than by a single strongly skewed distribution across every frequency group, while the numeric complete-case outcome is more mixed; this links the clearer imputed lower component to administrative-outcome representation without implying a monotone dose response or literal student types.
 
 The academic-management mechanism is therefore worth developing in the Discussion, but it must remain an explanation compatible with the data rather than a measured engagement construct. The records do not show whether students knew the withdrawal rules, received advice, cared more about GPA, or chose BV for a particular reason.
 
 The requested entrance-exam data will be especially useful here because prior preparation may explain part of both help-seeking and adverse-outcome management, although it will not measure engagement or institutional knowledge directly.
+
+
+## 10. Skew-normal specification check
+
+A follow-up specification check asked whether the Gaussian-mixture result could be explained by a single strongly asymmetric distribution. For each `0/1/2/3/4/5/6+` group, the same observations were fit with one Gaussian, one skew-normal, and a two-Gaussian mixture. The fitted skew-normal shape parameters were strongly negative, so the one-component alternative was allowed substantial left skew.
+
+Using `Delta BIC = BIC(skew-normal) - BIC(GMM K=2)`, the numeric complete-case values were:
+
+| visits | Delta BIC | BIC preferred |
+| ---: | ---: | --- |
+| 0 | +1223.3 | GMM K=2 |
+| 1 | +20.7 | GMM K=2 |
+| 2 | +12.8 | GMM K=2 |
+| 3 | -4.5 | skew-normal |
+| 4 | -6.1 | skew-normal |
+| 5 | -2.7 | skew-normal |
+| 6+ | -11.7 | skew-normal |
+
+For the imputed primary outcome, the two-Gaussian mixture was preferred in all seven groups:
+
+| visits | Delta BIC |
+| ---: | ---: |
+| 0 | +1066.4 |
+| 1 | +77.3 |
+| 2 | +32.1 |
+| 3 | +28.1 |
+| 4 | +3.4 |
+| 5 | +12.4 |
+| 6+ | +11.4 |
+
+Thus simple skewness is not sufficient to explain the imputed density structure. In the numeric complete-case outcome, by contrast, a single skew-normal is sufficient by BIC for several higher-frequency groups, while 0, 1 and 2 visits still prefer the two-Gaussian representation.
+
+The posterior-responsibility composition adds an important substantive link. Aggregating positive-attendance students, the imputed lower component contained approximately **55.5% administrative outcomes** (49.5% BV, 5.3% RT, 0.7% BA), 34.4% PASS and 10.1% numeric non-PASS. The higher component contained approximately **2.0% administrative outcomes** (1.8% BV and 0.2% RT), 97.0% PASS and 1.1% numeric non-PASS.
+
+This strongly connects the lower imputed density component with the observed academic-management states, especially BV. It does not establish that the component is a behavioral student type or that CMAT caused withdrawal. The complete analysis, exact model-selection tables, function map and controlled-run provenance are documented in `MIXTURE_ANALYSIS_RESULTS.md`.

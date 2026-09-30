@@ -1,6 +1,6 @@
-# Paper 2.1 — observed numeric failure and Gaussian-mixture plan
+# Paper 2.1 — observed numeric failure, Gaussian-mixture, and skew-normal analysis
 
-**Status:** implemented; numerical results must not be interpreted until a controlled-data run completes successfully.
+**Status:** implemented and controlled-data validated. Full GMM validation completed in GitHub Actions run `35657154301`; the skew-normal specification check completed in run `36678572075`. See `MIXTURE_ANALYSIS_RESULTS.md` for the verified numerical results.
 
 ## Scientific motivation
 
@@ -88,3 +88,26 @@ No row-level responsibilities are written to artifacts.
 Do not add a two-population narrative to the paper merely because a ridgeline appears bimodal.
 
 Promote the mixture analysis into the main manuscript only if the numeric complete-case evidence is coherent across model-selection criteria, component separation, bootstrap evidence, and stability. Otherwise keep it exploratory or omit it.
+
+
+## G. Skew-normal specification check
+
+Rejecting one Gaussian is not sufficient to distinguish a genuinely multi-component density from one strongly asymmetric continuous distribution. Therefore each attendance group is also fit with a one-component skew-normal on exactly the same observations used for the Gaussian candidates.
+
+The standard comparison is:
+
+1. one Gaussian;
+2. one skew-normal;
+3. two-Gaussian mixture.
+
+Report log-likelihood, AIC and BIC for all three models together with the fitted skew-normal shape/location/scale parameters. Define a positive `bic_advantage_gmm_k2_over_skew_normal` as evidence that the two-Gaussian mixture has lower BIC than the single skew-normal.
+
+The check is performed for both `Z_GRADE_COMPLETE_CASE` and `Z_GRADE_PRIMARY`. A two-Gaussian preference after allowing strong skewness is stronger evidence of distributional heterogeneity than rejection of one Gaussian alone, but it still does not identify literal latent student classes.
+
+## H. Verified refinement after the skew-normal check
+
+The imputed primary outcome prefers the two-Gaussian mixture over a single skew-normal by BIC in every `0/1/2/3/4/5/6+` group. The numeric complete-case outcome is mixed: the two-Gaussian model remains preferred for 0, 1 and 2 visits, whereas BIC prefers a single skew-normal for 3, 4, 5 and 6+.
+
+Posterior-responsibility composition of the imputed two-component model shows that, among positive-attendance students, the lower component is approximately 55.5% administrative outcomes, including 49.5% BV, while the higher component is approximately 2.0% administrative and 97.0% PASS.
+
+The refined interpretation is therefore that administrative-outcome representation materially sharpens the lower component of the imputed outcome, while non-Gaussian and in some groups multi-component structure also remains in observed numeric grades. See `MIXTURE_ANALYSIS_RESULTS.md`.

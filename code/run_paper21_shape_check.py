@@ -11,10 +11,7 @@ import pandas as pd
 from run_paper21_mixture import GROUP_ORDER, TABLES_DIR, _gmm_starts, _load_cohort
 
 try:
-    from cmat_analysis.statistics import (
-        gaussian_mixture_model_selection,
-        skew_normal_fit_summary,
-    )
+    from cmat_analysis.statistics import compare_univariate_shape_models
 except ModuleNotFoundError as exc:
     raise SystemExit(
         "Paper 2.1 shape check requires the shared editable library. Run:\n"
@@ -38,60 +35,17 @@ def _shape_table(
         if len(values) < 30:
             continue
 
-        selection, _ = gaussian_mixture_model_selection(
+        comparison = compare_univariate_shape_models(
             values,
-            component_counts=(1, 2),
             random_state=42,
             n_init=30,
             two_component_mean_starts=_gmm_starts(values),
-        )
-        normal = selection.loc[selection["n_components"].eq(1)].iloc[0]
-        gmm2 = selection.loc[selection["n_components"].eq(2)].iloc[0]
-        skew = skew_normal_fit_summary(values).iloc[0]
+        ).iloc[0]
 
-        bic = {
-            "gaussian_k1": float(normal["bic"]),
-            "skew_normal_k1": float(skew["bic"]),
-            "gaussian_mixture_k2": float(gmm2["bic"]),
-        }
-        aic = {
-            "gaussian_k1": float(normal["aic"]),
-            "skew_normal_k1": float(skew["aic"]),
-            "gaussian_mixture_k2": float(gmm2["aic"]),
-        }
-        rows.append(
-            {
-                "outcome_specification": outcome_specification,
-                "group": group,
-                "n": int(len(values)),
-                "gaussian_k1_log_likelihood": float(normal["log_likelihood"]),
-                "gaussian_k1_aic": float(normal["aic"]),
-                "gaussian_k1_bic": float(normal["bic"]),
-                "skew_normal_k1_shape": float(skew["shape"]),
-                "skew_normal_k1_loc": float(skew["loc"]),
-                "skew_normal_k1_scale": float(skew["scale"]),
-                "skew_normal_k1_log_likelihood": float(skew["log_likelihood"]),
-                "skew_normal_k1_aic": float(skew["aic"]),
-                "skew_normal_k1_bic": float(skew["bic"]),
-                "gaussian_mixture_k2_log_likelihood": float(gmm2["log_likelihood"]),
-                "gaussian_mixture_k2_aic": float(gmm2["aic"]),
-                "gaussian_mixture_k2_bic": float(gmm2["bic"]),
-                "bic_advantage_skew_normal_over_gaussian_k1": (
-                    float(normal["bic"]) - float(skew["bic"])
-                ),
-                "bic_advantage_gmm_k2_over_skew_normal": (
-                    float(skew["bic"]) - float(gmm2["bic"])
-                ),
-                "aic_advantage_skew_normal_over_gaussian_k1": (
-                    float(normal["aic"]) - float(skew["aic"])
-                ),
-                "aic_advantage_gmm_k2_over_skew_normal": (
-                    float(skew["aic"]) - float(gmm2["aic"])
-                ),
-                "bic_preferred_model": min(bic, key=bic.get),
-                "aic_preferred_model": min(aic, key=aic.get),
-            }
-        )
+        row = comparison.to_dict()
+        row["outcome_specification"] = outcome_specification
+        row["group"] = group
+        rows.append(row)
 
     return pd.DataFrame(rows)
 

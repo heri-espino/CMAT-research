@@ -33,6 +33,7 @@ from .inference import (
 )
 from .selection import propensity_att_sensitivity
 from .mixtures import (
+    compare_univariate_shape_models,
     fit_univariate_gaussian_mixture,
     gaussian_mixture_component_summary,
     gaussian_mixture_model_selection,
@@ -94,6 +95,7 @@ __all__ = [
     "longitudinal_summary",
     "one_two_pooling_analysis",
     "primary_fixed_effect_models",
+    "compare_univariate_shape_models",
     "fit_univariate_gaussian_mixture",
     "gaussian_mixture_component_summary",
     "gaussian_mixture_model_selection",
