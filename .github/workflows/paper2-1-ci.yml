@@ -38,6 +38,9 @@ jobs:
       - name: Compile Paper 2.1 runners
         run: python -m py_compile code/run_paper21.py code/run_paper21_outcomes.py code/run_paper21_mixture.py
 
+      - name: Test reusable mixture estimators
+        run: python -m pytest cmat_analysis/tests/test_mixtures.py -q
+
       - name: Check Paper 2.1 support-audit contract
         run: python code/run_paper21.py --check
 
@@ -128,7 +131,9 @@ jobs:
             results/paper21/tables/43_imputed_gmm_bootstrap_1_vs_2.csv \
             results/paper21/tables/44_imputed_gmm_soft_component_composition.csv \
             results/paper21/tables/45_gmm_component_comparison_complete_vs_imputed.csv \
-            results/paper21/tables/46_complete_case_gmm_ridgeline_density.csv; do
+            results/paper21/tables/46_complete_case_gmm_ridgeline_density.csv \
+            results/paper21/tables/47_complete_case_skewnormal_vs_gmm.csv \
+            results/paper21/tables/48_imputed_skewnormal_vs_gmm.csv; do
             test -s "$f"
           done
 

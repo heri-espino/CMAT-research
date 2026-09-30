@@ -33,6 +33,7 @@ try:
         parametric_bootstrap_gmm_lrt,
         mixture_component_density,
         soft_component_composition,
+        skew_normal_fit_summary,
     )
 except ModuleNotFoundError as exc:
     raise SystemExit(
@@ -147,11 +148,12 @@ def _run_gmm_family(
     outcome_col: str,
     outcome_spec: str,
     n_bootstrap: int,
-) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
     selection_rows: list[pd.DataFrame] = []
     component_rows: list[pd.DataFrame] = []
     bootstrap_rows: list[pd.DataFrame] = []
     composition_rows: list[pd.DataFrame] = []
+    shape_comparison_rows: list[pd.DataFrame] = []
 
     labels = cohort["P21_GROUP_WITH_ZERO"].astype("string")
     for group in GROUP_ORDER:
@@ -177,6 +179,57 @@ def _run_gmm_family(
         selection["delta_bic_vs_1_component"] = selection["bic"] - bic1
         selection["delta_icl_vs_1_component"] = selection["icl"] - icl1
         selection_rows.append(selection)
+
+        normal = selection.loc[selection["n_components"].eq(1)].iloc[0]
+        gmm2 = selection.loc[selection["n_components"].eq(2)].iloc[0]
+        skew = skew_normal_fit_summary(values).iloc[0]
+        candidates_bic = {
+            "gaussian_k1": float(normal["bic"]),
+            "skew_normal_k1": float(skew["bic"]),
+            "gaussian_mixture_k2": float(gmm2["bic"]),
+        }
+        candidates_aic = {
+            "gaussian_k1": float(normal["aic"]),
+            "skew_normal_k1": float(skew["aic"]),
+            "gaussian_mixture_k2": float(gmm2["aic"]),
+        }
+        shape_comparison_rows.append(
+            pd.DataFrame(
+                [
+                    {
+                        "outcome_specification": outcome_spec,
+                        "group": group,
+                        "n": int(len(values)),
+                        "gaussian_k1_log_likelihood": float(normal["log_likelihood"]),
+                        "gaussian_k1_aic": float(normal["aic"]),
+                        "gaussian_k1_bic": float(normal["bic"]),
+                        "skew_normal_k1_shape": float(skew["shape"]),
+                        "skew_normal_k1_loc": float(skew["loc"]),
+                        "skew_normal_k1_scale": float(skew["scale"]),
+                        "skew_normal_k1_log_likelihood": float(skew["log_likelihood"]),
+                        "skew_normal_k1_aic": float(skew["aic"]),
+                        "skew_normal_k1_bic": float(skew["bic"]),
+                        "gaussian_mixture_k2_log_likelihood": float(gmm2["log_likelihood"]),
+                        "gaussian_mixture_k2_aic": float(gmm2["aic"]),
+                        "gaussian_mixture_k2_bic": float(gmm2["bic"]),
+                        "bic_advantage_skew_normal_over_gaussian_k1": (
+                            float(normal["bic"]) - float(skew["bic"])
+                        ),
+                        "bic_advantage_gmm_k2_over_skew_normal": (
+                            float(skew["bic"]) - float(gmm2["bic"])
+                        ),
+                        "aic_advantage_skew_normal_over_gaussian_k1": (
+                            float(normal["aic"]) - float(skew["aic"])
+                        ),
+                        "aic_advantage_gmm_k2_over_skew_normal": (
+                            float(skew["aic"]) - float(gmm2["aic"])
+                        ),
+                        "bic_preferred_model": min(candidates_bic, key=candidates_bic.get),
+                        "aic_preferred_model": min(candidates_aic, key=candidates_aic.get),
+                    }
+                ]
+            )
+        )
 
         components = gaussian_mixture_component_summary(models[2])
         components.insert(0, "group", group)
@@ -209,6 +262,7 @@ def _run_gmm_family(
         pd.concat(component_rows, ignore_index=True),
         pd.concat(bootstrap_rows, ignore_index=True),
         pd.concat(composition_rows, ignore_index=True),
+        pd.concat(shape_comparison_rows, ignore_index=True),
     )
 
 
@@ -257,7 +311,7 @@ def run(args: argparse.Namespace) -> int:
     _save(omnibus_users, "35_numeric_failure_logit_omnibus_users.csv")
     _save(info_users, "36_numeric_failure_logit_model_info_users.csv")
 
-    cc_selection, cc_components, cc_bootstrap, cc_composition = _run_gmm_family(
+    cc_selection, cc_components, cc_bootstrap, cc_composition, cc_shape = _run_gmm_family(
         cohort,
         outcome_col="Z_GRADE_COMPLETE_CASE",
         outcome_spec="numeric_complete_case",
@@ -267,8 +321,9 @@ def run(args: argparse.Namespace) -> int:
     _save(cc_components, "38_complete_case_gmm_two_component_parameters.csv")
     _save(cc_bootstrap, "39_complete_case_gmm_bootstrap_1_vs_2.csv")
     _save(cc_composition, "40_complete_case_gmm_soft_component_composition.csv")
+    _save(cc_shape, "47_complete_case_skewnormal_vs_gmm.csv")
 
-    imp_selection, imp_components, imp_bootstrap, imp_composition = _run_gmm_family(
+    imp_selection, imp_components, imp_bootstrap, imp_composition, imp_shape = _run_gmm_family(
         cohort,
         outcome_col="Z_GRADE_PRIMARY",
         outcome_spec="primary_imputed_sensitivity",
@@ -278,6 +333,7 @@ def run(args: argparse.Namespace) -> int:
     _save(imp_components, "42_imputed_gmm_two_component_parameters.csv")
     _save(imp_bootstrap, "43_imputed_gmm_bootstrap_1_vs_2.csv")
     _save(imp_composition, "44_imputed_gmm_soft_component_composition.csv")
+    _save(imp_shape, "48_imputed_skewnormal_vs_gmm.csv")
 
     comparison = pd.concat(
         [
@@ -305,6 +361,7 @@ def run(args: argparse.Namespace) -> int:
     print(f"Numeric final grades: N={len(numeric):,}")
     print(f"GMM bootstrap replicates per group/specification: {args.gmm_bootstrap}")
     print("GMM hierarchy: complete-case primary; imputed outcome sensitivity")
+    print("Shape check: single Gaussian vs single skew-normal vs two-Gaussian mixture")
     print(f"Outputs: {TABLES_DIR}")
     return 0
 
