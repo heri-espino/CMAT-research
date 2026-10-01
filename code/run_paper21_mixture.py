@@ -268,8 +268,8 @@ def _run_gmm_family(
 def check_environment() -> int:
     required = [
         REPO_ROOT / "cmat_analysis" / "pyproject.toml",
-        REPO_ROOT / "paper" / "VISIT_GROUPING_DECISION.md",
-        REPO_ROOT / "paper" / "OUTCOME_FRAMEWORK.md",
+        REPO_ROOT / "paper" / "docs" / "analysis" / "VISIT_GROUPING_DECISION.md",
+        REPO_ROOT / "paper" / "docs" / "analysis" / "OUTCOME_FRAMEWORK.md",
     ]
     missing = [str(path.relative_to(REPO_ROOT)) for path in required if not path.exists()]
     if missing:
