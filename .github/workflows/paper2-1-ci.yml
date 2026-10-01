@@ -39,8 +39,8 @@ jobs:
       - name: Install shared CMAT library
         run: python -m pip install -e './cmat_analysis[dev]'
 
-      - name: Compile Paper 2.1 runners
-        run: python -m py_compile code/run_paper21.py code/run_paper21_outcomes.py code/run_paper21_mixture.py
+      - name: Compile Paper 2.1 runners and builders
+        run: python -m py_compile code/run_paper21.py code/run_paper21_outcomes.py code/run_paper21_mixture.py code/figures_paper21.py paper/paper_build_figures.py paper/paper_build.py paper/build.py
 
       - name: Test reusable mixture estimators
         run: python -m pytest cmat_analysis/tests/test_mixtures.py -q
