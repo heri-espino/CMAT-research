@@ -287,7 +287,7 @@ def _nonpass_management_summary(data: pd.DataFrame) -> pd.DataFrame:
 
 def check_environment() -> int:
     required = [
-        REPO_ROOT / "paper" / "VISIT_GROUPING_DECISION.md",
+        REPO_ROOT / "paper" / "docs" / "analysis" / "VISIT_GROUPING_DECISION.md",
         GROUP_SPEC,
         REPO_ROOT / "cmat_analysis" / "pyproject.toml",
     ]
