@@ -2,13 +2,13 @@
 
 This file contains branch-specific rules for `paper/paper2.1-visit-frequency`.
 
-Paper 2.1 was created from Paper 2 at commit `1956ef4bfe6073c9b28881a9da34d14cd22239a8`. The branch now contains a complete Paper 2.1 manuscript draft. Before changing it, read `paper/STATUS_AND_ROADMAP.md`, `paper/PROJECT_CONTEXT.md`, `paper/ANALYSIS_PLAN.md`, `paper/PRELIMINARY_RESULTS.md`, `paper/ACADEMIC_MANAGEMENT_HYPOTHESIS.md`, `paper/MIXTURE_ANALYSIS_RESULTS.md`, and `paper/LITERATURE_ACCESS_NOTES.md`.
+Paper 2.1 was created from Paper 2 at commit `1956ef4bfe6073c9b28881a9da34d14cd22239a8`. The branch now contains a complete Paper 2.1 manuscript draft. Before changing it, read `paper/docs/project/STATUS_AND_ROADMAP.md`, `paper/docs/project/PROJECT_CONTEXT.md`, `paper/docs/analysis/ANALYSIS_PLAN.md`, `paper/docs/results/PRELIMINARY_RESULTS.md`, `paper/docs/interpretation/ACADEMIC_MANAGEMENT_HYPOTHESIS.md`, `paper/docs/results/MIXTURE_ANALYSIS_RESULTS.md`, and `literature_selected/ACCESS_NOTES.md`.
 
 ## What Paper 2.1 changes
 
 Paper 2.1 is not simply Paper 2 with more categories. Its central estimand is the observational structure of outcomes across **positive CMAT attendance frequencies**.
 
-The inherited Paper 2 rule `0 / 1 / 2 / 3 / 4+` is superseded here. The outcome-blind audit has frozen the primary positive-frequency grouping as **`1 / 2 / 3 / 4 / 5 / 6+`**. The decision must not be changed after inspecting outcome significance; see `paper/VISIT_GROUPING_DECISION.md`.
+The inherited Paper 2 rule `0 / 1 / 2 / 3 / 4+` is superseded here. The outcome-blind audit has frozen the primary positive-frequency grouping as **`1 / 2 / 3 / 4 / 5 / 6+`**. The decision must not be changed after inspecting outcome significance; see `paper/docs/analysis/VISIT_GROUPING_DECISION.md`.
 
 ## What remains inherited from Paper 2
 
@@ -66,7 +66,7 @@ The main heatmaps focus on positive attendance-frequency groups. Zero-inclusive 
 
 ## Academic-management mechanism guardrail
 
-Paper 2.1 may discuss the hypothesis that CMAT attendance marks broader academic engagement or institutional navigation, but only as a mechanism compatible with the observed outcome composition. Read `paper/ACADEMIC_MANAGEMENT_HYPOTHESIS.md`.
+Paper 2.1 may discuss the hypothesis that CMAT attendance marks broader academic engagement or institutional navigation, but only as a mechanism compatible with the observed outcome composition. Read `paper/docs/interpretation/ACADEMIC_MANAGEMENT_HYPOTHESIS.md`.
 
 Never infer from zero recorded visits that a student did not care about the course, university, GPA, or withdrawal options. Never write that CMAT users are definitively more engaged unless a direct engagement measure is obtained.
 
@@ -80,13 +80,13 @@ Use prior observational and identification-oriented evidence together, preservin
 
 Do not claim diminishing returns before the Paper 2.1 analyses support that shape.
 
-`gokhool2026` is currently **abstract-only**. It may be cited for the two-dimensional engagement framing (0 vs 1+; visit count among users), the Coventry/12-discipline scope, listed demographic predictors, and the hurdle-model specification stated in the abstract. Do not attribute results, effect sizes, limitations, or conclusions not present in the supplied abstract. See `paper/LITERATURE_ACCESS_NOTES.md`.
+`gokhool2026` is currently **abstract-only**. It may be cited for the two-dimensional engagement framing (0 vs 1+; visit count among users), the Coventry/12-discipline scope, listed demographic predictors, and the hurdle-model specification stated in the abstract. Do not attribute results, effect sizes, limitations, or conclusions not present in the supplied abstract. See `literature_selected/ACCESS_NOTES.md`.
 
 ## Manuscript status
 
 `paper/sections/01.tex`--`04.tex` are now the canonical Paper 2.1 draft. They include the dense state of the art, frozen grouping rationale, benchmark and user-frequency results, academic-management/BV results, distributional sensitivity, limitations and conclusion. Do not revert them to the inherited Paper 2 wording.
 
-The draft is **not submission-ready** until the TODOs in `paper/STATUS_AND_ROADMAP.md` are resolved, especially instructor-level clustering, entrance-exam sensitivity if available, institutional rule verification, and ethics/data-use wording.
+The draft is **not submission-ready** until the TODOs in `paper/docs/project/STATUS_AND_ROADMAP.md` are resolved, especially instructor-level clustering, entrance-exam sensitivity if available, institutional rule verification, and ethics/data-use wording.
 
 ## Shared-library provenance
 
@@ -143,7 +143,7 @@ The reusable density calculation is `cmat_analysis.statistics.mixture_component_
 
 ## Observed numeric failure and Gaussian mixtures
 
-Read `paper/MIXTURE_ANALYSIS_PLAN.md` before interpreting or modifying this analysis.
+Read `paper/docs/analysis/MIXTURE_ANALYSIS_PLAN.md` before interpreting or modifying this analysis.
 
 The evidence hierarchy is binding:
 
@@ -161,4 +161,4 @@ Do not claim that a low-performance component disappears after six visits unless
 
 Controlled validation now has two layers. The historical 199-replicate GMM run is `35657154301`, and the earlier integrated recipe was revalidated successfully in run `36685329947` at branch head `93b16efb40efd7ed6803ab50568bc5fb075a10b9`, with tables 01--48 and figures 01--05 verified. The direct skew-normal-null bootstrap and predictive comparison was then validated in focused run `36826363767` at branch head `50f6e568aa38f3b9ec99be4b08124c72a1e989b8`, which verified tables 47--52 and uploaded artifact `paper21-shape-validation-50f6e568aa38f3b9ec99be4b08124c72a1e989b8` (artifact ID `11145891079`). The full Paper 2.1 CI is configured to verify tables 01--52 and publication figures with the more intensive settings, while the focused shape workflow is the rapid reproducibility check for the specification question.
 
-The canonical combined interpretation is in `paper/MIXTURE_ANALYSIS_RESULTS.md`. For numeric complete cases, zero, one and two visits show concordant evidence for the two-Gaussian representation; three, four and 6+ visits are adequately represented by one strongly left-skewed distribution; and five visits are inconclusive because the sample is small and the diagnostics disagree. For the imputed outcome, all seven groups favour the mixture across penalised fit, skew-normal-null bootstrap and held-out prediction. The imputed lower component remains strongly enriched in administrative outcomes, especially BV. Preserve the distinction between that observed association and the unmeasured engagement/institutional-navigation mechanism.
+The canonical combined interpretation is in `paper/docs/results/MIXTURE_ANALYSIS_RESULTS.md`. For numeric complete cases, zero, one and two visits show concordant evidence for the two-Gaussian representation; three, four and 6+ visits are adequately represented by one strongly left-skewed distribution; and five visits are inconclusive because the sample is small and the diagnostics disagree. For the imputed outcome, all seven groups favour the mixture across penalised fit, skew-normal-null bootstrap and held-out prediction. The imputed lower component remains strongly enriched in administrative outcomes, especially BV. Preserve the distinction between that observed association and the unmeasured engagement/institutional-navigation mechanism.
