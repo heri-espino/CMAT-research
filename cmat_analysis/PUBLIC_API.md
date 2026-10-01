@@ -33,6 +33,7 @@ No public callables.
 ## `cmat_analysis.statistics`
 
 - `compare_univariate_shape_models` — function
+- `cross_validated_skew_normal_vs_gmm` — function
 - `add_exact_visit_group` — function
 - `add_topcoded_visit_group` — function
 - `distribution_profile` — function
@@ -69,6 +70,7 @@ No public callables.
 - `gaussian_mixture_model_selection` — function
 - `gaussian_mixture_responsibilities` — function
 - `parametric_bootstrap_gmm_lrt` — function
+- `parametric_bootstrap_skew_normal_vs_gmm` — function
 - `soft_component_composition` — function
 - `skew_normal_fit_summary` — function
 - `propensity_att_sensitivity` — function
@@ -147,5 +149,5 @@ No public callables.
 - `canonical_identifier` — function
 - `hmac_pseudonym` — function
 
-Public functions: **110**  
+Public functions: **112**  
 Public classes: **4**
