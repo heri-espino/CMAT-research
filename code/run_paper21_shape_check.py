@@ -58,7 +58,7 @@ def _shape_tables(
             values,
             n_bootstrap=shape_bootstrap,
             random_state=42,
-            n_init=20,
+            n_init=8,
             two_component_mean_starts=((-1.1, 0.5),),
         ).iloc[0].to_dict()
         bootstrap["outcome_specification"] = outcome_specification
@@ -70,7 +70,7 @@ def _shape_tables(
             n_splits=cv_folds,
             n_repeats=cv_repeats,
             random_state=42,
-            n_init=10,
+            n_init=6,
             two_component_mean_starts=((-1.1, 0.5),),
         ).iloc[0].to_dict()
         predictive["outcome_specification"] = outcome_specification
