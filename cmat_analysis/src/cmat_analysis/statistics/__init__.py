@@ -34,11 +34,13 @@ from .inference import (
 from .selection import propensity_att_sensitivity
 from .mixtures import (
     compare_univariate_shape_models,
+    cross_validated_skew_normal_vs_gmm,
     fit_univariate_gaussian_mixture,
     gaussian_mixture_component_summary,
     gaussian_mixture_model_selection,
     gaussian_mixture_responsibilities,
     parametric_bootstrap_gmm_lrt,
+    parametric_bootstrap_skew_normal_vs_gmm,
     soft_component_composition,
     skew_normal_fit_summary,
 )
@@ -96,11 +98,13 @@ __all__ = [
     "one_two_pooling_analysis",
     "primary_fixed_effect_models",
     "compare_univariate_shape_models",
+    "cross_validated_skew_normal_vs_gmm",
     "fit_univariate_gaussian_mixture",
     "gaussian_mixture_component_summary",
     "gaussian_mixture_model_selection",
     "gaussian_mixture_responsibilities",
     "parametric_bootstrap_gmm_lrt",
+    "parametric_bootstrap_skew_normal_vs_gmm",
     "soft_component_composition",
     "skew_normal_fit_summary",
     "propensity_att_sensitivity",
