@@ -160,6 +160,7 @@ jobs:
         shell: bash
         run: |
           for f in \
+            results/paper21/figures/fig01a_observed_pre_imputation_structure.pdf \
             results/paper21/figures/fig01_distribution_composition_ridgeline.pdf \
             results/paper21/figures/fig02_pairwise_z_heatmap.pdf \
             results/paper21/figures/fig03_pairwise_pass_heatmap.pdf \
