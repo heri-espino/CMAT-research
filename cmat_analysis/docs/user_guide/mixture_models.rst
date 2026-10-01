@@ -75,6 +75,8 @@ Skew-normal comparator
 
 For the standard three-way specification check, use :func:`cmat_analysis.statistics.compare_univariate_shape_models`, which fits all three candidates on the same observations and returns their likelihood, AIC/BIC values, criterion advantages, skew-normal parameters, and the AIC/BIC-preferred model in one row.
 
+When the specific question is whether a two-Gaussian fit could arise from one strongly skewed distribution, :func:`cmat_analysis.statistics.parametric_bootstrap_skew_normal_vs_gmm` simulates from the fitted skew-normal null and compares the observed BIC advantage of the two-Gaussian model with its null distribution. :func:`cmat_analysis.statistics.cross_validated_skew_normal_vs_gmm` complements that in-sample comparison with repeated held-out log predictive density. These diagnostics compare density specifications; they do not establish substantive latent classes.
+
 :func:`cmat_analysis.statistics.skew_normal_fit_summary` fits a single
 skew-normal distribution and returns shape, location, scale, log-likelihood,
 AIC and BIC.
