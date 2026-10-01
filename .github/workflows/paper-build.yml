@@ -62,7 +62,17 @@ jobs:
           if [[ -f paper/paper_build.py ]]; then
             python paper/paper_build.py --tables --figures
           else
-            python paper/build.py
+            if [[ -f code/run_paper21_outcomes.py ]]; then
+              python code/run_paper21_outcomes.py \
+                --materias data/controlled/Materias_pseudonymized.csv \
+                --asesorias data/controlled/Asesorias_pseudonymized.csv
+            fi
+            if [[ -f code/run_paper21_mixture.py ]]; then
+              python code/run_paper21_mixture.py \
+                --materias data/controlled/Materias_pseudonymized.csv \
+                --asesorias data/controlled/Asesorias_pseudonymized.csv \
+                --gmm-bootstrap 99
+            fi
           fi
 
       - name: Install LaTeX toolchain
