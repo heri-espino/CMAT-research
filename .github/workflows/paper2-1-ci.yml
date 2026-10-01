@@ -68,7 +68,10 @@ jobs:
           python code/run_paper21_mixture.py \
             --materias data/controlled/Materias_pseudonymized.csv \
             --asesorias data/controlled/Asesorias_pseudonymized.csv \
-            --gmm-bootstrap 199
+            --gmm-bootstrap 199 \
+            --shape-bootstrap 199 \
+            --shape-cv-folds 5 \
+            --shape-cv-repeats 10
 
       - name: Verify support outputs
         shell: bash
@@ -137,7 +140,11 @@ jobs:
             results/paper21/tables/45_gmm_component_comparison_complete_vs_imputed.csv \
             results/paper21/tables/46_complete_case_gmm_ridgeline_density.csv \
             results/paper21/tables/47_complete_case_skewnormal_vs_gmm.csv \
-            results/paper21/tables/48_imputed_skewnormal_vs_gmm.csv; do
+            results/paper21/tables/48_imputed_skewnormal_vs_gmm.csv \
+            results/paper21/tables/49_complete_case_skewnormal_bootstrap_vs_gmm.csv \
+            results/paper21/tables/50_complete_case_skewnormal_vs_gmm_cross_validation.csv \
+            results/paper21/tables/51_imputed_skewnormal_bootstrap_vs_gmm.csv \
+            results/paper21/tables/52_imputed_skewnormal_vs_gmm_cross_validation.csv; do
             test -s "$f"
           done
 
