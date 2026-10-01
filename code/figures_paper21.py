@@ -12,7 +12,7 @@ import numpy as np
 import pandas as pd
 
 try:
-    from cmat_analysis.visualization import set_style
+    from cmat_analysis.visualization import plot_stacked_ridgeline, set_style
 except ModuleNotFoundError as exc:
     raise SystemExit(
         "Paper 2.1 figures require the shared editable library. Run:\n"
@@ -39,6 +39,8 @@ def _save(fig: plt.Figure, name: str) -> Path:
 
 def validate() -> None:
     required = [
+        "10g_zero_inclusive_stacked_ridgeline_density.csv",
+        "10b_zero_inclusive_descriptives.csv",
         "10d_zero_inclusive_exact_administrative_composition.csv",
         "10l_zero_inclusive_observed_numeric_grade_density.csv",
         "18_primary_z_heatmap_matrix.csv",
@@ -90,7 +92,7 @@ def _central_density_limits(
     margin = 0.04 * (right - left)
     return left - margin, right + margin
 
-def plot_distribution_and_composition() -> Path:
+def plot_observed_pre_imputation_structure() -> Path:
     """Plot the observed, pre-imputation outcome composition by visit group.
 
     Administrative outcomes are shown as shares of the full attendance group.
@@ -285,6 +287,65 @@ def plot_distribution_and_composition() -> Path:
         bbox_to_anchor=(0.5, 1.01),
     )
     fig.subplots_adjust(top=0.88)
+    return _save(fig, "fig01a_observed_pre_imputation_structure.pdf")
+
+
+def plot_distribution_and_composition() -> Path:
+    density = pd.read_csv(
+        TABLES_DIR / "10g_zero_inclusive_stacked_ridgeline_density.csv"
+    )
+    summary = pd.read_csv(TABLES_DIR / "10b_zero_inclusive_descriptives.csv")
+    summary = summary.rename(
+        columns={
+            "mean_z": "outcome_mean",
+            "z_ci95_low": "outcome_ci95_low",
+            "z_ci95_high": "outcome_ci95_high",
+        }
+    )
+
+    fig, ax = plt.subplots(figsize=(8.4, 6.0))
+    component_labels = {
+        "pass": "Pass",
+        "numeric_nonpass": "Numeric <7.5",
+        "BV": "BV",
+        "RT": "RT",
+        "BA": "BA",
+    }
+    cycle = plt.rcParams["axes.prop_cycle"].by_key().get("color", [])
+    if not cycle:
+        cycle = [f"C{i}" for i in range(len(OUTCOME_STATES))]
+    component_colors = {
+        component: cycle[index % len(cycle)]
+        for index, component in enumerate(OUTCOME_STATES)
+    }
+    plot_stacked_ridgeline(
+        density,
+        group_order=GROUPS,
+        component_order=OUTCOME_STATES,
+        summary=summary,
+        colors=component_colors,
+        component_labels=component_labels,
+        ridge_height=0.82,
+        ax=ax,
+    )
+    ax.axvline(0, linestyle="--", linewidth=0.9, alpha=0.65)
+    ax.set_xlim(-2, 2)
+    ax.set_xlabel("Instructor-period-standardised MU grade (Z)")
+    ax.set_ylabel("CMAT visits during the MU academic period")
+    ax.grid(axis="y", visible=False)
+    ax.legend(
+        handles=[
+            Patch(
+                facecolor=component_colors[component],
+                label=component_labels[component],
+            )
+            for component in OUTCOME_STATES
+        ],
+        frameon=False,
+        ncol=5,
+        loc="lower center",
+        bbox_to_anchor=(0.5, 1.01),
+    )
     return _save(fig, "fig01_distribution_composition_ridgeline.pdf")
 
 def _heatmap(
@@ -527,6 +588,7 @@ def main() -> int:
     plt.rcParams["pdf.fonttype"] = 42
     plt.rcParams["ps.fonttype"] = 42
     for path in [
+        plot_observed_pre_imputation_structure(),
         plot_distribution_and_composition(),
         plot_z_heatmap(),
         plot_pass_heatmap(),
