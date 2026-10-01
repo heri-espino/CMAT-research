@@ -4,18 +4,20 @@ This branch develops a denser extension of Paper 2 focused on what happens **amo
 
 Read:
 
-- `PROJECT_CONTEXT.md` for the scientific question;
-- `ANALYSIS_PLAN.md` for the pre-outcome analysis contract;
-- `STATUS_AND_ROADMAP.md` for current milestones;
-- `OUTCOME_FRAMEWORK.md` for the performance and academic-management margins;
-- `ACADEMIC_MANAGEMENT_HYPOTHESIS.md` for the mechanism hypothesis and its guardrails;
-- `PRELIMINARY_RESULTS.md` for verified intermediate results;
-- `MIXTURE_ANALYSIS_PLAN.md` for the pre-specified density-analysis hierarchy;
-- `MIXTURE_ANALYSIS_RESULTS.md` for the complete GMM/skew-normal results, code map, validation provenance, and interpretation guardrails;
-- `LITERATURE_ACCESS_NOTES.md` for source-access limitations, including the abstract-only Gokhool & Lawson citation;
+- `docs/README.md` for the internal-document map;
+
+- `docs/project/PROJECT_CONTEXT.md` for the scientific question;
+- `docs/analysis/ANALYSIS_PLAN.md` for the pre-outcome analysis contract;
+- `docs/project/STATUS_AND_ROADMAP.md` for current milestones;
+- `docs/analysis/OUTCOME_FRAMEWORK.md` for the performance and academic-management margins;
+- `docs/interpretation/ACADEMIC_MANAGEMENT_HYPOTHESIS.md` for the mechanism hypothesis and its guardrails;
+- `docs/results/PRELIMINARY_RESULTS.md` for verified intermediate results;
+- `docs/analysis/MIXTURE_ANALYSIS_PLAN.md` for the pre-specified density-analysis hierarchy;
+- `docs/results/MIXTURE_ANALYSIS_RESULTS.md` for the complete GMM/skew-normal results, code map, validation provenance, and interpretation guardrails;
+- `../literature_selected/ACCESS_NOTES.md` for source-access limitations, including the abstract-only Gokhool & Lawson citation;
 - `AI_HANDOFF.md` for binding branch-specific rules.
 
-The primary frequency grouping is now frozen as `1 / 2 / 3 / 4 / 5 / 6+` from an outcome-blind support and pair-overlap audit. `1 / 2 / 3 / 4 / 5 / 6 / 7+` is exploratory sensitivity only. See `VISIT_GROUPING_DECISION.md`.
+The primary frequency grouping is now frozen as `1 / 2 / 3 / 4 / 5 / 6+` from an outcome-blind support and pair-overlap audit. `1 / 2 / 3 / 4 / 5 / 6 / 7+` is exploratory sensitivity only. See `docs/analysis/VISIT_GROUPING_DECISION.md`.
 
 The manuscript now analyses two performance outcomes—PASS/non-PASS and the continuous imputed instructor-period-standardised grade—together with the composition of adverse outcomes, including the BV-specific academic-management contrast.
 
