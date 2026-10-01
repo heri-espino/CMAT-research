@@ -1,21 +1,15 @@
-# Paper 2 results
+# Paper 2.1 results
 
-This directory is the branch-local destination for validated aggregate outputs produced by `code/run_paper.py` and publication figures produced by `code/figures.py`.
-
-Expected structure after a controlled-data run:
+The canonical Paper 2.1 aggregate outputs live under:
 
 ```text
-results/
+results/paper21/
 ├── tables/
-├── figures/
-├── logs/
-└── run_summary.json
+└── figures/
 ```
 
-Figures are generated as vector PDF files for LaTeX. Generated microdata or student-level analytical datasets must never be written here or committed.
+`tables/` contains publication-safe aggregate analysis outputs produced by the Paper 2.1 runners, while `figures/` contains vector PDFs generated from those tables. The dependency-aware interface in `paper/paper_build.py` is the preferred way to regenerate them.
 
-The manuscript can also be compiled without private data by generating figures from the retained aggregate checkpoint at `brainstorm/shared/historical_outputs/study/tables/`. Retained tables are provenance and a reproducibility guard; before submission they should be checked against a fresh controlled-data run with:
+The top-level `results/tables/`, `results/figures/`, `results/logs/` and `results/run_summary.json` are inherited Paper 2 artifacts from the parent branch; they are not inputs to the Paper 2.1 manuscript and should not be treated as canonical Paper 2.1 results.
 
-```bash
-python code/run_paper.py --materias ... --asesorias ... --compare-retained
-```
+Generated microdata or student-level analytical datasets must never be written here or committed.
