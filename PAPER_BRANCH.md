@@ -17,6 +17,30 @@ Read in this order:
 7. `paper/docs/project/STATUS_AND_ROADMAP.md`
 8. `paper/AI_HANDOFF.md`
 
+## Branch layout
+
+Paper 2.1-specific material is organised by function rather than kept as loose files:
+
+```text
+paper/
+├── README.md
+├── AI_HANDOFF.md
+├── docs/
+│   ├── project/
+│   ├── analysis/
+│   ├── results/
+│   └── interpretation/
+├── sections/
+└── manuscript/build sources
+
+literature_selected/   # paper-specific literature map and access notes
+code/                  # thin Paper 2.1 orchestration
+results/paper21/       # canonical aggregate tables and vector figures
+submission/            # submission metadata and checklist
+```
+
+Generated manuscript PDFs are intentionally not tracked; the paper-build workflow uploads them as GitHub Actions artifacts.
+
 ## Scientific boundary
 
 Paper 2.1 inherits from Paper 2:
