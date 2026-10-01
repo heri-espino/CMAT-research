@@ -29,7 +29,7 @@ Before looking at group means, pass rates, pairwise effects, or p-values, comput
 
 The grouping rule should **maximize retained frequency resolution subject to pre-declared support requirements**, rather than selecting the cut where statistical significance happens to disappear.
 
-The support audit is now complete and froze the primary grouping as **`1 / 2 / 3 / 4 / 5 / 6+`** before any Paper 2.1 outcome comparisons were inspected. The decision is documented in `paper/VISIT_GROUPING_DECISION.md` and machine-readable in `paper/visit_grouping_spec.json`. The more granular `1 / 2 / 3 / 4 / 5 / 6 / 7+` grouping is an exploratory sensitivity only.
+The support audit is now complete and froze the primary grouping as **`1 / 2 / 3 / 4 / 5 / 6+`** before any Paper 2.1 outcome comparisons were inspected. The decision is documented in `paper/docs/analysis/VISIT_GROUPING_DECISION.md` and machine-readable in `paper/visit_grouping_spec.json`. The more granular `1 / 2 / 3 / 4 / 5 / 6 / 7+` grouping is an exploratory sensitivity only.
 
 ## Stage 2 — descriptive outcome profiles
 
@@ -159,7 +159,7 @@ Among non-PASS cases, estimate two mechanism-oriented conditional outcomes:
 
 For each conditional outcome, reproduce the 0-versus-1+ benchmark and estimate frequency-group contrasts among CMAT users where support is adequate. Interpret these as differences in **outcome composition**, not causal effects of attendance on withdrawal behaviour.
 
-The broader interpretation is documented in `paper/ACADEMIC_MANAGEMENT_HYPOTHESIS.md`. Zero attendance must never be translated into lack of interest or engagement.
+The broader interpretation is documented in `paper/docs/interpretation/ACADEMIC_MANAGEMENT_HYPOTHESIS.md`. Zero attendance must never be translated into lack of interest or engagement.
 
 ## Stage 9 — outcome-construction robustness
 
