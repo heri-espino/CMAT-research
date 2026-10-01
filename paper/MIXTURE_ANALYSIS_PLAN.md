@@ -78,6 +78,9 @@ The controlled Paper 2.1 recipe produces:
 - 41--44 corresponding imputed-outcome sensitivity outputs;
 - 45_gmm_component_comparison_complete_vs_imputed.csv;
 - 46_complete_case_gmm_ridgeline_density.csv;
+- 47--48 observed-sample Gaussian/skew-normal/GMM specification comparisons;
+- 49/51 parametric-bootstrap skew-normal-null versus GMM K=2 diagnostics for complete-case and imputed outcomes;
+- 50/52 repeated cross-validated skew-normal versus GMM K=2 held-out log predictive density for complete-case and imputed outcomes;
 - fig04_complete_case_gmm_ridgeline.pdf, showing the observed complete-case density with the two weighted Gaussian components;
 - fig05_lower_component_weight.pdf, showing the estimated lower-performance component weight by attendance frequency for complete-case and imputed sensitivity specifications.
 
@@ -103,6 +106,8 @@ The standard comparison is:
 Report log-likelihood, AIC and BIC for all three models together with the fitted skew-normal shape/location/scale parameters. Define a positive `bic_advantage_gmm_k2_over_skew_normal` as evidence that the two-Gaussian mixture has lower BIC than the single skew-normal.
 
 The check is performed for both `Z_GRADE_COMPLETE_CASE` and `Z_GRADE_PRIMARY`. A two-Gaussian preference after allowing strong skewness is stronger evidence of distributional heterogeneity than rejection of one Gaussian alone, but it still does not identify literal latent student classes.
+
+The direct skew-normal comparison is evaluated in every `0/1/2/3/4/5/6+` group. The parametric bootstrap fits the skew-normal null, simulates samples of the observed group size, refits the skew-normal and GMM K=2 to each sample, and uses `BIC(skew-normal) - BIC(GMM K=2)` as the reference statistic. The repeated cross-validation diagnostic compares held-out log predictive density; a positive GMM-minus-skew difference indicates better out-of-sample density prediction by the mixture. The bootstrap is the inferential model-adequacy check, while cross-validation is a complementary predictive diagnostic rather than an independent p-value.
 
 ## H. Verified refinement after the skew-normal check
 
