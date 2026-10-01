@@ -22,3 +22,20 @@ The manuscript now analyses two performance outcomes—PASS/non-PASS and the con
 `sections/01.tex`--`04.tex` now contain the full Paper 2.1 draft. The build regenerates Paper 2.1 aggregate results and vector figures before compiling the clean and commented TEAMAT/IMA PDFs.
 
 The distributional extension now includes a one-component skew-normal specification check against the one-Gaussian and two-Gaussian candidates. Reusable estimators live in `main/cmat_analysis`; Paper 2.1 runners contain only publication-specific orchestration.
+
+## Build workflow
+
+The paper now uses a dependency-aware build entry point at `paper/paper_build.py`, with table/figure orchestration isolated in `paper/paper_build_figures.py`.
+
+Common commands:
+
+- `python paper/paper_build.py` — compile the clean and commented PDFs, automatically generating missing figures and, when needed, their missing table inputs;
+- `python paper/paper_build.py --tables` — force regeneration of the canonical Paper 2.1 aggregate tables;
+- `python paper/paper_build.py --figures` — force regeneration of all vector figures, automatically rebuilding tables only if required figure inputs are absent;
+- `python paper/paper_build.py --paper` (or `--pdf`) — compile PDFs, resolving missing dependencies automatically;
+- `python paper/paper_build.py --tables --figures --paper` — explicit full rebuild;
+- `python paper/paper_build.py --all` — shorthand for the same full rebuild;
+- `python paper/paper_build.py --check` — report missing tables, figure inputs, figures, manuscript sources, and PDFs without changing files;
+- `python paper/paper_build.py --paper --no-auto` — compile only when all required figures already exist, failing instead of regenerating dependencies.
+
+The legacy `python paper/build.py` command remains available as a compatibility wrapper and delegates to `paper_build.py`. Explicit stage flags mean “rebuild this stage”; automatic rebuilding is reserved for missing upstream dependencies, so an ordinary PDF compile does not rerun the expensive mixture analysis when its figures already exist.
