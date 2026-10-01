@@ -12,7 +12,7 @@ import numpy as np
 import pandas as pd
 
 try:
-    from cmat_analysis.visualization import plot_stacked_ridgeline, set_style
+    from cmat_analysis.visualization import set_style
 except ModuleNotFoundError as exc:
     raise SystemExit(
         "Paper 2.1 figures require the shared editable library. Run:\n"
@@ -39,8 +39,8 @@ def _save(fig: plt.Figure, name: str) -> Path:
 
 def validate() -> None:
     required = [
-        "10b_zero_inclusive_descriptives.csv",
-        "10g_zero_inclusive_stacked_ridgeline_density.csv",
+        "10d_zero_inclusive_exact_administrative_composition.csv",
+        "10l_zero_inclusive_observed_numeric_grade_density.csv",
         "18_primary_z_heatmap_matrix.csv",
         "19_primary_pass_heatmap_matrix.csv",
         "38_complete_case_gmm_two_component_parameters.csv",
@@ -91,21 +91,28 @@ def _central_density_limits(
     return left - margin, right + margin
 
 def plot_distribution_and_composition() -> Path:
+    """Plot the observed, pre-imputation outcome composition by visit group.
+
+    Administrative outcomes are shown as shares of the full attendance group.
+    The ridgelines use only observed numeric grades on their original 0--10
+    scale; no numeric value is assigned to BV, RT, or BA.
+    """
     density = pd.read_csv(
-        TABLES_DIR / "10g_zero_inclusive_stacked_ridgeline_density.csv"
+        TABLES_DIR / "10l_zero_inclusive_observed_numeric_grade_density.csv"
     )
-    summary = pd.read_csv(TABLES_DIR / "10b_zero_inclusive_descriptives.csv")
-    summary = summary.rename(
-        columns={
-            "mean_z": "outcome_mean",
-            "z_ci95_low": "outcome_ci95_low",
-            "z_ci95_high": "outcome_ci95_high",
-        }
+    composition = pd.read_csv(
+        TABLES_DIR / "10d_zero_inclusive_exact_administrative_composition.csv"
+    )
+    density["group"] = density["group"].astype(str)
+    composition["group"] = composition["group"].astype(str)
+
+    share = (
+        composition.set_index(["group", "outcome_state"])["share_within_group"]
+        .astype(float)
     )
 
-    fig, ax = plt.subplots(figsize=(8.4, 6.0))
     component_labels = {
-        "pass": "Pass",
+        "pass": "Numeric pass (>=7.5)",
         "numeric_nonpass": "Numeric <7.5",
         "BV": "BV",
         "RT": "RT",
@@ -118,36 +125,167 @@ def plot_distribution_and_composition() -> Path:
         component: cycle[index % len(cycle)]
         for index, component in enumerate(OUTCOME_STATES)
     }
-    plot_stacked_ridgeline(
-        density,
-        group_order=GROUPS,
-        component_order=OUTCOME_STATES,
-        summary=summary,
-        colors=component_colors,
-        component_labels=component_labels,
-        ridge_height=0.82,
-        ax=ax,
+
+    fig, (ax_admin, ax_grade) = plt.subplots(
+        1,
+        2,
+        figsize=(10.2, 6.2),
+        sharey=True,
+        gridspec_kw={"width_ratios": [1.7, 4.8], "wspace": 0.06},
     )
-    ax.axvline(0, linestyle="--", linewidth=0.9, alpha=0.65)
-    ax.set_xlim(-2, 2)
-    ax.set_xlabel("Instructor-period-standardised MU grade (Z)")
-    ax.set_ylabel("CMAT visits during the MU academic period")
-    ax.grid(axis="y", visible=False)
-    ax.legend(
+    ridge_height = 0.78
+    positions = np.arange(len(GROUPS), dtype=float)
+
+    def group_share(group: str, state: str) -> float:
+        key = (group, state)
+        return float(share.loc[key]) if key in share.index else 0.0
+
+    admin_totals = [
+        100.0 * sum(group_share(group, state) for state in ["BV", "RT", "BA"])
+        for group in GROUPS
+    ]
+    admin_limit = max(20.0, 5.0 * np.ceil((max(admin_totals) + 3.0) / 5.0))
+
+    for position, group in zip(positions, GROUPS):
+        left = 0.0
+        for state in ["BV", "RT", "BA"]:
+            width = 100.0 * group_share(group, state)
+            ax_admin.barh(
+                position,
+                width,
+                left=left,
+                height=0.38,
+                color=component_colors[state],
+                edgecolor="white",
+                linewidth=0.45,
+            )
+            if width >= 1.15:
+                ax_admin.text(
+                    left + width / 2.0,
+                    position,
+                    f"{width:.1f}%",
+                    ha="center",
+                    va="center",
+                    fontsize=6.4,
+                )
+            elif width > 0:
+                ax_admin.text(
+                    left + width / 2.0,
+                    position + 0.29,
+                    f"{width:.1f}%",
+                    ha="center",
+                    va="bottom",
+                    fontsize=5.8,
+                )
+            left += width
+        ax_admin.text(
+            min(left + 0.45, admin_limit - 0.25),
+            position,
+            f"{left:.1f}% total",
+            ha="left" if left + 0.45 < admin_limit - 0.25 else "right",
+            va="center",
+            fontsize=6.5,
+            color="0.25",
+        )
+
+        observed = (
+            density.loc[density["group"].eq(group)]
+            .drop_duplicates("x")
+            .sort_values("x")
+        )
+        if observed.empty:
+            continue
+        x = observed["x"].to_numpy(float)
+        y = observed["density_total"].to_numpy(float)
+        scale = float(np.nanmax(y))
+        if not np.isfinite(scale) or scale <= 0:
+            continue
+        ridge = position + ridge_height * y / scale
+
+        ax_grade.fill_between(
+            x,
+            position,
+            ridge,
+            where=x < 7.5,
+            interpolate=True,
+            color=component_colors["numeric_nonpass"],
+            alpha=0.88,
+        )
+        ax_grade.fill_between(
+            x,
+            position,
+            ridge,
+            where=x >= 7.5,
+            interpolate=True,
+            color=component_colors["pass"],
+            alpha=0.94,
+        )
+        ax_grade.plot(x, ridge, linewidth=0.95, color="0.20")
+        ax_grade.hlines(position, 0.0, 10.0, linewidth=0.55, color="0.35")
+
+        fail_share = 100.0 * group_share(group, "numeric_grade_below_7.5")
+        pass_share = 100.0 * group_share(group, "pass")
+        ax_grade.text(
+            5.6,
+            position + 0.11,
+            f"{fail_share:.1f}% total",
+            ha="right",
+            va="bottom",
+            fontsize=6.5,
+            color=component_colors["numeric_nonpass"],
+            bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.72, "pad": 0.8},
+        )
+        ax_grade.text(
+            9.72,
+            position + 0.11,
+            f"{pass_share:.1f}% total",
+            ha="right",
+            va="bottom",
+            fontsize=6.5,
+            color=component_colors["pass"],
+            bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.72, "pad": 0.8},
+        )
+
+    ax_admin.set_xlim(0.0, admin_limit)
+    ax_admin.set_xticks(np.arange(0.0, admin_limit + 0.1, 5.0))
+    ax_admin.set_xlabel("Non-numeric outcomes (% of full group)")
+    ax_admin.set_ylabel("CMAT visits during the MU academic period")
+    ax_admin.set_yticks(positions, GROUPS)
+    ax_admin.set_title("Observed non-numeric records", fontsize=9.5)
+    ax_admin.grid(axis="y", visible=False)
+
+    ax_grade.axvline(7.5, linestyle="--", linewidth=0.9, color="0.35", alpha=0.85)
+    ax_grade.text(
+        7.5,
+        len(GROUPS) - 0.05,
+        "pass mark 7.5",
+        rotation=90,
+        ha="right",
+        va="top",
+        fontsize=7,
+        color="0.35",
+    )
+    ax_grade.set_xlim(0.0, 10.0)
+    ax_grade.set_xlabel("Observed numeric MU final grade")
+    ax_grade.set_title("Empirical numeric-grade distribution", fontsize=9.5)
+    ax_grade.grid(axis="y", visible=False)
+    ax_grade.tick_params(axis="y", left=False, labelleft=False)
+
+    fig.legend(
         handles=[
             Patch(
                 facecolor=component_colors[component],
                 label=component_labels[component],
             )
-            for component in OUTCOME_STATES
+            for component in ["pass", "numeric_nonpass", "BV", "RT", "BA"]
         ],
         frameon=False,
         ncol=5,
-        loc="lower center",
+        loc="upper center",
         bbox_to_anchor=(0.5, 1.01),
     )
+    fig.subplots_adjust(top=0.88)
     return _save(fig, "fig01_distribution_composition_ridgeline.pdf")
-
 
 def _heatmap(
     path: Path,
