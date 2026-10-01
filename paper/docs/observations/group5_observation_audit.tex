@@ -1,0 +1,82 @@
+\documentclass[11pt]{article}
+\usepackage[a4paper,margin=1in]{geometry}
+\usepackage{booktabs}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+\usepackage{enumitem}
+
+\title{\textbf{Observation-Level Audit of the Exact Five-Visit Group}\\
+\large A descriptive companion to Paper 2.1}
+\author{Internal research document}
+\date{October 2026}
+\newcommand{\generatedfragment}{generated/group5_observations.tex}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+The pre-imputation outcome figure in Paper 2.1 shows a visually distinct concentration of observed numeric grades below the institutional pass mark among students with exactly five recorded CMAT visits during the MU academic period. This companion audit examines the observation-level basis of that feature without assigning numerical values to BV, RT or BA. The exact five-visit group contains 55 students: 47 numeric passes, 2 observed numeric failures, 5 BV outcomes, 1 RT outcome and no BA outcome. Thus the 3.6\% numeric-failure share visible in the figure is supported by only two observations. The detailed local version places every observation in its instructor-period classroom, reports the timing and recorded subject of same-period CMAT visits, and displays the empirical classroom grade distribution with the focal observation highlighted. Its purpose is descriptive diagnosis, not causal attribution.
+\end{abstract}
+
+\section{Motivation}
+The orange region below 7.5 is visually concentrated in the exact five-visit group, but the group contains only 55 students and its displayed 3.6\% numeric-failure share corresponds to
+\[
+\frac{2}{55}=3.64\%.
+\]
+A kernel-smoothed density can therefore make two nearby grades appear as a pronounced local feature even when the underlying count is very small. Before interpreting the shape substantively, the relevant observations should be inspected in their original classroom and temporal context.
+
+The audit asks whether the two numeric failures are close in value, whether they occur in the same instructor-period environment, where each lies relative to classmates, whether their five recorded visits are temporally concentrated, and whether those visits were recorded for MU or for other subjects. The same profile is generated for every student in the five-visit group so that the two failures are not examined in isolation.
+
+\section{Observed composition of the five-visit group}
+\begin{table}[H]
+\centering
+\caption{Exact observed final-outcome composition for students with five same-period CMAT visits.}
+\begin{tabular}{lrr}
+\toprule
+Final outcome & Count & Share of full group \\
+\midrule
+Numeric pass ($\geq 7.5$) & 47 & 85.5\% \\
+Numeric $<7.5$ & 2 & 3.6\% \\
+BV & 5 & 9.1\% \\
+RT & 1 & 1.8\% \\
+BA & 0 & 0.0\% \\
+\midrule
+Total & 55 & 100.0\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+The numeric-grade subset contains 49 observations, of which only two are below 7.5. The local audit uses raw observed numeric grades and retains BV, RT and BA as categorical outcomes.
+
+\section{Observation-level design}
+Each focal student is assigned an ephemeral label such as \texttt{O01}; instructors and instructor-period classrooms are likewise replaced by document-local labels. The generated fragment never writes the stored student identifier, professor identifier or \texttt{CLASSROOM\_ID}. For each observation it displays the academic period, final outcome, five same-period CMAT visit dates and recorded subject labels, together with the observed numeric-grade distribution in the same instructor-period classroom. Classroom summaries include total size, numeric-grade count, administrative-outcome count, mean, median, interquartile range, pass share and, when defined, the focal student's empirical percentile.
+
+Visit dates establish when support records occurred within the academic period, but the available data do not identify dates of specific assessments or the decision date for an administrative outcome. The audit therefore does not label a visit as occurring before or after academic difficulty unless a separate dated source establishes that ordering.
+
+\section{Questions to inspect}
+\begin{enumerate}[leftmargin=*]
+\item Are the two numeric failures in the same classroom, instructor or academic period?
+\item Are the two failing grades close enough that smoothing naturally produces the visible orange concentration?
+\item Are those grades unusual within their own classrooms, or do those classrooms have broader lower-grade tails?
+\item Are the five CMAT visits spread through the period or tightly clustered?
+\item Were the visits recorded for MU or for other mathematics subjects, given the period-wide exposure definition?
+\item Do the BV and RT observations occur in descriptively different classroom contexts from the numeric failures?
+\end{enumerate}
+
+\section{Generated observation-level audit}
+\IfFileExists{\generatedfragment}{
+  \input{\generatedfragment}
+}{
+  \noindent\fbox{\parbox{0.94\textwidth}{
+  The detailed observation-level fragment has not been generated in this checkout. Run
+  \texttt{python paper/docs/observations/build\_observation\_audit.py --group 5}
+  from the repository root. The output is intentionally local-only and excluded from Git.
+  }}
+}
+
+\section{Interpretive boundary}
+This document is an audit of the observations underlying a visual feature, not a causal analysis. Classroom distributions can show whether a focal grade is locally unusual, and visit dates can show how recorded use was distributed over time, but neither identifies the student's reason for attending, the quality or content of support, the timing of academic difficulty, or the effect of CMAT on the final outcome.
+
+\end{document}
