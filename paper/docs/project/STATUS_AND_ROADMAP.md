@@ -33,7 +33,7 @@ The current `4+` top-code is not binding on this branch.
 - [ ] identify whether any study formally tests equivalence or saturation/plateau patterns;
 - [x] draft a dense state-of-the-art section ending in the Paper 2.1 research gap;
 - [ ] perform a final literature audit before submission and add only sources that materially inform frequency grouping, repeated attendance, outcome composition, or interpretation;
-- [x] cite Gokhool & Lawson (2026) only for abstract-supported claims and record the access limitation in `paper/LITERATURE_ACCESS_NOTES.md`.
+- [x] cite Gokhool & Lawson (2026) only for abstract-supported claims and record the access limitation in `literature_selected/ACCESS_NOTES.md`.
 
 ### M2 — Support audit and final visit grouping — COMPLETE
 
@@ -41,7 +41,7 @@ The current `4+` top-code is not binding on this branch.
 - [x] quantify within-instructor-period overlap among positive groups;
 - [x] compare candidate top-codes using the pair-overlap frontier;
 - [x] freeze the final grouping before inspecting Paper 2.1 outcomes;
-- [x] record the decision in `paper/VISIT_GROUPING_DECISION.md` and `paper/visit_grouping_spec.json`.
+- [x] record the decision in `paper/docs/analysis/VISIT_GROUPING_DECISION.md` and `paper/visit_grouping_spec.json`.
 
 **Primary:** `1 / 2 / 3 / 4 / 5 / 6+`.
 
@@ -49,8 +49,8 @@ The current `4+` top-code is not binding on this branch.
 
 ### M3 — Dual-outcome and distributional inference
 
-- [x] document the three-layer outcome framework in `paper/OUTCOME_FRAMEWORK.md`;
-- [x] document the administrative-withdrawal attendance context and manuscript guardrail in `paper/ADMINISTRATIVE_OUTCOME_NOTE.md`;
+- [x] document the three-layer outcome framework in `paper/docs/analysis/OUTCOME_FRAMEWORK.md`;
+- [x] document the administrative-withdrawal attendance context and manuscript guardrail in `paper/docs/interpretation/ADMINISTRATIVE_OUTCOME_NOTE.md`;
 - [x] implement the reproducible Paper 2.1 outcome runner;
 - [x] verify the current controlled-data run in CI;
 - [x] reproduce 0 vs 1+ benchmark for PASS and continuous Z;
@@ -71,7 +71,7 @@ The current `4+` top-code is not binding on this branch.
 
 ### M3A — Observed failure and Gaussian mixtures — COMPLETE
 
-- [x] freeze the analysis hierarchy in `paper/MIXTURE_ANALYSIS_PLAN.md`;
+- [x] freeze the analysis hierarchy in `paper/docs/analysis/MIXTURE_ANALYSIS_PLAN.md`;
 - [x] implement observed numeric-failure descriptives by `0/1/2/3/4/5/6+`;
 - [x] implement model-standardized numeric-failure probabilities plus clustered fixed-effect logistic comparisons and Holm-adjusted odds ratios;
 - [x] implement complete-case univariate GMM comparison for K=1/2/3;
@@ -125,6 +125,6 @@ Paper 2.1 reusable methods are upstream on `main`; the current mixture/logit, st
 
 ## Immediate next task
 
-The controlled Paper 2.1 analysis is now complete through the observed-failure, instructor-clustering and Gaussian-mixture extensions, and the corresponding interpretation is integrated into `paper/sections/01.tex`--`04.tex`. The full GMM validation is GitHub Actions run `35657154301` at `50876b0e66f4893b4a447018be33f35bba4054e1`, with tables 01--46 and figures 01--05. The subsequent skew-normal shape check is run `36678572075` at `dc12a547acd726a6d8289115641813c0e5723c5a`, which verified tables 47--48. `paper/MIXTURE_ANALYSIS_RESULTS.md` is the canonical record of the combined distributional analysis.
+The controlled Paper 2.1 analysis is now complete through the observed-failure, instructor-clustering and Gaussian-mixture extensions, and the corresponding interpretation is integrated into `paper/sections/01.tex`--`04.tex`. The full GMM validation is GitHub Actions run `35657154301` at `50876b0e66f4893b4a447018be33f35bba4054e1`, with tables 01--46 and figures 01--05. The subsequent skew-normal shape check is run `36678572075` at `dc12a547acd726a6d8289115641813c0e5723c5a`, which verified tables 47--48. `paper/docs/results/MIXTURE_ANALYSIS_RESULTS.md` is the canonical record of the combined distributional analysis.
 
 Remaining pre-submission work depends partly on inputs not contained in the repository: (1) add the university entrance-exam sensitivity if the requested data are usable; (2) verify historical institutional rules for BV/RT/BA before making any GPA/transcript claim; (3) insert the exact ethics/IRB/data-use authorization statement; and (4) run a final referee-style literature, numerical-consistency and typesetting audit. The frozen `1/2/3/4/5/6+` grouping must not be changed in response to outcome significance.
