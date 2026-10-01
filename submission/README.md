@@ -4,9 +4,11 @@ Paper 2.1 now has a complete TEAMAT/IMA manuscript draft, but it is **not submis
 
 ## Current manuscript
 
+Submission-system metadata are kept in `submission/METADATA.md`.
+
 Working title: *Beyond First Attendance: Frequency of Mathematics Support Use and the Composition of Academic Outcomes*.
 
-The current draft is in `paper/sections/01.tex`--`04.tex`; build instructions and status are in `paper/README.md` and `paper/STATUS_AND_ROADMAP.md`.
+The current draft is in `paper/sections/01.tex`--`04.tex`; build instructions and status are in `paper/README.md` and `paper/docs/project/STATUS_AND_ROADMAP.md`.
 
 ## Pre-submission blockers
 
@@ -21,6 +23,6 @@ The current draft is in `paper/sections/01.tex`--`04.tex`; build instructions an
 
 ## Source-access warning
 
-Gokhool & Lawson (2026) is currently available to the project only through the abstract supplied by the project owner. The manuscript uses it only for abstract-supported claims about the two engagement dimensions and hurdle-model specification. See `paper/LITERATURE_ACCESS_NOTES.md`.
+Gokhool & Lawson (2026) is currently available to the project only through the abstract supplied by the project owner. The manuscript uses it only for abstract-supported claims about the two engagement dimensions and hurdle-model specification. See `literature_selected/ACCESS_NOTES.md`.
 
 Do not place row-level administrative data or direct student identifiers in this directory.
