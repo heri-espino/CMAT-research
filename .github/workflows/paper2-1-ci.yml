@@ -18,6 +18,10 @@ on:
 permissions:
   contents: read
 
+concurrency:
+  group: paper21-support-audit-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   support-audit:
     runs-on: ubuntu-latest
