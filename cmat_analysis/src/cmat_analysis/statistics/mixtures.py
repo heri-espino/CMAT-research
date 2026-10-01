@@ -14,6 +14,7 @@ from collections.abc import Iterable, Sequence
 
 import numpy as np
 import pandas as pd
+from scipy.optimize import minimize
 from scipy.stats import skewnorm
 from sklearn.mixture import GaussianMixture
 from sklearn.model_selection import RepeatedKFold
@@ -481,6 +482,80 @@ def parametric_bootstrap_skew_normal_vs_gmm(
     }])
 
 
+def _fit_skew_normal_for_prediction(
+    values: Iterable[float],
+) -> tuple[float, float, float]:
+    """Fit a numerically stable skew-normal for held-out prediction.
+
+    The unconstrained skew-normal likelihood can approach a near-boundary
+    solution in small training folds, producing extremely small held-out
+    densities. For predictive comparison, optimize the same skew-normal
+    likelihood with broad sample-scaled bounds that exclude only such
+    degenerate solutions.
+    """
+    x = _clean_values(values).ravel()
+    center = float(np.mean(x))
+    median = float(np.median(x))
+    sd = float(np.std(x, ddof=1))
+    if not np.isfinite(sd) or sd <= 0:
+        raise ValueError("Skew-normal predictive fit requires positive variation.")
+
+    loc_low = float(np.min(x) - 2.0 * sd)
+    loc_high = float(np.max(x) + 2.0 * sd)
+    scale_low = max(1e-3, 0.25 * sd)
+    scale_high = max(scale_low * 2.0, 5.0 * sd)
+    log_scale_bounds = (float(np.log(scale_low)), float(np.log(scale_high)))
+    bounds = [(-30.0, 30.0), (loc_low, loc_high), log_scale_bounds]
+
+    starts: list[tuple[float, float, float]] = []
+    try:
+        fitted = tuple(float(value) for value in skewnorm.fit(x))
+        if np.isfinite(fitted).all() and fitted[2] > 0:
+            starts.append(
+                (
+                    float(np.clip(fitted[0], -30.0, 30.0)),
+                    float(np.clip(fitted[1], loc_low, loc_high)),
+                    float(np.clip(np.log(fitted[2]), *log_scale_bounds)),
+                )
+            )
+    except (RuntimeError, ValueError, FloatingPointError):
+        pass
+
+    starts.extend(
+        [
+            (0.0, center, float(np.log(sd))),
+            (-5.0, float(np.quantile(x, 0.75)), float(np.log(min(1.5 * sd, scale_high)))),
+            (5.0, float(np.quantile(x, 0.25)), float(np.log(min(1.5 * sd, scale_high)))),
+        ]
+    )
+
+    def objective(theta: np.ndarray) -> float:
+        shape, loc, log_scale = (float(value) for value in theta)
+        scale = float(np.exp(log_scale))
+        log_density = skewnorm.logpdf(x, shape, loc=loc, scale=scale)
+        if not np.isfinite(log_density).all():
+            return 1e100
+        return float(-np.sum(log_density))
+
+    candidates = []
+    for start in starts:
+        result = minimize(
+            objective,
+            np.asarray(start, dtype=float),
+            method="L-BFGS-B",
+            bounds=bounds,
+        )
+        if result.success and np.isfinite(result.fun):
+            candidates.append(result)
+
+    if not candidates:
+        raise RuntimeError("Stable skew-normal predictive fit did not converge.")
+
+    best = min(candidates, key=lambda result: float(result.fun))
+    shape, loc, log_scale = (float(value) for value in best.x)
+    return shape, loc, float(np.exp(log_scale))
+
+
 def cross_validated_skew_normal_vs_gmm(
     values: Iterable[float],
     *,
@@ -521,8 +596,11 @@ def cross_validated_skew_normal_vs_gmm(
     -----
     A positive mean_log_predictive_density_difference_gmm_minus_skew means the
     two-Gaussian model assigns higher average log density to held-out
-    observations. No p-value is reported because repeated folds are dependent;
-    this is a predictive model-comparison diagnostic.
+    observations. The skew-normal training fit uses broad sample-scaled bounds
+    to avoid near-boundary likelihood solutions that can produce numerically
+    degenerate held-out densities in small folds. No p-value is reported because
+    repeated folds are dependent; this is a predictive model-comparison
+    diagnostic.
     """
     if n_splits < 2:
         raise ValueError("n_splits must be at least 2")
@@ -549,9 +627,7 @@ def cross_validated_skew_normal_vs_gmm(
     ):
         train = x[train_index]
         test = x[test_index]
-        shape, loc, scale = (float(value) for value in skewnorm.fit(train))
-        if not np.isfinite([shape, loc, scale]).all() or scale <= 0:
-            raise RuntimeError("Skew-normal cross-validation fit returned invalid parameters.")
+        shape, loc, scale = _fit_skew_normal_for_prediction(train)
 
         starts = _sample_two_component_starts(
             train, two_component_mean_starts
