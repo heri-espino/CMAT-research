@@ -153,8 +153,8 @@ jobs:
             test -s "$f"
           done
 
-      - name: Generate Paper 2.1 figures
-        run: python code/figures_paper21.py
+      - name: Generate Paper 2.1 figures through paper builder
+        run: python paper/paper_build.py --figures
 
       - name: Verify publication figures
         shell: bash
