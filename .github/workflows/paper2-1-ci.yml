@@ -40,7 +40,7 @@ jobs:
         run: python -m pip install -e './cmat_analysis[dev]'
 
       - name: Compile Paper 2.1 runners and builders
-        run: python -m py_compile code/run_paper21.py code/run_paper21_outcomes.py code/run_paper21_mixture.py code/figures_paper21.py paper/paper_build_figures.py paper/paper_build.py paper/build.py
+        run: python -m py_compile code/run_paper21.py code/run_paper21_outcomes.py code/run_paper21_mixture.py code/figures_paper21.py paper/paper_build_figures.py paper/paper_build.py paper/build.py paper/docs/observations/build_observation_audit.py
 
       - name: Test reusable mixture estimators
         run: python -m pytest cmat_analysis/tests/test_mixtures.py -q
@@ -53,6 +53,9 @@ jobs:
 
       - name: Check Paper 2.1 mixture-analysis contract
         run: python code/run_paper21_mixture.py --check
+
+      - name: Check Paper 2.1 observation-audit contract
+        run: python paper/docs/observations/build_observation_audit.py --check
 
       - name: Run outcome-blind support audit
         run: |
