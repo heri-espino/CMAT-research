@@ -63,7 +63,7 @@ jobs:
       - name: Upload shape-validation tables
         uses: actions/upload-artifact@v4
         with:
-          name: paper21-shape-validation-\${{ github.sha }}
+          name: paper21-shape-validation-${{ github.sha }}
           path: |
             results/paper21/tables/47_complete_case_skewnormal_vs_gmm.csv
             results/paper21/tables/48_imputed_skewnormal_vs_gmm.csv
