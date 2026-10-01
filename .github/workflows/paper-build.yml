@@ -32,12 +32,15 @@ jobs:
         id: manuscript
         shell: bash
         run: |
-          if [[ -f paper/build.py && -f paper/main.tex ]]; then
+          if [[ -f paper/paper_build.py && -f paper/main.tex ]]; then
             echo "buildable=true" >> "$GITHUB_OUTPUT"
-            echo "Buildable manuscript detected."
+            echo "Dependency-aware manuscript builder detected."
+          elif [[ -f paper/build.py && -f paper/main.tex ]]; then
+            echo "buildable=true" >> "$GITHUB_OUTPUT"
+            echo "Legacy manuscript builder detected."
           else
             echo "buildable=false" >> "$GITHUB_OUTPUT"
-            echo "No paper/build.py + paper/main.tex pair yet; source export will still run."
+            echo "No buildable paper entry point + paper/main.tex pair yet; source export will still run."
           fi
 
       - name: Set up Python 3.14
@@ -52,20 +55,14 @@ jobs:
         if: steps.manuscript.outputs.buildable == 'true'
         run: python -m pip install -e './cmat_analysis[dev]'
 
-      - name: Reproduce Paper 2.1 aggregate outputs
+      - name: Reproduce Paper 2.1 tables and figures
         if: steps.manuscript.outputs.buildable == 'true'
         shell: bash
         run: |
-          if [[ -f code/run_paper21_outcomes.py ]]; then
-            python code/run_paper21_outcomes.py \
-              --materias data/controlled/Materias_pseudonymized.csv \
-              --asesorias data/controlled/Asesorias_pseudonymized.csv
-          fi
-          if [[ -f code/run_paper21_mixture.py ]]; then
-            python code/run_paper21_mixture.py \
-              --materias data/controlled/Materias_pseudonymized.csv \
-              --asesorias data/controlled/Asesorias_pseudonymized.csv \
-              --gmm-bootstrap 99
+          if [[ -f paper/paper_build.py ]]; then
+            python paper/paper_build.py --tables --figures
+          else
+            python paper/build.py
           fi
 
       - name: Install LaTeX toolchain
@@ -84,7 +81,13 @@ jobs:
 
       - name: Compile manuscript
         if: steps.manuscript.outputs.buildable == 'true'
-        run: python paper/build.py
+        shell: bash
+        run: |
+          if [[ -f paper/paper_build.py ]]; then
+            python paper/paper_build.py --paper
+          else
+            python paper/build.py
+          fi
 
       - name: Verify compiled manuscript
         if: steps.manuscript.outputs.buildable == 'true'
