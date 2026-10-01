@@ -22,7 +22,7 @@
 
 - Python files scanned: **134**
 - Reusable symbols: **495**
-- Test symbols: **73**
+- Test symbols: **75**
 
 ## Reusable symbols
 
@@ -896,13 +896,15 @@
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
 |---|---|---:|---|---|---|
-| `_bimodal_sample` | function | 19 | `def _bimodal_sample() -> tuple[np.ndarray, np.ndarray]` | No docstring; inspect implementation before reuse. | `tests test_mixtures py bimodal_sample` |
-| `test_two_component_model_recovers_ordered_bimodal_structure` | function | 28 | `def test_two_component_model_recovers_ordered_bimodal_structure()` | No docstring; inspect implementation before reuse. | `tests test_mixtures py test_two_component_model_recovers_ordered_bimodal_structure` |
-| `test_responsibilities_and_soft_composition_are_probabilistic` | function | 50 | `def test_responsibilities_and_soft_composition_are_probabilistic()` | No docstring; inspect implementation before reuse. | `tests test_mixtures py test_responsibilities_and_soft_composition_are_probabilistic` |
-| `test_parametric_bootstrap_gmm_lrt_returns_valid_empirical_p_value` | function | 75 | `def test_parametric_bootstrap_gmm_lrt_returns_valid_empirical_p_value()` | No docstring; inspect implementation before reuse. | `tests test_mixtures py test_parametric_bootstrap_gmm_lrt_returns_valid_empirical_p_value` |
-| `test_single_skew_normal_beats_single_gaussian_for_skewed_unimodal_data` | function | 88 | `def test_single_skew_normal_beats_single_gaussian_for_skewed_unimodal_data()` | A flexible one-component shape should absorb ordinary unimodal skew. | `tests test_mixtures py test_single_skew_normal_beats_single_gaussian_for_skewed_unimodal_data a flexible one-component shape should absorb ordinary unimodal skew` |
-| `test_two_gaussians_can_beat_single_skew_normal_for_clear_bimodality` | function | 100 | `def test_two_gaussians_can_beat_single_skew_normal_for_clear_bimodality()` | A single skewed density should not erase clear two-mode structure. | `tests test_mixtures py test_two_gaussians_can_beat_single_skew_normal_for_clear_bimodality a single skewed density should not erase clear two-mode structure` |
-| `test_shape_model_comparison_prefers_two_gaussians_for_clear_bimodality` | function | 119 | `def test_shape_model_comparison_prefers_two_gaussians_for_clear_bimodality()` | The reusable comparator should identify a clearly bimodal density. | `tests test_mixtures py test_shape_model_comparison_prefers_two_gaussians_for_clear_bimodality reusable comparator should identify a clearly bimodal density` |
+| `_bimodal_sample` | function | 21 | `def _bimodal_sample() -> tuple[np.ndarray, np.ndarray]` | No docstring; inspect implementation before reuse. | `tests test_mixtures py bimodal_sample` |
+| `test_two_component_model_recovers_ordered_bimodal_structure` | function | 30 | `def test_two_component_model_recovers_ordered_bimodal_structure()` | No docstring; inspect implementation before reuse. | `tests test_mixtures py test_two_component_model_recovers_ordered_bimodal_structure` |
+| `test_responsibilities_and_soft_composition_are_probabilistic` | function | 52 | `def test_responsibilities_and_soft_composition_are_probabilistic()` | No docstring; inspect implementation before reuse. | `tests test_mixtures py test_responsibilities_and_soft_composition_are_probabilistic` |
+| `test_parametric_bootstrap_gmm_lrt_returns_valid_empirical_p_value` | function | 77 | `def test_parametric_bootstrap_gmm_lrt_returns_valid_empirical_p_value()` | No docstring; inspect implementation before reuse. | `tests test_mixtures py test_parametric_bootstrap_gmm_lrt_returns_valid_empirical_p_value` |
+| `test_single_skew_normal_beats_single_gaussian_for_skewed_unimodal_data` | function | 90 | `def test_single_skew_normal_beats_single_gaussian_for_skewed_unimodal_data()` | A flexible one-component shape should absorb ordinary unimodal skew. | `tests test_mixtures py test_single_skew_normal_beats_single_gaussian_for_skewed_unimodal_data a flexible one-component shape should absorb ordinary unimodal skew` |
+| `test_two_gaussians_can_beat_single_skew_normal_for_clear_bimodality` | function | 102 | `def test_two_gaussians_can_beat_single_skew_normal_for_clear_bimodality()` | A single skewed density should not erase clear two-mode structure. | `tests test_mixtures py test_two_gaussians_can_beat_single_skew_normal_for_clear_bimodality a single skewed density should not erase clear two-mode structure` |
+| `test_shape_model_comparison_prefers_two_gaussians_for_clear_bimodality` | function | 121 | `def test_shape_model_comparison_prefers_two_gaussians_for_clear_bimodality()` | The reusable comparator should identify a clearly bimodal density. | `tests test_mixtures py test_shape_model_comparison_prefers_two_gaussians_for_clear_bimodality reusable comparator should identify a clearly bimodal density` |
+| `test_skew_normal_null_bootstrap_returns_valid_tail_probability` | function | 140 | `def test_skew_normal_null_bootstrap_returns_valid_tail_probability()` | The skew-normal bootstrap should return a finite empirical reference. | `tests test_mixtures py test_skew_normal_null_bootstrap_returns_valid_tail_probability skew-normal bootstrap should return a finite empirical reference` |
+| `test_cross_validated_shape_comparison_prefers_gmm_for_clear_bimodality` | function | 156 | `def test_cross_validated_shape_comparison_prefers_gmm_for_clear_bimodality()` | Held-out density should favour a two-Gaussian fit for clear bimodality. | `tests test_mixtures py test_cross_validated_shape_comparison_prefers_gmm_for_clear_bimodality held-out density should favour a two-gaussian fit clear bimodality` |
 
 ### `tests/test_ppa_adaptation.py`
 
