@@ -98,7 +98,7 @@ The narrower BV/RT contrast is more directly related to a hypothesis of active a
 
 The outcome composition may be compatible with CMAT attendance marking a broader pattern of academic engagement or institutional navigation: students who seek support may also differ in monitoring their academic standing, seeking advice, knowing academic procedures, or using those procedures when a course is going poorly.
 
-This is **not directly measured**. Attendance does not prove engagement, and zero attendance does not prove disinterest. The full mechanism and competing explanations are documented in `paper/ACADEMIC_MANAGEMENT_HYPOTHESIS.md`.
+This is **not directly measured**. Attendance does not prove engagement, and zero attendance does not prove disinterest. The full mechanism and competing explanations are documented in `paper/docs/interpretation/ACADEMIC_MANAGEMENT_HYPOTHESIS.md`.
 
 ## Interpretation guardrails
 
