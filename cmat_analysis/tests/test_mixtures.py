@@ -171,3 +171,27 @@ def test_cross_validated_shape_comparison_prefers_gmm_for_clear_bimodality():
     assert result["mean_log_predictive_density_difference_gmm_minus_skew"] > 0
     assert result["gmm_fold_win_share"] > 0.5
     assert result["held_out_predictions"] == len(values) * 3
+
+
+
+def test_cross_validated_shape_comparison_is_stable_for_small_skewed_sample():
+    """Small folds should not create pathological held-out skew densities."""
+    rng = np.random.default_rng(2032)
+    values = skewnorm.rvs(
+        -6.0,
+        loc=0.9,
+        scale=0.8,
+        size=55,
+        random_state=rng,
+    )
+    result = cross_validated_skew_normal_vs_gmm(
+        values,
+        n_splits=5,
+        n_repeats=3,
+        random_state=42,
+        n_init=5,
+        two_component_mean_starts=((-1.1, 0.5),),
+    ).iloc[0]
+    assert np.isfinite(result["mean_log_predictive_density_skew_normal"])
+    assert np.isfinite(result["mean_log_predictive_density_gmm_k2"])
+    assert abs(result["mean_log_predictive_density_difference_gmm_minus_skew"]) < 10
