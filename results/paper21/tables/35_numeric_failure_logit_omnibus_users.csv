@@ -1,2 +1,2 @@
 specification,null_hypothesis,test_statistic,df_num,p_value,n,n_clusters
-numeric_final_grade_positive_attendance,equal adjusted log odds across listed groups,4.497903116601583,5,0.48016404294584913,1056,172
+numeric_final_grade_positive_attendance,equal adjusted log odds across listed groups,4.497888424163617,5,0.4801660094329465,1056,172
