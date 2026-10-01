@@ -190,7 +190,41 @@ Thus the complete-case outcome contains two distinct patterns. For zero, one and
 
 For the imputed outcome, the two-Gaussian mixture has lower BIC in all seven frequency groups, and AIC also selects it in all seven groups.
 
-This is the main result of the skew-normal specification check: simple asymmetry is not sufficient to explain the imputed density structure.
+BIC alone is not treated as the final answer because the skew-normal and GMM are non-nested density specifications. Two additional diagnostics were therefore run for every attendance group: a parametric bootstrap generated under the fitted skew-normal null, using the observed BIC advantage of GMM K=2 as the statistic, and repeated held-out log predictive density.
+
+### 6.3 Direct skew-normal-null bootstrap and cross-validation: numeric complete case
+
+The fast controlled-data validation used 99 bootstrap replicates and repeated five-fold cross-validation with five repeats. The canonical runner uses the same estimand with more intensive settings.
+
+| visits | Delta BIC | bootstrap p | mean held-out log-density difference, GMM minus skew | GMM fold win share | interpretation |
+| ---: | ---: | ---: | ---: | ---: | --- |
+| 0 | +1,223.3 | 0.01 | +0.139 | 1.00 | GMM supported |
+| 1 | +20.7 | 0.01 | +0.033 | 0.80 | GMM supported |
+| 2 | +12.8 | 0.01 | +0.048 | 0.80 | GMM supported |
+| 3 | -4.5 | 0.12 | -0.013 | 0.28 | skew-normal adequate |
+| 4 | -6.1 | 0.22 | -0.084 | 0.44 | skew-normal adequate |
+| 5 | -2.7 | 0.22 | +0.110 | 0.44 | inconclusive; small N |
+| 6+ | -11.7 | 0.62 | -0.014 | 0.16 | skew-normal adequate |
+
+The five-visit group deserves caution. Its average held-out log-density difference is positive, but the GMM wins only 11 of 25 folds and the fold-to-fold standard deviation is much larger than in the lower-frequency groups. With only 49 numeric complete cases, this is not robust evidence for a stable second component.
+
+The complete-case result therefore divides naturally into three categories: zero, one and two visits show concordant evidence that one skewed distribution is insufficient; three, four and 6+ visits are adequately represented by one strongly left-skewed distribution; and five visits remain unresolved because the sample is small and the diagnostics disagree.
+
+### 6.4 Direct skew-normal-null bootstrap and cross-validation: imputed outcome
+
+| visits | Delta BIC | bootstrap p | mean held-out log-density difference, GMM minus skew | GMM fold win share |
+| ---: | ---: | ---: | ---: | ---: |
+| 0 | +1,066.4 | 0.01 | +0.100 | 1.00 |
+| 1 | +77.3 | 0.01 | +0.082 | 0.96 |
+| 2 | +32.1 | 0.01 | +0.088 | 0.84 |
+| 3 | +28.1 | 0.01 | +0.136 | 0.96 |
+| 4 | +3.4 | 0.01 | +0.045 | 0.72 |
+| 5 | +12.4 | 0.01 | +0.349 | 0.80 |
+| 6+ | +11.4 | 0.01 | +0.109 | 0.84 |
+
+No bootstrap replicate in the fast validation produced a BIC advantage at least as large as the observed value in any imputed-outcome group, so 0.01 is the minimum possible empirical p-value with 99 replicates. The held-out comparison also favoured the GMM on average in every group and in a majority of folds for every group.
+
+This agreement across penalised in-sample fit, simulation from a strongly skewed one-component null and out-of-sample prediction is the main result of the direct specification check: simple asymmetry is not sufficient to explain the imputed density structure.
 
 ## 7. Component composition and administrative outcomes
 
@@ -221,13 +255,13 @@ This association does **not** prove that the lower component is a behavioral stu
 The combined evidence supports the following interpretation.
 
 1. The broad zero-versus-positive attendance difference persists in observed numeric failure, so the benchmark is not an artefact of adverse-outcome imputation.
-2. A single Gaussian is inadequate even for the numeric complete-case distribution in every frequency group.
-3. Some complete-case non-Gaussianity, especially in groups with three or more visits, can be represented parsimoniously by one strongly left-skewed distribution.
-4. For zero, one and two visits, the complete-case two-Gaussian mixture remains preferred over a single skew-normal by BIC, so imputation is not the sole source of complex distributional structure.
-5. For the imputed primary outcome, a two-Gaussian mixture is preferred over a single strongly skewed distribution in all seven groups.
+2. A single Gaussian is inadequate even for the numeric complete-case distribution in every frequency group, but this alone does not distinguish multimodality from ordinary skewness.
+3. For zero, one and two visits, BIC, the skew-normal-null bootstrap and held-out prediction agree that the complete-case density requires more than one skewed component.
+4. For three, four and 6+ visits, the complete-case diagnostics are compatible with one strongly left-skewed distribution; the five-visit group is inconclusive because N is small and the diagnostics disagree.
+5. For the imputed primary outcome, the two-Gaussian mixture is favoured over a single strongly skewed distribution in all seven groups by BIC, the skew-normal-null bootstrap and mean held-out predictive density.
 6. The lower imputed component is strongly enriched in BV/RT/BA, with BV accounting for roughly half of its expected mass among CMAT users.
-7. The difference between complete-case and imputed results is therefore consistent with administrative-outcome imputation **reinforcing or creating a clearer lower component**, while underlying numeric-grade heterogeneity remains in at least part of the sample.
-8. Neither component weights nor locations follow a monotone visit-frequency sequence, so this analysis does not establish a visit-by-visit dose response.
+7. The difference between complete-case and imputed results is therefore consistent with administrative-outcome imputation **sharpening a lower component**, while underlying numeric-grade heterogeneity remains especially clear at zero, one and two visits.
+8. Neither component weights nor locations follow a monotone visit-frequency sequence, so this analysis does not establish a visit-by-visit dose response or literal latent student classes.
 
 The behavioral mechanism remains a hypothesis: students who seek CMAT support may also differ in academic monitoring, advice seeking, or use of institutional withdrawal procedures. The records do not measure that mechanism directly.
 
@@ -245,9 +279,11 @@ The reusable implementation belongs in `main/cmat_analysis`, not in Paper 2.1 ru
 | `parametric_bootstrap_gmm_lrt` | empirical K=1 versus K=2 likelihood-ratio reference under the fitted Gaussian null |
 | `skew_normal_fit_summary` | fit one skew-normal and report parameters, log-likelihood, AIC and BIC |
 | `compare_univariate_shape_models` | compare Gaussian K=1, skew-normal K=1 and Gaussian-mixture K=2 on the same observations |
+| `parametric_bootstrap_skew_normal_vs_gmm` | test whether the observed GMM BIC advantage is unusually large under a fitted skew-normal null |
+| `cross_validated_skew_normal_vs_gmm` | compare skew-normal and GMM K=2 by repeated held-out log predictive density |
 | `mixture_component_density` | construct weighted density components for distribution/composition figures |
 
-The skew-normal function and the generic three-way shape comparator were promoted to `main` as part of `cmat-analysis 0.4.2`. Their synthetic tests include:
+The skew-normal and direct skew-normal-versus-GMM diagnostics were promoted to `main` as part of `cmat-analysis 0.4.3`. Their synthetic tests include:
 
 - a unimodal skew-normal sample, where allowing skewness improves over a single Gaussian;
 - a clearly bimodal sample, where the two-Gaussian mixture remains preferred.
@@ -266,11 +302,15 @@ Produces:
 - table 45: complete-case versus imputed component comparison;
 - table 46: complete-case density source for the ridgeline;
 - table 47: complete-case Gaussian/skew-normal/GMM specification comparison;
-- table 48: imputed Gaussian/skew-normal/GMM specification comparison.
+- table 48: imputed Gaussian/skew-normal/GMM specification comparison;
+- table 49: complete-case skew-normal-null parametric bootstrap versus GMM K=2;
+- table 50: complete-case repeated cross-validated predictive comparison;
+- table 51: imputed skew-normal-null parametric bootstrap versus GMM K=2;
+- table 52: imputed repeated cross-validated predictive comparison.
 
 ### `code/run_paper21_shape_check.py`
 
-A fast controlled-data runner that executes only the Gaussian/skew-normal/GMM comparison and writes tables 47 and 48. It exists so the specification question can be checked without rerunning the 199-replicate bootstrap.
+A focused controlled-data runner that executes the Gaussian/skew-normal/GMM comparison, the skew-normal-null bootstrap and repeated cross-validation, writing tables 47--52. It exists so the specification question can be checked without rerunning the complete Paper 2.1 analysis.
 
 No row-level responsibilities are uploaded as artifacts.
 
@@ -298,6 +338,18 @@ After promoting the reusable shape comparison to `main/cmat_analysis` and making
 - verified outputs: tables 01--48 and figures 01--05.
 
 This is the canonical validation for the integrated implementation. The earlier full GMM and fast shape-check runs below remain useful provenance because they isolate the two development stages that produced the final workflow.
+
+### Direct skew-normal-null and predictive validation
+
+- GitHub Actions run: `36826363767`
+- branch head: `50f6e568aa38f3b9ec99be4b08124c72a1e989b8`
+- conclusion: success
+- skew-normal-null bootstrap: 99 replicates per group/specification
+- predictive diagnostic: repeated 5-fold CV with 5 repeats
+- artifact: `paper21-shape-validation-50f6e568aa38f3b9ec99be4b08124c72a1e989b8`
+- artifact ID: `11145891079`
+- verified outputs: tables 47--52.
+- note: this focused workflow is the rapid specification validation; the integrated runner uses more intensive bootstrap/CV settings.
 
 ### Skew-normal specification validation
 
