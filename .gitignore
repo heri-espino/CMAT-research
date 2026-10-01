@@ -52,6 +52,8 @@ Thumbs.db
 
 # Generated local pipeline/build outputs are not source code.
 paper/*.pdf
+paper/docs/observations/generated/
+paper/docs/observations/*.pdf
 cmat_analysis/outputs/
 brainstorm/**/build/
 paper/build/
