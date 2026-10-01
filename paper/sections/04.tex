@@ -91,6 +91,35 @@ Pass probability & 15.3 pp & 12.4 to 18.1 pp & $<0.001$ \\
 
 The supplementary display clarifies the two-stage empirical pattern without changing the estimand of the user-only frequency analysis. The aggregate benchmark shows a large favourable association between any recorded attendance and both outcomes, with a 0.361-standard-deviation difference in standardised performance and a 15.3 percentage-point difference in pass probability. Once the zero-attendance group is included in the pairwise matrices, that broad zero-versus-positive separation provides the natural visual reference, whereas the contrasts among positive-frequency groups remain smaller and less regular. This is consistent with the main user-only analysis, in which no pairwise contrast survived Holm adjustment under the primary covariance specification. The appendix therefore supports describing a pronounced observational separation associated with entering CMAT, while avoiding the stronger claim that one visit itself causes an improvement or that each additional visit produces a monotone dose response.
 
+\section{Distribution-shape specification diagnostics}
+\label{app:shape-diagnostics}
+
+\Cref{tab:supp-shape-diagnostics} summarises the direct comparison between a one-component skew-normal distribution and a two-Gaussian mixture for every zero-inclusive attendance group. The reported $\Delta$BIC is $\mathrm{BIC}_{\mathrm{skew}}-\mathrm{BIC}_{\mathrm{GMM2}}$, so positive values favour the mixture. The assessment column integrates the observed BIC contrast with the parametric bootstrap under the fitted skew-normal null and repeated held-out log predictive density; it is deliberately more conservative than selecting a model from BIC alone.
+
+\begin{table}[tbp]
+\centering
+\small
+\caption{Direct skew-normal versus two-Gaussian specification diagnostics by CMAT attendance frequency.}
+\label{tab:supp-shape-diagnostics}
+\begin{tabular}{lrrll}
+\toprule
+& \multicolumn{2}{c}{Numeric complete case} & \multicolumn{2}{c}{Imputed outcome} \\
+\cmidrule(lr){2-3}\cmidrule(lr){4-5}
+Visits & $\Delta$BIC & Assessment & $\Delta$BIC & Assessment \\
+\midrule
+0  & 1223.3 & GMM supported & 1066.4 & GMM supported \\
+1  &   20.7 & GMM supported &   77.3 & GMM supported \\
+2  &   12.8 & GMM supported &   32.1 & GMM supported \\
+3  &   -4.5 & Skew-normal adequate & 28.1 & GMM supported \\
+4  &   -6.1 & Skew-normal adequate &  3.4 & GMM supported \\
+5  &   -2.7 & Inconclusive &          12.4 & GMM supported \\
+6+ &  -11.7 & Skew-normal adequate & 11.4 & GMM supported \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For the complete-case outcome, zero, one and two visits were the only groups in which penalised fit, the skew-normal-null bootstrap and held-out prediction gave concordant evidence for the two-Gaussian representation. The three-, four- and 6+ visit groups were compatible with a single strongly left-skewed distribution. The five-visit group contained only 49 numeric complete cases and produced discordant predictive diagnostics, so it is retained as inconclusive. For the imputed outcome, all seven groups favoured the mixture across the direct specification checks. These results support distributional heterogeneity without implying that the fitted Gaussian components correspond to literal or causally distinct student populations.
+
 \section*{Acknowledgments}
 Funding: None declared.
 
