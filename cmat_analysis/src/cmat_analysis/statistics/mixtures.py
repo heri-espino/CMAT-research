@@ -16,6 +16,7 @@ import numpy as np
 import pandas as pd
 from scipy.stats import skewnorm
 from sklearn.mixture import GaussianMixture
+from sklearn.model_selection import RepeatedKFold
 
 
 def _clean_values(values: Iterable[float]) -> np.ndarray:
@@ -336,6 +337,263 @@ def compare_univariate_shape_models(
         "aic_preferred_model": min(aic_candidates, key=aic_candidates.get),
     }])
 
+
+
+def _sample_two_component_starts(
+    values: np.ndarray,
+    extra_starts: Sequence[Sequence[float]],
+) -> tuple[tuple[float, float], ...]:
+    """Return supplied starts plus an empirical interquartile start."""
+    starts: list[tuple[float, float]] = []
+    for start in extra_starts:
+        pair = tuple(float(value) for value in start)
+        if len(pair) != 2:
+            raise ValueError("Each two-component mean start must contain two values.")
+        starts.append(pair)
+
+    q25, q75 = np.quantile(np.asarray(values, dtype=float), [0.25, 0.75])
+    empirical = (float(q25), float(q75))
+    if np.isfinite(empirical).all() and empirical[0] < empirical[1]:
+        if not any(np.allclose(empirical, existing) for existing in starts):
+            starts.append(empirical)
+    return tuple(starts)
+
+
+def parametric_bootstrap_skew_normal_vs_gmm(
+    values: Iterable[float],
+    *,
+    n_bootstrap: int = 199,
+    random_state: int = 42,
+    n_init: int = 20,
+    reg_covar: float = 1e-6,
+    two_component_mean_starts: Sequence[Sequence[float]] = (),
+) -> pd.DataFrame:
+    """Bootstrap a skew-normal null against a two-Gaussian alternative.
+
+    Parameters
+    ----------
+    values : iterable of float
+        One-dimensional observations.
+    n_bootstrap : int, default=199
+        Number of samples generated from the fitted skew-normal null.
+    random_state : int, default=42
+        Seed controlling simulation and Gaussian-mixture starts.
+    n_init : int, default=20
+        Number of default EM initializations for the observed GMM fit.
+        Bootstrap refits use at least three and otherwise half this value.
+    reg_covar : float, default=1e-6
+        Covariance regularization passed to Gaussian-mixture fits.
+    two_component_mean_starts : sequence of sequences, default=()
+        Additional two-component mean starts. An empirical interquartile start
+        is added separately for each observed or simulated sample.
+
+    Returns
+    -------
+    pandas.DataFrame
+        One-row summary containing the observed BIC advantage of the
+        two-Gaussian mixture over the skew-normal, the bootstrap distribution
+        of that advantage under the fitted skew-normal null, and an empirical
+        upper-tail p-value.
+
+    Notes
+    -----
+    The statistic is BIC(skew-normal) minus BIC(GMM K=2), so positive values
+    favour the two-Gaussian model. This parametric-bootstrap diagnostic asks how
+    often a sample generated from one fitted skew-normal would give the GMM an
+    advantage at least as large as the observed one. It is a model-adequacy
+    diagnostic rather than evidence for substantive latent classes.
+    """
+    if n_bootstrap < 19:
+        raise ValueError("n_bootstrap must be at least 19")
+
+    x = _clean_values(values).ravel()
+    skew = skew_normal_fit_summary(x).iloc[0]
+    observed_starts = _sample_two_component_starts(
+        x, two_component_mean_starts
+    )
+    gmm = fit_univariate_gaussian_mixture(
+        x,
+        n_components=2,
+        random_state=random_state,
+        n_init=n_init,
+        reg_covar=reg_covar,
+        custom_mean_starts=observed_starts,
+    )
+    x2d = x.reshape(-1, 1)
+    observed_gmm_bic = float(gmm.bic(x2d))
+    observed_skew_bic = float(skew["bic"])
+    observed_advantage = observed_skew_bic - observed_gmm_bic
+
+    shape = float(skew["shape"])
+    loc = float(skew["loc"])
+    scale = float(skew["scale"])
+    rng = np.random.default_rng(random_state)
+    simulated_advantages: list[float] = []
+    bootstrap_n_init = max(3, n_init // 2)
+
+    for index in range(n_bootstrap):
+        sample = skewnorm.rvs(
+            shape,
+            loc=loc,
+            scale=scale,
+            size=len(x),
+            random_state=rng,
+        )
+        sample_skew = skew_normal_fit_summary(sample).iloc[0]
+        sample_starts = _sample_two_component_starts(
+            np.asarray(sample, dtype=float),
+            two_component_mean_starts,
+        )
+        sample_gmm = fit_univariate_gaussian_mixture(
+            sample,
+            n_components=2,
+            random_state=random_state + index + 1,
+            n_init=bootstrap_n_init,
+            reg_covar=reg_covar,
+            custom_mean_starts=sample_starts,
+        )
+        sample_x = np.asarray(sample, dtype=float).reshape(-1, 1)
+        simulated_advantages.append(
+            float(sample_skew["bic"]) - float(sample_gmm.bic(sample_x))
+        )
+
+    simulated = np.asarray(simulated_advantages, dtype=float)
+    exceedances = int(np.sum(simulated >= observed_advantage))
+    p_value = (exceedances + 1.0) / (n_bootstrap + 1.0)
+
+    return pd.DataFrame([{
+        "n": int(len(x)),
+        "null_model": "skew_normal_k1",
+        "alternative_model": "gaussian_mixture_k2",
+        "skew_normal_shape": shape,
+        "skew_normal_loc": loc,
+        "skew_normal_scale": scale,
+        "observed_skew_normal_bic": observed_skew_bic,
+        "observed_gmm_k2_bic": observed_gmm_bic,
+        "observed_bic_advantage_gmm_k2_over_skew_normal": observed_advantage,
+        "bootstrap_replicates": int(n_bootstrap),
+        "bootstrap_exceedances": exceedances,
+        "bootstrap_p_value": float(p_value),
+        "bootstrap_bic_advantage_mean": float(np.mean(simulated)),
+        "bootstrap_bic_advantage_sd": float(np.std(simulated, ddof=1)),
+        "bootstrap_bic_advantage_q95": float(np.quantile(simulated, 0.95)),
+        "bootstrap_bic_advantage_q99": float(np.quantile(simulated, 0.99)),
+    }])
+
+
+def cross_validated_skew_normal_vs_gmm(
+    values: Iterable[float],
+    *,
+    n_splits: int = 5,
+    n_repeats: int = 10,
+    random_state: int = 42,
+    n_init: int = 10,
+    reg_covar: float = 1e-6,
+    two_component_mean_starts: Sequence[Sequence[float]] = (),
+) -> pd.DataFrame:
+    """Compare skew-normal and two-Gaussian out-of-sample log density.
+
+    Parameters
+    ----------
+    values : iterable of float
+        One-dimensional observations.
+    n_splits : int, default=5
+        Number of cross-validation folds.
+    n_repeats : int, default=10
+        Number of repeated shuffled fold partitions.
+    random_state : int, default=42
+        Seed controlling fold assignment and Gaussian-mixture starts.
+    n_init : int, default=10
+        Default EM initializations for each training-fold GMM fit.
+    reg_covar : float, default=1e-6
+        Covariance regularization passed to Gaussian-mixture fits.
+    two_component_mean_starts : sequence of sequences, default=()
+        Additional two-component mean starts. Each training fold also receives
+        its own empirical interquartile start.
+
+    Returns
+    -------
+    pandas.DataFrame
+        One-row summary of repeated cross-validated log predictive density for
+        the skew-normal and two-Gaussian models.
+
+    Notes
+    -----
+    A positive mean_log_predictive_density_difference_gmm_minus_skew means the
+    two-Gaussian model assigns higher average log density to held-out
+    observations. No p-value is reported because repeated folds are dependent;
+    this is a predictive model-comparison diagnostic.
+    """
+    if n_splits < 2:
+        raise ValueError("n_splits must be at least 2")
+    if n_repeats < 1:
+        raise ValueError("n_repeats must be at least 1")
+
+    x = _clean_values(values).ravel()
+    if len(x) < 2 * n_splits:
+        raise ValueError("At least two observations per fold are required.")
+
+    splitter = RepeatedKFold(
+        n_splits=n_splits,
+        n_repeats=n_repeats,
+        random_state=random_state,
+    )
+    skew_total = 0.0
+    gmm_total = 0.0
+    held_out_n = 0
+    fold_differences: list[float] = []
+    gmm_wins = 0
+
+    for fold_index, (train_index, test_index) in enumerate(
+        splitter.split(np.arange(len(x)))
+    ):
+        train = x[train_index]
+        test = x[test_index]
+        shape, loc, scale = (float(value) for value in skewnorm.fit(train))
+        if not np.isfinite([shape, loc, scale]).all() or scale <= 0:
+            raise RuntimeError("Skew-normal cross-validation fit returned invalid parameters.")
+
+        starts = _sample_two_component_starts(
+            train, two_component_mean_starts
+        )
+        gmm = fit_univariate_gaussian_mixture(
+            train,
+            n_components=2,
+            random_state=random_state + fold_index + 1,
+            n_init=n_init,
+            reg_covar=reg_covar,
+            custom_mean_starts=starts,
+        )
+        skew_ll = float(
+            np.sum(skewnorm.logpdf(test, shape, loc=loc, scale=scale))
+        )
+        gmm_ll = float(
+            np.sum(gmm.score_samples(np.asarray(test).reshape(-1, 1)))
+        )
+        difference = (gmm_ll - skew_ll) / len(test)
+        fold_differences.append(float(difference))
+        gmm_wins += int(difference > 0)
+        skew_total += skew_ll
+        gmm_total += gmm_ll
+        held_out_n += int(len(test))
+
+    differences = np.asarray(fold_differences, dtype=float)
+    return pd.DataFrame([{
+        "n": int(len(x)),
+        "n_splits": int(n_splits),
+        "n_repeats": int(n_repeats),
+        "n_fold_evaluations": int(len(differences)),
+        "held_out_predictions": int(held_out_n),
+        "mean_log_predictive_density_skew_normal": float(skew_total / held_out_n),
+        "mean_log_predictive_density_gmm_k2": float(gmm_total / held_out_n),
+        "mean_log_predictive_density_difference_gmm_minus_skew": float(
+            (gmm_total - skew_total) / held_out_n
+        ),
+        "fold_difference_mean": float(np.mean(differences)),
+        "fold_difference_sd": float(np.std(differences, ddof=1)),
+        "gmm_fold_wins": int(gmm_wins),
+        "gmm_fold_win_share": float(gmm_wins / len(differences)),
+    }])
 
 def gaussian_mixture_component_summary(
     model: GaussianMixture,
