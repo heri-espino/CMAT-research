@@ -23,6 +23,7 @@ REQUIRED_FILES = (
 )
 FIGURE_INPUTS = (
     REPO_ROOT / "results" / "paper21" / "tables" / "10b_zero_inclusive_descriptives.csv",
+    REPO_ROOT / "results" / "paper21" / "tables" / "10g_zero_inclusive_stacked_ridgeline_density.csv",
     REPO_ROOT / "results" / "paper21" / "tables" / "10d_zero_inclusive_exact_administrative_composition.csv",
     REPO_ROOT / "results" / "paper21" / "tables" / "10l_zero_inclusive_observed_numeric_grade_density.csv",
     REPO_ROOT / "results" / "paper21" / "tables" / "18_primary_z_heatmap_matrix.csv",
