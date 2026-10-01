@@ -9,12 +9,12 @@ Paper 2 remains the simpler attendance-versus-non-attendance manuscript. Paper 2
 Read in this order:
 
 1. `PAPER_BRANCH.md`
-2. `paper/PROJECT_CONTEXT.md`
-3. `paper/ANALYSIS_PLAN.md`
-4. `paper/PRELIMINARY_RESULTS.md`
-5. `paper/ACADEMIC_MANAGEMENT_HYPOTHESIS.md`
-6. `paper/LITERATURE_ACCESS_NOTES.md`
-7. `paper/STATUS_AND_ROADMAP.md`
+2. `paper/docs/project/PROJECT_CONTEXT.md`
+3. `paper/docs/analysis/ANALYSIS_PLAN.md`
+4. `paper/docs/results/PRELIMINARY_RESULTS.md`
+5. `paper/docs/interpretation/ACADEMIC_MANAGEMENT_HYPOTHESIS.md`
+6. `literature_selected/ACCESS_NOTES.md`
+7. `paper/docs/project/STATUS_AND_ROADMAP.md`
 8. `paper/AI_HANDOFF.md`
 
 ## Scientific boundary
