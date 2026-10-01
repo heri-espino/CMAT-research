@@ -1,6 +1,6 @@
 # Paper 2.1 — observed numeric failure, Gaussian-mixture, and skew-normal analysis
 
-**Status:** implemented and controlled-data validated. The original full GMM validation completed in GitHub Actions run `35657154301`, the isolated skew-normal specification check completed in run `36678572075`, and the current integrated implementation was revalidated successfully in run `36685329947` at `93b16efb40efd7ed6803ab50568bc5fb075a10b9`, verifying tables 01--48 and figures 01--05. See `MIXTURE_ANALYSIS_RESULTS.md` for the verified numerical results and development provenance.
+**Status:** implemented and controlled-data validated. The original full GMM validation completed in GitHub Actions run `35657154301`, the isolated skew-normal specification check completed in run `36678572075`, and the current integrated implementation was revalidated successfully in run `36685329947` at `93b16efb40efd7ed6803ab50568bc5fb075a10b9`, verifying tables 01--48 and figures 01--05. See `paper/docs/results/MIXTURE_ANALYSIS_RESULTS.md` for the verified numerical results and development provenance.
 
 ## Scientific motivation
 
@@ -115,4 +115,4 @@ The imputed primary outcome prefers the two-Gaussian mixture over a single skew-
 
 Posterior-responsibility composition of the imputed two-component model shows that, among positive-attendance students, the lower component is approximately 55.5% administrative outcomes, including 49.5% BV, while the higher component is approximately 2.0% administrative and 97.0% PASS.
 
-The refined interpretation is therefore that administrative-outcome representation materially sharpens the lower component of the imputed outcome, while non-Gaussian and in some groups multi-component structure also remains in observed numeric grades. See `MIXTURE_ANALYSIS_RESULTS.md`.
+The refined interpretation is therefore that administrative-outcome representation materially sharpens the lower component of the imputed outcome, while non-Gaussian and in some groups multi-component structure also remains in observed numeric grades. See `paper/docs/results/MIXTURE_ANALYSIS_RESULTS.md`.
