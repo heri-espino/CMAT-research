@@ -50,6 +50,29 @@ Total & 55 & 100.0\% \\
 
 The numeric-grade subset contains 49 observations, of which only two are below 7.5. The local audit uses raw observed numeric grades and retains BV, RT and BA as categorical outcomes.
 
+\section{Immediate finding from the two numeric failures}
+
+The raw records clarify the visible orange concentration substantially. The two numeric failures in the five-visit group have final grades of \textbf{5.8} and \textbf{5.7}; they are therefore only 0.1 grade points apart, which explains why a kernel density fitted to the numeric observations produces a conspicuous local concentration around this part of the scale. They do not come from the same classroom, instructor or academic period.
+
+\begin{table}[H]
+\centering
+\caption{De-identified classroom context for the two numeric failures underlying the five-visit density feature.}
+\begin{tabular}{lrrrrrr}
+\toprule
+Obs. & Grade & Period & Class & $n$ total & $n$ numeric & Numeric percentile \\
+\midrule
+O01 & 5.8 & 2019 Oto\~no & C01 / I01 & 56 & 31 & 32.3\% \\
+O02 & 5.7 & 2022 Oto\~no & C02 / I02 & 63 & 39 & 7.7\% \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+For O01, the same instructor-period classroom contains 56 study-cohort students, of whom 31 have numeric final grades and 25 have adverse administrative outcomes. Among the numeric grades the classroom mean is 6.49 and the median is 8.3; a grade of 5.8 is at approximately the 32.3rd empirical percentile. The five recorded CMAT visits occur on 2019-07-10 (twice), 2019-08-10, 2019-09-13 and 2019-10-29, and all five records are labelled Matem\'aticas Universitarias.
+
+For O02, the classroom contains 63 study-cohort students, of whom 39 have numeric grades and 24 have adverse administrative outcomes. The observed numeric-grade mean is 8.55 and the median is 9.1; the focal grade of 5.7 is at approximately the 7.7th empirical percentile and is therefore much lower relative to this classroom's numeric-grade distribution. The five recorded CMAT visits occur on 2022-09-11, 2022-10-18, 2022-10-19, 2022-11-16 and 2022-11-23, again with all five records labelled Matem\'aticas Universitarias.
+
+The near equality of the two final grades is therefore a group-level visual coincidence across two different classroom contexts rather than repeated observations from one instructor-period environment. This makes the observation-level audit especially useful: the pooled kernel density correctly reflects where the two numeric failures lie on the raw 0--10 scale, but its smooth orange bump should not be read as evidence that a sizeable subgroup of five-visit students is concentrated near 5.7--5.8.
+
 \section{Observation-level design}
 Each focal student is assigned an ephemeral label such as \texttt{O01}; instructors and instructor-period classrooms are likewise replaced by document-local labels. The generated fragment never writes the stored student identifier, professor identifier or \texttt{CLASSROOM\_ID}. For each observation it displays the academic period, final outcome, five same-period CMAT visit dates and recorded subject labels, together with the observed numeric-grade distribution in the same instructor-period classroom. Classroom summaries include total size, numeric-grade count, administrative-outcome count, mean, median, interquartile range, pass share and, when defined, the focal student's empirical percentile.
 
