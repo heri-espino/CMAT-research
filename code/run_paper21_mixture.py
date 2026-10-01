@@ -26,12 +26,14 @@ try:
     from cmat_analysis.statistics import (
         add_topcoded_visit_group,
         compare_univariate_shape_models,
+        cross_validated_skew_normal_vs_gmm,
         fixed_effect_logistic_group_comparisons,
         fixed_effect_logistic_adjusted_probabilities,
         gaussian_mixture_component_summary,
         gaussian_mixture_model_selection,
         gaussian_mixture_responsibilities,
         parametric_bootstrap_gmm_lrt,
+        parametric_bootstrap_skew_normal_vs_gmm,
         mixture_component_density,
         soft_component_composition,
     )
@@ -148,12 +150,25 @@ def _run_gmm_family(
     outcome_col: str,
     outcome_spec: str,
     n_bootstrap: int,
-) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:
+    shape_bootstrap: int,
+    shape_cv_folds: int,
+    shape_cv_repeats: int,
+) -> tuple[
+    pd.DataFrame,
+    pd.DataFrame,
+    pd.DataFrame,
+    pd.DataFrame,
+    pd.DataFrame,
+    pd.DataFrame,
+    pd.DataFrame,
+]:
     selection_rows: list[pd.DataFrame] = []
     component_rows: list[pd.DataFrame] = []
     bootstrap_rows: list[pd.DataFrame] = []
     composition_rows: list[pd.DataFrame] = []
     shape_comparison_rows: list[pd.DataFrame] = []
+    skew_bootstrap_rows: list[pd.DataFrame] = []
+    predictive_comparison_rows: list[pd.DataFrame] = []
 
     labels = cohort["P21_GROUP_WITH_ZERO"].astype("string")
     for group in GROUP_ORDER:
@@ -190,6 +205,29 @@ def _run_gmm_family(
         shape.insert(0, "outcome_specification", outcome_spec)
         shape_comparison_rows.append(shape)
 
+        skew_bootstrap = parametric_bootstrap_skew_normal_vs_gmm(
+            values,
+            n_bootstrap=shape_bootstrap,
+            random_state=42,
+            n_init=20,
+            two_component_mean_starts=((-1.1, 0.5),),
+        )
+        skew_bootstrap.insert(0, "group", group)
+        skew_bootstrap.insert(0, "outcome_specification", outcome_spec)
+        skew_bootstrap_rows.append(skew_bootstrap)
+
+        predictive = cross_validated_skew_normal_vs_gmm(
+            values,
+            n_splits=shape_cv_folds,
+            n_repeats=shape_cv_repeats,
+            random_state=42,
+            n_init=10,
+            two_component_mean_starts=((-1.1, 0.5),),
+        )
+        predictive.insert(0, "group", group)
+        predictive.insert(0, "outcome_specification", outcome_spec)
+        predictive_comparison_rows.append(predictive)
+
         components = gaussian_mixture_component_summary(models[2])
         components.insert(0, "group", group)
         components.insert(0, "outcome_specification", outcome_spec)
@@ -222,6 +260,8 @@ def _run_gmm_family(
         pd.concat(bootstrap_rows, ignore_index=True),
         pd.concat(composition_rows, ignore_index=True),
         pd.concat(shape_comparison_rows, ignore_index=True),
+        pd.concat(skew_bootstrap_rows, ignore_index=True),
+        pd.concat(predictive_comparison_rows, ignore_index=True),
     )
 
 
@@ -270,29 +310,67 @@ def run(args: argparse.Namespace) -> int:
     _save(omnibus_users, "35_numeric_failure_logit_omnibus_users.csv")
     _save(info_users, "36_numeric_failure_logit_model_info_users.csv")
 
-    cc_selection, cc_components, cc_bootstrap, cc_composition, cc_shape = _run_gmm_family(
+    (
+        cc_selection,
+        cc_components,
+        cc_bootstrap,
+        cc_composition,
+        cc_shape,
+        cc_skew_bootstrap,
+        cc_predictive,
+    ) = _run_gmm_family(
         cohort,
         outcome_col="Z_GRADE_COMPLETE_CASE",
         outcome_spec="numeric_complete_case",
         n_bootstrap=args.gmm_bootstrap,
+        shape_bootstrap=args.shape_bootstrap,
+        shape_cv_folds=args.shape_cv_folds,
+        shape_cv_repeats=args.shape_cv_repeats,
     )
     _save(cc_selection, "37_complete_case_gmm_selection.csv")
     _save(cc_components, "38_complete_case_gmm_two_component_parameters.csv")
     _save(cc_bootstrap, "39_complete_case_gmm_bootstrap_1_vs_2.csv")
     _save(cc_composition, "40_complete_case_gmm_soft_component_composition.csv")
     _save(cc_shape, "47_complete_case_skewnormal_vs_gmm.csv")
+    _save(
+        cc_skew_bootstrap,
+        "49_complete_case_skewnormal_bootstrap_vs_gmm.csv",
+    )
+    _save(
+        cc_predictive,
+        "50_complete_case_skewnormal_vs_gmm_cross_validation.csv",
+    )
 
-    imp_selection, imp_components, imp_bootstrap, imp_composition, imp_shape = _run_gmm_family(
+    (
+        imp_selection,
+        imp_components,
+        imp_bootstrap,
+        imp_composition,
+        imp_shape,
+        imp_skew_bootstrap,
+        imp_predictive,
+    ) = _run_gmm_family(
         cohort,
         outcome_col="Z_GRADE_PRIMARY",
         outcome_spec="primary_imputed_sensitivity",
         n_bootstrap=args.gmm_bootstrap,
+        shape_bootstrap=args.shape_bootstrap,
+        shape_cv_folds=args.shape_cv_folds,
+        shape_cv_repeats=args.shape_cv_repeats,
     )
     _save(imp_selection, "41_imputed_gmm_selection.csv")
     _save(imp_components, "42_imputed_gmm_two_component_parameters.csv")
     _save(imp_bootstrap, "43_imputed_gmm_bootstrap_1_vs_2.csv")
     _save(imp_composition, "44_imputed_gmm_soft_component_composition.csv")
     _save(imp_shape, "48_imputed_skewnormal_vs_gmm.csv")
+    _save(
+        imp_skew_bootstrap,
+        "51_imputed_skewnormal_bootstrap_vs_gmm.csv",
+    )
+    _save(
+        imp_predictive,
+        "52_imputed_skewnormal_vs_gmm_cross_validation.csv",
+    )
 
     comparison = pd.concat(
         [
@@ -319,8 +397,19 @@ def run(args: argparse.Namespace) -> int:
     print(f"Paper 2.1 study cohort: N={len(cohort):,}")
     print(f"Numeric final grades: N={len(numeric):,}")
     print(f"GMM bootstrap replicates per group/specification: {args.gmm_bootstrap}")
+    print(
+        "Skew-normal-null bootstrap replicates per group/specification: "
+        f"{args.shape_bootstrap}"
+    )
+    print(
+        "Predictive shape comparison: "
+        f"{args.shape_cv_folds}-fold CV x {args.shape_cv_repeats} repeats"
+    )
     print("GMM hierarchy: complete-case primary; imputed outcome sensitivity")
-    print("Shape check: single Gaussian vs single skew-normal vs two-Gaussian mixture")
+    print(
+        "Shape checks: BIC/AIC, skew-normal-null bootstrap, and held-out "
+        "log predictive density"
+    )
     print(f"Outputs: {TABLES_DIR}")
     return 0
 
@@ -332,6 +421,14 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--materias", type=Path)
     parser.add_argument("--asesorias", type=Path)
     parser.add_argument("--gmm-bootstrap", type=int, default=999)
+    parser.add_argument(
+        "--shape-bootstrap",
+        type=int,
+        default=199,
+        help="Parametric bootstrap replicates for skew-normal vs GMM K=2.",
+    )
+    parser.add_argument("--shape-cv-folds", type=int, default=5)
+    parser.add_argument("--shape-cv-repeats", type=int, default=10)
     parser.add_argument("--check", action="store_true")
     return parser.parse_args()
 
