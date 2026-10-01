@@ -93,6 +93,12 @@ statistics
 .. autofunction:: cmat_analysis.statistics.group_outcome_summary
    :no-index-entry:
 
+.. autofunction:: cmat_analysis.statistics.compare_univariate_shape_models
+   :no-index-entry:
+
+.. autofunction:: cmat_analysis.statistics.cross_validated_skew_normal_vs_gmm
+   :no-index-entry:
+
 .. autofunction:: cmat_analysis.statistics.fit_univariate_gaussian_mixture
    :no-index-entry:
 
@@ -108,7 +114,13 @@ statistics
 .. autofunction:: cmat_analysis.statistics.soft_component_composition
    :no-index-entry:
 
+.. autofunction:: cmat_analysis.statistics.skew_normal_fit_summary
+   :no-index-entry:
+
 .. autofunction:: cmat_analysis.statistics.parametric_bootstrap_gmm_lrt
+   :no-index-entry:
+
+.. autofunction:: cmat_analysis.statistics.parametric_bootstrap_skew_normal_vs_gmm
    :no-index-entry:
 
 .. autofunction:: cmat_analysis.statistics.mixture_component_density
