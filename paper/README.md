@@ -5,7 +5,6 @@ This branch develops a denser extension of Paper 2 focused on what happens **amo
 Read:
 
 - `docs/README.md` for the internal-document map;
-
 - `docs/project/PROJECT_CONTEXT.md` for the scientific question;
 - `docs/analysis/ANALYSIS_PLAN.md` for the pre-outcome analysis contract;
 - `docs/project/STATUS_AND_ROADMAP.md` for current milestones;
