@@ -51,6 +51,7 @@ Thumbs.db
 *.sas7bdat
 
 # Generated local pipeline/build outputs are not source code.
+paper/*.pdf
 cmat_analysis/outputs/
 brainstorm/**/build/
 paper/build/
