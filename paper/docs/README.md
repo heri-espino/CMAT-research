@@ -27,3 +27,9 @@ The manuscript source remains directly under `paper/`; research-development docu
 - `interpretation/ADMINISTRATIVE_OUTCOME_NOTE.md` — internal note on administrative outcome composition.
 
 Literature-specific access notes live in `literature_selected/ACCESS_NOTES.md`, while submission-system metadata lives in `submission/METADATA.md`. Branch-level navigation starts at `PAPER_BRANCH.md`, and manuscript/build instructions remain in `paper/README.md`.
+
+## Observation audit
+
+- `observations/README.md` — local-only observation-level audit workflow.
+- `observations/group5_observation_audit.tex` — standalone companion source motivated by the five-visit numeric-failure feature.
+- `observations/build_observation_audit.py` — generates de-identified observation profiles and classroom-distribution figures into an ignored local directory.
