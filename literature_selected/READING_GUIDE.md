@@ -110,7 +110,7 @@ The summaries below are deliberately claim-bounded. They are reading aids, not s
 
 **Paper 2.1 role.** The clearest conceptual and methodological precedent for separating the zero-versus-positive attendance margin from frequency among users.
 
-**Boundary.** The project currently has only abstract-level access. Do not report which demographic predictors are significant, their coefficients, effect sizes or robustness results until the full text is reviewed. See `paper/LITERATURE_ACCESS_NOTES.md`.
+**Boundary.** The project currently has only abstract-level access. Do not report which demographic predictors are significant, their coefficients, effect sizes or robustness results until the full text is reviewed. See `literature_selected/ACCESS_NOTES.md`.
 
 ## Methodological references retained in `references.bib`
 
