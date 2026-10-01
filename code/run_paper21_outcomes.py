@@ -366,6 +366,21 @@ def run(args: argparse.Namespace) -> int:
         "10d_zero_inclusive_exact_administrative_composition.csv",
     )
 
+    observed_numeric_density = mixture_component_density(
+        zero_plus,
+        group_col="P21_GROUP_WITH_ZERO",
+        group_order=zero_order,
+        outcome_col="GRADE_NUMERIC",
+        component_col="ACADEMIC_OUTCOME_STATE_5",
+        component_order=["numeric_nonpass", "pass"],
+        grid_size=400,
+        cut=0.0,
+    )
+    _save(
+        observed_numeric_density,
+        "10l_zero_inclusive_observed_numeric_grade_density.csv",
+    )
+
     ridge_density = mixture_component_density(
         zero_plus,
         group_col="P21_GROUP_WITH_ZERO",
