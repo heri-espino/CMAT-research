@@ -90,7 +90,7 @@ The draft is **not submission-ready** until the TODOs in `paper/STATUS_AND_ROADM
 
 ## Shared-library provenance
 
-The reusable methods developed during Paper 2.1 are upstreamed to `main`. The current reusable API version is **cmat-analysis 0.4.2**. Canonical shared functions now include:
+The reusable methods developed during Paper 2.1 are upstreamed to `main`. The current reusable API version is **cmat-analysis 0.4.3**. Canonical shared functions now include:
 
 - `add_academic_outcome_states` in `cmat_analysis.measures`;
 - `add_topcoded_visit_group`;
@@ -109,7 +109,9 @@ The reusable methods developed during Paper 2.1 are upstreamed to `main`. The cu
 - `soft_component_composition`;
 - `parametric_bootstrap_gmm_lrt`;
 - `skew_normal_fit_summary`;
-- `compare_univariate_shape_models` in `cmat_analysis.statistics`.
+- `compare_univariate_shape_models`;
+- `parametric_bootstrap_skew_normal_vs_gmm`;
+- `cross_validated_skew_normal_vs_gmm` in `cmat_analysis.statistics`.
 
 The Paper 2.1 runners now delegate those calculations to the library. Do not reintroduce local copies unless the shared API cannot represent a scientifically different estimand. Shared API documentation lives in the Sphinx guide `cmat_analysis/docs/user_guide/attendance_frequency.rst` and in `cmat_analysis/FUNCTION_INDEX.md`.
 
@@ -149,7 +151,7 @@ The evidence hierarchy is binding:
 2. GMM on `Z_GRADE_COMPLETE_CASE` as the primary multimodality analysis;
 3. GMM on `Z_GRADE_PRIMARY` only as sensitivity to BV/RT/BA imputation.
 
-The mixture runner is `code/run_paper21_mixture.py` and writes aggregate outputs 30--48. It compares K=1/2/3 with BIC/ICL and uses a parametric-bootstrap likelihood-ratio test for K=1 vs K=2. The proposed means (-1.1, 0.5) are only one additional EM initialization; default multistart EM and empirical-quantile starts are also used.
+The mixture runner is `code/run_paper21_mixture.py` and writes aggregate outputs 30--52. It compares K=1/2/3 with BIC/ICL and uses a parametric-bootstrap likelihood-ratio test for K=1 vs K=2. It also compares one skew-normal with GMM K=2 in every `0/1/2/3/4/5/6+` group using three complementary diagnostics: AIC/BIC on the observed sample, a parametric bootstrap generated under the fitted skew-normal null, and repeated held-out log predictive density. The proposed means (-1.1, 0.5) are only one additional EM initialization; default multistart EM and empirical-quantile starts are also used.
 
 Never call the components "good students" and "students who tried but failed". Use `lower-performance component` and `higher-performance component`, because the model identifies distributional components rather than psychological or causal student types.
 
