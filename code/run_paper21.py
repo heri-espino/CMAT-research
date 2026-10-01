@@ -42,8 +42,8 @@ def _save(frame: pd.DataFrame, name: str) -> None:
 def check_environment() -> int:
     required = [
         REPO_ROOT / "cmat_analysis" / "pyproject.toml",
-        REPO_ROOT / "paper" / "ANALYSIS_PLAN.md",
-        REPO_ROOT / "paper" / "PROJECT_CONTEXT.md",
+        REPO_ROOT / "paper" / "docs" / "analysis" / "ANALYSIS_PLAN.md",
+        REPO_ROOT / "paper" / "docs" / "project" / "PROJECT_CONTEXT.md",
     ]
     missing = [str(path.relative_to(REPO_ROOT)) for path in required if not path.exists()]
     if missing:
