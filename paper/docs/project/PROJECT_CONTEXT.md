@@ -51,7 +51,7 @@ The observed positive-visit counts currently include:
 - 15: 5
 - >15: 14
 
-The outcome-blind support audit has now frozen the primary positive-frequency grouping as **`1 / 2 / 3 / 4 / 5 / 6+`**. The more granular `1 / 2 / 3 / 4 / 5 / 6 / 7+` specification is retained only as an exploratory sensitivity. See `paper/VISIT_GROUPING_DECISION.md` for the decision record.
+The outcome-blind support audit has now frozen the primary positive-frequency grouping as **`1 / 2 / 3 / 4 / 5 / 6+`**. The more granular `1 / 2 / 3 / 4 / 5 / 6 / 7+` specification is retained only as an exploratory sensitivity. See `paper/docs/analysis/VISIT_GROUPING_DECISION.md` for the decision record.
 
 ## Performance outcomes and academic-result composition
 
@@ -91,7 +91,7 @@ Primary descriptive states:
 
 An exact table preserves BV, RT and BA separately. Conditional on non-PASS, the analysis compares administrative outcomes with numeric failure and isolates BV versus numeric failure as the most directly relevant observed contrast for the academic-management hypothesis.
 
-This is not a third causal outcome. It is a decomposition of the observed final record intended to distinguish the performance margin from the academic-management margin described in `paper/OUTCOME_FRAMEWORK.md`.
+This is not a third causal outcome. It is a decomposition of the observed final record intended to distinguish the performance margin from the academic-management margin described in `paper/docs/analysis/OUTCOME_FRAMEWORK.md`.
 
 ## Main questions
 
@@ -111,4 +111,4 @@ Do not describe increasing visit count as a causal treatment dose. Repeated atte
 
 The phrase “diminishing returns” is a hypothesis to investigate, not an established result. It may be used only if the fitted pattern and uncertainty genuinely support it.
 
-Likewise, the academic-management pattern may be discussed as compatible with broader engagement or institutional navigation, but attendance is not a direct measure of motivation, knowledge of university procedures, or concern for GPA. Current evidence is specifically concentrated in BV; do not generalise that pattern to RT or BA. See `paper/ACADEMIC_MANAGEMENT_HYPOTHESIS.md`.
+Likewise, the academic-management pattern may be discussed as compatible with broader engagement or institutional navigation, but attendance is not a direct measure of motivation, knowledge of university procedures, or concern for GPA. Current evidence is specifically concentrated in BV; do not generalise that pattern to RT or BA. See `paper/docs/interpretation/ACADEMIC_MANAGEMENT_HYPOTHESIS.md`.
