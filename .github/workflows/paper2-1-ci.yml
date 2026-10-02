@@ -144,6 +144,8 @@ jobs:
             results/paper21/tables/26h_zero_inclusive_7plus_pass_p_holm_matrix.csv \
             results/paper21/tables/26i_zero_inclusive_7plus_omnibus.csv \
             results/paper21/tables/26j_zero_inclusive_7plus_pass_logit_model_info.csv \
+            results/paper21/tables/26k_zero_inclusive_7plus_pairwise_pass_lpm.csv \
+            results/paper21/tables/26l_zero_inclusive_7plus_pass_lpm_omnibus.csv \
             results/paper21/tables/26_instructor_cluster_pairwise_continuous.csv \
             results/paper21/tables/27_instructor_cluster_pairwise_pass.csv \
             results/paper21/tables/28_instructor_cluster_omnibus.csv \
