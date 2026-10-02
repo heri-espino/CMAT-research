@@ -2,6 +2,12 @@
 
 **Status:** controlled-data results verified; reusable estimators upstreamed to `main`; manuscript interpretation updated to distinguish observed density structure from the proposed academic-management mechanism.
 
+## Tail-resolution rerun pending
+
+The exploratory visit-frequency analysis now resolves the former `6+` category into exact `6` and `7+`. The numerical results below remain the verified results for the primary `0/1/2/3/4/5/6+` specification and must not be reinterpreted as results for the split tail.
+
+The mixture runner now repeats the full EM/GMM and skew-normal diagnostic family separately for exact `6` and `7+`, for both numeric complete-case and imputed outcomes. Those new outputs are numbered 53--68, with companion figures 08--09. Their numerical interpretation should be added here only after the controlled-data rerun has completed and the resulting tables have been inspected.
+
 ## 1. Why this analysis was added
 
 The original Paper 2.1 distribution plots suggested more than one concentration of final performance. This was scientifically important because the primary continuous outcome contains numerical representations of BV, RT, and BA, while the numeric complete-case outcome contains only observed numerical final grades.
