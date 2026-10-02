@@ -1,0 +1,2 @@
+specification,outcome,null_hypothesis,test_statistic,df_num,p_value,n,n_clusters,n_instructor_period_groups,covariance,adjustment
+main_zero_inclusive_0_1_2_3_4_5_6_7plus,pass_probability,equal adjusted outcomes across listed groups,18.955900279984217,7,4.61614707419319e-19,6627,190,190,cluster-robust by CLASSROOM_ID,instructor-period fixed effects + degree-programme indicators

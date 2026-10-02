@@ -1,9 +1,9 @@
 outcome,adjustment,group,0,1,2,3,4,5,6,7+
-pass_log_odds,holm,0,1.0,,,,,,,
-pass_log_odds,holm,1,,1.0,,,,,,
-pass_log_odds,holm,2,,,1.0,,,,,
-pass_log_odds,holm,3,,,,1.0,,,,
-pass_log_odds,holm,4,,,,,1.0,,,
-pass_log_odds,holm,5,,,,,,1.0,,
-pass_log_odds,holm,6,,,,,,,1.0,
-pass_log_odds,holm,7+,,,,,,,,1.0
+pass_probability_linear_probability_model,holm,0,1.0,4.502002486413043e-09,7.682230693622195e-07,0.00028128185042333026,4.612485428549572e-05,0.0003531201327760158,0.028918668733640514,1.01950189966642e-10
+pass_probability_linear_probability_model,holm,1,4.502002486413043e-09,1.0,1.0,1.0,1.0,1.0,1.0,0.0205566070920137
+pass_probability_linear_probability_model,holm,2,7.682230693622195e-07,1.0,1.0,1.0,1.0,1.0,1.0,0.15386157657985217
+pass_probability_linear_probability_model,holm,3,0.00028128185042333026,1.0,1.0,1.0,1.0,1.0,1.0,0.16894514413436099
+pass_probability_linear_probability_model,holm,4,4.612485428549572e-05,1.0,1.0,1.0,1.0,1.0,1.0,1.0
+pass_probability_linear_probability_model,holm,5,0.0003531201327760158,1.0,1.0,1.0,1.0,1.0,1.0,1.0
+pass_probability_linear_probability_model,holm,6,0.028918668733640514,1.0,1.0,1.0,1.0,1.0,1.0,1.0
+pass_probability_linear_probability_model,holm,7+,1.01950189966642e-10,0.0205566070920137,0.15386157657985217,0.16894514413436099,1.0,1.0,1.0,1.0

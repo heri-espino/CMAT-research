@@ -1,8 +1,8 @@
 outcome,adjustment,group,1,2,3,4,5,6,7+
-continuous_standardised_grade,holm,1,1.0,1.0,1.0,1.0,1.0,1.0,0.10178944938602341
-continuous_standardised_grade,holm,2,1.0,1.0,1.0,1.0,1.0,1.0,0.46685439924528904
-continuous_standardised_grade,holm,3,1.0,1.0,1.0,1.0,1.0,1.0,0.46685439924528904
+continuous_standardised_grade,holm,1,1.0,1.0,1.0,1.0,1.0,1.0,0.10178944938602137
+continuous_standardised_grade,holm,2,1.0,1.0,1.0,1.0,1.0,1.0,0.4668543992452726
+continuous_standardised_grade,holm,3,1.0,1.0,1.0,1.0,1.0,1.0,0.4668543992452726
 continuous_standardised_grade,holm,4,1.0,1.0,1.0,1.0,1.0,1.0,1.0
 continuous_standardised_grade,holm,5,1.0,1.0,1.0,1.0,1.0,1.0,1.0
 continuous_standardised_grade,holm,6,1.0,1.0,1.0,1.0,1.0,1.0,1.0
-continuous_standardised_grade,holm,7+,0.10178944938602341,0.46685439924528904,0.46685439924528904,1.0,1.0,1.0,1.0
+continuous_standardised_grade,holm,7+,0.10178944938602137,0.4668543992452726,0.4668543992452726,1.0,1.0,1.0,1.0
