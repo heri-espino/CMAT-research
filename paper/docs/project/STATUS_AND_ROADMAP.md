@@ -6,14 +6,16 @@
 
 ## Current scientific idea
 
-Paper 2.1 starts from a dense state-of-the-art review and places the zero-attendance benchmark and repeated CMAT use in a common `0 / 1 / 2 / 3 / 4 / 5 / 6 / 7+` reporting grid. Its substantive focus is where outcome differences appear across that full attendance distribution, while distinguishing the broad zero-versus-positive margin from contrasts among CMAT users.
+Paper 2.1 now asks where outcome differences appear across the full `0 / 1 / 2 / 3 / 4 / 5 / 6 / 7+` CMAT attendance distribution rather than treating visit count as a homogeneous dose. The institutional PPA scheme is central to interpretation because three CMAT visits could satisfy a university participation activity during at least part of the study period, so one to three visits may mix voluntary help-seeking with an attendance incentive. Frequencies beyond three are less directly explained by that threshold, and the `7+` tail is treated as sustained high-frequency use.
 
-Two principal outcome families will be analysed in parallel:
+The empirical story has three layers:
 
-1. PASS versus non-PASS, with non-PASS = numeric <7.5 or BA/BV/RT;
-2. continuous imputed final grade standardised within instructor-period group.
+1. a robust zero-versus-positive attendance separation in standardised performance and PASS;
+2. a distinctive `7+` PASS profile, including a Holm-significant difference from one visit, alongside descriptive but statistically unresolved shifts from four to five and six to `7+`;
+3. distributional heterogeneity that is much stronger after administrative outcomes are represented on the continuous scale: the imputed outcome shows a stable high-performance mode and a variable lower mode enriched in adverse outcomes, while observed numeric grades provide much less consistent evidence for two components.
 
-The current `4+` top-code is not binding on this branch.
+The paper therefore reports both observed and imputed distributions and treats Gaussian-mixture components as descriptive density features rather than latent student classes. The earlier pooled `6+` grouping remains a support-based robustness specification.
+
 
 ## Milestones
 
