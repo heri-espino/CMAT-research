@@ -30,6 +30,19 @@ USER_GROUPS = ["1", "2", "3", "4", "5", "6+"]
 SENSITIVITY_GROUPS = ["1", "2", "3", "4", "5", "6", "7+"]
 OUTCOME_STATES = ["pass", "numeric_nonpass", "BV", "RT", "BA"]
 
+OBSOLETE_FIGURES = [
+    "fig02_pairwise_z_heatmap.pdf",
+    "fig03_pairwise_pass_heatmap.pdf",
+    "fig04_complete_case_gmm_ridgeline.pdf",
+    "fig05_lower_component_weight.pdf",
+    "fig06_sensitivity_7plus_z_pvalue_dashboard.pdf",
+    "fig07_sensitivity_7plus_pass_pvalue_dashboard.pdf",
+    "fig08_sensitivity_6_7plus_complete_case_gmm_ridgeline.pdf",
+    "fig09_sensitivity_6_7plus_lower_component_weight.pdf",
+    "figS01_zero_inclusive_z_heatmap.pdf",
+    "figS02_zero_inclusive_pass_heatmap.pdf",
+]
+
 
 def _save(fig: plt.Figure, name: str) -> Path:
     FIGURES_DIR.mkdir(parents=True, exist_ok=True)
@@ -688,6 +701,11 @@ def main() -> int:
     parser = argparse.ArgumentParser()
     parser.parse_args()
     validate()
+    FIGURES_DIR.mkdir(parents=True, exist_ok=True)
+    for obsolete in OBSOLETE_FIGURES:
+        path = FIGURES_DIR / obsolete
+        if path.exists():
+            path.unlink()
     set_style()
     plt.rcParams["pdf.fonttype"] = 42
     plt.rcParams["ps.fonttype"] = 42
