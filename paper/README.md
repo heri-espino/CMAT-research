@@ -20,6 +20,8 @@ The current manuscript reports the main attendance sequence as `0 / 1 / 2 / 3 / 
 
 The manuscript now analyses two performance outcomes—PASS/non-PASS and the continuous imputed instructor-period-standardised grade—together with the composition of adverse outcomes, including the BV-specific academic-management contrast.
 
+The rewritten manuscript treats the three-visit PPA participation credit as an interpretive threshold: visits 1--3 may be partly incentive-influenced, while later visits go beyond that specific CMAT credit option. The main results emphasise the distinctive 7+ PASS profile, the descriptive four-to-five and six-to-7+ shifts, and the contrast between observed numeric-grade distributions and the stronger two-regime structure that appears after administrative outcomes are incorporated into the continuous outcome.
+
 `sections/01.tex`--`04.tex` now contain the full Paper 2.1 draft. The build regenerates Paper 2.1 aggregate results and vector figures before compiling the clean and commented TEAMAT/IMA PDFs.
 
 The distributional extension now includes a one-component skew-normal specification check against the one-Gaussian and two-Gaussian candidates. Reusable estimators live in `main/cmat_analysis`; Paper 2.1 runners contain only publication-specific orchestration.
