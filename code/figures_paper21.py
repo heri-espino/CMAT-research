@@ -361,7 +361,7 @@ def plot_pairwise_effect_dashboard() -> Path:
         axes,
         [
             "Adjusted standardised-grade difference",
-            "Adjusted odds ratio for passing",
+            "Adjusted odds ratio for passing (point estimate)",
         ],
     ):
         ax.set_xticks(np.arange(len(groups)), groups)
@@ -494,7 +494,7 @@ def plot_pass_pvalue_dashboard() -> Path:
         raw_path=TABLES_DIR / "26g_zero_inclusive_7plus_pass_p_raw_matrix.csv",
         holm_path=TABLES_DIR / "26h_zero_inclusive_7plus_pass_p_holm_matrix.csv",
         filename="fig06_pairwise_pass_pvalue_dashboard.pdf",
-        outcome_title="Adjusted odds of passing",
+        outcome_title="Adjusted pass probability (linear-probability inference)",
         group_order=ZERO_DISPLAY_GROUPS,
     )
 
