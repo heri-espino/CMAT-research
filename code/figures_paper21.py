@@ -130,7 +130,7 @@ def _plot_observed_histogram_structure(
     filename: str,
     grade_title: str,
 ) -> Path:
-    """Plot observed non-numeric shares beside a full-group-normalised histogram."""
+    """Plot observed non-passing shares beside a full-group-normalised histogram."""
     histogram = pd.read_csv(histogram_path)
     composition = pd.read_csv(composition_path)
     histogram["group"] = histogram["group"].astype(str)
