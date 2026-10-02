@@ -60,41 +60,6 @@ These differences did not extend to a robust visit-by-visit ordering across 1, 2
 
 \appendix
 
-\section{Zero-inclusive attendance benchmarks}
-\label{app:zero-inclusive-benchmark}
-
-The main heatmaps deliberately condition on positive CMAT attendance because the frequency analysis asks whether outcomes can be distinguished across repeated-use frequencies after a student has entered the support system. For completeness, this appendix restores the zero-attendance group in two complementary ways. First, \Cref{tab:supp-zero-any-benchmark} reports the pre-specified binary benchmark comparing any attendance with no recorded attendance. Second, \Cref{fig:supp-zero-z-heatmap,fig:supp-zero-pass-heatmap} expand the adjusted pairwise matrices to the full $0/1/2/3/4/5/6+$ grouping using the same instructor--period fixed effects, degree-programme adjustment and instructor--period clustered covariance estimator as the main figures.
-
-\begin{table}[tbp]
-\centering
-\caption{Adjusted zero-versus-any-attendance benchmark. Differences are reported as 1+ visits minus 0 visits.}
-\label{tab:supp-zero-any-benchmark}
-\begin{tabular}{lrrr}
-\toprule
-Outcome & Adjusted difference & 95\% CI & $p$-value \\
-\midrule
-Standardised final performance & 0.361 SD & 0.302 to 0.421 & $<0.001$ \\
-Pass probability & 15.3 pp & 12.4 to 18.1 pp & $<0.001$ \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\begin{figure}[tbp]
-\centering
-\includegraphics[width=0.84\textwidth]{../results/paper21/figures/figS01_zero_inclusive_z_heatmap.pdf}
-\caption{Supplementary zero-inclusive adjusted pairwise differences in standardised final performance. Each cell is the row group minus the column group in standard-deviation units for the full $0/1/2/3/4/5/6+$ attendance grouping. The model and covariance specification are identical to those used for the main user-only heatmap.}
-\label{fig:supp-zero-z-heatmap}
-\end{figure}
-
-\begin{figure}[tbp]
-\centering
-\includegraphics[width=0.84\textwidth]{../results/paper21/figures/figS02_zero_inclusive_pass_heatmap.pdf}
-\caption{Supplementary zero-inclusive adjusted pairwise differences in pass probability. Each cell is the row group minus the column group in percentage points for the full $0/1/2/3/4/5/6+$ attendance grouping, using the same adjustment structure as the main pass-probability heatmap.}
-\label{fig:supp-zero-pass-heatmap}
-\end{figure}
-
-The supplementary display clarifies the two-stage empirical pattern without changing the estimand of the user-only frequency analysis. The aggregate benchmark shows a large favourable association between any recorded attendance and both outcomes, with a 0.361-standard-deviation difference in standardised performance and a 15.3 percentage-point difference in pass probability. Once the zero-attendance group is included in the pairwise matrices, that broad zero-versus-positive separation provides the natural visual reference, whereas the contrasts among positive-frequency groups remain smaller and less regular. This is consistent with the main user-only analysis, in which no pairwise contrast survived Holm adjustment under the primary covariance specification. The appendix therefore supports describing a pronounced observational separation associated with entering CMAT, while avoiding the stronger claim that one visit itself causes an improvement or that each additional visit produces a monotone dose response.
-
 \section{Distribution-shape specification diagnostics}
 \label{app:shape-diagnostics}
 
