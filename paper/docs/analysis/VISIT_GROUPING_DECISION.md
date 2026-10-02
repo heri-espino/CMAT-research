@@ -11,7 +11,7 @@ Paper 2.1 will use:
 
 for the primary analysis among students with positive CMAT attendance.
 
-The zero-visit group remains a separate benchmark (`0 vs 1+`) and may appear in supplementary zero-inclusive displays, but it is not part of the main positive-frequency heatmap.
+The zero-visit group remains a separate benchmark (`0 vs 1+`) and is not part of the main positive-frequency heatmap. The descriptive outcome-distribution figures use the zero-inclusive display `0 / 1 / 2 / 3 / 4 / 5 / 6 / 7+` so that exact six visits and the 7+ tail are visually resolved consistently with the exploratory sensitivity, while the pre-specified primary inferential grouping remains `1 / 2 / 3 / 4 / 5 / 6+`.
 
 ## Why the Paper 2 top-code at 4+ was relaxed
 
