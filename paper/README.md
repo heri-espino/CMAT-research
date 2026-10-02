@@ -16,7 +16,7 @@ Read:
 - `../literature_selected/ACCESS_NOTES.md` for source-access limitations, including the abstract-only Gokhool & Lawson citation;
 - `AI_HANDOFF.md` for binding branch-specific rules.
 
-The primary frequency grouping is now frozen as `1 / 2 / 3 / 4 / 5 / 6+` from an outcome-blind support and pair-overlap audit. `1 / 2 / 3 / 4 / 5 / 6 / 7+` is exploratory sensitivity only. See `docs/analysis/VISIT_GROUPING_DECISION.md`.
+The current manuscript reports the main attendance sequence as `0 / 1 / 2 / 3 / 4 / 5 / 6 / 7+`. The earlier outcome-blind support audit originally favoured a pooled `6+` upper category for conservative inference; that pooled-tail specification is retained as a robustness check, while the manuscript figures and main pairwise displays resolve exact `6` and `7+`. See `docs/analysis/VISIT_GROUPING_DECISION.md`.
 
 The manuscript now analyses two performance outcomes—PASS/non-PASS and the continuous imputed instructor-period-standardised grade—together with the composition of adverse outcomes, including the BV-specific academic-management contrast.
 
