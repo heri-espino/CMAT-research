@@ -499,6 +499,63 @@ def run(args: argparse.Namespace) -> int:
     )
     _save(ridge_density, "10g_zero_inclusive_stacked_ridgeline_density.csv")
 
+    # Descriptive display sensitivity resolving exact six visits from the 7+ tail.
+    # The pre-specified primary grouping remains 1/2/3/4/5/6+ for inference,
+    # while Figures 1a and 1 use this higher-resolution zero-inclusive display.
+    zero_7plus_order = ["0", "1", "2", "3", "4", "5", "6", "7+"]
+    zero_7plus = add_topcoded_visit_group(
+        mu,
+        top_exact=6,
+        include_zero=True,
+        output_col="P21_GROUP_WITH_ZERO_7P",
+    )
+    zero_7plus_desc = group_outcome_summary(
+        zero_7plus,
+        group_col="P21_GROUP_WITH_ZERO_7P",
+        group_order=zero_7plus_order,
+        outcome_col="Z_GRADE_PRIMARY",
+        pass_col="PASS",
+    )
+    _save(
+        _format_descriptives(
+            zero_7plus_desc,
+            specification="zero_inclusive_display_0_1_2_3_4_5_6_7plus",
+        ),
+        "10n_zero_inclusive_7plus_descriptives.csv",
+    )
+    _save(
+        _composition(
+            zero_7plus,
+            group_col="P21_GROUP_WITH_ZERO_7P",
+            group_order=zero_7plus_order,
+            state_col="ACADEMIC_OUTCOME_STATE_5",
+            state_order=["pass", "numeric_nonpass", "BV", "RT", "BA"],
+            specification="zero_inclusive_display_0_1_2_3_4_5_6_7plus",
+        ),
+        "10o_zero_inclusive_7plus_exact_administrative_composition.csv",
+    )
+    _save(
+        mixture_component_density(
+            zero_7plus,
+            group_col="P21_GROUP_WITH_ZERO_7P",
+            group_order=zero_7plus_order,
+            outcome_col="Z_GRADE_PRIMARY",
+            component_col="ACADEMIC_OUTCOME_STATE_5",
+            component_order=["pass", "numeric_nonpass", "BV", "RT", "BA"],
+            grid_size=400,
+        ),
+        "10p_zero_inclusive_7plus_stacked_ridgeline_density.csv",
+    )
+    _save(
+        _observed_numeric_histogram(
+            zero_7plus,
+            group_col="P21_GROUP_WITH_ZERO_7P",
+            group_order=zero_7plus_order,
+            outcome_col="GRADE_NUMERIC",
+        ),
+        "10q_zero_inclusive_7plus_observed_numeric_grade_histogram.csv",
+    )
+
     zero_z_pair, _ = _fit(
         zero_plus,
         group_col="P21_GROUP_WITH_ZERO",
