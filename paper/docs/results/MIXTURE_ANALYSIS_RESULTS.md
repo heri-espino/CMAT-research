@@ -40,9 +40,11 @@ The full Paper 2.1 cohort contains 6,627 first eligible MU attempts:
 - 5,393 students with zero recorded same-period CMAT visits;
 - 1,234 students with one or more visits.
 
-The frozen zero-inclusive frequency groups are:
+The historical pooled-tail mixture specification used:
 
 `0 / 1 / 2 / 3 / 4 / 5 / 6+`.
+
+The current manuscript figures retain groups 0--5 from that fit and combine them with separately re-estimated exact `6` and `7+` fits.
 
 Two continuous outcomes are used:
 
