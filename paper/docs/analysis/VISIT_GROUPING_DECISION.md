@@ -3,7 +3,7 @@
 **Decision date:** 2026-09-20  
 **Outcome status when decision made:** no grade means, pass rates, pairwise outcome effects, or outcome p-values were inspected in choosing this grouping.
 
-## Primary grouping
+## Historical support-based grouping and current reporting grid
 
 Paper 2.1 will use:
 
@@ -11,7 +11,7 @@ Paper 2.1 will use:
 
 for the primary analysis among students with positive CMAT attendance.
 
-The zero-visit group remains a separate benchmark (`0 vs 1+`) and is not part of the main positive-frequency heatmap. The descriptive outcome-distribution figures use the zero-inclusive display `0 / 1 / 2 / 3 / 4 / 5 / 6 / 7+` so that exact six visits and the 7+ tail are visually resolved consistently with the exploratory sensitivity, while the pre-specified primary inferential grouping remains `1 / 2 / 3 / 4 / 5 / 6+`.
+The outcome-blind audit originally selected `1 / 2 / 3 / 4 / 5 / 6+` as the better-supported positive-frequency inferential grouping because exact six had weaker adjacent instructor-period overlap. The current manuscript reporting grid is `0 / 1 / 2 / 3 / 4 / 5 / 6 / 7+`, which places the zero-attendance benchmark, the PPA threshold and the upper tail in one frame. The earlier pooled `6+` specification remains a robustness check on tail sparsity; the document should not imply that the `7+` cut was pre-specified before outcomes were examined.
 
 ## Why the Paper 2 top-code at 4+ was relaxed
 
@@ -79,7 +79,7 @@ The more granular:
 
 may be reported as an exploratory sensitivity because exact 6 still has 50 students in 36 instructor-period groups and the 7+ tail has 101 students in 57 groups.
 
-It must not replace the primary grouping merely because its outcome results look more interesting.
+It was not originally selected as the support-optimal inferential grouping. Its use in the current manuscript is a reporting decision that must remain explicitly distinguished from the earlier outcome-blind support choice.
 
 
 ### PPA-threshold diagnostic
