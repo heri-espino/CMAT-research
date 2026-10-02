@@ -42,7 +42,7 @@ def validate() -> None:
         "10g_zero_inclusive_stacked_ridgeline_density.csv",
         "10b_zero_inclusive_descriptives.csv",
         "10d_zero_inclusive_exact_administrative_composition.csv",
-        "10l_zero_inclusive_observed_numeric_grade_density.csv",
+        "10m_zero_inclusive_observed_numeric_grade_histogram.csv",
         "18_primary_z_heatmap_matrix.csv",
         "19_primary_pass_heatmap_matrix.csv",
         "38_complete_case_gmm_two_component_parameters.csv",
@@ -93,19 +93,20 @@ def _central_density_limits(
     return left - margin, right + margin
 
 def plot_observed_pre_imputation_structure() -> Path:
-    """Plot the observed, pre-imputation outcome composition by visit group.
+    """Plot observed pre-imputation outcomes using an unsmoothed histogram.
 
-    Administrative outcomes are shown as shares of the full attendance group.
-    The ridgelines use only observed numeric grades on their original 0--10
-    scale; no numeric value is assigned to BV, RT, or BA.
+    Administrative outcomes are shares of the full attendance group. Numeric
+    grades are shown in 101 bins centred on 0.0, 0.1, ..., 10.0, and each bin
+    is normalised by the size of the full attendance group rather than by the
+    numeric-grade subset. No numeric value is assigned to BV, RT, or BA.
     """
-    density = pd.read_csv(
-        TABLES_DIR / "10l_zero_inclusive_observed_numeric_grade_density.csv"
+    histogram = pd.read_csv(
+        TABLES_DIR / "10m_zero_inclusive_observed_numeric_grade_histogram.csv"
     )
     composition = pd.read_csv(
         TABLES_DIR / "10d_zero_inclusive_exact_administrative_composition.csv"
     )
-    density["group"] = density["group"].astype(str)
+    histogram["group"] = histogram["group"].astype(str)
     composition["group"] = composition["group"].astype(str)
 
     share = (
@@ -135,7 +136,7 @@ def plot_observed_pre_imputation_structure() -> Path:
         sharey=True,
         gridspec_kw={"width_ratios": [1.7, 4.8], "wspace": 0.06},
     )
-    ridge_height = 0.78
+    hist_height = 0.78
     positions = np.arange(len(GROUPS), dtype=float)
 
     def group_share(group: str, state: str) -> float:
@@ -147,6 +148,12 @@ def plot_observed_pre_imputation_structure() -> Path:
         for group in GROUPS
     ]
     admin_limit = max(20.0, 5.0 * np.ceil((max(admin_totals) + 3.0) / 5.0))
+
+    max_bin_percent = float(histogram["percent_of_full_group"].max())
+    hist_scale_percent = max(
+        5.0,
+        5.0 * np.ceil(max_bin_percent / 5.0),
+    )
 
     for position, group in zip(positions, GROUPS):
         left = 0.0
@@ -191,39 +198,32 @@ def plot_observed_pre_imputation_structure() -> Path:
         )
 
         observed = (
-            density.loc[density["group"].eq(group)]
-            .drop_duplicates("x")
-            .sort_values("x")
+            histogram.loc[histogram["group"].eq(group)]
+            .sort_values("bin_center")
         )
         if observed.empty:
             continue
-        x = observed["x"].to_numpy(float)
-        y = observed["density_total"].to_numpy(float)
-        scale = float(np.nanmax(y))
-        if not np.isfinite(scale) or scale <= 0:
-            continue
-        ridge = position + ridge_height * y / scale
 
-        ax_grade.fill_between(
+        x = observed["bin_center"].to_numpy(float)
+        percent = observed["percent_of_full_group"].to_numpy(float)
+        heights = hist_height * percent / hist_scale_percent
+        colors = [
+            component_colors["numeric_nonpass"]
+            if center < 7.5
+            else component_colors["pass"]
+            for center in x
+        ]
+        ax_grade.bar(
             x,
-            position,
-            ridge,
-            where=x < 7.5,
-            interpolate=True,
-            color=component_colors["numeric_nonpass"],
-            alpha=0.88,
+            heights,
+            width=0.088,
+            bottom=position,
+            align="center",
+            color=colors,
+            edgecolor="white",
+            linewidth=0.12,
         )
-        ax_grade.fill_between(
-            x,
-            position,
-            ridge,
-            where=x >= 7.5,
-            interpolate=True,
-            color=component_colors["pass"],
-            alpha=0.94,
-        )
-        ax_grade.plot(x, ridge, linewidth=0.95, color="0.20")
-        ax_grade.hlines(position, 0.0, 10.0, linewidth=0.55, color="0.35")
+        ax_grade.hlines(position, -0.05, 10.05, linewidth=0.55, color="0.35")
 
         fail_share = 100.0 * group_share(group, "numeric_grade_below_7.5")
         pass_share = 100.0 * group_share(group, "pass")
@@ -235,7 +235,7 @@ def plot_observed_pre_imputation_structure() -> Path:
             va="bottom",
             fontsize=6.5,
             color=component_colors["numeric_nonpass"],
-            bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.72, "pad": 0.8},
+            bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.78, "pad": 0.8},
         )
         ax_grade.text(
             9.72,
@@ -245,7 +245,7 @@ def plot_observed_pre_imputation_structure() -> Path:
             va="bottom",
             fontsize=6.5,
             color=component_colors["pass"],
-            bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.72, "pad": 0.8},
+            bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.78, "pad": 0.8},
         )
 
     ax_admin.set_xlim(0.0, admin_limit)
@@ -267,11 +267,22 @@ def plot_observed_pre_imputation_structure() -> Path:
         fontsize=7,
         color="0.35",
     )
-    ax_grade.set_xlim(0.0, 10.0)
+    ax_grade.set_xlim(-0.05, 10.05)
+    ax_grade.set_ylim(-0.35, len(GROUPS) - 1 + hist_height + 0.28)
     ax_grade.set_xlabel("Observed numeric MU final grade")
-    ax_grade.set_title("Empirical numeric-grade distribution", fontsize=9.5)
+    ax_grade.set_title("Observed numeric grades (0.1-point bins)", fontsize=9.5)
     ax_grade.grid(axis="y", visible=False)
     ax_grade.tick_params(axis="y", left=False, labelleft=False)
+    ax_grade.text(
+        0.01,
+        0.985,
+        f"Common bar-height scale: 0–{hist_scale_percent:.0f}% of full group per bin",
+        transform=ax_grade.transAxes,
+        ha="left",
+        va="top",
+        fontsize=6.6,
+        color="0.35",
+    )
 
     fig.legend(
         handles=[
