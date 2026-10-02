@@ -1,5 +1,14 @@
 # Paper 2.1 — mixture, skew-normal, and administrative-outcome analysis
 
+## Current manuscript interpretation: two outcome regimes
+
+The manuscript now reports the two-component fits as a descriptive decomposition rather than as evidence of literal latent student types. The central contrast is between the numeric complete-case outcome and the completed imputed outcome.
+
+For the imputed outcome, the higher-performance component among CMAT users is unusually stable: its mean is approximately 0.58, 0.54, 0.60, 0.62, 0.54, 0.65 and 0.65 SD for 1, 2, 3, 4, 5, 6 and 7+ visits. The lower-component weights are 25.2%, 21.4%, 21.2%, 35.7%, 9.1%, 25.2% and 14.3%, respectively. Thus the visible four-to-five and six-to-7+ increases in group mean performance line up more closely with changes in lower-component mass than with movement of the high-performance mode. Posterior composition shows that the lower imputed component is enriched in BV and other adverse outcomes, while the higher component is overwhelmingly PASS.
+
+The observed numeric-grade analysis does not support a universal two-group story. GMM2 is clearly preferred to a fitted skew-normal for one and two visits, but skew-normal is adequate for three, four and exact six, five is inconclusive, and the apparent 7+ lower component is a degenerate approximately one-observation failure component. The paper therefore states that the two-regime pattern is strongest for the completed imputed outcome and materially reflects administrative endings.
+
+
 **Status:** controlled-data results verified; reusable estimators upstreamed to `main`; manuscript interpretation updated to distinguish observed density structure from the proposed academic-management mechanism.
 
 ## Tail-resolution rerun: exact 6 versus 7+
