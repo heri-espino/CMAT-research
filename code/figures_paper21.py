@@ -416,7 +416,7 @@ def _pvalue_dashboard(
             frame.set_index("group")[SENSITIVITY_GROUPS]
             .loc[SENSITIVITY_GROUPS]
             .astype(float)
-            .to_numpy()
+            .to_numpy(copy=True)
         )
         np.fill_diagonal(matrix, np.nan)
         matrices.append(matrix)
