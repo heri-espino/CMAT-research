@@ -60,7 +60,22 @@ Interpret the comparison as follows:
 - changing component means with stable weights: the pattern is more consistent with within-component location shifts;
 - unstable component estimates in small high-frequency groups: treat the tail as inconclusive rather than as evidence that a component disappeared.
 
-## E. What the model cannot establish
+## E. Tail-resolution sensitivity: exact 6 versus 7+
+
+The primary grouping remains `0 / 1 / 2 / 3 / 4 / 5 / 6+`, because that cut was selected before inspecting outcomes and preserves substantially more instructor-period overlap. The exploratory `1 / 2 / 3 / 4 / 5 / 6 / 7+` analysis nevertheless changes the upper-tail exposure definition, so the mixture analysis must not continue to report a pooled `6+` EM fit as though it represented the resolved tail.
+
+For this sensitivity, rerun the full distributional model family separately for exact `6` and `7+`:
+
+1. fit Gaussian mixtures with K = 1, 2, 3 using the same multi-start EM procedure as the primary analysis;
+2. retain the same two-component component ordering, separation diagnostics and parametric-bootstrap K=1 versus K=2 test;
+3. repeat the one-skew-normal versus two-Gaussian comparison, including the skew-normal-null bootstrap and repeated held-out log predictive density;
+4. repeat the analysis for both the numeric complete-case outcome and the imputed primary outcome;
+5. recompute posterior-responsibility state composition rather than splitting the old pooled `6+` responsibilities after estimation;
+6. regenerate the complete-case density overlay and lower-component-weight comparison for `6` and `7+`.
+
+This is a sensitivity analysis, not a replacement for the pre-specified `6+` primary result. In particular, any apparent difference between exact six visits and the `7+` tail must be interpreted cautiously because the support audit found only 15 instructor-period groups containing both exact 5 and exact 6 frequencies, and the upper-tail groups are much smaller than the pooled `6+` category.
+
+## F. What the model cannot establish
 
 Even a well-separated two-component GMM does not identify good students versus students who tried and failed, motivation or effort, a causal effect of CMAT attendance, a transition of a student from one latent type to another, or that six visits eliminate failure.
 
@@ -68,7 +83,7 @@ The safe terminology is lower-performance component and higher-performance compo
 
 Accumulating many visits also requires remaining enrolled long enough to do so, so an apparent disappearance of low outcomes at high frequency is vulnerable to opportunity-time and persistence selection.
 
-## F. Planned outputs
+## G. Planned outputs
 
 The controlled Paper 2.1 recipe produces:
 
@@ -81,8 +96,11 @@ The controlled Paper 2.1 recipe produces:
 - 47--48 observed-sample Gaussian/skew-normal/GMM specification comparisons;
 - 49/51 parametric-bootstrap skew-normal-null versus GMM K=2 diagnostics for complete-case and imputed outcomes;
 - 50/52 repeated cross-validated skew-normal versus GMM K=2 held-out log predictive density for complete-case and imputed outcomes;
+- 53--68 exact-6 versus 7+ tail-resolution sensitivity outputs, repeating EM model selection, two-component parameters, bootstrap diagnostics, posterior composition, skew-normal checks, cross-validation, and complete-case density construction;
 - fig04_complete_case_gmm_ridgeline.pdf, showing the observed complete-case density with the two weighted Gaussian components;
-- fig05_lower_component_weight.pdf, showing the estimated lower-performance component weight by attendance frequency for complete-case and imputed sensitivity specifications.
+- fig05_lower_component_weight.pdf, showing the estimated lower-performance component weight by attendance frequency for complete-case and imputed sensitivity specifications;
+- fig08_sensitivity_6_7plus_complete_case_gmm_ridgeline.pdf, showing separate EM/GMM fits for exact 6 and 7+ complete cases;
+- fig09_sensitivity_6_7plus_lower_component_weight.pdf, comparing lower-component weights for exact 6 and 7+ under complete-case and imputed specifications.
 
 No row-level responsibilities are written to artifacts.
 
@@ -93,7 +111,7 @@ Do not add a two-population narrative to the paper merely because a ridgeline ap
 Promote the mixture analysis into the main manuscript only if the numeric complete-case evidence is coherent across model-selection criteria, component separation, bootstrap evidence, and stability. Otherwise keep it exploratory or omit it.
 
 
-## G. Skew-normal specification check
+## H. Skew-normal specification check
 
 Rejecting one Gaussian is not sufficient to distinguish a genuinely multi-component density from one strongly asymmetric continuous distribution. Therefore each attendance group is also fit with a one-component skew-normal on exactly the same observations used for the Gaussian candidates.
 
@@ -109,7 +127,7 @@ The check is performed for both `Z_GRADE_COMPLETE_CASE` and `Z_GRADE_PRIMARY`. A
 
 The direct skew-normal comparison is evaluated in every `0/1/2/3/4/5/6+` group. The parametric bootstrap fits the skew-normal null, simulates samples of the observed group size, refits the skew-normal and GMM K=2 to each sample, and uses `BIC(skew-normal) - BIC(GMM K=2)` as the reference statistic. The repeated cross-validation diagnostic compares held-out log predictive density; a positive GMM-minus-skew difference indicates better out-of-sample density prediction by the mixture. The bootstrap is the inferential model-adequacy check, while cross-validation is a complementary predictive diagnostic rather than an independent p-value.
 
-## H. Verified refinement after the skew-normal check
+## I. Verified refinement after the skew-normal check
 
 The imputed primary outcome prefers the two-Gaussian mixture over a single skew-normal by BIC in every `0/1/2/3/4/5/6+` group. The numeric complete-case outcome is mixed: the two-Gaussian model remains preferred for 0, 1 and 2 visits, whereas BIC prefers a single skew-normal for 3, 4, 5 and 6+.
 
