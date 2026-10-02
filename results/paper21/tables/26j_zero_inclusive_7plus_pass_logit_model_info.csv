@@ -1,0 +1,2 @@
+specification,formula,reference_group,n,n_groups,n_fixed_effect_levels,n_clusters,cluster_col,multiplicity_method,alpha,converged
+main_zero_inclusive_0_1_2_3_4_5_6_7plus,"PASS ~ C(P21_GROUP_WITH_ZERO_7P, Treatment(reference='0')) + C(CLASSROOM_ID) + C(CLAVECARRERA)",0,6627,8,190,190,CLASSROOM_ID,holm,0.05,True

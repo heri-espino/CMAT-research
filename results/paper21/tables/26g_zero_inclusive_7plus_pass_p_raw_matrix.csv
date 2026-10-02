@@ -1,0 +1,9 @@
+outcome,adjustment,group,0,1,2,3,4,5,6,7+
+pass_log_odds,raw,0,1.0,,,,,,,
+pass_log_odds,raw,1,,1.0,,,,,,
+pass_log_odds,raw,2,,,1.0,,,,,
+pass_log_odds,raw,3,,,,1.0,,,,
+pass_log_odds,raw,4,,,,,1.0,,,
+pass_log_odds,raw,5,,,,,,1.0,,
+pass_log_odds,raw,6,,,,,,,1.0,
+pass_log_odds,raw,7+,,,,,,,,1.0
