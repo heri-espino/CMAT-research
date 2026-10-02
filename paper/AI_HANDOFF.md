@@ -8,7 +8,7 @@ Paper 2.1 was created from Paper 2 at commit `1956ef4bfe6073c9b28881a9da34d14cd2
 
 Paper 2.1 is not simply Paper 2 with more categories. Its central estimand is the observational structure of outcomes across **positive CMAT attendance frequencies**.
 
-The inherited Paper 2 rule `0 / 1 / 2 / 3 / 4+` is superseded here. The outcome-blind audit has frozen the primary positive-frequency grouping as **`1 / 2 / 3 / 4 / 5 / 6+`**. The decision must not be changed after inspecting outcome significance; see `paper/docs/analysis/VISIT_GROUPING_DECISION.md`.
+The inherited Paper 2 rule `0 / 1 / 2 / 3 / 4+` is superseded here. The current manuscript reporting grid is **`0 / 1 / 2 / 3 / 4 / 5 / 6 / 7+`**. The earlier outcome-blind audit selected `1 / 2 / 3 / 4 / 5 / 6+` as the better-supported positive-frequency inferential grouping; preserve that historical decision as a pooled-tail robustness check rather than rewriting it as if `7+` had been pre-specified.
 
 ## What remains inherited from Paper 2
 
@@ -62,7 +62,7 @@ Heatmap colour represents effect magnitude/direction:
 
 Do not colour by p-value. Statistical/equivalence status may be indicated separately.
 
-The main heatmaps focus on positive attendance-frequency groups. Zero-inclusive versions are retained as appendix/supplement benchmarks, using the full `0 / 1 / 2 / 3 / 4 / 5 / 6+` grouping and the same adjusted pairwise estimands; the aggregate `0 vs 1+` benchmark remains reported separately because initial engagement and frequency among users are distinct empirical questions.
+The main pairwise dashboards now use the full `0 / 1 / 2 / 3 / 4 / 5 / 6 / 7+` grouping. The effect dashboard combines adjusted standardised-grade differences with PASS odds-ratio point estimates; the p-value dashboards show raw and Holm-adjusted inference, with PASS significance taken from the stable fixed-effect linear-probability model.
 
 ## Academic-management mechanism guardrail
 
@@ -126,7 +126,7 @@ Paper 2.1 no longer uses separate figures for mean standardised performance and 
 
 `results/paper21/figures/fig01_distribution_composition_ridgeline.pdf`
 
-It combines the former Figure 1 and Figure 4. For each `0/1/2/3/4/5/6+` attendance group:
+It combines the former Figure 1 and Figure 4. For each `0/1/2/3/4/5/6/7+` attendance group:
 
 - the horizontal axis is the primary instructor-period-standardised outcome;
 - the ridge is a real-data Gaussian KDE;
