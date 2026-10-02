@@ -49,6 +49,8 @@ TABLE_SENTINELS = (
     TABLES_DIR / "26f_zero_inclusive_7plus_z_p_holm_matrix.csv",
     TABLES_DIR / "26g_zero_inclusive_7plus_pass_p_raw_matrix.csv",
     TABLES_DIR / "26h_zero_inclusive_7plus_pass_p_holm_matrix.csv",
+    TABLES_DIR / "26k_zero_inclusive_7plus_pairwise_pass_lpm.csv",
+    TABLES_DIR / "26l_zero_inclusive_7plus_pass_lpm_omnibus.csv",
     TABLES_DIR / "29_instructor_cluster_benchmark_0_vs_1plus.csv",
     TABLES_DIR / "30_numeric_failure_descriptives.csv",
     TABLES_DIR / "38_complete_case_gmm_two_component_parameters.csv",
