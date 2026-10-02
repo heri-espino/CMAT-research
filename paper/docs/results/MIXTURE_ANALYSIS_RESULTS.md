@@ -2,11 +2,23 @@
 
 **Status:** controlled-data results verified; reusable estimators upstreamed to `main`; manuscript interpretation updated to distinguish observed density structure from the proposed academic-management mechanism.
 
-## Tail-resolution rerun pending
+## Tail-resolution rerun: exact 6 versus 7+
 
-The exploratory visit-frequency analysis now resolves the former `6+` category into exact `6` and `7+`. The numerical results below remain the verified results for the primary `0/1/2/3/4/5/6+` specification and must not be reinterpreted as results for the split tail.
+The exploratory visit-frequency analysis resolves the former `6+` category into exact `6` and `7+`, while the primary inferential specification remains `0/1/2/3/4/5/6+`. The full EM/GMM and skew-normal diagnostic family was re-estimated from the original observations for the two tail groups; the old pooled `6+` posterior assignments were not partitioned after fitting.
 
-The mixture runner now repeats the full EM/GMM and skew-normal diagnostic family separately for exact `6` and `7+`, for both numeric complete-case and imputed outcomes. Those new outputs are numbered 53--68, with companion figures 08--09. Their numerical interpretation should be added here only after the controlled-data rerun has completed and the resulting tables have been inspected.
+### Numeric complete case
+
+Exact six visits contain 43 numeric complete cases. The two-Gaussian fit improves strongly over one Gaussian, but comparison with a flexible one-component skew-normal does not support a stable two-component interpretation: `Delta BIC = -2.36` favours the skew-normal, the skew-normal-null bootstrap gives `p=0.11`, and repeated cross-validation gives a mean GMM-minus-skew held-out log-density difference of `-0.037`.
+
+The `7+` group contains 93 numeric complete cases. BIC favours the two-Gaussian fit over the skew-normal by `+7.34` and the skew-normal-null bootstrap gives `p=0.02`, but the fitted lower component has weight only `1.08%`, mean `Z=-2.86` and SD fixed at the numerical floor `0.001`. The mean held-out log-density difference favours the GMM (`+0.530`), yet it wins only 38% of fold evaluations and fold variability is very large. The apparent lower component is therefore best treated as an extreme-observation/tail diagnostic rather than evidence of a stable lower-performance population.
+
+### Imputed outcome
+
+For exact six visits (`N=50`), BIC slightly favours the skew-normal (`Delta BIC=-2.17`) and the skew-normal-null bootstrap is non-significant (`p=0.12`), whereas repeated cross-validation favours the GMM on average (`+0.321`) and in 70% of folds. This specification is diagnostically mixed. The fitted imputed lower-component weight is 25.2%.
+
+For `7+` (`N=101`), the evidence is more coherent: `Delta BIC=+4.56`, skew-normal-null bootstrap `p=0.02`, positive mean held-out difference `+0.125`, and a 66% GMM fold-win share. The fitted lower-component weight is 14.3%.
+
+The split-tail rerun therefore adds descriptive resolution but does not reveal a monotone distributional transition at six or seven visits. It reinforces the decision to keep `6+` as the primary inference group while using exact `6` and `7+` as a sensitivity. Outputs 53--68 and figures 08--09 contain the full diagnostics.
 
 ## 1. Why this analysis was added
 
