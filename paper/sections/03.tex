@@ -10,19 +10,21 @@ The study sample contained 6,627 first eligible MU attempts. Of these, 5,393 stu
 \label{tab:attendance-descriptives}
 \begin{tabular}{lrrr}
 \toprule
-CMAT visits & $N$ & Mean $Z$ & Pass rate \\
+CMAT visits & $N$ & Mean $Z$ (95\% CI) & Pass rate (95\% CI) \\
 \midrule
-0  & 5,393 & $-0.061$ & 72.1\% \\
-1  & 517   & 0.219    & 81.0\% \\
-2  & 245   & 0.247    & 80.8\% \\
-3  & 170   & 0.278    & 81.8\% \\
-4  & 96    & 0.267    & 86.5\% \\
-5  & 55    & 0.382    & 85.5\% \\
-6  & 50    & 0.288    & 82.0\% \\
-7+ & 101   & 0.457    & 89.1\% \\
+0  & 5,393 & $-0.061$ [$-0.088$, $-0.034$] & 72.1\% [70.9, 73.3] \\
+1  & 517   & 0.219 [0.146, 0.292] & 81.0\% [77.7, 84.4] \\
+2  & 245   & 0.247 [0.154, 0.339] & 80.8\% [75.9, 85.7] \\
+3  & 170   & 0.278 [0.158, 0.398] & 81.8\% [76.0, 87.6] \\
+4  & 96    & 0.267 [0.128, 0.406] & 86.5\% [79.6, 93.3] \\
+5  & 55    & 0.382 [0.225, 0.539] & 85.5\% [76.1, 94.8] \\
+6  & 50    & 0.288 [0.055, 0.520] & 82.0\% [71.4, 92.6] \\
+7+ & 101   & 0.457 [0.336, 0.579] & 89.1\% [83.0, 95.2] \\
 \bottomrule
 \end{tabular}
 \end{table}
+
+The exact-six group illustrates the uncertainty created by sparse upper-frequency cells. Although its point estimate drops to mean $Z=0.288$, the descriptive 95\% confidence interval is wide (0.055 to 0.520), reflecting only 50 students and substantial within-group dispersion. That interval overlaps the corresponding intervals for both five visits and 7+, so the apparent dip at exactly six visits should not be interpreted as evidence that the underlying mean truly falls before rising again at 7+. The PASS estimate is similarly uncertain at six visits (82.0\%, 95\% CI 71.4\% to 92.6\%).
 
 The broad zero-versus-any-attendance benchmark was pronounced after adjustment for instructor--period fixed effects and degree programme. One or more visits were associated with a 0.361-standard-deviation higher continuous outcome (95\% CI 0.302 to 0.421, $p<0.001$) and a 15.3 percentage-point higher probability of passing (95\% CI 12.4 to 18.1 percentage points, $p<0.001$). The PASS contrast does not depend on assigning latent grades to BV, RT or BA because these records enter directly as non-passing outcomes.
 
@@ -48,7 +50,7 @@ The broad zero-versus-any-attendance benchmark was pronounced after adjustment f
 
 The eight-group continuous-outcome model rejected equality across attendance frequencies ($p<0.001$), but most of that signal came from the zero-attendance benchmark. Adjusted standardised performance was higher in every positive-attendance group than in the zero group, with row-minus-zero differences ranging from 0.305 SD for one visit to 0.549 SD for 7+ visits. All seven zero-versus-positive contrasts remained significant after Holm correction across the full 28-comparison family; the weakest was exact six versus zero, with Holm-adjusted $p=0.042$.
 
-Within positive attendance, the continuous profile did not form a smooth staircase. The first three groups were close together, with descriptive means of 0.219, 0.247 and 0.278 SD. The adjusted two-versus-three difference was only 0.013 SD in favour of three visits (raw $p=0.843$), so the institutionally incentivised third visit did not coincide with an observable performance break. The next visually notable change occurred between four and five visits: mean $Z$ increased from 0.267 to 0.382 and the adjusted five-minus-four contrast was 0.174 SD, but the raw pairwise $p$-value was 0.122 and the Holm-adjusted value was 1.00. The final descriptive rise occurred from exact six to 7+, where mean $Z$ increased from 0.288 to 0.457 and the adjusted contrast was 0.136 SD; this adjacent comparison was also imprecise (raw $p=0.364$). Thus the changes from four to five and from six to 7+ are visible distributional features, not statistically resolved discontinuities.
+Within positive attendance, the continuous profile did not form a smooth staircase. The first three groups were close together, with descriptive means of 0.219, 0.247 and 0.278 SD. The adjusted two-versus-three difference was only 0.013 SD in favour of three visits (raw $p=0.843$), so the institutionally incentivised third visit did not coincide with an observable performance break. The next visually notable change occurred between four and five visits: mean $Z$ increased from 0.267 to 0.382 and the adjusted five-minus-four contrast was 0.174 SD, but the raw pairwise $p$-value was 0.122 and the Holm-adjusted value was 1.00. The final descriptive rise occurred from exact six to 7+, where mean $Z$ increased from 0.288 to 0.457, but the exact-six mean is itself estimated imprecisely. The adjusted six-minus-7+ contrast was $-0.136$ SD with a 95\% CI from $-0.430$ to 0.158 (raw $p=0.364$), so the data are compatible both with a meaningful 7+ advantage and with little underlying difference. Thus the changes from four to five and from six to 7+ are visible distributional features, not statistically resolved discontinuities.
 
 The 7+ group nevertheless occupies a distinctive position in the upper tail. It had the highest descriptive mean standardised outcome and the highest observed pass rate (89.1\%). Relative to one visit, the adjusted continuous difference was 0.244 SD (raw $p=0.0077$), although that contrast did not survive Holm correction ($p=0.162$). The binary outcome showed stronger evidence: in the full fixed-effect linear-probability model, the adjusted pass probability for 7+ visits exceeded the one-visit group by 14.5 percentage points (95\% CI 5.9 to 23.1 percentage points), and this contrast remained significant after Holm correction ($p=0.0206$). Comparisons of 7+ with two and three visits were also positive by about 12 percentage points, but their Holm-adjusted $p$-values were 0.154 and 0.169, respectively.
 
