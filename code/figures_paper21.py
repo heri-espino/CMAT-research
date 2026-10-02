@@ -147,12 +147,25 @@ def _plot_observed_histogram_structure(
         for index, component in enumerate(OUTCOME_STATES)
     }
 
-    fig, (ax_admin, ax_grade) = plt.subplots(
-        1, 2, figsize=(10.2, 6.2), sharey=True,
-        gridspec_kw={"width_ratios": [1.7, 4.8], "wspace": 0.06},
+    fig, (ax_admin, ax_grade, ax_counts) = plt.subplots(
+        1, 3, figsize=(12.6, 6.2), sharey=True,
+        gridspec_kw={"width_ratios": [1.7, 4.8, 1.05], "wspace": 0.06},
     )
     hist_height = 0.78
     positions = np.arange(len(group_order), dtype=float)
+
+    group_counts = (
+        histogram.groupby("group", observed=True)["group_n"]
+        .first()
+        .reindex(group_order)
+        .astype(float)
+    )
+    if group_counts.isna().any():
+        missing_groups = group_counts.index[group_counts.isna()].tolist()
+        raise ValueError(
+            "Missing group_n values for count panel: "
+            + ", ".join(str(group) for group in missing_groups)
+        )
 
     def group_share(group: str, state: str) -> float:
         key = (group, state)
@@ -241,6 +254,37 @@ def _plot_observed_histogram_structure(
         f"Common bar-height scale: 0–{hist_scale_percent:.0f}% of full group per bin",
         transform=ax_grade.transAxes, ha="left", va="top", fontsize=6.6, color="0.35",
     )
+
+    # Far-right panel: attendance-group sample sizes.  This panel uses the
+    # same y positions as the outcome panels so the loss of support in the
+    # upper-frequency tail is visible directly in Figure 1.
+    count_values = group_counts.to_numpy(float)
+    max_count = float(np.nanmax(count_values))
+    count_limit = max_count * 1.22
+    ax_counts.barh(
+        positions,
+        count_values,
+        height=0.42,
+        color="0.62",
+        edgecolor="white",
+        linewidth=0.45,
+    )
+    for position, value in zip(positions, count_values):
+        ax_counts.text(
+            value + 0.025 * max_count,
+            position,
+            f"{int(value):,}",
+            ha="left",
+            va="center",
+            fontsize=6.8,
+            color="0.20",
+        )
+    ax_counts.set_xlim(0.0, count_limit)
+    ax_counts.set_xlabel("Students (N)")
+    ax_counts.set_title("Counts", fontsize=9.5)
+    ax_counts.grid(axis="y", visible=False)
+    ax_counts.grid(axis="x", linewidth=0.55, alpha=0.45)
+    ax_counts.tick_params(axis="y", left=False, labelleft=False)
 
     fig.legend(
         handles=[Patch(facecolor=component_colors[c], label=component_labels[c])
