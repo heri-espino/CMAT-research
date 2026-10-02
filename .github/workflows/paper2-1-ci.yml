@@ -134,8 +134,17 @@ jobs:
             results/paper21/tables/23a_sensitivity_7plus_p_raw_pass_matrix.csv \
             results/paper21/tables/23b_sensitivity_7plus_p_holm_pass_matrix.csv \
             results/paper21/tables/25a_sensitivity_7plus_observed_numeric_grade_histogram.csv \
-            results/paper21/tables/26_instructor_cluster_pairwise_continuous.csv \
-            results/paper21/tables/27_instructor_cluster_pairwise_pass.csv \
+            results/paper21/tables/26a_zero_inclusive_7plus_pairwise_continuous.csv \
+            results/paper21/tables/26b_zero_inclusive_7plus_z_effect_matrix.csv \
+            results/paper21/tables/26c_zero_inclusive_7plus_pass_logit_pairwise.csv \
+            results/paper21/tables/26d_zero_inclusive_7plus_pass_odds_ratio_matrix.csv \
+            results/paper21/tables/26e_zero_inclusive_7plus_z_p_raw_matrix.csv \
+            results/paper21/tables/26f_zero_inclusive_7plus_z_p_holm_matrix.csv \
+            results/paper21/tables/26g_zero_inclusive_7plus_pass_p_raw_matrix.csv \
+            results/paper21/tables/26h_zero_inclusive_7plus_pass_p_holm_matrix.csv \
+            results/paper21/tables/26i_zero_inclusive_7plus_omnibus.csv \
+            results/paper21/tables/26j_zero_inclusive_7plus_pass_logit_model_info.csv \
+            results/paper21/tables/26_instructor_cluster_pairwise_continuous.csv \            results/paper21/tables/27_instructor_cluster_pairwise_pass.csv \
             results/paper21/tables/28_instructor_cluster_omnibus.csv \
             results/paper21/tables/29_instructor_cluster_benchmark_0_vs_1plus.csv \
             results/paper21/tables/30_numeric_failure_descriptives.csv \
@@ -190,17 +199,12 @@ jobs:
         run: |
           for f in \
             results/paper21/figures/fig01a_observed_pre_imputation_structure.pdf \
-            results/paper21/figures/fig06_sensitivity_7plus_z_pvalue_dashboard.pdf \
-            results/paper21/figures/fig07_sensitivity_7plus_pass_pvalue_dashboard.pdf \
             results/paper21/figures/fig01_distribution_composition_ridgeline.pdf \
-            results/paper21/figures/fig02_pairwise_z_heatmap.pdf \
-            results/paper21/figures/fig03_pairwise_pass_heatmap.pdf \
-            results/paper21/figures/fig04_complete_case_gmm_ridgeline.pdf \
-            results/paper21/figures/fig05_lower_component_weight.pdf \
-            results/paper21/figures/fig08_sensitivity_6_7plus_complete_case_gmm_ridgeline.pdf \
-            results/paper21/figures/fig09_sensitivity_6_7plus_lower_component_weight.pdf \
-            results/paper21/figures/figS01_zero_inclusive_z_heatmap.pdf \
-            results/paper21/figures/figS02_zero_inclusive_pass_heatmap.pdf; do
+            results/paper21/figures/fig03_04_pairwise_effect_dashboard.pdf \
+            results/paper21/figures/fig05_pairwise_z_pvalue_dashboard.pdf \
+            results/paper21/figures/fig06_pairwise_pass_pvalue_dashboard.pdf \
+            results/paper21/figures/fig07_complete_case_gmm_ridgeline.pdf \
+            results/paper21/figures/fig08_lower_component_weight.pdf; do
             test -s "$f"
           done
 
