@@ -120,6 +120,17 @@ The Paper 2.1 runners now delegate those calculations to the library. Do not rei
 Do not merge the whole paper branch into `main` or Paper 2. Shared scientific functions discovered here should go through the upstream library process first; Paper 2.1 is now a downstream consumer of the reviewed main-library capability.
 
 
+## Current manuscript story
+
+The current manuscript's main substantive story is:
+
+- strong zero-versus-positive separation;
+- no discontinuity at the three-visit PPA threshold, so visits 1--3 must be interpreted cautiously as potentially incentive-influenced;
+- descriptive shifts beyond that range, especially four-to-five and exact-six-to-7+, with the 7+ PASS profile remaining significantly above one visit after Holm adjustment;
+- a high-performance and lower-performance outcome structure that is much clearer in the imputed completed outcome than in observed numeric grades alone.
+
+Do not turn the 4-to-5 or 6-to-7+ descriptive changes into causal thresholds: neither adjacent contrast is statistically resolved. The 7+ group is distinctive mainly because of its overall profile and its Holm-significant PASS contrast with one visit, not because 6 versus 7+ is significant.
+
 ## Combined ridgeline figure
 
 Paper 2.1 no longer uses separate figures for mean standardised performance and final-outcome composition. The canonical descriptive figure is:
@@ -151,7 +162,7 @@ The evidence hierarchy is binding:
 2. GMM on `Z_GRADE_COMPLETE_CASE` as the primary multimodality analysis;
 3. GMM on `Z_GRADE_PRIMARY` only as sensitivity to BV/RT/BA imputation.
 
-The mixture runner is `code/run_paper21_mixture.py` and writes aggregate outputs 30--52. It compares K=1/2/3 with BIC/ICL and uses a parametric-bootstrap likelihood-ratio test for K=1 vs K=2. It also compares one skew-normal with GMM K=2 in every `0/1/2/3/4/5/6+` group using three complementary diagnostics: AIC/BIC on the observed sample, a parametric bootstrap generated under the fitted skew-normal null, and repeated held-out log predictive density. The proposed means (-1.1, 0.5) are only one additional EM initialization; default multistart EM and empirical-quantile starts are also used.
+The mixture runner is `code/run_paper21_mixture.py`. It compares K=1/2/3 with BIC/ICL and uses a parametric-bootstrap likelihood-ratio test for K=1 vs K=2. It also compares one skew-normal with GMM K=2 using three complementary diagnostics: AIC/BIC on the observed sample, a parametric bootstrap generated under the fitted skew-normal null, and repeated held-out log predictive density. Groups 0--5 come from the historical zero-inclusive fit; exact 6 and 7+ are re-estimated separately in outputs 53--68 and are combined into the current main figures. The proposed means (-1.1, 0.5) are only one additional EM initialization; default multistart EM and empirical-quantile starts are also used.
 
 Never call the components "good students" and "students who tried but failed". Use `lower-performance component` and `higher-performance component`, because the model identifies distributional components rather than psychological or causal student types.
 
@@ -161,4 +172,4 @@ Do not claim that a low-performance component disappears after six visits unless
 
 Controlled validation now has two layers. The historical 199-replicate GMM run is `35657154301`, and the earlier integrated recipe was revalidated successfully in run `36685329947` at branch head `93b16efb40efd7ed6803ab50568bc5fb075a10b9`, with tables 01--48 and figures 01--05 verified. The direct skew-normal-null bootstrap and predictive comparison was then validated in focused run `36826363767` at branch head `50f6e568aa38f3b9ec99be4b08124c72a1e989b8`, which verified tables 47--52 and uploaded artifact `paper21-shape-validation-50f6e568aa38f3b9ec99be4b08124c72a1e989b8` (artifact ID `11145891079`). The full Paper 2.1 CI is configured to verify tables 01--52 and publication figures with the more intensive settings, while the focused shape workflow is the rapid reproducibility check for the specification question.
 
-The canonical combined interpretation is in `paper/docs/results/MIXTURE_ANALYSIS_RESULTS.md`. For numeric complete cases, zero, one and two visits show concordant evidence for the two-Gaussian representation; three, four and 6+ visits are adequately represented by one strongly left-skewed distribution; and five visits are inconclusive because the sample is small and the diagnostics disagree. For the imputed outcome, all seven groups favour the mixture across penalised fit, skew-normal-null bootstrap and held-out prediction. The imputed lower component remains strongly enriched in administrative outcomes, especially BV. Preserve the distinction between that observed association and the unmeasured engagement/institutional-navigation mechanism.
+The canonical combined interpretation is in `paper/docs/results/MIXTURE_ANALYSIS_RESULTS.md`. For numeric complete cases, zero, one and two visits show concordant evidence for the two-Gaussian representation; three and four are adequately skew-normal, five is inconclusive, exact six is adequately skew-normal, and the apparent 7+ GMM is an unstable tail fit whose lower component is essentially one failed observation. For the imputed outcome, groups 0--5 and 7+ favour the mixture, while exact six is mixed across diagnostics. Among users the imputed higher-component mean stays near 0.54--0.65 SD, while lower-component weight changes sharply, including 35.7% to 9.1% from four to five visits and 25.2% to 14.3% from exact six to 7+. The imputed lower component is strongly enriched in administrative outcomes, especially BV. Preserve the distinction between descriptive mixture structure and literal latent student types.
