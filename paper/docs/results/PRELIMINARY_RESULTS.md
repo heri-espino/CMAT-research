@@ -1,5 +1,18 @@
 # Paper 2.1 — preliminary controlled-data results
 
+## Current manuscript interpretation
+
+The current paper is organised around the full attendance grid `0 / 1 / 2 / 3 / 4 / 5 / 6 / 7+`, with three substantive regions kept distinct in the interpretation:
+
+- zero attendance;
+- one to three visits, which may be partly influenced by the university PPA participation incentive because three CMAT visits could satisfy a participation activity;
+- attendance beyond three visits, with `7+` retained as a high-frequency tail.
+
+The strongest result remains the zero-versus-positive separation. In the full eight-group continuous model every zero-versus-positive contrast survives Holm adjustment. PASS also shows a high-frequency signal within users: `7+` exceeds the one-visit group by 14.5 adjusted percentage points and this contrast remains Holm-significant (`p=0.0206`); the logistic point estimate corresponds to an odds ratio of 2.75. The adjacent two-versus-three comparison is negligible, so the PPA threshold does not coincide with an observed outcome discontinuity. Descriptive mean Z rises from 0.267 to 0.382 between four and five visits and from 0.288 to 0.457 between exact six and `7+`, but neither adjacent contrast is statistically resolved.
+
+The distributional analysis is now reported in parallel for observed numeric grades and for the imputed continuous outcome. In the imputed outcome, two-Gaussian mixtures are supported for most groups; among users the higher-component mean stays near 0.54--0.65 SD while the lower-component weight changes sharply, including 35.7% to 9.1% from four to five visits and 25.2% to 14.3% from six to `7+`. The lower imputed component is enriched in BV and other adverse outcomes, whereas the higher component is overwhelmingly PASS. With observed numeric grades, evidence for two components is much weaker: one and two visits support GMM2, several higher-frequency groups are adequately skew-normal, and the `7+` lower component corresponds essentially to one extreme failed observation.
+
+
 **Status:** the current manuscript and figure suite use `0 / 1 / 2 / 3 / 4 / 5 / 6 / 7+` as the main reporting grid. The earlier outcome-blind `1 / 2 / 3 / 4 / 5 / 6+` specification remains a documented pooled-tail robustness analysis. The current code generates full-group effect matrices, PASS odds-ratio point estimates, raw/Holm p-value dashboards, and separately re-estimated exact-6/7+ mixture diagnostics.
 These results are reproducible controlled-data outputs; claims that depend on future entrance-exam data or institutional policy verification remain provisional.
 
