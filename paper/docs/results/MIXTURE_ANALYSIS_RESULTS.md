@@ -4,7 +4,7 @@
 
 ## Tail-resolution rerun: exact 6 versus 7+
 
-The exploratory visit-frequency analysis resolves the former `6+` category into exact `6` and `7+`, while the primary inferential specification remains `0/1/2/3/4/5/6+`. The full EM/GMM and skew-normal diagnostic family was re-estimated from the original observations for the two tail groups; the old pooled `6+` posterior assignments were not partitioned after fitting.
+The current manuscript figures resolve the former `6+` category into exact `6` and `7+`, while the earlier `0/1/2/3/4/5/6+` fit remains the historical pooled-tail robustness specification. The full EM/GMM and skew-normal diagnostic family was re-estimated from the original observations for the two tail groups; the old pooled `6+` posterior assignments were not partitioned after fitting.
 
 ### Numeric complete case
 
@@ -18,7 +18,7 @@ For exact six visits (`N=50`), BIC slightly favours the skew-normal (`Delta BIC=
 
 For `7+` (`N=101`), the evidence is more coherent: `Delta BIC=+4.56`, skew-normal-null bootstrap `p=0.02`, positive mean held-out difference `+0.125`, and a 66% GMM fold-win share. The fitted lower-component weight is 14.3%.
 
-The split-tail rerun therefore adds descriptive resolution but does not reveal a monotone distributional transition at six or seven visits. It reinforces the decision to keep `6+` as the primary inference group while using exact `6` and `7+` as a sensitivity. Outputs 53--68 and figures 08--09 contain the full diagnostics.
+The split-tail rerun therefore adds descriptive resolution but does not reveal a monotone distributional transition at six or seven visits. The main mixture figures now combine groups 0--5 with the separately re-estimated exact-6 and 7+ fits, while the pooled `6+` outputs remain a robustness reference. Outputs 53--68 contain the tail diagnostics.
 
 ## 1. Why this analysis was added
 
