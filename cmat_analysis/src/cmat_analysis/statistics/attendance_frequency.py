@@ -15,6 +15,7 @@ import pandas as pd
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
 from patsy import build_design_matrices
+from scipy.stats import chi2
 from statsmodels.stats.multitest import multipletests
 
 
@@ -595,15 +596,48 @@ def fixed_effect_logistic_group_comparisons(
     restriction = np.zeros((len(coefficient_names), len(param_names)))
     for index, name in enumerate(coefficient_names):
         restriction[index, param_names.index(name)] = 1
-    joint = model.wald_test(restriction, scalar=True)
+
+    # statsmodels' generic wald_test can reject a multi-parameter test when
+    # the cluster-robust covariance of the requested restrictions is
+    # rank-deficient. This occurs in sparse high-dimensional fixed-effect
+    # logistic models even when the fitted coefficients and pairwise
+    # contrasts are usable. Compute the same asymptotic chi-square Wald
+    # statistic with the Moore-Penrose inverse and use the estimable rank as
+    # the degrees of freedom. If the restricted covariance is not finite,
+    # report the omnibus test as unavailable rather than failing the full
+    # pairwise analysis.
+    params = np.asarray(model.params, dtype=float)
+    covariance = np.asarray(model.cov_params(), dtype=float)
+    restricted_effect = restriction @ params
+    restricted_covariance = restriction @ covariance @ restriction.T
+    if (
+        restricted_effect.size
+        and np.isfinite(restricted_effect).all()
+        and np.isfinite(restricted_covariance).all()
+    ):
+        df_num = int(np.linalg.matrix_rank(restricted_covariance))
+        if df_num > 0:
+            inverse = np.linalg.pinv(restricted_covariance)
+            statistic = float(
+                restricted_effect.T @ inverse @ restricted_effect
+            )
+            statistic = max(statistic, 0.0)
+            p_value = float(chi2.sf(statistic, df_num))
+        else:
+            statistic = np.nan
+            p_value = np.nan
+    else:
+        df_num = 0
+        statistic = np.nan
+        p_value = np.nan
 
     omnibus = pd.DataFrame(
         [
             {
                 "null_hypothesis": "equal adjusted log odds across listed groups",
-                "test_statistic": float(np.asarray(joint.statistic).reshape(-1)[0]),
-                "df_num": int(len(coefficient_names)),
-                "p_value": float(np.asarray(joint.pvalue).reshape(-1)[0]),
+                "test_statistic": statistic,
+                "df_num": df_num,
+                "p_value": p_value,
                 "n": int(model.nobs),
                 "n_clusters": int(d[cluster_col].nunique()),
             }
