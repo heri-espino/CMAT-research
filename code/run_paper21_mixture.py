@@ -49,6 +49,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 TABLES_DIR = REPO_ROOT / "results" / "paper21" / "tables"
 GROUP_ORDER = ["0", "1", "2", "3", "4", "5", "6+"]
 USER_GROUP_ORDER = ["1", "2", "3", "4", "5", "6+"]
+SENSITIVITY_TAIL_GROUP_ORDER = ["6", "7+"]
 STATE_ORDER = ["pass", "numeric_nonpass", "BV", "RT", "BA"]
 
 
@@ -75,6 +76,13 @@ def _load_cohort(args: argparse.Namespace) -> pd.DataFrame:
         top_exact=5,
         include_zero=True,
         output_col="P21_GROUP_WITH_ZERO",
+    )
+    cohort = add_topcoded_visit_group(
+        cohort,
+        visits_col="VISITS_CMAT_PERIOD",
+        top_exact=6,
+        include_zero=True,
+        output_col="P21_GROUP_7P",
     )
     return cohort
 
@@ -147,6 +155,8 @@ def _gmm_starts(values: np.ndarray) -> tuple[tuple[float, float], ...]:
 def _run_gmm_family(
     cohort: pd.DataFrame,
     *,
+    group_col: str,
+    group_order: list[str],
     outcome_col: str,
     outcome_spec: str,
     n_bootstrap: int,
@@ -170,8 +180,8 @@ def _run_gmm_family(
     skew_bootstrap_rows: list[pd.DataFrame] = []
     predictive_comparison_rows: list[pd.DataFrame] = []
 
-    labels = cohort["P21_GROUP_WITH_ZERO"].astype("string")
-    for group in GROUP_ORDER:
+    labels = cohort[group_col].astype("string")
+    for group in group_order:
         g = cohort.loc[labels.eq(group)].copy()
         finite = pd.to_numeric(g[outcome_col], errors="coerce").notna()
         g = g.loc[finite].copy()
@@ -320,6 +330,8 @@ def run(args: argparse.Namespace) -> int:
         cc_predictive,
     ) = _run_gmm_family(
         cohort,
+        group_col="P21_GROUP_WITH_ZERO",
+        group_order=GROUP_ORDER,
         outcome_col="Z_GRADE_COMPLETE_CASE",
         outcome_spec="numeric_complete_case",
         n_bootstrap=args.gmm_bootstrap,
@@ -351,6 +363,8 @@ def run(args: argparse.Namespace) -> int:
         imp_predictive,
     ) = _run_gmm_family(
         cohort,
+        group_col="P21_GROUP_WITH_ZERO",
+        group_order=GROUP_ORDER,
         outcome_col="Z_GRADE_PRIMARY",
         outcome_spec="primary_imputed_sensitivity",
         n_bootstrap=args.gmm_bootstrap,
@@ -370,6 +384,125 @@ def run(args: argparse.Namespace) -> int:
     _save(
         imp_predictive,
         "52_imputed_skewnormal_vs_gmm_cross_validation.csv",
+    )
+
+    # Exploratory tail-resolution sensitivity: rerun the complete EM/GMM
+    # family after separating exact 6 visits from the 7+ tail. The primary
+    # 6+ specification remains unchanged; these outputs diagnose whether
+    # pooling six visits masks a distinct distributional pattern.
+    (
+        tail_cc_selection,
+        tail_cc_components,
+        tail_cc_bootstrap,
+        tail_cc_composition,
+        tail_cc_shape,
+        tail_cc_skew_bootstrap,
+        tail_cc_predictive,
+    ) = _run_gmm_family(
+        cohort,
+        group_col="P21_GROUP_7P",
+        group_order=SENSITIVITY_TAIL_GROUP_ORDER,
+        outcome_col="Z_GRADE_COMPLETE_CASE",
+        outcome_spec="numeric_complete_case_sensitivity_6_vs_7plus",
+        n_bootstrap=args.gmm_bootstrap,
+        shape_bootstrap=args.shape_bootstrap,
+        shape_cv_folds=args.shape_cv_folds,
+        shape_cv_repeats=args.shape_cv_repeats,
+    )
+    _save(tail_cc_selection, "53_sensitivity_6_7plus_complete_case_gmm_selection.csv")
+    _save(
+        tail_cc_components,
+        "54_sensitivity_6_7plus_complete_case_gmm_two_component_parameters.csv",
+    )
+    _save(
+        tail_cc_bootstrap,
+        "55_sensitivity_6_7plus_complete_case_gmm_bootstrap_1_vs_2.csv",
+    )
+    _save(
+        tail_cc_composition,
+        "56_sensitivity_6_7plus_complete_case_gmm_soft_component_composition.csv",
+    )
+    _save(
+        tail_cc_shape,
+        "63_sensitivity_6_7plus_complete_case_skewnormal_vs_gmm.csv",
+    )
+    _save(
+        tail_cc_skew_bootstrap,
+        "65_sensitivity_6_7plus_complete_case_skewnormal_bootstrap_vs_gmm.csv",
+    )
+    _save(
+        tail_cc_predictive,
+        "66_sensitivity_6_7plus_complete_case_skewnormal_vs_gmm_cross_validation.csv",
+    )
+
+    (
+        tail_imp_selection,
+        tail_imp_components,
+        tail_imp_bootstrap,
+        tail_imp_composition,
+        tail_imp_shape,
+        tail_imp_skew_bootstrap,
+        tail_imp_predictive,
+    ) = _run_gmm_family(
+        cohort,
+        group_col="P21_GROUP_7P",
+        group_order=SENSITIVITY_TAIL_GROUP_ORDER,
+        outcome_col="Z_GRADE_PRIMARY",
+        outcome_spec="primary_imputed_sensitivity_6_vs_7plus",
+        n_bootstrap=args.gmm_bootstrap,
+        shape_bootstrap=args.shape_bootstrap,
+        shape_cv_folds=args.shape_cv_folds,
+        shape_cv_repeats=args.shape_cv_repeats,
+    )
+    _save(tail_imp_selection, "57_sensitivity_6_7plus_imputed_gmm_selection.csv")
+    _save(
+        tail_imp_components,
+        "58_sensitivity_6_7plus_imputed_gmm_two_component_parameters.csv",
+    )
+    _save(
+        tail_imp_bootstrap,
+        "59_sensitivity_6_7plus_imputed_gmm_bootstrap_1_vs_2.csv",
+    )
+    _save(
+        tail_imp_composition,
+        "60_sensitivity_6_7plus_imputed_gmm_soft_component_composition.csv",
+    )
+    _save(
+        tail_imp_shape,
+        "64_sensitivity_6_7plus_imputed_skewnormal_vs_gmm.csv",
+    )
+    _save(
+        tail_imp_skew_bootstrap,
+        "67_sensitivity_6_7plus_imputed_skewnormal_bootstrap_vs_gmm.csv",
+    )
+    _save(
+        tail_imp_predictive,
+        "68_sensitivity_6_7plus_imputed_skewnormal_vs_gmm_cross_validation.csv",
+    )
+
+    tail_comparison = pd.concat(
+        [tail_cc_components, tail_imp_components],
+        ignore_index=True,
+    )
+    _save(
+        tail_comparison,
+        "61_sensitivity_6_7plus_gmm_component_comparison_complete_vs_imputed.csv",
+    )
+
+    tail_density_source = cohort.copy()
+    tail_density_source["_GMM_DENSITY_COMPONENT"] = "all"
+    tail_cc_density = mixture_component_density(
+        tail_density_source,
+        group_col="P21_GROUP_7P",
+        group_order=SENSITIVITY_TAIL_GROUP_ORDER,
+        outcome_col="Z_GRADE_COMPLETE_CASE",
+        component_col="_GMM_DENSITY_COMPONENT",
+        component_order=["all"],
+        grid_size=512,
+    )
+    _save(
+        tail_cc_density,
+        "62_sensitivity_6_7plus_complete_case_gmm_ridgeline_density.csv",
     )
 
     comparison = pd.concat(
@@ -406,6 +539,7 @@ def run(args: argparse.Namespace) -> int:
         f"{args.shape_cv_folds}-fold CV x {args.shape_cv_repeats} repeats"
     )
     print("GMM hierarchy: complete-case primary; imputed outcome sensitivity")
+    print("Tail-resolution EM sensitivity: exact 6 versus 7+; primary 6+ retained")
     print(
         "Shape checks: BIC/AIC, skew-normal-null bootstrap, and held-out "
         "log predictive density"
