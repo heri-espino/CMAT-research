@@ -950,6 +950,22 @@ def run(args: argparse.Namespace) -> int:
         "26f_zero_inclusive_7plus_z_p_holm_matrix.csv",
     )
 
+    # Use the stable fixed-effect linear-probability specification for
+    # multiplicity-aware PASS inference. The logistic model is retained only
+    # for interpretable odds-ratio point estimates because its cluster-robust
+    # covariance can be rank-deficient when classroom fixed effects and
+    # classroom clustering coincide.
+    full_pass_pair, full_pass_omni = _fit(
+        zero_7plus,
+        group_col="P21_GROUP_WITH_ZERO_7P",
+        group_order=paper_order,
+        outcome_col="PASS",
+        outcome_label="pass_probability",
+        specification="main_zero_inclusive_0_1_2_3_4_5_6_7plus",
+    )
+    _save(full_pass_pair, "26k_zero_inclusive_7plus_pairwise_pass_lpm.csv")
+    _save(full_pass_omni, "26l_zero_inclusive_7plus_pass_lpm_omnibus.csv")
+
     pass_logit_pair, pass_logit_omni, pass_logit_info = (
         fixed_effect_logistic_group_comparisons(
             zero_7plus,
@@ -982,28 +998,28 @@ def run(args: argparse.Namespace) -> int:
     )
     _save(
         _pairwise_pvalue_matrix(
-            pass_logit_pair,
+            full_pass_pair,
             group_order=paper_order,
             p_col="p_raw",
-            outcome="pass_log_odds",
+            outcome="pass_probability_linear_probability_model",
             adjustment="raw",
         ),
         "26g_zero_inclusive_7plus_pass_p_raw_matrix.csv",
     )
     _save(
         _pairwise_pvalue_matrix(
-            pass_logit_pair,
+            full_pass_pair,
             group_order=paper_order,
-            p_col="p_adjusted",
-            outcome="pass_log_odds",
+            p_col="p_holm",
+            outcome="pass_probability_linear_probability_model",
             adjustment="holm",
         ),
         "26h_zero_inclusive_7plus_pass_p_holm_matrix.csv",
     )
     full_z_omni.insert(0, "family", "continuous_standardised_grade")
-    pass_logit_omni.insert(0, "family", "pass_log_odds")
+    full_pass_omni.insert(0, "family", "pass_probability")
     _save(
-        pd.concat([full_z_omni, pass_logit_omni], ignore_index=True, sort=False),
+        pd.concat([full_z_omni, full_pass_omni], ignore_index=True, sort=False),
         "26i_zero_inclusive_7plus_omnibus.csv",
     )
     _save(pass_logit_info, "26j_zero_inclusive_7plus_pass_logit_model_info.csv")
