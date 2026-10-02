@@ -539,7 +539,8 @@ def run(args: argparse.Namespace) -> int:
         f"{args.shape_cv_folds}-fold CV x {args.shape_cv_repeats} repeats"
     )
     print("GMM hierarchy: complete-case primary; imputed outcome sensitivity")
-    print("Tail-resolution EM sensitivity: exact 6 versus 7+; primary 6+ retained")
+    print("Main manuscript density display: 0--5 plus separately re-estimated exact 6 and 7+")
+    print("Historical pooled 6+ fit retained as a tail-support robustness reference")
     print(
         "Shape checks: BIC/AIC, skew-normal-null bootstrap, and held-out "
         "log predictive density"
