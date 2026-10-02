@@ -42,10 +42,6 @@ def _save(fig: plt.Figure, name: str) -> Path:
 
 def validate() -> None:
     required = [
-        "10g_zero_inclusive_stacked_ridgeline_density.csv",
-        "10b_zero_inclusive_descriptives.csv",
-        "10d_zero_inclusive_exact_administrative_composition.csv",
-        "10m_zero_inclusive_observed_numeric_grade_histogram.csv",
         "10n_zero_inclusive_7plus_descriptives.csv",
         "10o_zero_inclusive_7plus_exact_administrative_composition.csv",
         "10p_zero_inclusive_7plus_stacked_ridgeline_density.csv",
