@@ -25,6 +25,7 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 TABLES_DIR = REPO_ROOT / "results" / "paper21" / "tables"
 FIGURES_DIR = REPO_ROOT / "results" / "paper21" / "figures"
 GROUPS = ["0", "1", "2", "3", "4", "5", "6+"]
+ZERO_DISPLAY_GROUPS = ["0", "1", "2", "3", "4", "5", "6", "7+"]
 USER_GROUPS = ["1", "2", "3", "4", "5", "6+"]
 SENSITIVITY_GROUPS = ["1", "2", "3", "4", "5", "6", "7+"]
 OUTCOME_STATES = ["pass", "numeric_nonpass", "BV", "RT", "BA"]
@@ -45,8 +46,10 @@ def validate() -> None:
         "10b_zero_inclusive_descriptives.csv",
         "10d_zero_inclusive_exact_administrative_composition.csv",
         "10m_zero_inclusive_observed_numeric_grade_histogram.csv",
-        "24a_sensitivity_7plus_exact_administrative_composition.csv",
-        "25a_sensitivity_7plus_observed_numeric_grade_histogram.csv",
+        "10n_zero_inclusive_7plus_descriptives.csv",
+        "10o_zero_inclusive_7plus_exact_administrative_composition.csv",
+        "10p_zero_inclusive_7plus_stacked_ridgeline_density.csv",
+        "10q_zero_inclusive_7plus_observed_numeric_grade_histogram.csv",
         "22a_sensitivity_7plus_p_raw_continuous_matrix.csv",
         "22b_sensitivity_7plus_p_holm_continuous_matrix.csv",
         "23a_sensitivity_7plus_p_raw_pass_matrix.csv",
@@ -242,31 +245,21 @@ def _plot_observed_histogram_structure(
 
 
 def plot_observed_pre_imputation_structure() -> Path:
+    """Observed zero-inclusive structure with exact 1--6 visits and a 7+ tail."""
     return _plot_observed_histogram_structure(
-        histogram_path=TABLES_DIR / "10m_zero_inclusive_observed_numeric_grade_histogram.csv",
-        composition_path=TABLES_DIR / "10d_zero_inclusive_exact_administrative_composition.csv",
-        group_order=GROUPS,
+        histogram_path=TABLES_DIR / "10q_zero_inclusive_7plus_observed_numeric_grade_histogram.csv",
+        composition_path=TABLES_DIR / "10o_zero_inclusive_7plus_exact_administrative_composition.csv",
+        group_order=ZERO_DISPLAY_GROUPS,
         filename="fig01a_observed_pre_imputation_structure.pdf",
-        grade_title="Observed numeric grades (0.1-point bins)",
-    )
-
-
-def plot_observed_pre_imputation_7plus_structure() -> Path:
-    """Exploratory user-only view resolving six visits from the 7+ tail."""
-    return _plot_observed_histogram_structure(
-        histogram_path=TABLES_DIR / "25a_sensitivity_7plus_observed_numeric_grade_histogram.csv",
-        composition_path=TABLES_DIR / "24a_sensitivity_7plus_exact_administrative_composition.csv",
-        group_order=SENSITIVITY_GROUPS,
-        filename="fig01b_observed_pre_imputation_1to6_7plus.pdf",
-        grade_title="Users only: exact 1–6 visits and 7+ (0.1-point bins)",
+        grade_title="Observed numeric grades: 0, exact 1–6 visits, and 7+",
     )
 
 
 def plot_distribution_and_composition() -> Path:
     density = pd.read_csv(
-        TABLES_DIR / "10g_zero_inclusive_stacked_ridgeline_density.csv"
+        TABLES_DIR / "10p_zero_inclusive_7plus_stacked_ridgeline_density.csv"
     )
-    summary = pd.read_csv(TABLES_DIR / "10b_zero_inclusive_descriptives.csv")
+    summary = pd.read_csv(TABLES_DIR / "10n_zero_inclusive_7plus_descriptives.csv")
     summary = summary.rename(
         columns={
             "mean_z": "outcome_mean",
@@ -292,7 +285,7 @@ def plot_distribution_and_composition() -> Path:
     }
     plot_stacked_ridgeline(
         density,
-        group_order=GROUPS,
+        group_order=ZERO_DISPLAY_GROUPS,
         component_order=OUTCOME_STATES,
         summary=summary,
         colors=component_colors,
@@ -789,7 +782,6 @@ def main() -> int:
     plt.rcParams["ps.fonttype"] = 42
     for path in [
         plot_observed_pre_imputation_structure(),
-        plot_observed_pre_imputation_7plus_structure(),
         plot_distribution_and_composition(),
         plot_z_heatmap(),
         plot_pass_heatmap(),
