@@ -1,6 +1,6 @@
 # Paper 2.1 — preliminary controlled-data results
 
-**Status:** the current integrated controlled recipe was verified successfully in GitHub Actions run `36685329947` at branch head `93b16efb40efd7ed6803ab50568bc5fb075a10b9`. The run completed the outcome, numeric-failure, Gaussian-mixture and skew-normal specification analyses with 199 GMM bootstrap replicates, generated figures 01--05, verified outputs 01--48 and uploaded artifact `paper21-analysis-93b16efb40efd7ed6803ab50568bc5fb075a10b9` (artifact ID `11084615356`).  
+**Status:** the current manuscript and figure suite use `0 / 1 / 2 / 3 / 4 / 5 / 6 / 7+` as the main reporting grid. The earlier outcome-blind `1 / 2 / 3 / 4 / 5 / 6+` specification remains a documented pooled-tail robustness analysis. The current code generates full-group effect matrices, PASS odds-ratio point estimates, raw/Holm p-value dashboards, and separately re-estimated exact-6/7+ mixture diagnostics.
 These results are reproducible controlled-data outputs; claims that depend on future entrance-exam data or institutional policy verification remain provisional.
 
 ## 1. Benchmark: no recorded attendance versus any attendance
@@ -57,7 +57,7 @@ Exploratory sensitivity groups:
 
 `1 / 2 / 3 / 4 / 5 / 6 / 7+`
 
-The descriptive 7+ group had mean Z = 0.457 and pass rate = 89.1%, whereas exact 6 visits had mean Z = 0.288 and pass rate = 82.0%. This instability in the sparse upper tail reinforces the outcome-blind decision not to make 7+ the primary specification.
+The 7+ group had mean Z = 0.457 and pass rate = 89.1%, whereas exact 6 visits had mean Z = 0.288 and pass rate = 82.0%. The current manuscript shows both groups directly, while retaining the earlier pooled `6+` analysis as a support-based robustness check because the exact-six tail has weaker overlap.
 
 Adjusted omnibus tests remained non-significant:
 
