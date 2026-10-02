@@ -302,6 +302,46 @@ def _matrix(
     return out
 
 
+def _pairwise_pvalue_matrix(
+    pairwise: pd.DataFrame,
+    *,
+    group_order: list[str],
+    p_col: str,
+    outcome: str,
+    adjustment: str,
+) -> pd.DataFrame:
+    """Convert long pairwise p-values to a symmetric matrix.
+
+    The diagonal is set to 1 because each group is identical to itself.
+    Raw and Holm-adjusted matrices are exported separately so the distinction
+    between exploratory pairwise evidence and multiplicity-aware inference is
+    explicit in downstream figures.
+    """
+    required = {"group1", "group2", p_col}
+    missing = required.difference(pairwise.columns)
+    if missing:
+        raise KeyError(f"Missing pairwise p-value columns: {sorted(missing)}")
+
+    order = [str(group) for group in group_order]
+    matrix = pd.DataFrame(np.nan, index=order, columns=order, dtype=float)
+    for group in order:
+        matrix.loc[group, group] = 1.0
+
+    for _, row in pairwise.iterrows():
+        group1 = str(row["group1"])
+        group2 = str(row["group2"])
+        if group1 not in order or group2 not in order:
+            continue
+        value = float(row[p_col])
+        matrix.loc[group1, group2] = value
+        matrix.loc[group2, group1] = value
+
+    out = matrix.reset_index(names="group")
+    out.insert(0, "adjustment", adjustment)
+    out.insert(0, "outcome", outcome)
+    return out
+
+
 def _nonpass_management_summary(data: pd.DataFrame) -> pd.DataFrame:
     x = data.loc[data["PASS"].eq(0)].copy()
     x["attendance"] = np.where(x["VISITS_CMAT_PERIOD"].gt(0), "1+", "0")
@@ -695,6 +735,47 @@ def run(args: argparse.Namespace) -> int:
     _save(sz_pair, "22_sensitivity_7plus_pairwise_continuous.csv")
     _save(sp_pair, "23_sensitivity_7plus_pairwise_pass.csv")
     _save(
+        _pairwise_pvalue_matrix(
+            sz_pair,
+            group_order=sensitivity_order,
+            p_col="p_raw",
+            outcome="continuous_standardised_grade",
+            adjustment="raw",
+        ),
+        "22a_sensitivity_7plus_p_raw_continuous_matrix.csv",
+    )
+    _save(
+        _pairwise_pvalue_matrix(
+            sz_pair,
+            group_order=sensitivity_order,
+            p_col="p_holm",
+            outcome="continuous_standardised_grade",
+            adjustment="holm",
+        ),
+        "22b_sensitivity_7plus_p_holm_continuous_matrix.csv",
+    )
+    _save(
+        _pairwise_pvalue_matrix(
+            sp_pair,
+            group_order=sensitivity_order,
+            p_col="p_raw",
+            outcome="pass_probability",
+            adjustment="raw",
+        ),
+        "23a_sensitivity_7plus_p_raw_pass_matrix.csv",
+    )
+    _save(
+        _pairwise_pvalue_matrix(
+            sp_pair,
+            group_order=sensitivity_order,
+            p_col="p_holm",
+            outcome="pass_probability",
+            adjustment="holm",
+        ),
+        "23b_sensitivity_7plus_p_holm_pass_matrix.csv",
+    )
+
+    _save(
         _composition(
             sensitivity,
             group_col="P21_GROUP_7P",
@@ -715,6 +796,15 @@ def run(args: argparse.Namespace) -> int:
             specification="sensitivity_1_to_6_7plus",
         ),
         "24a_sensitivity_7plus_exact_administrative_composition.csv",
+    )
+    _save(
+        _observed_numeric_histogram(
+            sensitivity,
+            group_col="P21_GROUP_7P",
+            group_order=sensitivity_order,
+            outcome_col="GRADE_NUMERIC",
+        ),
+        "25a_sensitivity_7plus_observed_numeric_grade_histogram.csv",
     )
     _save(
         _profile(
