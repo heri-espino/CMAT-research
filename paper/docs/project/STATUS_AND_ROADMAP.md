@@ -6,7 +6,7 @@
 
 ## Current scientific idea
 
-Paper 2.1 starts from a dense state-of-the-art review and treats the known 0-versus-1+ attendance association as a benchmark. Its substantive focus is the structure of outcomes **among CMAT users**, with attendance frequency resolved as finely as the data support.
+Paper 2.1 starts from a dense state-of-the-art review and places the zero-attendance benchmark and repeated CMAT use in a common `0 / 1 / 2 / 3 / 4 / 5 / 6 / 7+` reporting grid. Its substantive focus is where outcome differences appear across that full attendance distribution, while distinguishing the broad zero-versus-positive margin from contrasts among CMAT users.
 
 Two principal outcome families will be analysed in parallel:
 
