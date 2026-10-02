@@ -25,6 +25,7 @@ try:
         add_topcoded_visit_group,
         distribution_profile,
         fixed_effect_group_comparisons,
+        fixed_effect_logistic_group_comparisons,
         group_outcome_summary,
         mixture_component_density,
         outcome_state_composition,
@@ -338,6 +339,37 @@ def _pairwise_pvalue_matrix(
 
     out = matrix.reset_index(names="group")
     out.insert(0, "adjustment", adjustment)
+    out.insert(0, "outcome", outcome)
+    return out
+
+
+def _odds_ratio_matrix(
+    pairwise: pd.DataFrame,
+    *,
+    group_order: list[str],
+    outcome: str,
+) -> pd.DataFrame:
+    """Convert long pairwise odds ratios to a reciprocal matrix."""
+    required = {"group1", "group2", "odds_ratio_group1_vs_group2"}
+    missing = required.difference(pairwise.columns)
+    if missing:
+        raise KeyError(f"Missing odds-ratio columns: {sorted(missing)}")
+
+    order = [str(group) for group in group_order]
+    matrix = pd.DataFrame(np.nan, index=order, columns=order, dtype=float)
+    for group in order:
+        matrix.loc[group, group] = 1.0
+
+    for _, row in pairwise.iterrows():
+        group1 = str(row["group1"])
+        group2 = str(row["group2"])
+        if group1 not in order or group2 not in order:
+            continue
+        value = float(row["odds_ratio_group1_vs_group2"])
+        matrix.loc[group1, group2] = value
+        matrix.loc[group2, group1] = 1.0 / value if value > 0 else np.nan
+
+    out = matrix.reset_index(names="group")
     out.insert(0, "outcome", outcome)
     return out
 
@@ -874,6 +906,107 @@ def run(args: argparse.Namespace) -> int:
         ),
         "25_sensitivity_7plus_distribution_profile.csv",
     )
+
+    # Main-paper zero-inclusive pairwise family: 0, exact 1--6, and 7+.
+    # Continuous performance retains the adjusted fixed-effect difference scale.
+    # PASS is represented with a fixed-effect logistic model so the pairwise
+    # dashboard can report odds ratios rather than percentage-point differences.
+    paper_order = ["0", "1", "2", "3", "4", "5", "6", "7+"]
+    full_z_pair, full_z_omni = _fit(
+        zero_7plus,
+        group_col="P21_GROUP_WITH_ZERO_7P",
+        group_order=paper_order,
+        outcome_col="Z_GRADE_PRIMARY",
+        outcome_label="continuous_standardised_grade",
+        specification="main_zero_inclusive_0_1_2_3_4_5_6_7plus",
+    )
+    _save(full_z_pair, "26a_zero_inclusive_7plus_pairwise_continuous.csv")
+    _save(
+        _matrix(
+            full_z_pair,
+            group_order=paper_order,
+            outcome="continuous_standardised_grade",
+        ),
+        "26b_zero_inclusive_7plus_z_effect_matrix.csv",
+    )
+    _save(
+        _pairwise_pvalue_matrix(
+            full_z_pair,
+            group_order=paper_order,
+            p_col="p_raw",
+            outcome="continuous_standardised_grade",
+            adjustment="raw",
+        ),
+        "26e_zero_inclusive_7plus_z_p_raw_matrix.csv",
+    )
+    _save(
+        _pairwise_pvalue_matrix(
+            full_z_pair,
+            group_order=paper_order,
+            p_col="p_holm",
+            outcome="continuous_standardised_grade",
+            adjustment="holm",
+        ),
+        "26f_zero_inclusive_7plus_z_p_holm_matrix.csv",
+    )
+
+    pass_logit_pair, pass_logit_omni, pass_logit_info = (
+        fixed_effect_logistic_group_comparisons(
+            zero_7plus,
+            group_col="P21_GROUP_WITH_ZERO_7P",
+            group_order=paper_order,
+            outcome_col="PASS",
+            fixed_effect_col="CLASSROOM_ID",
+            cluster_col="CLASSROOM_ID",
+            categorical_covariates=["CLAVECARRERA"],
+            multiplicity_method="holm",
+        )
+    )
+    pass_logit_pair.insert(
+        0, "specification", "main_zero_inclusive_0_1_2_3_4_5_6_7plus"
+    )
+    pass_logit_omni.insert(
+        0, "specification", "main_zero_inclusive_0_1_2_3_4_5_6_7plus"
+    )
+    pass_logit_info.insert(
+        0, "specification", "main_zero_inclusive_0_1_2_3_4_5_6_7plus"
+    )
+    _save(pass_logit_pair, "26c_zero_inclusive_7plus_pass_logit_pairwise.csv")
+    _save(
+        _odds_ratio_matrix(
+            pass_logit_pair,
+            group_order=paper_order,
+            outcome="pass_odds_ratio",
+        ),
+        "26d_zero_inclusive_7plus_pass_odds_ratio_matrix.csv",
+    )
+    _save(
+        _pairwise_pvalue_matrix(
+            pass_logit_pair,
+            group_order=paper_order,
+            p_col="p_raw",
+            outcome="pass_log_odds",
+            adjustment="raw",
+        ),
+        "26g_zero_inclusive_7plus_pass_p_raw_matrix.csv",
+    )
+    _save(
+        _pairwise_pvalue_matrix(
+            pass_logit_pair,
+            group_order=paper_order,
+            p_col="p_adjusted",
+            outcome="pass_log_odds",
+            adjustment="holm",
+        ),
+        "26h_zero_inclusive_7plus_pass_p_holm_matrix.csv",
+    )
+    full_z_omni.insert(0, "family", "continuous_standardised_grade")
+    pass_logit_omni.insert(0, "family", "pass_log_odds")
+    _save(
+        pd.concat([full_z_omni, pass_logit_omni], ignore_index=True, sort=False),
+        "26i_zero_inclusive_7plus_omnibus.csv",
+    )
+    _save(pass_logit_info, "26j_zero_inclusive_7plus_pass_logit_model_info.csv")
 
     z_prof_pair, z_prof_omni = _fit(
         users,
