@@ -56,6 +56,12 @@ TABLE_SENTINELS = (
     TABLES_DIR / "42_imputed_gmm_two_component_parameters.csv",
     TABLES_DIR / "46_complete_case_gmm_ridgeline_density.csv",
     TABLES_DIR / "52_imputed_skewnormal_vs_gmm_cross_validation.csv",
+    TABLES_DIR / "53_sensitivity_6_7plus_complete_case_gmm_selection.csv",
+    TABLES_DIR / "54_sensitivity_6_7plus_complete_case_gmm_two_component_parameters.csv",
+    TABLES_DIR / "57_sensitivity_6_7plus_imputed_gmm_selection.csv",
+    TABLES_DIR / "58_sensitivity_6_7plus_imputed_gmm_two_component_parameters.csv",
+    TABLES_DIR / "62_sensitivity_6_7plus_complete_case_gmm_ridgeline_density.csv",
+    TABLES_DIR / "68_sensitivity_6_7plus_imputed_skewnormal_vs_gmm_cross_validation.csv",
 )
 
 FIGURE_INPUTS = (
@@ -74,6 +80,9 @@ FIGURE_INPUTS = (
     TABLES_DIR / "38_complete_case_gmm_two_component_parameters.csv",
     TABLES_DIR / "42_imputed_gmm_two_component_parameters.csv",
     TABLES_DIR / "46_complete_case_gmm_ridgeline_density.csv",
+    TABLES_DIR / "62_sensitivity_6_7plus_complete_case_gmm_ridgeline_density.csv",
+    TABLES_DIR / "58_sensitivity_6_7plus_imputed_gmm_two_component_parameters.csv",
+    TABLES_DIR / "54_sensitivity_6_7plus_complete_case_gmm_two_component_parameters.csv",
     TABLES_DIR / "10j_zero_inclusive_z_heatmap_matrix.csv",
     TABLES_DIR / "10k_zero_inclusive_pass_heatmap_matrix.csv",
 )
@@ -88,6 +97,8 @@ FIGURE_OUTPUTS = (
     FIGURES_DIR / "fig03_pairwise_pass_heatmap.pdf",
     FIGURES_DIR / "fig04_complete_case_gmm_ridgeline.pdf",
     FIGURES_DIR / "fig05_lower_component_weight.pdf",
+    FIGURES_DIR / "fig09_sensitivity_6_7plus_lower_component_weight.pdf",
+    FIGURES_DIR / "fig08_sensitivity_6_7plus_complete_case_gmm_ridgeline.pdf",
     FIGURES_DIR / "figS01_zero_inclusive_z_heatmap.pdf",
     FIGURES_DIR / "figS02_zero_inclusive_pass_heatmap.pdf",
 )
