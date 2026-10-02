@@ -148,19 +148,7 @@ Imputed outcome       & 7+ & 101 & $+4.56$ & 0.02 & $+0.125$ \\
 
 For exact six numeric complete cases, BIC, the skew-normal-null bootstrap and mean held-out prediction favour or are compatible with a single skew-normal. For 7+ complete cases, BIC and the bootstrap favour the GMM, but the fitted lower component has weight 1.1\%, mean $Z=-2.86$ and an estimated SD at the numerical floor, while the GMM wins only 38\% of cross-validation folds despite a positive mean held-out log-density difference. The complete-case 7+ mixture should therefore be read as an unstable tail diagnostic rather than evidence for a substantive second population. On the imputed outcome, the lower-component weights are 25.2\% for exact six and 14.3\% for 7+; the 7+ specification has the more coherent mixture evidence.
 
-\begin{figure}[tbp]
-\centering
-\includegraphics[width=0.90\textwidth]{../results/paper21/figures/fig08_sensitivity_6_7plus_complete_case_gmm_ridgeline.pdf}
-\caption{Tail-resolution complete-case EM/GMM sensitivity for exact six and 7+ visits. The observed numeric-grade density is shown with the weighted two-Gaussian fit. The 7+ lower component is extremely small and should not be interpreted as a stable latent student group.}
-\label{fig:tail-gmm-ridgeline}
-\end{figure}
-
-\begin{figure}[tbp]
-\centering
-\includegraphics[width=0.72\textwidth]{../results/paper21/figures/fig09_sensitivity_6_7plus_lower_component_weight.pdf}
-\caption{Estimated lower-component weight after resolving the primary 6+ category into exact six and 7+ visits. The comparison is shown for numeric complete cases and the imputed continuous outcome.}
-\label{fig:tail-lower-component-weight}
-\end{figure}
+The exact-six and 7+ fits are now shown in the main complete-case mixture and lower-component-weight figures together with groups 0--5, so no separate tail-only figure is retained.
 
 \section*{Acknowledgments}
 Funding: None declared.
