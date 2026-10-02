@@ -24,62 +24,53 @@ Students with any recorded attendance had more favourable final outcomes than st
 \label{fig:distribution-composition}
 \end{figure}
 
-\subsection{Frequency among students who used CMAT}
+\subsection{Attendance-frequency comparisons}
 
-\Cref{tab:user-descriptives} summarises the primary positive-attendance groups. Descriptively, mean $Z$ and pass rates were somewhat higher in the upper-frequency groups, although the sequence was not monotone at every step.
+\Cref{tab:attendance-descriptives} reports the descriptive outcomes for the main paper grouping, which now uses 0, exact 1--6, and 7+ visits throughout the figures. The zero-attendance group provides the natural benchmark, while exact six and 7+ visits keep the upper tail visible rather than pooling it into 6+.
 
 \begin{table}[tbp]
 \centering
-\caption{Descriptive outcomes among students with positive CMAT attendance.}
-\label{tab:user-descriptives}
+\caption{Descriptive outcomes by CMAT attendance frequency for the main 0, exact 1--6, and 7+ grouping.}
+\label{tab:attendance-descriptives}
 \begin{tabular}{lrrr}
 \toprule
 CMAT visits & $N$ & Mean $Z$ & Pass rate \\
 \midrule
-1  & 517 & 0.219 & 81.0\% \\
-2  & 245 & 0.247 & 80.8\% \\
-3  & 170 & 0.278 & 81.8\% \\
-4  & 96  & 0.267 & 86.5\% \\
-5  & 55  & 0.382 & 85.5\% \\
-6+ & 151 & 0.401 & 86.8\% \\
+0  & 5,393 & $-0.061$ & 72.1\% \\
+1  & 517   & 0.219    & 81.0\% \\
+2  & 245   & 0.247    & 80.8\% \\
+3  & 170   & 0.278    & 81.8\% \\
+4  & 96    & 0.267    & 86.5\% \\
+5  & 55    & 0.382    & 85.5\% \\
+6  & 50    & 0.288    & 82.0\% \\
+7+ & 101   & 0.457    & 89.1\% \\
 \bottomrule
 \end{tabular}
 \end{table}
 
-After adjustment for instructor--period fixed effects and degree programme, the joint null of equal outcomes across the six positive-attendance groups was not rejected for either standardised performance ($p=0.317$) or pass probability ($p=0.152$). None of the 15 pairwise comparisons among the six groups survived Holm adjustment for either outcome. For illustration, the one-versus-6+ contrast in the continuous outcome had an unadjusted $p$-value of $0.022$ but a Holm-adjusted value of $0.328$; the corresponding pass-probability contrast had an unadjusted $p$-value of $0.011$ and a Holm-adjusted value of $0.171$.
-
-\Cref{fig:z-heatmap,fig:pass-heatmap} display the full adjusted pairwise effect matrices. The figures emphasise effect magnitude and direction rather than statistical significance. The estimates are compatible with some descriptive separation between lower and higher attendance frequencies, but the uncertainty and multiplicity-adjusted results do not support a simple staircase in which each additional visit defines a distinct outcome group. Supplementary zero-inclusive versions are provided in \Cref{app:zero-inclusive-benchmark}; because the zero-versus-positive contrast is much larger than most within-user contrasts, those versions are useful as a benchmark but would visually compress the frequency differences that are the focus of the main heatmaps.
+The main pairwise effect display now uses the same eight groups. \Cref{fig:pairwise-effect-dashboard} combines two complementary adjusted effect scales: standardised-grade differences on the left and odds ratios for passing on the right. For the continuous outcome, each cell is the row group minus the column group in standard-deviation units. For PASS, each cell is the adjusted odds of passing in the row group divided by the adjusted odds in the column group, so values above one favour the row group and values below one favour the column group. Both models include instructor--period fixed effects and degree-programme indicators, with covariance clustered at the instructor--period level. The dashed separator marks the institutional three-visit PPA threshold between two and three visits.
 
 \begin{figure}[tbp]
 \centering
-\includegraphics[width=0.78\textwidth]{../results/paper21/figures/fig02_pairwise_z_heatmap.pdf}
-\caption{Adjusted pairwise differences in standardised final performance among CMAT users. Each cell is the row group minus the column group in standard-deviation units. Models include instructor--period fixed effects and degree-programme indicators with standard errors clustered at the instructor--period level.}
-\label{fig:z-heatmap}
+\includegraphics[width=0.98\textwidth]{../results/paper21/figures/fig03_04_pairwise_effect_dashboard.pdf}
+\caption{Adjusted pairwise outcome dashboard for 0, exact 1--6, and 7+ CMAT visits. The left panel reports row-minus-column differences in instructor--period-standardised final performance. The right panel reports adjusted odds ratios for passing, with values above one indicating higher pass odds in the row group than in the column group. Dashed lines mark the institutional three-visit PPA threshold.}
+\label{fig:pairwise-effect-dashboard}
+\end{figure}
+
+Because pairwise testing generates many comparisons, \Cref{fig:z-pvalues,fig:pass-pvalues} place unadjusted and Holm-adjusted $p$-values side by side for the same full grouping. The raw panels are descriptive diagnostics that show where local evidence first appears, whereas the Holm panels are the multiplicity-aware versions used for family-wise interpretation. Including the zero-attendance group makes the strong zero-versus-positive separation visible in the same inferential frame as the within-user contrasts, while the marked boundary between two and three visits makes it possible to inspect whether the PPA threshold coincides with an abrupt empirical contrast.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.96\textwidth]{../results/paper21/figures/fig05_pairwise_z_pvalue_dashboard.pdf}
+\caption{Pairwise $p$-value dashboard for adjusted standardised final performance across 0, exact 1--6, and 7+ visits. The left panel shows unadjusted pairwise $p$-values and the right panel shows Holm-adjusted values. The dashed separator marks the institutional three-visit PPA threshold.}
+\label{fig:z-pvalues}
 \end{figure}
 
 \begin{figure}[tbp]
 \centering
-\includegraphics[width=0.78\textwidth]{../results/paper21/figures/fig03_pairwise_pass_heatmap.pdf}
-\caption{Adjusted pairwise differences in pass probability among CMAT users. Each cell is the row group minus the column group in percentage points. Models use the same adjustment structure as the continuous-outcome comparisons.}
-\label{fig:pass-heatmap}
-\end{figure}
-
-The exploratory specification that separated exact six visits from a 7+ tail did not materially alter the multiplicity-adjusted conclusion. The omnibus $p$-values were $0.213$ for standardised performance and $0.102$ for pass probability, and no positive-frequency pairwise contrast survived Holm adjustment. Before multiplicity correction, however, the local evidence was concentrated in comparisons with the 7+ group: for standardised performance, the raw $p$-values for 1 versus 7+, 2 versus 7+ and 3 versus 7+ were $0.0048$, $0.0233$ and $0.0241$, respectively; for pass probability the corresponding values were $0.0025$, $0.0194$ and $0.0076$. After Holm correction these became $0.102$, $0.467$ and $0.467$ for performance and $0.052$, $0.368$ and $0.153$ for passing. The raw matrices therefore identify a possible broad separation between the highest-frequency tail and some lower-frequency users, but not a family-wise significant set of pairwise differences.
-
-The three-visit institutional participation incentive provides an important reference point for this sensitivity analysis. If the incentive created a sharp outcome discontinuity at the threshold, the adjacent two-versus-three contrast would be a natural place to see it; instead, the raw $p$-values were $0.849$ for standardised performance and $0.352$ for pass probability. This is not a causal test of the PPA requirement, because reaching three visits is not exogenous and the historical implementation of the requirement is not modelled, but it does show that the observed adjusted outcomes do not exhibit an abrupt empirical break exactly at the incentivised third visit. Descriptively, exact six visits had mean $Z=0.288$ and an 82.0\% pass rate, whereas 7+ visits had mean $Z=0.457$ and an 89.1\% pass rate. The combination of sparse overlap and tail instability supports retaining 6+ as the primary inferential category while showing the 7+ tail separately in descriptive and sensitivity displays.
-
-\begin{figure}[tbp]
-\centering
-\includegraphics[width=0.96\textwidth]{../results/paper21/figures/fig06_sensitivity_7plus_z_pvalue_dashboard.pdf}
-\caption{Exploratory pairwise $p$-value dashboard for adjusted standardised final performance under the 1, 2, 3, 4, 5, 6 and 7+ visit sensitivity. The left panel shows unadjusted pairwise $p$-values and the right panel shows the same family after Holm adjustment. The dashed separator marks the institutional three-visit PPA participation threshold between two and three visits. Unadjusted values are shown to locate where local contrasts arise; multiplicity-adjusted inference is based on the Holm panel and the omnibus test.}
-\label{fig:sensitivity-z-pvalues}
-\end{figure}
-
-\begin{figure}[tbp]
-\centering
-\includegraphics[width=0.96\textwidth]{../results/paper21/figures/fig07_sensitivity_7plus_pass_pvalue_dashboard.pdf}
-\caption{Exploratory pairwise $p$-value dashboard for adjusted pass probability under the 1, 2, 3, 4, 5, 6 and 7+ visit sensitivity. The left panel reports unadjusted pairwise $p$-values and the right panel reports Holm-adjusted values. The dashed separator marks the institutional three-visit PPA participation threshold. No pairwise comparison remains below 0.05 after Holm adjustment.}
-\label{fig:sensitivity-pass-pvalues}
+\includegraphics[width=0.96\textwidth]{../results/paper21/figures/fig06_pairwise_pass_pvalue_dashboard.pdf}
+\caption{Pairwise $p$-value dashboard for the adjusted odds of passing across 0, exact 1--6, and 7+ visits. The left panel shows unadjusted pairwise $p$-values and the right panel shows Holm-adjusted values from the fixed-effect logistic model. The dashed separator marks the institutional three-visit PPA threshold.}
+\label{fig:pass-pvalues}
 \end{figure}
 
 \subsection{Composition of final academic outcomes}
@@ -126,7 +117,7 @@ The direct skew-normal-null bootstrap and repeated held-out prediction sharpened
 
 For the imputed continuous outcome, all seven attendance groups showed the opposite pattern: the observed two-Gaussian BIC advantage lay beyond the skew-normal-null bootstrap reference distribution, and the mixture had higher mean held-out log predictive density in every group. The agreement of in-sample penalised fit, simulation under a strongly skewed one-component null and out-of-sample prediction makes simple asymmetry an inadequate explanation of the imputed density structure.
 
-Splitting the pooled 6+ category and re-estimating the full EM family for exact six and 7+ visits showed why the upper tail should remain a sensitivity rather than become the primary grouping. Among numeric complete cases, exact six visits were better described by a single skew-normal than by the two-Gaussian model on BIC ($\Delta\mathrm{BIC}=-2.36$), the skew-normal-null bootstrap did not reject that explanation ($p=0.11$), and mean held-out log predictive density also slightly favoured the skew-normal. For 7+ visits, BIC ($\Delta\mathrm{BIC}=+7.34$) and the bootstrap ($p=0.02$) favoured the two-Gaussian model, but the fitted lower component had only a 1.1\% weight with an estimated standard deviation at the numerical floor, indicating that the apparent component is effectively capturing an extreme observation rather than a stable lower-performance subgroup. The predictive diagnostic was correspondingly unstable despite a positive mean GMM-minus-skew log-density difference. On the imputed outcome, exact six visits remained diagnostically mixed, whereas the 7+ group showed more coherent support for the mixture ($\Delta\mathrm{BIC}=+4.56$, skew-normal-null bootstrap $p=0.02$, positive mean held-out log predictive difference). The imputed lower-component weights were 25.2\% for exact six and 14.3\% for 7+, again providing no monotone dose pattern. Supplementary \Cref{fig:tail-gmm-ridgeline,fig:tail-lower-component-weight} display these tail-resolution fits.
+Splitting the pooled 6+ category and re-estimating the full EM family for exact six and 7+ visits showed why the upper tail should remain a sensitivity rather than become the primary grouping. Among numeric complete cases, exact six visits were better described by a single skew-normal than by the two-Gaussian model on BIC ($\Delta\mathrm{BIC}=-2.36$), the skew-normal-null bootstrap did not reject that explanation ($p=0.11$), and mean held-out log predictive density also slightly favoured the skew-normal. For 7+ visits, BIC ($\Delta\mathrm{BIC}=+7.34$) and the bootstrap ($p=0.02$) favoured the two-Gaussian model, but the fitted lower component had only a 1.1\% weight with an estimated standard deviation at the numerical floor, indicating that the apparent component is effectively capturing an extreme observation rather than a stable lower-performance subgroup. The predictive diagnostic was correspondingly unstable despite a positive mean GMM-minus-skew log-density difference. On the imputed outcome, exact six visits remained diagnostically mixed, whereas the 7+ group showed more coherent support for the mixture ($\Delta\mathrm{BIC}=+4.56$, skew-normal-null bootstrap $p=0.02$, positive mean held-out log predictive difference). The imputed lower-component weights were 25.2\% for exact six and 14.3\% for 7+, again providing no monotone dose pattern. The main mixture figures therefore display exact six and 7+ alongside the lower-frequency groups rather than isolating them in a separate tail-only figure.
 
 These comparisons also limit the interpretation that the apparent multi-component structure is merely an artefact of imputation. The complete-case analysis contains no BV, RT or BA values, yet the evidence for a mixture remains strong for zero, one and two visits. At higher positive frequencies, however, a single skewed numeric-grade distribution is generally adequate, so the data do not support a universal claim of two distinct numeric-grade populations. The imputed outcome produces a clearer multi-component pattern across all groups, indicating that administrative-outcome representation materially sharpens the lower component without providing the sole source of distributional complexity.
 
@@ -134,14 +125,14 @@ Posterior-responsibility composition of the imputed two-component model showed a
 
 \begin{figure}[tbp]
 \centering
-\includegraphics[width=0.94\textwidth]{../results/paper21/figures/fig04_complete_case_gmm_ridgeline.pdf}
-\caption{Gaussian-mixture fits to the numeric complete-case standardised-grade distributions. The grey ridgeline is the observed kernel density; dashed and dot-dashed curves are the weighted lower- and higher-mean Gaussian components from the two-component fit, and the thin fitted curve is their sum. The horizontal range is fixed at $Z\in[-2,2]$ to match the central scale used in \Cref{fig:distribution-composition}. Components are descriptive approximations to distributional shape and are not interpreted as discrete latent student classes.}
+\includegraphics[width=0.94\textwidth]{../results/paper21/figures/fig07_complete_case_gmm_ridgeline.pdf}
+\caption{Gaussian-mixture fits to the numeric complete-case standardised-grade distributions for 0, exact 1--6, and 7+ visits. The grey ridgeline is the observed kernel density; dashed and dot-dashed curves are the weighted lower- and higher-mean Gaussian components from the two-component fit, and the thin fitted curve is their sum. The horizontal range is fixed at $Z\in[-2,2]$ to match the central scale used in \Cref{fig:distribution-composition}. Components are descriptive approximations to distributional shape and are not interpreted as discrete latent student classes.}
 \label{fig:gmm-ridgeline}
 \end{figure}
 
 \begin{figure}[tbp]
 \centering
-\includegraphics[width=0.78\textwidth]{../results/paper21/figures/fig05_lower_component_weight.pdf}
-\caption{Estimated weight of the lower-mean component from the two-component Gaussian mixture by CMAT attendance frequency. The solid line uses numeric complete cases and the dashed line repeats the fit on the imputed continuous outcome. The irregular pattern and specification sensitivity are part of the diagnostic interpretation rather than evidence of a monotone dose response.}
+\includegraphics[width=0.78\textwidth]{../results/paper21/figures/fig08_lower_component_weight.pdf}
+\caption{Estimated weight of the lower-mean component from the two-component Gaussian mixture for 0, exact 1--6, and 7+ CMAT visits. The solid line uses numeric complete cases and the dashed line repeats the fit on the imputed continuous outcome. The irregular pattern and specification sensitivity are part of the diagnostic interpretation rather than evidence of a monotone dose response.}
 \label{fig:lower-component-weight}
 \end{figure}
