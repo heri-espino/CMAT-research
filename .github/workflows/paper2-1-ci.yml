@@ -125,6 +125,11 @@ jobs:
             results/paper21/tables/24_sensitivity_7plus_outcome_state_composition.csv \
             results/paper21/tables/24a_sensitivity_7plus_exact_administrative_composition.csv \
             results/paper21/tables/25_sensitivity_7plus_distribution_profile.csv \
+            results/paper21/tables/22a_sensitivity_7plus_p_raw_continuous_matrix.csv \
+            results/paper21/tables/22b_sensitivity_7plus_p_holm_continuous_matrix.csv \
+            results/paper21/tables/23a_sensitivity_7plus_p_raw_pass_matrix.csv \
+            results/paper21/tables/23b_sensitivity_7plus_p_holm_pass_matrix.csv \
+            results/paper21/tables/25a_sensitivity_7plus_observed_numeric_grade_histogram.csv \
             results/paper21/tables/26_instructor_cluster_pairwise_continuous.csv \
             results/paper21/tables/27_instructor_cluster_pairwise_pass.csv \
             results/paper21/tables/28_instructor_cluster_omnibus.csv \
@@ -165,6 +170,9 @@ jobs:
         run: |
           for f in \
             results/paper21/figures/fig01a_observed_pre_imputation_structure.pdf \
+            results/paper21/figures/fig01b_observed_pre_imputation_1to6_7plus.pdf \
+            results/paper21/figures/fig06_sensitivity_7plus_z_pvalue_dashboard.pdf \
+            results/paper21/figures/fig07_sensitivity_7plus_pass_pvalue_dashboard.pdf \
             results/paper21/figures/fig01_distribution_composition_ridgeline.pdf \
             results/paper21/figures/fig02_pairwise_z_heatmap.pdf \
             results/paper21/figures/fig03_pairwise_pass_heatmap.pdf \
