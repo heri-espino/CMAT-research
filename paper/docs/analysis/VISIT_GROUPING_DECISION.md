@@ -71,6 +71,12 @@ The purpose of this wording is to make three points explicit without overexplain
 
 Do not describe `6+` as a mathematically unique or universally optimal cut. It is the highest-resolution grouping that preserved reasonable comparison support under this study's design.
 
+### Why not 8+ or 9+?
+
+The current manuscript pools the tail at 7+ because support deteriorates rapidly beyond exact six visits. Exact 6, 7, 8 and 9 contain 50, 25, 19 and 11 students, distributed across 36, 23, 17 and 10 instructor--period groups, respectively. The minimum adjacent-group overlap is 15 groups for the 6/7+ specification, but would fall to 7 for 7/8+ and to 4 for 8/9+.
+
+The inferential consequence is already visible at exact six: despite having 50 students, its descriptive mean-Z 95% confidence interval is wide (0.055 to 0.520). More granular exact-frequency groups above six would therefore have still less stable means and wider uncertainty. This observed imprecision is presented as an illustration of the support problem, not as the outcome-based rule that selected the cutoff.
+
 ## Sensitivity grouping
 
 The more granular:
