@@ -12,9 +12,9 @@ Using the full Paper 2.1 cohort (N = 6,627) with instructor-period fixed effects
 
 These are observational associations, not estimates of student-level improvement or causal CMAT effects.
 
-## 2. Primary frequency groups among users
+## 2. Historical pooled-tail frequency analysis among users
 
-Frozen primary groups:
+Outcome-blind support-based groups retained as a robustness specification:
 
 `1 / 2 / 3 / 4 / 5 / 6+`
 
@@ -51,9 +51,9 @@ For orientation only:
 
 These examples illustrate why the paper must not select or narrate isolated unadjusted pairwise findings.
 
-## 3. Sensitivity with a more granular tail
+## 3. Current exact-six and 7+ tail resolution
 
-Exploratory sensitivity groups:
+Resolved positive-frequency groups used in the current manuscript display:
 
 `1 / 2 / 3 / 4 / 5 / 6 / 7+`
 
