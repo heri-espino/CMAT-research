@@ -43,9 +43,9 @@ The current `4+` top-code is not binding on this branch.
 - [x] freeze the final grouping before inspecting Paper 2.1 outcomes;
 - [x] record the decision in `paper/docs/analysis/VISIT_GROUPING_DECISION.md` and `paper/visit_grouping_spec.json`.
 
-**Primary:** `1 / 2 / 3 / 4 / 5 / 6+`.
+**Current manuscript reporting grid:** `0 / 1 / 2 / 3 / 4 / 5 / 6 / 7+`.
 
-**Exploratory sensitivity:** `1 / 2 / 3 / 4 / 5 / 6 / 7+`.
+**Historical support-based robustness grouping:** positive-attendance `1 / 2 / 3 / 4 / 5 / 6+`; retain it to document the outcome-blind tail-support decision and for pooled-tail sensitivities.
 
 ### M3 — Dual-outcome and distributional inference
 
