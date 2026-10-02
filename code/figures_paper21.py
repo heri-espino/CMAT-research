@@ -51,6 +51,9 @@ def validate() -> None:
         "22b_sensitivity_7plus_p_holm_continuous_matrix.csv",
         "23a_sensitivity_7plus_p_raw_pass_matrix.csv",
         "23b_sensitivity_7plus_p_holm_pass_matrix.csv",
+        "54_sensitivity_6_7plus_complete_case_gmm_two_component_parameters.csv",
+        "58_sensitivity_6_7plus_imputed_gmm_two_component_parameters.csv",
+        "62_sensitivity_6_7plus_complete_case_gmm_ridgeline_density.csv",
         "18_primary_z_heatmap_matrix.csv",
         "19_primary_pass_heatmap_matrix.csv",
         "38_complete_case_gmm_two_component_parameters.csv",
@@ -612,6 +615,139 @@ def plot_complete_case_gmm_ridgeline() -> Path:
     return _save(fig, "fig04_complete_case_gmm_ridgeline.pdf")
 
 
+def plot_sensitivity_6_7plus_gmm_ridgeline() -> Path:
+    """Compare complete-case EM/GMM fits after splitting exact 6 from 7+."""
+    density = pd.read_csv(
+        TABLES_DIR / "62_sensitivity_6_7plus_complete_case_gmm_ridgeline_density.csv"
+    )
+    params = pd.read_csv(
+        TABLES_DIR / "54_sensitivity_6_7plus_complete_case_gmm_two_component_parameters.csv"
+    )
+    density["group"] = density["group"].astype(str)
+    params["group"] = params["group"].astype(str)
+    group_order = ["6", "7+"]
+
+    fig, ax = plt.subplots(figsize=(8.8, 3.8))
+    ridge_height = 0.76
+    available_groups = [
+        group for group in group_order
+        if group in set(density["group"]) and group in set(params["group"])
+    ]
+
+    for position, group in enumerate(available_groups):
+        observed = (
+            density.loc[density["group"].eq(group)]
+            .drop_duplicates("x")
+            .sort_values("x")
+        )
+        x = observed["x"].to_numpy(float)
+        y = observed["density_total"].to_numpy(float)
+        scale = float(np.nanmax(y))
+        if not np.isfinite(scale) or scale <= 0:
+            continue
+
+        baseline = float(position)
+        observed_scaled = baseline + ridge_height * y / scale
+        ax.fill_between(x, baseline, observed_scaled, color="0.75", alpha=0.30)
+        ax.plot(
+            x, observed_scaled, linewidth=1.15, color="0.25",
+            label="Observed complete-case KDE" if position == 0 else None,
+        )
+
+        group_params = params.loc[params["group"].eq(group)].copy()
+        component_curves: dict[str, np.ndarray] = {}
+        for component, linestyle, color in [
+            ("lower_performance", "--", "C1"),
+            ("higher_performance", "-.", "C2"),
+        ]:
+            row = group_params.loc[group_params["component"].eq(component)]
+            if row.empty:
+                continue
+            row = row.iloc[0]
+            curve = _gaussian_density(
+                x, mean=float(row["mean"]), sd=float(row["sd"]),
+                weight=float(row["weight"]),
+            )
+            component_curves[component] = curve
+            ax.plot(
+                x, baseline + ridge_height * curve / scale,
+                linestyle=linestyle, color=color, linewidth=1.35,
+                label=(
+                    "Lower-performance Gaussian"
+                    if position == 0 and component == "lower_performance"
+                    else "Higher-performance Gaussian"
+                    if position == 0 and component == "higher_performance"
+                    else None
+                ),
+            )
+
+        if len(component_curves) == 2:
+            fitted = component_curves["lower_performance"] + component_curves["higher_performance"]
+            ax.plot(
+                x, baseline + ridge_height * fitted / scale,
+                linewidth=0.9, color="C3", alpha=0.8,
+                label="Two-component fitted density" if position == 0 else None,
+            )
+
+        lower = group_params.loc[group_params["component"].eq("lower_performance")]
+        higher = group_params.loc[group_params["component"].eq("higher_performance")]
+        if not lower.empty and not higher.empty:
+            lo, hi = lower.iloc[0], higher.iloc[0]
+            ax.text(
+                0.995, (baseline + 0.12) / max(len(available_groups), 1),
+                f"πL={float(lo['weight']):.0%}, μL={float(lo['mean']):.2f}; "
+                f"πH={float(hi['weight']):.0%}, μH={float(hi['mean']):.2f}",
+                transform=ax.transAxes, ha="right", va="bottom", fontsize=8,
+            )
+
+    ax.set_xlim(-2, 2)
+    ax.set_yticks(np.arange(len(available_groups)), available_groups)
+    ax.set_ylim(-0.15, max(len(available_groups) - 0.05, 0.85))
+    ax.set_xlabel("Instructor-period-standardised numeric final grade (complete case)")
+    ax.set_ylabel("CMAT visits during the MU academic period")
+    ax.set_title("Tail-resolution sensitivity: exact 6 visits versus 7+")
+    ax.grid(axis="y", visible=False)
+    ax.legend(frameon=False, ncol=2, loc="lower center", bbox_to_anchor=(0.5, 1.01))
+    return _save(fig, "fig08_sensitivity_6_7plus_complete_case_gmm_ridgeline.pdf")
+
+
+def plot_sensitivity_6_7plus_lower_component_weight() -> Path:
+    """Compare lower-component weights for exact 6 and 7+ under both outcomes."""
+    complete = pd.read_csv(
+        TABLES_DIR / "54_sensitivity_6_7plus_complete_case_gmm_two_component_parameters.csv"
+    )
+    imputed = pd.read_csv(
+        TABLES_DIR / "58_sensitivity_6_7plus_imputed_gmm_two_component_parameters.csv"
+    )
+    for frame in (complete, imputed):
+        frame["group"] = frame["group"].astype(str)
+
+    group_order = ["6", "7+"]
+    fig, ax = plt.subplots(figsize=(5.8, 4.0))
+    x = np.arange(len(group_order))
+    for frame, label, linestyle in [
+        (complete, "Numeric complete case", "-"),
+        (imputed, "Imputed-outcome sensitivity", "--"),
+    ]:
+        lower = (
+            frame.loc[frame["component"].eq("lower_performance"), ["group", "weight"]]
+            .set_index("group")
+            .reindex(group_order)
+        )
+        ax.plot(
+            x, lower["weight"].to_numpy(float), marker="o",
+            linestyle=linestyle, linewidth=1.4, label=label,
+        )
+
+    ax.set_xticks(x, group_order)
+    ax.set_ylim(0, 1)
+    ax.set_xlabel("CMAT visits during the MU academic period")
+    ax.set_ylabel(r"Estimated lower-component weight $\hat{\pi}_{L,k}$")
+    ax.set_title("Tail-resolution EM sensitivity")
+    ax.legend(frameon=False)
+    ax.grid(axis="x", visible=False)
+    return _save(fig, "fig09_sensitivity_6_7plus_lower_component_weight.pdf")
+
 def plot_lower_component_weight() -> Path:
     complete = pd.read_csv(
         TABLES_DIR / "38_complete_case_gmm_two_component_parameters.csv"
@@ -663,6 +799,8 @@ def main() -> int:
         plot_lower_component_weight(),
         plot_sensitivity_z_pvalue_dashboard(),
         plot_sensitivity_pass_pvalue_dashboard(),
+        plot_sensitivity_6_7plus_gmm_ridgeline(),
+        plot_sensitivity_6_7plus_lower_component_weight(),
     ]:
         print(path.relative_to(REPO_ROOT))
     return 0
