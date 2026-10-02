@@ -82,6 +82,16 @@ may be reported as an exploratory sensitivity because exact 6 still has 50 stude
 It was not originally selected as the support-optimal inferential grouping. Its use in the current manuscript is a reporting decision that must remain explicitly distinguished from the earlier outcome-blind support choice.
 
 
+### Current manuscript interpretation
+
+The current manuscript uses the full `0 / 1 / 2 / 3 / 4 / 5 / 6 / 7+` grid for its main descriptive and pairwise displays while preserving the original support-based `6+` choice as a robustness specification. Three interpretive regions are distinguished without recoding the exposure:
+
+- `0`: no recorded CMAT use;
+- `1--3`: attendance that may be partly influenced by the PPA participation-credit option;
+- `4+`: repeated CMAT use beyond the three visits needed for that specific credit option, with `7+` retained as a high-frequency tail.
+
+The manuscript may discuss the descriptive changes from 4 to 5 and from 6 to 7+ because they are visible in the observed profile, but neither adjacent contrast is statistically resolved and neither should be labelled a threshold effect. The strongest within-user multiplicity-adjusted result in the full-group PASS model is 7+ versus one visit. This result does not retroactively make the 7+ cut outcome-blind or causal.
+
 ### PPA-threshold diagnostic
 
 The `1 / 2 / 3 / 4 / 5 / 6 / 7+` sensitivity also serves a separate descriptive purpose: the institutional PPA participation threshold occurs at three recorded visits. This creates a substantively interesting boundary between one--two visits and three or more visits, because reaching three visits may reflect both demand for mathematics support and an institutional participation incentive.
