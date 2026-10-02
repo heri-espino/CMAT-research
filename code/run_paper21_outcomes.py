@@ -1070,8 +1070,8 @@ def run(args: argparse.Namespace) -> int:
 
     print(f"Paper 2.1 study cohort: N={len(mu):,}")
     print(f"Positive-attendance analysis: N={len(users):,}")
-    print("Primary groups: 1, 2, 3, 4, 5, 6+")
-    print("Sensitivity groups: 1, 2, 3, 4, 5, 6, 7+")
+    print("Main manuscript reporting groups: 0, 1, 2, 3, 4, 5, 6, 7+")
+    print("Historical pooled-tail robustness groups: 1, 2, 3, 4, 5, 6+")
     print("Shared methods: cmat_analysis 0.3 public API")
     print(f"Outputs: {TABLES_DIR}")
     return 0
