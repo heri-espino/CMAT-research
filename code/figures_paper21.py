@@ -30,6 +30,15 @@ USER_GROUPS = ["1", "2", "3", "4", "5", "6+"]
 SENSITIVITY_GROUPS = ["1", "2", "3", "4", "5", "6", "7+"]
 OUTCOME_STATES = ["pass", "numeric_nonpass", "BV", "RT", "BA"]
 
+# Consistent publication colours for observed and imputed outcome-state displays.
+OUTCOME_COLORS = {
+    "pass": "#2563EB",              # blue
+    "numeric_nonpass": "#DA70D6",  # orchid
+    "BV": "#F472B6",               # pink
+    "RT": "#F59E0B",               # orange
+    "BA": "#FACC15",               # yellow
+}
+
 OBSOLETE_FIGURES = [
     "fig02_pairwise_z_heatmap.pdf",
     "fig03_pairwise_pass_heatmap.pdf",
@@ -139,13 +148,7 @@ def _plot_observed_histogram_structure(
         "RT": "RT",
         "BA": "BA",
     }
-    cycle = plt.rcParams["axes.prop_cycle"].by_key().get("color", [])
-    if not cycle:
-        cycle = [f"C{i}" for i in range(len(OUTCOME_STATES))]
-    component_colors = {
-        component: cycle[index % len(cycle)]
-        for index, component in enumerate(OUTCOME_STATES)
-    }
+    component_colors = OUTCOME_COLORS.copy()
 
     fig, (ax_admin, ax_grade, ax_counts) = plt.subplots(
         1, 3, figsize=(12.6, 6.2), sharey=True,
@@ -171,21 +174,23 @@ def _plot_observed_histogram_structure(
         key = (group, state)
         return float(share.loc[key]) if key in share.index else 0.0
 
-    admin_totals = [
-        100.0 * sum(group_share(group, state) for state in ["BV", "RT", "BA"])
+    nonpass_states = ["numeric_grade_below_7.5", "BV", "RT", "BA"]
+    nonpass_totals = [
+        100.0 * sum(group_share(group, state) for state in nonpass_states)
         for group in group_order
     ]
-    admin_limit = max(20.0, 5.0 * np.ceil((max(admin_totals) + 3.0) / 5.0))
+    nonpass_limit = max(20.0, 5.0 * np.ceil((max(nonpass_totals) + 3.0) / 5.0))
     max_bin_percent = float(histogram["percent_of_full_group"].max())
     hist_scale_percent = max(5.0, 5.0 * np.ceil(max_bin_percent / 5.0))
 
     for position, group in zip(positions, group_order):
         left = 0.0
-        for state in ["BV", "RT", "BA"]:
+        for state in nonpass_states:
             width = 100.0 * group_share(group, state)
+            color_key = "numeric_nonpass" if state == "numeric_grade_below_7.5" else state
             ax_admin.barh(
                 position, width, left=left, height=0.38,
-                color=component_colors[state], edgecolor="white", linewidth=0.45,
+                color=component_colors[color_key], edgecolor="white", linewidth=0.45,
             )
             if width >= 1.15:
                 ax_admin.text(left + width / 2.0, position, f"{width:.1f}%",
@@ -195,8 +200,8 @@ def _plot_observed_histogram_structure(
                               ha="center", va="bottom", fontsize=5.8)
             left += width
         ax_admin.text(
-            min(left + 0.45, admin_limit - 0.25), position, f"{left:.1f}% total",
-            ha="left" if left + 0.45 < admin_limit - 0.25 else "right",
+            min(left + 0.45, nonpass_limit - 0.25), position, f"{left:.1f}% total",
+            ha="left" if left + 0.45 < nonpass_limit - 0.25 else "right",
             va="center", fontsize=6.5, color="0.25",
         )
 
@@ -230,12 +235,12 @@ def _plot_observed_histogram_structure(
             bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.78, "pad": 0.8},
         )
 
-    ax_admin.set_xlim(0.0, admin_limit)
-    ax_admin.set_xticks(np.arange(0.0, admin_limit + 0.1, 5.0))
-    ax_admin.set_xlabel("Non-numeric outcomes (% of full group)")
+    ax_admin.set_xlim(0.0, nonpass_limit)
+    ax_admin.set_xticks(np.arange(0.0, nonpass_limit + 0.1, 5.0))
+    ax_admin.set_xlabel("Non-passing outcomes (% of full group)")
     ax_admin.set_ylabel("CMAT visits during the MU academic period")
     ax_admin.set_yticks(positions, group_order)
-    ax_admin.set_title("Observed non-numeric records", fontsize=9.5)
+    ax_admin.set_title("Observed non-passing outcomes", fontsize=9.5)
     ax_admin.grid(axis="y", visible=False)
 
     ax_grade.axvline(7.5, linestyle="--", linewidth=0.9, color="0.35", alpha=0.85)
@@ -327,13 +332,7 @@ def plot_distribution_and_composition() -> Path:
         "RT": "RT",
         "BA": "BA",
     }
-    cycle = plt.rcParams["axes.prop_cycle"].by_key().get("color", [])
-    if not cycle:
-        cycle = [f"C{i}" for i in range(len(OUTCOME_STATES))]
-    component_colors = {
-        component: cycle[index % len(cycle)]
-        for index, component in enumerate(OUTCOME_STATES)
-    }
+    component_colors = OUTCOME_COLORS.copy()
     plot_stacked_ridgeline(
         density,
         group_order=ZERO_DISPLAY_GROUPS,
