@@ -195,6 +195,63 @@ def _composition(
     return out
 
 
+def _observed_numeric_histogram(
+    data: pd.DataFrame,
+    *,
+    group_col: str,
+    group_order: list[str],
+    outcome_col: str = "GRADE_NUMERIC",
+) -> pd.DataFrame:
+    """Tabulate observed numeric grades in 101 bins centred on 0.0--10.0.
+
+    Each 0.1-point bin is normalised by the size of the full attendance
+    group, not by the number of numeric grades. Therefore the sum of
+    share_of_full_group across the 101 bins equals the observed numeric
+    share of that attendance group; BV, RT and BA occupy the remaining mass.
+    """
+    centers = np.round(np.arange(0.0, 10.0 + 0.1, 0.1), 1)
+    edges = np.linspace(-0.05, 10.05, len(centers) + 1)
+    labels = data[group_col].astype("string")
+    rows: list[dict[str, object]] = []
+
+    for group in group_order:
+        subset = data.loc[labels.eq(group)].copy()
+        group_n = int(len(subset))
+        numeric = pd.to_numeric(subset[outcome_col], errors="coerce").dropna()
+        numeric_values = numeric.to_numpy(float)
+
+        if np.any((numeric_values < 0.0) | (numeric_values > 10.0)):
+            bad = numeric_values[(numeric_values < 0.0) | (numeric_values > 10.0)]
+            raise ValueError(
+                f"Observed numeric MU grades outside 0--10 in group {group}: "
+                + ", ".join(f"{value:g}" for value in bad[:10])
+            )
+
+        counts, _ = np.histogram(numeric_values, bins=edges)
+        numeric_n = int(counts.sum())
+
+        for center, count in zip(centers, counts):
+            share = count / group_n if group_n else np.nan
+            rows.append(
+                {
+                    "group": group,
+                    "bin_center": float(center),
+                    "bin_left": float(center - 0.05),
+                    "bin_right": float(center + 0.05),
+                    "count": int(count),
+                    "group_n": group_n,
+                    "numeric_n": numeric_n,
+                    "share_of_full_group": share,
+                    "percent_of_full_group": 100.0 * share if group_n else np.nan,
+                    "numeric_state": (
+                        "numeric_nonpass" if center < 7.5 else "pass"
+                    ),
+                }
+            )
+
+    return pd.DataFrame(rows)
+
+
 def _profile(
     data: pd.DataFrame,
     *,
@@ -379,6 +436,16 @@ def run(args: argparse.Namespace) -> int:
     _save(
         observed_numeric_density,
         "10l_zero_inclusive_observed_numeric_grade_density.csv",
+    )
+
+    _save(
+        _observed_numeric_histogram(
+            zero_plus,
+            group_col="P21_GROUP_WITH_ZERO",
+            group_order=zero_order,
+            outcome_col="GRADE_NUMERIC",
+        ),
+        "10m_zero_inclusive_observed_numeric_grade_histogram.csv",
     )
 
     ridge_density = mixture_component_density(
