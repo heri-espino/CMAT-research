@@ -6,7 +6,7 @@ The committed source is deliberately data-free. Detailed observation-by-observat
 
 ## Why this audit exists
 
-The exact five-visit group contains 55 students. In the observed-outcome figure, 3.6% of the group has an observed numeric grade below 7.5, which corresponds to only **2 students**. The orange concentration in the kernel-smoothed ridgeline can therefore look visually pronounced even though it is supported by two observations. The purpose of this audit is to inspect those observations in classroom and temporal context rather than interpret the smoothed shape as evidence of a large latent subgroup.
+The exact five-visit group contains 55 students. In the observed-outcome figure, 3.6% of the group has an observed numeric grade below 7.5, which corresponds to only **2 students**. With the revised 0.1-point histogram, those two observations appear directly at 5.7 and 5.8 instead of being smoothed into a density bump. The purpose of this audit is to inspect those observations in classroom and temporal context rather than infer a larger latent subgroup from a very small count.
 
 The local report examines, for every student in the selected visit-frequency group:
 
