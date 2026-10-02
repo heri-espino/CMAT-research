@@ -102,6 +102,10 @@ jobs:
             results/paper21/tables/10k_zero_inclusive_pass_heatmap_matrix.csv \
             results/paper21/tables/10l_zero_inclusive_observed_numeric_grade_density.csv \
             results/paper21/tables/10m_zero_inclusive_observed_numeric_grade_histogram.csv \
+            results/paper21/tables/10n_zero_inclusive_7plus_descriptives.csv \
+            results/paper21/tables/10o_zero_inclusive_7plus_exact_administrative_composition.csv \
+            results/paper21/tables/10p_zero_inclusive_7plus_stacked_ridgeline_density.csv \
+            results/paper21/tables/10q_zero_inclusive_7plus_observed_numeric_grade_histogram.csv \
             results/paper21/tables/11_primary_group_descriptives.csv \
             results/paper21/tables/12_primary_omnibus.csv \
             results/paper21/tables/13_primary_pairwise_continuous.csv \
@@ -186,7 +190,6 @@ jobs:
         run: |
           for f in \
             results/paper21/figures/fig01a_observed_pre_imputation_structure.pdf \
-            results/paper21/figures/fig01b_observed_pre_imputation_1to6_7plus.pdf \
             results/paper21/figures/fig06_sensitivity_7plus_z_pvalue_dashboard.pdf \
             results/paper21/figures/fig07_sensitivity_7plus_pass_pvalue_dashboard.pdf \
             results/paper21/figures/fig01_distribution_composition_ridgeline.pdf \
