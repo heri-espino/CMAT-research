@@ -81,6 +81,18 @@ may be reported as an exploratory sensitivity because exact 6 still has 50 stude
 
 It must not replace the primary grouping merely because its outcome results look more interesting.
 
+
+### PPA-threshold diagnostic
+
+The `1 / 2 / 3 / 4 / 5 / 6 / 7+` sensitivity also serves a separate descriptive purpose: the institutional PPA participation threshold occurs at three recorded visits. This creates a substantively interesting boundary between one--two visits and three or more visits, because reaching three visits may reflect both demand for mathematics support and an institutional participation incentive.
+
+For that reason the sensitivity analysis now exports all adjusted pairwise comparisons for standardised grade and pass probability, together with two p-value matrices for each outcome:
+
+- unadjusted pairwise p-values, used only to inspect where local contrasts first become visible;
+- Holm-adjusted p-values, used for multiplicity-aware interpretation of the full pairwise family.
+
+The corresponding heatmap dashboards mark the boundary between 2 and 3 visits. They are exploratory diagnostics of where differences appear across visit frequencies; they do not identify a causal effect of the PPA incentive, because students are not randomly assigned to reach three visits and visit frequency remains behaviourally selected.
+
 ## Reopening this decision
 
 Do not change the primary cut after inspecting outcome significance. Reopen it only if:
