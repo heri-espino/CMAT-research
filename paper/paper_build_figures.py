@@ -68,10 +68,6 @@ TABLE_SENTINELS = (
 )
 
 FIGURE_INPUTS = (
-    TABLES_DIR / "10b_zero_inclusive_descriptives.csv",
-    TABLES_DIR / "10d_zero_inclusive_exact_administrative_composition.csv",
-    TABLES_DIR / "10g_zero_inclusive_stacked_ridgeline_density.csv",
-    TABLES_DIR / "10m_zero_inclusive_observed_numeric_grade_histogram.csv",
     TABLES_DIR / "10q_zero_inclusive_7plus_observed_numeric_grade_histogram.csv",
     TABLES_DIR / "10p_zero_inclusive_7plus_stacked_ridgeline_density.csv",
     TABLES_DIR / "10o_zero_inclusive_7plus_exact_administrative_composition.csv",
@@ -80,7 +76,6 @@ FIGURE_INPUTS = (
     TABLES_DIR / "23a_sensitivity_7plus_p_raw_pass_matrix.csv",
     TABLES_DIR / "22b_sensitivity_7plus_p_holm_continuous_matrix.csv",
     TABLES_DIR / "22a_sensitivity_7plus_p_raw_continuous_matrix.csv",
-    TABLES_DIR / "25a_sensitivity_7plus_observed_numeric_grade_histogram.csv",
     TABLES_DIR / "18_primary_z_heatmap_matrix.csv",
     TABLES_DIR / "19_primary_pass_heatmap_matrix.csv",
     TABLES_DIR / "38_complete_case_gmm_two_component_parameters.csv",
