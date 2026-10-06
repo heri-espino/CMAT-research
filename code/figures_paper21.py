@@ -68,6 +68,8 @@ def validate() -> None:
         "10o_zero_inclusive_7plus_exact_administrative_composition.csv",
         "10p_zero_inclusive_7plus_stacked_ridgeline_density.csv",
         "10q_zero_inclusive_7plus_observed_numeric_grade_histogram.csv",
+        "10r_zero_inclusive_7plus_imputed_z_short_kde_density.csv",
+        "10s_zero_inclusive_7plus_imputed_z_histogram.csv",
         "26b_zero_inclusive_7plus_z_effect_matrix.csv",
         "26d_zero_inclusive_7plus_pass_odds_ratio_matrix.csv",
         "26e_zero_inclusive_7plus_z_p_raw_matrix.csv",
@@ -362,6 +364,151 @@ def plot_distribution_and_composition() -> Path:
         bbox_to_anchor=(0.5, 1.01),
     )
     return _save(fig, "fig01_distribution_composition_ridgeline.pdf")
+
+def plot_imputed_histogram_kde_overlay() -> Path:
+    """Overlay a short-bandwidth KDE and histogram for the imputed Z outcome."""
+    density = pd.read_csv(
+        TABLES_DIR / "10r_zero_inclusive_7plus_imputed_z_short_kde_density.csv"
+    )
+    histogram = pd.read_csv(
+        TABLES_DIR / "10s_zero_inclusive_7plus_imputed_z_histogram.csv"
+    )
+    density["group"] = density["group"].astype(str)
+    density["component"] = density["component"].astype(str)
+    histogram["group"] = histogram["group"].astype(str)
+    histogram["component"] = histogram["component"].astype(str)
+
+    component_labels = {
+        "pass": "Pass",
+        "numeric_nonpass": "Numeric <7.5",
+        "BV": "BV",
+        "RT": "RT",
+        "BA": "BA",
+    }
+    ridge_height = 0.78
+    fig, ax = plt.subplots(figsize=(8.8, 6.2))
+
+    for y, group in enumerate(ZERO_DISPLAY_GROUPS):
+        kde_group = density.loc[
+            density["group"].eq(group)
+            & density["x"].between(-2.0, 2.0)
+        ].copy()
+        hist_group = histogram.loc[histogram["group"].eq(group)].copy()
+        if kde_group.empty or hist_group.empty:
+            continue
+
+        x_values = np.sort(kde_group["x"].unique().astype(float))
+        total_kde = (
+            kde_group.drop_duplicates("x")
+            .set_index("x")
+            .reindex(x_values)["density_total"]
+            .fillna(0.0)
+            .to_numpy(float)
+        )
+
+        bin_centers = np.sort(hist_group["bin_center"].unique().astype(float))
+        hist_total = (
+            hist_group.groupby("bin_center", observed=True)["density_of_full_group"]
+            .sum()
+            .reindex(bin_centers, fill_value=0.0)
+            .to_numpy(float)
+        )
+        maximum = float(max(np.nanmax(total_kde), np.nanmax(hist_total)))
+        scale = ridge_height / maximum if np.isfinite(maximum) and maximum > 0 else 1.0
+
+        hist_cumulative = np.zeros_like(bin_centers, dtype=float)
+        for component in OUTCOME_STATES:
+            frame = (
+                hist_group.loc[
+                    hist_group["component"].eq(component),
+                    ["bin_center", "bin_left", "bin_right", "density_of_full_group"],
+                ]
+                .set_index("bin_center")
+                .reindex(bin_centers)
+            )
+            values = frame["density_of_full_group"].fillna(0.0).to_numpy(float)
+            widths = (
+                frame["bin_right"].fillna(pd.Series(bin_centers + 0.05, index=frame.index)).to_numpy(float)
+                - frame["bin_left"].fillna(pd.Series(bin_centers - 0.05, index=frame.index)).to_numpy(float)
+            )
+            ax.bar(
+                bin_centers,
+                values * scale,
+                width=widths * 0.90,
+                bottom=y + hist_cumulative * scale,
+                color=OUTCOME_COLORS[component],
+                alpha=0.38,
+                edgecolor="none",
+                align="center",
+                zorder=2,
+            )
+            hist_cumulative += values
+
+        kde_cumulative = np.zeros_like(x_values, dtype=float)
+        for component in OUTCOME_STATES:
+            component_values = (
+                kde_group.loc[
+                    kde_group["component"].eq(component),
+                    ["x", "density_component"],
+                ]
+                .set_index("x")
+                .reindex(x_values)["density_component"]
+                .fillna(0.0)
+                .to_numpy(float)
+            )
+            lower = y + kde_cumulative * scale
+            kde_cumulative += component_values
+            upper = y + kde_cumulative * scale
+            ax.fill_between(
+                x_values,
+                lower,
+                upper,
+                color=OUTCOME_COLORS[component],
+                alpha=0.22,
+                linewidth=0,
+                zorder=3,
+            )
+
+        ax.plot(
+            x_values,
+            y + total_kde * scale,
+            color="0.15",
+            linewidth=0.9,
+            alpha=0.80,
+            zorder=4,
+        )
+        ax.hlines(y, -2.0, 2.0, color="0.72", linewidth=0.45, zorder=1)
+
+    scale_values = pd.to_numeric(density.get("bandwidth_scale"), errors="coerce")
+    bandwidth_scale = float(scale_values.dropna().iloc[0]) if scale_values.notna().any() else np.nan
+    note = (
+        f"KDE bandwidth = {bandwidth_scale:.2f} x baseline; histogram bins = 0.1 Z"
+        if np.isfinite(bandwidth_scale)
+        else "Short-bandwidth KDE; histogram bins = 0.1 Z"
+    )
+    ax.text(
+        0.01, 0.985, note, transform=ax.transAxes,
+        ha="left", va="top", fontsize=6.8, color="0.35"
+    )
+    ax.axvline(0.0, linestyle="--", linewidth=0.9, color="0.30", alpha=0.65)
+    ax.set_xlim(-2.0, 2.0)
+    ax.set_ylim(-0.35, len(ZERO_DISPLAY_GROUPS) - 1 + ridge_height + 0.25)
+    ax.set_yticks(np.arange(len(ZERO_DISPLAY_GROUPS)), ZERO_DISPLAY_GROUPS)
+    ax.set_xlabel("Instructor-period-standardised MU grade (Z)")
+    ax.set_ylabel("CMAT visits during the MU academic period")
+    ax.set_title("Imputed outcome: histogram and shorter-bandwidth KDE", fontsize=10)
+    ax.grid(axis="y", visible=False)
+    ax.legend(
+        handles=[
+            Patch(facecolor=OUTCOME_COLORS[c], label=component_labels[c], alpha=0.75)
+            for c in OUTCOME_STATES
+        ],
+        frameon=False,
+        ncol=5,
+        loc="lower center",
+        bbox_to_anchor=(0.5, 1.01),
+    )
+    return _save(fig, "fig02_imputed_histogram_kde_overlay.pdf")
 
 def _matrix_from_csv(path: Path, group_order: list[str]) -> np.ndarray:
     frame = pd.read_csv(path).copy()
@@ -755,6 +902,7 @@ def main() -> int:
     for path in [
         plot_observed_pre_imputation_structure(),
         plot_distribution_and_composition(),
+        plot_imputed_histogram_kde_overlay(),
         plot_pairwise_effect_dashboard(),
         plot_z_pvalue_dashboard(),
         plot_pass_pvalue_dashboard(),
