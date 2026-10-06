@@ -43,6 +43,8 @@ TABLE_SENTINELS = (
     TABLES_DIR / "10o_zero_inclusive_7plus_exact_administrative_composition.csv",
     TABLES_DIR / "10p_zero_inclusive_7plus_stacked_ridgeline_density.csv",
     TABLES_DIR / "10q_zero_inclusive_7plus_observed_numeric_grade_histogram.csv",
+    TABLES_DIR / "10r_zero_inclusive_7plus_imputed_z_short_kde_density.csv",
+    TABLES_DIR / "10s_zero_inclusive_7plus_imputed_z_histogram.csv",
     TABLES_DIR / "26b_zero_inclusive_7plus_z_effect_matrix.csv",
     TABLES_DIR / "26d_zero_inclusive_7plus_pass_odds_ratio_matrix.csv",
     TABLES_DIR / "26e_zero_inclusive_7plus_z_p_raw_matrix.csv",
@@ -64,6 +66,8 @@ TABLE_SENTINELS = (
 FIGURE_INPUTS = (
     TABLES_DIR / "10q_zero_inclusive_7plus_observed_numeric_grade_histogram.csv",
     TABLES_DIR / "10p_zero_inclusive_7plus_stacked_ridgeline_density.csv",
+    TABLES_DIR / "10r_zero_inclusive_7plus_imputed_z_short_kde_density.csv",
+    TABLES_DIR / "10s_zero_inclusive_7plus_imputed_z_histogram.csv",
     TABLES_DIR / "10o_zero_inclusive_7plus_exact_administrative_composition.csv",
     TABLES_DIR / "10n_zero_inclusive_7plus_descriptives.csv",
     TABLES_DIR / "26b_zero_inclusive_7plus_z_effect_matrix.csv",
@@ -83,6 +87,7 @@ FIGURE_INPUTS = (
 FIGURE_OUTPUTS = (
     FIGURES_DIR / "fig01a_observed_pre_imputation_structure.pdf",
     FIGURES_DIR / "fig01_distribution_composition_ridgeline.pdf",
+    FIGURES_DIR / "fig02_imputed_histogram_kde_overlay.pdf",
     FIGURES_DIR / "fig03_04_pairwise_effect_dashboard.pdf",
     FIGURES_DIR / "fig05_pairwise_z_pvalue_dashboard.pdf",
     FIGURES_DIR / "fig06_pairwise_pass_pvalue_dashboard.pdf",
