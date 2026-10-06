@@ -172,6 +172,38 @@ def test_mixture_component_density_areas_recover_component_shares():
 
 
 
+def test_mixture_component_density_bandwidth_scale_shortens_bandwidth():
+    d = _fixture().copy()
+    d["STATE"] = np.where(d["PASS"].eq(1), "pass", "nonpass")
+    baseline = mixture_component_density(
+        d,
+        group_col="GROUP",
+        group_order=["0", "1", "2", "3+"],
+        outcome_col="Y",
+        component_col="STATE",
+        component_order=["pass", "nonpass"],
+        grid_size=256,
+        bandwidth_scale=1.0,
+    )
+    shorter = mixture_component_density(
+        d,
+        group_col="GROUP",
+        group_order=["0", "1", "2", "3+"],
+        outcome_col="Y",
+        component_col="STATE",
+        component_order=["pass", "nonpass"],
+        grid_size=256,
+        bandwidth_scale=0.55,
+    )
+    base_bw = (
+        baseline.drop_duplicates("group").set_index("group")["bandwidth"].sort_index()
+    )
+    short_bw = (
+        shorter.drop_duplicates("group").set_index("group")["bandwidth"].sort_index()
+    )
+    assert np.allclose(short_bw.to_numpy(float), 0.55 * base_bw.to_numpy(float))
+
+
 def test_clustered_fixed_effect_logit_returns_odds_ratios():
     d = _fixture().loc[lambda x: x["VISITS_CMAT_PERIOD"].gt(0)].copy()
     pairwise, omnibus, info = fixed_effect_logistic_group_comparisons(
