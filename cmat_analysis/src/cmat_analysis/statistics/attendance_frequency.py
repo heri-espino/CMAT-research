@@ -954,6 +954,7 @@ def mixture_component_density(
     grid_size: int = 256,
     cut: float = 3.0,
     min_bandwidth: float = 1e-3,
+    bandwidth_scale: float = 1.0,
 ) -> pd.DataFrame:
     """Build stacked KDE components whose areas equal observed group shares.
 
@@ -985,6 +986,10 @@ def mixture_component_density(
         minimum and maximum.
     min_bandwidth : float, default=1e-3
         Lower bound for the Gaussian kernel bandwidth.
+    bandwidth_scale : float, default=1.0
+        Multiplicative factor applied to the baseline group bandwidth. Values
+        below one produce a less-smoothed diagnostic density while preserving
+        the component-area interpretation.
 
     Returns
     -------
@@ -1004,6 +1009,8 @@ def mixture_component_density(
         raise ValueError("cut must be non-negative")
     if min_bandwidth <= 0:
         raise ValueError("min_bandwidth must be positive")
+    if not np.isfinite(bandwidth_scale) or bandwidth_scale <= 0:
+        raise ValueError("bandwidth_scale must be positive and finite")
     _require(df, [group_col, outcome_col, component_col])
 
     groups = [str(value) for value in group_order]
@@ -1042,7 +1049,8 @@ def mixture_component_density(
         else:
             scale = sd
         bandwidths[group] = max(
-            float(scale * len(values) ** (-0.2)), min_bandwidth
+            float(scale * len(values) ** (-0.2) * bandwidth_scale),
+            min_bandwidth,
         )
 
     maximum_bandwidth = max(bandwidths.values())
