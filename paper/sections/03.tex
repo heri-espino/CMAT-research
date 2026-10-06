@@ -47,6 +47,15 @@ The broad zero-versus-any-attendance benchmark was pronounced after adjustment f
 \label{fig:distribution-composition}
 \end{figure}
 
+Because a KDE can conceal boundary-related or locally concentrated structure when its bandwidth is relatively large, \Cref{fig:imputed-histogram-kde} provides a complementary smoothing diagnostic for the same completed standardised outcome. It overlays 0.1-$Z$ histograms with a KDE whose bandwidth is 55\% of the baseline ridgeline bandwidth, while retaining the same outcome-state colours and the common $[-2,2]$ display range. The shorter-bandwidth curve is not used for inference or model selection; its purpose is to show how much of the apparent smoothness in \Cref{fig:distribution-composition} is attributable to the bandwidth choice and to make the locations of the imputed BV, RT and BA values visible relative to the observed numeric outcomes.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=0.92\textwidth]{../results/paper21/figures/fig02_imputed_histogram_kde_overlay.pdf}
+\caption{Histogram and shorter-bandwidth KDE diagnostic for the completed instructor--period-standardised outcome, shown for 0, exact 1--6, and 7+ CMAT visits. Stacked 0.1-$Z$ histogram bars and stacked KDE components are coloured by final outcome state: PASS in blue, numeric grades below 7.5 in orchid, BV in pink, RT in orange and BA in yellow. Both layers are semi-transparent. The KDE bandwidth equals 0.55 times the baseline bandwidth used for the main ridgeline display, and the horizontal axis is fixed at $[-2,2]$. Administrative outcomes appear at their imputed standardised values. This figure is a smoothing and boundary diagnostic rather than an inferential model.}
+\label{fig:imputed-histogram-kde}
+\end{figure}
+
 \subsection{Where the frequency profile changes}
 
 The eight-group continuous-outcome model rejected equality across attendance frequencies ($p<0.001$), but most of that signal came from the zero-attendance benchmark. Adjusted standardised performance was higher in every positive-attendance group than in the zero group, with row-minus-zero differences ranging from 0.305 SD for one visit to 0.549 SD for 7+ visits. All seven zero-versus-positive contrasts remained significant after Holm correction across the full 28-comparison family; the weakest was exact six versus zero, with Holm-adjusted $p=0.042$.
