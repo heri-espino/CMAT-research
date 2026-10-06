@@ -253,6 +253,73 @@ def _observed_numeric_histogram(
     return pd.DataFrame(rows)
 
 
+def _continuous_state_histogram(
+    data: pd.DataFrame,
+    *,
+    group_col: str,
+    group_order: list[str],
+    outcome_col: str,
+    state_col: str,
+    state_order: list[str],
+    bin_min: float = -2.0,
+    bin_max: float = 2.0,
+    bin_width: float = 0.1,
+) -> pd.DataFrame:
+    """Tabulate a continuous outcome by state on a fixed display window.
+
+    Bin heights are expressed as density contributions relative to the full
+    attendance-group size, so stacked bars are directly comparable with the
+    stacked KDE components. Values outside the display window are retained
+    in group/component counts but do not contribute to plotted bins.
+    """
+    if bin_width <= 0 or bin_max <= bin_min:
+        raise ValueError("Invalid histogram range or bin width")
+
+    edges = np.arange(bin_min, bin_max + bin_width * 0.5, bin_width)
+    if edges[-1] < bin_max:
+        edges = np.append(edges, bin_max)
+    centers = (edges[:-1] + edges[1:]) / 2.0
+
+    labels = data[group_col].astype("string")
+    states = data[state_col].astype("string")
+    outcome = pd.to_numeric(data[outcome_col], errors="coerce")
+    rows: list[dict[str, object]] = []
+
+    for group in group_order:
+        group_mask = labels.eq(group) & outcome.notna()
+        group_n = int(group_mask.sum())
+        for state in state_order:
+            state_mask = group_mask & states.eq(state)
+            values = outcome.loc[state_mask].to_numpy(float)
+            counts, _ = np.histogram(values, bins=edges)
+            component_n = int(len(values))
+
+            for center, left, right, count in zip(
+                centers, edges[:-1], edges[1:], counts
+            ):
+                share = count / group_n if group_n else np.nan
+                density = (
+                    share / float(right - left)
+                    if group_n and right > left
+                    else np.nan
+                )
+                rows.append(
+                    {
+                        "group": group,
+                        "component": state,
+                        "bin_center": float(center),
+                        "bin_left": float(left),
+                        "bin_right": float(right),
+                        "count": int(count),
+                        "group_n": group_n,
+                        "component_n": component_n,
+                        "share_of_full_group_bin": share,
+                        "density_of_full_group": density,
+                    }
+                )
+
+    return pd.DataFrame(rows)
+
 def _profile(
     data: pd.DataFrame,
     *,
@@ -586,6 +653,38 @@ def run(args: argparse.Namespace) -> int:
             outcome_col="GRADE_NUMERIC",
         ),
         "10q_zero_inclusive_7plus_observed_numeric_grade_histogram.csv",
+    )
+
+    short_bandwidth_scale = 0.55
+    short_density = mixture_component_density(
+        zero_7plus,
+        group_col="P21_GROUP_WITH_ZERO_7P",
+        group_order=zero_7plus_order,
+        outcome_col="Z_GRADE_PRIMARY",
+        component_col="ACADEMIC_OUTCOME_STATE_5",
+        component_order=["pass", "numeric_nonpass", "BV", "RT", "BA"],
+        grid_size=800,
+        cut=0.0,
+        bandwidth_scale=short_bandwidth_scale,
+    )
+    short_density.insert(0, "bandwidth_scale", short_bandwidth_scale)
+    _save(
+        short_density,
+        "10r_zero_inclusive_7plus_imputed_z_short_kde_density.csv",
+    )
+    _save(
+        _continuous_state_histogram(
+            zero_7plus,
+            group_col="P21_GROUP_WITH_ZERO_7P",
+            group_order=zero_7plus_order,
+            outcome_col="Z_GRADE_PRIMARY",
+            state_col="ACADEMIC_OUTCOME_STATE_5",
+            state_order=["pass", "numeric_nonpass", "BV", "RT", "BA"],
+            bin_min=-2.0,
+            bin_max=2.0,
+            bin_width=0.1,
+        ),
+        "10s_zero_inclusive_7plus_imputed_z_histogram.csv",
     )
 
     zero_z_pair, _ = _fit(
