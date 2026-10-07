@@ -12,10 +12,13 @@ from __future__ import annotations
 import argparse
 import json
 from dataclasses import replace
+from itertools import combinations
+from math import factorial
 from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import statsmodels.formula.api as smf
 
 try:
     from cmat_analysis.cohorts import build_study_cohorts, load_and_clean_inputs
@@ -170,6 +173,291 @@ def _benchmark(
         "n_instructor_period_groups": int(info.loc[0, "n_fixed_effect_levels"]),
         "cluster_col": cluster_col,
         "n_clusters": int(info.loc[0, "n_clusters"]),
+    }
+
+
+def benchmark_model_diagnostics(
+    data: pd.DataFrame,
+    outcome_col: str,
+    outcome_label: str,
+    *,
+    cluster_col: str = "CLASSROOM_ID",
+) -> dict[str, pd.DataFrame]:
+    """Audit the binary-attendance benchmark beyond its headline coefficient.
+
+    The diagnostic keeps one common complete-case sample and treats three
+    predictor blocks separately: attendance, degree programme, and
+    instructor-period fixed effects. It returns the sequential R-squared path,
+    all subset fits, an exact blockwise Shapley decomposition of R-squared,
+    conditional/partial R-squared diagnostics, the complete cluster-robust
+    coefficient table, and the strongest off-diagonal correlations in the
+    cluster-robust coefficient covariance matrix.
+
+    These quantities describe model fit and estimator geometry. They do not
+    decompose causal effects and Shapley shares must not be interpreted as
+    causal importance.
+    """
+    x = data.copy()
+    x["ATTENDANCE_BINARY_GROUP"] = np.where(
+        x["VISITS_CMAT_PERIOD"].gt(0), "1+", "0"
+    )
+    required = [
+        outcome_col,
+        "ATTENDANCE_BINARY_GROUP",
+        "CLASSROOM_ID",
+        "CLAVECARRERA",
+        cluster_col,
+    ]
+    d = x.dropna(subset=required).copy()
+    d["ATTENDANCE_BINARY_GROUP"] = pd.Categorical(
+        d["ATTENDANCE_BINARY_GROUP"].astype(str),
+        categories=["0", "1+"],
+        ordered=True,
+    )
+
+    block_terms = {
+        "attendance": "C(ATTENDANCE_BINARY_GROUP, Treatment(reference='0'))",
+        "degree": "C(CLAVECARRERA)",
+        "instructor_period": "C(CLASSROOM_ID)",
+    }
+    block_order = list(block_terms)
+
+    def fit_blocks(included: tuple[str, ...]):
+        rhs = " + ".join(block_terms[name] for name in included) if included else "1"
+        formula = f"{outcome_col} ~ {rhs}"
+        model = smf.ols(formula, data=d).fit(
+            cov_type="cluster",
+            cov_kwds={"groups": d[cluster_col]},
+        )
+        return model, formula
+
+    # Fit every subset once. With three blocks this is only 2^3 = 8 models.
+    subset_models: dict[frozenset[str], object] = {}
+    subset_formulas: dict[frozenset[str], str] = {}
+    subset_rows: list[dict[str, object]] = []
+    for size in range(len(block_order) + 1):
+        for subset_tuple in combinations(block_order, size):
+            key = frozenset(subset_tuple)
+            model, formula = fit_blocks(tuple(subset_tuple))
+            subset_models[key] = model
+            subset_formulas[key] = formula
+            subset_rows.append(
+                {
+                    "outcome": outcome_label,
+                    "included_blocks": (
+                        "intercept_only" if not subset_tuple else " + ".join(subset_tuple)
+                    ),
+                    "n_blocks": int(size),
+                    "r_squared": float(model.rsquared),
+                    "adjusted_r_squared": float(model.rsquared_adj),
+                    "sse": float(np.dot(model.resid, model.resid)),
+                    "df_model": float(model.df_model),
+                    "df_resid": float(model.df_resid),
+                    "N": int(model.nobs),
+                    "formula": formula,
+                }
+            )
+    subset_table = pd.DataFrame(subset_rows)
+
+    # Sequential path requested for interpretation: attendance -> degree -> classroom.
+    attendance_term = f"{block_terms['attendance']}[T.1+]"
+    path_rows: list[dict[str, object]] = []
+    previous_r2 = float(subset_models[frozenset()].rsquared)
+    previous_adj_r2 = float(subset_models[frozenset()].rsquared_adj)
+    for step in range(1, len(block_order) + 1):
+        included = tuple(block_order[:step])
+        model = subset_models[frozenset(included)]
+        ci = model.conf_int()
+        path_rows.append(
+            {
+                "outcome": outcome_label,
+                "step": step,
+                "model": " + ".join(included),
+                "added_block": included[-1],
+                "r_squared": float(model.rsquared),
+                "adjusted_r_squared": float(model.rsquared_adj),
+                "delta_r_squared_from_previous": float(model.rsquared - previous_r2),
+                "delta_adjusted_r_squared_from_previous": float(
+                    model.rsquared_adj - previous_adj_r2
+                ),
+                "attendance_beta": (
+                    float(model.params[attendance_term])
+                    if attendance_term in model.params.index
+                    else np.nan
+                ),
+                "attendance_cluster_robust_se": (
+                    float(model.bse[attendance_term])
+                    if attendance_term in model.params.index
+                    else np.nan
+                ),
+                "attendance_ci95_low": (
+                    float(ci.loc[attendance_term, 0])
+                    if attendance_term in ci.index
+                    else np.nan
+                ),
+                "attendance_ci95_high": (
+                    float(ci.loc[attendance_term, 1])
+                    if attendance_term in ci.index
+                    else np.nan
+                ),
+                "attendance_p_value": (
+                    float(model.pvalues[attendance_term])
+                    if attendance_term in model.params.index
+                    else np.nan
+                ),
+                "N": int(model.nobs),
+                "n_clusters": int(d[cluster_col].nunique()),
+            }
+        )
+        previous_r2 = float(model.rsquared)
+        previous_adj_r2 = float(model.rsquared_adj)
+    model_path = pd.DataFrame(path_rows)
+
+    # Exact Shapley/LMG-style allocation of the full-model R^2 across blocks.
+    m = len(block_order)
+    full_key = frozenset(block_order)
+    full_model = subset_models[full_key]
+    full_r2 = float(full_model.rsquared)
+    shapley_rows: list[dict[str, object]] = []
+    for block in block_order:
+        others = [name for name in block_order if name != block]
+        contribution = 0.0
+        for size in range(m):
+            weight = factorial(size) * factorial(m - size - 1) / factorial(m)
+            for subset_tuple in combinations(others, size):
+                subset = frozenset(subset_tuple)
+                with_block = subset | {block}
+                contribution += weight * (
+                    float(subset_models[with_block].rsquared)
+                    - float(subset_models[subset].rsquared)
+                )
+        shapley_rows.append(
+            {
+                "outcome": outcome_label,
+                "block": block,
+                "shapley_r_squared": float(contribution),
+                "share_of_full_r_squared": (
+                    float(contribution / full_r2) if full_r2 > 0 else np.nan
+                ),
+                "full_model_r_squared": full_r2,
+                "n_blocks": m,
+                "n_orderings_averaged": factorial(m),
+                "interpretation": (
+                    "order-averaged allocation of OLS R-squared; descriptive, not causal"
+                ),
+            }
+        )
+    shapley = pd.DataFrame(shapley_rows)
+
+    # Conditional contribution of each block when it is added last.
+    full_sse = float(np.dot(full_model.resid, full_model.resid))
+    partial_rows: list[dict[str, object]] = []
+    for block in block_order:
+        reduced_key = full_key - {block}
+        reduced = subset_models[reduced_key]
+        reduced_sse = float(np.dot(reduced.resid, reduced.resid))
+        partial_rows.append(
+            {
+                "outcome": outcome_label,
+                "block": block,
+                "full_r_squared": full_r2,
+                "r_squared_without_block": float(reduced.rsquared),
+                "delta_r_squared_full_minus_without_block": float(
+                    full_r2 - reduced.rsquared
+                ),
+                "partial_r_squared_conditional": (
+                    float((reduced_sse - full_sse) / reduced_sse)
+                    if reduced_sse > 0
+                    else np.nan
+                ),
+                "interpretation": (
+                    "incremental fit conditional on all other listed blocks"
+                ),
+            }
+        )
+    partial = pd.DataFrame(partial_rows)
+
+    def classify_term(term: str) -> str:
+        if term == "Intercept":
+            return "intercept"
+        if "ATTENDANCE_BINARY_GROUP" in term:
+            return "attendance"
+        if "C(CLAVECARRERA)" in term:
+            return "degree"
+        if "C(CLASSROOM_ID)" in term:
+            return "instructor_period"
+        return "other"
+
+    ci = np.asarray(full_model.conf_int(), dtype=float)
+    coefficients = pd.DataFrame(
+        {
+            "outcome": outcome_label,
+            "term": full_model.params.index.astype(str),
+            "estimate": np.asarray(full_model.params, dtype=float),
+            "cluster_robust_se": np.asarray(full_model.bse, dtype=float),
+            "statistic": np.asarray(full_model.tvalues, dtype=float),
+            "p_value": np.asarray(full_model.pvalues, dtype=float),
+            "ci95_low": ci[:, 0],
+            "ci95_high": ci[:, 1],
+        }
+    )
+    coefficients.insert(
+        2,
+        "block",
+        coefficients["term"].map(classify_term),
+    )
+    coefficients["scale"] = (
+        "probability (0-1)" if outcome_col == "PASS" else "standardized outcome (SD)"
+    )
+    if outcome_col == "PASS":
+        coefficients["estimate_percentage_points"] = 100.0 * coefficients["estimate"]
+        coefficients["ci95_low_percentage_points"] = 100.0 * coefficients["ci95_low"]
+        coefficients["ci95_high_percentage_points"] = 100.0 * coefficients["ci95_high"]
+
+    # The covariance matrix is chiefly useful through contrasts. For notebook
+    # audit, retain the strongest estimator correlations rather than printing
+    # the entire p x p matrix.
+    covariance = np.asarray(full_model.cov_params(), dtype=float)
+    standard_errors = np.sqrt(np.clip(np.diag(covariance), 0.0, None))
+    denom = np.outer(standard_errors, standard_errors)
+    corr = np.divide(
+        covariance,
+        denom,
+        out=np.full_like(covariance, np.nan, dtype=float),
+        where=denom > 0,
+    )
+    terms = list(full_model.params.index.astype(str))
+    covariance_rows: list[dict[str, object]] = []
+    for i in range(len(terms)):
+        for j in range(i + 1, len(terms)):
+            if not np.isfinite(corr[i, j]):
+                continue
+            covariance_rows.append(
+                {
+                    "outcome": outcome_label,
+                    "term_1": terms[i],
+                    "block_1": classify_term(terms[i]),
+                    "term_2": terms[j],
+                    "block_2": classify_term(terms[j]),
+                    "cluster_robust_covariance": float(covariance[i, j]),
+                    "estimator_correlation": float(corr[i, j]),
+                    "abs_estimator_correlation": float(abs(corr[i, j])),
+                }
+            )
+    covariance_top = (
+        pd.DataFrame(covariance_rows)
+        .sort_values("abs_estimator_correlation", ascending=False)
+        .head(50)
+        .reset_index(drop=True)
+    )
+
+    return {
+        "model_path": model_path,
+        "subset_r2": subset_table,
+        "shapley_r2": shapley,
+        "partial_r2": partial,
+        "coefficients": coefficients,
+        "covariance_top": covariance_top,
     }
 
 
@@ -518,6 +806,25 @@ def run(args: argparse.Namespace) -> int:
         ]
     )
     _save(benchmark, "10_benchmark_0_vs_1plus.csv")
+
+    benchmark_diagnostics = [
+        benchmark_model_diagnostics(
+            mu, "Z_GRADE_PRIMARY", "continuous_standardised_grade"
+        ),
+        benchmark_model_diagnostics(mu, "PASS", "pass_probability"),
+    ]
+    for key, filename in [
+        ("model_path", "10e_benchmark_model_fit_path.csv"),
+        ("subset_r2", "10f_benchmark_r2_all_subsets.csv"),
+        ("shapley_r2", "10g_benchmark_r2_shapley.csv"),
+        ("partial_r2", "10h_benchmark_partial_r2.csv"),
+        ("coefficients", "10i_benchmark_full_coefficients.csv"),
+        ("covariance_top", "10j_benchmark_covariance_top_correlations.csv"),
+    ]:
+        _save(
+            pd.concat([bundle[key] for bundle in benchmark_diagnostics], ignore_index=True),
+            filename,
+        )
 
     zero_order = ["0", "1", "2", "3", "4", "5", "6+"]
     zero_plus = add_topcoded_visit_group(
