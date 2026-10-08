@@ -20,9 +20,9 @@
 
 ## Inventory
 
-- Python files scanned: **135**
+- Python files scanned: **136**
 - Reusable symbols: **508**
-- Test symbols: **76**
+- Test symbols: **82**
 
 ## Reusable symbols
 
@@ -924,6 +924,17 @@
 | `test_skew_normal_null_bootstrap_returns_valid_tail_probability` | function | 140 | `def test_skew_normal_null_bootstrap_returns_valid_tail_probability()` | The skew-normal bootstrap should return a finite empirical reference. | `tests test_mixtures py test_skew_normal_null_bootstrap_returns_valid_tail_probability skew-normal bootstrap should return a finite empirical reference` |
 | `test_cross_validated_shape_comparison_prefers_gmm_for_clear_bimodality` | function | 156 | `def test_cross_validated_shape_comparison_prefers_gmm_for_clear_bimodality()` | Held-out density should favour a two-Gaussian fit for clear bimodality. | `tests test_mixtures py test_cross_validated_shape_comparison_prefers_gmm_for_clear_bimodality held-out density should favour a two-gaussian fit clear bimodality` |
 | `test_cross_validated_shape_comparison_is_stable_for_small_skewed_sample` | function | 177 | `def test_cross_validated_shape_comparison_is_stable_for_small_skewed_sample()` | Small folds should not create pathological held-out skew densities. | `tests test_mixtures py test_cross_validated_shape_comparison_is_stable_for_small_skewed_sample small folds should not create pathological held-out skew densities` |
+
+### `tests/test_ordered_fusion.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `synthetic` | function | 12 | `def synthetic(seed=17, n_classrooms=36, per_class=20)` | No docstring; inspect implementation before reuse. | `tests test_ordered_fusion py synthetic` |
+| `test_zero_lambda_is_unpenalised_partial_regression` | function | 32 | `def test_zero_lambda_is_unpenalised_partial_regression()` | No docstring; inspect implementation before reuse. | `tests test_ordered_fusion py test_zero_lambda_is_unpenalised_partial_regression` |
+| `test_large_penalty_fuses_all_and_preserves_nuisance` | function | 43 | `def test_large_penalty_fuses_all_and_preserves_nuisance()` | No docstring; inspect implementation before reuse. | `tests test_ordered_fusion py test_large_penalty_fuses_all_and_preserves_nuisance` |
+| `test_partitions_and_grouped_folds` | function | 54 | `def test_partitions_and_grouped_folds()` | No docstring; inspect implementation before reuse. | `tests test_ordered_fusion py test_partitions_and_grouped_folds` |
+| `test_cluster_bootstrap_relabels_duplicate_draws` | function | 73 | `def test_cluster_bootstrap_relabels_duplicate_draws()` | No docstring; inspect implementation before reuse. | `tests test_ordered_fusion py test_cluster_bootstrap_relabels_duplicate_draws` |
+| `test_reject_unknown_validation_degree` | function | 80 | `def test_reject_unknown_validation_degree()` | No docstring; inspect implementation before reuse. | `tests test_ordered_fusion py test_reject_unknown_validation_degree` |
 
 ### `tests/test_ppa_adaptation.py`
 
