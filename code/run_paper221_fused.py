@@ -108,9 +108,13 @@ def refit_validation(test, outcome, order, partition):
         use_t=False,
     )
     exog = model.model.exog
-    rank = int(np.linalg.matrix_rank(exog))
-    if rank != exog.shape[1]:
-        raise RuntimeError("Rank-deficient validation design; no Wald p-values")
+    # Nuisance dummies can be collinear while an attendance contrast remains
+    # estimable. Check each contrast in the row space, not overall full rank.
+    _, singular_values, right_vectors = np.linalg.svd(
+        exog, full_matrices=False)
+    rank = int(np.sum(singular_values >
+        singular_values[0] * max(exog.shape) * np.finfo(float).eps))
+    row_space = right_vectors[:rank, :]
     rows = []
     for right in range(1, len(blocks)):
         left = right - 1
@@ -121,6 +125,10 @@ def refit_validation(test, outcome, order, partition):
                 continue
             key = f"C(BLOCK, Treatment(reference='B0'))[T.B{idx}]"
             contrast[names.index(key)] += sign
+        projection = row_space.T @ (row_space @ contrast)
+        if np.linalg.norm(contrast - projection) > 1e-6:
+            raise RuntimeError(f"Selected block contrast B{right}-B{left} "
+                               "is not identifiable in validation")
         test_result = model.t_test(contrast)
         est = float(np.asarray(test_result.effect).item())
         se = float(np.asarray(test_result.sd).item())
@@ -132,6 +140,8 @@ def refit_validation(test, outcome, order, partition):
             "cluster_robust_se": se, "ci95_low": est - 1.96 * se,
             "ci95_high": est + 1.96 * se, "p_raw": p,
             "n": len(d), "clusters": d["CLASSROOM_ID"].nunique(),
+            "validation_design_rank": rank,
+            "validation_design_columns": exog.shape[1],
         })
     result = pd.DataFrame(rows)
     if len(result):
