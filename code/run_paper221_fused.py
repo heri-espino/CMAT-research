@@ -135,8 +135,19 @@ def refit_validation(test, outcome, order, partition):
         est = float(np.asarray(test_result.effect).item())
         se = float(np.asarray(test_result.sd).item())
         p = float(np.asarray(test_result.pvalue).item())
+        left_rows = d.loc[d["BLOCK"].eq(f"B{left}")]
+        right_rows = d.loc[d["BLOCK"].eq(f"B{right}")]
+        shared_clusters = (
+            set(left_rows["CLASSROOM_ID"]) &
+            set(right_rows["CLASSROOM_ID"])
+        )
         rows.append({
             "outcome": outcome, "comparison": f"B{right} minus B{left}",
+            "n_left_block": len(left_rows),
+            "n_right_block": len(right_rows),
+            "n_clusters_left": left_rows["CLASSROOM_ID"].nunique(),
+            "n_clusters_right": right_rows["CLASSROOM_ID"].nunique(),
+            "n_shared_classrooms": len(shared_clusters),
             "first_block": f"B{left}", "second_block": f"B{right}",
             "estimate": est, "estimate_pp": est * 100 if outcome == "PASS" else np.nan,
             "cluster_robust_se": se, "ci95_low": est - 1.96 * se,
