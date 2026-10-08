@@ -1,6 +1,6 @@
 # Git workflow
 
-`main` is the shared upstream research branch. The long-lived publication branches are `paper/paper1-ppa-persistence`, `paper/paper2-mu-performance`, `paper/paper3-grading-heterogeneity`, `paper/paper4-degree-help-seeking`, and `paper/paper5-longitudinal-trajectories`.
+`main` is the shared upstream research branch. Current publication/research-paper branches are indexed in `docs/PUBLICATION_PORTFOLIO.md`, including the newer Paper 2.1 branch and the prospective Paper 2.2.1 (fused frequency) and 2.2.2 (distributional modality) design-only branches.
 
 Shared library, data-contract, literature, brainstorm and programme-documentation changes should land on `main`, then be merged/rebased into active paper branches. Paper-specific `literature_selected/`, `code/`, `results/`, `paper/` and `submission/` changes remain on that paper branch.
 

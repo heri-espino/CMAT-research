@@ -1,10 +1,10 @@
 # CMAT AI handoff
 
-`main` is the upstream scientific branch and owns shared `cmat_analysis/`, `data/`, `literature/`, `brainstorm/`, and `docs/`. Publication-specific manuscript trees belong only on the five `paper/*` branches.
+`main` is the upstream scientific branch and owns shared `cmat_analysis/`, `data/`, `literature/`, `brainstorm/`, and `docs/`. Publication-specific work belongs on registered `paper/*` branches; the current list and the exploratory status of the Paper 2.2.x branches are in `docs/PUBLICATION_PORTFOLIO.md`.
 
 ## Governance and cross-chat coordination
 
-The user retains final scientific and project authority. A designated **repo-admin / integrator / upstream-maintainer chat** coordinates repository-wide architecture, Git state, shared methodology, provenance, and movement of reusable work between `main` and the five paper branches. Other chats may act as **paper-specific research and writing agents** and should optimize the publication they own without independently redesigning shared infrastructure.
+The user retains final scientific and project authority. A designated **repo-admin / integrator / upstream-maintainer chat** coordinates repository-wide architecture, Git state, shared methodology, provenance, and movement of reusable work between `main` and registered paper branches. Other chats may act as **paper-specific research and writing agents** and should optimize the publication they own without independently redesigning shared infrastructure.
 
 Chats cannot send messages directly to one another as an inter-chat channel. Consequently, any decision that must persist or be visible to another chat must be written into the repository. Use `AI_HANDOFF.md`, `docs/REPO_GOVERNANCE.md`, `cmat_analysis/AI_HANDOFF.md`, `brainstorm/AI_HANDOFF.md`, `PAPER_BRANCH.md`, component READMEs, and provenance records as the persistent communication layer. A proposal from another chat can be brought to the repo-admin chat for review before integration.
 
