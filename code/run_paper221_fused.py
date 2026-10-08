@@ -262,6 +262,11 @@ def evaluate(args):
                         manifest["warnings"].append(
                             f"{prefix} bootstrap {b}: {error}")
             successful = args.bootstrap - boot_failed
+            if boot_failed:
+                manifest["warnings"].append(
+                    f"{prefix}: {boot_failed}/{args.bootstrap} bootstrap "
+                    "replicates failed; see earlier warnings for diagnostics"
+                )
             boundary = pd.DataFrame({
                 "boundary": [f"{order[k-1]}|{order[k]}" for k in range(1, len(order))],
                 "selected_full_discovery": [
@@ -295,12 +300,30 @@ def evaluate(args):
                 "selected_lambda": lam, "selected_blocks": blocks,
                 "selected_partition_discovery_bic_rank": selected_bic_rank,
                 "bootstrap_successful": successful,
+                "bootstrap_failed": boot_failed,
                 "validation_status": status,
             })
             print(f"{prefix}: {len(blocks)} blocks; validation={status}")
     output = ROOT / "results" / "paper221" / "run_manifest.json"
+    any_zero_success = args.bootstrap > 0 and any(
+        item["bootstrap_successful"] == 0 for item in manifest["results"]
+    )
+    some_failures = any(item["bootstrap_failed"] > 0 for item in manifest["results"])
+    if any_zero_success:
+        manifest["status"] = "incomplete_bootstrap"
+    elif args.bootstrap == 0:
+        manifest["status"] = "selection_and_validation_only_bootstrap_skipped"
+    elif some_failures:
+        manifest["status"] = "partial_bootstrap_failures"
+    else:
+        manifest["status"] = "completed_no_causal_claim"
     output.write_text(json.dumps(manifest, indent=2, ensure_ascii=False), encoding="utf-8")
     print("Aggregate tables and manifest:", TABLES.parent)
+    if any_zero_success:
+        raise RuntimeError(
+            "Bootstrap stability unavailable: at least one specification "
+            "has zero successful replications. Consult run_manifest.json."
+        )
     return 0
 
 
