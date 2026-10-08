@@ -17,7 +17,7 @@ LPM squared loss is legitimate for estimating adjusted probability differences, 
 
 For adjacent contrasts `d_k=gamma_k-gamma_{k-1}`, the L1 penalty sets some `d_k=0`, creating exact contiguous blocks. The method uses the ordinal structure, unlike agglomerative clustering of arbitrary categories or selecting groups by pairwise p>0.05. Unlike hard-coded illustrative partitions, block count and position emerge from tuning.
 
-At most seven boundaries exist, hence `2^7=128` possible contiguous partitions. An exhaustive contiguous-partition fit or dynamic-programming benchmark is a valuable *audit/sensitivity* for global fit and solver consistency; fused lasso need not produce every unconstrained partition at any lambda. Do not call fused lasso a formal hierarchical dendrogram, and do not interpret its entire lambda path as nested unless nesting is verified for the implementation/data.
+At most seven boundaries exist, hence `2^7=128` possible contiguous partitions. The reusable `exhaustive_contiguous_partitions` now enumerates all 128 partitions and exports discovery-sample SSE, conditional R² and a relative BIC ranking as a *fit audit*; it does **not** perform 128 independent tests nor constitute held-out model selection. Fused lasso need not produce every unconstrained partition at any lambda. These diagnostic values must be interpreted separately from lambda selection and the locked validation Wald tests. Do not call fused lasso a formal hierarchical dendrogram, and do not interpret its entire lambda path as nested unless nesting is verified for the implementation/data.
 
 ## Selection and comparison
 

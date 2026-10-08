@@ -30,9 +30,9 @@ The 3-visit PPA incentive threshold is contextual, not a data-derived or causal 
 
 ## Ownership and boundaries
 
-- Publication-specific **orchestration** will live in root `code/`, e.g. proposed `code/run_paper221_fused.py` and `code/figures_paper221.py`; neither exists yet.
+- Publication-specific orchestration **is implemented** in root `code/run_paper221_fused.py` and `code/figures_paper221.py`, pending the first complete branch workflow execution.
 - Reusable estimators, proximal solvers, cluster-aware CV, covariance and testing utilities belong to **`main/cmat_analysis/src/cmat_analysis/`**, with tests, API/index/docs updated upstream first and propagated back. Never quietly duplicate the scientific library in a paper runner.
-- New aggregate outputs belong under `results/paper221/` and paper-specific text under `paper/`. Existing `results/paper21/`, `paper/sections/`, and Paper 2.1 runners are **inherited provenance**, not new Paper 2.2.1 results.
+- New aggregate outputs (not yet generated) belong under `results/paper221/` and paper-specific text under `paper/`. Existing `results/paper21/`, `paper/sections/`, and Paper 2.1 runners are **inherited provenance**, not new Paper 2.2.1 results.
 - No raw microdata, direct identifiers, keys or credentials in Git or CI artifacts. Treat controlled-data access separately; local `--check` may work without it.
 - Keep Paper 2.1 intact. Do not merge entire paper branches into `main`.
 - A publication decision is deferred until methods, validation and literature support a substantial standalone contribution.

@@ -38,3 +38,6 @@ Might observe a substantial 0|1 separation; an additional high-frequency split m
 
 ## First result interpretation
 **Not yet available.** Populate this section in a NEW dated note referencing the actual run and exported files.
+## Additional implemented diagnostics
+
+The runner now exports a discovery-sample enumeration of all 128 contiguous partitions (64 for pooled 6+) with SSE, conditional R² and relative BIC. This is a descriptive fit comparison, **not** a confirmatory p-value. Held-out Wald outputs also report each block's sample/cluster support and the number of classrooms containing students from both adjacent blocks. The Paper 2.2.1 Actions execution is still pending.

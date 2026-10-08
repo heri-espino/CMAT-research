@@ -9,7 +9,7 @@
 | D2 | Objective/lambda scaling, solver, grouped conditional CV loss and one-SE heuristic | Implemented in reusable code; scientific review and synthetic CI verification pending |
 | D3 | Shared ordered-fusion helpers on `main/cmat_analysis`, generated function index and synthetic tests | Shared methods and tests implemented; **main CI `37709359094` PASSED** and generated index `37709359125` PASSED; branch-level controlled-data workflow still unrun |
 | D4 | Root runners, manuscript and reproducible export workflow | Committed. `--check`, tests, actual tables and PDF build must be verified in CI |
-| D5 | Run controlled-data discovery: lambda paths and selected blocks Z and PASS | **NOT RUN**. 128-partition exhaustive comparison is a later sensitivity, not currently implemented |
+| D5 | Run controlled-data discovery: lambda paths and selected blocks Z and PASS | **NOT RUN**. All 128 contiguous partitions are now enumerated by the runner as a discovery-sample fit sensitivity, without inferential p-values |
 | D6 | Cluster-bootstrap stability with reselection; 6+ and instructor sensitivity | Bootstrap and optional pooled 6+ implemented but **NOT RUN**; instructor-level sensitivity remains future |
 | D7 | Locked holdout unpenalised OLS/LPM with CR Wald and Holm | Code written; **NOT RUN**. Contrast estimability and support still require controlled verification |
 | D8 | English LaTeX draft, literature, limitations, review, final article decision | **Draft written**, results and final discussion intentionally unfinished |
