@@ -16,6 +16,7 @@ Use `notes/` as the **dated, version-controlled working memory** of this paper. 
 ## Index
 
 - [2026-10-07 — implementation handoff and first experiment contract](2026-10-07_initial-implementation.md)
+- [2026-10-07 — bootstrap metadata failure and fix](2026-10-07_bootstrap_metadata_fix.md)
 - [Scientific decision register](DECISIONS.md)
 - [Results-reading template](RESULT_NOTE_TEMPLATE.md)
 
