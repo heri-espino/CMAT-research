@@ -41,3 +41,7 @@ Might observe a substantial 0|1 separation; an additional high-frequency split m
 ## Additional implemented diagnostics
 
 The runner now exports a discovery-sample enumeration of all 128 contiguous partitions (64 for pooled 6+) with SSE, conditional R² and relative BIC. This is a descriptive fit comparison, **not** a confirmatory p-value. Held-out Wald outputs also report each block's sample/cluster support and the number of classrooms containing students from both adjacent blocks. The Paper 2.2.1 Actions execution is still pending.
+
+## Methods-literature addition
+
+A separate `paper/paper221/methods_references.bib` now records foundational articles: Tibshirani et al. (2005), Tibshirani and Taylor (2011), Meinshausen and Bühlmann (2010), and Lee et al. (2016), with DOI metadata checked against journal/institutional sources. The present bootstrap selection frequencies are descriptive and do not inherit formal stability-selection error bounds; our sample-splitting inference is not claimed to be exact selective inference.
