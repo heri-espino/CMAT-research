@@ -13,6 +13,7 @@
 - [Publication aggregate output index](../../results/README.md)
 
 - [Dated paper-development and interpretation notes](../../notes/README.md)
+- [Full 100-bootstrap empirical interpretation](../../notes/2026-10-07_fused_lasso_100_bootstrap_results.md)
 - [Standalone English LaTeX manuscript draft](../paper221/main.tex)
 - [Manual experiment workflow](../../.github/workflows/paper221-experiments.yml)
 

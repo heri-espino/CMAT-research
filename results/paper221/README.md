@@ -9,5 +9,5 @@ Expected on successful controlled-data run:
 
 Every table is an aggregate; do not add raw observations, individual IDs, model residuals or controlled input files here. Generated PDF manuscripts and figures should be distributed as GitHub Actions **artifacts**, not checked in simply to obtain a download. The 2.1 outputs under `results/paper21/` are inherited and must not be presented as 2.2.1 results.
 
-**Current status: no controlled-data outputs generated in this documentation/implementation turn.**
+**Current status:** successful controlled-data run recorded in `run_manifest.json`, with 100 successful and zero failed bootstrap replications per outcome and frequency specification. Interpretations are in `notes/2026-10-07_fused_lasso_100_bootstrap_results.md`; other sensitivities remain pending.
 **Retention:** GitHub Actions artifacts expire (configured for 90 days). Download and archive publication-safe curated aggregate exports after verifying them; do not confuse a temporary artifact with permanent archival storage. Never commit unreviewed or privacy-sensitive artifacts.

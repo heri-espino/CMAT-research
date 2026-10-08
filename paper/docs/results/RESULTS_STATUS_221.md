@@ -1,11 +1,15 @@
-# Paper 2.2.1 — Results status (2026-10-07)
+# Paper 2.2.1 — Empirical results status (2026-10-07 local / 2026-10-08 UTC)
 
-**The first local controlled-data run generated preliminary outputs, but is NOT a complete validated Paper 2.2.1 analysis.** The selected blocks and holdout contrasts are available as provisional estimates; every attempted bootstrap replicate failed, so boundary stability remains entirely unassessed. The implementation was corrected after the run and requires a fresh execution before final scientific interpretation.
+**Computational run completed for the prespecified main pipeline:** 100/100 successful bootstrap replications with 0 failures in each of the four combinations of outcome and upper-tail representation. Run provenance and exact parameters: `results/paper221/run_manifest.json`, source SHA `c9faa397bd0a6c7c8c67025ab94f8314e0996018`, 6,627 students in 190 classroom clusters.
 
-Publication-safe aggregate outputs from the initial run are stored at `results/paper221/tables/` and `results/paper221/figures/`, with a run manifest recording source commit, tool/library version, controlled-data fingerprint (non-identifying), outcome version, seeds, cluster folds, tune grid, partition, and known failures. Do not transfer `results/paper21/` values and label them 2.2.1.
+**Standardised-grade Z:** selected blocks `[0]|[1+]`, with 0|1 retained in 100/100 bootstrap replicates; other positive-frequency boundaries in at most 10/100. Reserved-cluster Wald for 1+ minus 0: +0.263616877 SD (CR SE 0.057975195; nominal 95% CI 0.149985494 to 0.377248260; p=0.00000543997). Validation N=1,952, 57 instructor-periods, of which 52 contain both groups.
 
-Do not publish row-level records or identifiers.
+**PASS:** the conservative one-SE-style tuning rule selected one all-fused block, yet 0|1 appeared in 37/100 bootstrap replicates and the all-fused model ranked 128th of 128 discovery-only relative BIC alternatives. This is tuning-sensitivity evidence, not proof of no association or equality. There is no PASS selected-boundary Wald p-value because no boundary was selected.
 
-## Verification provenance
+**Sensitivity:** pooling high-frequency visits at 6+ did not change the selected partitions, and 0|1 bootstrap rates remained 100% (Z) and 37% (PASS).
 
-The reusable `cmat_analysis` library and synthetic test suite passed main-branch CI run [37709359094](https://github.com/heri-espino/CMAT-research/actions/runs/37709359094), and its generated function index passed [37709359125](https://github.com/heri-espino/CMAT-research/actions/runs/37709359125). These are **software checks**, not controlled-data experiments. A first local run has been uploaded to `results/paper221/`, but **all 100 cluster-bootstrap resamples failed in each of four outcome/grouping specifications** due to DataFrame-valued pandas metadata. Its preliminary Z partition `[0]|[1+]` and held-out contrast (+0.264 SD, 95% CI 0.150–0.377) cannot yet be accompanied by bootstrap stability claims; PASS all-fused is a CV-selection result, not equivalence. See `notes/2026-10-07_bootstrap_metadata_fix.md`. A corrected rerun is pending.
+**Still open:** numeric complete-case Z, alternative minimum-CV-loss tuning and repeated cluster folds, instructor-level dependence, and genuinely new-cohort replication. The reserved clusters were not used in this new algorithm's tuning, but the full institutional cohort had been explored in earlier Paper 2.1 research; avoid claiming independent external/prospective confirmation.
+
+A prior local run failed all bootstrap replicates due to pandas DataFrame-valued metadata during concat; the bug was fixed, regression-tested (main CI [37718672591](https://github.com/heri-espino/CMAT-research/actions/runs/37718672591)) and superseded by the successful 100-replicate run. Keep its record at `notes/2026-10-07_bootstrap_metadata_fix.md`.
+
+**Research interpretation:** `notes/2026-10-07_fused_lasso_100_bootstrap_results.md`. **Draft manuscript:** `paper/paper221/main.tex` and `paper/paper221/results_221.tex`. **Exported source data:** `results/paper221/tables/`, `results/paper221/figures/`. No row-level microdata may be published; review small-cell disclosure before public distribution.
