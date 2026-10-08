@@ -11,3 +11,5 @@
 **Required next run:** pull the updated paper branch; reinstall the editable `cmat_analysis` package if necessary; run `python -m pytest cmat_analysis/tests/test_ordered_fusion.py -q`; rerun first on `--bootstrap 2` with `--include-pooled`, then 100 after confirming successful replicates. Review `results/paper221/run_manifest.json`, all `*_boundary_stability.csv` and `*_holdout_wald.csv`. Update results interpretation and manuscript only after valid reruns.
 
 **Scientific restriction:** the code correction fixes an implementation failure, not observational confounding or evidence of a causal attendance threshold.
+
+**Software verification:** GitHub Actions run [37718672591](https://github.com/heri-espino/CMAT-research/actions/runs/37718672591) on `main` completed successfully with the new metadata-specific test, the full `cmat_analysis` test suite and documentation build. This is not a validation of the empirical boundary-stability results; those require a fresh local run.
