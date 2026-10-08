@@ -31,17 +31,6 @@ from .inference import (
     temporal_regularity_performance_models,
     visit_distribution,
 )
-from .ordered_fusion import (
-    cluster_split,
-    exhaustive_contiguous_partitions,
-    fit_prepared,
-    grouped_cv,
-    heldout_within_classroom_mse,
-    lambda_grid,
-    prepare_fusion,
-    resample_cluster_rows,
-    selected_partition,
-)
 from .selection import propensity_att_sensitivity
 from .mixtures import (
     compare_univariate_shape_models,
@@ -77,15 +66,6 @@ from .group_comparisons import (
 )
 
 __all__ = [
-    "cluster_split",
-    "exhaustive_contiguous_partitions",
-    "fit_prepared",
-    "grouped_cv",
-    "heldout_within_classroom_mse",
-    "lambda_grid",
-    "prepare_fusion",
-    "resample_cluster_rows",
-    "selected_partition",
     "add_exact_visit_group",
     "add_topcoded_visit_group",
     "distribution_profile",
