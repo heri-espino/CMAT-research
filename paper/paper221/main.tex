@@ -12,7 +12,7 @@
 \maketitle
 
 \begin{abstract}
-Studies of university mathematics learning support typically distinguish service users from non-users, although recorded visit frequency is an ordered exposure whose empirical resolution is rarely examined directly. We develop an ordered fused-lasso framework for identifying contiguous visit-frequency regimes associated with final mathematics-course performance, without selecting attendance thresholds on the basis of favourable pairwise significance tests. Our setting is the first eligible attempt at a university mathematics course among students exposed to a support-centre attendance programme, building on a previously documented frequency analysis. We consider a binary pass indicator and instructor--period-standardised final performance with explicit adjustment for instructor--period and degree programme. We propose penalising only differences between adjacent visit-frequency coefficients, selecting the penalty via cluster-respecting conditional cross-validation, assessing boundary stability through whole-cluster bootstrap, and evaluating discovered boundaries on reserved instructor--period clusters with unpenalised, cluster-robust Wald contrasts. \pending{Insert independently validated Paper 2.2.1 results and quantitative abstract only after executing the analysis.} The proposed framework distinguishes stable descriptive regimes from equivalence, causal dose-response thresholds and algorithmic artefacts.
+Studies of university mathematics learning support typically distinguish service users from non-users, although recorded visit frequency is an ordered exposure whose empirical resolution is rarely examined directly. We develop an ordered fused-lasso framework for identifying contiguous visit-frequency regimes associated with final mathematics-course performance, without selecting attendance thresholds on the basis of favourable pairwise significance tests. Our setting is the first eligible attempt at a university mathematics course among students exposed to a support-centre attendance programme, building on a previously documented frequency analysis. We consider a binary pass indicator and instructor--period-standardised final performance with explicit adjustment for instructor--period and degree programme. We propose penalising only differences between adjacent visit-frequency coefficients, selecting the penalty via cluster-respecting conditional cross-validation, assessing boundary stability through whole-cluster bootstrap, and evaluating discovered boundaries on reserved instructor--period clusters with unpenalised, cluster-robust Wald contrasts. For standardised grades, the selected partition was $[0]|[1+]$ and the $0|1$ boundary appeared in all 100 cluster-bootstrap replicates. Validation in 1,952 reserved observations estimated an adjusted 0.264-standard-deviation difference (95\% CI 0.150--0.377). For PASS, the conservative cross-validation heuristic fused all frequencies, although the $0|1$ boundary appeared in 37\% of bootstrap replicates and competing discovery-fit criteria favoured additional separation. The proposed framework distinguishes stable descriptive regimes from equivalence, causal dose-response thresholds and algorithmic artefacts.
 \end{abstract}
 
 \noindent\textbf{Keywords:} mathematics support; attendance frequency; ordered categorical predictors; fused lasso; total variation; clustered validation; post-selection inference.
@@ -67,41 +67,17 @@ This sample-splitting design sacrifices precision but avoids using a selected co
 \subsection{Sensitivity and reporting}
 We compare the eight-level and historically supported pooled-$6+$ grids, assess numeric-complete-case outcomes, record sparse-tail overlap, and contrast the selected partition with unrestricted eight-level and simple zero-versus-positive descriptive benchmarks. We report both outcomes independently, without presuming they yield identical partitions. \pending{If repeated split/sample-stability designs or instructor-level clustering are added, document them before their results are inspected.}
 
-\section{Results}
-\textbf{This section intentionally contains no new numerical findings.} The Paper 2.2.1 experiment has been implemented as a reproducible runner, but its actual controlled-data outputs must be executed and verified before filling the following subsections. Numbers in the preceding Paper 2.1 manuscript cannot be copied here as if they were fused-lasso results.
-
-\subsection{Cohort and group support}
-\pending{Insert full/discovery/validation sample counts, per-frequency students and distinct classrooms, overlap diagnostics and sensitivity support for pooled $6+$.}
-
-\subsection{Ordered fusion path and selected regime count}
-\pending{Report lambda grid, selected lambda, within-classroom CV loss, selected number and membership of contiguous blocks for Z and PASS, and whether all-fused or all-separated solutions occur.}
-
-\IfFileExists{../../results/paper221/figures/7plus_z_grade_primary_fused_levels.pdf}{
-\begin{figure}[ht]
-\centering
-\includegraphics[width=.8\linewidth]{../../results/paper221/figures/7plus_z_grade_primary_fused_levels.pdf}
-\caption{Discovery fusion path for the standardised-grade outcome. The displayed coefficients are penalised discovery estimates, not post-selection confidence intervals.}
-\end{figure}
-}{}
-
-\subsection{Boundary stability}
-\pending{Report cluster-bootstrap selection frequency at $0|1$, $1|2$, $2|3$, $3|4$, $4|5$, $5|6$ and $6|7+$, successful bootstrap counts, failures and sensitivity. No frequency is a p-value.}
-
-\subsection{Held-out comparisons}
-\pending{Report independent validation estimates and cluster-robust 95\% confidence intervals and Holm p-values for adjacent selected blocks. Include instances in which rank or support prevents inference.}
-
-\subsection{Cross-outcome agreement and sensitivity}
-\pending{Contrast blocks from Z and PASS without forcing agreement; report pooled-$6+$ and complete-case sensitivity.}
+\input{results_221.tex}
 
 \section{Discussion}
 The central scientific object is not a causal marginal return to each additional visit, but the empirical \emph{resolution} supported by an ordered exposure under contextual adjustment. Fusion can express a potentially broad first-use separation while allowing evidence-supported boundaries at repeated visits, yet may also correctly return few or no extra regimes. Since equal fitted coefficients arise from a penalty and a non-rejected difference does not establish equivalence, reported blocks are parsimonious representations rather than proven homogeneous populations.
 
 Several limitations govern interpretation. Voluntary attendance and unmeasured mathematical preparation may confound all observed relations. Some upper-tail frequencies occur in few instructor--period clusters and can yield unstable boundaries. The administrative treatment of non-numeric outcomes affects the continuous outcome and must be audited against numeric complete cases. Held-out conditional scoring removes unseen classroom intercepts; its target differs from unconditional student-level predictive accuracy. Bootstrap selection proportions quantify algorithmic sensitivity to resampling but not inferential certainty regarding population thresholds. Finally, independent-cluster validation may have inadequate support for rare blocks, in which case abstaining from a significance claim is necessary.
 
-\pending{Integrate actual positive, null and unstable findings, compare with the relevant literature, and assess the merits of a separate journal article rather than presuming publishability.}
+The clear standardised-grade $0|1$ result agrees with the original zero-versus-positive attendance contrast in the prior paper, although the selected fusion of all positive levels does not imply within-block equivalence. For PASS, the all-fused result is highly sensitive to the parsimony heuristic: the minimum CV loss occurs at a substantially smaller penalty and the discovery-only BIC ranks the selected model last. Further tuning and dependence sensitivities are needed before a substantive PASS conclusion. Because the wider institutional cohort was already explored in Paper 2.1, this split is an internal validation of the new algorithm rather than an independently collected confirmatory study.
 
 \section{Conclusion}
-\pending{Write only after verified results exist; avoid announcing a block count or an intervention effect in advance.}
+A one-dimensional ordered fused-lasso analysis selected a robust initial-use boundary for standardised grades, with 100\% classroom-bootstrap selection and a positive adjusted difference in reserved classroom clusters. For PASS, the selected regime count depends on a conservative tuning rule. These patterns describe attendance-associated outcomes, not causal returns to further visits.
 
 \section*{Declarations}
 \pending{Insert exact institutional data-use, ethics/approval language, funder declarations, author contributions, availability terms and verified submission requirements. No row-level administrative data will be released.}
