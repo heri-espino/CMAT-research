@@ -1,11 +1,11 @@
 {
-  "status": "executed_no_causal_claim",
-  "git_commit": "689eb865989ff67ddd7d1943be94b4b31a5ec556",
+  "status": "completed_no_causal_claim",
+  "git_commit": "c9faa397bd0a6c7c8c67025ab94f8314e0996018",
   "input_fingerprints": {
     "materias_sha256": "c645dea902b6dc773761545373be0b029f67a8cafe436cfde8a9ae8af0ea526f",
     "asesorias_sha256": "4d9c9327210146b913461de8b69b3c5edeaba5948b3fc8348527f806beeef342"
   },
-  "run_utc": "2026-10-08T02:19:37.551252+00:00",
+  "run_utc": "2026-10-08T02:50:36.054293+00:00",
   "seed": 221,
   "validation_fraction": 0.3,
   "cv_folds": 4,
@@ -47,7 +47,8 @@
         }
       ],
       "selected_partition_discovery_bic_rank": 1,
-      "bootstrap_successful": 0,
+      "bootstrap_successful": 100,
+      "bootstrap_failed": 0,
       "validation_status": "completed"
     },
     {
@@ -70,7 +71,8 @@
         }
       ],
       "selected_partition_discovery_bic_rank": 128,
-      "bootstrap_successful": 0,
+      "bootstrap_successful": 100,
+      "bootstrap_failed": 0,
       "validation_status": "no_boundary_to_test"
     },
     {
@@ -100,7 +102,8 @@
         }
       ],
       "selected_partition_discovery_bic_rank": 1,
-      "bootstrap_successful": 0,
+      "bootstrap_successful": 100,
+      "bootstrap_failed": 0,
       "validation_status": "completed"
     },
     {
@@ -123,40 +126,10 @@
         }
       ],
       "selected_partition_discovery_bic_rank": 64,
-      "bootstrap_successful": 0,
+      "bootstrap_successful": 100,
+      "bootstrap_failed": 0,
       "validation_status": "no_boundary_to_test"
     }
   ],
-  "warnings": [
-    "7plus_z_grade_primary bootstrap 0: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
-    "7plus_z_grade_primary bootstrap 1: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
-    "7plus_z_grade_primary bootstrap 2: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
-    "7plus_z_grade_primary bootstrap 3: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
-    "7plus_z_grade_primary bootstrap 4: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
-    "7plus_z_grade_primary bootstrap 5: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
-    "7plus_z_grade_primary bootstrap 6: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
-    "7plus_z_grade_primary bootstrap 7: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
-    "7plus_z_grade_primary bootstrap 8: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
-    "7plus_z_grade_primary bootstrap 9: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
-    "7plus_z_grade_primary bootstrap 10: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
-    "7plus_z_grade_primary bootstrap 11: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
-    "7plus_z_grade_primary bootstrap 12: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
-    "7plus_z_grade_primary bootstrap 13: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
-    "7plus_z_grade_primary bootstrap 14: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
-    "7plus_z_grade_primary bootstrap 15: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
-    "7plus_z_grade_primary bootstrap 16: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
-    "7plus_z_grade_primary bootstrap 17: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
-    "7plus_z_grade_primary bootstrap 18: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
-    "7plus_z_grade_primary bootstrap 19: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
-    "7plus_z_grade_primary bootstrap 20: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
-    "7plus_z_grade_primary bootstrap 21: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
-    "7plus_z_grade_primary bootstrap 22: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
-    "7plus_z_grade_primary bootstrap 23: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
-    "7plus_z_grade_primary bootstrap 24: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
-    "7plus_z_grade_primary bootstrap 25: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
-    "7plus_z_grade_primary bootstrap 26: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
-    "7plus_z_grade_primary bootstrap 27: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
-    "7plus_z_grade_primary bootstrap 28: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all().",
-    "7plus_z_grade_primary bootstrap 29: The truth value of a DataFrame is ambiguous. Use a.empty, a.bool(), a.item(), a.any() or a.all()."
-  ]
+  "warnings": []
 }
