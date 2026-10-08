@@ -1,35 +1,24 @@
-# Paper 2.1 internal documentation
+# Paper 2.2.1 — Documentation index
 
-The manuscript source remains directly under `paper/`; research-development documents are grouped here by purpose so that the manuscript directory stays readable.
+## Current 2.2.1 documents (authoritative for this branch)
 
-## Project
+- [Entry point and branch contract](../../PAPER_BRANCH.md)
+- [AI handoff](../AI_HANDOFF.md)
+- [Research questions, motivation and estimands](project/PROJECT_CONTEXT_221.md)
+- [Ordered fused-lasso analysis specification](analysis/FUSED_LASSO_PROTOCOL.md)
+- [Cluster validation and post-selection inference](analysis/VALIDATION_AND_INFERENCE_221.md)
+- [Execution plan and stop/go gates](project/STATUS_AND_ROADMAP_221.md)
+- [Results status and output contract](results/RESULTS_STATUS_221.md)
+- [Branch runner index](../../code/README.md)
+- [Publication aggregate output index](../../results/README.md)
 
-- `project/PROJECT_CONTEXT.md` — scientific question, scope, population and framing.
-- `project/STATUS_AND_ROADMAP.md` — current state, completed milestones and remaining blockers.
-- `project/DECOMPOSITION_FROM_PROYECTO_VISITAS.md` — provenance from the historical project and portfolio boundary.
+## Inherited Paper 2.1 reference documents (historical, not 2.2.1 results)
 
-## Analysis
+- `analysis/VISIT_GROUPING_DECISION.md`: outcome-blind pooled 6+ grouping vs exploratory 7+ grid.
+- `analysis/OUTCOME_FRAMEWORK.md`: definition of PASS and continuous primary/complete-case Z, administrative outcomes.
+- `analysis/ANALYSIS_PLAN.md`, `analysis/MIXTURE_ANALYSIS_PLAN.md`: previous analytic plan.
+- `project/PROJECT_CONTEXT.md`, `project/STATUS_AND_ROADMAP.md`: **Paper 2.1 only**.
+- `results/PRELIMINARY_RESULTS.md`, `results/MIXTURE_ANALYSIS_RESULTS.md`: **Paper 2.1 only**.
+- `../sections/`, `../notebook.ipynb`: **Paper 2.1 draft/notebook**.
 
-- `analysis/ANALYSIS_PLAN.md` — pre-outcome analysis contract.
-- `analysis/OUTCOME_FRAMEWORK.md` — performance and academic-management outcome hierarchy.
-- `analysis/VISIT_GROUPING_DECISION.md` — frozen outcome-blind visit grouping.
-- `analysis/MIXTURE_ANALYSIS_PLAN.md` — numeric-failure, GMM and skew-normal analysis specification.
-- `analysis/ENTRANCE_EXAM_PLAN.md` — planned prior-preparation sensitivity if entrance-exam data become available.
-
-## Results
-
-- `results/PRELIMINARY_RESULTS.md` — verified controlled-data results used during manuscript development.
-- `results/MIXTURE_ANALYSIS_RESULTS.md` — detailed mixture/shape results and validation provenance.
-
-## Interpretation
-
-- `interpretation/ACADEMIC_MANAGEMENT_HYPOTHESIS.md` — mechanism hypothesis and causal guardrails.
-- `interpretation/ADMINISTRATIVE_OUTCOME_NOTE.md` — internal note on administrative outcome composition.
-
-Literature-specific access notes live in `literature_selected/ACCESS_NOTES.md`, while submission-system metadata lives in `submission/METADATA.md`. Branch-level navigation starts at `PAPER_BRANCH.md`, and manuscript/build instructions remain in `paper/README.md`.
-
-## Observation audit
-
-- `observations/README.md` — local-only observation-level audit workflow.
-- `observations/group5_observation_audit.tex` — standalone companion source motivated by the five-visit numeric-failure feature.
-- `observations/build_observation_audit.py` — generates de-identified observation profiles and classroom-distribution figures into an ignored local directory.
+Any future agent should read the current 2.2.1 files first. Never silently replace a 2.1 document or rename historical results to make them seem newly verified.

@@ -1,29 +1,14 @@
-# Paper 2.1 code
+# Paper 2.2.1 — root code/ entry-point index
 
-This directory contains thin publication orchestration for the visit-frequency paper. Reusable cohort definitions, outcome construction, estimators, uncertainty calculations, mixture models and shared plotting primitives belong in `cmat_analysis/` and are imported through its public API.
+**Documentation-only stage: no Paper 2.2.1 runner implemented.**
 
-## Active Paper 2.1 entry points
+Planned:
+- `code/run_paper221_fused.py`: publication-specific orchestration: cohort load, eight-level outcome contract, root reproducibility CLI/`--check`, fused-lasso discovery, clustered CV, locked validation, table writes under `results/paper221/`.
+- `code/figures_paper221.py`: figures generated **only** from approved aggregate results; no row-level exports.
+- Optional `paper/paper_build_221.py` and `paper/notebook_221.ipynb` after tests and results, without overwriting inherited Paper 2.1 build/notebook.
 
-- `run_paper21.py` — outcome-blind support audit used to freeze the positive-attendance grouping.
-- `run_paper21_outcomes.py` — benchmark, frequency, outcome-composition and complete-case analyses.
-- `run_paper21_mixture.py` — observed numeric-failure, Gaussian-mixture and skew-normal analyses.
-- `run_paper21_shape_check.py` — isolated shape-diagnostic runner retained for targeted validation.
-- `figures_paper21.py` — publication-vector figure generation from aggregate Paper 2.1 tables.
+Existing `run_paper21*.py`, `figures_paper21.py` and Paper 2 runners are **inherited sources**. They are not 2.2.1 experiments until consciously reused with provenance.
 
-The preferred user-facing build interface is `paper/paper_build.py`, which orchestrates tables, figures and manuscript compilation with dependency checking.
+Architecture: reusable fused-lasso solver, FE absorption, cluster-aware CV and resampling, contrast/covariance and plotting helpers go to `main/cmat_analysis/src/cmat_analysis/`, with tests and `cmat_analysis/FUNCTION_INDEX.md` update, then sync to this paper branch. `code/` contains only thin orchestration. Read `PAPER_BRANCH.md` and `paper/docs/analysis/VALIDATION_AND_INFERENCE_221.md` before coding.
 
-## Inherited Paper 2 files
-
-`run_paper.py` and `figures.py` are inherited from the parent Paper 2 branch and are not canonical Paper 2.1 entry points. Paper 2.1 outputs are written only under `results/paper21/`.
-
-## Setup
-
-```bash
-python -m pip install -e './cmat_analysis[dev]'
-python code/run_paper21.py --check
-python code/run_paper21_outcomes.py --check
-python code/run_paper21_mixture.py --check
-python paper/paper_build.py --check
-```
-
-Raw or row-level administrative outputs must not be written to this directory.
+Controlled institutional microdata must never enter Git or generated files. Do not claim `--check` or analysis completed before running it.

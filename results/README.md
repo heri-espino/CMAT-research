@@ -1,15 +1,7 @@
-# Paper 2.1 results
+# Paper 2.2.1 — results and provenance
 
-The canonical Paper 2.1 aggregate outputs live under:
+**New result folder planned (not yet created with any output):** `results/paper221/tables/`, `results/paper221/figures/`, plus a non-identifying run manifest. The root-level `results/paper21/` and Paper 2 outputs are inherited baseline evidence from other papers and must not be relabelled.
 
-```text
-results/paper21/
-├── tables/
-└── figures/
-```
+Expected **aggregate** outputs: support/cohort counts, fused path, selected regimes, grouped conditional CV, seven boundary-stability proportions, exhaustive 128-partition sensitivity, holdout cluster-robust contrasts/CI/Holm for Z and PASS, 6+ and clustering sensitivities, diagnostics and disclosure checks.
 
-`tables/` contains publication-safe aggregate analysis outputs produced by the Paper 2.1 runners, while `figures/` contains vector PDFs generated from those tables. The dependency-aware interface in `paper/paper_build.py` is the preferred way to regenerate them.
-
-The top-level `results/tables/`, `results/figures/`, `results/logs/` and `results/run_summary.json` are inherited Paper 2 artifacts from the parent branch; they are not inputs to the Paper 2.1 manuscript and should not be treated as canonical Paper 2.1 results.
-
-Generated microdata or student-level analytical datasets must never be written here or committed.
+No new statistical results exist as of 2026-10-07. See `paper/docs/results/RESULTS_STATUS_221.md`. Never commit individual student records, controlled data, direct IDs or notebook outputs exposing them.
