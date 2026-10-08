@@ -153,6 +153,7 @@ def refit_validation(test, outcome, order, partition):
 
 
 def evaluate(args):
+    from cmat_analysis.statistics.ordered_fusion import exhaustive_contiguous_partitions
     funcs = imports()
     cluster_split, fit_prepared, grouped_cv, prepare_fusion, bootstrap, partition_fn = funcs[4:]
     cohort = load_cohort(args, funcs)
@@ -207,6 +208,13 @@ def evaluate(args):
                 discovery[outcome], discovery["GROUP"],
                 discovery["CLASSROOM_ID"], discovery["CLAVECARRERA"], order)
             model = fit_prepared(prepared, lam)
+            partitions = exhaustive_contiguous_partitions(prepared)
+            partitions.to_csv(
+                TABLES / f"{prefix}_exhaustive_partitions.csv", index=False)
+            selected_mask = sum(1 << (k - 1) for k in model["boundaries"])
+            selected_bic_rank = int(partitions.loc[
+                partitions["partition_mask"].eq(selected_mask),
+                "rank_bic"].iloc[0])
             blocks = partition_fn(order, model["boundaries"])
             assigned = pd.DataFrame(blocks)
             assigned["selected_lambda"] = lam
@@ -274,6 +282,7 @@ def evaluate(args):
                 "n_validation": len(validation),
                 "clusters_validation": validation["CLASSROOM_ID"].nunique(),
                 "selected_lambda": lam, "selected_blocks": blocks,
+                "selected_partition_discovery_bic_rank": selected_bic_rank,
                 "bootstrap_successful": successful,
                 "validation_status": status,
             })
