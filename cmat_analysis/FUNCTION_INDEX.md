@@ -20,8 +20,8 @@
 
 ## Inventory
 
-- Python files scanned: **134**
-- Reusable symbols: **497**
+- Python files scanned: **135**
+- Reusable symbols: **508**
 - Test symbols: **76**
 
 ## Reusable symbols
@@ -711,6 +711,22 @@
 | `pruebas_no_parametricas.<locals>.stat_r_rb` | function | 112 | `def stat_r_rb(x, y)` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics nonparametric py pruebas_no_parametricas locals stat_r_rb` |
 | `pruebas_no_parametricas.<locals>.stat_delta` | function | 119 | `def stat_delta(x, y)` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics nonparametric py pruebas_no_parametricas locals stat_delta` |
 | `pruebas_no_parametricas.<locals>.stat_median_diff` | function | 127 | `def stat_median_diff(x, y)` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics nonparametric py pruebas_no_parametricas locals stat_median_diff` |
+
+### `src/cmat_analysis/statistics/ordered_fusion.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `PreparedFusion` | class | 23 | `class PreparedFusion` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics ordered_fusion py preparedfusion` |
+| `_strings` | function | 37 | `def _strings(values: object, name: str) -> np.ndarray` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics ordered_fusion py strings` |
+| `prepare_fusion` | function | 44 | `def prepare_fusion(y: object, visit: object, cluster: object, degree: object, order: tuple[str, ...]) -> PreparedFusion` | Partial out classroom FE and degree indicators before L1 fusion. | `src cmat_analysis statistics ordered_fusion py prepare_fusion partial out classroom fe degree indicators l1 fusion` |
+| `prepare_fusion.<locals>.resid` | function | 85 | `def resid(vector: np.ndarray) -> np.ndarray` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics ordered_fusion py prepare_fusion locals resid` |
+| `lambda_grid` | function | 102 | `def lambda_grid(prepared: PreparedFusion, *, count: int=12) -> np.ndarray` | Include OLS/no penalty and a value just above the all-fused threshold. | `src cmat_analysis statistics ordered_fusion py lambda_grid include ols penalty a value just above all-fused` |
+| `fit_prepared` | function | 114 | `def fit_prepared(prepared: PreparedFusion, lam: float, *, zero_tol: float=1e-06) -> dict[str, object]` | Estimate cumulative step differences and unpenalised nuisance effects. | `src cmat_analysis statistics ordered_fusion py fit_prepared estimate cumulative step differences unpenalised nuisance effects` |
+| `heldout_within_classroom_mse` | function | 165 | `def heldout_within_classroom_mse(fitted: dict[str, object], y: object, visit: object, cluster: object, degree: object, order: tuple[str, ...]) -> float` | MSE after removing each held-out classroom's mean residual. | `src cmat_analysis statistics ordered_fusion py heldout_within_classroom_mse mse after removing each held-out classroom s mean` |
+| `grouped_cv` | function | 201 | `def grouped_cv(frame: pd.DataFrame, *, outcome: str, group: str, order: tuple[str, ...], folds: int=4, repeats: int=1, seed: int=221, grid_size: int=12) -> tuple[pd.DataFrame, float]` | Select lambda by grouped conditional loss with a one-SE parsimony rule. | `src cmat_analysis statistics ordered_fusion py grouped_cv select lambda by grouped conditional loss a one-se` |
+| `cluster_split` | function | 267 | `def cluster_split(frame: pd.DataFrame, *, validation_fraction: float=0.3, seed: int=221) -> tuple[pd.DataFrame, pd.DataFrame]` | Reserve entire instructor-periods for locked Wald validation. | `src cmat_analysis statistics ordered_fusion py cluster_split reserve entire instructor-periods locked wald validation` |
+| `resample_cluster_rows` | function | 286 | `def resample_cluster_rows(frame: pd.DataFrame, *, seed: int) -> pd.DataFrame` | Cluster bootstrap; clone labels make duplicated draws independent FE. | `src cmat_analysis statistics ordered_fusion py resample_cluster_rows cluster bootstrap clone labels make duplicated draws independent` |
+| `selected_partition` | function | 300 | `def selected_partition(order: tuple[str, ...], boundaries: tuple[int, ...]) -> list[dict]` | Human-readable contiguous regimes; boundary positions start at 1. | `src cmat_analysis statistics ordered_fusion py selected_partition human-readable contiguous regimes boundary positions start at` |
 
 ### `src/cmat_analysis/statistics/parametric.py`
 
