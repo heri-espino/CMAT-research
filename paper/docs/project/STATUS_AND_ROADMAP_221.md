@@ -7,7 +7,7 @@
 | D0 | Check inherited branch and source files, update agent/index docs | Present handoff, reproducible frozen parent SHA (DONE) |
 | D1 | Reconfirm cohort/outcomes, privacy and 8-level support, check 0|1 and sparse 6|7+ | Document support/rank, predeclared discovery/validation design |
 | D2 | Objective/lambda scaling, solver, grouped conditional CV loss and one-SE heuristic | Implemented in reusable code; scientific review and synthetic CI verification pending |
-| D3 | Shared ordered-fusion helpers on `main/cmat_analysis`, generated function index and synthetic tests | Source/test files implemented; auto-index generated on main; **test results pending** |
+| D3 | Shared ordered-fusion helpers on `main/cmat_analysis`, generated function index and synthetic tests | Shared methods and tests implemented; **main CI `37709359094` PASSED** and generated index `37709359125` PASSED; branch-level controlled-data workflow still unrun |
 | D4 | Root runners, manuscript and reproducible export workflow | Committed. `--check`, tests, actual tables and PDF build must be verified in CI |
 | D5 | Run controlled-data discovery: lambda paths and selected blocks Z and PASS | **NOT RUN**. 128-partition exhaustive comparison is a later sensitivity, not currently implemented |
 | D6 | Cluster-bootstrap stability with reselection; 6+ and instructor sensitivity | Bootstrap and optional pooled 6+ implemented but **NOT RUN**; instructor-level sensitivity remains future |

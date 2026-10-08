@@ -1,6 +1,6 @@
 # 2026-10-07 — Initial Paper 2.2.1 implementation
 
-**Stage:** code and manuscript draft prepared; **controlled-data experiments have not yet been run or reviewed**.
+**Stage:** code and manuscript draft prepared; shared-library CI succeeded; **Paper 2.2.1 workflow and controlled-data experiments have not been run or reviewed**.
 
 ## From previous research
 Paper 2 compared any CMAT attendance against none. Paper 2.1 exposed 0/1/2/3/4/5/6/7+ visits with instructor-period FE, degree controls, OLS Z and LPM PASS, cluster covariance and Holm contrasts. The historically outcome-blind grouping pooled 6+. Non-monotonic and weakly distinguished positive-frequency results motivate searching for robust contiguous regimes; suggested [0]|[1-4]|[5-6]|[7+] is only an illustrative hypothesis.
@@ -27,7 +27,8 @@ Might observe a substantial 0|1 separation; an additional high-frequency split m
 6. Two separate outcomes and an optional pooled-6+ sensitivity; code exports only aggregate outputs.
 
 ## Technical and scientific checks STILL PENDING
-- Execute pytest and the branch workflow; test failures must be recorded.
+- **Shared-library test suite PASSED** on `main` GitHub Actions run `37709359094` (Python 3.14, full `cmat_analysis/tests/` and Sphinx build successful); generated function index workflow `37709359125` also PASSED. This does not test Paper 2.2.1 runner or execute its institutional analysis.
+- Execute the **paper-branch manual workflow**; record and resolve any runner or controlled-data failures.
 - Confirm canonical cohort and both outcome columns load exactly as expected.
 - Audit structural rank and degree categories unseen by inner CV folds; the implementation fails explicitly rather than imputing unsupported degree effects.
 - Check sparse support of 6 vs 7+, and how many validation classrooms contain every selected block.

@@ -42,3 +42,6 @@ Reusable solver, nuisance FE residualisation, boundary decoding, grouped CV scor
 Follow `paper/docs/project/STATUS_AND_ROADMAP_221.md` in order: audit inputs -> lock design/holdout -> reusable implementation -> tests -> controlled-data runs -> robustness/interpretation -> manuscript decision. Keep `paper/docs/results/RESULTS_STATUS_221.md` honest and dated, including failed runs and limitations.
 
 The user retains scientific authority. Do not assume other AI chats see unpublished decisions; commit substantive decisions to these documents.
+## Current reproducibility status (2026-10-07)
+
+Main-library CI passed: https://github.com/heri-espino/CMAT-research/actions/runs/37709359094; index generation passed: https://github.com/heri-espino/CMAT-research/actions/runs/37709359125. The **new paper workflow has not been launched**. Do not claim the branch runner, LaTeX build, fusion partitions, bootstrap estimates or Wald results have passed until inspecting that run. The manual workflow is `.github/workflows/paper221-experiments.yml` (smoke/standard/full). Write a dated `notes/` entry with its artifact ID, numerical interpretation, failures and changes needed after the first execution.
