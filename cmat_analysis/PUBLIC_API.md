@@ -32,17 +32,6 @@ No public callables.
 
 ## `cmat_analysis.statistics`
 
-Ordered visit-frequency fusion (new reusable API; purely observational):
-- `cluster_split` — function
-- `exhaustive_contiguous_partitions` — function
-- `fit_prepared` — function
-- `grouped_cv` — function
-- `heldout_within_classroom_mse` — function
-- `lambda_grid` — function
-- `prepare_fusion` — function
-- `resample_cluster_rows` — function
-- `selected_partition` — function
-
 
 - `compare_univariate_shape_models` — function
 - `cross_validated_skew_normal_vs_gmm` — function
