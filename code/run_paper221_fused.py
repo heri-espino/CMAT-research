@@ -8,7 +8,9 @@ Use --check to inspect readiness without loading student data.
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
+import subprocess
 import sys
 from dataclasses import replace
 from datetime import datetime, timezone
@@ -158,8 +160,22 @@ def evaluate(args):
     specs = [("7plus", "GROUP_7PLUS", BASE_ORDER)]
     if args.include_pooled:
         specs.append(("6plus_support_sensitivity", "GROUP_6PLUS", POOLED_ORDER))
+    source_revision = subprocess.run(
+        ["git", "rev-parse", "HEAD"], cwd=ROOT,
+        capture_output=True, text=True, check=False
+    ).stdout.strip() or "unknown"
+    fingerprints = {}
+    for name, path in {
+        "materias": args.materias or ROOT / "data" / "controlled" / "Materias_pseudonymized.csv",
+        "asesorias": args.asesorias or ROOT / "data" / "controlled" / "Asesorias_pseudonymized.csv",
+    }.items():
+        p = Path(path).expanduser()
+        if p.is_file():
+            fingerprints[name + "_sha256"] = hashlib.sha256(p.read_bytes()).hexdigest()
     manifest = {
         "status": "executed_no_causal_claim",
+        "git_commit": source_revision,
+        "input_fingerprints": fingerprints,
         "run_utc": datetime.now(timezone.utc).isoformat(),
         "seed": args.seed, "validation_fraction": args.validation_fraction,
         "cv_folds": args.folds, "cv_repeats": args.cv_repeats,
