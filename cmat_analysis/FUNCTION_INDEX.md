@@ -22,7 +22,7 @@
 
 - Python files scanned: **136**
 - Reusable symbols: **509**
-- Test symbols: **84**
+- Test symbols: **85**
 
 ## Reusable symbols
 
@@ -938,6 +938,7 @@
 | `test_reject_unknown_validation_degree` | function | 80 | `def test_reject_unknown_validation_degree()` | No docstring; inspect implementation before reuse. | `tests test_ordered_fusion py test_reject_unknown_validation_degree` |
 | `test_exhaustive_partition_bic_and_unrestricted_fit` | function | 91 | `def test_exhaustive_partition_bic_and_unrestricted_fit()` | No docstring; inspect implementation before reuse. | `tests test_ordered_fusion py test_exhaustive_partition_bic_and_unrestricted_fit` |
 | `test_bootstrap_can_be_tuned_again` | function | 106 | `def test_bootstrap_can_be_tuned_again()` | A sampled-cluster copy must be usable in the entire CV selection path. | `tests test_ordered_fusion py test_bootstrap_can_be_tuned_again a sampled-cluster copy must be usable in entire cv selection` |
+| `test_cluster_bootstrap_handles_dataframe_valued_attrs` | function | 119 | `def test_cluster_bootstrap_handles_dataframe_valued_attrs()` | Institutional cohort metadata must not break pandas.concat. | `tests test_ordered_fusion py test_cluster_bootstrap_handles_dataframe_valued_attrs institutional cohort metadata must not break pandas concat` |
 
 ### `tests/test_ppa_adaptation.py`
 
