@@ -22,7 +22,7 @@
 
 - Python files scanned: **136**
 - Reusable symbols: **509**
-- Test symbols: **82**
+- Test symbols: **83**
 
 ## Reusable symbols
 
@@ -936,6 +936,7 @@
 | `test_partitions_and_grouped_folds` | function | 54 | `def test_partitions_and_grouped_folds()` | No docstring; inspect implementation before reuse. | `tests test_ordered_fusion py test_partitions_and_grouped_folds` |
 | `test_cluster_bootstrap_relabels_duplicate_draws` | function | 73 | `def test_cluster_bootstrap_relabels_duplicate_draws()` | No docstring; inspect implementation before reuse. | `tests test_ordered_fusion py test_cluster_bootstrap_relabels_duplicate_draws` |
 | `test_reject_unknown_validation_degree` | function | 80 | `def test_reject_unknown_validation_degree()` | No docstring; inspect implementation before reuse. | `tests test_ordered_fusion py test_reject_unknown_validation_degree` |
+| `test_exhaustive_partition_bic_and_unrestricted_fit` | function | 91 | `def test_exhaustive_partition_bic_and_unrestricted_fit()` | No docstring; inspect implementation before reuse. | `tests test_ordered_fusion py test_exhaustive_partition_bic_and_unrestricted_fit` |
 
 ### `tests/test_ppa_adaptation.py`
 
