@@ -21,7 +21,7 @@
 ## Inventory
 
 - Python files scanned: **136**
-- Reusable symbols: **508**
+- Reusable symbols: **509**
 - Test symbols: **82**
 
 ## Reusable symbols
@@ -727,6 +727,7 @@
 | `cluster_split` | function | 276 | `def cluster_split(frame: pd.DataFrame, *, validation_fraction: float=0.3, seed: int=221) -> tuple[pd.DataFrame, pd.DataFrame]` | Reserve entire instructor-periods for locked Wald validation. | `src cmat_analysis statistics ordered_fusion py cluster_split reserve entire instructor-periods locked wald validation` |
 | `resample_cluster_rows` | function | 295 | `def resample_cluster_rows(frame: pd.DataFrame, *, seed: int) -> pd.DataFrame` | Cluster bootstrap; clone labels make duplicated draws independent FE. | `src cmat_analysis statistics ordered_fusion py resample_cluster_rows cluster bootstrap clone labels make duplicated draws independent` |
 | `selected_partition` | function | 309 | `def selected_partition(order: tuple[str, ...], boundaries: tuple[int, ...]) -> list[dict]` | Human-readable contiguous regimes; boundary positions start at 1. | `src cmat_analysis statistics ordered_fusion py selected_partition human-readable contiguous regimes boundary positions start at` |
+| `exhaustive_contiguous_partitions` | function | 322 | `def exhaustive_contiguous_partitions(prepared: PreparedFusion) -> pd.DataFrame` | Compare every contiguous partition using discovery-sample fit only. | `src cmat_analysis statistics ordered_fusion py exhaustive_contiguous_partitions compare every contiguous partition using discovery-sample fit only` |
 
 ### `src/cmat_analysis/statistics/parametric.py`
 
