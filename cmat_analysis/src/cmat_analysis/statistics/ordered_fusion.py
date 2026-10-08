@@ -301,6 +301,10 @@ def resample_cluster_rows(frame: pd.DataFrame, *, seed: int) -> pd.DataFrame:
     chunks = []
     for i, value in enumerate(drawn):
         part = frame.loc[labels.eq(value)].copy()
+        # Pandas compares attrs during concat. Cohort attrs may include a
+        # DataFrame, whose equality is not a scalar boolean; drop metadata
+        # only on the bootstrap copy, never on the original cohort.
+        part.attrs.clear()
         part["CLASSROOM_ID"] = f"resample_{i}"
         chunks.append(part)
     return pd.concat(chunks, ignore_index=True)
