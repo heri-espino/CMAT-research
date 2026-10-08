@@ -32,6 +32,9 @@ Reusable scientific logic belongs in `cmat_analysis/src/cmat_analysis/`; brainst
 
 - `paper/paper1-ppa-persistence`
 - `paper/paper2-mu-performance`
+- `paper/paper2.1-visit-frequency` — observational attendance-frequency analysis
+- `paper/paper2.2.1-fused-frequency` — **design stage**: ordered fused-lasso frequency regimes
+- `paper/paper2.2.2-distributional-heterogeneity` — **design stage**: modality and mixture-model adequacy
 - `paper/paper3-grading-heterogeneity`
 - `paper/paper4-degree-help-seeking`
 - `paper/paper5-longitudinal-trajectories`
