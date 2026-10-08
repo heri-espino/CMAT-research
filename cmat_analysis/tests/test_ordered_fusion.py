@@ -4,7 +4,7 @@ import pandas as pd
 import pytest
 
 from cmat_analysis.statistics.ordered_fusion import (
-    cluster_split, fit_prepared, grouped_cv, heldout_within_classroom_mse,
+    cluster_split, exhaustive_contiguous_partitions, fit_prepared, grouped_cv, heldout_within_classroom_mse,
     lambda_grid, prepare_fusion, resample_cluster_rows, selected_partition,
 )
 
@@ -86,3 +86,18 @@ def test_reject_unknown_validation_degree():
         heldout_within_classroom_mse(fit, d["GRADE"], d["GROUP"],
                                      d["CLASSROOM_ID"],
                                      np.repeat("unknown", len(d)), ORDER)
+
+
+def test_exhaustive_partition_bic_and_unrestricted_fit():
+    d = synthetic()
+    prep = prepare_fusion(d["GRADE"], d["GROUP"], d["CLASSROOM_ID"],
+                          d["CLAVECARRERA"], ORDER)
+    table = exhaustive_contiguous_partitions(prep)
+    assert len(table) == 128
+    assert set(table["rank_bic"]) == set(range(1, 129))
+    assert np.isfinite(table["bic_relative"]).all()
+    unrestricted = table.loc[table["n_blocks"].eq(8)].iloc[0]
+    unpenalised = fit_prepared(prep, 0)
+    assert np.isclose(unrestricted["sse"],
+                      len(d) * unpenalised["training_loss_within_context"],
+                      atol=1e-5)
