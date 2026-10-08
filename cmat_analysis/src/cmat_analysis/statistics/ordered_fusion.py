@@ -317,3 +317,44 @@ def selected_partition(order: tuple[str, ...], boundaries: tuple[int, ...]) -> l
          "members": "|".join(order[a:b]), "n_levels": b-a}
         for i, (a, b) in enumerate(zip(edges[:-1], edges[1:]))
     ]
+
+
+def exhaustive_contiguous_partitions(prepared: PreparedFusion) -> pd.DataFrame:
+    """Compare every contiguous partition using discovery-sample fit only.
+
+    Reports a *relative* Gaussian BIC ranking with the same unpenalised FE and
+    degree nuisance controls across partitions. This is model selection, not a
+    null-hypothesis p-value or an independent prediction score.
+    """
+    x = prepared.residual_steps
+    y = prepared.residual_y
+    n = len(y)
+    m = x.shape[1]
+    rows: list[dict[str, object]] = []
+    for mask in range(1 << m):
+        chosen = tuple(j for j in range(m) if mask & (1 << j))
+        if chosen:
+            design = x[:, list(chosen)]
+            coefficients = np.linalg.lstsq(design, y, rcond=None)[0]
+            errors = y - design @ coefficients
+        else:
+            errors = y
+        sse = float(errors @ errors)
+        bic_relative = float(n * np.log(max(sse / n, 1e-15)) +
+                             len(chosen) * np.log(n))
+        rows.append({
+            "partition_mask": mask,
+            "boundaries": "|".join(
+                f"{prepared.order[j]}|{prepared.order[j+1]}" for j in chosen
+            ),
+            "n_blocks": len(chosen) + 1,
+            "sse": sse,
+            "conditional_r2": 1.0 - sse / float(y @ y)
+                if float(y @ y) > 0 else np.nan,
+            "bic_relative": bic_relative,
+        })
+    result = pd.DataFrame(rows).sort_values(
+        ["bic_relative", "n_blocks"]).reset_index(drop=True)
+    result["bic_delta_best"] = result["bic_relative"] - result["bic_relative"].min()
+    result["rank_bic"] = np.arange(1, len(result) + 1)
+    return result
