@@ -20,9 +20,9 @@
 
 ## Inventory
 
-- Python files scanned: **127**
-- Reusable symbols: **463**
-- Test symbols: **58**
+- Python files scanned: **136**
+- Reusable symbols: **508**
+- Test symbols: **82**
 
 ## Reusable symbols
 
@@ -303,6 +303,13 @@
 | `peak_spacing_summary` | function | 392 | `def peak_spacing_summary(peaks: pd.DataFrame, intervals: pd.DataFrame, config: TemporalPeakConfig \| None=None) -> pd.DataFrame` | Summarize the number and spacing of detected service-use peaks. | `src cmat_analysis longitudinal temporal py peak_spacing_summary summarize number spacing of detected service-use peaks` |
 | `student_temporal_regularity` | function | 447 | `def student_temporal_regularity(mu: pd.DataFrame, mu_events: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', assessment_cycles: int=4) -> pd.DataFrame` | Construct student-level temporal-distribution measures for CMAT use. | `src cmat_analysis longitudinal temporal py student_temporal_regularity construct student-level temporal-distribution measures cmat use` |
 | `monthly_periodicity_diagnostics` | function | 572 | `def monthly_periodicity_diagnostics(events: pd.DataFrame, *, lag_min: int=14, lag_max: int=45, candidate_period_low: int=21, candidate_period_high: int=42, population: str='All CMAT') -> tuple[pd.DataFrame, pd.DataFrame]` | Estimate descriptive monthly-cycle diagnostics from daily service load. | `src cmat_analysis longitudinal temporal py monthly_periodicity_diagnostics estimate descriptive monthly-cycle diagnostics daily service load` |
+
+### `src/cmat_analysis/measures/_academic_outcomes.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `add_academic_outcome_states` | function | 14 | `def add_academic_outcome_states(df: pd.DataFrame, *, pass_col: str='PASS', grade_class_col: str='GRADE_CLASS', grade_token_col: str='GRADE_TOKEN', numeric_class: str='numeric', adverse_class: str='adverse') -> pd.DataFrame` | Add exact/compact result states and conditional non-pass contrasts. | `src cmat_analysis measures academic_outcomes py add_academic_outcome_states add exact compact result states conditional non-pass contrasts` |
+| `add_academic_outcome_states.<locals>.contrast` | function | 76 | `def contrast(positive: pd.Series) -> pd.Series` | No docstring; inspect implementation before reuse. | `src cmat_analysis measures academic_outcomes py add_academic_outcome_states locals contrast` |
 
 ### `src/cmat_analysis/measures/_grades.py`
 
@@ -629,6 +636,27 @@
 | `_smd_binary` | function | 16 | `def _smd_binary(x: np.ndarray, t: np.ndarray, w: np.ndarray \| None=None) -> float` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics selection py smd_binary` |
 | `propensity_att_sensitivity` | function | 29 | `def propensity_att_sensitivity(df: pd.DataFrame, *, treatment_col: str, outcome_col: str, categorical_covariates: list[str], numeric_covariates: list[str] \| None=None) -> tuple[pd.DataFrame, pd.DataFrame, dict[str, float \| int \| str]]` | Observed-covariate ATT weighting sensitivity analysis. | `src cmat_analysis statistics selection py propensity_att_sensitivity observed-covariate att weighting sensitivity analysis` |
 
+### `src/cmat_analysis/statistics/attendance_frequency.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `_require` | function | 21 | `def _require(df: pd.DataFrame, columns: Sequence[str]) -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics attendance_frequency py require` |
+| `_formula_name` | function | 27 | `def _formula_name(name: str) -> str` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics attendance_frequency py formula_name` |
+| `add_topcoded_visit_group` | function | 33 | `def add_topcoded_visit_group(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', top_exact: int=5, include_zero: bool=False, output_col: str='VISIT_FREQUENCY_GROUP') -> pd.DataFrame` | Add an ordered exact-plus-tail attendance-frequency grouping. | `src cmat_analysis statistics attendance_frequency py add_topcoded_visit_group add an ordered exact-plus-tail attendance-frequency grouping` |
+| `visit_frequency_support_audit` | function | 79 | `def visit_frequency_support_audit(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', cluster_col: str='CLASSROOM_ID', instructor_col: str \| None=None) -> pd.DataFrame` | Audit exact positive visit counts without using academic outcomes. | `src cmat_analysis statistics attendance_frequency py visit_frequency_support_audit audit exact positive visit counts without using academic` |
+| `visit_group_pair_overlap` | function | 146 | `def visit_group_pair_overlap(df: pd.DataFrame, *, group_col: str, group_order: Sequence[str], cluster_col: str='CLASSROOM_ID') -> pd.DataFrame` | Count cluster overlap for every pair of attendance groups. | `src cmat_analysis statistics attendance_frequency py visit_group_pair_overlap count cluster overlap every pair of attendance groups` |
+| `visit_frequency_cut_frontier` | function | 192 | `def visit_frequency_cut_frontier(df: pd.DataFrame, *, visits_col: str='VISITS_CMAT_PERIOD', cluster_col: str='CLASSROOM_ID', min_top_exact: int=1, max_top_exact: int=10) -> pd.DataFrame` | Compare candidate exact-plus-tail cuts using outcome-blind support. | `src cmat_analysis statistics attendance_frequency py visit_frequency_cut_frontier compare candidate exact-plus-tail cuts using outcome-blind support` |
+| `group_outcome_summary` | function | 270 | `def group_outcome_summary(df: pd.DataFrame, *, group_col: str, group_order: Sequence[str], outcome_col: str, pass_col: str \| None=None) -> pd.DataFrame` | Summarise continuous and optional binary outcomes by ordered group. | `src cmat_analysis statistics attendance_frequency py group_outcome_summary summarise continuous optional binary outcomes by ordered group` |
+| `fixed_effect_group_comparisons` | function | 331 | `def fixed_effect_group_comparisons(df: pd.DataFrame, *, group_col: str, group_order: Sequence[str], outcome_col: str, fixed_effect_col: str, cluster_col: str, categorical_covariates: Sequence[str]=(), alpha: float=0.05, multiplicity_method: str='holm') -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]` | Estimate omnibus and all-pair contrasts from one clustered FE model. | `src cmat_analysis statistics attendance_frequency py fixed_effect_group_comparisons estimate omnibus all-pair contrasts one clustered fe model` |
+| `fixed_effect_group_comparisons.<locals>.coefficient` | function | 401 | `def coefficient(group: str) -> str \| None` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics attendance_frequency py fixed_effect_group_comparisons locals coefficient` |
+| `fixed_effect_logistic_group_comparisons` | function | 467 | `def fixed_effect_logistic_group_comparisons(df: pd.DataFrame, *, group_col: str, group_order: Sequence[str], outcome_col: str, fixed_effect_col: str, cluster_col: str, categorical_covariates: Sequence[str]=(), alpha: float=0.05, multiplicity_method: str='holm') -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]` | Estimate pairwise odds ratios from a clustered fixed-effect logit. | `src cmat_analysis statistics attendance_frequency py fixed_effect_logistic_group_comparisons estimate pairwise odds ratios a clustered fixed-effect logit` |
+| `fixed_effect_logistic_group_comparisons.<locals>.coefficient` | function | 547 | `def coefficient(group: str) -> str \| None` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics attendance_frequency py fixed_effect_logistic_group_comparisons locals coefficient` |
+| `fixed_effect_logistic_adjusted_probabilities` | function | 632 | `def fixed_effect_logistic_adjusted_probabilities(df: pd.DataFrame, *, group_col: str, group_order: Sequence[str], outcome_col: str, fixed_effect_col: str, cluster_col: str, categorical_covariates: Sequence[str]=()) -> pd.DataFrame` | Estimate model-standardized probabilities from a clustered FE logit. | `src cmat_analysis statistics attendance_frequency py fixed_effect_logistic_adjusted_probabilities estimate model-standardized probabilities a clustered fe logit` |
+| `outcome_state_composition` | function | 759 | `def outcome_state_composition(df: pd.DataFrame, *, group_col: str, group_order: Sequence[str], state_col: str, state_order: Sequence[str]) -> pd.DataFrame` | Tabulate academic-result state composition within exposure groups. | `src cmat_analysis statistics attendance_frequency py outcome_state_composition tabulate academic-result state composition within exposure groups` |
+| `distribution_profile` | function | 807 | `def distribution_profile(df: pd.DataFrame, *, group_col: str, group_order: Sequence[str], outcome_col: str, pass_col: str \| None=None, quantiles: Sequence[float]=(0.1, 0.25, 0.5, 0.75, 0.9)) -> pd.DataFrame` | Describe where a continuous outcome distribution differs by group. | `src cmat_analysis statistics attendance_frequency py distribution_profile describe where a continuous outcome distribution differs by` |
+| `pairwise_effect_matrix` | function | 869 | `def pairwise_effect_matrix(pairwise: pd.DataFrame, *, group_order: Sequence[str], estimate_col: str='estimate_group1_minus_group2', group1_col: str='group1', group2_col: str='group2') -> pd.DataFrame` | Convert long pairwise contrasts into a signed symmetric matrix. | `src cmat_analysis statistics attendance_frequency py pairwise_effect_matrix convert long pairwise contrasts a signed symmetric matrix` |
+| `mixture_component_density` | function | 912 | `def mixture_component_density(df: pd.DataFrame, *, group_col: str, group_order: Sequence[str], outcome_col: str, component_col: str, component_order: Sequence[str], grid_size: int=256, cut: float=3.0, min_bandwidth: float=0.001) -> pd.DataFrame` | Build stacked KDE components whose areas equal observed group shares. | `src cmat_analysis statistics attendance_frequency py mixture_component_density build stacked kde components whose areas equal observed` |
+
 ### `src/cmat_analysis/statistics/methodology.py`
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
@@ -649,6 +677,26 @@
 | `calc_progressor_mu_cohort` | function | 439 | `def calc_progressor_mu_cohort(mu_with_outcomes: pd.DataFrame, longitudinal: pd.DataFrame) -> pd.DataFrame` | MU rows for students whose first later Calculus attempt has CMAT coverage. | `src cmat_analysis statistics methodology py calc_progressor_mu_cohort mu rows students whose first later calculus attempt` |
 | `calc_progressor_followup_cohort` | function | 445 | `def calc_progressor_followup_cohort(longitudinal_with_outcomes: pd.DataFrame) -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics methodology py calc_progressor_followup_cohort` |
 
+### `src/cmat_analysis/statistics/mixtures.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `_clean_values` | function | 23 | `def _clean_values(values: Iterable[float]) -> np.ndarray` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics mixtures py clean_values` |
+| `skew_normal_fit_summary` | function | 30 | `def skew_normal_fit_summary(values: Iterable[float]) -> pd.DataFrame` | Fit a single univariate skew-normal distribution and summarize its fit. | `src cmat_analysis statistics mixtures py skew_normal_fit_summary fit a single univariate skew-normal distribution summarize its` |
+| `_candidate_model` | function | 76 | `def _candidate_model(x: np.ndarray, *, n_components: int, random_state: int, n_init: int, reg_covar: float, means_init: Sequence[float] \| None=None) -> GaussianMixture` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics mixtures py candidate_model` |
+| `fit_univariate_gaussian_mixture` | function | 102 | `def fit_univariate_gaussian_mixture(values: Iterable[float], *, n_components: int, random_state: int=42, n_init: int=20, reg_covar: float=1e-06, custom_mean_starts: Sequence[Sequence[float]]=()) -> GaussianMixture` | Fit a one-dimensional Gaussian mixture using multiple EM starts. | `src cmat_analysis statistics mixtures py fit_univariate_gaussian_mixture fit a one-dimensional gaussian mixture using multiple em` |
+| `gaussian_mixture_model_selection` | function | 171 | `def gaussian_mixture_model_selection(values: Iterable[float], *, component_counts: Sequence[int]=(1, 2, 3), random_state: int=42, n_init: int=20, reg_covar: float=1e-06, two_component_mean_starts: Sequence[Sequence[float]]=()) -> tuple[pd.DataFrame, dict[int, GaussianMixture]]` | Fit candidate univariate GMMs and summarize model-selection diagnostics. | `src cmat_analysis statistics mixtures py gaussian_mixture_model_selection fit candidate univariate gmms summarize model-selection diagnostics` |
+| `compare_univariate_shape_models` | function | 250 | `def compare_univariate_shape_models(values: Iterable[float], *, random_state: int=42, n_init: int=20, reg_covar: float=1e-06, two_component_mean_starts: Sequence[Sequence[float]]=()) -> pd.DataFrame` | Compare one Gaussian, one skew-normal, and a two-Gaussian mixture. | `src cmat_analysis statistics mixtures py compare_univariate_shape_models compare one gaussian skew-normal a two-gaussian mixture` |
+| `_sample_two_component_starts` | function | 343 | `def _sample_two_component_starts(values: np.ndarray, extra_starts: Sequence[Sequence[float]]) -> tuple[tuple[float, float], ...]` | Return supplied starts plus an empirical interquartile start. | `src cmat_analysis statistics mixtures py sample_two_component_starts return supplied starts plus an empirical interquartile start` |
+| `parametric_bootstrap_skew_normal_vs_gmm` | function | 363 | `def parametric_bootstrap_skew_normal_vs_gmm(values: Iterable[float], *, n_bootstrap: int=199, random_state: int=42, n_init: int=20, reg_covar: float=1e-06, two_component_mean_starts: Sequence[Sequence[float]]=()) -> pd.DataFrame` | Bootstrap a skew-normal null against a two-Gaussian alternative. | `src cmat_analysis statistics mixtures py parametric_bootstrap_skew_normal_vs_gmm bootstrap a skew-normal null against two-gaussian alternative` |
+| `_fit_skew_normal_for_prediction` | function | 485 | `def _fit_skew_normal_for_prediction(values: Iterable[float]) -> tuple[float, float, float]` | Fit a numerically stable skew-normal for held-out prediction. | `src cmat_analysis statistics mixtures py fit_skew_normal_for_prediction fit a numerically stable skew-normal held-out prediction` |
+| `_fit_skew_normal_for_prediction.<locals>.objective` | function | 532 | `def objective(theta: np.ndarray) -> float` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics mixtures py fit_skew_normal_for_prediction locals objective` |
+| `cross_validated_skew_normal_vs_gmm` | function | 559 | `def cross_validated_skew_normal_vs_gmm(values: Iterable[float], *, n_splits: int=5, n_repeats: int=10, random_state: int=42, n_init: int=10, reg_covar: float=1e-06, two_component_mean_starts: Sequence[Sequence[float]]=()) -> pd.DataFrame` | Compare skew-normal and two-Gaussian out-of-sample log density. | `src cmat_analysis statistics mixtures py cross_validated_skew_normal_vs_gmm compare skew-normal two-gaussian out-of-sample log density` |
+| `gaussian_mixture_component_summary` | function | 674 | `def gaussian_mixture_component_summary(model: GaussianMixture) -> pd.DataFrame` | Summarize Gaussian components ordered from lower to higher mean. | `src cmat_analysis statistics mixtures py gaussian_mixture_component_summary summarize gaussian components ordered lower to higher mean` |
+| `gaussian_mixture_responsibilities` | function | 728 | `def gaussian_mixture_responsibilities(model: GaussianMixture, values: Iterable[float]) -> pd.DataFrame` | Return posterior component responsibilities ordered by component mean. | `src cmat_analysis statistics mixtures py gaussian_mixture_responsibilities return posterior component responsibilities ordered by mean` |
+| `soft_component_composition` | function | 766 | `def soft_component_composition(states: Iterable[object], responsibilities: pd.DataFrame, *, state_order: Sequence[str]) -> pd.DataFrame` | Aggregate categorical-state composition using posterior responsibilities. | `src cmat_analysis statistics mixtures py soft_component_composition aggregate categorical-state composition using posterior responsibilities` |
+| `parametric_bootstrap_gmm_lrt` | function | 820 | `def parametric_bootstrap_gmm_lrt(values: Iterable[float], *, n_bootstrap: int=199, random_state: int=42, n_init: int=20, reg_covar: float=1e-06, two_component_mean_starts: Sequence[Sequence[float]]=()) -> pd.DataFrame` | Bootstrap the one- versus two-component GMM likelihood-ratio statistic. | `src cmat_analysis statistics mixtures py parametric_bootstrap_gmm_lrt bootstrap one- versus two-component gmm likelihood-ratio statistic` |
+
 ### `src/cmat_analysis/statistics/nonparametric.py`
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
@@ -663,6 +711,22 @@
 | `pruebas_no_parametricas.<locals>.stat_r_rb` | function | 112 | `def stat_r_rb(x, y)` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics nonparametric py pruebas_no_parametricas locals stat_r_rb` |
 | `pruebas_no_parametricas.<locals>.stat_delta` | function | 119 | `def stat_delta(x, y)` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics nonparametric py pruebas_no_parametricas locals stat_delta` |
 | `pruebas_no_parametricas.<locals>.stat_median_diff` | function | 127 | `def stat_median_diff(x, y)` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics nonparametric py pruebas_no_parametricas locals stat_median_diff` |
+
+### `src/cmat_analysis/statistics/ordered_fusion.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `PreparedFusion` | class | 23 | `class PreparedFusion` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics ordered_fusion py preparedfusion` |
+| `_strings` | function | 37 | `def _strings(values: object, name: str) -> np.ndarray` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics ordered_fusion py strings` |
+| `prepare_fusion` | function | 44 | `def prepare_fusion(y: object, visit: object, cluster: object, degree: object, order: tuple[str, ...]) -> PreparedFusion` | Partial out classroom FE and degree indicators before L1 fusion. | `src cmat_analysis statistics ordered_fusion py prepare_fusion partial out classroom fe degree indicators l1 fusion` |
+| `prepare_fusion.<locals>.resid` | function | 85 | `def resid(vector: np.ndarray) -> np.ndarray` | No docstring; inspect implementation before reuse. | `src cmat_analysis statistics ordered_fusion py prepare_fusion locals resid` |
+| `lambda_grid` | function | 102 | `def lambda_grid(prepared: PreparedFusion, *, count: int=12) -> np.ndarray` | Include OLS/no penalty and a value just above the all-fused threshold. | `src cmat_analysis statistics ordered_fusion py lambda_grid include ols penalty a value just above all-fused` |
+| `fit_prepared` | function | 114 | `def fit_prepared(prepared: PreparedFusion, lam: float, *, zero_tol: float=1e-06) -> dict[str, object]` | Estimate cumulative step differences and unpenalised nuisance effects. | `src cmat_analysis statistics ordered_fusion py fit_prepared estimate cumulative step differences unpenalised nuisance effects` |
+| `heldout_within_classroom_mse` | function | 165 | `def heldout_within_classroom_mse(fitted: dict[str, object], y: object, visit: object, cluster: object, degree: object, order: tuple[str, ...], allow_unseen_degree: bool=False) -> float` | MSE after removing each held-out classroom's mean residual. | `src cmat_analysis statistics ordered_fusion py heldout_within_classroom_mse mse after removing each held-out classroom s mean` |
+| `grouped_cv` | function | 206 | `def grouped_cv(frame: pd.DataFrame, *, outcome: str, group: str, order: tuple[str, ...], folds: int=4, repeats: int=1, seed: int=221, grid_size: int=12) -> tuple[pd.DataFrame, float]` | Select lambda by grouped conditional loss with a one-SE parsimony rule. | `src cmat_analysis statistics ordered_fusion py grouped_cv select lambda by grouped conditional loss a one-se` |
+| `cluster_split` | function | 276 | `def cluster_split(frame: pd.DataFrame, *, validation_fraction: float=0.3, seed: int=221) -> tuple[pd.DataFrame, pd.DataFrame]` | Reserve entire instructor-periods for locked Wald validation. | `src cmat_analysis statistics ordered_fusion py cluster_split reserve entire instructor-periods locked wald validation` |
+| `resample_cluster_rows` | function | 295 | `def resample_cluster_rows(frame: pd.DataFrame, *, seed: int) -> pd.DataFrame` | Cluster bootstrap; clone labels make duplicated draws independent FE. | `src cmat_analysis statistics ordered_fusion py resample_cluster_rows cluster bootstrap clone labels make duplicated draws independent` |
+| `selected_partition` | function | 309 | `def selected_partition(order: tuple[str, ...], boundaries: tuple[int, ...]) -> list[dict]` | Human-readable contiguous regimes; boundary positions start at 1. | `src cmat_analysis statistics ordered_fusion py selected_partition human-readable contiguous regimes boundary positions start at` |
 
 ### `src/cmat_analysis/statistics/parametric.py`
 
@@ -741,6 +805,12 @@
 | `plot_peak_spacing_by_population` | function | 89 | `def plot_peak_spacing_by_population(intervals: pd.DataFrame, out: Path, filename: str='08_peak_spacing_by_population.pdf') -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization methodology py plot_peak_spacing_by_population` |
 | `plot_exact_visit_count_curve` | function | 104 | `def plot_exact_visit_count_curve(summary: pd.DataFrame, out: Path, filename: str='13_exact_visit_counts_0_to_12.pdf') -> None` | No docstring; inspect implementation before reuse. | `src cmat_analysis visualization methodology py plot_exact_visit_count_curve` |
 
+### `src/cmat_analysis/visualization/ridgeline.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `plot_stacked_ridgeline` | function | 14 | `def plot_stacked_ridgeline(density: pd.DataFrame, *, group_order: Sequence[str], component_order: Sequence[str], summary: pd.DataFrame \| None=None, colors: Mapping[str, str] \| None=None, component_labels: Mapping[str, str] \| None=None, ridge_height: float=0.82, ax: Axes \| None=None) -> Axes` | Plot horizontally oriented stacked component densities by group. | `src cmat_analysis visualization ridgeline py plot_stacked_ridgeline plot horizontally oriented stacked component densities by group` |
+
 ### `src/cmat_analysis/visualization/style.py`
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
@@ -801,6 +871,19 @@
 
 ## Test symbols
 
+### `tests/test_attendance_frequency.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `_fixture` | function | 24 | `def _fixture() -> pd.DataFrame` | No docstring; inspect implementation before reuse. | `tests test_attendance_frequency py fixture` |
+| `test_academic_outcome_states_preserve_exact_administrative_codes` | function | 51 | `def test_academic_outcome_states_preserve_exact_administrative_codes()` | No docstring; inspect implementation before reuse. | `tests test_attendance_frequency py test_academic_outcome_states_preserve_exact_administrative_codes` |
+| `test_grouping_support_and_cut_frontier_use_exposure_only` | function | 67 | `def test_grouping_support_and_cut_frontier_use_exposure_only()` | No docstring; inspect implementation before reuse. | `tests test_attendance_frequency py test_grouping_support_and_cut_frontier_use_exposure_only` |
+| `test_clustered_fe_pairwise_family_and_overlap_are_complete` | function | 87 | `def test_clustered_fe_pairwise_family_and_overlap_are_complete()` | No docstring; inspect implementation before reuse. | `tests test_attendance_frequency py test_clustered_fe_pairwise_family_and_overlap_are_complete` |
+| `test_composition_distribution_and_matrix_outputs_are_consistent` | function | 110 | `def test_composition_distribution_and_matrix_outputs_are_consistent()` | No docstring; inspect implementation before reuse. | `tests test_attendance_frequency py test_composition_distribution_and_matrix_outputs_are_consistent` |
+| `test_mixture_component_density_areas_recover_component_shares` | function | 146 | `def test_mixture_component_density_areas_recover_component_shares()` | No docstring; inspect implementation before reuse. | `tests test_attendance_frequency py test_mixture_component_density_areas_recover_component_shares` |
+| `test_clustered_fixed_effect_logit_returns_odds_ratios` | function | 175 | `def test_clustered_fixed_effect_logit_returns_odds_ratios()` | No docstring; inspect implementation before reuse. | `tests test_attendance_frequency py test_clustered_fixed_effect_logit_returns_odds_ratios` |
+| `test_clustered_fixed_effect_logit_returns_adjusted_probabilities` | function | 193 | `def test_clustered_fixed_effect_logit_returns_adjusted_probabilities()` | No docstring; inspect implementation before reuse. | `tests test_attendance_frequency py test_clustered_fixed_effect_logit_returns_adjusted_probabilities` |
+
 ### `tests/test_data_catalogs.py`
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
@@ -826,6 +909,32 @@
 | `test_methodology_primary_outcome_uses_scipy_kde_and_uniform_fallback` | function | 12 | `def test_methodology_primary_outcome_uses_scipy_kde_and_uniform_fallback()` | No docstring; inspect implementation before reuse. | `tests test_methodology_report_helpers py test_methodology_primary_outcome_uses_scipy_kde_and_uniform_fallback` |
 | `test_methodology_exact_visit_grouping_has_all_ten_pairwise_contrasts` | function | 31 | `def test_methodology_exact_visit_grouping_has_all_ten_pairwise_contrasts()` | No docstring; inspect implementation before reuse. | `tests test_methodology_report_helpers py test_methodology_exact_visit_grouping_has_all_ten_pairwise_contrasts` |
 | `test_methodology_report_atomic_runner_resolves_root_code_dependencies` | function | 42 | `def test_methodology_report_atomic_runner_resolves_root_code_dependencies()` | No docstring; inspect implementation before reuse. | `tests test_methodology_report_helpers py test_methodology_report_atomic_runner_resolves_root_code_dependencies` |
+
+### `tests/test_mixtures.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `_bimodal_sample` | function | 21 | `def _bimodal_sample() -> tuple[np.ndarray, np.ndarray]` | No docstring; inspect implementation before reuse. | `tests test_mixtures py bimodal_sample` |
+| `test_two_component_model_recovers_ordered_bimodal_structure` | function | 30 | `def test_two_component_model_recovers_ordered_bimodal_structure()` | No docstring; inspect implementation before reuse. | `tests test_mixtures py test_two_component_model_recovers_ordered_bimodal_structure` |
+| `test_responsibilities_and_soft_composition_are_probabilistic` | function | 52 | `def test_responsibilities_and_soft_composition_are_probabilistic()` | No docstring; inspect implementation before reuse. | `tests test_mixtures py test_responsibilities_and_soft_composition_are_probabilistic` |
+| `test_parametric_bootstrap_gmm_lrt_returns_valid_empirical_p_value` | function | 77 | `def test_parametric_bootstrap_gmm_lrt_returns_valid_empirical_p_value()` | No docstring; inspect implementation before reuse. | `tests test_mixtures py test_parametric_bootstrap_gmm_lrt_returns_valid_empirical_p_value` |
+| `test_single_skew_normal_beats_single_gaussian_for_skewed_unimodal_data` | function | 90 | `def test_single_skew_normal_beats_single_gaussian_for_skewed_unimodal_data()` | A flexible one-component shape should absorb ordinary unimodal skew. | `tests test_mixtures py test_single_skew_normal_beats_single_gaussian_for_skewed_unimodal_data a flexible one-component shape should absorb ordinary unimodal skew` |
+| `test_two_gaussians_can_beat_single_skew_normal_for_clear_bimodality` | function | 102 | `def test_two_gaussians_can_beat_single_skew_normal_for_clear_bimodality()` | A single skewed density should not erase clear two-mode structure. | `tests test_mixtures py test_two_gaussians_can_beat_single_skew_normal_for_clear_bimodality a single skewed density should not erase clear two-mode structure` |
+| `test_shape_model_comparison_prefers_two_gaussians_for_clear_bimodality` | function | 121 | `def test_shape_model_comparison_prefers_two_gaussians_for_clear_bimodality()` | The reusable comparator should identify a clearly bimodal density. | `tests test_mixtures py test_shape_model_comparison_prefers_two_gaussians_for_clear_bimodality reusable comparator should identify a clearly bimodal density` |
+| `test_skew_normal_null_bootstrap_returns_valid_tail_probability` | function | 140 | `def test_skew_normal_null_bootstrap_returns_valid_tail_probability()` | The skew-normal bootstrap should return a finite empirical reference. | `tests test_mixtures py test_skew_normal_null_bootstrap_returns_valid_tail_probability skew-normal bootstrap should return a finite empirical reference` |
+| `test_cross_validated_shape_comparison_prefers_gmm_for_clear_bimodality` | function | 156 | `def test_cross_validated_shape_comparison_prefers_gmm_for_clear_bimodality()` | Held-out density should favour a two-Gaussian fit for clear bimodality. | `tests test_mixtures py test_cross_validated_shape_comparison_prefers_gmm_for_clear_bimodality held-out density should favour a two-gaussian fit clear bimodality` |
+| `test_cross_validated_shape_comparison_is_stable_for_small_skewed_sample` | function | 177 | `def test_cross_validated_shape_comparison_is_stable_for_small_skewed_sample()` | Small folds should not create pathological held-out skew densities. | `tests test_mixtures py test_cross_validated_shape_comparison_is_stable_for_small_skewed_sample small folds should not create pathological held-out skew densities` |
+
+### `tests/test_ordered_fusion.py`
+
+| Symbol | Kind | Line | Signature | Summary | Tags |
+|---|---|---:|---|---|---|
+| `synthetic` | function | 12 | `def synthetic(seed=17, n_classrooms=36, per_class=20)` | No docstring; inspect implementation before reuse. | `tests test_ordered_fusion py synthetic` |
+| `test_zero_lambda_is_unpenalised_partial_regression` | function | 32 | `def test_zero_lambda_is_unpenalised_partial_regression()` | No docstring; inspect implementation before reuse. | `tests test_ordered_fusion py test_zero_lambda_is_unpenalised_partial_regression` |
+| `test_large_penalty_fuses_all_and_preserves_nuisance` | function | 43 | `def test_large_penalty_fuses_all_and_preserves_nuisance()` | No docstring; inspect implementation before reuse. | `tests test_ordered_fusion py test_large_penalty_fuses_all_and_preserves_nuisance` |
+| `test_partitions_and_grouped_folds` | function | 54 | `def test_partitions_and_grouped_folds()` | No docstring; inspect implementation before reuse. | `tests test_ordered_fusion py test_partitions_and_grouped_folds` |
+| `test_cluster_bootstrap_relabels_duplicate_draws` | function | 73 | `def test_cluster_bootstrap_relabels_duplicate_draws()` | No docstring; inspect implementation before reuse. | `tests test_ordered_fusion py test_cluster_bootstrap_relabels_duplicate_draws` |
+| `test_reject_unknown_validation_degree` | function | 80 | `def test_reject_unknown_validation_degree()` | No docstring; inspect implementation before reuse. | `tests test_ordered_fusion py test_reject_unknown_validation_degree` |
 
 ### `tests/test_ppa_adaptation.py`
 
@@ -906,15 +1015,15 @@
 |---|---|---:|---|---|---|
 | `test_root_import_is_small_and_versioned` | function | 4 | `def test_root_import_is_small_and_versioned()` | No docstring; inspect implementation before reuse. | `tests test_public_api py test_root_import_is_small_and_versioned` |
 | `test_representative_public_imports` | function | 12 | `def test_representative_public_imports()` | No docstring; inspect implementation before reuse. | `tests test_public_api py test_representative_public_imports` |
-| `test_compatibility_paths_delegate_to_canonical_objects` | function | 35 | `def test_compatibility_paths_delegate_to_canonical_objects()` | No docstring; inspect implementation before reuse. | `tests test_public_api py test_compatibility_paths_delegate_to_canonical_objects` |
+| `test_compatibility_paths_delegate_to_canonical_objects` | function | 43 | `def test_compatibility_paths_delegate_to_canonical_objects()` | No docstring; inspect implementation before reuse. | `tests test_public_api py test_compatibility_paths_delegate_to_canonical_objects` |
 
 ### `tests/test_public_api_documentation.py`
 
 | Symbol | Kind | Line | Signature | Summary | Tags |
 |---|---|---:|---|---|---|
-| `test_public_api_is_explicit_and_stable` | function | 120 | `def test_public_api_is_explicit_and_stable() -> None` | Ensure canonical namespaces expose exactly the reviewed API. | `tests test_public_api_documentation py test_public_api_is_explicit_and_stable ensure canonical namespaces expose exactly reviewed api` |
-| `test_public_api_has_numpy_style_docstrings` | function | 127 | `def test_public_api_has_numpy_style_docstrings() -> None` | Require public callables to carry minimally complete NumPy docstrings. | `tests test_public_api_documentation py test_public_api_has_numpy_style_docstrings require public callables to carry minimally complete numpy docstrings` |
-| `test_sphinx_api_page_excludes_compatibility_and_private_modules` | function | 159 | `def test_sphinx_api_page_excludes_compatibility_and_private_modules() -> None` | Keep the main Sphinx reference restricted to namespace-level public API. | `tests test_public_api_documentation py test_sphinx_api_page_excludes_compatibility_and_private_modules keep main sphinx reference restricted to namespace-level public api` |
+| `test_public_api_is_explicit_and_stable` | function | 146 | `def test_public_api_is_explicit_and_stable() -> None` | Ensure canonical namespaces expose exactly the reviewed API. | `tests test_public_api_documentation py test_public_api_is_explicit_and_stable ensure canonical namespaces expose exactly reviewed api` |
+| `test_public_api_has_numpy_style_docstrings` | function | 153 | `def test_public_api_has_numpy_style_docstrings() -> None` | Require public callables to carry minimally complete NumPy docstrings. | `tests test_public_api_documentation py test_public_api_has_numpy_style_docstrings require public callables to carry minimally complete numpy docstrings` |
+| `test_sphinx_api_page_excludes_compatibility_and_private_modules` | function | 184 | `def test_sphinx_api_page_excludes_compatibility_and_private_modules() -> None` | Keep the main Sphinx reference restricted to namespace-level public API. | `tests test_public_api_documentation py test_sphinx_api_page_excludes_compatibility_and_private_modules keep main sphinx reference restricted to namespace-level public api` |
 
 ### `tests/test_reporting_figures.py`
 
