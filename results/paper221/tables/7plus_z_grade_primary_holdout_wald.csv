@@ -1,0 +1,2 @@
+outcome,comparison,n_left_block,n_right_block,n_clusters_left,n_clusters_right,n_shared_classrooms,first_block,second_block,estimate,estimate_pp,cluster_robust_se,ci95_low,ci95_high,p_raw,n,clusters,validation_design_rank,validation_design_columns,p_holm,reject_holm_0_05
+Z_GRADE_PRIMARY,B1 minus B0,1585,367,57,52,52,B0,B1,0.26361687708170806,,0.05797519536124527,0.14998549417366733,0.37724825998974876,5.439966773926385e-06,1952,57,110,110,5.439966773926385e-06,True
