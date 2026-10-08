@@ -101,3 +101,16 @@ def test_exhaustive_partition_bic_and_unrestricted_fit():
     assert np.isclose(unrestricted["sse"],
                       len(d) * unpenalised["training_loss_within_context"],
                       atol=1e-5)
+
+
+def test_bootstrap_can_be_tuned_again():
+    """A sampled-cluster copy must be usable in the entire CV selection path."""
+    original = synthetic(seed=221, n_classrooms=30, per_class=15)
+    sample = resample_cluster_rows(original, seed=1221)
+    assert sample["CLASSROOM_ID"].nunique() == 30
+    cv, lam = grouped_cv(sample, outcome="GRADE", group="GROUP",
+                         order=ORDER, folds=3, repeats=1, grid_size=5)
+    assert np.isfinite(cv["cv_mse"]).all()
+    prep = prepare_fusion(sample["GRADE"], sample["GROUP"],
+                          sample["CLASSROOM_ID"], sample["CLAVECARRERA"], ORDER)
+    assert fit_prepared(prep, lam)["n_blocks"] >= 1
