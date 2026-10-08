@@ -1,78 +1,36 @@
-# Paper 2.1 — CMAT visit-frequency structure
+# Paper 2.2.2 — Distribution shape, modality and mixture adequacy
 
-This branch is the canonical exploratory/publication workspace for **Paper 2.1**, a denser extension of Paper 2 focused on the structure of academic outcomes across different frequencies of CMAT attendance among students who use the centre.
+**Branch:** `paper/paper2.2.2-distributional-heterogeneity`  
+**Frozen starting point:** Paper 2.1 `paper/paper2.1-visit-frequency` at `0e39a875343c03ca3bb5c793f1f9e7c2bcba6173`, 2026-10-07.  
+**Status:** research-design documentation only; no Paper 2.2.2 experiments, new modality tests or validated claims.
 
-**Parent checkpoint:** created from `paper/paper2-mu-performance` at commit `1956ef4bfe6073c9b28881a9da34d14cd22239a8`.
+## Scientific question
 
-Paper 2 remains the simpler attendance-versus-non-attendance manuscript. Paper 2.1 asks a broader question: after the large zero-versus-any-attendance separation, how do outcomes vary across positive attendance frequencies, and does attendance also relate to the composition of adverse outcomes, particularly voluntary withdrawal versus numeric failure?
+Do observed final mathematics grades exhibit **more than one mode**, or can their shape be accounted for by one asymmetric, bounded, discrete/heaped distribution? Does a two-Gaussian mixture reflect true **density complexity** rather than simply skewness, imputation artifacts, or sparse tails? Is there robust evidence of distinct **latent subpopulations**? These are three *different questions*; positive evidence for a K=2 GMM does **not** establish bimodality or identifiable student types.
 
-Read in this order:
+## Scientific origin
 
-1. `PAPER_BRANCH.md`
-2. `paper/docs/project/PROJECT_CONTEXT.md`
-3. `paper/docs/analysis/ANALYSIS_PLAN.md`
-4. `paper/docs/results/PRELIMINARY_RESULTS.md`
-5. `paper/docs/interpretation/ACADEMIC_MANAGEMENT_HYPOTHESIS.md`
-6. `literature_selected/ACCESS_NOTES.md`
-7. `paper/docs/project/STATUS_AND_ROADMAP.md`
-8. `paper/AI_HANDOFF.md`
+Paper 2.1 currently includes one/two/three-component Gaussian mixtures fitted separately by recorded visit groups, using **numeric complete-case instructor-period-standardised Z as the primary mixture outcome** and canonical adverse-outcome-imputed primary Z as a sensitivity. It compares AIC/BIC/ICL, posterior responsibilities/entropy, Ashman's D, parametric-bootstrap K=1 vs K=2 LRT, skew-normal vs GMM2 bootstrap of BIC advantage and repeated held-out log predictive density. Controlled-data historical findings are documented in inherited `paper/docs/results/MIXTURE_ANALYSIS_RESULTS.md`; those are **Paper 2.1 exploratory findings** and do not establish two populations.
 
-## Branch layout
+The 2.2.2 extension challenges the inferential meaning of this model-selection pattern. Explicitly audit modality, heaping/discreteness, grade boundaries, sparse groups, clustering, and whether administrative imputation produces lower-tail structure that does not exist in numeric observed grades.
 
-Paper 2.1-specific material is organised by function rather than kept as loose files:
+## Reading order
 
-```text
-paper/
-├── README.md
-├── AI_HANDOFF.md
-├── docs/
-│   ├── project/
-│   ├── analysis/
-│   ├── results/
-│   └── interpretation/
-├── sections/
-└── manuscript/build sources
+1. `PAPER_BRANCH.md` (this file)
+2. `paper/AI_HANDOFF.md`
+3. `paper/docs/project/PROJECT_CONTEXT_222.md`
+4. `paper/docs/analysis/DISTRIBUTIONAL_PROTOCOL.md`
+5. `paper/docs/analysis/MODALITY_VALIDATION_AND_LIMITATIONS_222.md`
+6. `paper/docs/project/STATUS_AND_ROADMAP_222.md`, `paper/docs/results/RESULTS_STATUS_222.md`
+7. Historical Paper 2.1: `paper/docs/analysis/MIXTURE_ANALYSIS_PLAN.md`, `paper/docs/results/MIXTURE_ANALYSIS_RESULTS.md`, `paper/docs/analysis/OUTCOME_FRAMEWORK.md`, `paper/docs/analysis/VISIT_GROUPING_DECISION.md`
+8. `code/README.md`, `cmat_analysis/FUNCTION_INDEX.md`, `AGENTS.md`, `AI_HANDOFF.md`
 
-literature_selected/   # paper-specific literature map and access notes
-code/                  # thin Paper 2.1 orchestration
-results/paper21/       # canonical aggregate tables and vector figures
-submission/            # submission metadata and checklist
-```
+## Repository boundaries
 
-Generated manuscript PDFs are intentionally not tracked; the paper-build workflow uploads them as GitHub Actions artifacts.
+Branch-local scripts planned in root `code/` (e.g. `code/run_paper222_modality.py`, `code/figures_paper222.py`); **none created yet**. Reusable modality/calibration/density/cluster-bootstrap algorithms must be added and tested in `main/cmat_analysis/src/cmat_analysis/` and propagated down; `code/` only orchestrates. Publication-safe aggregates and figures will go to `results/paper222/`, separate from inherited `results/paper21/`. Existing Paper 2.1 `paper/sections/`, notebook and build files are inherited baseline documents, **not** a Paper 2.2.2 manuscript.
 
-## Scientific boundary
+No raw data, student IDs, credentials or sensitive cell contents in Git. No causal interpretation of visits, behavioural labels, or natural latent classes without independent evidence. Keep Paper 2.1 immutable as historical parent; never merge whole paper branches back to `main`.
 
-Paper 2.1 inherits from Paper 2:
+## Publication gate
 
-- first eligible MU attempt in periods with CMAT coverage;
-- period-wide CMAT attendance, irrespective of visit subject label;
-- instructor × academic-period grading context;
-- observational framing;
-- institutional pass mark of 7.5;
-- BA, BV, and RT as adverse/non-passing outcomes.
-
-Paper 2.1 **does not inherit the 4+ top-code as a fixed scientific decision**. The upper visit grouping must be chosen using an outcome-blind support/precision rule documented before pairwise outcome comparisons are inspected.
-
-## Main contribution
-
-Paper 2.1 now has two linked contributions.
-
-First, it separates **initial CMAT use** from **frequency among users**. The primary positive-attendance groups are outcome-blind `1 / 2 / 3 / 4 / 5 / 6+`, with `1 / 2 / 3 / 4 / 5 / 6 / 7+` as an exploratory sensitivity. The current controlled-data results show a large 0-versus-1+ association in both standardised performance and pass probability, but no robust multiplicity-adjusted separation among positive frequency groups.
-
-Second, it distinguishes a **performance margin** from an **academic-management margin**. Non-PASS is decomposed into numeric failure and administrative outcomes, with BV, RT and BA preserved separately. The current adjusted zero-versus-any-attendance pattern is specifically concentrated in BV versus numeric failure; RT does not show the same contrast. This may be discussed as compatible with broader academic engagement or institutional navigation, but those mechanisms are not directly measured.
-
-The manuscript analyses:
-
-1. continuous instructor-period-standardised final performance;
-2. PASS versus non-PASS;
-3. the composition of PASS / numeric <7.5 / BV-RT / BA, with exact BV / RT / BA diagnostics;
-4. conditional non-PASS management contrasts.
-
-A numeric-only complete-case outcome is retained as a sensitivity, especially for interpreting how administrative outcomes affect the lower tail of the continuous outcome.
-
-## Repository governance
-
-This is a long-lived `paper/*` branch. Do not merge the whole branch into `main` or back into Paper 2. Reusable estimators or support diagnostics that belong across papers should be proposed for upstream integration into `cmat_analysis` and then brought back into this branch.
-
-The user retains final scientific authority.
+Only call this a separate paper if the analysis delivers a credible, genuinely new contribution over the established Paper 2.1 density sensitivity and the modality claim survives relevant alternatives, uncertainty and reproducibility checks. Otherwise report it as an exploratory extension with negative or inconclusive findings.

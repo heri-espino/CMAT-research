@@ -1,15 +1,7 @@
-# Paper 2.1 results
+# Paper 2.2.2 — aggregate outputs
 
-The canonical Paper 2.1 aggregate outputs live under:
+**Planned only:** `results/paper222/tables/`, `results/paper222/figures/` and reproducibility manifest. No 2.2.2 tables/figures have been produced.
 
-```text
-results/paper21/
-├── tables/
-└── figures/
-```
+The inherited `results/paper21/` tables and figures refer to Paper 2.1, including controlled-data mixture work, and must not be rebranded. Future outputs cover tie/boundary diagnostics, fit comparison, actual density modes/locations, calibrated tests when valid, multiplicity adjustment, null simulation checks, confidence/stability from cluster resampling, comparisons with skew-normal/flexible unimodal distributions, and complete-case versus imputed sensitivities.
 
-`tables/` contains publication-safe aggregate analysis outputs produced by the Paper 2.1 runners, while `figures/` contains vector PDFs generated from those tables. The dependency-aware interface in `paper/paper_build.py` is the preferred way to regenerate them.
-
-The top-level `results/tables/`, `results/figures/`, `results/logs/` and `results/run_summary.json` are inherited Paper 2 artifacts from the parent branch; they are not inputs to the Paper 2.1 manuscript and should not be treated as canonical Paper 2.1 results.
-
-Generated microdata or student-level analytical datasets must never be written here or committed.
+Only share disclosure-safe aggregates. See `paper/docs/results/RESULTS_STATUS_222.md`.
