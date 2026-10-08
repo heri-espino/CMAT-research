@@ -114,3 +114,27 @@ def test_bootstrap_can_be_tuned_again():
     prep = prepare_fusion(sample["GRADE"], sample["GROUP"],
                           sample["CLASSROOM_ID"], sample["CLAVECARRERA"], ORDER)
     assert fit_prepared(prep, lam)["n_blocks"] >= 1
+
+
+def test_cluster_bootstrap_handles_dataframe_valued_attrs():
+    """Institutional cohort metadata must not break pandas.concat."""
+    original = synthetic(seed=221, n_classrooms=30, per_class=15)
+    # add_primary_outcomes can retain auxiliary DataFrames in cohort.attrs.
+    original.attrs["cohort_audit"] = pd.DataFrame(
+        {"metric": ["count"], "value": [len(original)]}
+    )
+    original.attrs["analysis_context"] = {"source": "synthetic"}
+    sample = resample_cluster_rows(original, seed=1221)
+    assert sample.attrs == {}
+    assert isinstance(original.attrs["cohort_audit"], pd.DataFrame)
+    assert len(sample) == len(original)
+    summary, lam = grouped_cv(
+        sample, outcome="GRADE", group="GROUP", order=ORDER,
+        folds=3, repeats=1, grid_size=5,
+    )
+    assert np.isfinite(summary["cv_mse"]).all()
+    prep = prepare_fusion(
+        sample["GRADE"], sample["GROUP"],
+        sample["CLASSROOM_ID"], sample["CLAVECARRERA"], ORDER
+    )
+    assert fit_prepared(prep, lam)["n_blocks"] >= 1
