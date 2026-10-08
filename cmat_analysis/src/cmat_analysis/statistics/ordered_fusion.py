@@ -169,10 +169,12 @@ def heldout_within_classroom_mse(
     cluster: object,
     degree: object,
     order: tuple[str, ...],
+    allow_unseen_degree: bool = False,
 ) -> float:
     """MSE after removing each held-out classroom's mean residual.
 
-    Degree effects are trained; unknown degrees cannot be silently predicted.
+    Degree effects are trained. The default is to reject unseen degrees;
+    grouped_cv explicitly allows zero-reference fallback and logs its count.
     Classroom effects are *never* transferred from a disjoint training set.
     """
     group = _strings(visit, "visit")
@@ -183,13 +185,16 @@ def heldout_within_classroom_mse(
         raise ValueError("Held-out arrays must have matching lengths")
     mapping = {key: i for i, key in enumerate(order)}
     degree_effect = fitted["degree_coefficients"]
-    if not set(group).issubset(mapping) or not set(deg).issubset(degree_effect):
-        raise ValueError("Unseen visit/degree level in held-out fold")
+    if not set(group).issubset(mapping):
+        raise ValueError("Unseen visit level in held-out fold")
+    missing_degree = set(deg).difference(degree_effect)
+    if missing_degree and not allow_unseen_degree:
+        raise ValueError("Unseen degree level in held-out fold")
     indices = np.asarray([mapping[value] for value in group])
     steps = (indices[:, None] >= np.arange(1, len(order))[None, :])
     prediction = (
         steps @ fitted["step_coefficients"] +
-        np.asarray([degree_effect[value] for value in deg])
+        np.asarray([degree_effect.get(value, 0.0) for value in deg])
     )
     residual = outcome - prediction
     centered = residual - pd.Series(residual).groupby(
@@ -235,12 +240,16 @@ def grouped_cv(
                 fitted = fit_prepared(prepared, float(lam))
                 score = heldout_within_classroom_mse(
                     fitted, te[outcome], te[group],
-                    te["CLASSROOM_ID"], te["CLAVECARRERA"], order
+                    te["CLASSROOM_ID"], te["CLAVECARRERA"], order,
+                    allow_unseen_degree=True,
                 )
+                unseen_degree_rows = int((~te["CLAVECARRERA"].astype(str).isin(
+                    prepared.degree_levels)).sum())
                 rows.append({
                     "lambda": float(lam), "repeat": repetition,
                     "fold": fold, "heldout_clusters": len(held),
                     "heldout_students": int(len(te)),
+                    "unseen_degree_rows": unseen_degree_rows,
                     "within_classroom_mse": score,
                     "n_blocks": fitted["n_blocks"],
                 })
