@@ -2,7 +2,7 @@
 
 You are working on `paper/paper2.2.1-fused-frequency`, not Paper 2.1. This branch forks the Paper 2.1 working tree at `0e39a875343c03ca3bb5c793f1f9e7c2bcba6173`. Its inherited code, figures, manuscripts and aggregate tables describe **Paper 2.1** until explicitly rerun and validated here.
 
-**Current state:** branches and design documents only; no fused-lasso implementation, tuning, cluster-bootstrap stability, independent validation or 2.2.1 results. Do not infer groups from a hypothetical figure, use 2.1 numerical findings as new evidence, or claim a final manuscript exists.
+**Current state:** first reusable fused-lasso library implementation, privacy-safe synthetic tests, root runners, manual-only GitHub workflow, an English manuscript draft under `paper/paper221/` and `notes/` logs are committed. Synthetic CI and controlled-data runs require verification. **No actual 2.2.1 selected grouping or empirical inference exists yet.** Inherited Paper 2.1 results do not count as 2.2.1 outputs.
 
 ## Mission
 
@@ -33,7 +33,7 @@ Discover outcome-supported adjacent-visit plateaus/regimes via a one-dimensional
 
 ## Implementation contracts
 
-Proposed **branch runner** `code/run_paper221_fused.py`: `--check`, explicit controlled input handling, outcome/specification switches, deterministic seeds, fail clearly on missing controlled data, emit run manifest. Proposed `code/figures_paper221.py`: regime path, boundary stability, prediction vs complexity, holdout estimates/CI. Do not overwrite Paper 2.1 results.
+Implemented **branch runner** `code/run_paper221_fused.py`: `--check`, explicit controlled input handling, outcome/specification switches, deterministic seeds, fail clearly on missing controlled data, emit run manifest. Implemented `code/figures_paper221.py`: regime path, boundary stability, prediction vs complexity, holdout estimates/CI. Do not overwrite Paper 2.1 results.
 
 Reusable solver, nuisance FE residualisation, boundary decoding, grouped CV scoring, bootstrap and inference belong upstream to `main/cmat_analysis`, with unit tests including all-equal/single-boundary/extreme lambda, zero-visit reference, sparse-tail, rank deficiency, and synthetic clusters. Update `cmat_analysis/FUNCTION_INDEX.md` after implementation.
 

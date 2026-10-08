@@ -2,7 +2,7 @@
 
 **Branch:** `paper/paper2.2.1-fused-frequency`  
 **Frozen starting point:** Paper 2.1 `paper/paper2.1-visit-frequency` at `0e39a875343c03ca3bb5c793f1f9e7c2bcba6173`, 2026-10-07.  
-**Status:** research design / documentation only. No Paper 2.2.1 models have been run, regimes selected, new coefficients estimated, or claims validated.
+**Status:** initial implementation and independent English manuscript draft completed; synthetic CI and controlled-data experiments pending. No Paper 2.2.1 regimes, empirical coefficients, or significance claims have been validated.
 
 ## Research question
 
@@ -37,4 +37,4 @@ The 3-visit PPA incentive threshold is contextual, not a data-derived or causal 
 - Keep Paper 2.1 intact. Do not merge entire paper branches into `main`.
 - A publication decision is deferred until methods, validation and literature support a substantial standalone contribution.
 
-**Next step is implementation and experiments, not documentation masquerading as results.**
+**Next step:** inspect synthetic CI, then manually run the controlled-data workflow at `.github/workflows/paper221-experiments.yml`, inspect artifact outputs and write a dated `notes/` interpretation record. Code and paper draft are not results.

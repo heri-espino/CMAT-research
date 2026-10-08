@@ -12,6 +12,10 @@
 - [Branch runner index](../../code/README.md)
 - [Publication aggregate output index](../../results/README.md)
 
+- [Dated paper-development and interpretation notes](../../notes/README.md)
+- [Standalone English LaTeX manuscript draft](../paper221/main.tex)
+- [Manual experiment workflow](../../.github/workflows/paper221-experiments.yml)
+
 ## Inherited Paper 2.1 reference documents (historical, not 2.2.1 results)
 
 - `analysis/VISIT_GROUPING_DECISION.md`: outcome-blind pooled 6+ grouping vs exploratory 7+ grid.
