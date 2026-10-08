@@ -21,8 +21,8 @@
 ## Inventory
 
 - Python files scanned: **136**
-- Reusable symbols: **508**
-- Test symbols: **82**
+- Reusable symbols: **509**
+- Test symbols: **83**
 
 ## Reusable symbols
 
@@ -727,6 +727,7 @@
 | `cluster_split` | function | 276 | `def cluster_split(frame: pd.DataFrame, *, validation_fraction: float=0.3, seed: int=221) -> tuple[pd.DataFrame, pd.DataFrame]` | Reserve entire instructor-periods for locked Wald validation. | `src cmat_analysis statistics ordered_fusion py cluster_split reserve entire instructor-periods locked wald validation` |
 | `resample_cluster_rows` | function | 295 | `def resample_cluster_rows(frame: pd.DataFrame, *, seed: int) -> pd.DataFrame` | Cluster bootstrap; clone labels make duplicated draws independent FE. | `src cmat_analysis statistics ordered_fusion py resample_cluster_rows cluster bootstrap clone labels make duplicated draws independent` |
 | `selected_partition` | function | 309 | `def selected_partition(order: tuple[str, ...], boundaries: tuple[int, ...]) -> list[dict]` | Human-readable contiguous regimes; boundary positions start at 1. | `src cmat_analysis statistics ordered_fusion py selected_partition human-readable contiguous regimes boundary positions start at` |
+| `exhaustive_contiguous_partitions` | function | 322 | `def exhaustive_contiguous_partitions(prepared: PreparedFusion) -> pd.DataFrame` | Compare every contiguous partition using discovery-sample fit only. | `src cmat_analysis statistics ordered_fusion py exhaustive_contiguous_partitions compare every contiguous partition using discovery-sample fit only` |
 
 ### `src/cmat_analysis/statistics/parametric.py`
 
@@ -935,6 +936,7 @@
 | `test_partitions_and_grouped_folds` | function | 54 | `def test_partitions_and_grouped_folds()` | No docstring; inspect implementation before reuse. | `tests test_ordered_fusion py test_partitions_and_grouped_folds` |
 | `test_cluster_bootstrap_relabels_duplicate_draws` | function | 73 | `def test_cluster_bootstrap_relabels_duplicate_draws()` | No docstring; inspect implementation before reuse. | `tests test_ordered_fusion py test_cluster_bootstrap_relabels_duplicate_draws` |
 | `test_reject_unknown_validation_degree` | function | 80 | `def test_reject_unknown_validation_degree()` | No docstring; inspect implementation before reuse. | `tests test_ordered_fusion py test_reject_unknown_validation_degree` |
+| `test_exhaustive_partition_bic_and_unrestricted_fit` | function | 91 | `def test_exhaustive_partition_bic_and_unrestricted_fit()` | No docstring; inspect implementation before reuse. | `tests test_ordered_fusion py test_exhaustive_partition_bic_and_unrestricted_fit` |
 
 ### `tests/test_ppa_adaptation.py`
 
