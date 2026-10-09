@@ -1,46 +1,41 @@
-# 07 — Estado del arte: mapa de referencias y función argumentativa
+# 07 — Qué se ha investigado en centros universitarios comparables a CMAT
 
-**Base documental:** `../literature_selected/READING_GUIDE.md`, `INDEX.md`, `ACCESS_NOTES.md` y `../paper/references.bib`. Los resúmenes son una guía de lectura del repositorio y **no sustituyen una revisión del texto completo** antes de atribuir cifras, inferencia causal o recomendaciones a cada artículo.
+**Matriz principal:** [`../literature_selected/COMPARATIVE_CENTRES.md`](../literature_selected/COMPARATIVE_CENTRES.md). Allí se documentan centro, país, periodo o población cuando consta, definición de asistencia, outcome, controles, cifras, limitaciones y **tipo de acceso a la fuente**. Se leyeron los PDF completos disponibles; las fuentes sin texto completo se distinguen explícitamente de los resúmenes oficiales.
 
-## 1. El campo: qué son los centros de apoyo y cómo se evalúan
+## Evidencia empírica directa
 
-- **Matthews, Croft, Lawson y Waller (2013)** — revisión de evaluación de mathematics support centres: registros de utilización y resultados ofrecen información útil, pero no todo impacto institucional se reduce a una nota.
-- **Lawson, Grove y Croft (2020)** — historia y evolución del apoyo matemático universitario; justifica tratar CMAT como apoyo extracurricular institucional, no como docencia ordinaria.
-- **Mullen, Howard y Cronin (2024)** — revisión exploratoria amplia sobre impacto y evaluación de mathematics/statistics support; su heterogeneidad metodológica y la selección en el uso contextualizan el alcance observacional de nuestros datos.
+**Irlanda, NUI Maynooth (Mac an Bhaird et al., 2009).** Centro matemático de entrada libre y primer año. Entre estudiantes de Arts/Finance, quienes acudieron más de una vez aprobaron en 89% frente a 62% entre quienes acudieron una vez o nunca; la diferencia entre estudiantes de Science fue menor y no significativa. Se examinaron antecedentes mediante Leaving Certificate y diagnóstico. Es un antecedente directo, pero **no separa cero visitas de una**. PDF completo revisado.
 
-**Función en Introducción:** precisar qué es un mathematics support centre, por qué existe y qué dificultades tienen las evaluaciones apoyadas sólo en asistencia.
+**Irlanda, Dublin City University (Jacob y Ní Fhloinn, 2019).** Doce años y más de 10 mil registros, con regresión logística ajustada por preparación matemática y módulo. Separa cero de una visita y diversas categorías de frecuencia; OR 1.63 para una visita y 13.78 para 15+ respecto de cero. Son **odds ratios observacionales**, no diferencias de riesgo ni rendimientos causales. PDF completo revisado.
 
-## 2. Comparaciones directas de uso y desempeño
+**Estados Unidos, Texas Woman's University (Navarra-Madsen e Ingram, 2010).** Estudio piloto de tutorías *drop-in* en Cálculo I y Álgebra Abstracta: sin diferencia convincente en las notas entre usuarios y no usuarios; correlaciones de horas con nota r=.26 y .14. Es un contrapunto importante frente a la evidencia favorable; su muestra es pequeña. PDF completo revisado.
 
-- **Mac an Bhaird, Morgan y O'Shea (2009)** — primer año, antecedentes matemáticos, relación con notas y diferencia entre uso mínimo y repetido.
-- **Jacob y Ní Fhloinn (2019)** — estudio longitudinal de asistencia y passing, con categorías que distinguen una visita de ninguna y escalones de utilización; precedente cercano para no colapsar todos los usuarios en una sola categoría.
-- **Rickard y Mills (2018)** — análisis de frecuencia de tutorías y calificaciones de Cálculo I ajustando por preparación previa.
-- **Gokhool y Lawson (2026)** — **acceso sólo al resumen** en el proyecto: separa ocurrencia de alguna asistencia y número de visitas entre usuarios mediante modelo hurdle. No atribuirle variables significativas, estimaciones o diagnósticos del texto completo no disponible.
+**Estados Unidos, Cálculo I (Rickard y Mills, 2018).** El resumen de revista reporta que, tras ajuste por capacidad previa, tres visitas se correlacionan con aproximadamente un punto porcentual de nota final adicional. No contamos con el texto completo verificado, por lo que no añadir controles, tamaños o tests no documentados.
 
-**Función:** mostrar que 0 vs 1+ y frecuencia entre quienes asisten son preguntas diferentes; una representación más fina no garantiza diferencias ajustadas estadísticamente resueltas.
+**Diez centros estadounidenses (Byerley et al., 2024).** Más de 26 mil estudiantes, datos de visitas, nota y preparación, y características organizativas; estudio exploratorio de hipótesis sobre centros, no prueba causal de eficacia. Es una referencia de particular interés para TEAMAT y para evitar generalizar entre centros con organización distinta. Texto editorial disponible.
 
-## 3. Selección, no participación y help-seeking
+**Coventry University (Gokhool y Lawson, 2026).** En 12 disciplinas distingue **asistir al menos una vez** de **cuántas veces asistir entre usuarios** mediante un hurdle logit / binomial negativa; su resultado en el resumen es sobre **uso del servicio**, no calificaciones. Sólo abstract disponible; no atribuirle hallazgos detallados no consultados.
 
-- **Mac an Bhaird et al. (2013)** — razones heterogéneas de no participación; evita interpretar cero asistencia como desinterés.
-- **Fong et al. (2023)** — meta-análisis del help-seeking académico; distingue modalidades formales/instrumentales/evitativas, sin que nuestros registros permitan clasificarlas individualmente.
-- Referencias adicionales de engagement, cuando aporten a la explicación específica, deben justificarse y no usarse sólo para inflar citas.
+## Estado del campo e identificación
 
-**Función:** limitar la inferencia psicológica a partir de simples conteos.
+**Matthews et al. (2013), Lawson et al. (2020) y Mullen et al. (2024)** muestran cómo surgió y se evalúa el apoyo matemático universitario. Mullen sintetiza 148 publicaciones de 12 países: predominan hallazgos favorables, pero con gran heterogeneidad de formatos, variables y diseños, y con dificultad para controlar autoselección. Lawson y Mullen están disponibles en PDF; Matthews se documenta a través de la guía bibliográfica y de las revisiones que lo citan.
 
-## 4. Evidencia con identificación diferente
+**Mac an Bhaird et al. (2013)** estudia motivos diversos de no acudir; **Fong et al. (2023)** diferencia clases de *help-seeking*. Ninguna permite conocer la motivación de estudiantes de UDLAP a partir del contador CMAT.
 
-- **Pugatch y Wilson (2018)** — experimento de mensajes para fomentar peer tutoring; puede aumentar uso sin que quede demostrado un cambio comparable en notas.
-- **Paloyo, Rogan y Siminski (2016)** — experimento de encouragement para supplemental instruction; los resultados instrumentales pueden ser imprecisos.
-- **Büchele y Schürmann (2024)** — evaluación con técnicas de identificación causal y hallazgos distintos a comparaciones observacionales simples.
+**Pugatch y Wilson (2018)** y **Paloyo et al. (2016)** emplearon estímulos aleatorizados para incrementar la participación en tutorías/apoyo suplementario y encontraron evidencia académica menos concluyente. Esos diseños asignaron **incentivos o mensajes**, no visitas a CMAT, y sus estimaciones no son transportables directamente.
 
-**Función:** poner nuestra asociación ajustada en perspectiva; **no transferir** efectos de estos diseños ni llamarlos validación causal de CMAT.
+## Qué estaba hecho y qué podemos aportar
 
-## 5. Soporte metodológico
+Ya existe investigación sobre (a) cualquier uso vs ninguno, (b) frecuencias de asistencia y notas, (c) importancia de la preparación previa, (d) no participación, y (e) diferencias organizativas entre centros. No debemos reclamar originalidad en haber registrado visitas o desagregado la frecuencia.
 
-La bibliografía existente conserva **Austin (2011)** y **Rosenbaum & Rubin (1983)** sobre propensity scores, útiles si se incorpora una sensibilidad causal ajustada por variables previas; **no implican que este manuscrito ya estimó un propensity score**. También necesitamos documentar bibliográficamente de manera correcta el método de Holm y el tratamiento de la varianza cluster-robust; esos dos respaldos no quedan cubiertos por citar literatura de matemáticas.
+El ángulo de Paper 2.1 es **cuánta resolución entre frecuencias puede defenderse** con una muestra común de MU, ajuste por profesor–periodo y carrera, familias de pruebas Wald y corrección de Holm. Debe distinguirse el diseño previo de cola `6+` de la ampliación exploratoria `7+`, y la inferencia entre usuarios de la que incluye cero.
 
-## Vacío de investigación propuesto
+## Por verificar / adquirir
 
-La literatura ha estudiado extensamente **uso versus no uso** y, en menor grado, categorías amplias de uso repetido; nuestro estudio agrega un mapa de contrastes **ajustados por contexto de calificación y multiplicidad**, poniendo a prueba qué resolución de frecuencia soportan las observaciones sin confundir la **ausencia de diferencias significativas** con equivalencia estadística. El valor del artículo no debería formularse como «demostrar que asistir más mejora las notas», sino como una evaluación más cuidadosa de **qué puede inferirse y qué permanece indistinguible** con datos institucionales rutinarios.
+1. Texto completo de Rickard y Mills (2018) y Gokhool y Lawson (2026) si se pretenden discutir sus coeficientes más allá del abstract.
+2. Texto completo de Büchele y Schürmann (2024) para evaluar su diseño sin depender de un resumen bibliográfico.
+3. DOI, páginas, versión de registro y detalles de muestra cuando corresponda.
+4. Si se desea representación geográfica más amplia, realizar una búsqueda específica de **centros de apoyo matemático en universidades latinoamericanas y mexicanas**. No afirmar ausencia de tales estudios sin esa búsqueda.
+5. Documentar referencias metodológicas directas para Holm y errores cluster-robust antes del envío.
 
-**Por verificar antes de enviar:** años, títulos, DOI, cifras y condiciones de acceso; 14 entradas bibliográficas registradas en la guía del 20-sep-2026 (12 entonces citadas); Gokhool & Lawson permanece abstract-only. Actualizar guía/index si se cambia la selección de citas. No inventar referencias de revistas ni afirmar que una referencia se leyó por completo sin soporte.
+**Revista:** [`08_JOURNAL_Y_PLAN_DE_MANUSCRITO.md`](08_JOURNAL_Y_PLAN_DE_MANUSCRITO.md) y `../submission/METADATA.md`. **Bibliografía BibTeX:** `../paper/references.bib`. **Restricción:** artículos comparados no justifican lenguaje causal respecto de CMAT.
