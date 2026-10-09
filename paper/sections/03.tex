@@ -1,158 +1,79 @@
 \section{Results}
 
-\subsection{Attendance distribution and observed outcomes}
+\subsection{Attendance distribution and unadjusted outcomes}
 
-The study sample contained 6,627 first eligible MU attempts. Of these, 5,393 students had no recorded CMAT visit during the corresponding academic period and 1,234 (18.6\%) attended at least once. The positive-attendance distribution was concentrated at low frequencies but had a visible high-use tail: 517 students attended once, 245 twice, 170 three times, 96 four times, 55 five times, 50 exactly six times and 101 seven or more times.
+Of the 6,627 first eligible MU attempts, 5,393 students (81.4\%) had no recorded CMAT attendance and 1,234 (18.6\%) had at least one recorded visit. Positive attendance was concentrated at low frequencies: 517 students made one visit, 245 made two, 170 made three, 96 made four, 55 made five, 50 made exactly six and 101 made seven or more. \Cref{tab:visits-descriptive} presents descriptive final performance and PASS rates for the fine-resolution reporting grid. These are unadjusted summaries, not estimated changes following individual support sessions.
 
 \begin{table}[tbp]
 \centering
 \small
-\caption{Descriptive outcomes by CMAT attendance frequency for the main 0, exact 1--6, and 7+ grouping.}
-\label{tab:attendance-descriptives}
+\caption{Observed final outcomes by CMAT visit frequency. Means refer to the instructor--period-standardised final-outcome measure; confidence intervals are descriptive, not the adjusted pairwise Wald intervals.}
+\label{tab:visits-descriptive}
 \begin{tabular}{lrrr}
 \toprule
-CMAT visits & $N$ & Mean $Z$ (95\% CI) & Pass rate (95\% CI) \\
+Visits & $n$ & Mean $Z$ (95\% CI) & PASS rate (95\% CI)\\
 \midrule
-0  & 5,393 & $-0.061$ [$-0.088$, $-0.034$] & 72.1\% [70.9, 73.3] \\
-1  & 517   & 0.219 [0.146, 0.292] & 81.0\% [77.7, 84.4] \\
-2  & 245   & 0.247 [0.154, 0.339] & 80.8\% [75.9, 85.7] \\
-3  & 170   & 0.278 [0.158, 0.398] & 81.8\% [76.0, 87.6] \\
-4  & 96    & 0.267 [0.128, 0.406] & 86.5\% [79.6, 93.3] \\
-5  & 55    & 0.382 [0.225, 0.539] & 85.5\% [76.1, 94.8] \\
-6  & 50    & 0.288 [0.055, 0.520] & 82.0\% [71.4, 92.6] \\
-7+ & 101   & 0.457 [0.336, 0.579] & 89.1\% [83.0, 95.2] \\
+0 & 5,393 & $-0.061$ [$-0.088$, $-0.034$] & 72.1\% [70.9, 73.3]\\
+1 & 517 & 0.219 [0.146, 0.292] & 81.0\% [77.7, 84.4]\\
+2 & 245 & 0.247 [0.154, 0.339] & 80.8\% [75.9, 85.7]\\
+3 & 170 & 0.278 [0.158, 0.398] & 81.8\% [76.0, 87.6]\\
+4 & 96 & 0.267 [0.128, 0.406] & 86.5\% [79.6, 93.3]\\
+5 & 55 & 0.382 [0.225, 0.539] & 85.5\% [76.1, 94.8]\\
+6 & 50 & 0.288 [0.055, 0.520] & 82.0\% [71.4, 92.6]\\
+7+ & 101 & 0.457 [0.336, 0.579] & 89.1\% [83.0, 95.2]\\
 \bottomrule
 \end{tabular}
 \end{table}
 
-The exact-six group illustrates the uncertainty created by sparse upper-frequency cells. Although its point estimate drops to mean $Z=0.288$, the descriptive 95\% confidence interval is wide (0.055 to 0.520), reflecting only 50 students and substantial within-group dispersion. That interval overlaps the corresponding intervals for both five visits and 7+, so the apparent dip at exactly six visits should not be interpreted as evidence that the underlying mean truly falls before rising again at 7+. The PASS estimate is similarly uncertain at six visits (82.0\%, 95\% CI 71.4\% to 92.6\%).
+The descriptive means do not increase uniformly with each visit count: the exact-six mean, for instance, is lower than the five-visit mean and has a wide interval. The $7+$ cell remains small compared with the zero-visit group. These support differences are relevant when interpreting both local contrasts and non-rejection after multiple-testing correction.
 
-The broad zero-versus-any-attendance benchmark was pronounced after adjustment for instructor--period fixed effects and degree programme. One or more visits were associated with a 0.361-standard-deviation higher continuous outcome (95\% CI 0.302 to 0.421, $p<0.001$) and a 15.3 percentage-point higher probability of passing (95\% CI 12.4 to 18.1 percentage points, $p<0.001$). The PASS contrast does not depend on assigning latent grades to BV, RT or BA because these records enter directly as non-passing outcomes.
+\subsection{Benchmark: any use versus no recorded use}
 
-\Cref{fig:observed-pre-imputation} shows the observed records before any numerical representation of administrative outcomes. The left panel now partitions all observed non-passing outcomes into numeric grades below 7.5, BV, RT and BA, making the numeric-failure share directly comparable with the administrative states. The zero-attendance group had the largest share of completed numeric failures, while positive-attendance groups had much smaller numeric-failure shares and continued to show BV as a visible part of the non-passing margin. The centre histograms also show that the positive-attendance distributions are not simple translations of the zero-attendance distribution: their upper mass is more concentrated near passing and high grades, while a smaller lower tail remains.
+After adjustment for instructor--period and degree programme, any recorded attendance was associated with $0.361$ SD higher final standardised performance (95\% CI $0.302$--$0.421$, $p<0.001$) and a 15.3 percentage-point higher PASS probability (95\% CI 12.4--18.1 points, $p<0.001$). This is the most precisely estimated separation in the study, but is an observational comparison of final outcomes and should not be construed as pre-to-post improvement from centre use.
 
-\begin{figure}[tbp]
-\centering
-\includegraphics[width=0.96\textwidth]{../results/paper21/figures/fig01a_observed_pre_imputation_structure.pdf}
-\caption{Observed final MU outcomes by CMAT attendance frequency before adverse-outcome imputation, for 0, exact 1--6, and 7+ visits. The left panel shows all observed non-passing outcomes---numeric grades below 7.5, voluntary withdrawal (BV), temporary withdrawal (RT) and academic withdrawal (BA)---as percentages of the full attendance group. The centre panel shows observed numeric final grades in 0.1-point bins on the original 0--10 scale; bin heights are percentages of the full attendance group and use a common vertical scale. Numeric passes are shown in blue, numeric grades below 7.5 in orchid, BV in pink, RT in orange and BA in yellow. The far-right panel reports the number of students in each attendance group, making the declining support in the upper-frequency groups directly visible.}
-\label{fig:observed-pre-imputation}
-\end{figure}
+\subsection{Primary frequency inference among CMAT users}
 
-\Cref{fig:distribution-composition} represents the same groups on the instructor--period-standardised continuous scale after the pre-specified numerical treatment of administrative outcomes. Read together, \Cref{fig:observed-pre-imputation,fig:distribution-composition} separate what is directly observed from what emerges when BV, RT and BA are placed on the continuous grade scale.
+The originally selected positive-frequency grouping consists of exact 1, 2, 3, 4 and 5 visits and pooled $6+$ visits, for a total of six levels. The fixed-effect omnibus test among the 1,234 users did not reject equal adjusted outcomes across these levels for continuous standardised performance ($p=0.317$) or PASS ($p=0.152$). Moreover, none of the 15 pairwise frequency contrasts per outcome remained significant after Holm adjustment.
 
-\begin{figure}[tbp]
-\centering
-\includegraphics[width=0.92\textwidth]{../results/paper21/figures/fig01_distribution_composition_ridgeline.pdf}
-\caption{Distribution and composition of final MU outcomes on the primary continuous-outcome scale for 0, exact 1--6, and 7+ CMAT visits. Ridgelines show the instructor--period-standardised grade distribution; stacked colours show contributions from PASS, numeric grades below 7.5, BV, RT and BA. Points and horizontal bars show group means and 95\% confidence intervals.}
-\label{fig:distribution-composition}
-\end{figure}
+The importance of prespecified multiplicity treatment is evident for the widest low-versus-high comparison. Between one visit and $6+$ visits, the unadjusted pairwise $p$-values were 0.022 for the standardised outcome and 0.011 for PASS, but became 0.328 and 0.171 after Holm adjustment, respectively. Thus, isolated unadjusted comparisons provide insufficient evidence for differentiated positive-frequency categories under this primary specification.
 
-Because a KDE can conceal boundary-related or locally concentrated structure when its bandwidth is relatively large, \Cref{fig:imputed-histogram-kde} provides a complementary smoothing diagnostic for the same completed standardised outcome. It overlays 0.1-$Z$ histograms with a KDE whose bandwidth is 55\% of the baseline ridgeline bandwidth, while retaining the same outcome-state colours and the common $[-2,2]$ display range. The shorter-bandwidth curve is not used for inference or model selection; its purpose is to show how much of the apparent smoothness in \Cref{fig:distribution-composition} is attributable to the bandwidth choice and to make the locations of the imputed BV, RT and BA values visible relative to the observed numeric outcomes.
+\subsection{Full eight-category profile and exploratory upper-tail resolution}
+
+In the zero-inclusive grid $0,1,2,3,4,5,6,7+$, the adjusted model of the continuous outcome rejected equality across all levels ($p<0.001$). Every adjusted contrast between zero attendance and a positive visit category survived Holm adjustment across the 28 pairs; the weakest such comparison involved exactly six visits (adjusted $p=0.042$). All seven zero-versus-positive PASS contrasts also survived Holm correction in the corresponding full-grid family.
+
+A notable non-adjacent PASS comparison separated the $7+$ group from one-visit users by **14.5 percentage points** (95\% Wald CI 5.9--23.1 percentage points, Holm-adjusted $p=0.0206$). This estimate comes from the full sample of 6,627 and the 28-comparison family, not the primary user-only model; the finer split of the upper tail was made after the original support audit. The result therefore identifies an interesting exploratory high-frequency profile rather than a preselected attendance threshold.
+
+Within the seven positive-frequency categories, separate user-only omnibus tests remained inconclusive ($p=0.213$ for standardised grades and $p=0.102$ for PASS), and no positive-frequency pair survived the corresponding Holm adjustment. These findings are not numerically interchangeable with the full zero-inclusive model because removing zero-attendance students changes the sample, nuisance fit and covariance estimates in addition to the comparison family.
+
+No adjusted adjacent visit contrast among users survived multiplicity correction in the reported analyses. In particular, exact two and three visits did not show an abrupt change at the institutionally salient participation-credit threshold. Descriptively the mean $Z$ changed from 0.267 to 0.382 between four and five visits and from 0.288 to 0.457 between exact six and $7+$, but the corresponding adjacent adjusted contrasts did not establish a break.
 
 \begin{figure}[tbp]
 \centering
-\includegraphics[width=0.92\textwidth]{../results/paper21/figures/fig02_imputed_histogram_kde_overlay.pdf}
-\caption{Histogram and shorter-bandwidth KDE diagnostic for the completed instructor--period-standardised outcome, shown for 0, exact 1--6, and 7+ CMAT visits. Stacked 0.1-$Z$ histogram bars and stacked KDE components are coloured by final outcome state: PASS in blue, numeric grades below 7.5 in orchid, BV in pink, RT in orange and BA in yellow. Both layers are semi-transparent. The KDE bandwidth equals 0.55 times the baseline bandwidth used for the main ridgeline display, and the horizontal axis is fixed at $[-2,2]$. Administrative outcomes appear at their imputed standardised values. This figure is a smoothing and boundary diagnostic rather than an inferential model.}
-\label{fig:imputed-histogram-kde}
-\end{figure}
-
-\subsection{Where the frequency profile changes}
-
-The eight-group continuous-outcome model rejected equality across attendance frequencies ($p<0.001$), but most of that signal came from the zero-attendance benchmark. Adjusted standardised performance was higher in every positive-attendance group than in the zero group, with row-minus-zero differences ranging from 0.305 SD for one visit to 0.549 SD for 7+ visits. All seven zero-versus-positive contrasts remained significant after Holm correction across the full 28-comparison family; the weakest was exact six versus zero, with Holm-adjusted $p=0.042$.
-
-Within positive attendance, the continuous profile did not form a smooth staircase. The first three groups were close together, with descriptive means of 0.219, 0.247 and 0.278 SD. The adjusted two-versus-three difference was only 0.013 SD in favour of three visits (raw $p=0.843$), so the institutionally incentivised third visit did not coincide with an observable performance break. The next visually notable change occurred between four and five visits: mean $Z$ increased from 0.267 to 0.382 and the adjusted five-minus-four contrast was 0.174 SD, but the raw pairwise $p$-value was 0.122 and the Holm-adjusted value was 1.00. The final descriptive rise occurred from exact six to 7+, where mean $Z$ increased from 0.288 to 0.457, but the exact-six mean is itself estimated imprecisely. The adjusted six-minus-7+ contrast was $-0.136$ SD with a 95\% CI from $-0.430$ to 0.158 (raw $p=0.364$), so the data are compatible both with a meaningful 7+ advantage and with little underlying difference. Thus the changes from four to five and from six to 7+ are visible distributional features, not statistically resolved discontinuities.
-
-The 7+ group nevertheless occupies a distinctive position in the upper tail. It had the highest descriptive mean standardised outcome and the highest observed pass rate (89.1\%). Relative to one visit, the adjusted continuous difference was 0.244 SD (raw $p=0.0077$), although that contrast did not survive Holm correction ($p=0.162$). The binary outcome showed stronger evidence: in the full fixed-effect linear-probability model, the adjusted pass probability for 7+ visits exceeded the one-visit group by 14.5 percentage points (95\% CI 5.9 to 23.1 percentage points), and this contrast remained significant after Holm correction ($p=0.0206$). Comparisons of 7+ with two and three visits were also positive by about 12 percentage points, but their Holm-adjusted $p$-values were 0.154 and 0.169, respectively.
-
-The logistic point estimates tell the same upper-tail story in multiplicative terms. Compared with zero attendance, the estimated odds of passing were 2.20 times as high for one visit and 6.05 times as high for 7+ visits. Comparing positive-frequency groups directly, the 7+ group had estimated pass odds 2.75 times those of the one-visit group, 2.41 times those of the two-visit group and 2.44 times those of the three-visit group. Because the full logistic covariance matrix was rank-deficient, these odds ratios are used as effect-size descriptors rather than as the source of $p$-values.
-
-\begin{figure}[tbp]
-\centering
-\includegraphics[width=0.98\textwidth]{../results/paper21/figures/fig03_04_pairwise_effect_dashboard.pdf}
-\caption{Adjusted pairwise outcome dashboard for 0, exact 1--6, and 7+ CMAT visits. The left panel reports row-minus-column differences in instructor--period-standardised final performance. The right panel reports fixed-effect logistic odds-ratio point estimates for passing, with values above one indicating higher pass odds in the row group. Logistic odds ratios are displayed for magnitude; multiplicity-aware PASS inference is based on the stable linear-probability specification. Dashed lines mark the institutional three-visit PPA threshold.}
-\label{fig:pairwise-effect-dashboard}
+\includegraphics[width=\linewidth]{../results/paper21/figures/fig03_04_pairwise_effect_dashboard.pdf}
+\caption{Adjusted pairwise differences for instructor--period-standardised grades (SD units) and PASS probability (percentage points), using the eight-category reporting grid. Positive values represent the row group minus the column group; shading encodes effect magnitude and direction, not statistical significance.}
+\label{fig:pairwise-effects}
 \end{figure}
 
 \begin{figure}[tbp]
 \centering
-\includegraphics[width=0.96\textwidth]{../results/paper21/figures/fig05_pairwise_z_pvalue_dashboard.pdf}
-\caption{Pairwise $p$-value dashboard for adjusted standardised final performance across 0, exact 1--6, and 7+ visits. The left panel shows unadjusted pairwise $p$-values and the right panel shows Holm-adjusted values. The dashed separator marks the institutional three-visit PPA threshold.}
-\label{fig:z-pvalues}
+\includegraphics[width=.97\linewidth]{../results/paper21/figures/fig05_pairwise_z_pvalue_dashboard.pdf}
+\caption{Raw and Holm-adjusted pairwise Wald $p$-values for the standardised final-outcome model, full eight-category family.}
+\label{fig:holm-z}
 \end{figure}
 
 \begin{figure}[tbp]
 \centering
-\includegraphics[width=0.96\textwidth]{../results/paper21/figures/fig06_pairwise_pass_pvalue_dashboard.pdf}
-\caption{Pairwise $p$-value dashboard for PASS across 0, exact 1--6, and 7+ visits. The left panel shows unadjusted pairwise $p$-values and the right panel shows Holm-adjusted values from the fixed-effect linear-probability model with instructor--period-clustered covariance. The dashed separator marks the institutional three-visit PPA threshold.}
-\label{fig:pass-pvalues}
+\includegraphics[width=.97\linewidth]{../results/paper21/figures/fig06_pairwise_pass_pvalue_dashboard.pdf}
+\caption{Raw and Holm-adjusted pairwise Wald $p$-values for PASS under the linear-probability model, full eight-category family.}
+\label{fig:holm-pass}
 \end{figure}
 
-The PPA context is therefore important mainly for interpretation of the low-frequency groups. Students with one, two or three visits may include both students who sought repeated help and students whose attendance was partly motivated by the participation requirement. The data do not show a jump exactly at three visits. More visible descriptive changes occur only beyond that range, but the four-to-five and six-to-7+ adjacent contrasts remain too imprecise to be treated as causal thresholds.
+\subsection{Sensitivity to upper-tail grouping and level of clustering}
 
-\subsection{Two performance regimes: observed grades versus imputed outcomes}
+The pooled-$6+$ primary specification remained inconclusive among users after Holm correction, whereas the full eight-group model identified the exploratory $7+$ versus one-visit PASS comparison described above. This difference should be retained in interpretation rather than presented as if a uniquely optimal upper-tail resolution had been established.
 
-The ridgelines suggested that some attendance groups contain both a concentration of relatively strong outcomes and a smaller lower tail. We therefore fitted two-Gaussian models but tested them directly against a single skew-normal distribution so that ordinary asymmetry would not be mistaken for two distinct modes. \Cref{tab:mixture-components} reports the two-component parameterisation for CMAT users under both outcome definitions. The table is descriptive even when the skew-normal diagnostics do not support two components.
+Because the same instructor can teach in more than one period, we re-estimated uncertainty by clustering at instructor level. The any-use benchmark remained $0.361$ SD (95\% CI 0.305--0.417) and 15.3 PASS percentage points (95\% CI 12.8--17.8). In the user-only pooled-$6+$ model, the instructor-cluster omnibus test yielded $p=0.0477$ for grades and $p=0.0551$ for PASS. None of the grade contrasts survived Holm correction, but the non-adjacent PASS contrast comparing $6+$ visits with one visit was +12.0 percentage points (95\% CI 4.3--19.8; adjusted $p=0.0358$). No adjacent PASS contrast was significant. This sensitivity allows a wider low-versus-high distinction in PASS, but does not support a monotonic visit-by-visit gradient.
 
-\begin{table}[tbp]
-\centering
-\scriptsize
-\caption{Two-Gaussian descriptive decomposition among CMAT users using observed numeric grades and the imputed continuous outcome. Component means are in instructor--period-standardised units.}
-\label{tab:mixture-components}
-\begin{tabular}{lrrr rrr}
-\toprule
-& \multicolumn{3}{c}{Observed numeric grades} & \multicolumn{3}{c}{Imputed outcome} \\
-\cmidrule(lr){2-4}\cmidrule(lr){5-7}
-Visits & Lower wt. & $\mu_L$ & $\mu_H$ & Lower wt. & $\mu_L$ & $\mu_H$ \\
-\midrule
-1  & 15.7\% & $-0.638$ & 0.422 & 25.2\% & $-0.853$ & 0.580 \\
-2  & 13.0\% & $-0.919$ & 0.360 & 21.4\% & $-0.827$ & 0.539 \\
-3  & 44.4\% &  0.016   & 0.573 & 21.2\% & $-0.933$ & 0.604 \\
-4  & 25.4\% & $-0.582$ & 0.393 & 35.7\% & $-0.370$ & 0.620 \\
-5  & 4.1\%  & $-1.367$ & 0.301 & 9.1\%  & $-1.187$ & 0.539 \\
-6  & 57.8\% & $-0.138$ & 0.644 & 25.2\% & $-0.785$ & 0.649 \\
-7+ & 1.1\%  & $-2.859$ & 0.271 & 14.3\% & $-0.683$ & 0.648 \\
-\bottomrule
-\end{tabular}
-\end{table}
+\subsection{Observed-numeric outcome check}
 
-The imputed outcome provides the clearest evidence for a recurring high- and low-performance structure. For one through five visits, and again for 7+, the two-Gaussian model was favoured over a fitted skew-normal by the BIC/bootstrap diagnostics and also performed better out of sample on average. Exact six was the exception: its BIC and skew-normal-null bootstrap did not require two components, although cross-validation favoured the GMM on average.
-
-A striking feature of the imputed fits is the stability of the higher-performance mode. Across CMAT users, the higher-component mean remained between approximately 0.54 and 0.65 SD for groups 1--7+, including 0.649 for exact six and 0.648 for 7+. The lower component, by contrast, remained negative and changed substantially in both location and weight. Its estimated weight was 35.7\% at four visits but only 9.1\% at five visits, coinciding with the descriptive rise in mean performance from four to five. It then rose to 25.2\% at exact six before falling to 14.3\% at 7+, again coinciding with the descriptive rise from six to 7+. These changes suggest that the overall group mean can move because the relative mass of the lower-performance part of the distribution changes, even when the location of the higher-performance mode remains similar.
-
-The state composition of the imputed mixture helps explain what the lower component represents. For one, two and three visits, roughly one half or more of the lower component was BV, whereas the corresponding higher components were approximately 95--97\% PASS. The same pattern reappeared in the upper tail: at exact six, about 55\% of the lower component was BV and about 36\% was PASS, while at 7+ about 46\% was BV, 18\% numeric non-pass and 33\% PASS; the higher components at six and 7+ were about 98\% PASS. The imputed two-component representation therefore separates a high-performing mode from a lower mode heavily enriched in adverse academic endings, rather than simply splitting passing students into two arbitrary normal curves.
-
-The observed numeric-grade analysis is more conservative. A two-Gaussian model was clearly supported over a single skew-normal for one and two visits, but not uniformly thereafter. For three and four visits the skew-normal was adequate; five visits were inconclusive because only 49 numeric complete cases were available; and exact six was also adequately represented by a skew-normal. The apparent 7+ complete-case mixture requires particular caution: BIC and the bootstrap favoured two Gaussians, but the lower component had only 1.1\% weight, mean $Z=-2.86$ and variance at the numerical floor. Its posterior mass corresponded essentially to one failed observation, while the remaining 92 observations belonged almost entirely to the higher component. This is better interpreted as an extreme lower-tail observation than as a stable second student population.
-
-Thus the statement that CMAT users divide into students who perform very well and students who still experience poor outcomes is much better supported for the completed imputed outcome than for observed numeric grades alone. In the observed grades, a genuine two-mode representation is supported only for some frequencies; in the imputed data, the lower mode becomes much more coherent because administrative outcomes---especially BV---are incorporated into the lower tail.
-
-\Cref{fig:gmm-ridgeline} displays the complete-case fits for all eight attendance groups, while \Cref{fig:lower-component-weight} contrasts lower-component weights between observed and imputed outcomes.
-
-\begin{figure}[tbp]
-\centering
-\includegraphics[width=0.94\textwidth]{../results/paper21/figures/fig07_complete_case_gmm_ridgeline.pdf}
-\caption{Two-Gaussian fits to the numeric complete-case standardised-grade distributions for 0, exact 1--6, and 7+ visits. Grey ridgelines show the observed kernel density; dashed and dot-dashed curves show the weighted lower- and higher-mean Gaussian components, and the thin fitted curve is their sum. The accompanying skew-normal tests determine whether a two-component interpretation is warranted for each group.}
-\label{fig:gmm-ridgeline}
-\end{figure}
-
-\begin{figure}[tbp]
-\centering
-\includegraphics[width=0.80\textwidth]{../results/paper21/figures/fig08_lower_component_weight.pdf}
-\caption{Estimated lower-mean component weight from the two-Gaussian model for 0, exact 1--6, and 7+ CMAT visits. The solid line uses observed numeric complete cases and the dashed line uses the imputed continuous outcome. The dashed vertical marker identifies the three-visit PPA threshold.}
-\label{fig:lower-component-weight}
-\end{figure}
-
-\subsection{Composition of non-passing outcomes}
-
-The binary PASS outcome conceals substantial differences in how a non-passing attempt ends. Among students with zero visits, 10.8\% received a numeric grade below 7.5, 9.8\% had BV, 6.1\% had RT and 1.2\% had BA. Across positive-frequency groups, completed numeric failure was markedly less common, whereas BV remained visible: BV represented 14.3\%, 13.1\%, 14.1\%, 10.4\%, 9.1\%, 14.0\% and 6.9\% of the one-, two-, three-, four-, five-, six- and 7+-visit groups, respectively.
-
-Aggregating positive attendance, 82.4\% of CMAT users passed and 3.2\% received a numeric grade below 7.5, compared with 72.1\% and 10.8\% among students with no visits. Conditional on non-PASS, 923 of 1,504 zero-visit cases (61.4\%) ended administratively and 581 (38.6\%) ended with a numeric grade below 7.5; among 217 non-passing CMAT users, 178 (82.0\%) ended administratively and 39 (18.0\%) had numeric failure. After adjustment, any attendance was associated with a 13.2 percentage-point higher probability that a non-passing outcome was administrative rather than numeric (95\% CI 6.8 to 19.6 percentage points, $p<0.001$).
-
-The broad difference was concentrated in BV. Among cases restricted to BV or numeric failure, any CMAT attendance was associated with a 16.8 percentage-point higher probability of BV rather than numeric failure (95\% CI 9.5 to 24.1 percentage points, $p<0.001$). By contrast, the adjusted RT-versus-numeric-failure difference was 0.5 percentage points (95\% CI $-15.1$ to 16.2 percentage points, $p=0.945$), and BA was uncommon among users. These results describe outcome composition; they do not establish that attendance caused withdrawal or that students selected BV for any particular strategic reason.
-
-\subsection{Robustness analyses}
-
-The broad zero-versus-positive pattern persisted when administrative outcomes were removed entirely and the endpoint was restricted to observed numeric final grades. Under the pooled-tail robustness grouping, the observed numeric-failure rate was 13.0\% at zero visits and 3.5\%, 5.3\%, 3.5\%, 1.2\%, 4.1\% and 3.7\% for 1, 2, 3, 4, 5 and 6+ visits, respectively. The zero-inclusive fixed-effect logistic model strongly rejected equal failure odds ($p<0.001$). Among users alone, however, the joint test did not reject equal adjusted log odds across positive frequencies ($p=0.480$). The lower prevalence of completed numeric failure among users is therefore not an artefact of imputing administrative outcomes.
-
-Re-clustering the earlier positive-attendance specification by instructor, while retaining instructor--period fixed effects and standardisation, left the zero-versus-positive benchmark nearly unchanged. The positive-frequency omnibus tests became more suggestive ($p=0.0477$ for the continuous outcome and $p=0.0551$ for PASS), and one non-adjacent 1-versus-6+ PASS contrast survived Holm adjustment. No adjacent contrast did. This sensitivity is consistent with some broader low-versus-high frequency separation, but it still does not produce a visit-by-visit dose staircase.
-
-Taken together, the results identify three features of the attendance profile. First, the largest and most robust difference is between zero attendance and any use of CMAT. Second, the first three positive frequencies do not show an outcome discontinuity at the PPA threshold, whereas the more noticeable descriptive changes occur farther into repeated use, particularly around five visits and in the 7+ tail. Third, the 7+ group is the clearest high-frequency departure in PASS, including a Holm-significant difference from the one-visit group, while the continuous-outcome evidence remains more gradual and multiplicity-sensitive. Distributionally, the apparent high- versus low-performance structure is considerably stronger after administrative outcomes are incorporated than when only observed numeric grades are analysed.
+The complete-case analysis that excludes BV, RT and BA changes the analytic population and addresses a different endpoint. Across positive visit frequencies its omnibus test for the numeric-only standardised grade did not reject equality ($p=0.397$). This check does not remove concerns about selection into an observed final numeric grade and cannot establish that the imputation rule is consequence-free; it supports reporting the distinct PASS outcome alongside the standardised final-outcome measure.
