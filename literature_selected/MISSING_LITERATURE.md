@@ -7,7 +7,7 @@
 1. **Büchele & Schürmann (2024), *Studies in Higher Education* 49(9):1569–1587, DOI `10.1080/03075079.2023.2271029`.** Highest-priority causal mathematics-support comparator.
 2. **Rickard & Mills (2018), DOI `10.1080/0020739X.2017.1367043`.** Official abstract and metadata verified; acquire full text for exact models, covariates, and uncertainty.
 3. **Gokhool & Lawson (2026), DOI `10.1093/teamat/hrag003`.** Only abstract available; acquire full text before characterising demographic results.
-4. **Matthews et al. (2013), DOI `10.1093/teamat/hrt013`.** Acquire full text of centre evaluation review.
+4. **Matthews et al. (2013), DOI `10.1093/teamat/hrt013`.** Already listed as **M P R** in `literature/library/CATALOG.md`, with article text and PDF tracked via Git LFS. Verify local LFS materialisation and read the primary source before citing specific findings; **do not list as missing acquisition**.
 5. **MacGillivray (2009).** Acquire and verify publication metadata and appropriate role in the manuscript.
 6. Forward-citation update for the strongest mathematics-support evaluation papers before submission.
 7. Targeted assessment/standardisation literature if classroom-relative `Z` becomes a methodological contribution rather than only an adjustment device.
