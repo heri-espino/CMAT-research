@@ -27,10 +27,10 @@
 
 ## Qué NO investiga este paper
 
-No estima una mejora individual antes y después de una tutoría; no dispone de asignación aleatoria a visitas, recomendación o profesor; no demuestra que cuatro visitas «causen» un cambio; no clasifica personalidades o motivaciones; no identifica dos poblaciones latentes por ajustar dos gaussianas; no afirma que falta de significación implique equivalencia.
+No estima una mejora individual antes y después de una tutoría; no dispone de asignación aleatoria a visitas, recomendación o profesor; no demuestra que cuatro visitas «causen» un cambio; no clasifica personalidades o motivaciones; no afirma que falta de significación implique equivalencia.
 
 ## Alcance editorial decidido hoy
 
-**Holm es la estrategia principal.** 
+**Holm es el método de inferencia múltiple del artículo. Los únicos outcomes principales son Z y PASS; el estudio se detiene en las comparaciones de frecuencia, sus ajustes y las sensibilidades relacionadas.**
 
 **Fuente:** [contexto del proyecto](../paper/docs/project/PROJECT_CONTEXT.md), [plan analítico](../paper/docs/analysis/ANALYSIS_PLAN.md), [estado](../paper/docs/project/STATUS_AND_ROADMAP.md) y [metadatos de envío](../submission/METADATA.md).
