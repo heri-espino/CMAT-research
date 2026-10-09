@@ -13,7 +13,7 @@ import numpy as np
 import pandas as pd
 
 try:
-    from cmat_analysis.visualization import plot_stacked_ridgeline, set_style
+    from cmat_analysis.visualization import set_style
 except ModuleNotFoundError as exc:
     raise SystemExit(
         "Paper 2.1 figures require the shared editable library. Run:\n"
@@ -39,19 +39,6 @@ OUTCOME_COLORS = {
     "BA": "#FACC15",               # yellow
 }
 
-OBSOLETE_FIGURES = [
-    "fig02_pairwise_z_heatmap.pdf",
-    "fig03_pairwise_pass_heatmap.pdf",
-    "fig04_complete_case_gmm_ridgeline.pdf",
-    "fig05_lower_component_weight.pdf",
-    "fig06_sensitivity_7plus_z_pvalue_dashboard.pdf",
-    "fig07_sensitivity_7plus_pass_pvalue_dashboard.pdf",
-    "fig08_sensitivity_6_7plus_complete_case_gmm_ridgeline.pdf",
-    "fig09_sensitivity_6_7plus_lower_component_weight.pdf",
-    "figS01_zero_inclusive_z_heatmap.pdf",
-    "figS02_zero_inclusive_pass_heatmap.pdf",
-]
-
 
 def _save(fig: plt.Figure, name: str) -> Path:
     FIGURES_DIR.mkdir(parents=True, exist_ok=True)
@@ -63,32 +50,18 @@ def _save(fig: plt.Figure, name: str) -> Path:
 
 
 def validate() -> None:
+    """Require only adjusted Wald/Holm contrast matrices."""
     required = [
-        "10n_zero_inclusive_7plus_descriptives.csv",
-        "10o_zero_inclusive_7plus_exact_administrative_composition.csv",
-        "10p_zero_inclusive_7plus_stacked_ridgeline_density.csv",
-        "10q_zero_inclusive_7plus_observed_numeric_grade_histogram.csv",
-        "10r_zero_inclusive_7plus_imputed_z_short_kde_density.csv",
-        "10s_zero_inclusive_7plus_imputed_z_histogram.csv",
         "26b_zero_inclusive_7plus_z_effect_matrix.csv",
         "26d_zero_inclusive_7plus_pass_odds_ratio_matrix.csv",
         "26e_zero_inclusive_7plus_z_p_raw_matrix.csv",
         "26f_zero_inclusive_7plus_z_p_holm_matrix.csv",
         "26g_zero_inclusive_7plus_pass_p_raw_matrix.csv",
         "26h_zero_inclusive_7plus_pass_p_holm_matrix.csv",
-        "38_complete_case_gmm_two_component_parameters.csv",
-        "42_imputed_gmm_two_component_parameters.csv",
-        "46_complete_case_gmm_ridgeline_density.csv",
-        "54_sensitivity_6_7plus_complete_case_gmm_two_component_parameters.csv",
-        "58_sensitivity_6_7plus_imputed_gmm_two_component_parameters.csv",
-        "62_sensitivity_6_7plus_complete_case_gmm_ridgeline_density.csv",
     ]
     missing = [name for name in required if not (TABLES_DIR / name).is_file()]
     if missing:
-        raise FileNotFoundError(
-            "Missing Paper 2.1 figure inputs: " + ", ".join(missing)
-        )
-
+        raise FileNotFoundError("Missing Paper 2.1 Holm matrices: " + ", ".join(missing))
 
 
 def _central_density_limits(
@@ -689,225 +662,19 @@ def plot_pass_pvalue_dashboard() -> Path:
     )
 
 
-def _gaussian_density(
-    x: np.ndarray,
-    *,
-    mean: float,
-    sd: float,
-    weight: float = 1.0,
-) -> np.ndarray:
-    sd = max(float(sd), 1e-9)
-    z = (x - float(mean)) / sd
-    return float(weight) * np.exp(-0.5 * z**2) / (sd * np.sqrt(2.0 * np.pi))
-
-
-def _full_7plus_gmm_tables() -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame]:
-    """Assemble independently fitted 0--5 and exact-6/7+ EM outputs."""
-    complete_primary = pd.read_csv(
-        TABLES_DIR / "38_complete_case_gmm_two_component_parameters.csv"
-    )
-    imputed_primary = pd.read_csv(
-        TABLES_DIR / "42_imputed_gmm_two_component_parameters.csv"
-    )
-    density_primary = pd.read_csv(
-        TABLES_DIR / "46_complete_case_gmm_ridgeline_density.csv"
-    )
-    complete_tail = pd.read_csv(
-        TABLES_DIR / "54_sensitivity_6_7plus_complete_case_gmm_two_component_parameters.csv"
-    )
-    imputed_tail = pd.read_csv(
-        TABLES_DIR / "58_sensitivity_6_7plus_imputed_gmm_two_component_parameters.csv"
-    )
-    density_tail = pd.read_csv(
-        TABLES_DIR / "62_sensitivity_6_7plus_complete_case_gmm_ridgeline_density.csv"
-    )
-
-    for frame in (
-        complete_primary, imputed_primary, density_primary,
-        complete_tail, imputed_tail, density_tail,
-    ):
-        frame["group"] = frame["group"].astype(str)
-
-    keep_primary = ["0", "1", "2", "3", "4", "5"]
-    complete = pd.concat(
-        [
-            complete_primary.loc[complete_primary["group"].isin(keep_primary)],
-            complete_tail.loc[complete_tail["group"].isin(["6", "7+"])],
-        ],
-        ignore_index=True,
-    )
-    imputed = pd.concat(
-        [
-            imputed_primary.loc[imputed_primary["group"].isin(keep_primary)],
-            imputed_tail.loc[imputed_tail["group"].isin(["6", "7+"])],
-        ],
-        ignore_index=True,
-    )
-    density = pd.concat(
-        [
-            density_primary.loc[density_primary["group"].isin(keep_primary)],
-            density_tail.loc[density_tail["group"].isin(["6", "7+"])],
-        ],
-        ignore_index=True,
-    )
-    return complete, imputed, density
-
-
-def plot_complete_case_gmm_ridgeline() -> Path:
-    params, _, density = _full_7plus_gmm_tables()
-
-    fig, ax = plt.subplots(figsize=(9.4, 6.8))
-    ridge_height = 0.76
-    available_groups = [
-        group
-        for group in ZERO_DISPLAY_GROUPS
-        if group in set(density["group"]) and group in set(params["group"])
-    ]
-
-    for position, group in enumerate(available_groups):
-        observed = (
-            density.loc[density["group"].eq(group)]
-            .drop_duplicates("x")
-            .sort_values("x")
-        )
-        x = observed["x"].to_numpy(float)
-        y = observed["density_total"].to_numpy(float)
-        scale = float(np.nanmax(y))
-        if not np.isfinite(scale) or scale <= 0:
-            continue
-
-        baseline = float(position)
-        observed_scaled = baseline + ridge_height * y / scale
-        ax.fill_between(x, baseline, observed_scaled, color="0.75", alpha=0.30)
-        ax.plot(
-            x, observed_scaled, linewidth=1.15, color="0.25",
-            label="Observed complete-case KDE" if position == 0 else None,
-        )
-
-        group_params = params.loc[params["group"].eq(group)].copy()
-        component_curves: dict[str, np.ndarray] = {}
-        for component, linestyle, color in [
-            ("lower_performance", "--", "C1"),
-            ("higher_performance", "-.", "C2"),
-        ]:
-            row = group_params.loc[group_params["component"].eq(component)]
-            if row.empty:
-                continue
-            row = row.iloc[0]
-            curve = _gaussian_density(
-                x,
-                mean=float(row["mean"]),
-                sd=float(row["sd"]),
-                weight=float(row["weight"]),
-            )
-            component_curves[component] = curve
-            ax.plot(
-                x,
-                baseline + ridge_height * curve / scale,
-                linestyle=linestyle,
-                color=color,
-                linewidth=1.35,
-                label=(
-                    "Lower-performance Gaussian"
-                    if position == 0 and component == "lower_performance"
-                    else "Higher-performance Gaussian"
-                    if position == 0 and component == "higher_performance"
-                    else None
-                ),
-            )
-
-        if len(component_curves) == 2:
-            fitted = (
-                component_curves["lower_performance"]
-                + component_curves["higher_performance"]
-            )
-            ax.plot(
-                x,
-                baseline + ridge_height * fitted / scale,
-                linewidth=0.9,
-                color="C3",
-                alpha=0.8,
-                label="Two-component fitted density" if position == 0 else None,
-            )
-
-        lower = group_params.loc[group_params["component"].eq("lower_performance")]
-        higher = group_params.loc[group_params["component"].eq("higher_performance")]
-        if not lower.empty and not higher.empty:
-            lo, hi = lower.iloc[0], higher.iloc[0]
-            ax.text(
-                0.995,
-                (baseline + 0.08) / max(len(available_groups), 1),
-                (
-                    f"πL={float(lo['weight']):.0%}, μL={float(lo['mean']):.2f}; "
-                    f"πH={float(hi['weight']):.0%}, μH={float(hi['mean']):.2f}"
-                ),
-                transform=ax.transAxes,
-                ha="right",
-                va="bottom",
-                fontsize=7.2,
-            )
-
-    ax.axhline(2.5, linestyle="--", linewidth=0.8, color="0.55", alpha=0.7)
-    ax.set_xlim(-2, 2)
-    ax.set_yticks(np.arange(len(available_groups)), available_groups)
-    ax.set_ylim(-0.15, max(len(available_groups) - 0.05, 0.85))
-    ax.set_xlabel("Instructor-period-standardised numeric final grade (complete case)")
-    ax.set_ylabel("CMAT visits during the MU academic period")
-    ax.set_title("Complete-case Gaussian-mixture fits: 0, exact 1–6, and 7+")
-    ax.grid(axis="y", visible=False)
-    ax.legend(frameon=False, ncol=2, loc="lower center", bbox_to_anchor=(0.5, 1.01))
-    return _save(fig, "fig07_complete_case_gmm_ridgeline.pdf")
-
-
-def plot_lower_component_weight() -> Path:
-    complete, imputed, _ = _full_7plus_gmm_tables()
-
-    fig, ax = plt.subplots(figsize=(7.6, 4.4))
-    x = np.arange(len(ZERO_DISPLAY_GROUPS))
-    for frame, label, linestyle in [
-        (complete, "Numeric complete case", "-"),
-        (imputed, "Imputed-outcome sensitivity", "--"),
-    ]:
-        lower = (
-            frame.loc[frame["component"].eq("lower_performance"), ["group", "weight"]]
-            .set_index("group")
-            .reindex(ZERO_DISPLAY_GROUPS)
-        )
-        y = lower["weight"].to_numpy(float)
-        ax.plot(x, y, marker="o", linestyle=linestyle, linewidth=1.4, label=label)
-
-    ax.axvline(2.5, linestyle="--", linewidth=0.9, color="0.45", alpha=0.75)
-    ax.text(2.5, 0.98, "PPA threshold", ha="center", va="top", fontsize=7, color="0.35")
-    ax.set_xticks(x, ZERO_DISPLAY_GROUPS)
-    ax.set_ylim(0, 1)
-    ax.set_xlabel("CMAT visits during the MU academic period")
-    ax.set_ylabel(r"Estimated lower-component weight $\hat{\pi}_{L,k}$")
-    ax.set_title("Lower-component weight: 0, exact 1–6, and 7+ visits")
-    ax.legend(frameon=False)
-    ax.grid(axis="x", visible=False)
-    return _save(fig, "fig08_lower_component_weight.pdf")
-
 def main() -> int:
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        description="Generate Paper 2.1 Wald/Holm pairwise figures only.")
     parser.parse_args()
     validate()
     FIGURES_DIR.mkdir(parents=True, exist_ok=True)
-    for obsolete in OBSOLETE_FIGURES:
-        path = FIGURES_DIR / obsolete
-        if path.exists():
-            path.unlink()
     set_style()
     plt.rcParams["pdf.fonttype"] = 42
     plt.rcParams["ps.fonttype"] = 42
     for path in [
-        plot_observed_pre_imputation_structure(),
-        plot_distribution_and_composition(),
-        plot_imputed_histogram_kde_overlay(),
         plot_pairwise_effect_dashboard(),
         plot_z_pvalue_dashboard(),
         plot_pass_pvalue_dashboard(),
-        plot_complete_case_gmm_ridgeline(),
-        plot_lower_component_weight(),
     ]:
         print(path.relative_to(REPO_ROOT))
     return 0
