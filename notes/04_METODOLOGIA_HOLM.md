@@ -1,6 +1,6 @@
 # 04 — Contrastes Wald, efectos fijos y ajuste Holm
 
-## Estrategia central — suficiente sin fused lasso
+## Estrategia estadística principal: Wald y Holm
 
 La comparación inicial `0 vs 1+` es un benchmark; la pregunta de frecuencia se evalúa **entre usuarios (`K>=1`)**. Para cada uno de los outcomes principales:
 
