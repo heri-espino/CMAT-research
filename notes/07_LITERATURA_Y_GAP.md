@@ -20,7 +20,7 @@
 
 ## Estado del campo e identificación
 
-**Matthews et al. (2013), Lawson et al. (2020) y Mullen et al. (2024)** muestran cómo surgió y se evalúa el apoyo matemático universitario. Mullen sintetiza 148 publicaciones de 12 países: predominan hallazgos favorables, pero con gran heterogeneidad de formatos, variables y diseños, y con dificultad para controlar autoselección. Lawson y Mullen están disponibles en PDF; Matthews se documenta a través de la guía bibliográfica y de las revisiones que lo citan.
+**Matthews et al. (2013), Lawson et al. (2020) y Mullen et al. (2024)** muestran cómo surgió y se evalúa el apoyo matemático universitario. Mullen sintetiza 148 publicaciones de 12 países: predominan hallazgos favorables, pero con gran heterogeneidad de formatos, variables y diseños, y con dificultad para controlar autoselección. Lawson y Mullen están disponibles en PDF; Matthews ya figura con PDF y texto extraído en el catálogo maestro; hace falta verificar la materialización Git LFS y releerlo directamente antes de añadir datos específicos.
 
 **Mac an Bhaird et al. (2013)** estudia motivos diversos de no acudir; **Fong et al. (2023)** diferencia clases de *help-seeking*. Ninguna permite conocer la motivación de estudiantes de UDLAP a partir del contador CMAT.
 
