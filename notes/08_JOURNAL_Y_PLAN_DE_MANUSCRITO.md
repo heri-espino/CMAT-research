@@ -12,7 +12,6 @@ Los metadatos, plantilla y manuscrito actuales están orientados a **Teaching Ma
 
 Problema del campo: los centros de apoyo matemático utilizan registros de asistencia para evaluar alcance y rendimiento, pero «cualquier uso» oculta heterogeneidad de frecuencia y el registro final de «no-PASS» mezcla sucesos académicos diversos. Aporte: análisis de exposición categórica ordenada con variación entre contextos docentes, **familias explícitas de contrastes Holm** y una evaluación de cómo los resultados administrativos influyen en la interpretación.
 
-Procurar que los resultados matemático-educativos predominen sobre la enumeración de todas las extensiones estadísticas disponibles. La mezcla gaussiana puede quedar como sensibilidad breve o suplemento **si** se considera que interrumpe el argumento de Holm; su eventual exclusión no debe borrar la evidencia ni presentarse como fallo del método.
 
 ## Estructura de reescritura propuesta (manuscrito en inglés)
 
@@ -21,10 +20,9 @@ Procurar que los resultados matemático-educativos predominen sobre la enumeraci
 3. **Data, variables and sample.** N, grupos profesor–periodo, primer intento, exposición de periodo completo, PASS y Z/imputación, BA/BV/RT y selección.
 4. **Statistical methods.** Efectos fijos, covarianza agrupada, benchmark, omnibus sólo usuarios, contrastes Wald y Holm con familias definidas; cronología de `6+` versus `7+`.
 5. **Results — performance.** Perfil 0–7+, benchmark, omnibus/contrastes entre usuarios, sensibilidad de la cola, agrupación de varianza por profesor; presentar 7+ con su estatus exploratorio correcto.
-6. **Results — outcome composition.** PASS/numérico/BV/RT/BA; modelos condicionados a no-PASS; distinción BV vs RT.
+6. **Results — sensitivity.** Agrupación por profesor, cola de asistencia y outcome numérico observado.
 7. **Discussion.** Autoselección e incentivo, significado de una no-diferencia, otras explicaciones y valor para evaluación de centros de apoyo.
 8. **Limitations / conclusion.** No causalidad, ausencia de línea basal homogénea, datos administrativos y aplicabilidad.
-9. **Supplement (si conviene).** GMM, análisis detallados de cola y pruebas adicionales con cautela metodológica.
 
 No es una orden de descartar las secciones existentes: [`paper/sections/01.tex`–`04.tex`](../paper/README.md) **ya contienen un draft extenso**. Primero hay que comparar el texto existente con la narrativa central de Holm y entonces reorganizarlo, preservando referencias y salidas verificadas.
 
