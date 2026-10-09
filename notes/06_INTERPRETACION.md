@@ -14,10 +14,6 @@ Este argumento permite describir a CMAT y su uso sin convertir resultados de aso
 
 **PPA a tres visitas:** es una frontera de incentivos potenciales, no un corte causal. En la comparación adyacente 2–3 no se observa una discontinuidad académica robusta. Si la idea de «visitas mayores a tres» se usa, explicar que exceden esa opción de actividad, sin asegurar ausencia de otros incentivos o motivos.
 
-**Estados adversos:** la diferencia condicionada entre BV y fracaso numérico puede ser compatible con diferencias de navegación institucional, contacto con profesores o gestión académica; **no mide** ese mecanismo. RT no presenta el mismo patrón y BA es muy infrecuente entre usuarios. La tasa de retiros administrativos agregados es incluso **menor** entre usuarios que entre no usuarios: no escribir que «los usuarios se retiran más» por confundir tasas absolutas y proporciones condicionadas a no-PASS.
-
-**Imputación:** una parte de la estructura de cola inferior del Z proviene de cómo se representan resultados no numéricos. Los modelos sólo con notas observadas son una comprobación distinta, que cambia la población analizada. Las mezclas gaussianas pueden explorar forma, pero no permiten inferir «dos clases de estudiantes».
-
 ## Hipótesis alternativas abiertas
 
 - Preparación matemática previa y diagnóstico de entrada.
