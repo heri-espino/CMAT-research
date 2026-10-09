@@ -31,7 +31,6 @@ Este argumento permite describir a CMAT y su uso sin convertir resultados de aso
 | “Positive-frequency contrasts were not distinguishable after Holm adjustment.” | “More than one visit makes no difference.” |
 | “The PPA threshold contextualises attendance counts.” | “Three visits causally change performance.” |
 | “The BV-versus-numeric-failure composition was different conditional on non-PASS.” | “CMAT teaches students to withdraw strategically.” |
-| “The imputed score distribution showed mixture-like features.” | “There are two types of students.” |
 
 ## Punto central de interpretación y tensión pendiente
 
