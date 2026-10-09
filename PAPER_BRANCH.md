@@ -9,7 +9,8 @@ Paper 2 remains the simpler attendance-versus-non-attendance manuscript. Paper 2
 Read in this order:
 
 1. `PAPER_BRANCH.md`
-2. `paper/docs/project/PROJECT_CONTEXT.md`
+2. `notes/README.md` — index to the consolidated Holm-first research/writing notes (created 2026-10-09)
+3. `paper/docs/project/PROJECT_CONTEXT.md`
 3. `paper/docs/analysis/ANALYSIS_PLAN.md`
 4. `paper/docs/results/PRELIMINARY_RESULTS.md`
 5. `paper/docs/interpretation/ACADEMIC_MANAGEMENT_HYPOTHESIS.md`
@@ -33,6 +34,7 @@ paper/
 ├── sections/
 └── manuscript/build sources
 
+notes/                # Spanish working notes: context, Holm, results, interpretation, literature, journal
 literature_selected/   # paper-specific literature map and access notes
 code/                  # thin Paper 2.1 orchestration
 results/paper21/       # canonical aggregate tables and vector figures
@@ -76,3 +78,7 @@ A numeric-only complete-case outcome is retained as a sensitivity, especially fo
 This is a long-lived `paper/*` branch. Do not merge the whole branch into `main` or back into Paper 2. Reusable estimators or support diagnostics that belong across papers should be proposed for upstream integration into `cmat_analysis` and then brought back into this branch.
 
 The user retains final scientific authority.
+
+## Editorial direction after the fused-lasso exploration (2026-10-09)
+
+The manuscript should prioritize the existing **fixed-effects Wald pairwise contrasts with Holm multiplicity correction**, rather than selecting visit categories via fused lasso. The exploratory `paper/paper2.2.1-fused-frequency` branch remains separate provenance, not a replacement primary analysis. An annotated Spanish synthesis of CMAT, data, scientific claims, conflicting positive-frequency specifications, source access, TEAMAT submission strategy and open decisions is now in `notes/README.md`. These notes are research handoff, not newly run experiments. The existing paper draft under `paper/sections/` has **not** been rewritten in this change.

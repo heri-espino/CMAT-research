@@ -4,6 +4,8 @@ This branch develops a denser extension of Paper 2 focused on what happens **amo
 
 Read:
 
+- `../notes/README.md` for the Holm-first writing and scientific handoff (created 2026-10-09); its results preserve differences between full and user-only Holm families;
+
 - `docs/README.md` for the internal-document map;
 - `docs/project/PROJECT_CONTEXT.md` for the scientific question;
 - `docs/analysis/ANALYSIS_PLAN.md` for the pre-outcome analysis contract;

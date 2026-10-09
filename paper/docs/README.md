@@ -2,6 +2,8 @@
 
 The manuscript source remains directly under `paper/`; research-development documents are grouped here by purpose so that the manuscript directory stays readable.
 
+**New working-notes layer (2026-10-09):** [`../../notes/README.md`](../../notes/README.md) indexes the consolidated study context, CMAT description, full Holm methodology, source-bounded results, interpretation, selected literature, TEAMAT framing, and pending manuscript decisions. These are editorial syntheses of existing results, not new analysis output. Read this first when preparing the next paper draft; use the canonical project/methods/results files below for definitive provenance.
+
 ## Project
 
 - `project/PROJECT_CONTEXT.md` — scientific question, scope, population and framing.

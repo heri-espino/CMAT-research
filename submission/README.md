@@ -4,7 +4,7 @@ Paper 2.1 now has a complete TEAMAT/IMA manuscript draft, but it is **not submis
 
 ## Current manuscript
 
-Submission-system metadata are kept in `submission/METADATA.md`.
+Submission-system metadata are kept in `submission/METADATA.md`. The research/writing agenda and unverified institutional/journal claims are now indexed in [`../notes/README.md`](../notes/README.md); the editorial decision is to prioritize Holm-adjusted frequency comparisons, not a fused-lasso selection paper.
 
 Working title: *Beyond First Attendance: Frequency of Mathematics Support Use and the Composition of Academic Outcomes*.
 

@@ -2,6 +2,8 @@
 
 This file contains branch-specific rules for `paper/paper2.1-visit-frequency`.
 
+**New editor/research agent, 2026-10-09:** Start with root `notes/README.md` and its dated Holm-first scientific/editorial synthesis before rewriting `paper/sections/01.tex`–`04.tex`. The principal strategy is the historical fixed-effects Wald contrasts with separate Holm families; do not transfer fused-lasso partitions from the separate `paper/paper2.2.1-fused-frequency` branch. Distinguish the support-frozen pooled 6+ design from the later 7+ reporting grid, and distinguish full zero-inclusive pairwise p-values from user-only inference. Do not silently remove GMM without an explicit editorial decision. This is a documentation stage, not a newly executed study.
+
 Paper 2.1 was created from Paper 2 at commit `1956ef4bfe6073c9b28881a9da34d14cd22239a8`. The branch now contains a complete Paper 2.1 manuscript draft. Before changing it, read `paper/docs/project/STATUS_AND_ROADMAP.md`, `paper/docs/project/PROJECT_CONTEXT.md`, `paper/docs/analysis/ANALYSIS_PLAN.md`, `paper/docs/results/PRELIMINARY_RESULTS.md`, `paper/docs/interpretation/ACADEMIC_MANAGEMENT_HYPOTHESIS.md`, `paper/docs/results/MIXTURE_ANALYSIS_RESULTS.md`, and `literature_selected/ACCESS_NOTES.md`.
 
 ## What Paper 2.1 changes
