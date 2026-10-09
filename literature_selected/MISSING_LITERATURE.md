@@ -14,7 +14,7 @@
 
 ## High-priority conceptual/design gaps
 
-- A focused search for mathematics support-centre **evaluations from Mexico and Latin America**, without presuming that none exist.
+- A systematic extension of the newly identified **Costa Rican first-year mathematics peer-tutoring evaluation** to other relevant institutions in Mexico and Latin America, without claiming an exhaustive regional inventory.
 - Direct methodological citations for **Holm multiple-comparison adjustment and clustered inference** in an educational observational setting.
 
 - Recent *Teaching Mathematics and Its Applications* studies of mathematics-support use and academic performance.
