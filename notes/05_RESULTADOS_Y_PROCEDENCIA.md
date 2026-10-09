@@ -1,66 +1,29 @@
-# 05 — Resultados documentados: qué números podemos usar
+# 05 — Resultados de frecuencia y ajuste Holm
 
-**Tipo de documento:** extracción de reportes del repositorio, **no reestimación nueva**. Antes de escribir un número en inglés, localizar su CSV agregado en `results/paper21/tables/` y revisar que corresponde al outcome, población, agrupación y cluster declarados. Reproducir valores p y CIs con su misma especificación.
+Fuente: tablas CSV agregadas de `results/paper21/tables/`. Esta nota resume resultados ya estimados; no constituye una corrida nueva.
 
-## 1. Benchmark, universo de 6,627 estudiantes
+## Benchmark
 
-Con efectos fijos profesor–periodo, carrera y SE cluster-robust profesor–periodo:
+Con N=6,627 y 190 grupos profesor–periodo, cualquier asistencia frente a cero se asocia con **+0.36118 DE** en calificación Z (IC 95% 0.30172–0.42065) y **+15.2917 pp** en PASS (IC 12.4376–18.1457 pp). Fuente `10_benchmark_0_vs_1plus.csv`.
 
-| Comparación: cualquier visita menos 0 | Estimación | IC 95% | Evidencia |
-|---|---:|---:|---|
-| Calificación final Z (imputación canónica) | **+0.361 DE** | 0.302–0.421 | p<0.001 |
-| PASS | **+15.3 puntos porcentuales** | 12.4–18.1 pp | p<0.001 |
+## Entre usuarios: agrupación originalmente congelada
 
-Estas magnitudes se refieren a **asociación transversal de desempeño final**, no cambio individual ni impacto causal.
+N=1,234, 176 profesor–periodo, frecuencias `1/2/3/4/5/6+`. Omnibus **p=0.31655** para Z y **p=0.15222** para PASS; **ningún par entre los 15** supera Holm en cada outcome. Comparar 1 con 6+: Z p cruda 0.022 vs Holm 0.328; PASS p cruda 0.011 vs Holm 0.171. Fuentes `12_primary_omnibus.csv`, `13_primary_pairwise_continuous.csv`, `14_primary_pairwise_pass.csv`.
 
-## 2. Frecuencias entre usuarios, agrupación histórica 6+
+## Sensibilidad entre usuarios: cola 7+
 
-| Visitas | N | Z media descriptiva | Porcentaje PASS descriptivo |
-|---|---:|---:|---:|
-| 1 | 517 | 0.219 | 81.0% |
-| 2 | 245 | 0.247 | 80.8% |
-| 3 | 170 | 0.278 | 81.8% |
-| 4 | 96 | 0.267 | 86.5% |
-| 5 | 55 | 0.382 | 85.5% |
-| 6+ | 151 | 0.401 | 86.8% |
+`1/2/3/4/5/6/7+`, 21 contrastes por outcome. Omnibus Z **p=0.21257**, PASS **p=0.10198**; ningún par sobreviviendo Holm. Fuente `21_sensitivity_7plus_omnibus.csv` y tablas `22`–`23`.
 
-Prueba omnibus entre asistentes: `p_Z=0.317`, `p_PASS=0.152`; **ningún par entre los seis grupos** sobrevive Holm (familia de 15 por outcome). Como ejemplo de por qué importa la multiplicidad, 1 vs 6+ en Z tiene p cruda 0.022 que pasa a 0.328 tras Holm; en PASS pasa de 0.011 a 0.171. Los puntos anteriores son **medias/tasas observadas**, no coeficientes ajustados ni una secuencia causal.
+## Modelo completo, cero incluido
 
-## 3. Sensibilidad granular y modelo completo de ocho categorías
+`0/1/2/3/4/5/6/7+`, N=6,627, 28 contrastes por outcome. Todos los `0` frente a cada frecuencia positiva sobreviven Holm en Z y PASS. En PASS, `7+` menos una visita = **+14.4865 pp**, IC 95% [5.9074, 23.0656] pp, p-Holm **0.02056**; este resultado pertenece al modelo completo, no a la muestra exclusiva de usuarios. Fuente `26k_zero_inclusive_7plus_pairwise_pass_lpm.csv`; Z: `26a_zero_inclusive_7plus_pairwise_continuous.csv`; matrices `26b`, `26e`–`26h`.
 
-La grilla actual del manuscrito es `0/1/2/3/4/5/6/7+`. Entre usuarios, en el análisis específico de siete frecuencias positivas, omnibus `p_Z=0.213` y `p_PASS=0.102`; allí no sobrevive ningún par Holm. Por separado, el **modelo completo con cero visitas incluido** registra que todos los contrastes `0` frente a cada nivel positivo del outcome Z sobreviven Holm, y que el contraste **`7+` vs `1` en PASS es +14.5 pp**, `p_Holm=0.0206`, con estimación logística de sensibilidad **OR=2.75**.
+## Sensibilidad: varianza agrupada por profesor
 
-En términos descriptivos, `Z` pasa de 0.267 (4 visitas) a 0.382 (5), y de 0.288 (6 exactas) a 0.457 (7+); los saltos adyacentes **no** están resueltos inferencialmente. El grupo 7+ registra una tasa PASS descriptiva de **89.1%**; el de 6 exactas, 82.0%. El caso 7+ exige declarar soporte (N=101), que su partición no fue la originalmente congelada y qué familia de p se aplicó.
+En usuarios (51 profesores), omnibus Z **p=0.0477**, PASS **p=0.0551**. El contraste no adyacente PASS `6+` contra `1` = **+12.0 pp** (IC 4.3–19.8, p-Holm 0.0358); ningún contraste de Z supera Holm. El benchmark se mantiene cerca de +0.361 Z y +15.3 pp PASS. Fuentes `26_instructor_cluster_pairwise_continuous.csv`, `27_instructor_cluster_pairwise_pass.csv`, `28_instructor_cluster_omnibus.csv` y `29_instructor_cluster_benchmark_0_vs_1plus.csv`.
 
-## 4. Sensibilidad al nivel de clustering
+## Validez e interpretación
 
-Al agrupar errores por **profesor** en lugar de profesor–periodo, el benchmark conserva +0.361 DE (IC 0.305–0.417; 53 clusters) y +15.3 pp PASS (IC 12.8–17.8; 53 clusters). Entre usuarios (51 clusters), omnibus `p_Z=0.0477` y `p_PASS=0.0551`. Ningún contraste continuo sobrevive Holm; en PASS `6+` vs `1` = **+12.0 pp** (IC 4.3–19.8; `p_Holm=0.0358`). Las diferencias entre resultados primarios y esta sensibilidad deben presentarse completas, no seleccionar la que convenga narrativamente.
+Estos resultados son asociaciones ajustadas, no efectos causales. Ausencia de rechazo entre categorías positivas no implica equivalencia. No fundir las familias de 15, 21 y 28 pares ni escoger retrospectivamente un contraste al conocer su p-value. La agrupación 6+ se decidió antes de revisar outcomes; la presentación 7+ fue posterior.
 
-## 5. Decomposición del resultado final
-
-| Estado final (porcentaje de todos los estudiantes del grupo) | Sin visitas | Con 1+ |
-|---|---:|---:|
-| PASS | 72.1% | 82.4% |
-| Nota numérica menor de 7.5 | 10.8% | 3.2% |
-| BV/RT | 15.9% | 14.3% |
-| BA | 1.2% | 0.2% |
-
-**Entre no-PASS**, 923 de 1,504 no usuarios (61.4%) y 178 de 217 usuarios (82.0%) tuvieron resultado administrativo en lugar de fracaso numérico. Contraste ajustado = **+13.2 pp** (IC 6.8–19.6; p<0.001).
-
-Separando códigos, entre no-PASS (BV contra fracaso numérico y excluyendo RT/BA), cualquier asistencia se asoció con **+16.8 pp** (IC 9.5–24.1; p<0.001). El análogo RT vs fracaso numérico fue **+0.5 pp** (IC -15.1–16.2; p=0.945). La composición no demuestra que estudiantes recibieran tutoría para escoger BV ni que BV protegiera su GPA. Entre usuarios, omnibus de composición no-PASS: p=0.495 administrativo/numérico; p=0.599 BV/RT/numérico; p=0.523 BV/numérico; no hubo pares positivos Holm-significativos.
-
-## 6. Nota numérica observada y distribuciones
-
-Sin imputar BA/BV/RT, la probabilidad ajustada de **fracaso numérico**, condicional a tener nota numérica, es bastante menor para quienes asistieron; entre usuarios, omnibus p=0.480 y ningún par de OR sobrevive Holm. La Z sólo numérica tiene prueba global entre usuarios **p=0.397**. No llamar a la diferencia entre imputado y observado un «efecto real de tutoría», pues cambian tanto la variable como la selección del subconjunto.
-
-Se dispone además de extensiones GMM / skew-normal en `paper/docs/results/MIXTURE_ANALYSIS_RESULTS.md`. Son **exploratorias y secundarias respecto del plan actual basado en Holm**; los componentes gaussianos no son tipos de estudiantes y el resultado imputado depende de los códigos administrativos.
-
-## 7. Proveniencia y reproducibilidad
-
-- Resultado principal y sensibilidades: [PRELIMINARY_RESULTS.md](../paper/docs/results/PRELIMINARY_RESULTS.md).
-- Resultados distribucionales: [MIXTURE_ANALYSIS_RESULTS.md](../paper/docs/results/MIXTURE_ANALYSIS_RESULTS.md).
-- Salidas agregadas: `../results/paper21/tables/` y `../results/paper21/figures/`.
-- Runner(s) y generación del paper: `../code/`, `../paper/paper_build.py`; biblioteca upstream `../cmat_analysis/`.
-- El documento de estado registra, entre otros, Actions **35657154301** (GMM), **36678572075** (skew-normal), **36685329947** (integración completa 01–48), con hashes en [roadmap](../paper/docs/project/STATUS_AND_ROADMAP.md). No atribuir esas corridas a una nueva investigación Holm ni inferir que cada manuscrito generado haya sido verificado ahora.
-
-**Control previo a publicación:** construir una matriz `número -> archivo CSV -> columna/filtro -> estimando -> método -> resultado impreso`; el archivo [10_MATRIZ_DE_AFIRMACIONES.md](10_MATRIZ_DE_AFIRMACIONES.md) es el punto de partida.
+**Pendiente:** reconciliar todos los números y leyendas con la compilación actual, la definición de Z y las decisiones de clustering; documentar el commit de una eventual reestimación controlada.
