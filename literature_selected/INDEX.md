@@ -9,6 +9,7 @@
 | Core | Mac an Bhaird, Morgan & O'Shea (2009), NUI Maynooth | More than one visit vs once/never, differences by programme and mathematical preparation | Complete PDF |
 | Core | Jacob & Ní Fhloinn (2019), Dublin City University | One visit distinguished from zero; multiple attendance categories; adjusted odds of passing | Complete PDF |
 | Core | Rickard & Mills (2018), US Calculus I | Regression of grades on tutoring visits adjusted for prior ability | Publisher abstract; complete text not checked |
+| Core regional | Chacón-Vargas (2022), Costa Rica | Tutoría entre pares en Matemática General; comparaciones por intensidad; diferencia generalmente no significativa y cola 14+ pequeña | Publisher full text |
 | Core contrasting | Navarra-Madsen & Ingram (2010), Texas Woman's University | Pilot reports no strong tutoring-hours/grade association | Complete PDF |
 | Core multicentre | Byerley et al. (2024), ten US centres | Records from >26,000 students, organizational heterogeneity, hypotheses not formal tests | Publisher text accessible |
 | Conceptual | Gokhool & Lawson (2026), Coventry | Two separate margins: any engagement and count among engaged; predicts utilisation, not grades | Publisher abstract only |
