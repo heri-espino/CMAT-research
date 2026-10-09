@@ -22,6 +22,6 @@ La fecha exacta de inicio/final de esa modalidad, a quiénes aplicó, su vigenci
 
 La existencia del centro y sus registros permite observar dos dimensiones distintas: **si hubo alguna asistencia** y **cuántas asistencias se registraron entre quienes acudieron**. La distinción está motivada tanto por el funcionamiento institucional como por la literatura de aprendizaje matemático y help-seeking; sin embargo, los conteos no revelan por qué cada estudiante acudió.
 
-**Fuente principal:** [Contexto institucional y metodología ya redactados](../paper/sections/02.tex); [nota sobre incentivo y grupos](../paper/docs/analysis/VISIT_GROUPING_DECISION.md); [marco de interpretación](../paper/docs/interpretation/ACADEMIC_MANAGEMENT_HYPOTHESIS.md).
+**Fuente principal:** [Contexto institucional y metodología ya redactados](../paper/sections/02.tex); [nota sobre incentivo y grupos](../paper/docs/analysis/VISIT_GROUPING_DECISION.md).
 
 **Verificación pendiente:** descripción y horarios históricos, periodo de vigencia de PPA, significado oficial de todos los códigos administrativos.
