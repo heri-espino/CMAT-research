@@ -8,6 +8,8 @@
 
 **Irlanda, Dublin City University (Jacob y Ní Fhloinn, 2019).** Doce años y más de 10 mil registros, con regresión logística ajustada por preparación matemática y módulo. Separa cero de una visita y diversas categorías de frecuencia; OR 1.63 para una visita y 13.78 para 15+ respecto de cero. Son **odds ratios observacionales**, no diferencias de riesgo ni rendimientos causales. PDF completo revisado.
 
+**Costa Rica, Instituto Tecnológico de Costa Rica (Chacón-Vargas, 2022).** Primer año de Matemática General, con 528 participantes voluntarios en un programa de tutoría entre pares y comparaciones de calificaciones por intensidad de asistencia. Las distribuciones no difirieron significativamente en la mayoría de comparaciones, salvo en el subconjunto de 14+ sesiones (n=26), cuya escasez obliga a cautela. El programa no es idéntico a CMAT; es una referencia regional útil sobre resolución de frecuencia. **Texto completo editorial revisado.**
+
 **Estados Unidos, Texas Woman's University (Navarra-Madsen e Ingram, 2010).** Estudio piloto de tutorías *drop-in* en Cálculo I y Álgebra Abstracta: sin diferencia convincente en las notas entre usuarios y no usuarios; correlaciones de horas con nota r=.26 y .14. Es un contrapunto importante frente a la evidencia favorable; su muestra es pequeña. PDF completo revisado.
 
 **Estados Unidos, Cálculo I (Rickard y Mills, 2018).** El resumen de revista reporta que, tras ajuste por capacidad previa, tres visitas se correlacionan con aproximadamente un punto porcentual de nota final adicional. No contamos con el texto completo verificado, por lo que no añadir controles, tamaños o tests no documentados.
@@ -36,6 +38,7 @@ El ángulo de Paper 2.1 es **cuánta resolución entre frecuencias puede defende
 2. Texto completo de Büchele y Schürmann (2024) para evaluar su diseño sin depender de un resumen bibliográfico.
 3. DOI, páginas, versión de registro y detalles de muestra cuando corresponda.
 4. Si se desea representación geográfica más amplia, realizar una búsqueda específica de **centros de apoyo matemático en universidades latinoamericanas y mexicanas**. No afirmar ausencia de tales estudios sin esa búsqueda.
-5. Documentar referencias metodológicas directas para Holm y errores cluster-robust antes del envío.
+5. Ampliar la búsqueda de evidencia latinoamericana y mexicana a partir del estudio ya identificado en Costa Rica; no asumir que representa toda la región.
+6. Documentar referencias metodológicas directas para Holm y errores cluster-robust antes del envío.
 
 **Revista:** [`08_JOURNAL_Y_PLAN_DE_MANUSCRITO.md`](08_JOURNAL_Y_PLAN_DE_MANUSCRITO.md) y `../submission/METADATA.md`. **Bibliografía BibTeX:** `../paper/references.bib`. **Restricción:** artículos comparados no justifican lenguaje causal respecto de CMAT.
