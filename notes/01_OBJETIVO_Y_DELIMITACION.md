@@ -31,6 +31,6 @@ No estima una mejora individual antes y después de una tutoría; no dispone de 
 
 ## Alcance editorial decidido hoy
 
-**Holm es la estrategia principal.** El experimento de fused lasso de `paper/paper2.2.1-fused-frequency` se conserva como exploración histórica, **no es la base del manuscrito** y no se traerán sus coeficientes, particiones ni validación sin una decisión científica específica. La investigación de mezclas que ya existe dentro de Paper 2.1 es secundaria: decidir si permanece resumida, pasa a material suplementario o se separa antes de volver a redactar.
+**Holm es la estrategia principal.** 
 
 **Fuente:** [contexto del proyecto](../paper/docs/project/PROJECT_CONTEXT.md), [plan analítico](../paper/docs/analysis/ANALYSIS_PLAN.md), [estado](../paper/docs/project/STATUS_AND_ROADMAP.md) y [metadatos de envío](../submission/METADATA.md).
