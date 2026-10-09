@@ -18,7 +18,7 @@
 
 - Mullen, Howard & Cronin (2024): 148 evaluations across 12 countries; methodological heterogeneity and bias, **complete PDF**.
 - Lawson, Grove & Croft (2020): evolution and changing aims of support centres, **complete PDF**.
-- Matthews et al. (2013): evaluation literature review, **repository guide/secondary description; full PDF not checked here**.
+- Matthews et al. (2013): evaluation literature review, **the master catalogue registers extracted text + a Git LFS PDF; independent full-text review still pending**.
 
 ## Attendance, selection, and stronger designs
 
@@ -36,4 +36,4 @@ Paper 2.1 tests differences between **positive frequencies** with Wald tests and
 
 ## Acquisition priorities
 
-See [`MISSING_LITERATURE.md`](MISSING_LITERATURE.md): full texts Rickard/Mills, Gokhool/Lawson, Büchele/Schürmann; original Matthews review; selected Latin American comparators if found; foundational Holm and cluster-robust inference sources.
+See [`MISSING_LITERATURE.md`](MISSING_LITERATURE.md): full texts Rickard/Mills, Gokhool/Lawson, Büchele/Schürmann; verify and read already catalogued Matthews review; selected Latin American comparators if found; foundational Holm and cluster-robust inference sources.
