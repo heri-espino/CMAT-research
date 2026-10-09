@@ -19,4 +19,4 @@
 
 **Documento fuente** no equivale automáticamente a tabla reproducible. Antes de publicación, agregar el nombre exacto de CSV agregado, versión/commit, filtro, unidad, escalamiento y familia de p para cada fila inferencial. Si un número de manuscrito no coincide con el registro canónico, crear incidencia en `notes/09_DECISIONES_Y_PENDIENTES.md` y resolverla, nunca elegir a ojo.
 
-**Rutas:** `../paper/docs/results/PRELIMINARY_RESULTS.md`, `../paper/docs/results/MIXTURE_ANALYSIS_RESULTS.md`, `../paper/docs/analysis/VISIT_GROUPING_DECISION.md`, `../paper/docs/interpretation/ACADEMIC_MANAGEMENT_HYPOTHESIS.md`, `../literature_selected/ACCESS_NOTES.md`, `../submission/METADATA.md`.
+**Rutas:** `../paper/docs/results/PRELIMINARY_RESULTS.md`, `../paper/docs/analysis/VISIT_GROUPING_DECISION.md`, `../literature_selected/ACCESS_NOTES.md`, `../submission/METADATA.md`.
