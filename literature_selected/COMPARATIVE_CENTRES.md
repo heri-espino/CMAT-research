@@ -28,7 +28,7 @@
 
 ## Estado del campo y heterogeneidad
 
-**Matthews et al. (2013)**, [DOI](https://doi.org/10.1093/teamat/hrt013), revisan evaluaciones de centros matemáticos: fuentes de uso, percepciones y resultados académicos requieren criterios de valoración explícitos. **Acceso en esta revisión: síntesis bibliográfica del repositorio y referencia secundaria en Mullen; no PDF completo.**
+**Matthews et al. (2013)**, [DOI](https://doi.org/10.1093/teamat/hrt013), revisan evaluaciones de centros matemáticos: fuentes de uso, percepciones y resultados académicos requieren criterios de valoración explícitos. **Acceso: el catálogo maestro registra PDF y texto extraído (Git LFS), aunque en esta revisión se utilizó su síntesis bibliográfica y evidencia secundaria; queda pendiente lectura directa.**
 
 **Lawson, Grove & Croft (2020)**, [DOI](https://doi.org/10.1080/0020739X.2019.1662120), sitúan históricamente el apoyo matemático institucional, su uso, no participación y evaluación. **PDF completo leído**.
 
