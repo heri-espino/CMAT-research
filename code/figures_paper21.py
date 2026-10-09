@@ -62,7 +62,7 @@ def plot_pairwise_effect_dashboard() -> Path:
     for row in pass_pairs.itertuples(index=False):
         left_group, right_group = str(row.group1), str(row.group2)
         i, j = positions[left_group], positions[right_group]
-        delta = float(row.adjusted_difference_group1_minus_group2)
+        delta = 100.0 * float(row.adjusted_difference_group1_minus_group2)
         passdiff[i, j], passdiff[j, i] = delta, -delta
     np.fill_diagonal(z, np.nan)
     np.fill_diagonal(passdiff, np.nan)
@@ -107,14 +107,14 @@ def plot_pairwise_effect_dashboard() -> Path:
             if np.isfinite(passdiff[i, j]):
                 value = passdiff[i, j]
                 axes[1].text(
-                    j, i, f"{value*100:+.1f}",
+                    j, i, f"{value:+.1f}",
                     ha="center", va="center", fontsize=7.2,
                 )
 
     cbar_left = fig.colorbar(left, ax=axes[0], shrink=0.82, pad=0.03)
     cbar_left.set_label("Row minus column, SD")
     cbar_right = fig.colorbar(right, ax=axes[1], shrink=0.82, pad=0.03)
-    cbar_right.set_label("Row minus column, pass probability")
+    cbar_right.set_label("Row minus column, percentage points")
 
     fig.suptitle(
         "Adjusted pairwise outcomes by CMAT attendance frequency: 0, exact 1–6, and 7+ visits",
