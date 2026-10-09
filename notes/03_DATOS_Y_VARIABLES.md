@@ -45,10 +45,7 @@ Los modelos capturan asociaciones condicionadas por contexto observable, no elim
 
 **Z numérico complete-case**: sólo estudiantes con calificación numérica observada, sin BA/BV/RT. No corresponde a la misma población condicionada que la variable continua imputada; su uso debe dejar claro el posible sesgo de selección.
 
-**Composición del resultado final**: PASS, fracaso numérico, BV/RT y BA; también una clasificación en cinco estados que separa BV, RT y BA. Los resultados condicionados a no-PASS no describen la misma población que los modelos completos.
 
 ## Ausencias relevantes
 
-Sin medidas comparables de desempeño **antes y después de asistir** a CMAT, no se estima ganancia causal de aprendizaje. Sin tiempo de permanencia o temas tratados, frecuencia no es dosis de tutoría; sin preparación basal homogénea, motivación, asesoramiento o timing de retiros, persiste confusión/selección no observada.
-
-**Fuentes:** [marco de outcomes](../paper/docs/analysis/OUTCOME_FRAMEWORK.md), [plan](../paper/docs/analysis/ANALYSIS_PLAN.md), [decisión de agrupación](../paper/docs/analysis/VISIT_GROUPING_DECISION.md), [contexto de cohorte](../paper/docs/project/PROJECT_CONTEXT.md) y [cifras de resultados](../paper/docs/results/PRELIMINARY_RESULTS.md).
+No se observan mejoras individuales pre/post ni se registra preparación inicial completa, motivación, duración de tutoría o cronología exacta de retiros. La variable PASS trata BA/BV/RT como no acreditación y la continua usa la imputación canónica; no se formulan inferencias independientes sobre tipos de retiro.
