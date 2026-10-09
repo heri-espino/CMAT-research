@@ -44,7 +44,6 @@ En la sensibilidad con clustering por **profesor**, el omnibus entre usuarios pr
 3. **Análisis sólo entre usuarios con las categorías pre-outcome `1/2/3/4/5/6+`**, pruebas omnibus y familia Holm de 15.
 4. Análisis de resolución `6/7+` y modelo completo de ocho categorías, identificando por separado el contraste destacado 7+ vs 1 y su familia.
 5. Variación de incertidumbre al agrupar por profesor y otras sensibilidades.
-6. Composición de resultados académicos: PASS/numérico/BV/RT/BA y contrastes condicionados no-PASS, con sus propias familias inferenciales.
 
 ## Prohibiciones interpretativas
 
