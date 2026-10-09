@@ -1,103 +1,38 @@
-# Paper 2 literature index — MU performance
+# Paper 2.1 — selective index of relevant mathematics-support evidence
 
-This index prioritizes literature directly relevant to mathematics-support use and academic performance in first-attempt MU. Use `../literature/library/CATALOG.md` to locate preferred source records and exact source-material paths.
+**Last literature review:** 2026-10-09. This folder synthesises sources that inform the Holm-only attendance-frequency article. Read [`COMPARATIVE_CENTRES.md`](COMPARATIVE_CENTRES.md) first for *setting, samples, statistical design, result, limitations and source-verification level*; [`READING_GUIDE.md`](READING_GUIDE.md) supplies short individual summaries. Full bibliographic identifiers are in `../paper/references.bib`.
 
-## Core mathematics-support evidence
+## Direct comparison: centres with attendance and mathematics outcomes
 
-### `mullen_2024_mathematics-statistics-support-review`
-- Priority: **core**.
-- Role: broad current review of mathematics/statistics support impact/evaluation; principal field anchor.
+| Importance | Study | Main relevance | Verification |
+|---|---|---|---|
+| Core | Mac an Bhaird, Morgan & O'Shea (2009), NUI Maynooth | More than one visit vs once/never, differences by programme and mathematical preparation | Complete PDF |
+| Core | Jacob & Ní Fhloinn (2019), Dublin City University | One visit distinguished from zero; multiple attendance categories; adjusted odds of passing | Complete PDF |
+| Core | Rickard & Mills (2018), US Calculus I | Regression of grades on tutoring visits adjusted for prior ability | Publisher abstract; complete text not checked |
+| Core contrasting | Navarra-Madsen & Ingram (2010), Texas Woman's University | Pilot reports no strong tutoring-hours/grade association | Complete PDF |
+| Core multicentre | Byerley et al. (2024), ten US centres | Records from >26,000 students, organizational heterogeneity, hypotheses not formal tests | Publisher text accessible |
+| Conceptual | Gokhool & Lawson (2026), Coventry | Two separate margins: any engagement and count among engaged; predicts utilisation, not grades | Publisher abstract only |
 
-### `lawson_2019_mathematics-support-literature-review`
-- Priority: **core**.
-- Role: field review and institutional context.
+## Evaluation reviews and limitations
 
-### `mac-an-bhaird_2009_mathematics-support-centre-grades`
-- Priority: **core**.
-- Role: direct support-centre attendance/grade comparator.
+- Mullen, Howard & Cronin (2024): 148 evaluations across 12 countries; methodological heterogeneity and bias, **complete PDF**.
+- Lawson, Grove & Croft (2020): evolution and changing aims of support centres, **complete PDF**.
+- Matthews et al. (2013): evaluation literature review, **repository guide/secondary description; full PDF not checked here**.
 
-### `jacob_2018_mathematics-support-impact-irish-university`
-- Priority: **core**.
-- Role: longitudinal mathematics-support/outcome evidence.
+## Attendance, selection, and stronger designs
 
-### `berry_2015_mathematics-learning-support-at-risk-students`
-- Priority: **core**.
-- Role: use/performance among at-risk students; relevant for selection and heterogeneous need.
+- Mac an Bhaird et al. (2013): heterogeneity in non-engagement, nine Irish higher-education institutions, **complete PDF**.
+- Fong et al. (2023): formal/instrumental vs avoidant/executive help seeking, postsecondary meta-analysis, **complete PDF**.
+- Pugatch & Wilson (2018): randomized encouragement of peer tutoring changes take-up more clearly than grades, **complete PDF**.
+- Paloyo, Rogan & Siminski (2016): randomized encouragement of supplemental instruction, **working paper PDF; published metadata recorded**.
+- Büchele & Schürmann (2024): identification-oriented centre study in Economics, **existing bibliography summary; full text not checked in this review**.
 
-### `matthews_2013_evaluation-mathematics-support-centres`
-- Priority: **core**.
-- Role: evaluation approaches for mathematics-support centres.
+## Not automatically transferred to Paper 2.1
 
-### `pell_2008_mathematics-support-for-all`
-- Priority: **core**.
-- Role: participation/outcome context.
+The wider source catalogue includes Pell, Croft, Berry, MacGillivray and other relevant mathematics-learning-support researchers. They should not be assigned effect sizes or detailed methods without consulting the primary articles. Literature on online support, educational nudges and first-year belonging may inform institutional context but is not a substitute for direct mathematics-centre attendance/outcome evidence.
 
-### `navarra-madsen_2010_mathematics-tutoring-student-success`
-- Priority: supporting/core comparator.
-- Role: mathematics tutoring and student success.
+Paper 2.1 tests differences between **positive frequencies** with Wald tests and Holm multiplicity correction, acknowledging small high-frequency cells and self-selection. Earlier studies have already examined attendance frequency; the intended contribution is the transparent *resolution and uncertainty of adjusted pairwise comparisons*, not a claim of first discovery or causal dose response.
 
-### Additional support-setting sources
+## Acquisition priorities
 
-- `mac-an-bhaird_2013_non-engagement-mathematics-support` — non-engagement/barriers to support use.
-- `ni-fhloinn_2016_gender-engagement-mathematics-support` — heterogeneity in mathematics-support engagement.
-- `johns_2026_performance-assessment-mathematics-tutoring-centres` — recent tutoring-centre assessment/evaluation context.
-- `tinsley_2018_math-help-centers-student-perceptions` — student perceptions/help-centre context.
-
-## Academic help-seeking / selection context
-
-### `fong_2023_academic-help-seeking-achievement`
-- Priority: **core**.
-- Role: meta-analytic anchor linking academic help-seeking and achievement.
-- Limitation: help-seeking is endogenous; attendance is not randomized treatment.
-
-### Supporting help-seeking theory/evidence
-
-- `karabenick_1991_academic-help-seeking-learning-strategies` — help-seeking and learning strategies.
-- `karabenick_2001_help-large-college-classes` — heterogeneity in who seeks help and from whom.
-- `karabenick_2011_self-regulated-help-seeking` — formal/self-regulated help-seeking framework.
-- `kahu_2013_student-engagement-framework` — broader engagement framing; secondary in Paper 2.
-
-## Encouragement / intervention comparators
-
-- `pugatch_2018_nudging-peer-tutoring-higher-education` — encouragement toward peer tutoring; useful for uptake/outcome contrast.
-- `paloyo_2016_supplemental-instruction-academic-performance` — randomized encouragement design; useful causal contrast to observational CMAT use.
-
-These comparators help distinguish what stronger identification can estimate; their causal estimates should not be mapped onto CMAT.
-
-## Selection / observational methods
-
-### `austin_2011_propensity-score-confounding`
-- Priority: **methods**.
-- Role: practical propensity-score/confounding guidance for observational sensitivity analyses.
-
-### `rosenbaum_1983_propensity-score-causal-effects`
-- Priority: **methods**.
-- Role: foundational propensity-score methodology.
-
-These sources support adjustment/sensitivity language. They do **not** turn the primary CMAT design into a causal estimate because important pre-treatment variables, including baseline mathematics proficiency, are incomplete in the current administrative data.
-
-## Measurement and classroom heterogeneity
-
-Paper 2 uses classroom-relative performance:
-
-`Z = (grade - classroom mean) / classroom sample SD`
-
-with classroom defined as professor × subject × period and a minimum valid classroom size.
-
-- `kjaergaard_2024_gradeless-learning-academic-performance` — secondary assessment/performance context.
-
-Literature directly motivating this exact standardisation remains a targeted gap. Statistical references for heteroskedastic inference, clustered uncertainty and multiple comparisons belong in the manuscript methods bibliography rather than being treated as substantive mathematics-support evidence.
-
-## Current empirical interpretation to protect
-
-The exact visit-group analysis distinguishes two questions:
-
-1. **use vs non-use** — robust separation between zero visits and positive use;
-2. **dose among users** — no robust monotone ordering among 1, 2, 3 and 4+ after multiplicity-aware comparisons.
-
-Paper 2 should distinguish:
-
-- complete first-MU cohort (`N=6,627` in the current documented snapshot) for contemporaneous MU performance;
-- later-Calculus progressor subset (`N=4,211`) as a selected future-conditioned sensitivity/population, not a replacement estimand.
-
-Do not describe the observational pattern as a causal dose-response without stronger identification.
+See [`MISSING_LITERATURE.md`](MISSING_LITERATURE.md): full texts Rickard/Mills, Gokhool/Lawson, Büchele/Schürmann; original Matthews review; selected Latin American comparators if found; foundational Holm and cluster-robust inference sources.
