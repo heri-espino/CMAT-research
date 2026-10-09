@@ -1,5 +1,0 @@
-outcome_specification,group,component,ordered_component,model_component_index,weight,mean,sd,ashman_d_two_component_model
-numeric_complete_case_sensitivity_6_vs_7plus,6,lower_performance,1,0,0.5781663670968502,-0.13784200478460457,0.6185483143311875,1.762667936563496
-numeric_complete_case_sensitivity_6_vs_7plus,6,higher_performance,2,1,0.42183363290314985,0.6435067125178119,0.1019094410196095,1.762667936563496
-numeric_complete_case_sensitivity_6_vs_7plus,7+,lower_performance,1,1,0.010752688171999881,-2.8590710138670383,0.001,9.932466159169575
-numeric_complete_case_sensitivity_6_vs_7plus,7+,higher_performance,2,0,0.9892473118280001,0.2712207764154797,0.44569897249107904,9.932466159169575

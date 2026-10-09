@@ -1,3 +1,0 @@
-outcome_specification,group,null_components,alternative_components,n,log_likelihood_null,log_likelihood_alternative,likelihood_ratio,bootstrap_replicates,bootstrap_exceedances,bootstrap_p_value
-numeric_complete_case_sensitivity_6_vs_7plus,6,1,2,43,-39.89691566443859,-27.403775893595622,24.98627954168593,99,0,0.01
-numeric_complete_case_sensitivity_6_vs_7plus,7+,1,2,93,-76.0911549292933,-55.73424211166611,40.713825635254366,99,0,0.01

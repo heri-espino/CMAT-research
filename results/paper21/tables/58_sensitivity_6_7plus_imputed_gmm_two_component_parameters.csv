@@ -1,5 +1,0 @@
-outcome_specification,group,component,ordered_component,model_component_index,weight,mean,sd,ashman_d_two_component_model
-primary_imputed_sensitivity_6_vs_7plus,6,lower_performance,1,1,0.2519992060173461,-0.7845228206765608,0.9085817605510568,2.0805469837481585
-primary_imputed_sensitivity_6_vs_7plus,6,higher_performance,2,0,0.7480007939826538,0.6489375574769286,0.35195574101985266,2.0805469837481585
-primary_imputed_sensitivity_6_vs_7plus,7+,lower_performance,1,0,0.14308947106320083,-0.6829004991387313,0.6875492769656132,2.4504031910122333
-primary_imputed_sensitivity_6_vs_7plus,7+,higher_performance,2,1,0.8569105289367991,0.6478130909359379,0.34220201750780416,2.4504031910122333

@@ -1,3 +1,0 @@
-outcome_specification,group,null_components,alternative_components,n,log_likelihood_null,log_likelihood_alternative,likelihood_ratio,bootstrap_replicates,bootstrap_exceedances,bootstrap_p_value
-primary_imputed_sensitivity_6_vs_7plus,6,1,2,50,-61.59809189033363,-48.34899261496617,26.498198550734912,99,0,0.01
-primary_imputed_sensitivity_6_vs_7plus,7+,1,2,101,-95.1247859922064,-73.6740492652213,42.9014734539702,99,0,0.01
