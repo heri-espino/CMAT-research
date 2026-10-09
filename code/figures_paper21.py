@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate Paper 2.1 publication figures from aggregate analysis outputs."""
+"""Paper 2.1 Holm-only pairwise figures from aggregate adjusted tables."""
 
 from __future__ import annotations
 
@@ -8,37 +8,15 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 from matplotlib.colors import PowerNorm
-from matplotlib.patches import Patch
 import numpy as np
 import pandas as pd
 
-try:
-    from cmat_analysis.visualization import set_style
-except ModuleNotFoundError as exc:
-    raise SystemExit(
-        "Paper 2.1 figures require the shared editable library. Run:\n"
-        '  python -m pip install -e "./cmat_analysis[dev]"'
-    ) from exc
-
+from cmat_analysis.visualization import set_style
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
 TABLES_DIR = REPO_ROOT / "results" / "paper21" / "tables"
 FIGURES_DIR = REPO_ROOT / "results" / "paper21" / "figures"
-GROUPS = ["0", "1", "2", "3", "4", "5", "6+"]
 ZERO_DISPLAY_GROUPS = ["0", "1", "2", "3", "4", "5", "6", "7+"]
-USER_GROUPS = ["1", "2", "3", "4", "5", "6+"]
-SENSITIVITY_GROUPS = ["1", "2", "3", "4", "5", "6", "7+"]
-OUTCOME_STATES = ["pass", "numeric_nonpass", "BV", "RT", "BA"]
-
-# Consistent publication colours for observed and imputed outcome-state displays.
-OUTCOME_COLORS = {
-    "pass": "#2563EB",              # blue
-    "numeric_nonpass": "#DA70D6",  # orchid
-    "BV": "#F472B6",               # pink
-    "RT": "#F59E0B",               # orange
-    "BA": "#FACC15",               # yellow
-}
-
 
 def _save(fig: plt.Figure, name: str) -> Path:
     FIGURES_DIR.mkdir(parents=True, exist_ok=True)
@@ -47,7 +25,6 @@ def _save(fig: plt.Figure, name: str) -> Path:
     fig.savefig(path, bbox_inches="tight")
     plt.close(fig)
     return path
-
 
 def validate() -> None:
     """Require only adjusted Wald/Holm contrast matrices."""
@@ -63,426 +40,6 @@ def validate() -> None:
     if missing:
         raise FileNotFoundError("Missing Paper 2.1 Holm matrices: " + ", ".join(missing))
 
-
-def _central_density_limits(
-    density: pd.DataFrame,
-    *,
-    lower: float = 0.005,
-    upper: float = 0.995,
-) -> tuple[float, float]:
-    limits = []
-    for group in GROUPS:
-        subset = (
-            density.loc[density["group"].astype(str).eq(group)]
-            .drop_duplicates("x")
-            .sort_values("x")
-        )
-        if subset.empty:
-            continue
-        x = subset["x"].to_numpy(float)
-        y = subset["density_total"].to_numpy(float)
-        increments = (y[:-1] + y[1:]) * 0.5 * np.diff(x)
-        cumulative = np.concatenate([[0.0], np.cumsum(increments)])
-        if cumulative[-1] <= 0:
-            continue
-        cumulative /= cumulative[-1]
-        limits.append(
-            (
-                float(np.interp(lower, cumulative, x)),
-                float(np.interp(upper, cumulative, x)),
-            )
-        )
-    left = min(value[0] for value in limits)
-    right = max(value[1] for value in limits)
-    margin = 0.04 * (right - left)
-    return left - margin, right + margin
-
-def _plot_observed_histogram_structure(
-    *,
-    histogram_path: Path,
-    composition_path: Path,
-    group_order: list[str],
-    filename: str,
-    grade_title: str,
-) -> Path:
-    """Plot observed non-passing shares beside a full-group-normalised histogram."""
-    histogram = pd.read_csv(histogram_path)
-    composition = pd.read_csv(composition_path)
-    histogram["group"] = histogram["group"].astype(str)
-    composition["group"] = composition["group"].astype(str)
-
-    share = (
-        composition.set_index(["group", "outcome_state"])["share_within_group"]
-        .astype(float)
-    )
-
-    component_labels = {
-        "pass": "Numeric pass (>=7.5)",
-        "numeric_nonpass": "Numeric <7.5",
-        "BV": "BV",
-        "RT": "RT",
-        "BA": "BA",
-    }
-    component_colors = OUTCOME_COLORS.copy()
-
-    fig, (ax_admin, ax_grade, ax_counts) = plt.subplots(
-        1, 3, figsize=(12.6, 6.2), sharey=True,
-        gridspec_kw={"width_ratios": [1.7, 4.8, 1.05], "wspace": 0.06},
-    )
-    hist_height = 0.78
-    positions = np.arange(len(group_order), dtype=float)
-
-    group_counts = (
-        histogram.groupby("group", observed=True)["group_n"]
-        .first()
-        .reindex(group_order)
-        .astype(float)
-    )
-    if group_counts.isna().any():
-        missing_groups = group_counts.index[group_counts.isna()].tolist()
-        raise ValueError(
-            "Missing group_n values for count panel: "
-            + ", ".join(str(group) for group in missing_groups)
-        )
-
-    def group_share(group: str, state: str) -> float:
-        key = (group, state)
-        return float(share.loc[key]) if key in share.index else 0.0
-
-    nonpass_states = ["numeric_grade_below_7.5", "BV", "RT", "BA"]
-    nonpass_totals = [
-        100.0 * sum(group_share(group, state) for state in nonpass_states)
-        for group in group_order
-    ]
-    nonpass_limit = max(20.0, 5.0 * np.ceil((max(nonpass_totals) + 3.0) / 5.0))
-    max_bin_percent = float(histogram["percent_of_full_group"].max())
-    hist_scale_percent = max(5.0, 5.0 * np.ceil(max_bin_percent / 5.0))
-
-    for position, group in zip(positions, group_order):
-        left = 0.0
-        for state in nonpass_states:
-            width = 100.0 * group_share(group, state)
-            color_key = "numeric_nonpass" if state == "numeric_grade_below_7.5" else state
-            ax_admin.barh(
-                position, width, left=left, height=0.38,
-                color=component_colors[color_key], edgecolor="white", linewidth=0.45,
-            )
-            if width >= 1.15:
-                ax_admin.text(left + width / 2.0, position, f"{width:.1f}%",
-                              ha="center", va="center", fontsize=6.4)
-            elif width > 0:
-                ax_admin.text(left + width / 2.0, position + 0.29, f"{width:.1f}%",
-                              ha="center", va="bottom", fontsize=5.8)
-            left += width
-        ax_admin.text(
-            min(left + 0.45, nonpass_limit - 0.25), position, f"{left:.1f}% total",
-            ha="left" if left + 0.45 < nonpass_limit - 0.25 else "right",
-            va="center", fontsize=6.5, color="0.25",
-        )
-
-        observed = histogram.loc[histogram["group"].eq(group)].sort_values("bin_center")
-        if observed.empty:
-            continue
-        x = observed["bin_center"].to_numpy(float)
-        percent = observed["percent_of_full_group"].to_numpy(float)
-        heights = hist_height * percent / hist_scale_percent
-        colors = [
-            component_colors["numeric_nonpass"] if center < 7.5 else component_colors["pass"]
-            for center in x
-        ]
-        ax_grade.bar(
-            x, heights, width=0.088, bottom=position, align="center",
-            color=colors, edgecolor="white", linewidth=0.12,
-        )
-        ax_grade.hlines(position, -0.05, 10.05, linewidth=0.55, color="0.35")
-
-        fail_share = 100.0 * group_share(group, "numeric_grade_below_7.5")
-        pass_share = 100.0 * group_share(group, "pass")
-        ax_grade.text(
-            5.6, position + 0.11, f"{fail_share:.1f}% total",
-            ha="right", va="bottom", fontsize=6.5,
-            color=component_colors["numeric_nonpass"],
-            bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.78, "pad": 0.8},
-        )
-        ax_grade.text(
-            9.72, position + 0.11, f"{pass_share:.1f}% total",
-            ha="right", va="bottom", fontsize=6.5, color=component_colors["pass"],
-            bbox={"facecolor": "white", "edgecolor": "none", "alpha": 0.78, "pad": 0.8},
-        )
-
-    ax_admin.set_xlim(0.0, nonpass_limit)
-    ax_admin.set_xticks(np.arange(0.0, nonpass_limit + 0.1, 5.0))
-    ax_admin.set_xlabel("Non-passing outcomes (% of full group)")
-    ax_admin.set_ylabel("CMAT visits during the MU academic period")
-    ax_admin.set_yticks(positions, group_order)
-    ax_admin.set_title("Observed non-passing outcomes", fontsize=9.5)
-    ax_admin.grid(axis="y", visible=False)
-
-    ax_grade.axvline(7.5, linestyle="--", linewidth=0.9, color="0.35", alpha=0.85)
-    ax_grade.text(
-        7.5, len(group_order) - 0.05, "pass mark 7.5", rotation=90,
-        ha="right", va="top", fontsize=7, color="0.35",
-    )
-    ax_grade.set_xlim(-0.05, 10.05)
-    ax_grade.set_ylim(-0.35, len(group_order) - 1 + hist_height + 0.28)
-    ax_grade.set_xlabel("Observed numeric MU final grade")
-    ax_grade.set_title(grade_title, fontsize=9.5)
-    ax_grade.grid(axis="y", visible=False)
-    ax_grade.tick_params(axis="y", left=False, labelleft=False)
-    ax_grade.text(
-        0.01, 0.985,
-        f"Common bar-height scale: 0–{hist_scale_percent:.0f}% of full group per bin",
-        transform=ax_grade.transAxes, ha="left", va="top", fontsize=6.6, color="0.35",
-    )
-
-    # Far-right panel: attendance-group sample sizes.  This panel uses the
-    # same y positions as the outcome panels so the loss of support in the
-    # upper-frequency tail is visible directly in Figure 1.
-    count_values = group_counts.to_numpy(float)
-    max_count = float(np.nanmax(count_values))
-    count_limit = max_count * 1.22
-    ax_counts.barh(
-        positions,
-        count_values,
-        height=0.42,
-        color="0.62",
-        edgecolor="white",
-        linewidth=0.45,
-    )
-    for position, value in zip(positions, count_values):
-        ax_counts.text(
-            value + 0.025 * max_count,
-            position,
-            f"{int(value):,}",
-            ha="left",
-            va="center",
-            fontsize=6.8,
-            color="0.20",
-        )
-    ax_counts.set_xlim(0.0, count_limit)
-    ax_counts.set_xlabel("Students (N)")
-    ax_counts.set_title("Counts", fontsize=9.5)
-    ax_counts.grid(axis="y", visible=False)
-    ax_counts.grid(axis="x", linewidth=0.55, alpha=0.45)
-    ax_counts.tick_params(axis="y", left=False, labelleft=False)
-
-    fig.legend(
-        handles=[Patch(facecolor=component_colors[c], label=component_labels[c])
-                 for c in ["pass", "numeric_nonpass", "BV", "RT", "BA"]],
-        frameon=False, ncol=5, loc="upper center", bbox_to_anchor=(0.5, 1.01),
-    )
-    fig.subplots_adjust(top=0.88)
-    return _save(fig, filename)
-
-
-def plot_observed_pre_imputation_structure() -> Path:
-    """Observed zero-inclusive structure with exact 1--6 visits and a 7+ tail."""
-    return _plot_observed_histogram_structure(
-        histogram_path=TABLES_DIR / "10q_zero_inclusive_7plus_observed_numeric_grade_histogram.csv",
-        composition_path=TABLES_DIR / "10o_zero_inclusive_7plus_exact_administrative_composition.csv",
-        group_order=ZERO_DISPLAY_GROUPS,
-        filename="fig01a_observed_pre_imputation_structure.pdf",
-        grade_title="Observed numeric grades: 0, exact 1–6 visits, and 7+",
-    )
-
-
-def plot_distribution_and_composition() -> Path:
-    density = pd.read_csv(
-        TABLES_DIR / "10p_zero_inclusive_7plus_stacked_ridgeline_density.csv"
-    )
-    summary = pd.read_csv(TABLES_DIR / "10n_zero_inclusive_7plus_descriptives.csv")
-    summary = summary.rename(
-        columns={
-            "mean_z": "outcome_mean",
-            "z_ci95_low": "outcome_ci95_low",
-            "z_ci95_high": "outcome_ci95_high",
-        }
-    )
-
-    fig, ax = plt.subplots(figsize=(8.4, 6.0))
-    component_labels = {
-        "pass": "Pass",
-        "numeric_nonpass": "Numeric <7.5",
-        "BV": "BV",
-        "RT": "RT",
-        "BA": "BA",
-    }
-    component_colors = OUTCOME_COLORS.copy()
-    plot_stacked_ridgeline(
-        density,
-        group_order=ZERO_DISPLAY_GROUPS,
-        component_order=OUTCOME_STATES,
-        summary=summary,
-        colors=component_colors,
-        component_labels=component_labels,
-        ridge_height=0.82,
-        ax=ax,
-    )
-    ax.axvline(0, linestyle="--", linewidth=0.9, alpha=0.65)
-    ax.set_xlim(-2, 2)
-    ax.set_xlabel("Instructor-period-standardised MU grade (Z)")
-    ax.set_ylabel("CMAT visits during the MU academic period")
-    ax.grid(axis="y", visible=False)
-    ax.legend(
-        handles=[
-            Patch(
-                facecolor=component_colors[component],
-                label=component_labels[component],
-            )
-            for component in OUTCOME_STATES
-        ],
-        frameon=False,
-        ncol=5,
-        loc="lower center",
-        bbox_to_anchor=(0.5, 1.01),
-    )
-    return _save(fig, "fig01_distribution_composition_ridgeline.pdf")
-
-def plot_imputed_histogram_kde_overlay() -> Path:
-    """Overlay a short-bandwidth KDE and histogram for the imputed Z outcome."""
-    density = pd.read_csv(
-        TABLES_DIR / "10r_zero_inclusive_7plus_imputed_z_short_kde_density.csv"
-    )
-    histogram = pd.read_csv(
-        TABLES_DIR / "10s_zero_inclusive_7plus_imputed_z_histogram.csv"
-    )
-    density["group"] = density["group"].astype(str)
-    density["component"] = density["component"].astype(str)
-    histogram["group"] = histogram["group"].astype(str)
-    histogram["component"] = histogram["component"].astype(str)
-
-    component_labels = {
-        "pass": "Pass",
-        "numeric_nonpass": "Numeric <7.5",
-        "BV": "BV",
-        "RT": "RT",
-        "BA": "BA",
-    }
-    ridge_height = 0.78
-    fig, ax = plt.subplots(figsize=(8.8, 6.2))
-
-    for y, group in enumerate(ZERO_DISPLAY_GROUPS):
-        kde_group = density.loc[
-            density["group"].eq(group)
-            & density["x"].between(-2.0, 2.0)
-        ].copy()
-        hist_group = histogram.loc[histogram["group"].eq(group)].copy()
-        if kde_group.empty or hist_group.empty:
-            continue
-
-        x_values = np.sort(kde_group["x"].unique().astype(float))
-        total_kde = (
-            kde_group.drop_duplicates("x")
-            .set_index("x")
-            .reindex(x_values)["density_total"]
-            .fillna(0.0)
-            .to_numpy(float)
-        )
-
-        bin_centers = np.sort(hist_group["bin_center"].unique().astype(float))
-        hist_total = (
-            hist_group.groupby("bin_center", observed=True)["density_of_full_group"]
-            .sum()
-            .reindex(bin_centers, fill_value=0.0)
-            .to_numpy(float)
-        )
-        maximum = float(max(np.nanmax(total_kde), np.nanmax(hist_total)))
-        scale = ridge_height / maximum if np.isfinite(maximum) and maximum > 0 else 1.0
-
-        hist_cumulative = np.zeros_like(bin_centers, dtype=float)
-        for component in OUTCOME_STATES:
-            frame = (
-                hist_group.loc[
-                    hist_group["component"].eq(component),
-                    ["bin_center", "bin_left", "bin_right", "density_of_full_group"],
-                ]
-                .set_index("bin_center")
-                .reindex(bin_centers)
-            )
-            values = frame["density_of_full_group"].fillna(0.0).to_numpy(float)
-            widths = (
-                frame["bin_right"].fillna(pd.Series(bin_centers + 0.05, index=frame.index)).to_numpy(float)
-                - frame["bin_left"].fillna(pd.Series(bin_centers - 0.05, index=frame.index)).to_numpy(float)
-            )
-            ax.bar(
-                bin_centers,
-                values * scale,
-                width=widths * 0.90,
-                bottom=y + hist_cumulative * scale,
-                color=OUTCOME_COLORS[component],
-                alpha=0.38,
-                edgecolor="none",
-                align="center",
-                zorder=2,
-            )
-            hist_cumulative += values
-
-        kde_cumulative = np.zeros_like(x_values, dtype=float)
-        for component in OUTCOME_STATES:
-            component_values = (
-                kde_group.loc[
-                    kde_group["component"].eq(component),
-                    ["x", "density_component"],
-                ]
-                .set_index("x")
-                .reindex(x_values)["density_component"]
-                .fillna(0.0)
-                .to_numpy(float)
-            )
-            lower = y + kde_cumulative * scale
-            kde_cumulative += component_values
-            upper = y + kde_cumulative * scale
-            ax.fill_between(
-                x_values,
-                lower,
-                upper,
-                color=OUTCOME_COLORS[component],
-                alpha=0.22,
-                linewidth=0,
-                zorder=3,
-            )
-
-        ax.plot(
-            x_values,
-            y + total_kde * scale,
-            color="0.15",
-            linewidth=0.9,
-            alpha=0.80,
-            zorder=4,
-        )
-        ax.hlines(y, -2.0, 2.0, color="0.72", linewidth=0.45, zorder=1)
-
-    scale_values = pd.to_numeric(density.get("bandwidth_scale"), errors="coerce")
-    bandwidth_scale = float(scale_values.dropna().iloc[0]) if scale_values.notna().any() else np.nan
-    note = (
-        f"KDE bandwidth = {bandwidth_scale:.2f} x baseline; histogram bins = 0.1 Z"
-        if np.isfinite(bandwidth_scale)
-        else "Short-bandwidth KDE; histogram bins = 0.1 Z"
-    )
-    ax.text(
-        0.01, 0.985, note, transform=ax.transAxes,
-        ha="left", va="top", fontsize=6.8, color="0.35"
-    )
-    ax.axvline(0.0, linestyle="--", linewidth=0.9, color="0.30", alpha=0.65)
-    ax.set_xlim(-2.0, 2.0)
-    ax.set_ylim(-0.35, len(ZERO_DISPLAY_GROUPS) - 1 + ridge_height + 0.25)
-    ax.set_yticks(np.arange(len(ZERO_DISPLAY_GROUPS)), ZERO_DISPLAY_GROUPS)
-    ax.set_xlabel("Instructor-period-standardised MU grade (Z)")
-    ax.set_ylabel("CMAT visits during the MU academic period")
-    ax.set_title("Imputed outcome: histogram and shorter-bandwidth KDE", fontsize=10)
-    ax.grid(axis="y", visible=False)
-    ax.legend(
-        handles=[
-            Patch(facecolor=OUTCOME_COLORS[c], label=component_labels[c], alpha=0.75)
-            for c in OUTCOME_STATES
-        ],
-        frameon=False,
-        ncol=5,
-        loc="lower center",
-        bbox_to_anchor=(0.5, 1.01),
-    )
-    return _save(fig, "fig02_imputed_histogram_kde_overlay.pdf")
-
 def _matrix_from_csv(path: Path, group_order: list[str]) -> np.ndarray:
     frame = pd.read_csv(path).copy()
     frame["group"] = frame["group"].astype(str)
@@ -493,38 +50,41 @@ def _matrix_from_csv(path: Path, group_order: list[str]) -> np.ndarray:
         .to_numpy(copy=True)
     )
 
-
 def plot_pairwise_effect_dashboard() -> Path:
     """Main pairwise dashboard for the full 0,1,...,6,7+ paper grouping."""
     groups = ZERO_DISPLAY_GROUPS
     z = _matrix_from_csv(
         TABLES_DIR / "26b_zero_inclusive_7plus_z_effect_matrix.csv", groups
     )
-    odds = _matrix_from_csv(
-        TABLES_DIR / "26d_zero_inclusive_7plus_pass_odds_ratio_matrix.csv", groups
-    )
-    log_odds = np.log(odds)
+    pass_pairs = pd.read_csv(TABLES_DIR / "26k_zero_inclusive_7plus_pairwise_pass_lpm.csv")
+    passdiff = np.zeros((len(groups), len(groups)), dtype=float)
+    positions = {name: i for i, name in enumerate(groups)}
+    for row in pass_pairs.itertuples(index=False):
+        left_group, right_group = str(row.group1), str(row.group2)
+        i, j = positions[left_group], positions[right_group]
+        delta = float(row.adjusted_difference_group1_minus_group2)
+        passdiff[i, j], passdiff[j, i] = delta, -delta
     np.fill_diagonal(z, np.nan)
-    np.fill_diagonal(log_odds, np.nan)
+    np.fill_diagonal(passdiff, np.nan)
 
     zmax = float(np.nanmax(np.abs(z)))
-    lomax = float(np.nanmax(np.abs(log_odds)))
+    pmax = float(np.nanmax(np.abs(passdiff)))
     if not np.isfinite(zmax) or zmax <= 0:
         zmax = 1.0
-    if not np.isfinite(lomax) or lomax <= 0:
-        lomax = 1.0
+    if not np.isfinite(pmax) or pmax <= 0:
+        pmax = 1.0
 
     fig, axes = plt.subplots(1, 2, figsize=(12.0, 5.5), sharex=True, sharey=True)
     threshold = groups.index("2") + 0.5
 
     left = axes[0].imshow(z, cmap="RdBu_r", vmin=-zmax, vmax=zmax)
-    right = axes[1].imshow(log_odds, cmap="RdBu_r", vmin=-lomax, vmax=lomax)
+    right = axes[1].imshow(passdiff, cmap="RdBu_r", vmin=-pmax, vmax=pmax)
 
     for ax, title in zip(
         axes,
         [
             "Adjusted standardised-grade difference",
-            "Adjusted odds ratio for passing (point estimate)",
+            "Adjusted pass-probability difference (pp)",
         ],
     ):
         ax.set_xticks(np.arange(len(groups)), groups)
@@ -544,19 +104,17 @@ def plot_pairwise_effect_dashboard() -> Path:
                     j, i, f"{z[i, j]:+.2f}",
                     ha="center", va="center", fontsize=7.2,
                 )
-            if np.isfinite(log_odds[i, j]):
-                value = odds[i, j]
+            if np.isfinite(passdiff[i, j]):
+                value = passdiff[i, j]
                 axes[1].text(
-                    j, i, f"{value:.2f}",
+                    j, i, f"{value*100:+.1f}",
                     ha="center", va="center", fontsize=7.2,
                 )
 
     cbar_left = fig.colorbar(left, ax=axes[0], shrink=0.82, pad=0.03)
     cbar_left.set_label("Row minus column, SD")
     cbar_right = fig.colorbar(right, ax=axes[1], shrink=0.82, pad=0.03)
-    ticks = cbar_right.get_ticks()
-    cbar_right.set_ticklabels([f"{np.exp(value):.2f}" for value in ticks])
-    cbar_right.set_label("Odds ratio for passing (row / column)")
+    cbar_right.set_label("Row minus column, pass probability")
 
     fig.suptitle(
         "Adjusted pairwise outcomes by CMAT attendance frequency: 0, exact 1–6, and 7+ visits",
@@ -571,7 +129,6 @@ def plot_pairwise_effect_dashboard() -> Path:
     fig.subplots_adjust(top=0.88, bottom=0.12, wspace=0.16)
     return _save(fig, "fig03_04_pairwise_effect_dashboard.pdf")
 
-
 def _format_pvalue(value: float) -> str:
     if not np.isfinite(value):
         return ""
@@ -580,7 +137,6 @@ def _format_pvalue(value: float) -> str:
     if value < 0.01:
         return f"{value:.3f}"
     return f"{value:.2f}"
-
 
 def _pvalue_dashboard(
     *,
@@ -641,7 +197,6 @@ def _pvalue_dashboard(
     fig.subplots_adjust(top=0.86, bottom=0.14, wspace=0.12)
     return _save(fig, filename)
 
-
 def plot_z_pvalue_dashboard() -> Path:
     return _pvalue_dashboard(
         raw_path=TABLES_DIR / "26e_zero_inclusive_7plus_z_p_raw_matrix.csv",
@@ -651,7 +206,6 @@ def plot_z_pvalue_dashboard() -> Path:
         group_order=ZERO_DISPLAY_GROUPS,
     )
 
-
 def plot_pass_pvalue_dashboard() -> Path:
     return _pvalue_dashboard(
         raw_path=TABLES_DIR / "26g_zero_inclusive_7plus_pass_p_raw_matrix.csv",
@@ -660,7 +214,6 @@ def plot_pass_pvalue_dashboard() -> Path:
         outcome_title="Adjusted pass probability (linear-probability inference)",
         group_order=ZERO_DISPLAY_GROUPS,
     )
-
 
 def main() -> int:
     parser = argparse.ArgumentParser(
@@ -682,3 +235,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
