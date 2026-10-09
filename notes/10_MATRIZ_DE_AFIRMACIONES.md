@@ -12,9 +12,6 @@
 | Entre usuarios de 7 categorías positivas la prueba global PASS p=.102 | `PRELIMINARY_RESULTS.md` §3 | Especificación detallada | No reemplazar con full-grid p |
 | `7+` vs `1` PASS +14.5 pp, Holm p=.0206 | `PRELIMINARY_RESULTS.md` introducción | Modelo completo `0..7+` | Cronología exploratoria del 7+ y familia de 28 |
 | Profesor-cluster PASS `6+` vs 1 +12.0 pp, Holm p=.0358 | `PRELIMINARY_RESULTS.md` §7 | Sensibilidad por profesor; usuarios | No es frontera adyacente |
-| No-PASS administrativo vs numérico +13.2 pp | `PRELIMINARY_RESULTS.md` §4 | Condicional no-PASS | Denominador distinto; no «más retiros absolutos» |
-| BV vs fracaso numérico +16.8 pp; RT sin contraste resuelto | `ACADEMIC_MANAGEMENT_HYPOTHESIS.md` | Submuestras no-PASS | No atribuir motivos o reglas de GPA |
-| Imputación cambia forma de la distribución continua | `MIXTURE_ANALYSIS_RESULTS.md` | GMM/skew-normal exploratorios | No identificar clases o mecanismos |
 | El journal objetivo es TEAMAT | `submission/METADATA.md`, `paper/README.md` | Estrategia editorial vigente en repo | Revalidar requisitos actuales directamente |
 | Gokhool y Lawson (2026) separa uso y frecuencia | `literature_selected/ACCESS_NOTES.md` | Sólo abstract disponible | No citar significancia, coeficientes o limitaciones no leídas |
 
