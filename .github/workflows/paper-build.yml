@@ -67,12 +67,7 @@ jobs:
                 --materias data/controlled/Materias_pseudonymized.csv \
                 --asesorias data/controlled/Asesorias_pseudonymized.csv
             fi
-            if [[ -f code/run_paper21_mixture.py ]]; then
-              python code/run_paper21_mixture.py \
-                --materias data/controlled/Materias_pseudonymized.csv \
-                --asesorias data/controlled/Asesorias_pseudonymized.csv \
-                --gmm-bootstrap 99
-            fi
+
           fi
 
       - name: Install LaTeX toolchain
@@ -130,7 +125,9 @@ jobs:
             paper/main_commented.log
             paper/main_commented.blg
             paper/main_commented.bbl
-            results/paper21/figures/*.pdf
+            results/paper21/figures/fig03_04_pairwise_effect_dashboard.pdf
+            results/paper21/figures/fig05_pairwise_z_pvalue_dashboard.pdf
+            results/paper21/figures/fig06_pairwise_pass_pvalue_dashboard.pdf
           if-no-files-found: error
           retention-days: 30
 
