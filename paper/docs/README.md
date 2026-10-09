@@ -1,37 +1,16 @@
-# Paper 2.1 internal documentation
+# Paper 2.1 — research documentation
 
-The manuscript source remains directly under `paper/`; research-development documents are grouped here by purpose so that the manuscript directory stays readable.
+**Read the editorial and scientific index in `../../notes/README.md` first.** This branch's publication is exclusively Z/PASS attendance frequency with Wald/Holm inference.
 
-**New working-notes layer (2026-10-09):** [`../../notes/README.md`](../../notes/README.md) indexes the consolidated study context, CMAT description, full Holm methodology, source-bounded results, interpretation, selected literature, TEAMAT framing, and pending manuscript decisions. These are editorial syntheses of existing results, not new analysis output. Read this first when preparing the next paper draft; use the canonical project/methods/results files below for definitive provenance.
+- `project/PROJECT_CONTEXT.md`: population, scientific aim and boundaries.
+- `project/STATUS_AND_ROADMAP.md`: current status and submission checks.
+- `project/DECOMPOSITION_FROM_PROYECTO_VISITAS.md`: historical source provenance.
+- `analysis/ANALYSIS_PLAN.md`: benchmarking, omnibus tests, pairwise Holm and sensitivity.
+- `analysis/OUTCOME_FRAMEWORK.md`: Z, PASS and numerical grades.
+- `analysis/VISIT_GROUPING_DECISION.md`: chronological outcome-blind 6+ grouping and exploratory 7+.
+- `analysis/ENTRANCE_EXAM_PLAN.md`: future prior-preparation sensitivity only if usable.
+- `results/PRELIMINARY_RESULTS.md`: publication-scope adjusted Holm results.
 
-## Project
+The manuscript is `../sections/01.tex`–`04.tex`; references are in `../../literature_selected/`, source metadata in `../../submission/`, and aggregate tables under `../../results/paper21/`.
 
-- `project/PROJECT_CONTEXT.md` — scientific question, scope, population and framing.
-- `project/STATUS_AND_ROADMAP.md` — current state, completed milestones and remaining blockers.
-- `project/DECOMPOSITION_FROM_PROYECTO_VISITAS.md` — provenance from the historical project and portfolio boundary.
-
-## Analysis
-
-- `analysis/ANALYSIS_PLAN.md` — pre-outcome analysis contract.
-- `analysis/OUTCOME_FRAMEWORK.md` — performance and academic-management outcome hierarchy.
-- `analysis/VISIT_GROUPING_DECISION.md` — frozen outcome-blind visit grouping.
-- `analysis/MIXTURE_ANALYSIS_PLAN.md` — numeric-failure, GMM and skew-normal analysis specification.
-- `analysis/ENTRANCE_EXAM_PLAN.md` — planned prior-preparation sensitivity if entrance-exam data become available.
-
-## Results
-
-- `results/PRELIMINARY_RESULTS.md` — verified controlled-data results used during manuscript development.
-- `results/MIXTURE_ANALYSIS_RESULTS.md` — detailed mixture/shape results and validation provenance.
-
-## Interpretation
-
-- `interpretation/ACADEMIC_MANAGEMENT_HYPOTHESIS.md` — mechanism hypothesis and causal guardrails.
-- `interpretation/ADMINISTRATIVE_OUTCOME_NOTE.md` — internal note on administrative outcome composition.
-
-Literature-specific access notes live in `literature_selected/ACCESS_NOTES.md`, while submission-system metadata lives in `submission/METADATA.md`. Branch-level navigation starts at `PAPER_BRANCH.md`, and manuscript/build instructions remain in `paper/README.md`.
-
-## Observation audit
-
-- `observations/README.md` — local-only observation-level audit workflow.
-- `observations/group5_observation_audit.tex` — standalone companion source motivated by the five-visit numeric-failure feature.
-- `observations/build_observation_audit.py` — generates de-identified observation profiles and classroom-distribution figures into an ignored local directory.
+This index does not imply that the institutional data have been re-executed or that source/ethics questions are resolved.

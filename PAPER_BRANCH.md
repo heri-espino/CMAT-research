@@ -1,84 +1,15 @@
-# Paper 2.1 — CMAT visit-frequency structure
+# Paper 2.1 — CMAT attendance frequency and Holm
 
-This branch is the canonical exploratory/publication workspace for **Paper 2.1**, a denser extension of Paper 2 focused on the structure of academic outcomes across different frequencies of CMAT attendance among students who use the centre.
+**Publication branch:** `paper/paper2.1-visit-frequency`. This article studies recorded visit frequency and two final outcomes in Matemáticas Universitarias: instructor-period standardised grade Z and PASS. Its inference is limited to **fixed-effect adjusted Wald contrasts with Holm multiplicity correction** and directly relevant robustness analyses.
 
-**Parent checkpoint:** created from `paper/paper2-mu-performance` at commit `1956ef4bfe6073c9b28881a9da34d14cd22239a8`.
+Read `notes/README.md` first, then `paper/docs/analysis/ANALYSIS_PLAN.md`, `paper/docs/analysis/VISIT_GROUPING_DECISION.md`, `paper/docs/results/PRELIMINARY_RESULTS.md`, `paper/sections/01.tex`–`04.tex` and `submission/METADATA.md`.
 
-Paper 2 remains the simpler attendance-versus-non-attendance manuscript. Paper 2.1 asks a broader question: after the large zero-versus-any-attendance separation, how do outcomes vary across positive attendance frequencies, and does attendance also relate to the composition of adverse outcomes, particularly voluntary withdrawal versus numeric failure?
+The primary outcome-blind support grouping for attendance among users was `1/2/3/4/5/6+`. The manuscript additionally reports the finer `0/1/2/3/4/5/6/7+` grid, without retroactively representing its tail split as a pre-outcome design choice. Inference among users (15 or 21 pairs) and inference including non-users (28 pairs) use distinct models and Holm families.
 
-Read in this order:
+`code/run_paper21.py` conducts the attendance support audit, `code/run_paper21_outcomes.py` produces the relevant adjusted outcomes, `code/figures_paper21.py` generates Holm-only figures, and `paper/paper_build.py` produces the clean and commented TEAMAT drafts. The publication-facing results are the Holm aggregates under `results/paper21/tables/` and the three pairwise dashboard figures.
 
-1. `PAPER_BRANCH.md`
-2. `notes/README.md` — index to the consolidated Holm-first research/writing notes (created 2026-10-09)
-3. `paper/docs/project/PROJECT_CONTEXT.md`
-3. `paper/docs/analysis/ANALYSIS_PLAN.md`
-4. `paper/docs/results/PRELIMINARY_RESULTS.md`
-5. `paper/docs/interpretation/ACADEMIC_MANAGEMENT_HYPOTHESIS.md`
-6. `literature_selected/ACCESS_NOTES.md`
-7. `paper/docs/project/STATUS_AND_ROADMAP.md`
-8. `paper/AI_HANDOFF.md`
+This is observational research; the effect of assigning a student a number of CMAT sessions is not identified. Non-significant contrasts do not establish equivalence.
 
-## Branch layout
+Code and aggregate tables from other research directions are **not** part of this paper. Its compiled source and figures do not depend on those analyses. Shared reusable scientific methods belong to `main/cmat_analysis`; do not merge this entire paper branch into `main` or alter historical source provenance.
 
-Paper 2.1-specific material is organised by function rather than kept as loose files:
-
-```text
-paper/
-├── README.md
-├── AI_HANDOFF.md
-├── docs/
-│   ├── project/
-│   ├── analysis/
-│   ├── results/
-│   └── interpretation/
-├── sections/
-└── manuscript/build sources
-
-notes/                # Spanish working notes: context, Holm, results, interpretation, literature, journal
-literature_selected/   # paper-specific literature map and access notes
-code/                  # thin Paper 2.1 orchestration
-results/paper21/       # canonical aggregate tables and vector figures
-submission/            # submission metadata and checklist
-```
-
-Generated manuscript PDFs are intentionally not tracked; the paper-build workflow uploads them as GitHub Actions artifacts.
-
-## Scientific boundary
-
-Paper 2.1 inherits from Paper 2:
-
-- first eligible MU attempt in periods with CMAT coverage;
-- period-wide CMAT attendance, irrespective of visit subject label;
-- instructor × academic-period grading context;
-- observational framing;
-- institutional pass mark of 7.5;
-- BA, BV, and RT as adverse/non-passing outcomes.
-
-Paper 2.1 **does not inherit the 4+ top-code as a fixed scientific decision**. The upper visit grouping must be chosen using an outcome-blind support/precision rule documented before pairwise outcome comparisons are inspected.
-
-## Main contribution
-
-Paper 2.1 now has two linked contributions.
-
-First, it separates **initial CMAT use** from **frequency among users**. The primary positive-attendance groups are outcome-blind `1 / 2 / 3 / 4 / 5 / 6+`, with `1 / 2 / 3 / 4 / 5 / 6 / 7+` as an exploratory sensitivity. The current controlled-data results show a large 0-versus-1+ association in both standardised performance and pass probability, but no robust multiplicity-adjusted separation among positive frequency groups.
-
-Second, it distinguishes a **performance margin** from an **academic-management margin**. Non-PASS is decomposed into numeric failure and administrative outcomes, with BV, RT and BA preserved separately. The current adjusted zero-versus-any-attendance pattern is specifically concentrated in BV versus numeric failure; RT does not show the same contrast. This may be discussed as compatible with broader academic engagement or institutional navigation, but those mechanisms are not directly measured.
-
-The manuscript analyses:
-
-1. continuous instructor-period-standardised final performance;
-2. PASS versus non-PASS;
-3. the composition of PASS / numeric <7.5 / BV-RT / BA, with exact BV / RT / BA diagnostics;
-4. conditional non-PASS management contrasts.
-
-A numeric-only complete-case outcome is retained as a sensitivity, especially for interpreting how administrative outcomes affect the lower tail of the continuous outcome.
-
-## Repository governance
-
-This is a long-lived `paper/*` branch. Do not merge the whole branch into `main` or back into Paper 2. Reusable estimators or support diagnostics that belong across papers should be proposed for upstream integration into `cmat_analysis` and then brought back into this branch.
-
-The user retains final scientific authority.
-
-## Editorial direction after the fused-lasso exploration (2026-10-09)
-
-The manuscript should prioritize the existing **fixed-effects Wald pairwise contrasts with Holm multiplicity correction**, rather than selecting visit categories via fused lasso. The exploratory `paper/paper2.2.1-fused-frequency` branch remains separate provenance, not a replacement primary analysis. An annotated Spanish synthesis of CMAT, data, scientific claims, conflicting positive-frequency specifications, source access, TEAMAT submission strategy and open decisions is now in `notes/README.md`. These notes are research handoff, not newly run experiments. The existing paper draft under `paper/sections/` has **not** been rewritten in this change.
+The compiled manuscript is not submission-ready until historical PPA/CMAT facts, statistical numbers, journal requirements and exact ethics/data-use wording are verified.

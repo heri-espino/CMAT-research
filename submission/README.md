@@ -1,28 +1,9 @@
-# Paper 2.1 — submission workspace
+# Paper 2.1 — TEAMAT submission workspace
 
-Paper 2.1 now has a complete TEAMAT/IMA manuscript draft, but it is **not submission-ready**. Submission materials should be prepared only after the scientific and institutional blockers below are closed.
+**Working title:** *Beyond First Attendance: Mathematics Support Visit Frequency and Holm-Adjusted Academic Outcomes*.
 
-## Current manuscript
+The current English manuscript `paper/sections/01.tex`–`04.tex` reports attendance-frequency comparisons for adjusted Z and PASS using Wald contrasts and Holm correction. The working plan and all relevant source links are in `notes/README.md`; formal submitting metadata is in `submission/METADATA.md`.
 
-Submission-system metadata are kept in `submission/METADATA.md`. The research/writing agenda and unverified institutional/journal claims are now indexed in [`../notes/README.md`](../notes/README.md); the editorial decision is to prioritize Holm-adjusted frequency comparisons, not a fused-lasso selection paper.
+**Pre-submission requirements:** verify every effect and Holm family against aggregate tables; confirm historical CMAT and PPA rules; obtain ethics/IRB exemption or institutional data-use authorization wording; inspect entrance-exam sensitivity if comparable; check bibliography and source-access qualifications; verify current TEAMAT format/word count; compile clean and commented PDFs and review outputs. Lack of statistical significance must not be described as equivalence.
 
-Working title: *Beyond First Attendance: Frequency of Mathematics Support Use and the Composition of Academic Outcomes*.
-
-The current draft is in `paper/sections/01.tex`--`04.tex`; build instructions and status are in `paper/README.md` and `paper/docs/project/STATUS_AND_ROADMAP.md`.
-
-## Pre-submission blockers
-
-- [ ] run instructor-level clustering sensitivity;
-- [ ] incorporate the requested university entrance-exam score if coverage/comparability are adequate;
-- [ ] verify historical UDLAP definitions and GPA/transcript consequences of BV, RT and BA before making institutional-policy claims;
-- [ ] obtain the exact ethics/IRB or institutional data-use authorization wording and identifier;
-- [ ] decide whether a defensible equivalence margin exists; otherwise keep pairwise results as difference/inconclusive only;
-- [ ] perform a final literature audit, including replacing any abstract-only inference if the full Gokhool & Lawson (2026) paper becomes available;
-- [ ] audit every manuscript number against canonical aggregate outputs;
-- [ ] run a final scientific-referee review and compile a clean submission checkpoint.
-
-## Source-access warning
-
-Gokhool & Lawson (2026) is currently available to the project only through the abstract supplied by the project owner. The manuscript uses it only for abstract-supported claims about the two engagement dimensions and hurdle-model specification. See `literature_selected/ACCESS_NOTES.md`.
-
-Do not place row-level administrative data or direct student identifiers in this directory.
+Never place student-level administrative data, direct identifiers or low-cell disclosive material in this submission workspace.

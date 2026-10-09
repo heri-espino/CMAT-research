@@ -1,205 +1,28 @@
-# Paper 2.1 — analysis plan
+# Paper 2.1 — attendance-frequency analysis plan
 
-This file is the pre-outcome analysis contract for the visit-frequency study. The purpose is to prevent the upper attendance cut and the inferential story from being chosen after inspecting favourable p-values.
+The **original outcome-blind support audit** is recorded separately in `VISIT_GROUPING_DECISION.md`; the analysis text must preserve its chronology rather than rewriting the finer 7+ presentation as preregistered.
 
-## Stage 0 — reproduce the benchmark
+## Baseline and outcomes
 
-Reproduce the simple Paper 2 contrast between:
+Full first-eligible MU cohort (N=6,627). Benchmark 0 vs 1+ for two separate outcomes:
+- continuous Z, final academic record converted through the canonical adverse-outcome assignment and then standardised inside instructor-period;
+- binary PASS, numeric grade ≥7.5 vs numeric nonpassing or BA/BV/RT.
 
-- 0 recorded visits;
-- 1 or more recorded visits.
+Both adjust for instructor-period fixed effects and degree; point differences are SD for Z and **percentage points** for PASS.
 
-Do this for both principal outcomes:
+## Positive-frequency inference
 
-1. PASS/non-PASS;
-2. continuous standardised grade with the canonical adverse-outcome imputation.
+Primary support-based groups `1/2/3/4/5/6+` among users (N=1,234): omnibus equal-level hypothesis and all 15 Wald pairs per outcome. Recompute standard errors clustered at the instructor-period, adjust pairwise p-values with **Holm** separately for each outcome/family, and report adjusted estimates and nominal intervals alongside corrected p-values.
 
-This is a benchmark and literature bridge, not the central Paper 2.1 result.
+The finer positive-grid `1/2/3/4/5/6/7+` is an exploratory sensitivity (21 pairs); the zero-inclusive `0/1/2/3/4/5/6/7+` reporting model has 28 pairs per outcome and a different sample. Explicitly separate all three families and never transfer significant pairs from one model to another.
 
-## Stage 1 — outcome-blind support audit
+## Robustness and interpretation
 
-Before looking at group means, pass rates, pairwise effects, or p-values, compute for every exact positive visit count k:
+- Higher-tail overlap/count constraints; the cutoff is not driven by significance.
+- Cluster at instructor as sensitivity to dependence across different periods.
+- Numeric-only grade outcome as sensitivity to adverse-outcome imputation, acknowledging complete-case selection.
+- No Holm-rejected pair implies evidence is insufficient to distinguish it at the chosen error rate, not that two frequencies are equivalent.
+- Attendance is self-selected and is recorded during the period; a causal interpretation or visit-specific return is not identified.
+- The PPA three-visit option is context, not an assigned intervention or exogenous cutoff.
 
-- number of students;
-- number of instructor-period groups containing k;
-- number of instructor-period groups in which k can be compared with at least one other positive-frequency group;
-- distribution of students across instructor-period groups;
-- share of all positive-attendance students;
-- cumulative tail size at >= k.
-
-The grouping rule should **maximize retained frequency resolution subject to pre-declared support requirements**, rather than selecting the cut where statistical significance happens to disappear.
-
-The support audit is now complete and froze the primary grouping as **`1 / 2 / 3 / 4 / 5 / 6+`** before any Paper 2.1 outcome comparisons were inspected. The decision is documented in `paper/docs/analysis/VISIT_GROUPING_DECISION.md` and machine-readable in `paper/visit_grouping_spec.json`. The more granular `1 / 2 / 3 / 4 / 5 / 6 / 7+` grouping is an exploratory sensitivity only.
-
-## Stage 2 — descriptive outcome profiles
-
-For each retained attendance-frequency group report:
-
-### Binary outcome
-- N;
-- pass rate;
-- 95% CI.
-
-### Continuous outcome
-- N;
-- mean standardised grade;
-- SD;
-- 95% CI.
-
-Display the two outcome profiles separately. Do not treat one as validation of the other; they answer related but distinct questions.
-
-## Stage 3 — omnibus inference among CMAT users
-
-Restrict the main frequency-shape analysis to students with >=1 visit.
-
-### Continuous standardised grade
-
-Primary model:
-
-- attendance-frequency indicators;
-- instructor-period fixed effects;
-- degree-programme indicators;
-- cluster-robust standard errors at instructor-period level.
-
-Test the joint null that all positive attendance-frequency coefficients are equal.
-
-Welch ANOVA may be reported as an unadjusted descriptive/secondary check, not as the primary inferential result.
-
-### PASS/non-PASS
-
-Primary estimand: adjusted **risk differences in probability of passing**, expressed in percentage points.
-
-Use a model preserving the same instructor-period and degree-programme adjustment structure and cluster-robust inference. A linear-probability fixed-effect model is the preferred starting point because pairwise contrasts are directly interpretable as percentage-point differences.
-
-A logistic fixed-effect or other binary-response model may be added only as a sensitivity if it is estimable and materially informative; it should not replace the directly interpretable risk-difference analysis merely for methodological appearance.
-
-## Stage 4 — pairwise contrasts
-
-For every retained positive attendance group pair, estimate:
-
-### Continuous outcome
-- adjusted mean difference in Z;
-- 95% CI;
-- raw p-value;
-- Holm-adjusted p-value.
-
-### Binary outcome
-- adjusted pass-probability difference in percentage points;
-- 95% CI;
-- raw p-value;
-- Holm-adjusted p-value.
-
-Multiplicity adjustment should be applied within a clearly defined family of positive-group pairwise contrasts for each outcome. The 0-versus-positive benchmark belongs to a separate benchmark family unless a later preregistered rationale combines them.
-
-Also report adjacent contrasts explicitly:
-
-- 1 vs 2;
-- 2 vs 3;
-- 3 vs 4;
-- etc.
-
-Adjacent contrasts are scientifically important because they address whether successive attendance frequencies are distinguishable.
-
-## Stage 5 — equivalence analysis
-
-A non-significant difference is **not evidence of equality**.
-
-If practical-equivalence margins can be justified before inspecting the pairwise results, run equivalence tests for selected contrasts, especially adjacent groups.
-
-Candidate scales for discussion, not yet final decisions:
-
-- continuous Z: a small standardised difference bound such as +/-0.15 or +/-0.20 SD;
-- PASS probability: a small absolute risk-difference bound such as +/-5 percentage points.
-
-The final margins must be justified and frozen before the equivalence results are calculated. If no defensible margin can be justified, omit formal equivalence claims and use “inconclusive” rather than “equivalent”.
-
-Classify each pair only when justified as:
-
-- evidence of a difference;
-- evidence of practical equivalence;
-- inconclusive.
-
-## Stage 6 — heatmaps
-
-Produce two primary pairwise heatmaps among CMAT users.
-
-### Panel A — continuous performance
-Cell colour = adjusted difference in standardised grade.
-
-### Panel B — academic success
-Cell colour = adjusted difference in pass probability, in percentage points.
-
-Each cell should display the effect estimate. Statistical/equivalence status may be represented by a compact symbol or border, but **colour must encode effect magnitude/direction rather than p-value**.
-
-A supplementary heatmap may include the zero-visit group to visually recover the known benchmark separation, but the main heatmap should emphasize variation among users.
-
-## Stage 7 — shape diagnostics
-
-As a secondary exploratory description, fit attendance frequency more continuously among users, for example with a restricted spline or another low-complexity smooth.
-
-Purpose: assess whether the pairwise pattern resembles a plateau, gradual increase, saturation, decline, or irregular curve.
-
-Do not use the spline to choose the categorical cut retrospectively. The support-based grouping must already have been fixed.
-
-## Stage 8 — academic-outcome composition and management margin
-
-For the zero-inclusive primary grouping and for positive attendance frequencies, report four final-outcome states:
-
-- PASS;
-- numeric grade below 7.5;
-- BV/RT;
-- BA.
-
-Also preserve a five-state table separating BV and RT.
-
-Among non-PASS cases, estimate two mechanism-oriented conditional outcomes:
-
-1. administrative outcome (BA/BV/RT) versus numeric grade below 7.5;
-2. BV/RT versus numeric grade below 7.5, excluding BA from this narrower comparison.
-
-For each conditional outcome, reproduce the 0-versus-1+ benchmark and estimate frequency-group contrasts among CMAT users where support is adequate. Interpret these as differences in **outcome composition**, not causal effects of attendance on withdrawal behaviour.
-
-The broader interpretation is documented in `paper/docs/interpretation/ACADEMIC_MANAGEMENT_HYPOTHESIS.md`. Zero attendance must never be translated into lack of interest or engagement.
-
-## Stage 9 — outcome-construction robustness
-
-The two principal performance outcomes are themselves a robustness structure:
-
-- PASS requires no numerical imputation for BA/BV/RT;
-- continuous Z uses the canonical imputation and contains more outcome information.
-
-Retain the numeric-only complete-case continuous outcome as an additional sensitivity because it removes BA/BV/RT and the imputation assumption. Compare distributional quantiles under the imputed and complete-case outcomes.
-
-**Manuscript treatment of withdrawal timing should remain brief:** when administrative outcomes are defined, one sentence may note that a student who leaves before the end of the academic period can have less opportunity to accumulate visits.
-
-## Stage 10 — clustering sensitivity
-
-Because instructors recur across periods, compare instructor-period clustering with clustering by instructor for the main pairwise models. Do not change the estimand or the instructor-period grade standardisation.
-
-## Stage 11 — entrance-exam sensitivity when available
-
-If the requested university entrance-exam score becomes available and passes the Paper 2 intake/comparability audit, repeat the principal adjusted frequency analysis with the baseline score included.
-
-The entrance score is an observed-preparation sensitivity; it does not turn visit frequency into a causal treatment dose.
-
-## Outputs to preserve
-
-At minimum generate aggregate, reproducible files for:
-
-- exact-count support audit;
-- chosen grouping specification and decision record;
-- descriptive summaries for both outcomes;
-- user-only omnibus tests;
-- all pairwise contrasts for both outcomes;
-- adjacent contrasts;
-- equivalence results if used;
-- instructor-level clustering sensitivity;
-- heatmap source matrices;
-- four-state and exact five-state academic-outcome composition;
-- non-PASS administrative-vs-numeric benchmark and frequency contrasts;
-- non-PASS BV/RT-vs-numeric benchmark and frequency contrasts;
-- imputed and complete-case distributional profiles;
-- optional smooth/spline diagnostics;
-- entrance-exam sensitivity when available.
-
-No manuscript number should be calculated manually outside the canonical recipe.
+Outputs: reproducible aggregate CSVs and only three adjusted effect/p-value PDFs in the publication. See `paper/README.md` and `notes/10_MATRIZ_DE_AFIRMACIONES.md`.
