@@ -33,7 +33,6 @@ No es una orden de descartar las secciones existentes: [`paper/sections/01.tex`�
 - Matriz de efectos pareados en Z, con magnitud y marcas de Holm.
 - Matriz equivalente de diferencias en PASS, en puntos porcentuales.
 - Tabla legible de omnibus entre usuarios, familias de Holm y principales sensibilidades.
-- Composición de los cinco tipos de outcome, destacando diferencia entre porcentajes globales y condicionales a no-PASS.
 
 Evitar que heatmaps codifiquen sólo p-values; color debe representar la **magnitud/dirección de los efectos** y señales adicionales indican incertidumbre, como fija el protocolo original.
 
