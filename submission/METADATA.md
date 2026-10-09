@@ -4,7 +4,7 @@ This file stores submission-system metadata for the Paper 2.1 TEAMAT submission.
 
 ## Current manuscript title
 
-*Beyond First Attendance: Frequency of Mathematics Support Use and the Composition of Academic Outcomes*
+*Beyond First Attendance: Mathematics Support Visit Frequency and Holm-Adjusted Academic Outcomes*
 
 ## Authors
 
@@ -41,13 +41,13 @@ Still required before submission: insert the exact UDLAP ethics/IRB approval, ex
 The current manuscript states that generative AI tools assisted with code development, manuscript drafting, editing, and language refinement, while responsibility for the analysis, interpretation, and final text remains with the authors.
 
 
-## Pre-submission blockers specific to Paper 2.1
+## Pre-submission blockers for the frequency-contrast article
 
-- instructor-level clustering sensitivity;
+- final audit of the completed instructor-level clustering sensitivity;
 - entrance-exam sensitivity if the requested data are usable;
-- verification of historical institutional definitions/consequences of BV, RT and BA before making policy claims;
+- verification of historical BA/BV/RT code definitions relevant to PASS and Z construction;
 - exact ethics/data-use authorization wording and identifier;
 - final literature and numerical audit;
-- decision on whether a defensible formal equivalence margin exists.
+- do not claim equivalence without an independently justified, pre-specified margin.
 
 The Gokhool & Lawson (2026) article is currently available to the project only through its abstract; see `paper/LITERATURE_ACCESS_NOTES.md`.
