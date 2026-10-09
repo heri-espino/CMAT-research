@@ -2,7 +2,7 @@
 
 This guide mirrors the rapid-reading layer used in Paper 1, but is intentionally shorter. It summarizes the papers currently stored in `paper/references.bib` for the visit-frequency manuscript and records the specific job each source performs in Paper 2.1.
 
-**Bibliography update (2026-10-09):** `references.bib` now contains 16 entries, including the newly incorporated Navarra-Madsen & Ingram (2010) and Byerley et al. (2024). The revised Holm-only manuscript cites the 14 substantive references; Austin (2011) and Rosenbaum & Rubin (1983) are retained as methods background but are not currently cited. The source-by-source verification matrix is [`COMPARATIVE_CENTRES.md`](COMPARATIVE_CENTRES.md).
+**Bibliography update (2026-10-09):** `references.bib` now contains 17 entries, including Navarra-Madsen & Ingram (2010), Byerley et al. (2024) and Chacón-Vargas (2022). The revised Holm-only manuscript cites the 15 substantive references; Austin (2011) and Rosenbaum & Rubin (1983) are retained as methods background but are not currently cited. The source-by-source verification matrix is [`COMPARATIVE_CENTRES.md`](COMPARATIVE_CENTRES.md).
 
 The summaries below are deliberately claim-bounded. They are reading aids, not substitutes for checking the source before adding a new numerical or causal claim.
 
@@ -162,3 +162,11 @@ For the current manuscript, the safest synthesis is therefore: CMAT attendance i
 
 **Walsh & Guerin (2026)**, [DOI](https://doi.org/10.1093/teamat/hraf011), studied 56 students' in-person and online mathematics-learning-support use at University of Limerick. It illustrates that physical centre-entry records do not capture every mode of seeking help, but it does **not** estimate the same grade-frequency relationship as Paper 2.1. The publisher text was reviewed online; it is not currently in the manuscript bibliography because it is peripheral to the central research question.
 
+
+### Chacón-Vargas (2022) — *La tutoría entre pares y su incidencia sobre el rendimiento académico en un curso de matemática universitaria*
+
+**60-second summary.** At Instituto Tecnológico de Costa Rica, the voluntary Programa Éxito Académico enrolled 528 of 1,155 first-year students taking Matemática General in 2019, through weekly peer tutoring and an intensive preparatory programme. Descriptive average grade differences favoured participants, but grade distributions generally were not statistically distinguishable from the broader first-year cohort in chi-square comparisons; a group attending at least 14 of 16 tutorials was the exception and contained only 26 students.
+
+**Paper 2.1 role.** Direct Latin American comparator for the exposure-frequency question and a useful warning against interpreting descriptive increases in the high-frequency tail as automatically well-supported population differences.
+
+**Boundary / source.** Peer teaching with planned sessions and preparation workshops, not CMAT-style faculty drop-in. Volunteers and withdrawals are selected. **Full publisher text reviewed**, [DOI](https://doi.org/10.15359/ree.26-1.20).
