@@ -109,8 +109,9 @@ def build_figures(*, force: bool = False, auto_tables: bool = True) -> None:
 
 
 def ensure_figures() -> None:
-    if _missing(FIGURE_OUTPUTS):
-        build_figures(force=True, auto_tables=True)
+    # Pairwise dashboards are cheap and may have changed since a checked-in
+    # older figure was built. Rebuild for every manuscript compilation.
+    build_figures(force=True, auto_tables=True)
 
 
 def status() -> dict[str, list[str]]:
