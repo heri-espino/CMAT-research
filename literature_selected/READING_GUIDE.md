@@ -2,7 +2,7 @@
 
 This guide mirrors the rapid-reading layer used in Paper 1, but is intentionally shorter. It summarizes the papers currently stored in `paper/references.bib` for the visit-frequency manuscript and records the specific job each source performs in Paper 2.1.
 
-**Bibliography audit (2026-09-20):** `references.bib` contains 14 entries. Twelve are cited in the current manuscript. `Austin (2011)` and `Rosenbaum & Rubin (1983)` remain in the BibTeX file as methodological references but are not currently cited in `paper/sections/01.tex`–`04.tex`.
+**Bibliography update (2026-10-09):** `references.bib` now contains 16 entries, including the newly incorporated Navarra-Madsen & Ingram (2010) and Byerley et al. (2024). The revised Holm-only manuscript cites the 14 substantive references; Austin (2011) and Rosenbaum & Rubin (1983) are retained as methods background but are not currently cited. The source-by-source verification matrix is [`COMPARATIVE_CENTRES.md`](COMPARATIVE_CENTRES.md).
 
 The summaries below are deliberately claim-bounded. They are reading aids, not substitutes for checking the source before adding a new numerical or causal claim.
 
@@ -139,3 +139,26 @@ The bibliography supports three distinct claims that should remain separate:
 3. **A favourable user/non-user association is not automatically a causal tutoring effect.** Encouragement experiments and stronger observational designs often produce more qualified performance results.
 
 For the current manuscript, the safest synthesis is therefore: CMAT attendance is an observed service-use behaviour; the zero-versus-any-attendance contrast and the frequency-among-users contrast should be analysed separately; and neither contrast should be described as a causal dose-response without stronger identification.
+
+## Newly audited comparable centres (2026-10-09)
+
+### Navarra-Madsen & Ingram (2010) — *Mathematics Tutoring and Student Success*
+
+**60-second summary.** In a four-semester pilot of a mathematics-and-technology drop-in centre at Texas Woman's University, the authors compared tutoring users and non-users in Calculus I and Abstract Algebra among mathematics majors. Grades were very similar between attendees and non-attendees: 2.31 versus 2.33 grade points in Calculus I, and 2.19 versus 2.25 in Abstract Algebra. Correlations of tutoring hours and grades were weak (0.26 and 0.14, respectively).
+
+**Paper 2.1 role.** A genuine *null/weak-association comparator* showing why literature must not be narrated as universally positive and why recorded attendance amount need not form a monotone grade gradient.
+
+**Boundary / source.** Small pilot, particular majors and courses, letter-grade-point outcomes. Do not generalize non-significance to all tutoring programmes. **Complete PDF supplied and checked**; [DOI](https://doi.org/10.1016/j.sbspro.2010.12.028).
+
+### Byerley et al. (2024) — *Towards research-based organizational structures in mathematics tutoring centres*
+
+**60-second summary.** Using administrative records for more than 26,000 mathematics students from ten US tutoring centres, plus information about tutors, course assignment, centre layout and training, the authors explore organizational hypotheses using a Delphi exercise. Centre organization and attendance patterns vary, but the paper explicitly states that its hypotheses require subsequent testing and were not rigorously validated as causal relations.
+
+**Paper 2.1 role.** Strong *multicentre comparator*, especially because it appeared in TEAMAT, and a rationale for contextualising CMAT's instructor-period-specific estimates instead of treating mathematics support as a homogeneous intervention across institutions.
+
+**Boundary / source.** Exploratory convenience sample of ten US centres; hypotheses about organizational effectiveness remain hypotheses. **Publisher text reviewed online**; [DOI](https://doi.org/10.1093/teamat/hrac026).
+
+### Additional close-context study, not central to grade-frequency inference
+
+**Walsh & Guerin (2026)**, [DOI](https://doi.org/10.1093/teamat/hraf011), studied 56 students' in-person and online mathematics-learning-support use at University of Limerick. It illustrates that physical centre-entry records do not capture every mode of seeking help, but it does **not** estimate the same grade-frequency relationship as Paper 2.1. The publisher text was reviewed online; it is not currently in the manuscript bibliography because it is peripheral to the central research question.
+
