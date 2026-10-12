@@ -25,6 +25,7 @@ FIGURE_RUNNER = REPO_ROOT / "code" / "figures_paper21.py"
 
 TABLE_SENTINELS = (
     TABLES_DIR / "10n_zero_inclusive_7plus_descriptives.csv",
+    TABLES_DIR / "10o_zero_inclusive_7plus_exact_administrative_composition.csv",
     TABLES_DIR / "10s_zero_inclusive_7plus_imputed_z_histogram.csv",
     TABLES_DIR / "01_exact_positive_visit_support.csv",
     TABLES_DIR / "05_cut_overlap_frontier.csv",
@@ -46,6 +47,7 @@ TABLE_SENTINELS = (
 
 FIGURE_INPUTS = (
     TABLES_DIR / "10n_zero_inclusive_7plus_descriptives.csv",
+    TABLES_DIR / "10o_zero_inclusive_7plus_exact_administrative_composition.csv",
     TABLES_DIR / "10s_zero_inclusive_7plus_imputed_z_histogram.csv",
     TABLES_DIR / "26b_zero_inclusive_7plus_z_effect_matrix.csv",
     TABLES_DIR / "26e_zero_inclusive_7plus_z_p_raw_matrix.csv",
