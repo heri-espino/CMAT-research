@@ -103,7 +103,7 @@ The manuscript may discuss the descriptive changes from 4 to 5 and from 6 to 7+ 
 
 ### PPA-threshold diagnostic
 
-The `1 / 2 / 3 / 4 / 5 / 6 / 7+` sensitivity also serves a separate descriptive purpose: the institutional PPA participation threshold occurs at three recorded visits. PPA1 points are obtained **upon the third CMAT visit** under this institutional rule. For interpreting continued attendance *after fulfilling that condition*, the appropriate display boundary is **between three and four visits**. The second-to-third comparison captures reaching the condition, but is not the post-PPA boundary. Both are descriptive and non-causal.
+PPA1 is a first-semester social and cultural integration programme, and a three-CMAT-visit activity was available in all eleven periods; eligibility and credited use are unobserved. The `1 / 2 / 3 / 4 / 5 / 6 / 7+` sensitivity also serves a separate descriptive purpose: the institutional PPA participation threshold occurs at three recorded visits. PPA1 points are obtained **upon the third CMAT visit** under this institutional rule. For interpreting continued attendance *after fulfilling that condition*, the appropriate display boundary is **between three and four visits**. The second-to-third comparison captures reaching the condition, but is not the post-PPA boundary. Both are descriptive and non-causal.
 
 For that reason the sensitivity analysis now exports all adjusted pairwise comparisons for standardised grade and pass probability, together with two p-value matrices for each outcome:
 

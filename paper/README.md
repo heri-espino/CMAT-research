@@ -4,7 +4,7 @@
 
 Start with `../notes/README.md` and `docs/README.md`. Source manuscript: `sections/01.tex`–`04.tex`; reference database: `references.bib`.
 
-The pairwise figures now show the **upper triangle only** with descriptive separators after **0, 3 and 6** visits, representing `0 | 1–3 (PPA1 completion) | 4–6 | 7+`. Completion of **three visits** awards PPA1 points under the described rule; the first visit beyond that condition is the fourth. The complete 28-pair Holm families are retained.
+The pairwise figures now show the **upper triangle only** with descriptive separators after **0, 3 and 6** visits, representing `0 | 1–3 (PPA1 completion) | 4–6 | 7+`. PPA1 is a first-semester social/cultural integration programme. Three CMAT visits are one optional qualifying activity available throughout all eleven periods; the fourth exceeds this particular requirement. Individual eligibility and credit are not observed. The complete 28-pair Holm families are retained.
 
 The descriptive attendance table in the opening Results section has been replaced with `fig01_cohort_outcome_attendance.pdf`. This three-panel figure reports PASS (blue), observed numeric failure with grade strictly below 7.5 (orange), and administrative non-numeric outcomes BV/RT/BA (gold) as shares of each frequency (left), translucent group-specific histograms of the imputed instructor-period Z outcome (centre, pre-aggregated range -2 to 2 only), and attendance counts on an explicitly labelled log scale (right). All eight attendance groups and the PPA1 at-three-visits interpretation remain visible; the figure is descriptive and does not change the Wald/Holm tests.
 

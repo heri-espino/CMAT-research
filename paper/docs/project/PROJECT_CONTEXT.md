@@ -4,7 +4,7 @@ CMAT is UDLAP's mathematics support centre. Its visit records can be matched to 
 
 **Question:** do adjusted final performance and the probability of passing differ by recorded attendance frequency after explicit family-wise multiplicity adjustment? Separate first use (0 vs any) from the distribution of counts among users.
 
-**Population:** 6,627 students, 190 instructor-period grading groups, 1,234 positive-frequency attendees. Outcome-blind grouping: `1/2/3/4/5/6+`, with finer tail `6/7+` as a subsequently reported sensitivity. The historical PPA participation option involving three visits is contextual, not a causal treatment threshold.
+**Population:** 6,627 students, 190 instructor-period grading groups, 1,234 positive-frequency attendees. Outcome-blind grouping: `1/2/3/4/5/6+`, with finer tail `6/7+` as a subsequently reported sensitivity. PPA1 is a first-semester social/cultural integration programme (sports, arts and student organisations). A three-CMAT-visit activity remained available in all eleven studied periods per institutional information provided on 2026-10-12; individual eligibility or actual credit are unobserved, so the third visit is not a causal threshold.
 
 **Outcomes:** instructor-period standardised final Z with documented adverse-outcome coding, and binary PASS (numeric ≥7.5). A numeric-only grade sensitivity has a different conditioning population.
 

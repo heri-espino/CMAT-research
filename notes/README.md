@@ -18,7 +18,7 @@ Esta rama y su manuscrito se concentran exclusivamente en **frecuencia registrad
 
 ## PPA1 y visualización de los contrastes
 
-Los puntos **PPA1 se obtienen en la tercera visita a CMAT**, por lo que los heatmaps con **triángulo superior** separan descriptivamente `0 | 1–3 | 4–6 | 7+`. Las líneas después de 0, 3 y 6 visitas no demuestran que existan cuatro regímenes estadísticos. Véase [nota específica](11_PPA1_Y_HEATMAP_TRIANGULAR.md).
+PPA1 es un programa social/cultural de primer semestre (deportes, artes y organizaciones); la alternativa de **tres visitas a CMAT** permaneció disponible en todos los periodos, y los puntos de esa actividad se obtienen en la tercera visita, por lo que los heatmaps con **triángulo superior** separan descriptivamente `0 | 1–3 | 4–6 | 7+`. Las líneas después de 0, 3 y 6 visitas no demuestran que existan cuatro regímenes estadísticos. Véase [nota específica](11_PPA1_Y_HEATMAP_TRIANGULAR.md).
 
 ## Contratos científicos
 

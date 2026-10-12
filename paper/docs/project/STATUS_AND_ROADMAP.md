@@ -22,7 +22,7 @@ PPA1 points are awarded on completion of **three** recorded CMAT visits. The des
 
 1. Check manuscript numbers against all canonical aggregate CSV files and outcome/group definitions.
 2. Check p-values, confidence intervals, multiplicity families and descriptive vs adjusted values in all three figures.
-3. Verify historical PPA, CMAT operating context and institutional grade/withdrawal codes.
+3. Archive the historical PPA1 integration-activities description (the three-CMAT-visit option was continuously available); verify individual PPA1 eligibility if feasible, CMAT hours and administrative grade/withdrawal codes.
 4. Include exact institutional ethics/data-use wording and investigate comparable entrance-examination measures if available.
 5. Review bibliography, limited-access sources and current TEAMAT instructions.
 6. Compile clean/commented PDFs, inspect rendering and run referee-style scientific review.

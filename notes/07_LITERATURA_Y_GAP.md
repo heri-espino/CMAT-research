@@ -42,3 +42,6 @@ El ángulo de Paper 2.1 es **cuánta resolución entre frecuencias puede defende
 6. Documentar referencias metodológicas directas para Holm y errores cluster-robust antes del envío.
 
 **Revista:** [`08_JOURNAL_Y_PLAN_DE_MANUSCRITO.md`](08_JOURNAL_Y_PLAN_DE_MANUSCRITO.md) y `../submission/METADATA.md`. **Bibliografía BibTeX:** `../paper/references.bib`. **Restricción:** artículos comparados no justifican lenguaje causal respecto de CMAT.
+## Originalidad y significado institucional de PPA1 (2026-10-12)
+
+PPA1 ofrece actividades de integración social/cultural de primer semestre, entre ellas la opción de tres visitas a CMAT, vigente en los 11 periodos. No es un programa diseñado para impartir matemáticas. Su presencia puede mezclar razones académicas y no académicas de visita, sin revelar la motivación o elegibilidad individual. La contribución defendible de Paper 2.1 es delimitar la **resolución inferencial** de las frecuencias después de comparaciones Holm y ajuste contextual cuando coexisten incentivos externos, no haber inventado las comparaciones por visitas ni haber demostrado el efecto PPA1. Los estudios de Jacob y Ní Fhloinn y Rickard y Mills ya analizan frecuencia/desempeño; los de Pugatch y Wilson y Paloyo et al. analizan estímulos bajo diseños diferentes.

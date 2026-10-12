@@ -2,7 +2,7 @@
 
 ## Corrección institucional
 
-Los puntos PPA1 de la modalidad descrita se obtienen **al completar la tercera visita a CMAT**. La comparación 2|3 incluye el momento de cumplimiento, pero **3|4** separa las asistencias necesarias para cumplir el requisito de las visitas posteriores. La vigencia histórica exacta por periodo o estudiante todavía debe verificarse.
+Según la descripción institucional confirmada el 2026-10-12, PPA1 es un programa de **integración social y cultural de primer semestre**; tres visitas a CMAT constituyen una actividad opcional que permaneció vigente durante los once periodos. Los puntos de esa actividad se obtienen **al completar la tercera visita a CMAT**. La comparación 2|3 incluye el momento de cumplimiento, pero **3|4** separa las asistencias necesarias para cumplir el requisito de las visitas posteriores. Queda por verificar la elegibilidad y la acreditación individuales, no la disponibilidad general de la opción en los periodos analizados; también conviene archivar el reglamento histórico.
 
 ## Hipótesis visual de cuatro segmentos
 

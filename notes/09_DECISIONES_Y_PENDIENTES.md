@@ -18,7 +18,8 @@
 ## Verificación institucional y editorial pendiente
 
 - [ ] Confirmar horarios, modalidad de registro, etiqueta de visitas y características históricas de CMAT.
-- [ ] Confirmar vigencia y reglas de PPA / opción de tres visitas durante 2019–2024.
+- [x] Información institucional: PPA1 es un programa social y cultural de primer semestre, con una opción de tres visitas a CMAT vigente en los 11 periodos estudiados.
+- [ ] Archivar folleto/reglamento histórico y, si se investiga el incentivo, obtener elegibilidad, actividad escogida y acreditación individual.
 - [ ] Obtener definiciones y consecuencias oficiales históricas de BA, BV y RT; **no afirmar protección del promedio/GPA ni plazos de retiro sin fuente**.
 - [ ] Incluir autorización ética, exención o acuerdo de uso de datos en su formulación exacta (actualmente falta).
 - [ ] Revisar metadatos de autores, acceso a datos, financiación y divulgación de uso de IA.
@@ -36,5 +37,5 @@ No abrir una nueva rama metodológica por una diferencia de p-values ni modifica
 ## Próximas investigaciones planteadas (2026-10-12)
 
 - [ ] **Becas y resultados administrativos**: enlazar de manera autorizada estatus/tipo de beca, promedio anterior, movimientos permitidos según normativa histórica, calificaciones, y fechas/motivos de BV/RT/BA. Evaluar si la mayor proporción administrativa entre no-PASS asistentes persiste con estos covariables. No deducir intenciones de registros administrativos.
-- [ ] **Efectividad del incentivo PPA1**: documentar cuándo y para quién la tercera visita generó puntos PPA1; analizar elegibilidad, registros de visitas alrededor del cumplimiento, cambios de política y población comparadora. Contar visitas 2/3/4 no equivale a un experimento.
+- [ ] **Efectividad del incentivo PPA1**: con la opción de tres visitas continuamente disponible, obtener elegibilidad, acreditación individual, actividades alternativas y fechas de visitas, además de un comparador apropiado o experimento. No suponer cambios de política inexistentes ni interpretar 2/3/4 visitas como tratamiento exógeno.
 - [ ] Confirmar los PDF actualizados de tres categorías de Figura 1, leyenda y denominadores. La cifra de fracaso numérico utiliza estrictamente `<7.5`, mientras `7.5` exactos aprueban.
