@@ -4,6 +4,8 @@
 
 Start with `../notes/README.md` and `docs/README.md`. Source manuscript: `sections/01.tex`–`04.tex`; reference database: `references.bib`.
 
+The pairwise figures now show the **upper triangle only** with descriptive separators after **0, 3 and 6** visits, representing `0 | 1–3 (PPA1 completion) | 4–6 | 7+`. Completion of **three visits** awards PPA1 points under the described rule; the first visit beyond that condition is the fourth. The complete 28-pair Holm families are retained.
+
 The official manuscript build outputs are a clean and commented TEAMAT draft. Figures included in the manuscript are:
 - `../results/paper21/figures/fig03_04_pairwise_effect_dashboard.pdf` (adjusted Z and PASS risk differences).
 - `../results/paper21/figures/fig05_pairwise_z_pvalue_dashboard.pdf` (raw/Holm).
