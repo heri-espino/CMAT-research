@@ -2,6 +2,10 @@
 
 Fuente: tablas CSV agregadas de `results/paper21/tables/`. Esta nota resume resultados ya estimados; no constituye una corrida nueva.
 
+## Cuatro rangos propuestos a partir de PPA1 (sólo descriptivos)
+
+Los N por rango son `0=5,393`, `1–3=932`, `4–6=201` y `7+=101`, calculados directamente de los conteos existentes. En el modelo de ocho frecuencias, ninguno de los seis pares internos a `1–3` y `4–6` sobrevivió Holm en Z o PASS; **esto no demuestra equivalencia**. La única diferencia Holm-significativa entre frecuencias positivas del modelo completo es `1` frente a `7+` para PASS, además de siete comparaciones de `0` contra frecuencias positivas por outcome. Los cuatro rangos siguen siendo una hipótesis descriptiva y no un modelo de cuatro niveles contrastado.
+
 ## Benchmark
 
 Con N=6,627 y 190 grupos profesor–periodo, cualquier asistencia frente a cero se asocia con **+0.36118 DE** en calificación Z (IC 95% 0.30172–0.42065) y **+15.2917 pp** en PASS (IC 12.4376–18.1457 pp). Fuente `10_benchmark_0_vs_1plus.csv`.
