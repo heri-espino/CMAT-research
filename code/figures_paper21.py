@@ -183,13 +183,26 @@ def plot_cohort_outcome_attendance_overview() -> Path:
     All graphical proportions use full attendance-group denominators.
     """
     from matplotlib.patches import Patch
+    from matplotlib.lines import Line2D
     from matplotlib.ticker import PercentFormatter
 
     summary = pd.read_csv(TABLES / "10n_zero_inclusive_7plus_descriptives.csv")
     summary["group"] = summary["group"].astype(str)
     summary = summary.set_index("group").reindex(GROUPS)
-    if summary[["n", "pass_rate"]].isna().any().any():
-        raise ValueError("Missing groups in attendance descriptives")
+    z_columns = ["n_outcome", "mean_z", "sd_z", "z_ci95_low", "z_ci95_high"]
+    if summary[["n", "pass_rate", *z_columns]].isna().any().any():
+        raise ValueError("Missing group-level descriptive Z statistics")
+    if not np.array_equal(
+        summary["n_outcome"].to_numpy(dtype=int),
+        summary["n"].to_numpy(dtype=int),
+    ):
+        raise ValueError("Full-sample Z summaries and attendance groups differ")
+    if not np.all(
+        (summary["z_ci95_low"] <= summary["mean_z"])
+        & (summary["mean_z"] <= summary["z_ci95_high"])
+        & (summary["sd_z"] >= 0)
+    ):
+        raise ValueError("Invalid unadjusted mean, SD or CI bounds")
 
     composition = pd.read_csv(
         TABLES / "10o_zero_inclusive_7plus_exact_administrative_composition.csv"
@@ -260,6 +273,7 @@ def plot_cohort_outcome_attendance_overview() -> Path:
     ax_rate.set_yticks(ypos, GROUPS)
 
     prepared = {}
+    median_bins = {}
     peak = 0.0
     for group, size in zip(GROUPS, n):
         frame = histogram.loc[histogram["group"].eq(group)]
@@ -281,6 +295,31 @@ def plot_cohort_outcome_attendance_overview() -> Path:
         prepared[group] = (centers, pass_h, fail_h, admin_h)
         peak = max(peak, *(float(h.max()) for h in (pass_h, fail_h, admin_h)))
 
+        # Exact individual medians were NOT exported. The counts cover only
+        # [-2, 2] in 0.1-Z bins. With n full-sample outcomes and k displayed
+        # observations, m=n-k cases lie outside this plotting window.
+        # Extremal allocations of those m cases to the two tails identify
+        # a conservative interval containing the full-sample median.
+        bins_for_median = (
+            frame.groupby(["bin_left", "bin_right"], observed=True)["count"]
+            .sum().reset_index().sort_values("bin_left")
+        )
+        counts = bins_for_median["count"].to_numpy(dtype=int)
+        observed_n = int(counts.sum())
+        omitted_n = int(size) - observed_n
+        if omitted_n < 0 or observed_n < int(size) // 2 + 1:
+            raise ValueError(f"Cannot bound full-group median from Z bins: {group}")
+        low_rank = ((int(size) + 1) // 2) - omitted_n
+        high_rank = (int(size) // 2) + 1
+        cumulative = np.cumsum(counts)
+        lower_idx = int(np.searchsorted(cumulative, max(1, low_rank), side="left"))
+        upper_idx = int(np.searchsorted(cumulative, high_rank, side="left"))
+        lower = float(bins_for_median.iloc[lower_idx]["bin_left"])
+        upper = float(bins_for_median.iloc[upper_idx]["bin_right"])
+        if lower > upper:
+            raise ValueError(f"Invalid binned median bounds for group {group}")
+        median_bins[group] = (lower, upper)
+
     common_scale = .69 / max(peak, 1e-9)
     for y, group in zip(ypos, GROUPS):
         x, pass_h, fail_h, admin_h = prepared[group]
@@ -297,9 +336,52 @@ def plot_cohort_outcome_attendance_overview() -> Path:
                      color=color, alpha=opacity, align="center",
                      linewidth=0, zorder=order)
         ax_z.hlines(y, -2, 2, color="0.50", linewidth=.4, zorder=1)
+
+        # Draw the unadjusted, full-group mean and its existing 95% CI.
+        # They come directly from 10n, not from the clipped histogram or
+        # fixed-effects models; the SD is likewise a within-visit-group SD.
+        row = summary.loc[group]
+        avg, low, high = (
+            float(row["mean_z"]), float(row["z_ci95_low"]),
+            float(row["z_ci95_high"])
+        )
+        ci_y = y - .76
+        ax_z.plot([low, high], [ci_y, ci_y], color="#202D3A",
+                  linewidth=1.5, zorder=8, clip_on=False)
+        ax_z.plot([low, low], [ci_y - .047, ci_y + .047],
+                  color="#202D3A", linewidth=.9, zorder=8, clip_on=False)
+        ax_z.plot([high, high], [ci_y - .047, ci_y + .047],
+                  color="#202D3A", linewidth=.9, zorder=8, clip_on=False)
+        ax_z.plot(avg, ci_y, marker="o", markersize=4.0, color="#202D3A",
+                  markeredgecolor="white", markeredgewidth=.45,
+                  zorder=9, clip_on=False)
+
+        # The purple bar is a CONSERVATIVE MEDIAN LOCATION BOUND derived
+        # from binned counts and unshown tails; it is NOT a confidence
+        # interval. A diamond marks its midpoint, only as an approximation.
+        med_low, med_high = median_bins[group]
+        median_y = y - .63
+        ax_z.plot([med_low, med_high], [median_y, median_y],
+                  color="#8D52A1", linewidth=2.6, solid_capstyle="round",
+                  zorder=8, clip_on=False)
+        ax_z.plot((med_low + med_high) / 2, median_y,
+                  marker="D", markersize=3.6, color="#8D52A1",
+                  markeredgecolor="white", markeredgewidth=.4,
+                  zorder=9, clip_on=False)
+
+        # All eight SDs, means and approximate medians remain readable
+        # without adding another full-width numerical table to the paper.
+        ax_z.text(-1.98, y - .22,
+                  f"mean {avg:+.2f} · median≈{(med_low+med_high)/2:+.2f}"
+                  f" · SD {float(row['sd_z']):.2f}",
+                  fontsize=6.9, ha="left", va="center", color="#283442",
+                  zorder=11, clip_on=False,
+                  bbox={"facecolor": "white", "edgecolor": "none",
+                        "alpha": .74, "pad": .35})
     ax_z.set_xlim(-2.02, 2.02)
     ax_z.set_xlabel("Instructor–period standardised final outcome (Z)")
-    ax_z.set_title("Overlaid Z-score histograms", fontsize=10, pad=10)
+    ax_z.set_title("Z distributions; descriptive mean, median and uncertainty",
+                   fontsize=10, pad=10)
     ax_z.tick_params(axis="y", left=False, labelleft=False)
     ax_z.text(
         .015, .025,
@@ -325,7 +407,8 @@ def plot_cohort_outcome_attendance_overview() -> Path:
             axis.axhline(boundary, linestyle="--", color="0.38",
                          linewidth=.75, alpha=.6)
         axis.grid(axis="y", visible=False)
-        axis.set_ylim(len(GROUPS) - .35, -.6)
+        # Space above the first ridge is needed for the CI and median marks.
+        axis.set_ylim(len(GROUPS) - .35, -1.0)
 
     fig.legend(
         handles=[
@@ -334,17 +417,24 @@ def plot_cohort_outcome_attendance_overview() -> Path:
             Patch(facecolor=colors["numeric"], alpha=.86,
                   label="Numeric non-PASS: grade <7.5"),
             Patch(facecolor=colors["admin"], alpha=.86,
-                  label="No numeric final grade: BV / RT / BA"),
+                  label="No numeric grade: BV / RT / BA"),
+            Line2D([0], [0], color="#202D3A", linewidth=1.5,
+                   marker="o", markersize=4,
+                   label="Descriptive mean and 95% CI"),
+            Line2D([0], [0], color="#8D52A1", linewidth=2.5,
+                   marker="D", markersize=4,
+                   label="Approximate median (binned bounds)"),
         ],
         loc="upper center", bbox_to_anchor=(.5, 1.018),
-        ncol=3, frameon=False, fontsize=8.5,
+        ncol=5, frameon=False, fontsize=7.3,
     )
     fig.suptitle("Final outcomes and CMAT use by visit frequency",
                  fontsize=12, y=1.08)
     fig.text(
         .5, -.025,
         "Descriptive bands: 0 | 1–3 (PPA1 option at visit 3) | 4–6 | 7+. "
-        "Only −2 ≤ Z ≤ 2 is plotted; percentages and counts use all students.",
+        "Only −2 ≤ Z ≤ 2 is plotted; mean, SD and CI use all Z outcomes. "
+        "Median bounds use 0.1-Z bins and unshown-tail counts.",
         ha="center", fontsize=8, color="0.35",
     )
     fig.subplots_adjust(left=.08, right=.965, top=.87, bottom=.16)
