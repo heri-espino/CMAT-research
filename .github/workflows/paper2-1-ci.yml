@@ -23,6 +23,8 @@ jobs:
           cache-dependency-path: cmat_analysis/pyproject.toml
       - name: Install shared analysis package
         run: python -m pip install -e './cmat_analysis[dev]'
+      - name: Verify strict 7.5 PASS cutoff with synthetic records
+        run: python -m pytest -q cmat_analysis/tests/test_grade_passing_cutoff.py
       - name: Check source contracts and syntax
         run: |
           python -m py_compile code/run_paper21.py code/run_paper21_outcomes.py code/figures_paper21.py paper/paper_build_figures.py paper/paper_build.py
