@@ -10,6 +10,10 @@ La comparación inicial `0 vs 1+` es un benchmark; la pregunta de frecuencia se 
 - **Prueba global (omnibus):** contrastar la hipótesis conjunta de igualdad de los niveles ajustados entre las frecuencias positivas. Su valor p no sustituye ni resume por sí solo la incertidumbre de contrastes individuales.
 - **Contrastes Wald:** comparar cada pareja de grupos a partir de las diferencias de coeficientes y la matriz de covarianza cluster-robust; reportar diferencia, SE, IC del 95%, valor p sin ajuste y valor p con Holm.
 
+## Heatmaps y PPA1
+
+Para la grilla de ocho frecuencias, los gráficos muestran **únicamente el triángulo superior** (28 pares), con diferencia de efectos igual a frecuencia de columna menos frecuencia de fila, ordenadas ascendentemente. PPA1 se cumple con la tercera visita; por ello las separaciones visuales se dibujan después de 0, 3 y 6, delimitando las hipótesis descriptivas `0 | 1–3 | 4–6 | 7+`. Los cortes no son pruebas, no modifican las familias de Holm y no prueban equivalencia.
+
 ## Qué controla Holm
 
 Para una familia de `m` contrastes previamente definida, ordenar los valores p `p_(1) <= ... <= p_(m)` y compararlos secuencialmente con niveles `alpha/(m-j+1)` (equivalente a comunicar valores p ajustados por el procedimiento escalonado de Holm). El control del **family-wise error rate** responde a la multiplicidad de comparaciones dentro de esa familia cuando sus pruebas individuales están bien calibradas; no corrige autoselección, especificación errónea, múltiples decisiones exploratorias fuera de familia ni incertidumbre causal.
