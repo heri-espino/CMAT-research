@@ -278,7 +278,9 @@ def plot_cohort_outcome_attendance_overview() -> Path:
 
     # Right: complete attendance-frequency group counts, not the number
     # falling inside the histogram's restricted Z plotting window.
-    ax_freq.barh(xpos, sample_size, height=.58,
+    # Start each bar at one for a well-defined logarithmic axis;
+    # its right end still encodes the exact full-group count.
+    ax_freq.barh(xpos, sample_size - 1, left=1, height=.58,
                  color="0.50", alpha=.75, edgecolor="white", linewidth=.3)
     ax_freq.set_xscale("log")
     ax_freq.set_xlim(1, int(sample_size.max()) * 2.2)
