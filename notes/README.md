@@ -15,6 +15,10 @@ Esta rama y su manuscrito se concentran exclusivamente en **frecuencia registrad
 - [Decisiones y pendientes](09_DECISIONES_Y_PENDIENTES.md)
 - [Trazabilidad de afirmaciones](10_MATRIZ_DE_AFIRMACIONES.md)
 
+## PPA1 y visualización de los contrastes
+
+Los puntos **PPA1 se obtienen en la tercera visita a CMAT**, por lo que los heatmaps con **triángulo superior** separan descriptivamente `0 | 1–3 | 4–6 | 7+`. Las líneas después de 0, 3 y 6 visitas no demuestran que existan cuatro regímenes estadísticos. Véase [nota específica](11_PPA1_Y_HEATMAP_TRIANGULAR.md).
+
 ## Contratos científicos
 
 La agrupación elegida antes de examinar resultados fue `1/2/3/4/5/6+` entre usuarios. La desagregación `6/7+` constituye una presentación posterior, exploratoria. La familia de 15 pares entre usuarios es diferente de los 21 pares de la sensibilidad y de los 28 pares del modelo con cero visitas incluido. Un resultado no significativo **no** establece equivalencia.
