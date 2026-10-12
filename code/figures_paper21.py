@@ -24,7 +24,7 @@ FIGURES = ROOT / "results" / "paper21" / "figures"
 GROUPS = ["0", "1", "2", "3", "4", "5", "6", "7+"]
 # These are boundaries after 0, after 3 (PPA1), and after 6 visits.
 BAND_EDGES = (0.5, 3.5, 6.5)
-BANDS = (("0", 0.0), ("1–3 (PPA1)", 2.0), ("4–6", 5.0), ("7+", 7.0))
+BANDS = (("0", 0.0), ("1–3 (PPA1 option)", 2.0), ("4–6", 5.0), ("7+", 7.0))
 
 
 def validate() -> None:
@@ -128,7 +128,7 @@ def draw_effects() -> Path:
     fig.suptitle("CMAT visits: adjusted contrasts (later group minus earlier group)",
                  fontsize=11, y=1.035)
     fig.text(.5, -.005,
-             "PPA1 is completed on visit 3; separators after 0, 3 and 6 are descriptive, not Holm-derived.",
+             "Eligible first-semester students can complete a PPA1 activity on visit 3; separators are descriptive.",
              ha="center", fontsize=8, color="0.3")
     fig.subplots_adjust(wspace=.27)
     return save(fig, "fig03_04_pairwise_effect_dashboard.pdf")
@@ -169,7 +169,7 @@ def draw_pvalues(outcome: str, raw_file: str, holm_file: str, filename: str) -> 
     cb.set_label("Two-sided pairwise p-value", fontsize=9)
     fig.suptitle(outcome + ": upper-triangle pairwise Wald tests", fontsize=11, y=1.035)
     fig.text(.5, -.005,
-             "PPA1 completes at visit 3. Holm applies to all 28 pairs per outcome, not to proposed visit bands.",
+             "PPA1 offers eligible first-semester students a 3-visit option; Holm applies to all 28 pairs.",
              ha="center", fontsize=8, color="0.3")
     return save(fig, filename)
 
@@ -343,7 +343,7 @@ def plot_cohort_outcome_attendance_overview() -> Path:
                  fontsize=12, y=1.08)
     fig.text(
         .5, -.025,
-        "Descriptive bands: 0 | 1–3 (PPA1 at visit 3) | 4–6 | 7+. "
+        "Descriptive bands: 0 | 1–3 (PPA1 option at visit 3) | 4–6 | 7+. "
         "Only −2 ≤ Z ≤ 2 is plotted; percentages and counts use all students.",
         ha="center", fontsize=8, color="0.35",
     )
