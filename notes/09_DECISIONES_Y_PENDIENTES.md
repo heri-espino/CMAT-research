@@ -32,3 +32,9 @@ El apartado de métodos está listo para escribirse cuando estén claros el **un
 No abrir una nueva rama metodológica por una diferencia de p-values ni modificar agrupaciones para aumentar significación. Los experimentos adicionales requerirán decisión explícita, fecha y nuevo registro en este archivo.
 
 ## Siguiente tarea concreta
+
+## Próximas investigaciones planteadas (2026-10-12)
+
+- [ ] **Becas y resultados administrativos**: enlazar de manera autorizada estatus/tipo de beca, promedio anterior, movimientos permitidos según normativa histórica, calificaciones, y fechas/motivos de BV/RT/BA. Evaluar si la mayor proporción administrativa entre no-PASS asistentes persiste con estos covariables. No deducir intenciones de registros administrativos.
+- [ ] **Efectividad del incentivo PPA1**: documentar cuándo y para quién la tercera visita generó puntos PPA1; analizar elegibilidad, registros de visitas alrededor del cumplimiento, cambios de política y población comparadora. Contar visitas 2/3/4 no equivale a un experimento.
+- [ ] Confirmar los PDF actualizados de tres categorías de Figura 1, leyenda y denominadores. La cifra de fracaso numérico utiliza estrictamente `<7.5`, mientras `7.5` exactos aprueban.

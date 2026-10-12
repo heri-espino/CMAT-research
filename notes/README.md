@@ -14,6 +14,7 @@ Esta rama y su manuscrito se concentran exclusivamente en **frecuencia registrad
 - [Revista y esquema del artículo](08_JOURNAL_Y_PLAN_DE_MANUSCRITO.md)
 - [Decisiones y pendientes](09_DECISIONES_Y_PENDIENTES.md)
 - [Trazabilidad de afirmaciones](10_MATRIZ_DE_AFIRMACIONES.md)
+- [Composición no-PASS, becas y futuras evaluaciones de PPA1](12_NONPASS_SCHOLARSHIP_PPA_HYPOTHESES.md).
 
 ## PPA1 y visualización de los contrastes
 
