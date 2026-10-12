@@ -8,6 +8,8 @@ The pairwise figures now show the **upper triangle only** with descriptive separ
 
 The descriptive attendance table in the opening Results section has been replaced with `fig01_cohort_outcome_attendance.pdf`. This three-panel figure reports PASS (blue), observed numeric failure with grade strictly below 7.5 (orange), and administrative non-numeric outcomes BV/RT/BA (gold) as shares of each frequency (left), translucent group-specific histograms of the imputed instructor-period Z outcome (centre, pre-aggregated range -2 to 2 only), and attendance counts on an explicitly labelled log scale (right). All eight attendance groups and the PPA1 at-three-visits interpretation remain visible; the figure is descriptive and does not change the Wald/Holm tests.
 
+The middle Z histogram now overlays each full visit-group's **descriptive mean with its unadjusted 95% confidence interval** and a **conservative binned-median location range** (approximate centre marker, not a median CI). All eight full-group **SDs** and mean/median approximations are printed in the figure; the corresponding values and data limitations are documented in `../notes/13_DESCRIPTIVE_Z_HISTOGRAM_STATS.md`. Mean/SD/CI use all Z outcomes, whereas the histogram only shows bins from -2 to 2; no newly fitted models are involved.
+
 The official manuscript build outputs are a clean and commented TEAMAT draft. Figures included in the manuscript are:
 - `../results/paper21/figures/fig01_cohort_outcome_attendance.pdf` (three-panel cohort overview from aggregate histograms and percentages).
 - `../results/paper21/figures/fig03_04_pairwise_effect_dashboard.pdf` (adjusted Z and PASS risk differences).
