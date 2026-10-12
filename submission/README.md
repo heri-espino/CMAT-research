@@ -1,6 +1,6 @@
 # Paper 2.1 — TEAMAT submission workspace
 
-**Working title:** *Beyond First Attendance: Mathematics Support Visit Frequency and Holm-Adjusted Academic Outcomes*.
+**Working title:** *Beyond First Attendance: Interpreting Visit Frequency in University Mathematics Support*.
 
 The current English manuscript `paper/sections/01.tex`–`04.tex` reports attendance-frequency comparisons for adjusted Z and PASS using Wald contrasts and Holm correction. The working plan and all relevant source links are in `notes/README.md`; formal submitting metadata is in `submission/METADATA.md`.
 

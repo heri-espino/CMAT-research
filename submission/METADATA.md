@@ -4,7 +4,7 @@ This file stores submission-system metadata for the Paper 2.1 TEAMAT submission.
 
 ## Current manuscript title
 
-*Beyond First Attendance: Mathematics Support Visit Frequency and Holm-Adjusted Academic Outcomes*
+*Beyond First Attendance: Interpreting Visit Frequency in University Mathematics Support*
 
 ## Authors
 
