@@ -14,6 +14,10 @@
 
 See `paper/docs/results/PRELIMINARY_RESULTS.md` and `notes/05_RESULTADOS_Y_PROCEDENCIA.md`. These are retained earlier results, not newly executed on 2026-10-09.
 
+## Correction to PPA1 and plot design (2026-10-11)
+
+PPA1 points are awarded on completion of **three** recorded CMAT visits. The descriptive after-completion separator is therefore **3|4**, not 2|3. The three heatmaps are now encoded as **upper triangles**, with visual bands `0 | 1–3 | 4–6 | 7+`; full eight-frequency Holm families remain unchanged. The four bands have not been validated as four distinct effect regimes. New PDFs can be reproduced via `python paper/paper_build.py --figures`. This code change does not create new controlled-data estimates.
+
 ## Work to complete before publication
 
 1. Check manuscript numbers against all canonical aggregate CSV files and outcome/group definitions.
