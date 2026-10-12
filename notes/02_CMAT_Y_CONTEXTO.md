@@ -12,11 +12,15 @@ Los registros de asistencia citados en el manuscrito cubren **11 periodos acadé
 
 `0` quiere decir **cero asistencias registradas** en ese periodo, no que el estudiante no estudiara, no buscara otra ayuda, no necesitara apoyo o tuviera poca motivación. `k>0` indica exposiciones registradas al centro, no horas de enseñanza.
 
-## Incentivo PPA y su papel analítico
+## PPA1, integración universitaria y significado de la asistencia
 
-Según el marco institucional documentado en `paper/sections/02.tex`, durante al menos parte del periodo observado la universidad permitió acreditar una actividad de participación del primer semestre (PPA) **al completar la tercera visita a CMAT**, momento en que se obtenían los puntos PPA1 de esa modalidad. Las visitas 1–3 podrían reflejar tanto demanda académica como cumplimiento de ese incentivo. La visita cuarta y las siguientes exceden el requisito de esa **opción específica**, aunque tampoco son «visitas voluntarias puras» en sentido causal.
+Según la **aclaración institucional proporcionada al proyecto (2026-10-12)**, PPA1 es un programa dirigido a **estudiantes de primer semestre** para favorecer su **integración social y cultural** mediante diversas actividades, entre ellas asistir a eventos deportivos, obras de teatro o danza, o involucrarse en organizaciones estudiantiles. **Una de las actividades disponibles consiste en asistir tres veces a CMAT para obtener los puntos PPA1 correspondientes a esa opción**. La alternativa de tres visitas estuvo **implementada durante los once periodos del análisis (primavera de 2019 a primavera de 2024)**. No debe presentarse PPA1 como un programa de tutorías matemáticas ni como un incentivo añadido sólo en algunos periodos.
 
-La fecha exacta de inicio/final de esa modalidad, a quiénes aplicó, su vigencia durante los distintos años y eventuales alternativas del esquema PPA **no están verificadas aquí**. No presentar tres visitas como un cutoff exógeno, experimento natural ni prueba de motivación. La comparación **2 vs 3** corresponde a alcanzar las tres visitas requeridas, mientras que la separación entre **3 y 4** indica la primera visita posterior a completar PPA1. Ambos son diagnósticos descriptivos, no pruebas causales. Los heatmaps deben marcar $3|4$ como separación de bloques, y no $2|3$.
+Para quien sea elegible, la tercera visita completa esa actividad y la cuarta representa asistencia adicional a lo necesario para ella. Como PPA1 ofrece otras actividades, su existencia **no significa que todos los asistentes de CMAT acudieran por puntos**, ni que todos los estudiantes de MU fueran elegibles, reclamaran los puntos o eligieran esa actividad. La base analítica **no identifica la motivación de cada visita ni el estatus individual PPA1**.
+
+La frontera visual entre `3|4` señala el inicio de visitas posteriores al cumplimiento de esa **opción específica**, mientras `2|3` corresponde a la eventual finalización del requisito. **Ninguno de esos contrastes prueba un efecto del incentivo** ni forma un experimento natural. Su continuidad impide usar una supuesta entrada o salida de PPA1 durante el periodo como tratamiento sin evidencia adicional.
+
+**Documentación pendiente:** archivar el reglamento o folleto institucional histórico como fuente editorial y, si se desea estudiar efectos de PPA1 en otro trabajo, obtener elegibilidad y acreditación individuales; esto ya no es una duda sobre si la opción existió durante la ventana.
 
 ## Relevancia para las preguntas
 
@@ -24,4 +28,4 @@ La existencia del centro y sus registros permite observar dos dimensiones distin
 
 **Fuente principal:** [Contexto institucional y metodología ya redactados](../paper/sections/02.tex); [nota sobre incentivo y grupos](../paper/docs/analysis/VISIT_GROUPING_DECISION.md).
 
-**Verificación pendiente:** descripción y horarios históricos, periodo de vigencia de PPA, significado oficial de todos los códigos administrativos.
+**Verificación pendiente:** horarios históricos de CMAT, documento escrito sobre actividades PPA1 y sus reglas de acreditación individual, significado oficial de los códigos administrativos y autorización de uso de datos.
