@@ -289,7 +289,11 @@ def plot_cohort_outcome_attendance_overview() -> Path:
             (fail_h, colors["numeric"], .70, 3),
             (pass_h, colors["pass"], .53, 4),
         ):
-            ax_z.bar(x, h * common_scale, width=.095, bottom=y,
+            height = h * common_scale
+            # The shared y-axis is inverted to list visits from 0 to 7+.
+            # Place each bar in [y - height, y] so it rises visually
+            # from the baseline at y instead of extending downwards.
+            ax_z.bar(x, height, width=.095, bottom=y - height,
                      color=color, alpha=opacity, align="center",
                      linewidth=0, zorder=order)
         ax_z.hlines(y, -2, 2, color="0.50", linewidth=.4, zorder=1)
