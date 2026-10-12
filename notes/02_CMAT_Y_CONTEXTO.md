@@ -14,9 +14,9 @@ Los registros de asistencia citados en el manuscrito cubren **11 periodos acadé
 
 ## Incentivo PPA y su papel analítico
 
-Según el marco institucional documentado en `paper/sections/02.tex`, durante al menos parte del periodo observado la universidad permitió acreditar una actividad de participación del primer semestre (PPA) mediante **tres visitas a CMAT**. Las visitas 1–3 podrían reflejar tanto demanda académica como cumplimiento de ese incentivo. La visita cuarta y las siguientes exceden el requisito de esa **opción específica**, aunque tampoco son «visitas voluntarias puras» en sentido causal.
+Según el marco institucional documentado en `paper/sections/02.tex`, durante al menos parte del periodo observado la universidad permitió acreditar una actividad de participación del primer semestre (PPA) **al completar la tercera visita a CMAT**, momento en que se obtenían los puntos PPA1 de esa modalidad. Las visitas 1–3 podrían reflejar tanto demanda académica como cumplimiento de ese incentivo. La visita cuarta y las siguientes exceden el requisito de esa **opción específica**, aunque tampoco son «visitas voluntarias puras» en sentido causal.
 
-La fecha exacta de inicio/final de esa modalidad, a quiénes aplicó, su vigencia durante los distintos años y eventuales alternativas del esquema PPA **no están verificadas aquí**. No presentar tres visitas como un cutoff exógeno, experimento natural ni prueba de motivación. La comparación 2 vs 3 debe leerse como diagnóstico descriptivo, no como regresión discontinua.
+La fecha exacta de inicio/final de esa modalidad, a quiénes aplicó, su vigencia durante los distintos años y eventuales alternativas del esquema PPA **no están verificadas aquí**. No presentar tres visitas como un cutoff exógeno, experimento natural ni prueba de motivación. La comparación **2 vs 3** corresponde a alcanzar las tres visitas requeridas, mientras que la separación entre **3 y 4** indica la primera visita posterior a completar PPA1. Ambos son diagnósticos descriptivos, no pruebas causales. Los heatmaps deben marcar $3|4$ como separación de bloques, y no $2|3$.
 
 ## Relevancia para las preguntas
 

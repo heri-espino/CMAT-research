@@ -12,7 +12,7 @@ Este argumento permite describir a CMAT y su uso sin convertir resultados de aso
 
 **Frecuencia entre usuarios:** en la grilla fijada `1/2/3/4/5/6+` no hay contraste positivo Holm-significativo, lo que indica **insuficiente evidencia para distinguir claramente pares** con esta precisión, no «equivalencia» ni «ausencia de asociación». La cola es escasa y la sensibilidad por profesor sí admite un contraste amplio `1` vs `6+` en PASS. El resultado `7+` vs `1` de la grilla completa es interesante, pero debe explicitarse su familia, el soporte y que la resolución de cola fue posterior al soporte auditado.
 
-**PPA a tres visitas:** es una frontera de incentivos potenciales, no un corte causal. En la comparación adyacente 2–3 no se observa una discontinuidad académica robusta. Si la idea de «visitas mayores a tres» se usa, explicar que exceden esa opción de actividad, sin asegurar ausencia de otros incentivos o motivos.
+**PPA a tres visitas:** es una frontera de incentivos potenciales, no un corte causal. El contraste 2–3 describe alcanzar el requisito de tres visitas, mientras 3–4 distingue la primera visita posterior a su cumplimiento. Ninguno establece una discontinuidad académica robusta bajo Holm. Proponemos como hipótesis descriptiva las bandas **0 (n=5,393), 1–3 (n=932), 4–6 (n=201) y 7+ (n=101)**, sin afirmar que son cuatro regímenes estadísticamente distinguidos ni que dentro de cada banda exista equivalencia. Visitas mayores a tres exceden esa condición PPA1, pero no demuestran ausencia de otros incentivos o motivos.
 
 ## Hipótesis alternativas abiertas
 

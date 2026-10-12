@@ -90,24 +90,27 @@ It was not originally selected as the support-optimal inferential grouping. Its 
 
 ### Current manuscript interpretation
 
-The current manuscript uses the full `0 / 1 / 2 / 3 / 4 / 5 / 6 / 7+` grid for its main descriptive and pairwise displays while preserving the original support-based `6+` choice as a robustness specification. Three interpretive regions are distinguished without recoding the exposure:
+The current manuscript uses the full `0 / 1 / 2 / 3 / 4 / 5 / 6 / 7+` grid for its main descriptive and pairwise displays while preserving the original support-based `6+` choice as a robustness specification. Four proposed interpretive regions are shown as a descriptive overlay without recoding the inferential exposure or claiming four statistically identified regimes:
 
 - `0`: no recorded CMAT use;
-- `1--3`: attendance that may be partly influenced by the PPA participation-credit option;
-- `4+`: repeated CMAT use beyond the three visits needed for that specific credit option, with `7+` retained as a high-frequency tail.
+- `1--3`: visits up to **completion of the three-visit requirement that awards PPA1 points** (completion occurs at the third visit);
+- `4--6`: visits beyond completion of that specific PPA1 condition;
+- `7+`: separately displayed upper tail of frequent use.
+
+The frequencies underlying these descriptive bands are 5,393 (zero), 932 (1--3), 201 (4--6), and 101 (7+). These counts come from the existing attendance tables. The four-band scheme is **not** a new fitted model or a Holm-supported partition.
 
 The manuscript may discuss the descriptive changes from 4 to 5 and from 6 to 7+ because they are visible in the observed profile, but neither adjacent contrast is statistically resolved and neither should be labelled a threshold effect. The strongest within-user multiplicity-adjusted result in the full-group PASS model is 7+ versus one visit. This result does not retroactively make the 7+ cut outcome-blind or causal.
 
 ### PPA-threshold diagnostic
 
-The `1 / 2 / 3 / 4 / 5 / 6 / 7+` sensitivity also serves a separate descriptive purpose: the institutional PPA participation threshold occurs at three recorded visits. This creates a substantively interesting boundary between one--two visits and three or more visits, because reaching three visits may reflect both demand for mathematics support and an institutional participation incentive.
+The `1 / 2 / 3 / 4 / 5 / 6 / 7+` sensitivity also serves a separate descriptive purpose: the institutional PPA participation threshold occurs at three recorded visits. PPA1 points are obtained **upon the third CMAT visit** under this institutional rule. For interpreting continued attendance *after fulfilling that condition*, the appropriate display boundary is **between three and four visits**. The second-to-third comparison captures reaching the condition, but is not the post-PPA boundary. Both are descriptive and non-causal.
 
 For that reason the sensitivity analysis now exports all adjusted pairwise comparisons for standardised grade and pass probability, together with two p-value matrices for each outcome:
 
 - unadjusted pairwise p-values, used only to inspect where local contrasts first become visible;
 - Holm-adjusted p-values, used for multiplicity-aware interpretation of the full pairwise family.
 
-The corresponding heatmap dashboards mark the boundary between 2 and 3 visits. They are exploratory diagnostics of where differences appear across visit frequencies; they do not identify a causal effect of the PPA incentive, because students are not randomly assigned to reach three visits and visit frequency remains behaviourally selected.
+The upper-triangular heatmap dashboards now display the exploratory bands `0 | 1--3 | 4--6 | 7+`, with separators after 0, 3 and 6 visits. Only cells strictly above the diagonal are printed; the other half would repeat identical tests or opposite-signed contrasts. They are exploratory diagnostics of where differences appear across visit frequencies; they do not identify a causal effect of the PPA incentive, because students are not randomly assigned to reach three visits and visit frequency remains behaviourally selected.
 
 ## Reopening this decision
 
