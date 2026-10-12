@@ -161,13 +161,16 @@ def draw_pvalues(outcome: str, raw_file: str, holm_file: str, filename: str) -> 
                     ax.text(j, i, fmt_p(p), ha="center", va="center",
                             fontsize=7.5, weight="bold" if p < .05 else "normal",
                             color="0.10" if p < .3 else "white")
-    cb = fig.colorbar(image, ax=axes, shrink=.77, pad=.025)
+    # Reserve a separate strip for the common colour bar; allowing
+    # figure.colorbar(ax=axes) can overlay the second upper triangle.
+    fig.subplots_adjust(wspace=.22, right=.88)
+    colorbar_axis = fig.add_axes([.91, .19, .017, .60])
+    cb = fig.colorbar(image, cax=colorbar_axis)
     cb.set_label("Two-sided pairwise p-value", fontsize=9)
     fig.suptitle(outcome + ": upper-triangle pairwise Wald tests", fontsize=11, y=1.035)
     fig.text(.5, -.005,
              "PPA1 completes at visit 3. Holm applies to all 28 pairs per outcome, not to proposed visit bands.",
              ha="center", fontsize=8, color="0.3")
-    fig.subplots_adjust(wspace=.25)
     return save(fig, filename)
 
 
