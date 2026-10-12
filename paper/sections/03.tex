@@ -2,30 +2,16 @@
 
 \subsection{Attendance distribution and unadjusted outcomes}
 
-Of the 6,627 first eligible MU attempts, 5,393 students (81.4\%) had no recorded CMAT attendance and 1,234 (18.6\%) had at least one recorded visit. Positive attendance was concentrated at low frequencies: 517 students made one visit, 245 made two, 170 made three, 96 made four, 55 made five, 50 made exactly six and 101 made seven or more. \Cref{tab:visits-descriptive} presents descriptive final performance and PASS rates for the fine-resolution reporting grid. These are unadjusted summaries, not estimated changes following individual support sessions.
+Of the 6,627 first eligible MU attempts, 5,393 students (81.4\%) had no recorded CMAT attendance and 1,234 (18.6\%) had at least one recorded visit. \Cref{fig:cohort-overview} presents the observed proportion passing and not passing within each attendance-frequency category (left), the distribution of the final instructor--period-standardised grade outcome (centre), and the corresponding student counts (right). Each pair of central Z-score histograms is transparently overlaid and scaled by the full attendance-frequency group size; the displayed Z range is restricted to $[-2,2]$, whereas the PASS percentages and attendance counts retain the full sample.
 
-\begin{table}[tbp]
+\begin{figure}[tbp]
 \centering
-\small
-\caption{Observed final outcomes by CMAT visit frequency. Means refer to the instructor--period-standardised final-outcome measure; confidence intervals are descriptive, not the adjusted pairwise Wald intervals.}
-\label{tab:visits-descriptive}
-\begin{tabular}{lrrr}
-\toprule
-Visits & $n$ & Mean $Z$ (95\% CI) & PASS rate (95\% CI)\\
-\midrule
-0 & 5,393 & $-0.061$ [$-0.088$, $-0.034$] & 72.1\% [70.9, 73.3]\\
-1 & 517 & 0.219 [0.146, 0.292] & 81.0\% [77.7, 84.4]\\
-2 & 245 & 0.247 [0.154, 0.339] & 80.8\% [75.9, 85.7]\\
-3 & 170 & 0.278 [0.158, 0.398] & 81.8\% [76.0, 87.6]\\
-4 & 96 & 0.267 [0.128, 0.406] & 86.5\% [79.6, 93.3]\\
-5 & 55 & 0.382 [0.225, 0.539] & 85.5\% [76.1, 94.8]\\
-6 & 50 & 0.288 [0.055, 0.520] & 82.0\% [71.4, 92.6]\\
-7+ & 101 & 0.457 [0.336, 0.579] & 89.1\% [83.0, 95.2]\\
-\bottomrule
-\end{tabular}
-\end{table}
+\includegraphics[width=\linewidth]{../results/paper21/figures/fig01_cohort_outcome_attendance.pdf}
+\caption{Distribution of final academic outcomes and CMAT use by visit frequency. Left: percentage of PASS (numeric final grade at least 7.5) versus non-PASS (numeric failure or BA/BV/RT) within each attendance group. Centre: translucent overlapping histograms of PASS and non-PASS observations for the final standardised Z outcome, with a common vertical scale across visit frequencies and an explicitly limited plotting window $-2\leq Z\leq2$; administrative final states contribute through the documented continuous-outcome imputation rule. Right: total students at each frequency, shown on a logarithmic axis to retain visibility of the sparse upper tail. Dashed horizontal separators indicate the descriptive attendance ranges $0$, $1$--$3$ (the PPA1 requirement is completed on visit three), $4$--$6$, and $7+$, not inferentially confirmed regimes. PASS is defined using the original numeric 7.5 threshold, which does not correspond to one common Z-score cutoff across instructor--period contexts.}
+\label{fig:cohort-overview}
+\end{figure}
 
-The descriptive means do not increase uniformly with each visit count: the exact-six mean, for instance, is lower than the five-visit mean and has a wide interval. The $7+$ cell remains small compared with the zero-visit group. These support differences are relevant when interpreting both local contrasts and non-rejection after multiple-testing correction.
+The distribution of visits is highly concentrated at zero, and cells beyond three visits contain substantially fewer students. The 1--3 range comprises 932 students, the 4--6 range 201, and the $7+$ group 101. Differences in the shape of the observed Z distributions and in PASS fractions are descriptive; they do not establish a monotone benefit from additional visits and should be distinguished from the adjusted Wald and Holm results below.
 
 \subsection{Benchmark: any use versus no recorded use}
 

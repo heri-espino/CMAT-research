@@ -28,8 +28,8 @@ jobs:
           python -m py_compile code/run_paper21.py code/run_paper21_outcomes.py code/figures_paper21.py paper/paper_build_figures.py paper/paper_build.py
           python code/run_paper21.py --check
           python code/run_paper21_outcomes.py --check
-      - name: Produce attendance support, Wald and Holm tables
-        run: python paper/paper_build.py --tables --figures
+      - name: Generate overview and Holm figures from committed aggregate tables
+        run: python paper/paper_build.py --figures
       - name: Verify primary adjusted outputs
         shell: bash
         run: |
@@ -40,6 +40,7 @@ jobs:
             results/paper21/tables/14_primary_pairwise_pass.csv \
             results/paper21/tables/26a_zero_inclusive_7plus_pairwise_continuous.csv \
             results/paper21/tables/26k_zero_inclusive_7plus_pairwise_pass_lpm.csv \
+            results/paper21/figures/fig01_cohort_outcome_attendance.pdf
             results/paper21/figures/fig03_04_pairwise_effect_dashboard.pdf \
             results/paper21/figures/fig05_pairwise_z_pvalue_dashboard.pdf \
             results/paper21/figures/fig06_pairwise_pass_pvalue_dashboard.pdf; do

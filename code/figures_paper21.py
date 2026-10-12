@@ -174,6 +174,146 @@ def draw_pvalues(outcome: str, raw_file: str, holm_file: str, filename: str) -> 
     return save(fig, filename)
 
 
+
+def plot_cohort_outcome_attendance_overview() -> Path:
+    """Three aligned panels: PASS rate, Z histogram overlay, and visit counts.
+
+    Only pre-aggregated CSV tables are used; no student-level records are read.
+    Histograms display the pre-exported [-2, 2] Z window only.
+    """
+    from matplotlib.patches import Patch
+    from matplotlib.ticker import PercentFormatter
+
+    summaries = pd.read_csv(
+        TABLES / "10n_zero_inclusive_7plus_descriptives.csv"
+    )
+    summaries["group"] = summaries["group"].astype(str)
+    summaries = summaries.set_index("group").reindex(GROUPS)
+    if summaries[["n", "pass_rate"]].isna().any().any():
+        raise ValueError("Missing frequency groups in cohort overview table")
+
+    histogram = pd.read_csv(
+        TABLES / "10s_zero_inclusive_7plus_imputed_z_histogram.csv"
+    )
+    histogram["group"] = histogram["group"].astype(str)
+    required = {"pass", "numeric_nonpass", "BV", "RT", "BA"}
+    if not required.issubset(set(histogram["component"].unique())):
+        raise ValueError("Imputed Z histogram lacks PASS/non-PASS components")
+
+    palette = {"pass": "C0", "nonpass": "C1"}
+    fig, (ax_rates, ax_z, ax_freq) = plt.subplots(
+        1, 3, figsize=(14.0, 6.0), sharey=True,
+        gridspec_kw={"width_ratios": [2.05, 5.1, 1.95], "wspace": 0.13},
+    )
+    xpos = np.arange(len(GROUPS), dtype=float)
+    sample_size = summaries["n"].to_numpy(dtype=int)
+    pass_pct = 100 * summaries["pass_rate"].to_numpy(dtype=float)
+    nonpass_pct = 100 - pass_pct
+    if int(sample_size.sum()) != 6627:
+        raise ValueError("Unexpected cohort size in aggregate overview")
+    if not np.isfinite(pass_pct).all() or ((pass_pct < 0) | (pass_pct > 100)).any():
+        raise ValueError("PASS fractions are not valid probabilities")
+
+    # Left: exact observed PASS and non-PASS shares, all percentages use
+    # the full attendance-frequency group's denominator.
+    ax_rates.barh(xpos, pass_pct, height=.58,
+                  color=palette["pass"], alpha=.80, edgecolor="white", linewidth=.25)
+    ax_rates.barh(xpos, nonpass_pct, left=pass_pct, height=.58,
+                  color=palette["nonpass"], alpha=.80, edgecolor="white", linewidth=.25)
+    for y, p, q in zip(xpos, pass_pct, nonpass_pct):
+        ax_rates.text(p / 2, y, f"{p:.1f}%", ha="center",
+                      va="center", fontsize=7.3, color="white", weight="bold")
+        if q >= 8:
+            ax_rates.text(p + q / 2, y, f"{q:.1f}%",
+                          ha="center", va="center", fontsize=7.1, color="0.15")
+    ax_rates.set_xlim(0, 100)
+    ax_rates.xaxis.set_major_formatter(PercentFormatter(xmax=100))
+    ax_rates.set_xlabel("Within-frequency share")
+    ax_rates.set_ylabel("Recorded CMAT visits")
+    ax_rates.set_title("PASS versus non-PASS", fontsize=10, pad=12)
+    ax_rates.set_yticks(xpos, GROUPS)
+
+    # Centre: from the archived 0.1-Z histogram, each component is divided
+    # by the *entire group n*. PASS and non-PASS histograms overlap
+    # translucently on the same row: they are not stacked or rescaled to
+    # their separate PASS/non-PASS populations.
+    by_group = {}
+    max_bin_share = 0.0
+    for group, n in zip(GROUPS, sample_size):
+        subset = histogram.loc[histogram["group"].eq(group)]
+        if subset.empty:
+            raise ValueError(f"Missing Z histogram for {group} visits")
+        bins = subset.pivot_table(
+            index="bin_center", columns="component",
+            values="count", aggfunc="sum", fill_value=0
+        ).sort_index()
+        passing = bins["pass"].to_numpy(dtype=float) * 100 / n
+        failing = bins.drop(columns=["pass"]).sum(axis=1).to_numpy(dtype=float) * 100 / n
+        if passing.sum() + failing.sum() > 100.001:
+            raise ValueError(f"Z histogram exceeds group size for {group}")
+        centers = bins.index.to_numpy(dtype=float)
+        by_group[group] = (centers, passing, failing)
+        max_bin_share = max(max_bin_share, passing.max(initial=0), failing.max(initial=0))
+
+    row_height = .70
+    scale = row_height / max(max_bin_share, 1e-6)
+    for y, group in zip(xpos, GROUPS):
+        centers, passing, failing = by_group[group]
+        ax_z.bar(centers, failing * scale, width=.095,
+                 bottom=y, color=palette["nonpass"], alpha=.50,
+                 linewidth=0, align="center", zorder=2)
+        ax_z.bar(centers, passing * scale, width=.095,
+                 bottom=y, color=palette["pass"], alpha=.55,
+                 linewidth=0, align="center", zorder=3)
+        ax_z.hlines(y, -2.0, 2.0, color="0.55", linewidth=.4, zorder=1)
+    ax_z.set_xlim(-2.03, 2.03)
+    ax_z.set_xlabel("Instructor–period standardised final outcome (Z)")
+    ax_z.set_title("Translucent Z-score histograms", fontsize=10, pad=12)
+    ax_z.text(
+        .02, .02, "Common scale: %.1f%% of full group per 0.1-Z bin" % max_bin_share,
+        transform=ax_z.transAxes, fontsize=7, color="0.3",
+        bbox=dict(facecolor="white", edgecolor="none", alpha=.75, pad=1)
+    )
+    ax_z.tick_params(axis="y", left=False, labelleft=False)
+
+    # Right: complete attendance-frequency group counts, not the number
+    # falling inside the histogram's restricted Z plotting window.
+    ax_freq.barh(xpos, sample_size, height=.58,
+                 color="0.50", alpha=.75, edgecolor="white", linewidth=.3)
+    ax_freq.set_xscale("log")
+    ax_freq.set_xlim(1, int(sample_size.max()) * 2.2)
+    ax_freq.set_xlabel("Students (log scale)")
+    ax_freq.set_title("Attendance frequency", fontsize=10, pad=12)
+    ax_freq.tick_params(axis="y", left=False, labelleft=False)
+    for y, count in zip(xpos, sample_size):
+        ax_freq.text(count * 1.12, y, f"{count:,}", fontsize=7.5, va="center")
+    ax_freq.grid(axis="x", linewidth=.35, alpha=.25)
+
+    # Row boundaries are *institutional interpretation bands*, not
+    # regression blocks or Holm-established changepoints.
+    for ax in (ax_rates, ax_z, ax_freq):
+        for boundary in (.5, 3.5, 6.5):
+            ax.axhline(boundary, color="0.35", linestyle="--",
+                       linewidth=.75, alpha=.60)
+        ax.set_ylim(len(GROUPS) - .38, -.62)
+        ax.grid(axis="y", visible=False)
+
+    fig.legend(handles=[
+        Patch(facecolor=palette["pass"], alpha=.75,
+              label="PASS (numeric grade ≥7.5)"),
+        Patch(facecolor=palette["nonpass"], alpha=.65,
+              label="non-PASS (numeric failure or BA/BV/RT)"),
+    ], loc="upper center", bbox_to_anchor=(.5, 1.015),
+       ncol=2, frameon=False, fontsize=9)
+    fig.suptitle("Final outcomes and CMAT use by visit frequency",
+                 fontsize=12, y=1.07)
+    fig.text(.5, -.025,
+             "Dashed lines: 0 | 1–3 (PPA1 completed at visit 3) | 4–6 | 7+. "
+             "Histogram shows only −2 ≤ Z ≤ 2; percentages and N use all students.",
+             ha="center", va="bottom", fontsize=8, color="0.35")
+    fig.subplots_adjust(left=.075, right=.96, top=.87, bottom=.16)
+    return save(fig, "fig01_cohort_outcome_attendance.pdf")
+
 def main() -> int:
     argparse.ArgumentParser(
         description="Regenerate Paper 2.1 upper-triangular Wald/Holm heatmaps."
@@ -183,6 +323,7 @@ def main() -> int:
     plt.rcParams["pdf.fonttype"] = 42
     plt.rcParams["ps.fonttype"] = 42
     outputs = [
+        plot_cohort_outcome_attendance_overview(),
         draw_effects(),
         draw_pvalues(
             "Adjusted standardised grade (Z)",

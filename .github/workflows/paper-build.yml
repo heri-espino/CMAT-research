@@ -55,12 +55,12 @@ jobs:
         if: steps.manuscript.outputs.buildable == 'true'
         run: python -m pip install -e './cmat_analysis[dev]'
 
-      - name: Reproduce Paper 2.1 tables and figures
+      - name: Regenerate figures from committed aggregate tables
         if: steps.manuscript.outputs.buildable == 'true'
         shell: bash
         run: |
           if [[ -f paper/paper_build.py ]]; then
-            python paper/paper_build.py --tables --figures
+            python paper/paper_build.py --figures
           else
             if [[ -f code/run_paper21_outcomes.py ]]; then
               python code/run_paper21_outcomes.py \
@@ -125,6 +125,7 @@ jobs:
             paper/main_commented.log
             paper/main_commented.blg
             paper/main_commented.bbl
+            results/paper21/figures/fig01_cohort_outcome_attendance.pdf
             results/paper21/figures/fig03_04_pairwise_effect_dashboard.pdf
             results/paper21/figures/fig05_pairwise_z_pvalue_dashboard.pdf
             results/paper21/figures/fig06_pairwise_pass_pvalue_dashboard.pdf

@@ -6,7 +6,10 @@ Start with `../notes/README.md` and `docs/README.md`. Source manuscript: `sectio
 
 The pairwise figures now show the **upper triangle only** with descriptive separators after **0, 3 and 6** visits, representing `0 | 1–3 (PPA1 completion) | 4–6 | 7+`. Completion of **three visits** awards PPA1 points under the described rule; the first visit beyond that condition is the fourth. The complete 28-pair Holm families are retained.
 
+The descriptive attendance table in the opening Results section has been replaced with `fig01_cohort_outcome_attendance.pdf`. This three-panel figure reports PASS/non-PASS fractions (left), translucent group-specific histograms of the imputed instructor-period Z outcome (centre, pre-aggregated range -2 to 2 only), and attendance counts on an explicitly labelled log scale (right). All eight attendance groups and the PPA1 at-three-visits interpretation remain visible; the figure is descriptive and does not change the Wald/Holm tests.
+
 The official manuscript build outputs are a clean and commented TEAMAT draft. Figures included in the manuscript are:
+- `../results/paper21/figures/fig01_cohort_outcome_attendance.pdf` (three-panel cohort overview from aggregate histograms and percentages).
 - `../results/paper21/figures/fig03_04_pairwise_effect_dashboard.pdf` (adjusted Z and PASS risk differences).
 - `../results/paper21/figures/fig05_pairwise_z_pvalue_dashboard.pdf` (raw/Holm).
 - `../results/paper21/figures/fig06_pairwise_pass_pvalue_dashboard.pdf` (raw/Holm).

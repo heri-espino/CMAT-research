@@ -24,6 +24,8 @@ OUTCOME_RUNNER = REPO_ROOT / "code" / "run_paper21_outcomes.py"
 FIGURE_RUNNER = REPO_ROOT / "code" / "figures_paper21.py"
 
 TABLE_SENTINELS = (
+    TABLES_DIR / "10n_zero_inclusive_7plus_descriptives.csv",
+    TABLES_DIR / "10s_zero_inclusive_7plus_imputed_z_histogram.csv",
     TABLES_DIR / "01_exact_positive_visit_support.csv",
     TABLES_DIR / "05_cut_overlap_frontier.csv",
     TABLES_DIR / "10_benchmark_0_vs_1plus.csv",
@@ -43,6 +45,8 @@ TABLE_SENTINELS = (
 )
 
 FIGURE_INPUTS = (
+    TABLES_DIR / "10n_zero_inclusive_7plus_descriptives.csv",
+    TABLES_DIR / "10s_zero_inclusive_7plus_imputed_z_histogram.csv",
     TABLES_DIR / "26b_zero_inclusive_7plus_z_effect_matrix.csv",
     TABLES_DIR / "26e_zero_inclusive_7plus_z_p_raw_matrix.csv",
     TABLES_DIR / "26f_zero_inclusive_7plus_z_p_holm_matrix.csv",
@@ -52,6 +56,7 @@ FIGURE_INPUTS = (
 )
 
 FIGURE_OUTPUTS = (
+    FIGURES_DIR / "fig01_cohort_outcome_attendance.pdf",
     FIGURES_DIR / "fig03_04_pairwise_effect_dashboard.pdf",
     FIGURES_DIR / "fig05_pairwise_z_pvalue_dashboard.pdf",
     FIGURES_DIR / "fig06_pairwise_pass_pvalue_dashboard.pdf",
@@ -94,7 +99,7 @@ def build_tables(*, force: bool = False) -> None:
 
 
 def build_figures(*, force: bool = False, auto_tables: bool = True) -> None:
-    """Regenerate only Z and PASS adjusted pairwise/Holm figures."""
+    """Regenerate the aggregate cohort overview and Wald/Holm figures."""
     if not force and not _missing(FIGURE_OUTPUTS):
         print("Paper 2.1 Holm figures: present.")
         return
