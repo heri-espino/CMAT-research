@@ -1,6 +1,6 @@
 # Estadísticas descriptivas de Z en la figura 1 (2026-10-12)
 
-El gráfico de resultados usa únicamente las tablas agregadas existentes. No se han reestimado los modelos ni reconstruido observaciones individuales.
+El gráfico de resultados usa únicamente las tablas agregadas existentes. No se han reestimado los modelos ni reconstruido observaciones individuales. **Los histogramas del panel central son apilados (stacked):** para cada intervalo de 0.1 Z se suman segmentos PASS (azul), fracaso numérico <7.5 (naranja) y resultados administrativos BV/RT/BA (dorado), todos normalizados por el N completo de su frecuencia de visitas. La altura total del intervalo corresponde a la suma de los tres componentes; **no se superponen**. La escala vertical común se calcula con el máximo total combinado, no con el componente más alto. Las marcas de media, IC, mediana aproximada y SD se conservan.
 
 **Media, desviación estándar e intervalo de confianza (95%):** se leen directamente de results/paper21/tables/10n_zero_inclusive_7plus_descriptives.csv, calculados para el grupo completo de frecuencia, incluidas las imputaciones documentadas para BV/RT/BA. Los IC son descriptivos de la media; no son intervalos ajustados por efectos fijos ni sustituyen Wald/Holm. La SD por frecuencia no tiene por qué ser uno, ya que la estandarización se hace dentro de profesor–periodo.
 
