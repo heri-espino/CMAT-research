@@ -293,7 +293,9 @@ def plot_cohort_outcome_attendance_overview() -> Path:
         if sum(h.sum() for h in (pass_h, fail_h, admin_h)) > 100.0001:
             raise ValueError(f"Histogram total exceeds N for visits={group}")
         prepared[group] = (centers, pass_h, fail_h, admin_h)
-        peak = max(peak, *(float(h.max()) for h in (pass_h, fail_h, admin_h)))
+        # Each Z bin is stacked, so the common scaling is determined by
+        # its TOTAL percentage, not by the largest individual component.
+        peak = max(peak, float((pass_h + fail_h + admin_h).max()))
 
         # Exact individual medians were NOT exported. The counts cover only
         # [-2, 2] in 0.1-Z bins. With n full-sample outcomes and k displayed
@@ -320,21 +322,26 @@ def plot_cohort_outcome_attendance_overview() -> Path:
             raise ValueError(f"Invalid binned median bounds for group {group}")
         median_bins[group] = (lower, upper)
 
-    common_scale = .69 / max(peak, 1e-9)
+    # Keep the total ridge below the median and mean/CI annotations
+    # (at y-.63 and y-.76); all rows share the same scale.
+    common_scale = .50 / max(peak, 1e-9)
     for y, group in zip(ypos, GROUPS):
         x, pass_h, fail_h, admin_h = prepared[group]
-        for h, color, opacity, order in (
-            (admin_h, colors["admin"], .66, 2),
-            (fail_h, colors["numeric"], .70, 3),
-            (pass_h, colors["pass"], .53, 4),
+        stacked_height = np.zeros_like(x, dtype=float)
+        for h, color, order in (
+            (pass_h, colors["pass"], 2),
+            (fail_h, colors["numeric"], 3),
+            (admin_h, colors["admin"], 4),
         ):
             height = h * common_scale
-            # The shared y-axis is inverted to list visits from 0 to 7+.
-            # Place each bar in [y - height, y] so it rises visually
-            # from the baseline at y instead of extending downwards.
-            ax_z.bar(x, height, width=.095, bottom=y - height,
-                     color=color, alpha=opacity, align="center",
+            # The shared y-axis is inverted. Stack each component above
+            # the previous one so the three segments add to the bin total
+            # and the histogram grows visually upward from y.
+            ax_z.bar(x, height, width=.095,
+                     bottom=y - stacked_height - height,
+                     color=color, alpha=.92, align="center",
                      linewidth=0, zorder=order)
+            stacked_height += height
         ax_z.hlines(y, -2, 2, color="0.50", linewidth=.4, zorder=1)
 
         # Draw the unadjusted, full-group mean and its existing 95% CI.
@@ -380,12 +387,12 @@ def plot_cohort_outcome_attendance_overview() -> Path:
                         "alpha": .74, "pad": .35})
     ax_z.set_xlim(-2.02, 2.02)
     ax_z.set_xlabel("Instructor–period standardised final outcome (Z)")
-    ax_z.set_title("Z distributions; descriptive mean, median and uncertainty",
+    ax_z.set_title("Stacked Z histograms; mean, median and uncertainty",
                    fontsize=10, pad=10)
     ax_z.tick_params(axis="y", left=False, labelleft=False)
     ax_z.text(
         .015, .025,
-        f"Common scale: {peak:.1f}% of group per 0.1-Z bin",
+        f"Common scale: peak total {peak:.1f}% of group per 0.1-Z bin",
         transform=ax_z.transAxes, ha="left", va="bottom",
         fontsize=7, color="0.3",
         bbox={"facecolor": "white", "edgecolor": "none", "alpha": .75, "pad": 1},
