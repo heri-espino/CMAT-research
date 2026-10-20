@@ -32,15 +32,21 @@ SPECS = (
 PAIR_COUNT = len(GROUPS) * (len(GROUPS) - 1) // 2
 
 
-def prepare_cohort(frame: pd.DataFrame) -> pd.DataFrame:
-    """Identical complete-case cohort for all 8 models; retain cluster IDs."""
-    required = ["PASS", "VISITS_CMAT_PERIOD", "CLASSROOM_ID", "CLAVECARRERA"]
+def prepare_cohort(
+    frame: pd.DataFrame, *, outcome_col: str = "PASS"
+) -> pd.DataFrame:
+    """Complete-case cohort for one outcome; keep classroom IDs throughout."""
+    if outcome_col not in ("PASS", "Z_GRADE_PRIMARY"):
+        raise ValueError(f"Unsupported outcome: {outcome_col}")
+    required = [outcome_col, "VISITS_CMAT_PERIOD", "CLASSROOM_ID", "CLAVECARRERA"]
     missing = set(required).difference(frame.columns)
     if missing:
         raise ValueError(f"Required columns missing: {sorted(missing)}")
     d = frame.dropna(subset=required).copy()
-    d["PASS"] = pd.to_numeric(d["PASS"], errors="raise")
-    if not d["PASS"].isin([0.0, 1.0]).all():
+    d[outcome_col] = pd.to_numeric(d[outcome_col], errors="raise")
+    if not np.isfinite(d[outcome_col].to_numpy(dtype=float)).all():
+        raise ValueError("The outcome must be finite")
+    if outcome_col == "PASS" and not d["PASS"].isin([0.0, 1.0]).all():
         raise ValueError("PASS must contain only zero and one")
     count = pd.to_numeric(d["VISITS_CMAT_PERIOD"], errors="raise")
     if (count < 0).any() or (count % 1 != 0).any():
@@ -52,9 +58,13 @@ def prepare_cohort(frame: pd.DataFrame) -> pd.DataFrame:
     return d
 
 
-def group_formula(has_fe: bool, has_career: bool) -> str:
-    """Treatment-coded categories, with zero visits as the reference."""
-    form = "PASS ~ C(VISIT_GROUP, Treatment(reference='0'))"
+def group_formula(
+    has_fe: bool, has_career: bool, *, outcome_col: str = "PASS"
+) -> str:
+    """Treatment-coded visit categories, zero visits as reference."""
+    if outcome_col not in ("PASS", "Z_GRADE_PRIMARY"):
+        raise ValueError(f"Unsupported outcome: {outcome_col}")
+    form = f"{outcome_col} ~ C(VISIT_GROUP, Treatment(reference='0'))"
     if has_fe:
         form += " + C(CLASSROOM_ID)"
     if has_career:
@@ -100,7 +110,11 @@ def _inference(model, method: str, code: str, n: int, n_clusters: int,
             "estimate": effect, "se_clustered": se, "ci95_low": lower,
             "ci95_high": upper, "p_raw": p, "p_holm": np.nan,
             "holm_reject": pd.NA,
-            "effect_scale": "probability difference" if method == "LPM" else "log odds difference",
+            "effect_scale": (
+                "probability difference" if method == "LPM"
+                else "standardized Z difference" if method == "Z_OLS"
+                else "log odds difference"
+            ),
             "effect_pp": 100.0 * effect if method == "LPM" else np.nan,
             "odds_ratio": float(np.exp(effect)) if method == "logit" and -700 < effect < 700 else np.nan,
             "or_ci95_low": float(np.exp(lower)) if method == "logit" and np.isfinite(lower) and -700 < lower < 700 else np.nan,
@@ -127,7 +141,10 @@ def _inference(model, method: str, code: str, n: int, n_clusters: int,
 
 def estimate(d: pd.DataFrame, code: str, has_fe: bool,
              has_career: bool, method: str):
-    formula = group_formula(has_fe, has_career)
+    if method not in ("LPM", "logit", "Z_OLS"):
+        raise ValueError(f"Unsupported estimation method: {method}")
+    outcome_col = "Z_GRADE_PRIMARY" if method == "Z_OLS" else "PASS"
+    formula = group_formula(has_fe, has_career, outcome_col=outcome_col)
     n, clusters = len(d), int(d["CLASSROOM_ID"].nunique())
     warnings_seen = []
     model = None
@@ -139,7 +156,7 @@ def estimate(d: pd.DataFrame, code: str, has_fe: bool,
             model = (
                 smf.ols(formula, data=d).fit(
                     cov_type="cluster", cov_kwds={"groups": d["CLASSROOM_ID"]}
-                ) if method == "LPM" else
+                ) if method in ("LPM", "Z_OLS") else
                 smf.glm(formula, data=d, family=sm.families.Binomial()).fit(
                     cov_type="cluster",
                     cov_kwds={"groups": d["CLASSROOM_ID"]},
@@ -155,7 +172,7 @@ def estimate(d: pd.DataFrame, code: str, has_fe: bool,
         # fabricate clustered p-values or Holm rejection indicators.
         try:
             model = (smf.ols(formula, data=d).fit()
-                     if method == "LPM" else
+                     if method in ("LPM", "Z_OLS") else
                      smf.glm(formula, data=d, family=sm.families.Binomial()).fit(maxiter=200))
         except Exception as error2:
             problem += "; fallback: " + type(error2).__name__
