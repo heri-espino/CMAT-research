@@ -2,6 +2,12 @@ name: Paper 2.1 - comparison of controls (LPM and logit)
 
 on:
   workflow_dispatch:
+    inputs:
+      analysis_ref:
+        description: Branch with the Paper 2.1 experiment implementation
+        required: true
+        default: paper/paper2.1-visit-frequency
+        type: string
 
 permissions:
   contents: read
@@ -17,6 +23,8 @@ jobs:
     timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.analysis_ref }}
       - uses: actions/setup-python@v5
         with:
           python-version: '3.14'
