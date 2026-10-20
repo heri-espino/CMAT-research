@@ -71,9 +71,15 @@ def _inference(model, method: str, code: str, n: int, n_clusters: int,
     term = "C(VISIT_GROUP, Treatment(reference='0'))"
     terms = {g: names.index(f"{term}[T.{g}]") for g in GROUPS[1:]}
     rows = []
-    valid = True
-    if not np.isfinite(coeff).all():
-        valid = False
+    # All seven independent attendance coefficients must have an estimable
+    # cluster-robust covariance submatrix; fit convergence alone is insufficient.
+    attendance_positions = list(terms.values())
+    restricted_cov = cov[np.ix_(attendance_positions, attendance_positions)]
+    valid = bool(
+        np.isfinite(coeff).all()
+        and np.isfinite(restricted_cov).all()
+        and np.linalg.matrix_rank(restricted_cov) == len(attendance_positions)
+    )
     for first, second in combinations(GROUPS, 2):
         contrast = np.zeros(len(names), dtype=float)
         if second != "0":
