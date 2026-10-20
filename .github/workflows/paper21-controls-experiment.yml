@@ -1,0 +1,49 @@
+name: Paper 2.1 - comparison of controls (LPM and logit)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: paper21-controls-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  evaluate:
+    name: Eight adjusted PASS models
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+          cache: pip
+          cache-dependency-path: cmat_analysis/pyproject.toml
+      - name: Install analysis dependencies
+        run: python -m pip install -e './cmat_analysis[dev]'
+      - name: Validate syntax and run synthetic regression checks
+        run: |
+          python -m py_compile code/run_paper21_model_controls_experiment.py
+          python code/run_paper21_model_controls_experiment.py --check
+          python -m pytest -q cmat_analysis/tests/test_paper21_controls_experiment.py
+      - name: Estimate four LPMs and four logistic models on study data
+        run: python code/run_paper21_model_controls_experiment.py
+      - name: Ensure all three expected aggregate outputs exist
+        run: |
+          test -s results/paper21/tables/adjustment_experiment/pass_pairwise_4x2.csv
+          test -s results/paper21/tables/adjustment_experiment/pass_model_diagnostics_4x2.csv
+          test -s notes/15_RESULTADOS_COMPARACION_LPM_LOGIT_CONTROLES.md
+      - name: Upload aggregate tables and Markdown analysis as ephemeral artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper21-lpm-logit-controls-${{ github.run_id }}
+          retention-days: 90
+          if-no-files-found: error
+          path: |
+            results/paper21/tables/adjustment_experiment/pass_pairwise_4x2.csv
+            results/paper21/tables/adjustment_experiment/pass_model_diagnostics_4x2.csv
+            notes/14_EXPERIMENTO_CONTROLES_LPM_LOGIT.md
+            notes/15_RESULTADOS_COMPARACION_LPM_LOGIT_CONTROLES.md
