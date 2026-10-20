@@ -168,8 +168,8 @@ def interpretive_note(pairs: pd.DataFrame, models: pd.DataFrame,
             r = row.iloc[0]
             # The Holm column is "ND" for an entire invalid family.
             decision = (
-                "Sí" if r["holm_reject"] is True or r["holm_reject"] == True
-                else "No" if pd.notna(r["holm_reject"]) else "ND"
+                ("Sí" if bool(r["holm_reject"]) else "No")
+                if pd.notna(r["holm_reject"]) else "ND"
             )
             lines.append(
                 f"| {code} | {low} → {high} | {fmt(r['estimate'])} | "
