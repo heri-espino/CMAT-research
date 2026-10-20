@@ -142,7 +142,8 @@ def estimate(d: pd.DataFrame, code: str, has_fe: bool,
             )
         warnings_seen = sorted({w.category.__name__ for w in caught})
         fitted_robust = True
-    except (ValueError, np.linalg.LinAlgError, FloatingPointError, ZeroDivisionError) as error:
+    except (ValueError, np.linalg.LinAlgError, FloatingPointError,
+            ZeroDivisionError) as error:
         problem = type(error).__name__ + ": " + str(error)[:120]
         # Fallback is used for point estimates ONLY; it must never
         # fabricate clustered p-values or Holm rejection indicators.
@@ -158,12 +159,19 @@ def estimate(d: pd.DataFrame, code: str, has_fe: bool,
                 converged=(bool(getattr(model, "converged", True))
                            if model is not None else False),
                 robust_fitted=fitted_robust, warning_classes="; ".join(warnings_seen),
-                diagnostic=problem)
+                diagnostic=problem, holm_rejections=pd.NA, valid_contrasts=0)
     if model is None:
         base["status"] = "fit_failed"
         return None, base, None
-    if not fitted_robust or not base["converged"]:
+    if not fitted_robust or not base["converged"] or (
+        method == "logit" and any("Separation" in w for w in warnings_seen)
+    ):
         base["status"] = "no_valid_clustered_inference"
+        base["diagnostic"] = (
+            problem + ("; separation warning" if any(
+                "Separation" in w for w in warnings_seen
+            ) else "")
+        )
         return None, base, model
     try:
         pairs, status = _inference(
@@ -199,6 +207,32 @@ def run_four_by_two(frame: pd.DataFrame):
         pd.DataFrame(status),
         d,
     )
+
+
+def check_reference_lpm(pairs: pd.DataFrame) -> str:
+    """Audit model D LPM against the frozen canonical Holm point estimates."""
+    src = ROOT / "results" / "paper21" / "tables" / "26k_zero_inclusive_7plus_pairwise_pass_lpm.csv"
+    if not src.is_file():
+        return "not_checked_reference_missing"
+    ref = pd.read_csv(src)
+    x = pairs.loc[pairs["method"].eq("LPM") & pairs["model"].eq("D")]
+    if len(x) != PAIR_COUNT or len(ref) != PAIR_COUNT:
+        raise RuntimeError("Full LPM D/reference have different contrast counts")
+    current = {
+        (str(r.group_low), str(r.group_high)): float(r.estimate)
+        for r in x.itertuples()
+    }
+    for row in ref.itertuples():
+        key = (str(row.group1), str(row.group2))
+        if key not in current or not np.isclose(
+            current[key], -float(row.adjusted_difference_group1_minus_group2),
+            rtol=0, atol=1e-7
+        ):
+            raise RuntimeError(
+                f"Model D LPM disagrees with canonical paper contrast {key}; "
+                "do not publish until cohort, formula and preprocessing agree"
+            )
+    return "matched_all_28_reference_differences"
 
 
 def fmt(value: object, decimals: int = 3) -> str:
@@ -322,6 +356,8 @@ def main():
     source = load_and_clean_inputs(config)
     mu = add_primary_outcomes(build_study_cohorts(source, config)["mu_primary"], config)
     pairs, models, d = run_four_by_two(mu)
+    reference_audit = check_reference_lpm(pairs)
+    print(f"Canonical LPM D audit: {reference_audit}")
     if len(d) != 6627 or d["CLASSROOM_ID"].nunique() != 190:
         raise RuntimeError(
             f"Sample differs from paper: {len(d)} students, "
