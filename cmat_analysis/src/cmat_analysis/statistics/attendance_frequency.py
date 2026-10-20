@@ -582,12 +582,24 @@ def fixed_effect_logistic_group_comparisons(
                 }
             )
 
-    reject, adjusted, _, _ = multipletests(
-        raw_p, alpha=alpha, method=multiplicity_method
-    )
+    # Holm requires the COMPLETE prespecified family to have defined
+    # p-values. statsmodels multipletests cannot repair NaN input and can
+    # otherwise misleadingly return reject=True alongside undefined p_adj.
+    # Never encode that failure as a statistically significant result.
+    all_valid = bool(np.isfinite(np.asarray(raw_p, dtype=float)).all())
+    if all_valid:
+        reject, adjusted, _, _ = multipletests(
+            raw_p, alpha=alpha, method=multiplicity_method
+        )
+    else:
+        reject = [pd.NA] * len(rows)
+        adjusted = [np.nan] * len(rows)
     for index, row in enumerate(rows):
         row["p_adjusted"] = float(adjusted[index])
-        row["reject_adjusted"] = bool(reject[index])
+        row["reject_adjusted"] = (
+            bool(reject[index]) if all_valid else pd.NA
+        )
+        row["inference_status"] = "valid" if all_valid else "invalid_covariance"
         row["n"] = int(model.nobs)
         row["n_clusters"] = int(d[cluster_col].nunique())
 
