@@ -2,6 +2,8 @@
 
 **Estado al 20 de octubre de 2026:** implementación disponible; **estimaciones sobre datos institucionales todavía pendientes de ejecutar y validar**. Sensibilidad adicional, no sustitución retrospectiva del modelo principal de Paper 2.1.
 
+**Ampliación para Z-score:** además de estos ocho modelos de PASS, el workflow manual ejecuta cuatro regresiones **OLS sobre Z_GRADE_PRIMARY** con exactamente los mismos ajustes A/B/C/D. El protocolo específico y las cautelas de imputación están en [16_EXPERIMENTO_CONTROLES_ZSCORE.md](16_EXPERIMENTO_CONTROLES_ZSCORE.md); los resultados, una vez ejecutados, quedarán en [17_RESULTADOS_OLS_ZSCORE_CONTROLES.md](17_RESULTADOS_OLS_ZSCORE_CONTROLES.md). No corresponde usar un enlace logístico para Z.
+
 ## Pregunta y diseño
 
 ¿Cambian los contrastes de PASS entre frecuencias (y sus valores p de Holm) al omitir efectos fijos profesor-periodo y controles por carrera?
