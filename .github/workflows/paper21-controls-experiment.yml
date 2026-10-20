@@ -1,4 +1,4 @@
-name: Paper 2.1 - comparison of controls (LPM and logit)
+name: Paper 2.1 - controls sensitivity (PASS and Z)
 
 on:
   workflow_dispatch:
@@ -18,7 +18,7 @@ concurrency:
 
 jobs:
   evaluate:
-    name: Eight adjusted PASS models
+    name: Twelve adjusted PASS and Z models
     runs-on: ubuntu-latest
     timeout-minutes: 120
     steps:
@@ -34,20 +34,26 @@ jobs:
         run: python -m pip install -e './cmat_analysis[dev]'
       - name: Validate syntax and run synthetic regression checks
         run: |
-          python -m py_compile code/run_paper21_model_controls_experiment.py
+          python -m py_compile code/run_paper21_model_controls_experiment.py code/run_paper21_zscore_controls_experiment.py
           python code/run_paper21_model_controls_experiment.py --check
-          python -m pytest -q cmat_analysis/tests/test_paper21_controls_experiment.py
+          python code/run_paper21_zscore_controls_experiment.py --check
+          python -m pytest -q cmat_analysis/tests/test_paper21_controls_experiment.py cmat_analysis/tests/test_paper21_zscore_controls_experiment.py
       - name: Estimate four LPMs and four logistic models on study data
         run: python code/run_paper21_model_controls_experiment.py
+      - name: Estimate four OLS models for standardized Z scores
+        run: python code/run_paper21_zscore_controls_experiment.py
       - name: Ensure all three expected aggregate outputs exist
         run: |
           test -s results/paper21/tables/adjustment_experiment/pass_pairwise_4x2.csv
           test -s results/paper21/tables/adjustment_experiment/pass_model_diagnostics_4x2.csv
           test -s notes/15_RESULTADOS_COMPARACION_LPM_LOGIT_CONTROLES.md
+          test -s results/paper21/tables/adjustment_experiment/z_pairwise_4ols.csv
+          test -s results/paper21/tables/adjustment_experiment/z_model_diagnostics_4ols.csv
+          test -s notes/17_RESULTADOS_OLS_ZSCORE_CONTROLES.md
       - name: Upload aggregate tables and Markdown analysis as ephemeral artifact
         uses: actions/upload-artifact@v4
         with:
-          name: paper21-lpm-logit-controls-${{ github.run_id }}
+          name: paper21-pass-z-controls-${{ github.run_id }}
           retention-days: 90
           if-no-files-found: error
           path: |
@@ -55,3 +61,7 @@ jobs:
             results/paper21/tables/adjustment_experiment/pass_model_diagnostics_4x2.csv
             notes/14_EXPERIMENTO_CONTROLES_LPM_LOGIT.md
             notes/15_RESULTADOS_COMPARACION_LPM_LOGIT_CONTROLES.md
+            results/paper21/tables/adjustment_experiment/z_pairwise_4ols.csv
+            results/paper21/tables/adjustment_experiment/z_model_diagnostics_4ols.csv
+            notes/16_EXPERIMENTO_CONTROLES_ZSCORE.md
+            notes/17_RESULTADOS_OLS_ZSCORE_CONTROLES.md
