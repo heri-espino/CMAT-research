@@ -190,23 +190,36 @@ def estimate(d: pd.DataFrame, code: str, has_fe: bool,
     return pairs, base, model
 
 
+def _not_estimable_pairs(info: dict) -> pd.DataFrame:
+    """Preserve all 28 requested rows if even point estimation fails."""
+    return pd.DataFrame([
+        {
+            "model": info["model"], "method": info["method"],
+            "group_low": low, "group_high": high,
+            "contrast": "high_minus_low", "estimate": np.nan,
+            "se_clustered": np.nan, "ci95_low": np.nan, "ci95_high": np.nan,
+            "p_raw": np.nan, "p_holm": np.nan, "holm_reject": pd.NA,
+            "effect_pp": np.nan, "odds_ratio": np.nan,
+            "or_ci95_low": np.nan, "or_ci95_high": np.nan,
+            "n": info["n"], "clusters": info["clusters"],
+            "professor_period_FE": info["professor_period_FE"],
+            "career_controls": info["career_controls"],
+            "inferential_status": info["status"],
+        }
+        for low, high in combinations(GROUPS, 2)
+    ])
+
+
 def run_four_by_two(frame: pd.DataFrame):
     d = prepare_cohort(frame)
-    pairs, status, estimates = [], [], []
+    pairs, status = [], []
     for method in ("LPM", "logit"):
         for code, fe, career, _ in SPECS:
             print(f"Fitting {method} / {code}...", flush=True)
-            p, info, model = estimate(d, code, fe, career, method)
+            p, info, _ = estimate(d, code, fe, career, method)
             status.append(info)
-            if p is not None:
-                pairs.append(p)
-            # Do not calculate standardized probabilities after an invalid
-            # logistic fit; output only the identified pairwise ORs.
-    return (
-        pd.concat(pairs, ignore_index=True) if pairs else pd.DataFrame(),
-        pd.DataFrame(status),
-        d,
-    )
+            pairs.append(p if p is not None else _not_estimable_pairs(info))
+    return pd.concat(pairs, ignore_index=True), pd.DataFrame(status), d
 
 
 def check_reference_lpm(pairs: pd.DataFrame) -> str:
@@ -294,6 +307,30 @@ def report(pairs: pd.DataFrame, models: pd.DataFrame, d: pd.DataFrame):
                 hi = v["ci95_high"]*100 if model_type == "LPM" else v["or_ci95_high"]
                 lines.append(f"| {model_type} | {code} | {low} → {high} | {est} | "
                              f"[{fmt(lo, 2)}, {fmt(hi, 2)}] | {fmt(v['p_holm'], 4)} |")
+    lines += [
+        "",
+        "## Cambios entre el modelo sin controles (A) y el modelo completo (D)",
+    ]
+    for method in ("LPM", "logit"):
+        for low, high in [("0", "1"), ("1", "7+"), ("3", "4")]:
+            found = []
+            for code in ("A", "D"):
+                f = pairs.loc[
+                    pairs["method"].eq(method) & pairs["model"].eq(code)
+                    & pairs["group_low"].eq(low) & pairs["group_high"].eq(high)
+                ]
+                if not f.empty and f.iloc[0]["inferential_status"] == "valid":
+                    v = f.iloc[0]
+                    est = (fmt(v["effect_pp"], 2) + " pp" if method == "LPM"
+                           else "OR " + fmt(v["odds_ratio"], 2))
+                    found.append(f"{code}: {est}, Holm p={fmt(v['p_holm'], 4)}")
+                else:
+                    found.append(f"{code}: ND (inferencia no validada)")
+            lines.append(
+                f"- **{method}, {low} → {high}:** " + "; ".join(found)
+                + ". Cambiar ajustes puede modificar magnitud e incertidumbre,"
+                + " pero no identifica causalidad."
+            )
     lines += [
         "",
         "## Cómo interpretar la comparación",
