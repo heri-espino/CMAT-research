@@ -16,6 +16,8 @@ Esta rama y su manuscrito se concentran exclusivamente en **frecuencia registrad
 - [Trazabilidad de afirmaciones](10_MATRIZ_DE_AFIRMACIONES.md)
 - [Composición no-PASS, becas y futuras evaluaciones de PPA1](12_NONPASS_SCHOLARSHIP_PPA_HYPOTHESES.md).
 - [Media, SD, IC y cotas de mediana de Z en la figura](13_DESCRIPTIVE_Z_HISTOGRAM_STATS.md).
+- [Protocolo: cuatro ajustes × LPM/logit con Holm](14_EXPERIMENTO_CONTROLES_LPM_LOGIT.md).
+- [Resultados: cuatro ajustes × LPM/logit (pendientes hasta ejecutar)](15_RESULTADOS_COMPARACION_LPM_LOGIT_CONTROLES.md).
 
 ## PPA1 y visualización de los contrastes
 
