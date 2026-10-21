@@ -1,0 +1,5 @@
+model,method,formula,n,clusters,professor_period_FE,career_controls,covariance,converged,robust_fitted,warning_classes,diagnostic,holm_rejections,valid_contrasts,status,adjustment_label,r_squared_in_sample,adjusted_r_squared_in_sample,rmse_in_sample
+A,Z_OLS,"Z_GRADE_PRIMARY ~ C(VISIT_GROUP, Treatment(reference='0'))",6627,190,False,False,cluster CLASSROOM_ID,True,True,,,6,28,valid,Sin controles,0.017532042429524886,0.01649302207856651,0.976882808509013
+B,Z_OLS,"Z_GRADE_PRIMARY ~ C(VISIT_GROUP, Treatment(reference='0')) + C(CLAVECARRERA)",6627,190,False,True,cluster CLASSROOM_ID,True,True,,,6,28,valid,Solo carrera,0.05098632811099679,0.03894779307098639,0.9601067076048656
+C,Z_OLS,"Z_GRADE_PRIMARY ~ C(VISIT_GROUP, Treatment(reference='0')) + C(CLASSROOM_ID)",6627,190,True,False,cluster CLASSROOM_ID,True,True,,,6,28,valid,Solo profesor-periodo,0.020224121719474852,-0.009641519360304773,0.975543502757363
+D,Z_OLS,"Z_GRADE_PRIMARY ~ C(VISIT_GROUP, Treatment(reference='0')) + C(CLASSROOM_ID) + C(CLAVECARRERA)",6627,190,True,True,cluster CLASSROOM_ID,True,True,,,7,28,valid,Profesor-periodo y carrera,0.05822819493413134,0.017913128680131285,0.9564364337264225
