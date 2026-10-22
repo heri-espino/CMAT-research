@@ -17,6 +17,7 @@ import numpy as np
 import pandas as pd
 import statsmodels.api as sm
 import statsmodels.formula.api as smf
+from statsmodels.tools.sm_exceptions import PerfectSeparationWarning
 from sklearn.compose import ColumnTransformer
 from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.model_selection import GroupKFold
@@ -91,7 +92,7 @@ def in_sample_value(d: pd.DataFrame, outcome: str, method: str,
         return 0.0
     formula = outcome + " ~ " + " + ".join(BLOCKS[p] for p in players)
     with warnings.catch_warnings():
-        warnings.simplefilter("error", sm.tools.sm_exceptions.PerfectSeparationWarning)
+        warnings.simplefilter("error", PerfectSeparationWarning)
         if method == "PASS_LOGIT":
             fit = smf.glm(formula, data=d, family=sm.families.Binomial()).fit(
                 maxiter=200
@@ -121,7 +122,8 @@ def in_sample_shapley(d: pd.DataFrame, outcome: str, method: str,
         try:
             cache[subset] = in_sample_value(d, outcome, method, subset)
             status = "ok"
-        except (ValueError, RuntimeError, np.linalg.LinAlgError) as exc:
+        except (ValueError, RuntimeError, np.linalg.LinAlgError,
+                PerfectSeparationWarning, OverflowError, FloatingPointError) as exc:
             cache[subset] = float("nan")
             status = f"failed: {type(exc).__name__}"
         diagnostics.append(dict(outcome=outcome, method=method,
