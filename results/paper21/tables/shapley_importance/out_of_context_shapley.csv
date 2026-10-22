@@ -1,0 +1,5 @@
+outcome,block,contribution,model_score,metric,folds,n
+Z_GRADE_PRIMARY,attendance,0.015094956050880348,0.018480014553375446,out_of_context_r2_skill,5,6627
+Z_GRADE_PRIMARY,degree,0.0033850585024950974,0.018480014553375446,out_of_context_r2_skill,5,6627
+PASS,attendance,0.005361521509159639,0.01761131918318848,out_of_context_brier_skill,5,6627
+PASS,degree,0.01224979767402884,0.01761131918318848,out_of_context_brier_skill,5,6627

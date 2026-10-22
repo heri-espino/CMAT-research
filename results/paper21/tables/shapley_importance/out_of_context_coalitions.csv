@@ -1,0 +1,9 @@
+outcome,coalition,score,metric,folds,n
+Z_GRADE_PRIMARY,,0.0,out_of_context_r2_skill,5,6627
+Z_GRADE_PRIMARY,attendance,0.015825729779027964,out_of_context_r2_skill,5,6627
+Z_GRADE_PRIMARY,degree,0.004115832230642713,out_of_context_r2_skill,5,6627
+Z_GRADE_PRIMARY,attendance+degree,0.018480014553375446,out_of_context_r2_skill,5,6627
+PASS,,0.0,out_of_context_brier_skill,5,6627
+PASS,attendance,0.006377170823902434,out_of_context_brier_skill,5,6627
+PASS,degree,0.013265446988771634,out_of_context_brier_skill,5,6627
+PASS,attendance+degree,0.01761131918318848,out_of_context_brier_skill,5,6627
