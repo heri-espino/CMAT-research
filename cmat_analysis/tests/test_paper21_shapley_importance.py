@@ -82,3 +82,22 @@ def test_pass_prediction_uses_brier_skill_not_pseudo_r2():
     assert scores["metric"].eq("out_of_context_brier_skill").all()
     assert np.isclose(imp["contribution"].sum(),
                       imp["model_score"].iloc[0], atol=1e-9)
+
+
+def test_group_holdout_with_dataframe_metadata_on_source():
+    """Regression: pandas 3 cannot compare DataFrames stored in .attrs."""
+    d = prepare_cohort(sample(), outcome_col="Z_GRADE_PRIMARY")
+    d.attrs["upstream_source"] = pd.DataFrame({"extra": [1, 2]})
+    # Earlier multi-column .astype(str) raised an ambiguous-truth-value
+    # ValueError during internal Series concatenation.
+    for players in ((), ("attendance",), ("degree",), CV_BLOCKS):
+        score = cross_validated_value(d, "Z_GRADE_PRIMARY", players)
+        assert np.isfinite(score)
+
+def test_pass_group_holdout_with_dataframe_metadata_on_source():
+    """PASS logistic predictions must also work with attached source metadata."""
+    d = prepare_cohort(sample())
+    d.attrs["upstream_source"] = pd.DataFrame({"extra": [1, 2]})
+    importance, scores = cross_validated_shapley(d, "PASS")
+    assert len(importance) == 2
+    assert scores["score"].notna().all()
