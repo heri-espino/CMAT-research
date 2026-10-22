@@ -90,6 +90,18 @@ A **constant slope is imposed**, not discovered. The model-implied 1→7+ contra
 
 **Versioned outputs to commit after disclosure review:** `results/paper21/tables/followup_questions/` and `notes/22_FOLLOWUP_QUESTIONS_RESULTS.md`; no original records, names or identifiers.
 
+## 5 — First-visit jump and diminishing-return attendance curves — CODE COMMITTED, INSTITUTIONAL RUN PENDING
+
+**Hypothesis:** a large 0→1 CMAT attendance association may be followed by increasing but diminishing grade associations; the exact-six sample is sparse and may generate a noisy 5→6 decline. This was proposed **after inspecting previous results**; its model-comparison evidence will be exploratory, not prespecified.
+
+**Protocol:** [23_ATTENDANCE_CURVE_PROTOCOL.md](23_ATTENDANCE_CURVE_PROTOCOL.md). **Runner:** [run_paper21_attendance_curves.py](../code/run_paper21_attendance_curves.py). **Synthetic tests:** [test_paper21_attendance_curves.py](../cmat_analysis/tests/test_paper21_attendance_curves.py).
+
+**Model candidates:** first-visit indicator + linear additional slope; first-visit indicator + log(visits); first-visit indicator + sqrt(visits) transformation; first-visit indicator + fixed-decay exponential saturation; fully unrestricted eight-category group contrasts. Compare in-sample AIC/BIC/R² with professor-period FE and degree adjustment, and separately compare shapes using five-fold professor-period-held-out prediction without classroom FE. Report raw group means and clustered CIs; adjusted categorical contrasts and 5→6/6→7+ CIs, with exploratory Holm for **seven adjacent comparisons per outcome**.
+
+**Four different outcomes:** imputed Z for the complete cohort, PASS for the complete cohort, numeric-complete-case Z, and observed raw numeric grades. Do not mix their denominators or interpret the numeric subset as the full cohort.
+
+**Status (2026-10-22):** GitHub implementation, test module and protocol committed. **No new attendance-curve output, plot, p-value, selected shape, or empirical diminishing-return claim exists yet.** The authorized local Windows 11 VM must run tests and analyses. The script will generate `notes/24_ATTENDANCE_CURVE_RESULTS.md`, five aggregate CSVs under `results/paper21/tables/attendance_curves/`, and four aggregate PNG plots under `results/paper21/figures/attendance_curves/`. Update this tracker only after a validated local run.
+
 ## Guardrails shared across all studies
 
 - Grade/pass outcomes are observational and CMAT attendance is voluntary/contemporaneous; adjusting for programme and professor-period does not resolve unmeasured preparation or motivation.
