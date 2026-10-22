@@ -1,0 +1,9 @@
+model,method,formula,n,clusters,professor_period_FE,career_controls,covariance,converged,robust_fitted,warning_classes,diagnostic,holm_rejections,valid_contrasts,status
+A,LPM,"PASS ~ C(VISIT_GROUP, Treatment(reference='0'))",6627,190,False,False,cluster CLASSROOM_ID,True,True,,,3,28,valid
+B,LPM,"PASS ~ C(VISIT_GROUP, Treatment(reference='0')) + C(CLAVECARRERA)",6627,190,False,True,cluster CLASSROOM_ID,True,True,,,4,28,valid
+C,LPM,"PASS ~ C(VISIT_GROUP, Treatment(reference='0')) + C(CLASSROOM_ID)",6627,190,True,False,cluster CLASSROOM_ID,True,True,,,8,28,valid
+D,LPM,"PASS ~ C(VISIT_GROUP, Treatment(reference='0')) + C(CLASSROOM_ID) + C(CLAVECARRERA)",6627,190,True,True,cluster CLASSROOM_ID,True,True,,,8,28,valid
+A,logit,"PASS ~ C(VISIT_GROUP, Treatment(reference='0'))",6627,190,False,False,cluster CLASSROOM_ID,True,True,,,2,28,valid
+B,logit,"PASS ~ C(VISIT_GROUP, Treatment(reference='0')) + C(CLAVECARRERA)",6627,190,False,True,cluster CLASSROOM_ID,True,True,,,2,28,valid
+C,logit,"PASS ~ C(VISIT_GROUP, Treatment(reference='0')) + C(CLASSROOM_ID)",6627,190,True,False,cluster CLASSROOM_ID,True,True,,,6,28,valid
+D,logit,"PASS ~ C(VISIT_GROUP, Treatment(reference='0')) + C(CLASSROOM_ID) + C(CLAVECARRERA)",6627,190,True,True,cluster CLASSROOM_ID,True,True,RuntimeWarning,,,0,not_estimable
