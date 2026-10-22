@@ -162,7 +162,16 @@ def cross_validated_value(d: pd.DataFrame, outcome: str,
     group = d["CLASSROOM_ID"].astype(str).to_numpy()
     if len(set(group)) < folds:
         raise ValueError("Too few professor-period contexts for group CV")
-    cat = d[[CV_COLUMNS[b] for b in players]].astype(str)
+    # Build a metadata-free model matrix. The source cohort may carry a
+    # DataFrame in pandas .attrs; selecting multiple columns and then calling
+    # .astype(str) internally concatenates Series and attempts to compare
+    # their attrs. pandas 3 raises an ambiguous DataFrame truth-value error.
+    # Explicit NumPy values prevent metadata from reaching the CV matrix.
+    columns = [CV_COLUMNS[b] for b in players]
+    cat = pd.DataFrame(
+        {column: d[column].to_numpy(dtype=str) for column in columns},
+        index=d.index,
+    )
     pred = np.empty(len(d), dtype=float)
     baseline = np.empty(len(d), dtype=float)
     for train, test in GroupKFold(n_splits=folds).split(d, y, group):
