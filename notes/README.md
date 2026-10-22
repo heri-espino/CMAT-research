@@ -24,7 +24,7 @@ Esta rama y su manuscrito se concentran exclusivamente en **frecuencia registrad
 - [Shapley de los 12 modelos y validación predictiva entre profesor-periodos](19_SHAPLEY_PREDICTIVE_IMPORTANCE.md).
 - [ÍNDICE GENERAL: tres análisis completados, evidencia, procedencia y siguiente investigación](20_RESEARCH_TRACKER.md).
 - [Protocolo de investigación siguiente: mezcla de carreras, primera visita/intensidad y notas numéricas](21_FOLLOWUP_QUESTIONS_PROTOCOL.md).
-- **Pendiente de generar con datos institucionales:** `22_FOLLOWUP_QUESTIONS_RESULTS.md` (se crea sólo después de una ejecución correcta).
+- **Ejecución institucional completada en el equipo del usuario (2026-10-22):** `22_FOLLOWUP_QUESTIONS_RESULTS.md` y cuatro CSV se generaron localmente; **todavía está pendiente su incorporación a GitHub**. Los hallazgos numéricos comunicados en consola y las cautelas metodológicas quedaron registrados en [el índice general](20_RESEARCH_TRACKER.md).
 
 ## PPA1 y visualización de los contrastes
 
