@@ -39,9 +39,9 @@ OUTCOMES = (
     ("Z_GRADE_COMPLETE_CASE", "numeric_only_z"),
     ("GRADE_NUMERIC", "observed_numeric_grade"),
 )
-SHAPES = ("linear", "log", "sqrt", "categories")
+SHAPES = ("linear", "log", "sqrt", "saturating", "categories")
 FEATURE = {"linear": "EXTRA_LINEAR", "log": "EXTRA_LOG",
-           "sqrt": "EXTRA_SQRT"}
+           "sqrt": "EXTRA_SQRT", "saturating": "EXTRA_SAT"}
 
 
 def curve_values(visits: np.ndarray) -> dict[str, np.ndarray]:
@@ -58,6 +58,9 @@ def curve_values(visits: np.ndarray) -> dict[str, np.ndarray]:
         "EXTRA_LINEAR": np.maximum(capped - 1, 0),
         "EXTRA_LOG": np.log(positive),
         "EXTRA_SQRT": np.sqrt(positive) - 1,
+        # Pre-fixed lambda=0.5 is an illustrative saturating shape, not fitted
+        # from the data or claimed as a known behavioral decay parameter.
+        "EXTRA_SAT": 1.0 - np.exp(-0.5 * np.maximum(capped - 1, 0)),
     }
 
 
@@ -268,7 +271,8 @@ def save_plot(outcome: str, means: pd.DataFrame,
     ax.set_ylabel("Outcome (original units)")
     ax.set_xlabel("Recorded CMAT visits")
     for shape, style in (("categories", "o-"), ("linear", "--"),
-                         ("log", "-"), ("sqrt", "-.")):
+                         ("log", "-"), ("sqrt", "-."),
+                         ("saturating", ":")):
         g = selection.loc[selection["shape"].eq(shape)].sort_values("k")
         bx.plot(g["k"], g["estimate"], style, label=shape)
         if shape == "categories":
@@ -361,6 +365,8 @@ def report(means: pd.DataFrame, fits: pd.DataFrame, curves: pd.DataFrame,
         "",
         "- Log and square-root fits *impose* declining additional-visit increments.",
         "  A favorable CV score does not prove the underlying causal response is concave.",
+        "- The saturating exponential uses lambda=0.5 fixed in advance; its",
+        "  horizontal limit is a chosen functional form, not a discovered plateau.",
         "- The log coefficient begins at visit 1: it cannot by itself identify",
         "  a treatment effect of an exogenously assigned first CMAT visit.",
         "- Group 7+ combines seven and more visits, not exact seven.",
