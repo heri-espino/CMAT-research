@@ -25,6 +25,7 @@ These scripts are research-only and **must not** be included in the manuscript/f
 
 - `run_paper21_shapley_importance.py`: complete-data grouped Shapley contributions for Z OLS, PASS LPM, PASS logit, and professor-period-held-out predictive skill. Results: `results/paper21/tables/shapley_importance/`; notes `19_SHAPLEY_PREDICTIVE_IMPORTANCE.md`.
 - `run_paper21_followup_questions.py`: degree/professor-period overlap and within-mixed-context partial fit, first-vs-additional-visit piecewise regression for PASS and Z with cluster-robust SE, and numeric-grade quantiles around 7.5. Results after a successful authorized run: `results/paper21/tables/followup_questions/`; notes `22_FOLLOWUP_QUESTIONS_RESULTS.md`.
+- `run_paper21_attendance_curves.py`: exploratory first-visit jump plus linear/log/sqrt/saturating attendance curves against unrestricted category contrasts for Z, numeric grades and PASS. Includes 5-fold professor-period-heldout shape comparison and plots of observed means / adjusted contrasts. **Not yet run on institutional data.** Protocol: `notes/23_ATTENDANCE_CURVE_PROTOCOL.md`; generated outputs: `notes/24_ATTENDANCE_CURVE_RESULTS.md`, `results/paper21/tables/attendance_curves/` and `results/paper21/figures/attendance_curves/`.
 
 **Canonical navigation:** [three-study research tracker](../notes/20_RESEARCH_TRACKER.md) and [follow-up study protocol](../notes/21_FOLLOWUP_QUESTIONS_PROTOCOL.md). Historical Paper 2.1 EM/GMM results are linked from the tracker because they are preserved on a different branch.
 
