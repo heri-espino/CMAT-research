@@ -21,6 +21,10 @@ Esta rama y su manuscrito se concentran exclusivamente en **frecuencia registrad
 - [Protocolo de los cuatro ajustes OLS para Z-score](16_EXPERIMENTO_CONTROLES_ZSCORE.md).
 - [Resultados de los cuatro modelos Z-score (OLS, ejecutados)](17_RESULTADOS_OLS_ZSCORE_CONTROLES.md).
 - [Síntesis e interpretación comparada de los 12 modelos y sus límites](18_SINTESIS_MODELOS_CONTROLES_PASS_Z.md).
+- [Shapley de los 12 modelos y validación predictiva entre profesor-periodos](19_SHAPLEY_PREDICTIVE_IMPORTANCE.md).
+- [ÍNDICE GENERAL: tres análisis completados, evidencia, procedencia y siguiente investigación](20_RESEARCH_TRACKER.md).
+- [Protocolo de investigación siguiente: mezcla de carreras, primera visita/intensidad y notas numéricas](21_FOLLOWUP_QUESTIONS_PROTOCOL.md).
+- **Pendiente de generar con datos institucionales:** `22_FOLLOWUP_QUESTIONS_RESULTS.md` (se crea sólo después de una ejecución correcta).
 
 ## PPA1 y visualización de los contrastes
 
