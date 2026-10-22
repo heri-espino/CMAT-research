@@ -52,7 +52,7 @@ Updated 2026-10-22. This is a **cross-study navigation index**, not a newly fitt
 - These skill metrics are distinct, small, and use **end-of-semester attendance**, so they are *retrospective* rather than start-of-semester forecasts.
 - Z is standardized **within professor-period**: the near-zero classroom-only explanatory power is mechanical. Professor–degree allocation and degree-based selection remain hypotheses, not identified mechanisms.
 
-## 4 — Next hypotheses and code — IMPLEMENTED, INSTITUTIONAL RESULTS PENDING
+## 4 — Programme overlap, attendance hurdle and numeric grades — INSTITUTIONAL RUN COMPLETED LOCALLY; CSV COMMIT PENDING
 
 **Runner:** [`code/run_paper21_followup_questions.py`](../code/run_paper21_followup_questions.py); **design and caveats:** [`notes/21_FOLLOWUP_QUESTIONS_PROTOCOL.md`](21_FOLLOWUP_QUESTIONS_PROTOCOL.md); **synthetic tests:** [`cmat_analysis/tests/test_paper21_followup_questions.py`](../cmat_analysis/tests/test_paper21_followup_questions.py).
 
@@ -60,7 +60,35 @@ Updated 2026-10-22. This is a **cross-study navigation index**, not a newly fitt
 2. **Any attendance versus additional visits:** Fit a predeclared two-part piecewise linear model for PASS and imputed Z: `ANY_VISIT` (0→1) and `EXTRA_VISITS_CAPPED_7` (linear 1→7+), controlling for professor-period FE and degree with cluster-robust SE. Correct the two attendance-term p-values by Holm per outcome; these are observational *working-model contrasts*, not a causal dose-response or a substitute for the historical 15/21/28-pair analyses.
 3. **Numeric grade distribution and passing boundary:** Describe observed-numeric final-grade quantiles, numeric passing rates and concentration around 7.5 by non-overlapping coarse visit groups, and report administrative-state shares separately. This is intentionally **descriptive and selected on having a numeric final grade**, not a fitted conditional-quantile treatment effect.
 
-**Status:** code and synthetic tests can be run locally; **no new institutional-data estimates or empirical findings from these follow-ups are claimed in this document**. Keep resulting data under `results/paper21/tables/followup_questions/` and written report `notes/22_FOLLOWUP_QUESTIONS_RESULTS.md`. Do not copy or overwrite the scientific manuscript or any historical primary-result tables.
+**User-provided execution log (2026-10-22, Windows 11, `cmat-research`):** six synthetic tests passed; CLI `--check` passed; institutional runner completed all three stages and wrote `notes/22_FOLLOWUP_QUESTIONS_RESULTS.md` plus four aggregate CSVs. **The new results report and CSVs are not yet present on GitHub as of this tracker update.** Values below are transcribed from the supplied console report, not independently audited against the still-local four CSVs.
+
+**Degree–professor-period overlap:** 190/190 contexts include >1 degree; 6,627/6,627 students attend such contexts. The in-sample *incremental* Z R² from adding degree controls to attendance and professor-period FE is **0.0380** among those mixed contexts. This means at least two degrees appear in every context, **not** that representation is balanced or that prior math preparation is observed. Since the mixed subset comprises everyone, this equals the full-cohort incremental R² for these covariates.
+
+**Piecewise working model D:** adjustment by professor-period and degree, with 190-cluster robust uncertainty; two Holm-adjusted attendance-term tests **per outcome** (not comparable to historical 15/21/28-pair Holm families):
+
+| Outcome | Term | Estimate | Nominal 95% CI | Two-term Holm p |
+|---|---|---:|---|---:|
+| Imputed Z (OLS) | 0→1 visit | **+0.3066 SD** | [0.2335, 0.3796] | reported 0.0000 (rounded) |
+| Imputed Z (OLS) | Slope per additional visit, 1→7+ top-code | **+0.0361 SD** | [0.0081, 0.0640] | **0.0114** |
+| PASS (LPM) | 0→1 visit | **+11.92 pp** | [8.46, 15.39] pp | reported 0.0000 (rounded) |
+| PASS (LPM) | Slope per additional visit, 1→7+ top-code | **+2.23 pp** | [0.89, 3.56] pp | **0.0010** |
+
+A **constant slope is imposed**, not discovered. The model-implied 1→7+ contrast is **+0.2166 SD and +13.38 pp** (six extra coded steps), but 7+ is top-coded and may mean more than seven actual visits. The constrained slope pools information across all positive frequencies and uses a different 2-test multiplicity family; its rejection **does not refute** the nonsignificant, more flexible positive-only Holm pairwise tests. Do not interpret this as causal dose response or a demonstrated first-visit intervention effect.
+
+**Observed numeric-grade distribution** (unadjusted, conditional on having a numeric grade; quantiles not calculated for administrative outcomes):
+
+| Visits | Numeric N | P10 | Median | P90 | Numeric PASS | Near 7.5 ±0.5 |
+|---|---:|---:|---:|---:|---:|---:|
+| 0 | 4,470 | 6.29 | 9.00 | 10.00 | 87.0% | 14.0% |
+| 1 | 434 | 7.70 | 9.20 | 10.00 | 96.5% | 15.7% |
+| 2–6 | 529 | 7.60 | 9.10 | 10.00 | 96.0% | 17.6% |
+| 7+ | 93 | 7.70 | 8.90 | 10.00 | 96.8% | 18.3% |
+
+**Composition for all eligible outcomes:** 0: N=5,393, administrative fraction **17.1%**, PASS **72.1%**; 1: N=517, administrative **16.1%**, PASS **81.0%**; 2–6: N=616, administrative **14.1%**, PASS **82.5%**; 7+: N=101, administrative **7.9%**, PASS **89.1%**. High numeric-only passing rates and a P90 of 10 in every group demonstrate a **grade ceiling**; conditioning on numeric outcomes also changes the analysis population and may create selection bias. The lower administrative fraction at 7+ might reflect student persistence/opportunity to accumulate visits rather than any CMAT effect.
+
+**Next checks before substantive claims:** retrieve/review the four local CSVs and generated `notes/22_FOLLOWUP_QUESTIONS_RESULTS.md`; audit class-level degree concentration (not just >1 programme), test slope sensitivity to top-coding and nonlinear specifications, distinguish time-at-risk and administrative grade outcomes, and consider observed-numeric complete-case regressions with explicit selection caveats. Do not overwrite the primary manuscript.
+
+**Versioned outputs to commit after disclosure review:** `results/paper21/tables/followup_questions/` and `notes/22_FOLLOWUP_QUESTIONS_RESULTS.md`; no original records, names or identifiers.
 
 ## Guardrails shared across all studies
 
