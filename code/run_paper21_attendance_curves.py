@@ -389,7 +389,7 @@ def main() -> int:
     if args.check:
         v = curve_values(np.array([0, 1, 2, 5, 6, 7, 11]))
         assert v["EXTRA_LINEAR"].tolist() == [0, 0, 1, 4, 5, 6, 6]
-        assert np.all(np.diff(v["EXTRA_LOG"][1:6], n=2) < 0)
+        assert np.all(np.diff(curve_values(np.arange(1, 8))["EXTRA_LOG"], n=2) < 0)
         print("Curve basis and top-coding contract valid; no institutional inputs loaded.")
         return 0
 
