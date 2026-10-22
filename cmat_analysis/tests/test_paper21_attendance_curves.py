@@ -51,7 +51,7 @@ def test_curve_features_have_discrete_first_jump_and_concave_shapes():
     assert v["EXTRA_LINEAR"].tolist() == [0, 0, 1, 2, 3, 4, 5, 6, 6]
     assert v["EXTRA_LOG"][0] == v["EXTRA_LOG"][1] == 0
     assert v["EXTRA_SQRT"][0] == v["EXTRA_SQRT"][1] == 0
-    for key in ("EXTRA_LOG", "EXTRA_SQRT"):
+    for key in ("EXTRA_LOG", "EXTRA_SQRT", "EXTRA_SAT"):
         assert np.all(np.diff(v[key][1:8]) > 0)
         assert np.all(np.diff(v[key][1:8], n=2) < 0)
     with pytest.raises(ValueError):
@@ -77,8 +77,8 @@ def test_flexible_curve_retains_six_visit_dip_and_clustered_intervals():
     d = make_design(synthetic(), "Z_GRADE_PRIMARY")
     means, fits, curves, adjacent = fitted_shapes(d, "Z_GRADE_PRIMARY")
     assert len(means) == 8
-    assert len(fits) == len(SHAPES) == 4
-    assert len(curves) == 8 * 4
+    assert len(fits) == len(SHAPES) == 5
+    assert len(curves) == 8 * len(SHAPES)
     assert len(adjacent) == 7
     assert "5->6" in set(adjacent["comparison"])
     assert means["n"].sum() == len(d)
