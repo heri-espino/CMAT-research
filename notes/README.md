@@ -17,9 +17,10 @@ Esta rama y su manuscrito se concentran exclusivamente en **frecuencia registrad
 - [Composición no-PASS, becas y futuras evaluaciones de PPA1](12_NONPASS_SCHOLARSHIP_PPA_HYPOTHESES.md).
 - [Media, SD, IC y cotas de mediana de Z en la figura](13_DESCRIPTIVE_Z_HISTOGRAM_STATS.md).
 - [Protocolo: cuatro ajustes × LPM/logit con Holm](14_EXPERIMENTO_CONTROLES_LPM_LOGIT.md).
-- [Resultados: cuatro ajustes × LPM/logit (pendientes hasta ejecutar)](15_RESULTADOS_COMPARACION_LPM_LOGIT_CONTROLES.md).
+- [Resultados de los ocho modelos PASS (LPM/logit, ejecutados)](15_RESULTADOS_COMPARACION_LPM_LOGIT_CONTROLES.md).
 - [Protocolo de los cuatro ajustes OLS para Z-score](16_EXPERIMENTO_CONTROLES_ZSCORE.md).
-- [Resultados Z-score y comparación A–D (pendientes hasta ejecutar)](17_RESULTADOS_OLS_ZSCORE_CONTROLES.md).
+- [Resultados de los cuatro modelos Z-score (OLS, ejecutados)](17_RESULTADOS_OLS_ZSCORE_CONTROLES.md).
+- [Síntesis e interpretación comparada de los 12 modelos y sus límites](18_SINTESIS_MODELOS_CONTROLES_PASS_Z.md).
 
 ## PPA1 y visualización de los contrastes
 
