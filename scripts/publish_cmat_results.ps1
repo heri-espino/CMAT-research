@@ -105,19 +105,38 @@ if ($IncludeHistoricalFigures) {
     Write-Host "Copied 16 historical PNGs. Git LFS will manage these when staged."
 }
 
-# Never place controlled spreadsheets in the new public checkout.
-if (-not $Materias) {
-    $Materias = Join-Path $sourceRoot "data/raw/Materias estudiantes-profesores 2019-2025 P y O.xlsx"
+# Use the SAME fallbacks as get_study_config(), relative to the ORIGINAL
+# checkout where the authorized data were used previously. Never copy inputs.
+function Resolve-ControlledInput([string]$Explicit, [string[]]$RelativeOptions, [string]$Label) {
+    if ($Explicit) {
+        if (-not (Test-Path -LiteralPath $Explicit -PathType Leaf)) {
+            throw "$Label input does not exist at explicit path: $Explicit"
+        }
+        return (Resolve-Path -LiteralPath $Explicit).Path
+    }
+    foreach ($relative in $RelativeOptions) {
+        $path = Join-Path $sourceRoot $relative
+        if (Test-Path -LiteralPath $path -PathType Leaf) {
+            return (Resolve-Path -LiteralPath $path).Path
+        }
+    }
+    throw "$Label input not found at the repo-configured paths in $sourceRoot. Use -Materias and -Asesorias with explicit authorized local paths."
 }
-if (-not $Asesorias) {
-    $Asesorias = Join-Path $sourceRoot "data/raw/Asesorias2024.xlsx"
-}
-if (-not (Test-Path -LiteralPath $Materias -PathType Leaf)) {
-    throw "The academic workbook was not found: $Materias. Re-run with -Materias '<correct-path>'."
-}
-if (-not (Test-Path -LiteralPath $Asesorias -PathType Leaf)) {
-    throw "The CMAT workbook was not found: $Asesorias. Re-run with -Asesorias '<correct-path>'."
-}
+$Materias = Resolve-ControlledInput $Materias @(
+    "data/raw/Materias estudiantes-profesores 2019-2025 P y O.xlsx",
+    "data/raw/Materias.xlsx",
+    "data/controlled/Materias_pseudonymized.csv",
+    "data/Materias estudiantes-profesores 2019-2025 P y O.xlsx",
+    "data/Materias_anonymized.csv"
+) "Academic"
+$Asesorias = Resolve-ControlledInput $Asesorias @(
+    "data/raw/Asesorias2024.xlsx",
+    "data/raw/Asesorias.xlsx",
+    "data/controlled/Asesorias_pseudonymized.csv",
+    "data/Asesorias2024.xlsx",
+    "data/Asesorias_anonymized.csv"
+) "CMAT"
+Write-Host "Authorized inputs located in original checkout; source files will not be staged."
 
 Write-Host "Installing the local reproducible analysis package..."
 python -m pip install -e "./cmat_analysis[dev]"
