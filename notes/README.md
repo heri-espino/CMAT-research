@@ -25,8 +25,9 @@ Esta rama y su manuscrito se concentran exclusivamente en **frecuencia registrad
 - [ÍNDICE GENERAL: tres análisis completados, evidencia, procedencia y siguiente investigación](20_RESEARCH_TRACKER.md).
 - [Protocolo de investigación siguiente: mezcla de carreras, primera visita/intensidad y notas numéricas](21_FOLLOWUP_QUESTIONS_PROTOCOL.md).
 - [Curvas de asistencia: salto en 0→1 y posible rendimiento decreciente (protocolo y código, sin corrida institucional)](23_ATTENDANCE_CURVE_PROTOCOL.md).
+- [Inventario verificable de TODOS los resultados disponibles y publicación segura con Git LFS](25_PUBLICATION_LEDGER.md).
 - **Pendiente de generar:** `24_ATTENDANCE_CURVE_RESULTS.md` (curvas lineal/logarítmica/raíz/saturación versus dummies y cuatro gráficos).
-- **Ejecución institucional completada en el equipo del usuario (2026-10-22):** `22_FOLLOWUP_QUESTIONS_RESULTS.md` y cuatro CSV se generaron localmente; **todavía está pendiente su incorporación a GitHub**. Los hallazgos numéricos comunicados en consola y las cautelas metodológicas quedaron registrados en [el índice general](20_RESEARCH_TRACKER.md).
+- [Resultados exploratorios ya documentados en GitHub](22_FOLLOWUP_QUESTIONS_RESULTS.md): mezclas de carreras, intensidad de visitas y distribuciones numéricas. **Los cuatro CSV de precisión completa siguen pendientes de publicación desde la VM.**
 
 ## PPA1 y visualización de los contrastes
 
