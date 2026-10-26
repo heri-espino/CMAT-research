@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-26",
+  "version": "0.1.0",
+  "main": 22,
+  "appendix": 8,
+  "figure_count": 11,
+  "source_tips": {
+    "paper21": "1546c594bfb6867ad52064594469061ec7fd7fc6",
+    "fused": "29810a86aef4c13a0327760955fae674ac349981",
+    "mixture": "b1cace126fd73b74e8353c8a6170dc40af2243c2",
+    "shapley": "5915976ff5a7e3c4eededd0c1e39290b8b4d402c"
+  },
+  "ppa": "pending",
+  "claims_matrix": "unavailable",
+  "integrated_manuscript": "unavailable",
+  "pdf_rendering": "offline_css_fallback_local_review; marp_CLI_required_for_release"
+}
