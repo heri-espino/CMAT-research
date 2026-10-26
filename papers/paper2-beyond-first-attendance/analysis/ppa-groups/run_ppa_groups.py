@@ -134,7 +134,8 @@ def _focus(allpairs):
                 "ci95_high": -scale * row.ci_low,
                 "units": "percentage_points" if scale == 100. else "within_context_SD",
                 "p_raw": row.p_raw,
-                "p_holm_exploratory_18": row.p_holm_exploratory_18,
+                "p_holm_ppa_family": row.p_holm_ppa_family,
+                "ppa_family_m": row.ppa_family_m,
                 "n_model": row.n, "n_clusters": row.n_clusters,
                 "comparison_direction": "target_minus_baseline",
             })
@@ -171,6 +172,8 @@ def run(argv=None):
     p.add_argument("--output-root", type=Path,
                    default=ROOT / "papers" / "paper2-beyond-first-attendance" / "results")
     p.add_argument("--check", action="store_true")
+    p.add_argument("--include-secondary", action="store_true",
+                   help="Additionally fit 0|1-3|4|5+ and apply a joint 18-test exploratory Holm family")
     args = p.parse_args(argv)
     if args.check:
         verify_partition(pd.DataFrame({VISITS: [0,1,2,3,4,5,6,7,8,99]}))
@@ -211,7 +214,12 @@ def run(argv=None):
     tables = args.output_root / "tables" / "ppa-groups"
     provenance = args.output_root / "provenance" / "ppa-groups"
     allpairs, omnibus, infos, observed, overlaps, adjusted = [], [], [], [], [], []
-    for spec in SPECS:
+    active_specs = (SPECS[0], SPECS[1], SPECS[2]) if args.include_secondary else (SPECS[0], SPECS[2])
+    exploratory_specs = tuple(spec for spec in active_specs if spec.exploratory_ppa)
+    family_size = sum(len(spec.labels) * (len(spec.labels)-1) // 2 for spec in exploratory_specs) * len(OUTCOMES)
+    if family_size not in (6, 18):
+        raise AssertionError("Unexpected exploratory comparison family size")
+    for spec in active_specs:
         for outcome in OUTCOMES:
             a,b,c,d,e = _estimate(cohort,spec,outcome)
             allpairs.append(a); omnibus.append(b); infos.append(c)
@@ -219,13 +227,14 @@ def run(argv=None):
             if outcome == OUTCOMES[0]:
                 observed.append(d); overlaps.append(e)
     pairs = pd.concat(allpairs,ignore_index=True)
-    mask = pairs.specification.isin([s.name for s in SPECS if s.exploratory_ppa])
-    assert int(mask.sum()) == 18
+    mask = pairs.specification.isin([s.name for s in exploratory_specs])
+    assert int(mask.sum()) == family_size
     _, p_holm, _, _ = multipletests(pairs.loc[mask,"p_raw"],method="holm",alpha=.05)
-    pairs["p_holm_exploratory_18"] = np.nan
-    pairs.loc[mask,"p_holm_exploratory_18"] = p_holm
-    pairs["reject_holm_exploratory_18"] = False
-    pairs.loc[mask,"reject_holm_exploratory_18"] = p_holm <= .05
+    pairs["ppa_family_m"] = family_size
+    pairs["p_holm_ppa_family"] = np.nan
+    pairs.loc[mask,"p_holm_ppa_family"] = p_holm
+    pairs["reject_holm_ppa_family"] = False
+    pairs.loc[mask,"reject_holm_ppa_family"] = p_holm <= .05
     focus = _focus(pairs)
     _save(pairs,tables/"pairwise_all_models.csv")
     _save(focus,tables/"focus_target_minus_baseline.csv")
@@ -236,7 +245,7 @@ def run(argv=None):
     _save(pd.concat(adjusted,ignore_index=True),tables/"adjusted_means.csv")
     sensitivity = []
     for outcome in ("GRADE_NUMERIC", "Z_GRADE_COMPLETE_CASE"):
-        for spec in SPECS[:2]:
+        for spec in exploratory_specs:
             a,b,c,_,_ = _estimate(cohort,spec,outcome)
             a["family_role"] = "numeric_selected_sensitivity_separate_from_PPA_18"
             sensitivity.append(a)
@@ -251,7 +260,9 @@ def run(argv=None):
       "historical_exact_support_revalidated":exact_counts,
       "analysis_script_sha256":_hash(Path(__file__)),
       "group_definitions_sha256":_hash(Path(__file__).with_name("ppa_groups.py")),
-      "p_holm_family":18,
+      "p_holm_family":family_size,
+      "included_specifications":[spec.name for spec in active_specs],
+      "secondary_enabled":args.include_secondary,
       "source_sha256":{"materias":_hash(config.materias_path),
                        "asesorias":_hash(config.asesorias_path)},
       "source_paths":{"materias":_safe_source_label(config.materias_path),
@@ -264,7 +275,7 @@ def run(argv=None):
       "limitations":"Recorded visits are voluntary; PPA intent, eligibility, credits unobserved; not causal.",
     }
     (provenance/"run_manifest.json").write_text(json.dumps(manifest,indent=2),encoding="utf-8")
-    print(f"Completed aggregate PPA analysis N={len(cohort)}; outputs in {tables}")
+    print(f"Completed aggregate PPA analysis N={len(cohort)}, exploratory Holm m={family_size}; outputs in {tables}")
     return 0
 
 if __name__ == "__main__":
