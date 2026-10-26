@@ -208,7 +208,8 @@ def main() -> None:
 
     execute(sys.executable, "-m", "pytest", "-q",
             "cmat_analysis/tests/test_paper21_followup_questions.py",
-            "cmat_analysis/tests/test_paper21_attendance_curves.py")
+            "cmat_analysis/tests/test_paper21_attendance_curves.py",
+            "cmat_analysis/tests/test_generate_all_results.py")
     execute(sys.executable, "code/run_paper21_followup_questions.py", "--check")
     execute(sys.executable, "code/run_paper21_attendance_curves.py", "--check")
 
