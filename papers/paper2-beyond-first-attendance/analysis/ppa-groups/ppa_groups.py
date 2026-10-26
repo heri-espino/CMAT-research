@@ -25,7 +25,7 @@ def assign_visit_groups(visits: pd.Series, spec: GroupSpecification) -> pd.Serie
     v = numeric.to_numpy(dtype=np.int64)
     if spec.name == SPECS[0].name:
         labels = np.select([v == 0, v <= 3], ["0", "1-3"], default="4+")
-    elif spec.name == SPECS[2].name:
+    elif spec.name == SPECS[1].name:
         labels = np.where(v >= 7, "7+", v.astype(str))
     else:
         raise ValueError(f"Unknown specification: {spec.name}")
