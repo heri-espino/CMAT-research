@@ -12,3 +12,6 @@ paper/**/*.png filter=lfs diff=lfs merge=lfs -text
 literature_selected/**/*.pdf filter=lfs diff=lfs merge=lfs -text
 literature_selected/**/*.png filter=lfs diff=lfs merge=lfs -text
 **/*.zip filter=lfs diff=lfs merge=lfs -text
+
+# Keep the professor-facing manuscript as a normal Git PDF for GitHub preview.
+paper/paper.pdf -filter -diff -merge -text
