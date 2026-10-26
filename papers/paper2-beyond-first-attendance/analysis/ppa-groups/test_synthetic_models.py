@@ -12,7 +12,9 @@ import pytest
 
 _REPO = Path(__file__).resolve().parents[4]
 sys.path.insert(0, str(_REPO / "cmat_analysis" / "src"))
-pytest.importorskip("cmat_analysis.statistics")
+# A missing scientific library must FAIL, not silently skip, this integration test.
+# The reproducible prerequisite is: pip install -e './cmat_analysis[dev]'
+from cmat_analysis.statistics import fixed_effect_group_comparisons
 from ppa_groups import SPECS, verify_partition
 from run_ppa_groups import _estimate, _adjusted_levels
 
