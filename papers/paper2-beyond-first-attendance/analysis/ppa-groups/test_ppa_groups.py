@@ -53,7 +53,7 @@ def test_focused_contrast_sign_and_pp_scale():
                 rows.append(dict(specification=spec.name,outcome=outcome,
                     group1=group1,group2=group2,
                     adjusted_group1_minus_group2=-.04,ci_low=-.06,ci_high=-.02,
-                    p_raw=.03,p_holm_exploratory_18=.23,n=60,n_clusters=8))
+                    p_raw=.03,p_holm_ppa_family=.23,ppa_family_m=18,n=60,n_clusters=8))
     focus = _focus(pd.DataFrame(rows))
     row = focus.loc[(focus.outcome=="PASS")&(focus.baseline=="1-3")&(focus.target=="4+")].iloc[0]
     assert row.adjusted_target_minus_baseline == pytest.approx(4.)
@@ -65,3 +65,14 @@ def test_focused_contrast_sign_and_pp_scale():
 def test_data_free_static_check(capsys):
     assert run(["--check"]) == 0
     assert "PASS" in capsys.readouterr().out
+
+
+def test_primary_only_family_has_six_tests():
+    """Only three primary group pairs per outcome when secondary is not retained."""
+    primary = SPECS[0]
+    assert len(list(combinations(primary.labels, 2))) * 2 == 6
+    assert ppa_family_size() == 18
+    raw = np.array([.001, .02, .03, .04, .05, .06])
+    adjusted_primary = multipletests(raw, method="holm")[1]
+    adjusted_joint = multipletests(np.r_[raw, np.linspace(.001, .9, 12)], method="holm")[1]
+    assert not np.allclose(adjusted_primary, adjusted_joint[:6])
