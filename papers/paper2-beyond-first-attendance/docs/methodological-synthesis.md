@@ -22,7 +22,7 @@ The originally chosen positive-attendance frequency partition `1/2/3/4/5/6+` def
 
 ```text
 Delta_ab = L_ab' beta_hat,
-SE(Delta_ab) = sqrt(L_ab' V_cluster beta L_ab),
+SE(Delta_ab) = sqrt(L_ab' V_cluster(beta_hat) L_ab),
 W_ab = Delta_ab / SE(Delta_ab).
 ```
 
