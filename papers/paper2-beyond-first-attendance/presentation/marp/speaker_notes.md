@@ -1,121 +1,121 @@
-# Speaker notes
+# Speaker notes — Paper 2 second-pass review
 
-## 1. Beyond the First Visit
+## Slide 1: Beyond the First Visit
 
 Integrated validation pending.
 
-## 2. Principal message
+## Slide 2: Principal message
 
 Estimation, model selection and prediction are different layers.
 
-## 3. Why mathematics support matters
+## Slide 3: Why mathematics support matters
 
 Do not transport a randomized estimate from another institution.
 
-## 4. CMAT and the optional PPA1 activity
+## Slide 4: CMAT and the optional PPA1 activity
 
 Never identify PPA-induced or uninterested students from visit counts.
 
-## 5. Cohort and empirical design
+## Slide 5: Cohort and empirical design
 
 All attendance and grades are recorded in the same term.
 
-## 6. Visit distribution and precision
+## Slide 6: Visit distribution and precision
 
 The original all-period first eligible pool was 7,777.
 
-## 7. Raw grades and passing rates
+## Slide 7: Raw grades and passing rates
 
 The groups have strongly unequal denominators.
 
-## 8. Any attendance vs zero
+## Slide 8: Any attendance vs zero
 
 190 professor-period clusters; observational contrast.
 
-## 9. Wald and Holm inference
+## Slide 9: Wald and Holm inference
 
-Nominal 95% confidence intervals are not simultaneous Holm CIs.
+The 15-pair user-only family is the original Paper 2.1 primary analysis, not the 10-pair full-cohort model. Methods PR #97 and QA PR #96 confirm the separate families and 148 valid linear-model arithmetic checks.
 
-## 10. Adjusted standardized-grade contrasts
+## Slide 10: Adjusted standardized-grade contrasts
 
-A nominally positive 1 versus 4+ difference does not survive Holm.
+The plotted confidence intervals are nominal and clustered; Holm refers to p-values in the complementary ten-pair family. Do not treat this as the original users-only design.
 
-## 11. Adjusted PASS contrasts
+## Slide 11: Adjusted PASS contrasts
 
-Effects here are differences in percentage points, not odds ratios.
+These PASS coefficients are linear-probability differences in percentage points. Invalid historical PASS-logit inferential flags were deliberately not used.
 
-## 12. PPA grouping: not yet validated
+## Slide 12: PPA grouping: not yet validated
 
 Do not infer group effects from historical exact group coefficients.
 
-## 13. Two-part first/additional visits
+## Slide 13: Two-part first/additional visits
 
 Two-term Holm correction is separate from pairwise families.
 
-## 14. Five fitted curve families
+## Slide 14: Five fitted curve families
 
 Saturating parameter lambda was fixed in protocol.
 
-## 15. Five-to-six dip: broad uncertainty
+## Slide 15: Five-to-six dip: broad uncertainty
 
 A negative point is not evidence that a sixth visit harms students.
 
-## 16. Fused-lasso boundary stability
+## Slide 16: Fused-lasso boundary stability
 
 Stability is algorithmic selection frequency, not truth probability.
 
-## 17. Internally held-out grade comparison
+## Slide 17: Internally held-out grade comparison
 
 Research-wide outcome exploration preceded this particular split.
 
-## 18. Mixtures and skew-normal alternatives
+## Slide 18: Mixtures and skew-normal alternatives
 
 Administrative imputation can introduce mass points.
 
-## 19. Observed outcomes and administration
+## Slide 19: Observed outcomes and administration
 
 These shares are descriptive; all five states are exclusive.
 
-## 20. In-sample Shapley fit attribution
+## Slide 20: In-sample Shapley fit attribution
 
 Model R² is only .058 for grade and .172 for PASS.
 
-## 21. Out-of-context predictive skill
+## Slide 21: Out-of-context predictive skill
 
 The two percentages use different loss functions.
 
-## 22. Synthesis and next study
+## Slide 22: Synthesis and next study
 
-Administration should improve measurement without claiming an intervention effect.
+The critical privacy finding should be handled by the repository administrator and institution's data custodian; do not disclose individual data in presentation materials. No observed difference here identifies a causal tutoring effect.
 
-## 23. Appendix A — evidence hierarchy
+## Slide 23: Appendix A — evidence hierarchy
 
-Preserve methodological hierarchy.
+These methods measure different features of the same cohort and do not constitute independent experimental replications.
 
-## 24. Appendix B — cohort numbers
+## Slide 24: Appendix B — cohort numbers
 
 The terminal category is top-coded.
 
-## 25. Appendix C — multiplicity
+## Slide 25: Appendix C — multiplicity
 
-Nominal CI and Holm-adjusted p-values must be distinguished.
+QA checked 148 previously published linear contrasts for arithmetic consistency with zero mismatches. This does not authenticate institutional inputs or the defective PASS-logit inference flags.
 
-## 26. Appendix D — piecewise formula
+## Slide 26: Appendix D — piecewise formula
 
 Do not interpret beta_plus as a separate estimate for each visit.
 
-## 27. Appendix E — shape-selection sensitivity
+## Slide 27: Appendix E — shape-selection sensitivity
 
-In-sample fit and held-out skill are different criteria.
+These are model-fit and held-out-loss comparisons, not a formal test of diminishing causal response.
 
-## 28. Appendix F — fused protocol
+## Slide 28: Appendix F — fused protocol
 
 Selection depends strongly on PASS heuristic.
 
-## 29. Appendix G — distributions
+## Slide 29: Appendix G — distributions
 
 Sparse frequencies and grade ceilings affect fits.
 
-## 30. Appendix H — provenance and readiness
+## Slide 30: Appendix H — provenance and readiness
 
-Administrator and methods agent must approve evidence.
+Existing PRs are unmerged review material. The controlled-data release block applies to all publication actions; verify Git history, forks and artifacts under authorized data-custodian oversight.

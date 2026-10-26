@@ -85,31 +85,31 @@ Adjusted 1+ minus 0: **+0.361 grade SD**, CI [0.302,0.421], and **+15.29 PASS pe
 ---
 # Wald and Holm inference
 
-The original `0 | 1 | 2 | 3 | 4+` design has ten pairwise contrasts per outcome. Holm adjustment is within this specified family; the eight-category adjacent family and new PPA grouping are separate.
+**Original primary Paper 2.1 users-only analysis:** 1/2/3/4/5/6+ with **15 Holm-adjusted pairs per outcome**; none survives. The omnibus tests do not reject.
+**Complementary full-cohort analysis:** 0/1/2/3/4+ with **10** pairs per outcome; zero-versus-positive differences are clearer.
+**Separate sensitivity families:** users-only seven groups (**21** pairs), zero-inclusive eight groups (**28** pairs), and exploratory adjacent comparisons (**7** pairs).
+SEs are clustered by professor-period; nominal 95% CIs are not Holm simultaneous CIs.
 
-<!-- _footer: Source: Paper 2.1 tables 33 and 41 -->
-<!-- Speaker notes: Nominal 95% confidence intervals are not simultaneous Holm CIs. -->
-
+<!-- _footer: Source: Paper 2.1 tables 12–14, 21–23, 33/41, 26a/26k; methods PR #97; QA PR #96 -->
+<!-- Speaker notes: The 15-pair user-only family is the original Paper 2.1 primary analysis, not the 10-pair full-cohort model. Methods PR #97 and QA PR #96 confirm the separate families and 148 valid linear-model arithmetic checks. -->
 ---
 # Adjusted standardized-grade contrasts
 
-![Aggregate figure](figures/adj-z.svg)
+![Adjusted 95% clustered intervals](figures/adj-z.svg)
 
-Each positive group differs from zero after ten-pair Holm correction. **No positive-versus-positive grade contrast** survives the ten-pair family.
+This figure is the **complementary ten-pair zero-inclusive model**. Every group differs from zero after Holm; no positive-versus-positive grade contrast survives here or in the original users-only 15-pair family.
 
-<!-- _footer: Source: 33_exact_visit_groups_fe_pairwise.csv -->
-<!-- Speaker notes: A nominally positive 1 versus 4+ difference does not survive Holm. -->
-
+<!-- _footer: Source: 33_exact_visit_groups_fe_pairwise.csv, Paper 2.1 -->
+<!-- Speaker notes: The plotted confidence intervals are nominal and clustered; Holm refers to p-values in the complementary ten-pair family. Do not treat this as the original users-only design. -->
 ---
 # Adjusted PASS contrasts
 
-![Aggregate figure](figures/adj-pass.svg)
+![Adjusted PASS contrasts](figures/adj-pass.svg)
 
-Every positive category differs from zero after Holm; **1 versus 4+** also survives (Holm p≈0.011). Other positive-pair differences do not.
+In the **complementary ten-pair model**, zero differs from each positive group. **1 versus 4+** also survives Holm (p≈0.011). The original users-only 15-pair family has no surviving pairwise contrast.
 
-<!-- _footer: Source: 41_exact_visit_groups_pass_fe_pairwise.csv -->
-<!-- Speaker notes: Effects here are differences in percentage points, not odds ratios. -->
-
+<!-- _footer: Source: 41_exact_visit_groups_pass_fe_pairwise.csv, Paper 2.1 -->
+<!-- Speaker notes: These PASS coefficients are linear-probability differences in percentage points. Invalid historical PASS-logit inferential flags were deliberately not used. -->
 ---
 # PPA grouping: not yet validated
 
@@ -207,20 +207,30 @@ Five-fold professor-period-held-out analysis: grade R² skill **1.85%**, PASS Br
 ---
 # Synthesis and next study
 
-Supported: large adjusted zero/initial separation, uncertain exact increments, a stable grade-selection cut and heterogeneous outcome composition. Next: validate PPA groups, audit cohort encoding, record prior readiness and visit timing, and prospectively test encouragement.
+**Supported:** large adjusted zero/positive separation, uncertain consecutive increments, model-dependent selected boundaries and differing administrative outcome composition.
 
-<!-- _footer: Source: Integrated synthesis, provisional, 2026-10-26 -->
-<!-- Speaker notes: Administration should improve measurement without claiming an intervention effect. -->
+**Unresolved:** self-selection, PPA1 participation, preparation, functional form and prospective generalization.
 
+**Next:** validate primary and secondary PPA specifications; harmonize denominators; collect baseline readiness and visit timing; evaluate ethical prospective encouragement.
+
+**Release gate — DO NOT RELEASE:** independent QA PR #96 reports a critical public controlled-data exposure and invalid PASS-logit significance flags. Institutional response and renewed review are prerequisites.
+
+<!-- _footer: Source: Methods PR #97, QA PR #96 and committed aggregates, 2026-10-26 -->
+<!-- Speaker notes: The critical privacy finding should be handled by the repository administrator and institution's data custodian; do not disclose individual data in presentation materials. No observed difference here identifies a causal tutoring effect. -->
 ---
 <!-- _class: appendix -->
 # Appendix A — evidence hierarchy
 
-Primary: historical FE/Wald/Holm contrasts. Exploratory: PPA grouping pending; two-part and attendance curves; fused lasso; mixture diagnostics; Shapley and retrospective skill. These are **different estimands**, not independent confirmatory replications.
+**Inferential anchors:** original user-only 15-pair Wald/Holm contrasts and complementary zero-inclusive ten-pair contrasts.
 
-<!-- _footer: Source: Consolidation plan -->
-<!-- Speaker notes: Preserve methodological hierarchy. -->
+**Sensitivity analyses:** positive-only tail 21-pair and zero-inclusive 28-pair families; first/additional visit and fitted curve shapes.
 
+**Model diagnostics:** fused-lasso grouping; Gaussian mixtures versus skewness; Shapley in-sample attribution; retrospective held-out prediction.
+
+**PPA:** mutually exclusive 0 | 1–3 | 4+ and 0 | 1–3 | 4 | 5+ remain exploratory and **not estimated on authorized institutional microdata**.
+
+<!-- _footer: Source: Methods claims-to-evidence matrix (PR #97); PPA PR #98 -->
+<!-- Speaker notes: These methods measure different features of the same cohort and do not constitute independent experimental replications. -->
 ---
 <!-- _class: appendix -->
 # Appendix B — cohort numbers
@@ -234,11 +244,16 @@ Eligible first MU attempts across all historical periods: **7,777**; covered ana
 <!-- _class: appendix -->
 # Appendix C — multiplicity
 
-Wald tests compare context-adjusted µ(i)−µ(j) using clustered standard errors. Original historical ten-pair family, separately declared seven-adjacent family and two-term piecewise family require **distinct Holm corrections**.
+For a pair i,j, test H0: adjusted mu(i) = mu(j) with professor-period cluster-robust Wald uncertainty. Holm step-down adjustment is applied within a declared comparison family.
 
-<!-- _footer: Source: Paper 2.1 tables 33 and 41; Holm (1979) -->
-<!-- Speaker notes: Nominal CI and Holm-adjusted p-values must be distinguished. -->
+**Paper 2.1 families, per outcome:** primary users-only **15**; users-only 7-level sensitivity **21**; zero-inclusive five-group **10**; zero-inclusive eight-group **28**.
 
+**Other analyses:** seven adjacent steps, two piecewise terms; proposed PPA-18 (3 primary + 6 secondary comparisons for each Z and PASS outcome).
+
+Nominal cluster-robust intervals are **not** simultaneous Holm intervals.
+
+<!-- _footer: Source: Paper 2.1 tables 12–14, 21–23, 33/41, 26a/26k; QA PR #96; PPA PR #98 -->
+<!-- Speaker notes: QA checked 148 previously published linear contrasts for arithmetic consistency with zero mismatches. This does not authenticate institutional inputs or the defective PASS-logit inference flags. -->
 ---
 <!-- _class: appendix -->
 # Appendix D — piecewise formula
@@ -252,11 +267,18 @@ Wald tests compare context-adjusted µ(i)−µ(j) using clustered standard error
 <!-- _class: appendix -->
 # Appendix E — shape-selection sensitivity
 
-Z AIC: linear **18753.43**, log 18753.99, sqrt 18753.62, saturating 18754.40, categorical 18762.27. Out-of-context Z R² skill across shapes 0.01630–0.01692; differences are small.
+| Grade-Z shape | In-sample AIC | Grouped held-out R2 skill |
+|---|---:|---:|
+| Linear | 18753.43 | 0.01692 |
+| Logarithmic | 18753.99 | 0.01676 |
+| Square-root | 18753.62 | 0.01685 |
+| Saturating | 18754.40 | 0.01672 |
+| Categorical | 18762.27 | 0.01630 |
 
-<!-- _footer: Source: model_comparison_in_sample.csv; group_heldout_shape_cv.csv -->
-<!-- Speaker notes: In-sample fit and held-out skill are different criteria. -->
+The five fitted shapes differ little in held-out skill; professor-period fixed effects were unavailable for unseen validation contexts.
 
+<!-- _footer: Source: attendance_curves/model_comparison_in_sample.csv and group_heldout_shape_cv.csv -->
+<!-- Speaker notes: These are model-fit and held-out-loss comparisons, not a formal test of diminishing causal response. -->
 ---
 <!-- _class: appendix -->
 # Appendix F — fused protocol
@@ -279,7 +301,13 @@ Numeric complete-case BIC prefers GMM K=2 vs single skew-normal in groups 0,1,2;
 <!-- _class: appendix -->
 # Appendix H — provenance and readiness
 
-Paper 2.1 `1546c594…`; fused `29810a86…`; mixture `b1cace12…`; Shapley `5915976f…`. **Claims matrix, integrated manuscript, validated PPA grouping pending at deck authoring.** No submission-readiness claim.
+Historical source SHAs: Paper 2.1 **1546c594…**; fused **29810a86…**; mixture **b1cace12…**; Shapley **5915976f…**.
 
-<!-- _footer: Source: GitHub source tips verified 2026-10-26 -->
-<!-- Speaker notes: Administrator and methods agent must approve evidence. -->
+Scientific review drafts: methods/claims matrix **PR #97**, integrated manuscript **PR #99**; PPA **PR #98** has code but no validated institutional fit.
+
+**DO NOT RELEASE:** QA **PR #96** reports controlled student records in the public repository and invalid historical PASS-logit inference; privacy remediation and re-audit required.
+
+The deck PDF is an **offline fallback preview**, not an official Marp CLI-validated release.
+
+<!-- _footer: Source: Source branch tips; PRs #96–#99; 2026-10-26 -->
+<!-- Speaker notes: Existing PRs are unmerged review material. The controlled-data release block applies to all publication actions; verify Git history, forks and artifacts under authorized data-custodian oversight. -->
