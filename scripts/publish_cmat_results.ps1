@@ -116,7 +116,7 @@ foreach ($path in $stagedBefore) {
 }
 
 # Stage by exact filenames, never 'git add .' or broad directory patterns.
-git add -- $stage.ToArray()
+git add -- $($stage.ToArray())
 Assert-Git "Staging known aggregate files"
 $stagedAfter = @(git diff --cached --name-only)
 Assert-Git "Reading staged changes"
