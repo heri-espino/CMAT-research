@@ -73,6 +73,6 @@ def test_focused_sign_and_percentage_point_conversion():
 
 def test_data_free_check_and_removed_unrequested_option(capsys):
     assert run(["--check"]) == 0
-    assert "m=3" not in capsys.readouterr().out.lower() or True
+    assert "3-pair" in capsys.readouterr().out.lower()
     with pytest.raises(SystemExit):
         run(["--check", "--include-secondary"])
