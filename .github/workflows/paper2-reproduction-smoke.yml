@@ -28,7 +28,7 @@ jobs:
         run: python -m compileall -q papers/paper2-beyond-first-attendance
       - name: Check all supported analysis contracts after PPA index fix (no institution data)
         run: python papers/paper2-beyond-first-attendance/run_all.py --check
-      - name: Run PPA and shared-estimator synthetic tests
+      - name: Run PPA and shared-estimator synthetic tests (three bands only)
         run: |
           python -m pytest -q \
             papers/paper2-beyond-first-attendance/analysis/ppa-groups/test_ppa_groups.py \
