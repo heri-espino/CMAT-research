@@ -12,7 +12,6 @@ class GroupSpecification:
 
 SPECS = (
     GroupSpecification("primary_0_1to3_4plus", ("0", "1-3", "4+"), True),
-    GroupSpecification("secondary_0_1to3_4_5plus", ("0", "1-3", "4", "5+"), True),
     GroupSpecification("historical_exact_0to6_7plus", ("0", "1", "2", "3", "4", "5", "6", "7+"), False),
 )
 
@@ -26,8 +25,6 @@ def assign_visit_groups(visits: pd.Series, spec: GroupSpecification) -> pd.Serie
     v = numeric.to_numpy(dtype=np.int64)
     if spec.name == SPECS[0].name:
         labels = np.select([v == 0, v <= 3], ["0", "1-3"], default="4+")
-    elif spec.name == SPECS[1].name:
-        labels = np.select([v == 0, v <= 3, v == 4], ["0", "1-3", "4"], default="5+")
     elif spec.name == SPECS[2].name:
         labels = np.where(v >= 7, "7+", v.astype(str))
     else:
@@ -46,15 +43,15 @@ def verify_partition(df: pd.DataFrame, *, visit_col: str = "VISITS_CMAT_PERIOD")
             raise AssertionError(f"Non-exhaustive partition: {spec.name}")
         for label in spec.labels:
             counts[f"{spec.name}:{label}"] = int((g == label).sum())
-    a, b = SPECS[:2]
-    assert counts[f"{a.name}:0"] == counts[f"{b.name}:0"]
-    assert counts[f"{a.name}:1-3"] == counts[f"{b.name}:1-3"]
-    assert counts[f"{a.name}:4+"] == counts[f"{b.name}:4"] + counts[f"{b.name}:5+"]
-    assert sum(counts[f"{a.name}:{x}"] for x in a.labels) == n
+    primary, exact = SPECS
+    assert counts[f"{primary.name}:0"] == counts[f"{exact.name}:0"]
+    assert counts[f"{primary.name}:1-3"] == sum(counts[f"{exact.name}:{x}"] for x in ("1", "2", "3"))
+    assert counts[f"{primary.name}:4+"] == sum(counts[f"{exact.name}:{x}"] for x in ("4", "5", "6", "7+"))
+    assert sum(counts[f"{primary.name}:{x}"] for x in primary.labels) == n
     return counts
 
-def ppa_family_size(outcomes: tuple[str, ...] = ("Z_GRADE_PRIMARY", "PASS")) -> int:
-    """Exploratory Holm family: three-plus-six pairs for each of two outcomes."""
-    return len(outcomes) * sum(len(s.labels) * (len(s.labels) - 1) // 2 for s in SPECS if s.exploratory_ppa)
+def ppa_family_size() -> int:
+    """Three pairwise contrasts in EACH of two separately corrected outcome families."""
+    return len(SPECS[0].labels) * (len(SPECS[0].labels) - 1) // 2
 
-assert ppa_family_size() == 18
+assert ppa_family_size() == 3
