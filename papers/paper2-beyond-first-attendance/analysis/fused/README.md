@@ -1,0 +1,3 @@
+# Exploratory ordered fused-lasso grouping
+
+Source: `paper/paper2.2.1-fused-frequency` at `29810a86aef4c13a0327760955fae674ac349981`; experimental runner `code/run_paper221_fused.py`, manifest `results/paper221/run_manifest.json` and 2026-10-07/08 100-bootstrap report. That computational experiment is completed despite older status text; additional calibration/selection-rule sensitivities are pending. For Z the selected partition separates 0 vs 1+, whereas PASS's all-fused selection conflicts with exploratory BIC rank. Fused coefficients do not prove group equality, causality or a PPA boundary.
