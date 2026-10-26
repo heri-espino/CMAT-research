@@ -1,0 +1,3 @@
+# Compilation and acceptance status
+
+The manuscript-agent branch carries complete editable historical sections, the integrated further-evidence section, bibliography, archived vector figures and the reproducible `build.sh`. A separate local 14-page provisional manuscript PDF compiled successfully in this chat. **The exact repository version has not been compiled in GitHub or byte-verified as an integrated PDF, and `manuscript/paper.pdf` is intentionally not asserted to exist.** The original Paper 2.1 PDF remains untouched. The PPA empirical output and validated means/uncertainty are still pending, as are data-governance and administrator approval. Any run should preserve and attach a real `latexmk` log.

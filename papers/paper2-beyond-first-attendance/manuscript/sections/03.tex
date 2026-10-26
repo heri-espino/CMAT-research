@@ -1,0 +1,72 @@
+\section{Results}
+
+\subsection{Attendance distribution and unadjusted outcomes}
+
+Of the 6,627 first eligible MU attempts, 5,393 students (81.4\%) had no recorded CMAT attendance and 1,234 (18.6\%) had at least one recorded visit. \Cref{fig:cohort-overview} distinguishes three mutually exclusive final states for each visit frequency: PASS (numeric grade $\geq7.5$), numeric non-PASS (grade strictly $<7.5$), and an administrative final state without a numeric grade (BV/RT/BA). The left panel reports percentages of all students in each frequency, the centre stacks their mutually exclusive contributions within each instructor--period-standardised Z histogram bin, and the right panel shows group sizes. The displayed Z range is restricted to $[-2,2]$, whereas the percentages and counts cover the full sample.
+
+\begin{figure*}[tbp]
+\centering
+\includegraphics[width=\textwidth]{figures/fig01_cohort_outcome_attendance.pdf}
+\caption{Final outcome composition and recorded CMAT visits. Left: blue indicates PASS (observed numeric grade $\geq7.5$), orange indicates numeric failure ($Y<7.5$), and gold indicates a non-numeric administrative final state (BV/RT/BA); all percentages use the full visit-group denominator. Centre: PASS, numeric non-PASS and BV/RT/BA are stacked (not overlapped) within each standardised $Z$ bin; their heights sum to that bin's full-group frequency share; administrative outcomes enter only through the previously documented imputation rule for this continuous endpoint. Dark points with capped intervals show the \emph{unadjusted} mean and its 95\% confidence interval for each full attendance group, while the row text reports the group mean and standard deviation (SD). Purple diamonds and short bars display an \emph{approximate} median and a conservative median-location interval derived from 0.1-$Z$ bins and the number of observations outside the plotted window; these purple bars are not confidence intervals. The histogram itself is truncated to $-2\leq Z\leq2$, whereas the means, SDs and confidence intervals use the full outcome group. Right: numbers of students by visit frequency on a logarithmic axis. Horizontal separators display the descriptive attendance ranges $0$, $1$--$3$ (the PPA1 activity can be completed at visit three by eligible students), $4$--$6$, and $7+$, which are not statistically established regimes. The numeric PASS cutoff of 7.5 does not correspond to one universal Z-score threshold across instructor--period contexts.}
+\label{fig:cohort-overview}
+\end{figure*}
+
+The distribution of visits is highly concentrated at zero, and cells beyond three visits contain substantially fewer students. The 1--3 range comprises 932 students, the 4--6 range 201, and the $7+$ group 101. The within-frequency SDs of standardised $Z$ range from 0.59 to 1.02; a group-specific SD need not equal one because standardisation was performed within instructor--period contexts, not within attendance groups. The displayed 95\% intervals concern unadjusted group means rather than the adjusted between-frequency effects tested below. Median locations are only approximately identified from the available histogram bins and cannot be reported as exact sample medians without individual-level quantile summaries. Differences in the observed shapes and PASS fractions are descriptive; they do not establish a monotone benefit from additional visits.
+
+\paragraph{Composition among non-passing students (exploratory).}
+Among students without a passing outcome, 923 of 1,504 students with no recorded visits (61.4\%) had an administrative rather than numeric final result, compared with 178 of 217 students with at least one visit (82.0\%). The complementary shares with observed numeric failure ($Y<7.5$) were 38.6\% and 18.0\%, respectively. This comparison is \emph{conditional on not passing}, so it must not be misread as a higher population-wide withdrawal rate among CMAT attendees or as evidence about the reasons for a BV, RT or BA record. These descriptive values use the pre-existing aggregates and do not change the prespecified Holm families of attendance-frequency contrasts.
+
+\subsection{Benchmark: any use versus no recorded use}
+
+After adjustment for instructor--period and degree programme, any recorded attendance was associated with $0.361$ SD higher final standardised performance (95\% CI $0.302$--$0.421$, $p<0.001$) and a 15.3 percentage-point higher PASS probability (95\% CI 12.4--18.1 points, $p<0.001$). This is the most precisely estimated separation in the study, but is an observational comparison of final outcomes and should not be construed as pre-to-post improvement from centre use.
+
+\subsection{Primary frequency inference among CMAT users}
+
+The originally selected positive-frequency grouping consists of exact 1, 2, 3, 4 and 5 visits and pooled $6+$ visits, for a total of six levels. The fixed-effect omnibus test among the 1,234 users did not reject equal adjusted outcomes across these levels for continuous standardised performance ($p=0.317$) or PASS ($p=0.152$). Moreover, none of the 15 pairwise frequency contrasts per outcome remained significant after Holm adjustment.
+
+The importance of prespecified multiplicity treatment is evident for the widest low-versus-high comparison. Between one visit and $6+$ visits, the unadjusted pairwise $p$-values were 0.022 for the standardised outcome and 0.011 for PASS, but became 0.328 and 0.171 after Holm adjustment, respectively. Thus, isolated unadjusted comparisons provide insufficient evidence for differentiated positive-frequency categories under this primary specification.
+
+\subsection{Eight visit levels and the exploratory four-range interpretation}
+
+A descriptive overlay partitions the displayed frequencies into $0$, $1$--$3$, $4$--$6$, and $7+$. These ranges contain 5,393, 932, 201 and 101 students, respectively. The $1$--$3$ range includes the three visits needed to complete one PPA1 social and cultural integration activity for eligible first-semester students; $4$--$6$ describes continued use beyond that option, and $7+$ isolates a sparse upper tail. Individual PPA1 eligibility and whether credit was awarded are not observed in these data. These four ranges motivate interpretation but have not been fitted or inferentially validated as four homogeneous regimes. The upper-triangular panels below retain all eight original visit categories and all 28 Holm-adjusted pairwise tests per outcome.
+
+
+
+In the zero-inclusive grid $0,1,2,3,4,5,6,7+$, the adjusted model of the continuous outcome rejected equality across all levels ($p<0.001$). Every adjusted contrast between zero attendance and a positive visit category survived Holm adjustment across the 28 pairs; the weakest such comparison involved exactly six visits (adjusted $p=0.042$). All seven zero-versus-positive PASS contrasts also survived Holm correction in the corresponding full-grid family.
+
+A notable non-adjacent PASS comparison separated the $7+$ group from one-visit users by 14.5 percentage points (95\% Wald CI 5.9--23.1 percentage points, Holm-adjusted $p=0.0206$). This estimate comes from the full sample of 6,627 and the 28-comparison family, not the primary user-only model; the finer split of the upper tail was made after the original support audit. The result therefore identifies an interesting exploratory high-frequency profile rather than a preselected attendance threshold.
+
+Within the seven positive-frequency categories, separate user-only omnibus tests remained inconclusive ($p=0.213$ for standardised grades and $p=0.102$ for PASS), and no positive-frequency pair survived the corresponding Holm adjustment. These findings are not numerically interchangeable with the full zero-inclusive model because removing zero-attendance students changes the sample, nuisance fit and covariance estimates in addition to the comparison family.
+
+No adjusted adjacent visit contrast among users survived multiplicity correction in the reported analyses. The $3$-versus-$4$ comparison does not establish an academic-outcome jump beyond the third visit, nor does the $2$-versus-$3$ comparison establish a jump at possible completion of a PPA1 activity. Neither contrast estimates whether the social and cultural integration incentive caused attendance, because eligibility and actual participation credit are not observed for each MU student. Descriptively the mean $Z$ changed from 0.267 to 0.382 between four and five visits and from 0.288 to 0.457 between exact six and $7+$, but the corresponding adjacent adjusted contrasts did not establish a break.
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=\linewidth]{figures/fig03_04_pairwise_effect_dashboard.pdf}
+\caption{Adjusted pairwise differences for instructor--period-standardised grades (SD units) and PASS probability (percentage points), using the eight-category reporting grid. Only the upper triangle is shown: positive values mean higher-frequency column minus lower-frequency row; shading encodes adjusted effect magnitude and direction, not statistical significance. Lines delimit hypothesised $0|1$--$3|4$--$6|7+$ ranges, not Holm-established changepoints.}
+\label{fig:pairwise-effects}
+\end{figure}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=.97\linewidth]{figures/fig05_pairwise_z_pvalue_dashboard.pdf}
+\caption{Raw and Holm-adjusted pairwise Wald $p$-values for the standardised final-outcome model, full eight-category family (upper triangle only).}
+\label{fig:holm-z}
+\end{figure}
+
+\begin{figure}[tbp]
+\centering
+\includegraphics[width=.97\linewidth]{figures/fig06_pairwise_pass_pvalue_dashboard.pdf}
+\caption{Raw and Holm-adjusted pairwise Wald $p$-values for PASS under the linear-probability model, full eight-category family (upper triangle only).}
+\label{fig:holm-pass}
+\end{figure}
+
+\subsection{Sensitivity to upper-tail grouping and level of clustering}
+
+The pooled-$6+$ primary specification remained inconclusive among users after Holm correction, whereas the full eight-group model identified the exploratory $7+$ versus one-visit PASS comparison described above. This difference should be retained in interpretation rather than presented as if a uniquely optimal upper-tail resolution had been established.
+
+Because the same instructor can teach in more than one period, we re-estimated uncertainty by clustering at instructor level. The any-use benchmark remained $0.361$ SD (95\% CI 0.305--0.417) and 15.3 PASS percentage points (95\% CI 12.8--17.8). In the user-only pooled-$6+$ model, the instructor-cluster omnibus test yielded $p=0.0477$ for grades and $p=0.0551$ for PASS. None of the grade contrasts survived Holm correction, but the non-adjacent PASS contrast comparing $6+$ visits with one visit was +12.0 percentage points (95\% CI 4.3--19.8; adjusted $p=0.0358$). No adjacent PASS contrast was significant. This sensitivity allows a wider low-versus-high distinction in PASS, but does not support a monotonic visit-by-visit gradient.
+
+\subsection{Observed-numeric outcome check}
+
+The complete-case analysis that excludes BV, RT and BA changes the analytic population and addresses a different endpoint. Across positive visit frequencies its omnibus test for the numeric-only standardised grade did not reject equality ($p=0.397$). This check does not remove concerns about selection into an observed final numeric grade and cannot establish that the imputation rule is consequence-free; it supports reporting the distinct PASS outcome alongside the standardised final-outcome measure.

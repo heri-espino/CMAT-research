@@ -1,0 +1,23 @@
+
+\section{Further evidence: different questions, different estimands}
+\subsection{Piecewise first-visit and additional-visit projections}
+A restricted working model separates the first recorded visit from a constant slope through the top-coded $7+$ level:
+\[
+O_{ic}=\alpha_c+\gamma_{d(i)}+\theta_1{\bf1}(K_i>0)+\theta_2\max\{0,\min(K_i,7)-1\}+\epsilon_{ic}.
+\]
+The fitted $Z$ coefficients are +0.3066 SD for first use and +0.0361 SD per subsequent modelled visit (extra-slope CI 0.0081--0.0640, two-term Holm $p=0.0114$). PASS coefficients are +11.92 and +2.23 percentage points respectively (slope CI 0.895--3.556 pp, two-term Holm $p=0.00105$). Source: research branch commit \texttt{5915976f}, \texttt{results/paper21/tables/followup\_questions/two\_part\_attendance\_z\_pass.csv}. The linear slope is a modelling restriction and not an experimental dose response.
+
+\subsection{Nonlinear attendance curves and held-out skill}
+Five-fold out-of-professor-period prediction compares linear, log, square-root, saturating and unrestricted categorical shapes. Grade $Z$ held-out skill is 0.0169 with linear visits against 0.0163 for free categories; PASS Brier skill is 0.0037 against 0.0027. The other shapes are close, and no uncertainty interval for their difference establishes a uniquely superior functional form. Source: research commit \texttt{5915976f}, \texttt{results/paper21/tables/attendance\_curves/group\_heldout\_shape\_cv.csv}. Full-term attendance is not available for a semester-start prediction.
+
+\subsection{Ordered fused-frequency sensitivity}
+Under its declared one-SE-style selection procedure, the completed fused-lasso experiment selected $[0]\mid[1,2,3,4,5,6,7+]$ for $Z$, with the $0\mid1$ cut selected in 100 out of 100 retuned professor--period bootstrap fits. Internal held-out contexts produced +0.264 SD (nominal 95\% CI 0.150--0.377). PASS instead selected a single fused block, although discovery BIC ranked that model last of 128 enumerated partitions; its $0\mid1$ cut appeared in 37 out of 100 bootstrap refits. Sources: fused-branch commit \texttt{29810a86}, \texttt{results/paper221/run\_manifest.json}, \texttt{tables/7plus\_z\_grade\_primary\_holdout\_wald.csv}, \texttt{tables/7plus\_pass\_boundary\_stability.csv}. Fusion and bootstrap frequencies are not equivalence tests or causal boundary probabilities.
+
+\subsection{Grouped Shapley and retrospective prediction}
+In full adjusted in-sample linear models, the attendance block contributes 0.0180 to $Z$ model $R^2=0.0582$ and 0.0133 to PASS model $R^2=0.1718$. When professor--period groups are held out, attendance and degree contribute 0.0151 and 0.0034 to grade skill, and 0.0054 and 0.0122 to PASS Brier skill. Sources: research commit \texttt{5915976f}, \texttt{results/paper21/tables/shapley\_importance/in\_sample\_shapley\_12\_models.csv} and \texttt{out\_of\_context\_shapley.csv}. Shapley measures model attribution, not causal importance.
+
+\subsection{Distributional adequacy and unobserved incentives}
+Inherited EM/Gaussian-mixture and skew-normal diagnostics illustrate sensitivity to skewness and numeric imputation of administrative outcomes. The new distributional branch's calibrated modality study is not completed, and mixture components must not be interpreted as identified student types. Sources: inherited \texttt{results/paper21/tables/37\_complete\_case\_gmm\_selection.csv}, \texttt{47\_complete\_case\_skewnormal\_vs\_gmm.csv}, \texttt{48\_imputed\_skewnormal\_vs\_gmm.csv}; branch \texttt{b1cace12}. Administrative BA/BV/RT differ from numeric grades and require transparent separate analyses.
+
+\subsection{Institutional-threshold analysis still pending}
+The current administrator charter requires only the exploratory nonoverlapping groups $0\mid1$--$3\mid4+$. At manuscript drafting, no committed empirical PPA-group results or run manifest were available on the integration or PPA work branch. The three-visit optional PPA1 activity does not identify who was eligible, received credit or visited for that purpose. \textbf{Insert no numerical PPA-group conclusion without a validated aggregate CSV, covariance specification, Holm family and methods-audit approval.}
