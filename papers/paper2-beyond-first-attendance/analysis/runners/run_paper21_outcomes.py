@@ -1393,6 +1393,26 @@ def run(args: argparse.Namespace) -> int:
     pass_logit_info.insert(
         0, "specification", "main_zero_inclusive_0_1_2_3_4_5_6_7plus"
     )
+    # Historical D-logit regressions can have singular clustered covariance.
+    # A nonestimable p-value must NEVER be exported as a significant rejection.
+    # This fixes the false 28/28 reject_adjusted flags in older 26c exports.
+    cols = {str(x) for x in pass_logit_pair.columns}
+    necessary = [c for c in ("p_raw", "p_adjusted", "cluster_robust_se")
+                 if c in cols]
+    valid_inference = pd.Series(True, index=pass_logit_pair.index)
+    for name in necessary:
+        valid_inference &= pd.to_numeric(pass_logit_pair[name], errors="coerce").notna()
+    if not necessary:
+        valid_inference[:] = False
+    pass_logit_pair["inference_estimable"] = valid_inference
+    if "reject_adjusted" in pass_logit_pair:
+        pass_logit_pair["reject_adjusted"] = (
+            pass_logit_pair["reject_adjusted"].astype("boolean").where(valid_inference, pd.NA)
+        )
+    pass_logit_pair["inference_note"] = (
+        "clustered logit inference not estimable" if not valid_inference.all()
+        else "clustered logit inference estimable"
+    )
     _save(pass_logit_pair, "26c_zero_inclusive_7plus_pass_logit_pairwise.csv")
     _save(
         _odds_ratio_matrix(
