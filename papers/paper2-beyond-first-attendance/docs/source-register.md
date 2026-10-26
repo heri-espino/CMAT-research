@@ -1,6 +1,6 @@
 # Source register — frozen branch inventory
 
-**Inventory dated:** 2026-10-26. **Upstream comparator:** `main` commit `d61739ff89eca96be5113a1cb47ea8be496891dd` (tree `ceb238596490b0c30cfdf832976f476803615649`). **Scope:** all *file blobs differing in path or content* from this comparator in each source branch, including code, manuscripts, figures, result tables, tests, protocol notes, CI/workflow changes and transient QA material. Historical branches are not modified.
+**Inventory dated:** 2026-10-26. **Upstream comparator at branch creation:** `main` commit `d61739ff89eca96be5113a1cb47ea8be496891dd` (tree `ceb238596490b0c30cfdf832976f476803615649`). **Scope:** all *file blobs differing in path or content* from this comparator in each source branch, including code, manuscripts, figures, result tables, tests, protocol notes, CI/workflow changes and transient QA material. Historical branches are not modified.
 
 The machine-readable, **file-by-file and SHA-complete** register is [`source-register.tsv`](source-register.tsv). Each record provides source branch, original path, frozen **commit SHA**, file **blob SHA**, byte size, asset classification, branch-level completion label, disposition, proposed canonical namespace, immutable source hyperlink and dependency note. A proposed slot is not a claim that the file was copied; `copied-frozen` is the only imported-file disposition. Repeated paths are intentionally listed for each distinct frozen branch head, allowing identical inherited hashes to be compared rather than silently choosing a latest variant.
 

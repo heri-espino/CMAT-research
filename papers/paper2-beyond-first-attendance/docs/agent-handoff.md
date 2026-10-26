@@ -6,7 +6,7 @@ Use exact source-commit permalinks from the register; do **not** treat proposed 
 
 ## Assigned work
 
-- **PPA group analysis agent:** branch `paper/paper2-ppa-groups-agent` from this branch; own `analysis/ppa-groups/` and approved tables/figures. Implement nonoverlapping `0 | 1–3 | 4+` and `0 | 1–3 | 4 | 5+`, with group counts, professor-period overlap, cluster-robust CI and transparent exploratory Holm family; synthetic fixtures, outcome definitions, no PPA-treatment mechanism.
+- **PPA group analysis agent:** branch `paper/paper2-ppa-groups-agent` from this branch; own `analysis/ppa-groups/` and approved tables/figures. Implement only nonoverlapping `0 | 1–3 | 4+` (historical N=5,393 / 932 / 302), with group counts, professor-period overlap, cluster-robust CI and transparent exploratory Holm family; synthetic fixtures, outcome definitions, no PPA-treatment mechanism.
 - **Methods audit agent:** `paper/paper2-methods-audit-agent`; own `docs/claims-evidence-matrix.md`, reconciliation of cohort/outcomes/families and provenance manifests; explicitly adjudicate stale status and conflicts instead of substituting method-specific estimates.
 - **Manuscript agent:** `paper/paper2-manuscript-agent`; own `manuscript/` and `supplement/`. Use original Wald/Holm evidence as inferential anchor; distinguish exploratory model-selection evidence; do not publish a replacement PDF/link without source-claim audit, build and review.
 - **Marp presentation agent:** `paper/paper2-marp-agent`; own `presentation/marp/`, with figures drawn only from verified aggregate outputs. Produce editable Markdown and validate actual exported PDF bytes; not before statistical synthesis.

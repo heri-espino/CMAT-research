@@ -12,6 +12,7 @@
 | A-008 | Record contradictory dated status notes rather than choose one silently | Fused initial status is outdated for 100-bootstrap execution; Paper 2.2.2 novel modality work is still unexecuted; Shapley ledger has dated supersession |
 | A-009 | Prohibit inferred equivalence, multimodality, experimental effects, and post hoc PPA claims | Historical evidence is observational and method-specific |
 | A-010 | No PR to `main`, no branch deletion, history rewrite, force push or historical result replacement in architecture phase | Repo governance and user constraint |
+| A-011 | Integrate the subsequent one-commit `main` charter update (`d6b1670553e9a838339c4c0bebb397667ba3a392`) into this branch through a non-destructive merge, preserving the original creation-time baseline and SHA-pinned source inventory | User clarified that only `0 | 1–3 | 4+` is requested; old four-group suggestion is explicitly **not** a requirement. No scientific output changed. |
 
 ## Open decisions requiring scientific or administrator authority
 

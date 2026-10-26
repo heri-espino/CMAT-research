@@ -32,12 +32,12 @@ papers/paper2-beyond-first-attendance/
   docs/                     # source ledger, method conflicts, handoff
 ```
 
-The inventory [TSV](docs/source-register.tsv) maps **every one of 1,086 files whose blob differs from current main** among the five frozen source branches; unchanged shared-main files are intentionally not recatalogued. Historical assets remain at SHA-pinned URLs, with one 441-byte JSON grouping specification selectively reused by identical Git blob. No entire branch trees or historical output collections were copied.
+The inventory [TSV](docs/source-register.tsv) maps **every one of 1,086 source-branch file differences against the creation-time main commit** among the five frozen source branches; unchanged shared-main files are intentionally not recatalogued. Historical assets remain at SHA-pinned URLs, with one 441-byte JSON grouping specification selectively reused by identical Git blob. No entire branch trees or historical output collections were copied.
 
 ## Scientific contract
 
 Study subject: first eligible Matemáticas Universitarias (MU) attempts, recorded CMAT attendance during the same academic period, and distinct performance outcomes. **6,627 attempts, 190 instructor-period groups, 1,234 attendees** are the historical cohort numbers—not a freshly revalidated pooled estimate. This is observational; visits are not randomly assigned, PPA1 eligibility/credit is not observed, and ordered association is not causal dose response.
 
-Use original 15/21/28-pair Holm families as labeled. Proposed `0 | 1–3 | 4+` and `0 | 1–3 | 4 | 5+` are *new exploratory grouping choices*, not pre-registered or interchangeable with the historical Holm comparisons. BA/BV/RT must remain distinguishable from numeric marks and numeric-only complete cases.
+Use original 15/21/28-pair Holm families as labeled. The **only requested new PPA-threshold grouping** is `0 | 1–3 | 4+` (historical counts: 5,393 / 932 / 302). It is exploratory and not interchangeable with historical Holm comparisons. The previously suggested `0 | 1–3 | 4 | 5+` is **not** a required analysis. BA/BV/RT must remain distinguishable from numeric marks and numeric-only complete cases.
 
-See the [consolidation charter](https://github.com/heri-espino/CMAT-research/blob/d61739ff89eca96be5113a1cb47ea8be496891dd/docs/PAPER2_CONSOLIDATION_PLAN.md) before creating downstream branches. Agents branch from `paper/paper2-beyond-first-attendance` and send PRs **to this branch**, not directly to `main`. Upstream shared `cmat_analysis/`, workflows, root README and branch-retirement decisions remain admin-controlled.
+See the [consolidation charter](https://github.com/heri-espino/CMAT-research/blob/d6b1670553e9a838339c4c0bebb397667ba3a392/docs/PAPER2_CONSOLIDATION_PLAN.md) before creating downstream branches. Agents branch from `paper/paper2-beyond-first-attendance` and send PRs **to this branch**, not directly to `main`. Upstream shared `cmat_analysis/`, workflows, root README and branch-retirement decisions remain admin-controlled.

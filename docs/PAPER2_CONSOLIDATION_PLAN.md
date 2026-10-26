@@ -37,7 +37,7 @@ different observational patterns?
 Proposed evidence hierarchy for the **integrated** paper:
 1. **Main inferential anchor:** Paper 2.1 fixed-effect-adjusted Z/PASS group
    contrasts and specified Wald/Holm multiplicity families.
-2. **Substantive new test:** PPA-motivated coarse groups and their contrasts,
+2. **Substantive new test:** PPA-threshold-based three-group contrasts,
    explicitly **exploratory/post hoc** unless separately justified in a dated
    protocol; student motivation and PPA1 credit are **not observed**.
 3. **Within-paper observational sensitivity:** piecewise first-vs-extra visit
@@ -51,25 +51,38 @@ Proposed evidence hierarchy for the **integrated** paper:
    online supplements/reproducibility records. The main text should make a
    focused scientific argument rather than present every number uncritically.
 
-## Visit groups: **nonoverlapping** definitions
+## PPA-threshold grouping: **three mutually exclusive groups**
 
-The requested `0 / 1–3 / 4 / 4+` overlaps at 4 and **cannot be one categorical model**.
-Use:
-- **Primary policy-motivated 3 groups:** `0 | 1–3 | 4+`.
-- **Four-group disaggregation:** `0 | 1–3 | 4 | 5+` (can address visit 4 separately).
-- Show exact-visit `0/1/2/3/4/5/6/7+` alongside both and retain historical
-  `1/2/3/4/5/6+` for comparability.
-- PPA1: completing three visits is **one optional** qualifying first-semester
-  integration activity; individual PPA eligibility, intent and credit use are
-  not observed. Label 1–3 `within potential PPA threshold`, not `PPA-only`.
-  Label 4+ `beyond the three-visit threshold`, not `not incentive-driven`.
-  Zero attendance means **no recorded CMAT visits**, not `uninterested`.
-- Apply appropriately declared Holm families to *new* comparisons, never
-  retroactively promote the grouping as preregistered or conflate with
-  original 15-, 21- or 28-pair correction families.
+**User clarification, 2026-10-26:** The only requested grouped specification
+is **`0 | 1–3 | 4+`**. The prior four-group `0 | 1–3 | 4 | 5+`
+sensitivity was an assistant suggestion, **not a user requirement** and must
+not be included as a required analytical or presentation result.
+
+- `0`: **5,393** students, 81.4% of cohort — no recorded CMAT attendance.
+- `1–3`: **932** students, 14.1% — recorded attendance up to the optional
+  three-visit PPA1 activity threshold.
+- `4+`: **302** students, 4.6% — recorded attendance exceeds three visits.
+
+These counts are sums of published exact-frequency group counts for the
+6,627-student eligible MU cohort, **not** freshly adjusted model results.
+The three groups are exhaustive and disjoint; no category distinguishes
+exactly four visits in the requested PPA analysis.
+
+- Preserve the original exact-visit `0/1/2/3/4/5/6/7+` comparisons and
+  historical `1/2/3/4/5/6+` analyses as **separate existing evidence**,
+  without treating them as an additional PPA grouping.
+- Three CMAT visits are **one optional** qualifying PPA1 activity for some
+  eligible first-semester students. Individual eligibility, intent and credit
+  receipt are unobserved. Label `1–3` as `within the three-visit threshold`,
+  **not** confirmed PPA users; label `4+` as `beyond the threshold`,
+  **not** definitely academically motivated. Likewise, `0` means no
+  **recorded** visits, not student disinterest.
+- Apply explicitly defined Holm families to the new three-group contrasts,
+  preserving distinctions from the historical 15-, 21- and 28-pair families.
 - Prefer full-cohort PASS and imputed Z plus numeric-only sensitivities,
-  clustered professor-period CIs, group N/overlap checks, and variation by
-  programme. The count is same-semester, not an experimental dose.
+  clustered professor-period uncertainty, group N/overlap checks and
+  programme heterogeneity. Recorded visits are contemporaneous with final
+  outcomes, not a randomized instructional dose.
 
 ## Canonical destination: namespaced and mergeable
 

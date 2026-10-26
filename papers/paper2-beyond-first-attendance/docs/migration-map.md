@@ -26,7 +26,7 @@ Documentation, README placeholders and one 441-byte `analysis/holm/historical_vi
 
 ## Conflict rules and publication gates
 
-1. `0 | 1–3 | 4 | 4+` is **overlapping**: 4 belongs to two groups. The new policy grouping is `0 | 1–3 | 4+`, with `0 | 1–3 | 4 | 5+` as disaggregation, both exploratory.
+1. `0 | 1–3 | 4 | 4+` is **overlapping**: 4 belongs to two groups. The **only requested** PPA grouping is `0 | 1–3 | 4+` (historical Ns 5,393 / 932 / 302), exploratory. The former `0 | 1–3 | 4 | 5+` assistant proposal is **not** required.
 2. Avoid comparing tables from incompatible `Z_GRADE_PRIMARY`, `Z_GRADE_COMPLETE_CASE`, raw numeric grade, PASS, or BA/BV/RT handling as though they shared one estimand.
 3. `1/2/3/4/5/6+` support-based and exploratory `0/1/2/3/4/5/6/7+` fine-tail groupings answer different inferential questions; maintain separate 15-, 21-, 28-pair Holm scopes. New contrasts need new transparent families.
 4. Fused-lasso partitions and Shapley predictive contributions are model-selection/fit descriptions, **not** repetitions of fixed-effect Wald tests. A K=2 GMM is neither evidence of two density modes nor two latent populations.
