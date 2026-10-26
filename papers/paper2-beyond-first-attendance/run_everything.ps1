@@ -45,4 +45,4 @@ Write-Host "Running canonical Paper 2 orchestrator..."
 if ($LASTEXITCODE -ne 0) {
     throw "Paper 2 suite was not fully successful. Nothing should be presented as a completed full rerun. See local execution log."
 }
-Write-Host "Paper 2 suite completed. See results/provenance/latest_full_rerun.json."
+Write-Host "Paper 2 suite completed. See papers/paper2-beyond-first-attendance/results/provenance/latest_full_rerun.json."
