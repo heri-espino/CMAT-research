@@ -22,5 +22,7 @@
     98,
     99
   ],
-  "pass_logit_invalid_inferential_flags_excluded": true
+  "pass_logit_invalid_inferential_flags_excluded": true,
+  "ppa_holm_total_tests": 18,
+  "ppa_holm_family_definition": "3 primary pairs plus 6 secondary pairs in each of two outcomes; 18 total tests jointly adjusted"
 }

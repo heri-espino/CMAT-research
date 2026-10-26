@@ -704,7 +704,7 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 960 540] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 54 0 R >>
 endobj
 54 0 obj
-<< /Length 1330 >>
+<< /Length 1299 >>
 stream
 q
 0.945 0.965 0.973 rg 0.00 0.00 960.00 540.00 re f
@@ -713,8 +713,8 @@ q
 0.098 0.235 0.325 rg BT /F1 17.00 Tf 1 0 0 1 60.00 390.76 Tm (uncertainty. Holm step-down adjustment is applied within a declared comparison family. Paper 2.1) Tj ET
 0.098 0.235 0.325 rg BT /F1 17.00 Tf 1 0 0 1 60.00 361.52 Tm (families, per outcome: primary users-only 15; users-only 7-level sensitivity 21; zero-inclusive) Tj ET
 0.098 0.235 0.325 rg BT /F1 17.00 Tf 1 0 0 1 60.00 332.28 Tm (five-group 10; zero-inclusive eight-group 28. Other analyses: seven adjacent steps, two) Tj ET
-0.098 0.235 0.325 rg BT /F1 17.00 Tf 1 0 0 1 60.00 303.04 Tm (piecewise terms; proposed PPA-18 \(3 primary + 6 secondary comparisons for each Z and PASS) Tj ET
-0.098 0.235 0.325 rg BT /F1 17.00 Tf 1 0 0 1 60.00 273.80 Tm (outcome\). Nominal cluster-robust intervals are not simultaneous Holm intervals.) Tj ET
+0.098 0.235 0.325 rg BT /F1 17.00 Tf 1 0 0 1 60.00 303.04 Tm (piecewise terms; proposed PPA-18 = \(3+6\) x 2 outcomes in one family.) Tj ET
+0.098 0.235 0.325 rg BT /F1 17.00 Tf 1 0 0 1 60.00 273.80 Tm (Nominal cluster-robust intervals are not simultaneous Holm intervals.) Tj ET
 0.471 0.565 0.624 rg BT /F1 8.00 Tf 1 0 0 1 46.00 28.00 Tm (Source: Paper 2.1 tables 12-14, 21-23, 33/41, 26a/26k; QA PR #96; PPA PR #98) Tj ET
 0.471 0.565 0.624 rg BT /F1 9.00 Tf 1 0 0 1 888.00 18.00 Tm (25 / 30) Tj ET
 Q
@@ -865,18 +865,18 @@ xref
 0000054506 00000 n 
 0000055244 00000 n 
 0000055382 00000 n 
-0000056764 00000 n 
-0000056902 00000 n 
-0000057607 00000 n 
-0000057745 00000 n 
-0000058845 00000 n 
-0000058983 00000 n 
-0000059805 00000 n 
-0000059943 00000 n 
-0000060795 00000 n 
-0000060933 00000 n 
+0000056733 00000 n 
+0000056871 00000 n 
+0000057576 00000 n 
+0000057714 00000 n 
+0000058814 00000 n 
+0000058952 00000 n 
+0000059774 00000 n 
+0000059912 00000 n 
+0000060764 00000 n 
+0000060902 00000 n 
 trailer
 << /Size 65 /Root 1 0 R >>
 startxref
-62256
+62225
 %%EOF

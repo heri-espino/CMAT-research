@@ -248,7 +248,7 @@ For a pair i,j, test H0: adjusted mu(i) = mu(j) with professor-period cluster-ro
 
 **Paper 2.1 families, per outcome:** primary users-only **15**; users-only 7-level sensitivity **21**; zero-inclusive five-group **10**; zero-inclusive eight-group **28**.
 
-**Other analyses:** seven adjacent steps, two piecewise terms; proposed PPA-18 (3 primary + 6 secondary comparisons for each Z and PASS outcome).
+**Other analyses:** seven adjacent steps, two piecewise terms; proposed PPA-18 = (3+6) x 2 outcomes in one jointly Holm-adjusted family.
 
 Nominal cluster-robust intervals are **not** simultaneous Holm intervals.
 
