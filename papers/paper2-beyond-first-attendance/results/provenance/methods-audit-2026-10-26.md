@@ -1,6 +1,6 @@
 # Paper 2 scientific methodology audit — remote artifact provenance
 
-**Audit date:** 2026-10-26. **Authoring branch:** `paper/paper2-methods-audit-agent`, forked explicitly from `paper/paper2-beyond-first-attendance`, which existed at `d61739ff89eca96be5113a1cb47ea8be496891dd` at branch creation. No original analysis source, historical branch or institutional data was changed.
+**Audit date:** 2026-10-26; second remote review on the same date after the administrator changed the PPA requirement and new agent branches/QA became available. **NOT RELEASE-APPROVED — critical public controlled-data disclosure.** **Authoring branch:** `paper/paper2-methods-audit-agent`, forked explicitly from `paper/paper2-beyond-first-attendance`, which existed at `d61739ff89eca96be5113a1cb47ea8be496891dd` at branch creation. No original analysis source, historical branch or institutional data was changed.
 
 ## Verified source snapshots
 
@@ -20,13 +20,38 @@
 - The fused manifest records execution commit `c9faa397bd0a6c7c8c67025ab94f8314e0996018`, UTC `2026-10-08T02:50:36.054293+00:00`, four specifications with `100/100` successful bootstrap retunes and **no warnings**, on a head now at `29810a86...`. The actual underlying input-file SHA-256 fingerprints are retained **only in the original manifest** and deliberately not reprinted here.
 - Mixture and skew-fit records in branch M are inherited Paper 2.1 historical analyses. The prospective Paper 2.2.2 modality extension was marked *research design only* in `PAPER_BRANCH.md`; this audit has not fabricated a Paper 2.2.2 experiment.
 - The research branch's `notes/25_PUBLICATION_LEDGER.md` now contains a 2026-10-26 supersession paragraph correcting its archived October 25 missing-results text.
-- The PPA agent branch existed at `3c6b4dc662cbe540058291908aa4f6df97e33071` with `analysis/ppa-groups/ppa_groups.py`, `run_ppa_groups.py`, and `test_ppa_groups.py`, but no empirical three/four-group results, output manifest or uncertainty tables had been published at the audit moment. No PPA effect estimate was entered into the claims matrix.
+- The *later* PPA agent branch `324fd86d23e2ccbf1f430497b0abb08853f6c7f0` contains PPA code/tests, historical aggregate counts and a provenance `STATUS.md` declaring empirical PPA regression results **pending**. It retains the withdrawn four-group model and an exploratory 18-contrast Holm correction spanning both outcomes and two grouped models. The **latest** administrator charter on `main` `d6b1670553e9a838339c4c0bebb397667ba3a392` requires *only* `0|1–3|4+`, so new results must not be approved until specification/family alignment. No PPA effect estimate was entered into the claims matrix.
 
 ## Verification scope and limitations
 
 The GitHub connector was used to fetch the *actual repository branch listing, individual committed UTF-8 source notes, JSON manifest and CSV contents* rather than relying exclusively on branch descriptions. A recursive Git tree confirmed the source file inventories. For quoted results, model outcome, row/group, coefficient direction, standard error/CI/p, sample N, cluster count and correction-family context were cross-read where the CSV exposed them.
 
-**Not performed:** controlled-data microdata access; full software rerun; recomputation of fitted models, p-values or uncertainty; screenshot-based independent rendering of binary PDF/PNG figures; statistical disclosure review of any new aggregated PPA result; unrestricted internet Git clone (not available in the audit runtime). This work is documentation-only and contains no student-level data or identifiers.
+**Independently checked in second pass:** Holm p-value step-down and nominal normal-approximation CI arithmetic for 148 committed aggregate Wald contrast rows (original 10-pair, user-only 15-pair, user-only 21-pair, zero-inclusive 28-pair, two outcomes each). No adjusted-p mismatches, maximum CI arithmetic absolute deviation 6.91e-6. Read public GitHub repository metadata and targeted **directory listings/policy text only**, without fetching protected row-level file bodies. Independently inspected historical invalid PASS-logit CSV's 28 inconsistent boolean flags. **Not performed:** controlled-data microdata access; full software/model rerun; regeneration of fitted covariance/uncertainty from rows; screenshot-based independent rendering of binary PDF/PNG figures; full confidential history/artifact scan; statistical disclosure review of any new aggregated PPA result; Git LFS filesystem verification. This work is documentation-only and contains no student-level data or identifiers.
+
+
+## Second-pass external dependency snapshots (2026-10-26)
+
+| Dependency | Verified branch / current artifact | Implication |
+|---|---|---|
+| Canonical charter | `main @ d6b1670553e9a838339c4c0bebb397667ba3a392`; `docs/PAPER2_CONSOLIDATION_PLAN.md` | Explicitly **only three PPA groups** `0|1–3|4+`; four-group is *not requested* |
+| Integration home | `paper/paper2-beyond-first-attendance @ 8f687416522f40a016373e341cf0df697e64bf37` | Architecture source register and publication skeleton present; downstream PRs remain separate |
+| PPA candidate | `paper/paper2-ppa-groups-agent @ 324fd86d23e2ccbf1f430497b0abb08853f6c7f0`, PR #98 | Empirical regressions **not run/published**; four-group and 18-test family remain coded against current requested scope |
+| Original manuscript candidate | `paper/paper2-manuscript-agent @ f3d06e4fc26790a1d27dc48e36122417a6632745`, PR #99 | Editable manuscript and integrated-evidence section; `BUILD_STATUS.md` lacks byte-verified integrated GitHub PDF |
+| Marp candidate | `paper/paper2-marp-agent @ 676690623e3531afee3b22d6017ba74df82bfd78`, PR #100 | Markdown and eleven `figures/*.svg` resources present, but PPA slide still refers to four-group, and final PDF not verified |
+| Independent release QA | `paper/paper2-qa-agent @ b33f7a508172e85bfc11527a86b2cdb7dce09617`, PR #96 | Flags P0 public restricted student data and 28 invalid PASS-logit rejection flags. Its *earlier* four-group requirement interpretation is superseded by main's subsequently amended administrator charter. |
+
+**Independently verified privacy policy conflict:** `heri-espino/CMAT-research` is **public** and current `main/data/controlled/` contains pseudonymized academic/advisory/diagnostic files and linkable normalized person-level records. `data/controlled/PRIVACY_README.md` states the information is **not anonymized**, retains potentially identifying quasi-identifiers, and may reside in the repository only while **private**. This audit contains no student records. The administrator/institutional data custodian must handle current exposure and historical distribution as a security incident before release; a paper-agent methods PR cannot remediate it.
+
+**Second-pass numerical verification details:**
+
+| Source family | Z records; Holm rejections | PASS records; Holm rejections | Max Holm absolute error |
+|---|---:|---:|---:|
+| Original `0/1/2/3/4+` | 10; 4 | 10; 5 | 0 |
+| Positive users `1/2/3/4/5/6+` | 15; 0 | 15; 0 | 0 |
+| Positive users `1/2/3/4/5/6/7+` | 21; 0 | 21; 0 | 0 |
+| All `0/1/2/3/4/5/6/7+` | 28; 7 | 28; 8 | 0 |
+
+The Holm algorithm was independently recomputed by ascending raw p-value, step-down multiplier `(m-j+1)` and monotone cumulative maximum, capped at 1. The source nominal CI calculations agree with `estimate ±1.96×cluster_SE` within 7e-6. This is an exported-result consistency check, **not** independent validation of institutional clustering or sampling design.
 
 ## Editorial controls
 
