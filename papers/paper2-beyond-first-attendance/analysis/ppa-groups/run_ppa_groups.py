@@ -29,6 +29,13 @@ def _hash(path):
             h.update(block)
     return h.hexdigest()
 
+def _safe_source_label(path):
+    """Never put private home directories or external absolute paths in a public manifest."""
+    try:
+        return str(path.resolve().relative_to(ROOT.resolve()))
+    except ValueError:
+        return f"authorized_external_source:{path.name}"
+
 def _estimate(cohort, spec, outcome):
     from cmat_analysis.statistics import fixed_effect_group_comparisons, group_outcome_summary, visit_group_pair_overlap
     d = cohort.copy()
@@ -180,8 +187,8 @@ def run(argv=None):
     cohort = add_primary_outcomes(
         build_study_cohorts(load_and_clean_inputs(config), config)["mu_primary"], config
     )
-    if len(cohort) != 6627 or cohort[FIXED].nunique() != 190:
-        raise ValueError("Cohort validation failed: expected N=6,627 and 190 professor-period contexts")
+    if len(cohort) != 6627 or cohort[FIXED].nunique() != 190 or int((cohort[VISITS]>0).sum()) != 1234:
+        raise ValueError("Cohort validation failed: expected N=6,627, 190 professor-period contexts and 1,234 recorded users")
     verify_partition(cohort)
     if cohort["PASS"].isna().any() or cohort["Z_GRADE_PRIMARY"].isna().any():
         raise ValueError("Unexpected missing full-cohort main outcome")
@@ -228,8 +235,8 @@ def run(argv=None):
       "p_holm_family":18,
       "source_sha256":{"materias":_hash(config.materias_path),
                        "asesorias":_hash(config.asesorias_path)},
-      "source_paths":{"materias":str(config.materias_path),
-                      "asesorias":str(config.asesorias_path)},
+      "source_paths":{"materias":_safe_source_label(config.materias_path),
+                      "asesorias":_safe_source_label(config.asesorias_path)},
       "cohort":"cmat_analysis.cohorts.build_study_cohorts(mu_primary)",
       "outcomes":"cmat_analysis.measures.add_primary_outcomes",
       "estimator":"cmat_analysis.statistics.fixed_effect_group_comparisons",
