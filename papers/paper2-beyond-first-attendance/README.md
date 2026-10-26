@@ -1,6 +1,6 @@
 # Paper 2 — Beyond First Attendance
 
-**Status (2026-10-26): integration work in progress — public release BLOCKED by restricted-data disclosure, PPA scope mismatch, unresolved statistical flags and incomplete PDF/Marp validation.** The methods audit has been merged as documentation; analysis/manuscript/presentation/QA PRs remain drafts. Read the [current administrator integration status](docs/ADMIN_INTEGRATION_STATUS.md). This namespace is one proposed observational publication, not a fusion of formerly separate scientific conclusions.
+**Status (2026-10-26): all five agent PRs have been integrated into this DEVELOPMENT branch; the consolidated manuscript and Marp source are here, and the complete original experiment runners are in `analysis/runners/`.** Empirical PPA estimates remain pending; the previously committed slide PDF is a provisional non-Marp preview, and no new integrated manuscript PDF has been validated or published as final. The historical paper and its PDF remain intact. Read the [administrator audit](docs/ADMIN_INTEGRATION_STATUS.md) and the current `run_all.py` documentation before presenting updated data as validated.
 
 ## Publication entry points
 
@@ -41,3 +41,72 @@ Study subject: first eligible Matemáticas Universitarias (MU) attempts, recorde
 Use original 15/21/28-pair Holm families as labeled. The **only requested new PPA-threshold grouping** is `0 | 1–3 | 4+` (historical counts: 5,393 / 932 / 302). It is exploratory and not interchangeable with historical Holm comparisons. The previously suggested `0 | 1–3 | 4 | 5+` is **not** a required analysis. BA/BV/RT must remain distinguishable from numeric marks and numeric-only complete cases.
 
 See the [consolidation charter](https://github.com/heri-espino/CMAT-research/blob/d6b1670553e9a838339c4c0bebb397667ba3a392/docs/PAPER2_CONSOLIDATION_PLAN.md) before creating downstream branches. Agents branch from `paper/paper2-beyond-first-attendance` and send PRs **to this branch**, not directly to `main`. Upstream shared `cmat_analysis/`, workflows, root README and branch-retirement decisions remain admin-controlled.
+
+
+## Single command: re-run ALL executable experiments and push the aggregates
+
+This branch contains source-controlled runners for Paper 2.1 group support and
+Wald/Holm, numeric failure and EM/GMM/skew-normal shape, controlled PASS and Z
+model sensitivity, grouped Shapley, first/additional attendance regression,
+five attendance curves, fused lasso with **100 bootstrap fits**, the requested
+**only** PPA grouping `0 | 1–3 | 4+`, and four refreshed manuscript
+Wald/Holm figures. Every stage runs in dependency order; **no failure is skipped**.
+
+With Python 3.14 in the existing `cmat-research` Conda environment:
+
+```powershell
+git switch paper/paper2-beyond-first-attendance
+python -m pip install -e "./cmat_analysis[dev]"
+python .\papers\paper2-beyond-first-attendance\run_all.py --check
+python .\papers\paper2-beyond-first-attendance\run_all.py --publish
+```
+
+By default the runner uses the paths returned by the canonical
+`cmat_analysis.config.study_config.get_study_config`, preferring local
+`data/raw/` workbooks and then the configured `data/controlled/` CSVs.
+**Make sure these are the NEW intended data.** For datasets outside this
+checkout, replace the last line with:
+
+```powershell
+python .\papers\paper2-beyond-first-attendance\run_all.py --materias "C:\path\to\updated\Materias.xlsx" --asesorias "C:\path\to\updated\Asesorias.xlsx" --publish
+```
+
+At the publication prompt, review the staged aggregate-only files and type
+`PUBLISH`. No raw spreadsheets, person-level student CSVs or pseudonymization
+secrets are staged. The script aborts rather than silently skipping failures,
+checks required model outputs, records source-file SHA-256 fingerprints and
+aggregate output SHA-256 hashes, archives full outputs under
+`results/experiments/`, and pushes only the known research results to this
+same branch. Detailed execution logs remain **local only**.
+
+**Updated cohorts:** the default PPA runner accepts changed N, contexts and
+visit-group sizes and records them in its manifest. Add
+`--require-historical-cohort` to reproduce the frozen historical
+6,627-student sample intentionally. The other historical methods retain their
+fixed visit-bin definitions and may require scientific re-specification if new
+cohorts contain unsupported sparse groups; the pipeline will stop on an error
+rather than manufacture estimates.
+
+**Paper and slides are not auto-rewritten.** The historical LaTeX narrative,
+numbered claims and most Marp SVGs refer to previously audited cohort
+results. The new runner refreshes the four mathematical-paper figure PDFs
+and archives current aggregates, but cannot scientifically replace every
+paragraph/slide figure automatically. Once numerical text and slides have
+been reviewed against the updated aggregate output and claims matrix, opt
+into a current-source build by adding `--build-publications`, which
+requires installed `latexmk` and Node.js/`npx` Marp CLI. Do not call
+the previous PDF/deck a new-cohort publication without this step.
+
+For provenance of each ported runner, original branches and commits, see
+`analysis/runners/README.md` and `docs/source-register.tsv`. The GitHub
+Actions [synthetic reproduction smoke workflow](https://github.com/heri-espino/CMAT-research/actions/workflows/paper2-reproduction-smoke.yml)
+needs **no institutional records**, and is manual after the initial CI run.
+
+### Data publication governance
+
+The user has stated they accept the public pseudonymized dataset. However,
+the repository's existing `docs/DATA_PRIVACY.md` describes its precise,
+linkable student-level datasets as restricted to an authorized private
+repository. That scientific/organizational disclosure decision requires
+documented permission from the institutional data custodian; this
+reproduction workflow does not copy or newly upload any such records.
