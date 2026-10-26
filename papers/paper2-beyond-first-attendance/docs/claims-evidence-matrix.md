@@ -11,7 +11,7 @@
 | F | `paper/paper2.2.1-fused-frequency` | `29810a86aef4c13a0327760955fae674ac349981` | 2026-10-08 completed fused-lasso run |
 | R | `research/paper21-shapley-predictive-importance` | `5915976ff5a7e3c4eededd0c1e39290b8b4d402c` | Committed Shapley, follow-up and attendance-curve aggregate CSVs/PNGs |
 | O | `paper/paper2-mu-performance` | `ac6f71208c503ab5a9e206f672746c57cb44a72e` | Historical original MU article; different `0/1/2/3/4+` framing; not pooled into confirmatory family |
-| P | `paper/paper2-ppa-groups-agent` | **not available at audit** | Await independently dated PPA group results and source SHA before entering new estimates |
+| P | `paper/paper2-ppa-groups-agent` | `3c6b4dc662cbe540058291908aa4f6df97e33071` | Grouping code and synthetic tests exist; no empirical PPA group result tables or run manifest at audit |
 
 **CSV location convention:** unless otherwise identified, `results/paper21/tables/<filename>` on the branch and commit in column “Source.” For F use `results/paper221/`; for R follow the named nested subdirectory under `results/paper21/tables/`. Each path is preserved exactly so it can be opened as a GitHub permalink by appending it to `https://github.com/heri-espino/CMAT-research/blob/<full-source-commit>/`.
 
