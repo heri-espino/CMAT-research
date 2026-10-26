@@ -1,56 +1,85 @@
-# Paper 2 administrative integration status — 2026-10-26
+# Paper 2 administrator integration status — 2026-10-26 (updated)
 
-**Current canonical branch:** `paper/paper2-beyond-first-attendance`.
-**Decision:** development integration permitted; public professor-facing release **BLOCKED**.
-**Do not merge whole historical branches to main, delete them, overwrite past PDF releases or promote draft documents to final.**
+**Canonical branch:** `paper/paper2-beyond-first-attendance`.
+**Development integration: COMPLETE. Empirical new-cohort execution: NOT YET RUN. Final publication: NOT YET APPROVED.**
 
-## Verified current branch/PR disposition
+## Pull requests integrated into the same research branch
 
-| Item | PR | Head branch | Decision / proof |
-|---|---:|---|---|
-| Architecture | — | `paper/paper2-beyond-first-attendance` | Namespace, provenance register, links and historical branch mapping present |
-| Methods / evidence audit | [#97](https://github.com/heri-espino/CMAT-research/pull/97) | `paper/paper2-methods-audit-agent` | **MERGED** as documentation-only squash `191d0b53594683a1eb17eee20188867bd8dc40a1`; this is not research-release approval |
-| Independent QA | [#96](https://github.com/heri-espino/CMAT-research/pull/96) | `paper/paper2-qa-agent` | **OPEN DRAFT**: independent final QA to be updated after manuscript/Marp/PPA changes and data-containment response |
-| PPA group analysis | [#98](https://github.com/heri-espino/CMAT-research/pull/98) | `paper/paper2-ppa-groups-agent` | **OPEN DRAFT**: remove unrequested `0|1–3|4|5+`, correct declared family, confirm CI synthetic tests and obtain authorized institutional results |
-| Integrated manuscript | [#99](https://github.com/heri-espino/CMAT-research/pull/99) | `paper/paper2-manuscript-agent` | **OPEN DRAFT**: build/validate real GitHub-viewable `manuscript/paper.pdf`, audit citations/numbers/ethical statements |
-| Marp slides | [#100](https://github.com/heri-espino/CMAT-research/pull/100) | `paper/paper2-marp-agent` | **OPEN DRAFT**: align to only three PPA groups, render via Marp CLI and validate the actual final PDF |
+| PR | Evidence | Integration SHA | Release qualifications |
+|---|---|---|---|
+| [#97](https://github.com/heri-espino/CMAT-research/pull/97) | Methods, claims/evidence, discrepancies | `191d0b53594683a1eb17eee20188867bd8dc40a1` | Documentation audit, not validated cohort rerun |
+| [#98](https://github.com/heri-espino/CMAT-research/pull/98) | PPA code and tests | `2072c5d67de2ea22d8772df9ebf826c09710bb89` | Corrected to **only** `0|1–3|4+`, Holm 3 pairs **per outcome**, updated cohort mode; no institutional fitted PPA estimates yet |
+| [#99](https://github.com/heri-espino/CMAT-research/pull/99) | Integrated LaTeX draft and supplement | `7631ae2341159d56b9f55a247790d0984dd721ba` | Consolidated actual `manuscript/paper.pdf` not yet verified |
+| [#100](https://github.com/heri-espino/CMAT-research/pull/100) | 22-slide Marp main deck + 8 appendix, SVG assets | `ffb6f213b3a274b62a9734cea2a569607fd595ae` | `deck.pdf` currently *offline fallback review preview*, not checked Marp CLI output |
+| [#96](https://github.com/heri-espino/CMAT-research/pull/96) | Interim independent QA evidence | `4473d906087c00647de7eed1a631d1be8e9a2a8e` | Preintegration dated snapshot; final end-to-end QA remains pending |
 
-Administrator review instructions were posted in each outstanding PR conversation on 2026-10-26.
+The original source branches and historical paper PDF are **preserved**. No whole historical branch was blanket-merged into `main`, and the historical Holm result tables remain accessible by immutable source SHA.
 
-## P0 — Controlled-data disclosure in PUBLIC repository
+## Unified reproduction infrastructure
 
-The public `main` branch currently contains `data/controlled/` pseudonymized, individual-level academic/CMAT/diagnostic source tables and normalized linked records. `docs/DATA_PRIVACY.md` and `data/controlled/PRIVACY_README.md` unequivocally restrict these files to a **private** authorized repository and state that even deterministic pseudonymization plus the retained timestamps/course metadata is **not anonymization**.
+Source-controlled runners from all original Paper 2 strands are now
+under `analysis/runners/`, covering grouped support, original Wald/Holm,
+numeric failure, EM/GMM/skew normal shape, controls, grouped Shapley,
+piecewise regression, smooth/nonparametric attendance curves, and
+fused-lasso 100-bootstrap regime stability. User-approved PPA grouping is
+under `analysis/ppa-groups/`.
 
-**Immediate necessary human action:** owner/admin must make the repository private or otherwise restrict access with the institutional data custodian **before** proceeding with public distribution, then assess historical clones/forks, branches, Git objects, Git LFS, releases, Actions artifacts, and access logs as available; determine approved incident-response, notification and public-history remediation. **Removing files only from the latest tree does not erase accessible historical versions.** This integration audit did not open or copy protected file contents. This issue is not solved by marking a PR private or by changing `.gitignore`.
+**One-command orchestration:**
+`python papers/paper2-beyond-first-attendance/run_all.py --publish`.
 
-GitHub connector access here does not expose a repository-visibility mutation. Consequently, do not claim containment, privacy incident closure, or public-release approval. Keep source data out of any new public PR or action artifacts.
+The script tests, executes every stage, generates Holm aggregate figures,
+validates key outputs, creates a source/output fingerprint manifest, copies
+current aggregate tables/figures under this publication folder, and pushes
+the audited aggregates only after an explicit user confirmation. It
+**stops on failures instead of silently publishing incomplete results**.
 
-## P1 — Scientific/source consistency blockers
+[GitHub Actions smoke test](https://github.com/heri-espino/CMAT-research/actions/workflows/paper2-reproduction-smoke.yml)
+performed successful Python 3.14 compilation, all supported no-private-data
+runner checks, and 13/13 PPA synthetic tests after two initial defects were
+identified and fixed. This does **not** certify the authorized institutional
+experiment suite.
 
-1. The historical `results/paper21/tables/26c_zero_inclusive_7plus_pass_logit_pairwise.csv` contains 28 `reject_adjusted=True` flags with absent cluster uncertainty and p-values. These boolean flags are **invalid inference**. Retain historical provenance but exclude their significance claims; LPM/Holm results are a different, estimable model.
-2. User-confirmed **only** requested PPA grouping is `0 | 1–3 | 4+` (N=5,393/932/302 from historical exact counts); no requested four-group sensitivity. All newly fitted comparisons are exploratory and **not yet performed** on an authorized institutional source in PR #98.
-3. No integrated source-built manuscript PDF exists on the integration branch yet; PR #99 provisional local PDF is not a GitHub-file-backed reproducible output.
-4. Marp PR #100 contains a real 30-page **offline fallback** PDF preview but not a verified Marp-CLI build; final visual/overflow QA and consistent figures pending.
-5. Historical adjusted pairwise Holm arithmetic was independently checked in 148 linear-model records, but re-estimation from confidential inputs remains a separate pending validation step. Different analytical populations cannot be silently pooled.
+Updated input files can change student/cluster counts. The PPA runner supports
+this explicitly and records the actual counts rather than forcing N=6,627;
+the frozen-cohort lock is optional. Historical other scripts have intentionally
+preserved their binning models; model adequacy must be reviewed when sparse
+or novel attendance frequencies change.
 
-## Historical branch retention
+## Public pseudonymized records — user position and unresolved governance
 
-Preserve these refs without rebase, force push, deletion or blanket merge:
+The user explicitly stated they are comfortable keeping pseudonymized data
+public. We have respected that direction by **not changing repository visibility**
+and by not deleting the earlier research histories. Nevertheless,
+`docs/DATA_PRIVACY.md` describes those linked records as not anonymous
+and requires restricted authorized access. The user's preference is not
+evidence of institutional custodian authorization, nor does pseudonymization
+remove quasi-identifier risk. Formal public release clearance and risk review
+remain separate from the technical ability to run/publish the research.
 
-- `paper/paper2-mu-performance`: original MU performance study.
-- `paper/paper2.1-visit-frequency`: historical Wald/Holm working manuscript and GitHub-viewable PDF.
-- `paper/paper2.2.1-fused-frequency`: fused-lasso results and 100-bootstrap run.
-- `paper/paper2.2.2-distributional-heterogeneity`: inherited EM/GMM, novel modality study unexecuted.
-- `research/paper21-shapley-predictive-importance`: Shapley, piecewise visit model and curves.
+This pipeline copies neither raw Excel files nor pseudonymized student-level
+records into generated results or new commits. It includes direct-ID and
+pseudonym-pattern checks but no automated filter can guarantee a public
+aggregate meets all institutional disclosure rules. A custodian review is
+required before describing the source-data release as approved.
 
-Source snapshots, paths and frozen blob identities are documented in `docs/source-register.md`, `docs/source-register.tsv` and the merged `docs/claims-evidence-matrix.md`.
+## Remaining scientific/editorial gates
 
-## Follow-on release sequence
+1. Execute the full institutional suite on the intended input version;
+   reconcile all outcomes, current N/contexts, model convergence and
+   distributional support. New PPA outcomes remain **pending**.
+2. Review every updated numerical manuscript claim and every slide/chart
+   against the newly generated committed CSVs. **Paper prose/Marp SVGs do
+   not update automatically simply by rerunning regressions.**
+3. Compile the integrated `manuscript/paper.pdf` from checked LaTeX sources,
+   render `presentation/marp/deck.pdf` with official Marp CLI and inspect
+   actual PDF pages, figures and links.
+4. Re-audit invalid historical 26c PASS-logit Boolean inference flags; the
+   newly ported runner now sets unestimable rejections to missing instead of
+   `True`, without rewriting historical source exports.
+5. Independent final QA after all empirical outputs and updated publications
+   have been committed. No current university/custodian clearance, external
+   causal identification or independent validation is implied.
 
-1. Contain public controlled-data access and obtain institutional custodian directions. Do not imply deleting HEAD resolves the history exposure.
-2. Correct #98 to the sole three-band design, use properly declared 3-contrast/outcome Holm scope, execute in an **authorized private** environment, and disclose-check only the aggregates.
-3. Refresh #99 and #100 against merged methods evidence; exclude invalid logit inference; build actual repository PDFs with exact output hashes, citations and visual checks.
-4. Independently re-audit integrated PDFs, data policy, PPA outputs, confidence intervals and all reference links through #96; resolve critical findings.
-5. Only after sign-off should the administrator promote minimal mergeable content to main and update its homepage link. The current Paper 2.1 professor-facing PDF remains the official *working draft* until then.
-
-**This record is a truthful integration status, not a representation that the integrated paper is final.**
+**Current professor-facing link:** retain the prior historical Paper 2.1 PDF
+until a newly integrated PDF is generated and signed off. The working Paper 2
+integration is accessible via the namespaced README.
