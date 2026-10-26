@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-26",
+  "version": "0.2.0-review2",
+  "main": 22,
+  "appendix": 8,
+  "figure_count": 11,
+  "source_tips": {
+    "paper21": "1546c594bfb6867ad52064594469061ec7fd7fc6",
+    "fused": "29810a86aef4c13a0327760955fae674ac349981",
+    "mixture": "b1cace126fd73b74e8353c8a6170dc40af2243c2",
+    "shapley": "5915976ff5a7e3c4eededd0c1e39290b8b4d402c"
+  },
+  "ppa": "pending",
+  "claims_matrix": "available_on_draft_methods_PR_97_not_merged",
+  "integrated_manuscript": "available_on_draft_manuscript_PR_99_not_merged",
+  "pdf_rendering": "offline_css_fallback_local_review; marp_CLI_required_for_release",
+  "release_gate": "FAIL_QA_PR96_public_controlled_student_data",
+  "n_primary_user_only_holm_pairs": 15,
+  "source_review_prs": [
+    96,
+    97,
+    98,
+    99
+  ],
+  "pass_logit_invalid_inferential_flags_excluded": true,
+  "ppa_holm_total_tests": 18,
+  "ppa_holm_family_definition": "3 primary pairs plus 6 secondary pairs in each of two outcomes; 18 total tests jointly adjusted"
+}
