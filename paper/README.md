@@ -1,5 +1,8 @@
 # Paper 2.1 — frequency of mathematics support use
 
+**Read the manuscript:** [paper.pdf](paper.pdf) — clean, compiled Paper 2.1 working draft available directly in GitHub. The automatic publication workflow builds it from the LaTeX sources on request; see [the workflow](../.github/workflows/publish-paper-pdf.yml). The separately generated commented PDF is an internal editorial artifact, not the version linked for readers.
+
+
 **Article scope:** adjusted final grades (Z), probability of passing (PASS) and **Holm-adjusted pairwise visit-frequency contrasts**. The contextual benchmark is zero visits versus any attendance, followed by the original `1/2/3/4/5/6+` positive-frequency grouping and an exploratory `0/1/2/3/4/5/6/7+` profile.
 
 Start with `../notes/README.md` and `docs/README.md`. Source manuscript: `sections/01.tex`–`04.tex`; reference database: `references.bib`.
@@ -27,7 +30,7 @@ python paper/paper_build.py --check
 python paper/paper_build.py --tables --figures --paper
 ```
 
-If figure inputs already exist, `python paper/paper_build.py --paper` compiles without rerunning the full analysis. Build uses `paper/ima-authoring-template/`; do not check compiled PDFs or protected microdata into the branch. The manual GitHub Actions workflows can produce temporary paper/aggregate artifacts.
+If figure inputs already exist, `python paper/paper_build.py --paper` compiles without rerunning the full analysis. Build uses `paper/ima-authoring-template/`; commit only the reader-facing `paper/paper.pdf` via the publication workflow; other compiled PDFs remain temporary artifacts. Never check protected microdata into the branch. The manual GitHub Actions workflows can produce temporary paper/aggregate artifacts.
 
 **Editorial status:** Holm-only working draft with existing documented numbers. Final numerical reconciliation, ethics/data-use statement, institutional context and journal-format audit remain.
 **New contextual hypothesis (2026-10-12):** An exploratory previously estimated non-PASS comparison shows more administrative versus numeric outcomes among attending students conditional on not passing. This does not reveal motives, scholarship ownership or a mechanism of academic grade protection. Read `../notes/12_NONPASS_SCHOLARSHIP_PPA_HYPOTHESES.md` for source provenance and the two proposed follow-up studies (scholarship/withdrawal rules; causal evaluation of PPA1 incentives). The main Holm contrasts remain unchanged.
