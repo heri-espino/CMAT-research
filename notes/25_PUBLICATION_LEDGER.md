@@ -19,6 +19,20 @@ Updated 2026-10-25. Repository: `heri-espino/CMAT-research`. This ledger tracks 
 
 **Do not claim these outstanding outputs were uploaded before verifying them on GitHub.**
 
+## Generating all still-missing analytical results (current procedure)
+
+The publication-only helper no longer recomputes results or requires raw institutional sources. To **generate** the missing follow-up and attendance-curve estimates, use [`scripts/generate_all_results.py`](../scripts/generate_all_results.py) **inside the separate publication clone**:
+
+```powershell
+cd C:\Users\175199\CMAT-research-publish
+conda activate cmat-research
+python .\scripts\generate_all_results.py --source "C:\Users\175199\CMAT-research" --publish
+```
+
+The script discovers supported source filenames in the original checkout and neighboring user directories without opening or copying institutional rows into the public repository. It can also accept `--materias "C:\...\input.xlsx" --asesorias "C:\...\input.xlsx"` if the files were moved outside the searched directories. It installs the editable research library from the publication checkout, runs the synthetic tests and `--check` contracts, **re-estimates both outstanding experiments**, verifies all 15 outputs (two Markdown reports, nine CSVs and four PNGs), then invokes the guarded publishing helper, which can also reimport the 16 historical PNGs through Git LFS.
+
+If the source files are absent, **full adjusted curves cannot be reconstructed from grouped aggregate results alone**. The script stops without inventing values or pushing partial curve findings. Historical Wald/Holm, EM/GMM and Shapley results are already versioned; they need not be recomputed to make the missing research outputs complete. The no-data publisher remains useful when only uploading previously generated aggregates.
+
 ## Safe workflow on Windows 11 PowerShell
 
 The old repository is on `main`, contains important local notes/results and shows 16 `brainstorm/**/*.png` files as modified because of a Git LFS pointer mismatch. The old checkout should not be reset, wiped, force-pulled or have its stashes popped during publication.
@@ -43,8 +57,8 @@ git branch --show-current
 The committed helper [`scripts/publish_cmat_results.ps1`](../scripts/publish_cmat_results.ps1):
 1. Operates only in the designated **research branch**, never the source checkout.
 2. Allows precisely the known 16 historical LFS mismatch statuses in the clean clone when `-IncludeHistoricalFigures` is passed.
-3. Copies only the four documented aggregate follow-up CSVs and report, then re-runs their calculations using the authorized academic/CMAT Excel workbooks **in the source checkout**. Workbooks are referenced by absolute path and never copied into the public checkout.
-4. Runs synthetic tests, checks both experiment contracts and computes the four-outcome attendance curves, cluster-aware intervals, held-out validation, five tables and four PNG charts.
+3. Copies **only already-generated aggregate outputs** from the original checkout; it never loads institutional datasets or reruns models. The separate `generate_all_results.py` runner handles missing analyses before publication.
+4. Stages the available verified result files; when results have not yet been generated, those paths are skipped rather than fabricated.
 5. Optionally copies the 16 historical PNG binaries from the original working tree, checking PNG magic bytes before any Git LFS staging.
 6. Uses a fixed staging allowlist (five outputs sets plus the historical-figure directory if selected), rejects protected input-file extensions, previews the staged list and Git LFS status, and **requires the operator to type `PUBLISH`** before committing and pushing.
 
