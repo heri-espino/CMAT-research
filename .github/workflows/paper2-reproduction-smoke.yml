@@ -33,3 +33,16 @@ jobs:
           python -m pytest -q \
             papers/paper2-beyond-first-attendance/analysis/ppa-groups/test_ppa_groups.py \
             papers/paper2-beyond-first-attendance/analysis/ppa-groups/test_synthetic_models.py
+
+  windows-launcher:
+    runs-on: windows-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+      - name: Test single PowerShell entry point without institutional data
+        shell: pwsh
+        run: |
+          .\papers\paper2-beyond-first-attendance\run_everything.ps1 -CheckOnly
