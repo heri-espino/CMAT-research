@@ -1,5 +1,7 @@
 # CMAT research
 
+**[Read the Paper 2.1 working manuscript (PDF)](https://github.com/heri-espino/CMAT-research/blob/paper/paper2.1-visit-frequency/paper/paper.pdf)** — canonical article PDF in the separate publication branch; this exploratory research branch holds additional analyses that do not automatically become manuscript claims.
+
 `main` is the shared upstream research branch. It contains the scientific library, controlled-data contracts, shared literature, broad research brainstorming and programme documentation; publication-specific work and large historical workspaces live on dedicated long-lived branches.
 
 ```text
