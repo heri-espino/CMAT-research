@@ -76,3 +76,10 @@ def test_primary_only_family_has_six_tests():
     adjusted_primary = multipletests(raw, method="holm")[1]
     adjusted_joint = multipletests(np.r_[raw, np.linspace(.001, .9, 12)], method="holm")[1]
     assert not np.allclose(adjusted_primary, adjusted_joint[:6])
+
+
+def test_static_cli_modes_have_distinct_holm_sizes(capsys):
+    assert run(["--check"]) == 0
+    assert "m=6" in capsys.readouterr().out
+    assert run(["--check", "--include-secondary"]) == 0
+    assert "m=18" in capsys.readouterr().out
