@@ -1,6 +1,6 @@
 # Paper 2 — Beyond First Attendance
 
-**Status (2026-10-26): architecture/migration established; no unified manuscript, validated new analysis, integrated PDF, or Marp deck is claimed.** This is the namespace for one proposed observational publication, not a fusion of formerly separate scientific conclusions.
+**Status (2026-10-26): integration work in progress — public release BLOCKED by restricted-data disclosure, PPA scope mismatch, unresolved statistical flags and incomplete PDF/Marp validation.** The methods audit has been merged as documentation; analysis/manuscript/presentation/QA PRs remain drafts. Read the [current administrator integration status](docs/ADMIN_INTEGRATION_STATUS.md). This namespace is one proposed observational publication, not a fusion of formerly separate scientific conclusions.
 
 ## Publication entry points
 
