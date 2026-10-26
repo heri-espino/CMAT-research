@@ -52,7 +52,7 @@ Updated 2026-10-22. This is a **cross-study navigation index**, not a newly fitt
 - These skill metrics are distinct, small, and use **end-of-semester attendance**, so they are *retrospective* rather than start-of-semester forecasts.
 - Z is standardized **within professor-period**: the near-zero classroom-only explanatory power is mechanical. Professor–degree allocation and degree-based selection remain hypotheses, not identified mechanisms.
 
-## 4 — Programme overlap, attendance hurdle and numeric grades — REPORT COMMITTED; CSV COMMIT PENDING
+## 4 — Programme overlap, attendance hurdle and numeric grades — REPORT AND FOUR CSVS ON GITHUB
 
 **Runner:** [`code/run_paper21_followup_questions.py`](../code/run_paper21_followup_questions.py); **design and caveats:** [`notes/21_FOLLOWUP_QUESTIONS_PROTOCOL.md`](21_FOLLOWUP_QUESTIONS_PROTOCOL.md); **synthetic tests:** [`cmat_analysis/tests/test_paper21_followup_questions.py`](../cmat_analysis/tests/test_paper21_followup_questions.py).
 
@@ -60,7 +60,7 @@ Updated 2026-10-22. This is a **cross-study navigation index**, not a newly fitt
 2. **Any attendance versus additional visits:** Fit a predeclared two-part piecewise linear model for PASS and imputed Z: `ANY_VISIT` (0→1) and `EXTRA_VISITS_CAPPED_7` (linear 1→7+), controlling for professor-period FE and degree with cluster-robust SE. Correct the two attendance-term p-values by Holm per outcome; these are observational *working-model contrasts*, not a causal dose-response or a substitute for the historical 15/21/28-pair analyses.
 3. **Numeric grade distribution and passing boundary:** Describe observed-numeric final-grade quantiles, numeric passing rates and concentration around 7.5 by non-overlapping coarse visit groups, and report administrative-state shares separately. This is intentionally **descriptive and selected on having a numeric final grade**, not a fitted conditional-quantile treatment effect.
 
-**User-provided execution log (2026-10-22, Windows 11, `cmat-research`):** six synthetic tests passed; CLI `--check` passed; institutional runner completed all three stages and wrote `notes/22_FOLLOWUP_QUESTIONS_RESULTS.md` plus four aggregate CSVs. **The results report was committed to GitHub as `notes/22_FOLLOWUP_QUESTIONS_RESULTS.md` on 2026-10-25; the four full-precision CSVs are still only on the Windows VM.** Values below are transcribed from the supplied console report, not independently audited against the still-local four CSVs.
+**User-provided execution log (2026-10-22, Windows 11, `cmat-research`):** six synthetic tests passed; CLI `--check` passed; institutional runner completed all three stages and wrote `notes/22_FOLLOWUP_QUESTIONS_RESULTS.md` plus four aggregate CSVs. **Remote status verified on 2026-10-26:** `notes/22_FOLLOWUP_QUESTIONS_RESULTS.md` and all four aggregate CSVs under `results/paper21/tables/followup_questions/` are now on GitHub. The rounded numbers below were originally transcribed from the console; reconciliation with the full-precision CSVs remains a methodological review task.
 
 **Degree–professor-period overlap:** 190/190 contexts include >1 degree; 6,627/6,627 students attend such contexts. The in-sample *incremental* Z R² from adding degree controls to attendance and professor-period FE is **0.0380** among those mixed contexts. This means at least two degrees appear in every context, **not** that representation is balanced or that prior math preparation is observed. Since the mixed subset comprises everyone, this equals the full-cohort incremental R² for these covariates.
 
@@ -86,11 +86,11 @@ A **constant slope is imposed**, not discovered. The model-implied 1→7+ contra
 
 **Composition for all eligible outcomes:** 0: N=5,393, administrative fraction **17.1%**, PASS **72.1%**; 1: N=517, administrative **16.1%**, PASS **81.0%**; 2–6: N=616, administrative **14.1%**, PASS **82.5%**; 7+: N=101, administrative **7.9%**, PASS **89.1%**. High numeric-only passing rates and a P90 of 10 in every group demonstrate a **grade ceiling**; conditioning on numeric outcomes also changes the analysis population and may create selection bias. The lower administrative fraction at 7+ might reflect student persistence/opportunity to accumulate visits rather than any CMAT effect.
 
-**Next checks before substantive claims:** retrieve/review the four local CSVs and generated `notes/22_FOLLOWUP_QUESTIONS_RESULTS.md`; audit class-level degree concentration (not just >1 programme), test slope sensitivity to top-coding and nonlinear specifications, distinguish time-at-risk and administrative grade outcomes, and consider observed-numeric complete-case regressions with explicit selection caveats. Do not overwrite the primary manuscript.
+**Next checks before substantive claims:** audit the four now-committed CSVs against `notes/22_FOLLOWUP_QUESTIONS_RESULTS.md`; audit class-level degree concentration (not just >1 programme), test slope sensitivity to top-coding and nonlinear specifications, distinguish time-at-risk and administrative grade outcomes, and consider observed-numeric complete-case regressions with explicit selection caveats. Do not overwrite the primary manuscript.
 
-**Versioned outputs to commit after disclosure review:** `results/paper21/tables/followup_questions/` and `notes/22_FOLLOWUP_QUESTIONS_RESULTS.md`; no original records, names or identifiers.
+**Versioned outputs verified on GitHub (2026-10-26):** `results/paper21/tables/followup_questions/` and `notes/22_FOLLOWUP_QUESTIONS_RESULTS.md`; no original records, names or identifiers.
 
-## 5 — First-visit jump and diminishing-return attendance curves — CODE COMMITTED, INSTITUTIONAL RUN PENDING
+## 5 — First-visit jump and diminishing-return attendance curves — RESULTS AND FOUR FIGURES ON GITHUB
 
 **Hypothesis:** a large 0→1 CMAT attendance association may be followed by increasing but diminishing grade associations; the exact-six sample is sparse and may generate a noisy 5→6 decline. This was proposed **after inspecting previous results**; its model-comparison evidence will be exploratory, not prespecified.
 
@@ -100,9 +100,9 @@ A **constant slope is imposed**, not discovered. The model-implied 1→7+ contra
 
 **Four different outcomes:** imputed Z for the complete cohort, PASS for the complete cohort, numeric-complete-case Z, and observed raw numeric grades. Do not mix their denominators or interpret the numeric subset as the full cohort.
 
-**Status (2026-10-22):** GitHub implementation, test module and protocol committed. **No new attendance-curve output, plot, p-value, selected shape, or empirical diminishing-return claim exists yet.** The authorized local Windows 11 VM must run tests and analyses. The script will generate `notes/24_ATTENDANCE_CURVE_RESULTS.md`, five aggregate CSVs under `results/paper21/tables/attendance_curves/`, and four aggregate PNG plots under `results/paper21/figures/attendance_curves/`. Update this tracker only after a validated local run.
+**Remote status verified on 2026-10-26:** `notes/24_ATTENDANCE_CURVE_RESULTS.md`, five aggregate CSVs under `results/paper21/tables/attendance_curves/`, and four aggregate PNG plots under `results/paper21/figures/attendance_curves/` are present on GitHub. Models were executed before this verification, but require scientific audit against the original run logs. In-sample AIC/BIC favors compact curves over unrestricted categories on the full-cohort outcomes, while held-out differences among shapes are tiny; the unrestricted Z 5→6 contrast has 95% nominal CI [-0.433, 0.199], and no within-positive adjacent pair survives the seven-adjacent Holm family. Do not claim a proven diminishing causal return or exact plateau.
 
-**Publication audit:** See [25_PUBLICATION_LEDGER.md](25_PUBLICATION_LEDGER.md) for the precise GitHub output inventory, remaining files held on the Windows VM, the Git LFS historical-figure mismatch, and the guarded publishing helper. Neither the new curve results nor the full follow-up CSVs have been verified remotely.
+**Publication audit:** See [25_PUBLICATION_LEDGER.md](25_PUBLICATION_LEDGER.md) for the precise GitHub output inventory, remaining files held on the Windows VM, the Git LFS historical-figure mismatch, and the guarded publishing helper. The full follow-up CSVs and all curve results have now been verified remotely; older text in the publication ledger requires revision.
 
 ## Guardrails shared across all studies
 
