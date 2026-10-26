@@ -1,6 +1,6 @@
 # Methodological synthesis — Paper 2 beyond first attendance
 
-**Version:** audit of committed branch heads as of 2026-10-26. **Purpose:** reconcile distinct scientific questions without rewriting an existing manuscript, modifying analyses, or equating algorithm selection with hypothesis testing. This document should be reviewed alongside [the claims matrix](claims-evidence-matrix.md) and [discrepancy report](discrepancy-report.md).
+**Version:** first audit of committed branch heads, independently refreshed on 2026-10-26 after main's updated PPA charter, new PR drafts and independent QA. **Research publication not cleared due to a verified public controlled-data disclosure.** **Purpose:** reconcile distinct scientific questions without rewriting an existing manuscript, modifying analyses, or equating algorithm selection with hypothesis testing. This document should be reviewed alongside [the claims matrix](claims-evidence-matrix.md) and [discrepancy report](discrepancy-report.md).
 
 ## 1. Scope, notation and identification
 
@@ -28,10 +28,11 @@ W_ab = Delta_ab / SE(Delta_ab).
 
 The omnibus Wald test jointly tests the contrasts against zero; it does not supply a confidence interval for each pair and does not prove equality when nonsignificant. Holm's step-down correction sorts the 15 pairwise p-values and controls the familywise Type-I error rate **within that declared family** under correctly calibrated constituent tests. The original omnibus p-values are 0.316551 (Z) and 0.152215 (PASS); no individual positive-frequency pair survives Holm.
 
-Three designs must not be silently pooled:
-1. The historical `1/2/3/4/5/6+` **15-pair** family, among users.
-2. The later `1/2/3/4/5/6/7+` **21-pair** user-only sensitivity (Z omnibus 0.21257, PASS 0.10198).
-3. The `0/1/2/3/4/5/6/7+` **28-pair** all-student profile (N=6,627), including zero-vs-user comparisons. Its PASS 7+ vs 1 adjusted +14.49 pp survives Holm, whereas its analogous Z +0.244 SD does not. The broader 0-vs-1+ benchmark is an additional single-comparison question.
+Four designs must not be silently pooled:
+1. The original full-cohort `0/1/2/3/4+` **10-pair** historical specification. Its PASS `4+ minus 1` is +10.26 percentage points (nominal 95% CI +3.81 to +16.71 pp, Holm p=0.010989), whereas the corresponding Z comparison does not survive Holm (p=0.152946). This is **not** the newly proposed PPA grouping.
+2. The historical positive-users-only `1/2/3/4/5/6+` **15-pair** family.
+3. The later `1/2/3/4/5/6/7+` **21-pair** user-only sensitivity (Z omnibus 0.21257, PASS 0.10198).
+4. The `0/1/2/3/4/5/6/7+` **28-pair** all-student profile (N=6,627), including zero-vs-user comparisons. Its PASS 7+ vs 1 adjusted +14.49 pp survives Holm, whereas its analogous Z +0.244 SD does not. The broader 0-vs-1+ benchmark is an additional single-comparison question.
 
 The full-cohort benchmark yields +0.3612 Z SD and +15.29 PASS pp for recorded attendance versus none after context/degree adjustment. This is a statistically precise association; it cannot isolate the causal effect of making a first visit. Clustering by professor rather than context reduces independent clusters from 176 to 51 in the user-only comparison and changes the p-values (e.g. Z omnibus 0.0477). Neither clustering approach can correct uncontrolled selection, and switching clustering because it changes significance is not appropriate.
 
@@ -84,7 +85,7 @@ Log, square-root and exponential forms may impose diminishing increments, rather
 
 ## 8. PPA threshold grouping — a planned explanatory check
 
-PPA1's optional first-semester activity uses three visits as a **possible participation incentive**. Individual eligibility, motive and credit receipt are not observed; hence attendance 1–3 cannot be identified as “PPA-only,” attendance 4+ cannot be assumed incentive-free, and a comparison at visit 3→4 is not a regression discontinuity. The proposed mutually exclusive partitions are `0|1–3|4+` (primary) and `0|1–3|4|5+` (secondary). Neither is a finalized result at this audit date, and the common three-visit criterion does not make the results preregistered. The PPA agent must report adjusted Z/PASS group coefficients, counts and context overlap, professor-period clustered uncertainty, explicit **new** within-outcome Holm families, and numeric-only/admin sensitivity before claims are admitted.
+PPA1's optional first-semester activity uses three visits as a **possible participation incentive**. Individual eligibility, motive and credit receipt are not observed; hence attendance 1–3 cannot be identified as “PPA-only,” attendance 4+ cannot be assumed incentive-free, and a comparison at visit 3→4 is not a regression discontinuity. The **current administrator-approved sole grouping** is `0 | 1–3 | 4+` (historical counts 5,393 / 932 / 302). The previous `0 | 1–3 | 4 | 5+` sensitivity was only an assistant suggestion and was explicitly withdrawn from the requirements on 2026-10-26; it must not be presented as requested PPA evidence. Neither model has finalized fitted PPA coefficients at this audit. The PPA implementation branch (`324fd86d`) nonetheless contains both groupings, runs an 18-p-value Holm family combining the two outcomes and two PPA groupings, and includes a historical exact-grid comparator. This requires correction before empirical PPA production: independently justify a family of **three pairwise contrasts per outcome** for the authorized three-group model, retaining the older 10/15/21/28-pair families separately. The PPA agent must report adjusted Z/PASS group coefficients, counts and context overlap, professor-period clustered uncertainty, and numeric-only/admin sensitivity before claims are admitted.
 
 ## 9. Joint thesis, antithesis and synthesis
 
@@ -96,10 +97,22 @@ PPA1's optional first-semester activity uses three visits as a **possible partic
 
 ## 10. Editorial deployment and validation sequence
 
-**Main text:** cohort/outcomes, adjusted benchmark, original positive-frequency Wald omnibus and Holm contrasts, and the PPA-group analysis only after signed provenance and post-hoc labeling. Provide one concise figure for unadjusted group support and a transparent paragraph contrasting observed numeric and administrative outcomes.
+**Main text:** cohort/outcomes, adjusted benchmark, distinguish original full-cohort ten-pair 0/1/2/3/4+ inference from original outcome-blind positive-users 15-pair Wald omnibus and Holm contrasts, and the sole authorized PPA three-group analysis only after signed provenance and post-hoc labeling. Provide one concise figure for unadjusted group support and a transparent paragraph contrasting observed numeric and administrative outcomes.
 
 **Supplement:** 7+ tail/full-cohort contrast and alternative cluster choices; the A/B/C/D adjustment sensitivity (mark D-logit inference missing); all seven-adjacent curve contrasts and competing shapes; complete-case/imputed GMM and skew-normal diagnostics; fused selection metrics, bootstrap stability and PASS penalty conflict; Shapley fit shares versus retrospective cross-validation; observed numeric-grade/admin composition.
 
 **Exclude pending validation:** causal effects of visit 1/3/4 or each extra visit; official PPA1 completion/type labels; student latent classes/bimodality; equivalence or saturation statements; actionable early-warning predictions; any p-value from nonestimable logit D; new Paper 2.2.2 claims.
 
 Validation sequence: (1) pin source branch SHA, run manifest and CSV/plot bytes; (2) verify cohort and each model's analysis denominator and context count; (3) check parameter orientation, outcome unit, zero/positive population and fixed-effects/cluster definition; (4) independently reconstruct all Wald contrasts and Holm corrections if controlled data access is authorized; (5) reconcile PPA source once committed; (6) perform privacy screening and scientific review before elevating any exploratory text to primary inference. Existing CSVs are not edited in this audit.
+
+## 11. Independent second-pass checks and release blockers (2026-10-26)
+
+**Aggregate arithmetic.** Retrieved the historical exact five-category 10-pair Z/PASS CSVs, the original positive-user 15-pair pairwise CSVs, the 21-pair positive-user tail-split CSVs, and the 28-pair zero-inclusive CSVs. Recomputed Holm adjustment independently for **148 tests** (10+10+15+15+21+21+28+28); maximal adjusted-p discrepancy was 0. Normal-approximation nominal 95% CI endpoints agree with `beta ± 1.96*SE` to a maximum absolute difference of `6.91e-6`, reflecting precise normal-quantile computation. Rejections by family: five-group Z 4/10, five-group PASS 5/10, user-only primary Z/PASS 0/15 each, users-only tail Z/PASS 0/21 each, full eight-group Z 7/28 and PASS 8/28. This authenticates **CSV arithmetic**, not original institutional data extraction, covariance implementation or causal identification.
+
+**Invalid fully adjusted PASS-logit inference.** The historical `results/paper21/tables/26c_zero_inclusive_7plus_pass_logit_pairwise.csv` has 28 rows with `reject_adjusted=True` while all raw/adjusted p-values, clustered standard errors and odds-ratio confidence limits are missing. This is an inferential reporting **failure**, not a statistically significant result. Numerical convergence is no remedy. Exclude the flags and any corresponding inferential statements; retain the LPM, which has separately verified clustered uncertainty.
+
+**Conflict with new draft presentation.** The separate unmerged Marp PR's PPA slide still says `0|1–3|4|5+` and thus contradicts the latest central charter. Its ten-pair five-category Holm slides are anchored to real historical CSVs and may remain if distinguished from the 15/21/28-pair models. The manuscript PR labels the new PPA grouping as pending, as it should, but its current manuscript text and slide artifacts have **not** undergone a complete integrated line-by-line PDF/figure review or new PPA empirical verification. Neither PR has been merged to the integration branch at this check.
+
+**Public controlled-data disclosure (P0, independent verification).** The repository has `visibility=public` and `main/data/controlled/` lists row-level pseudonymized academic, advisory and diagnostic CSVs alongside linked normalized longitudinal student/course files. Its own `data/controlled/PRIVACY_README.md` explicitly states that timestamps, programme, course, grade and longitudinal patterns could re-identify people and the files must reside only in a **private** authorized repository. This requires immediate administrator/institutional custodian action and review of Git history/forks/caches/artifacts. The scientific audit deliberately did **not** access or reproduce student-level file contents or change repository visibility. Publication **MUST NOT** be certified until this risk is addressed.
+
+**Independent QA provenance.** QA PR #96's original critique of the four-group requirement predates the subsequent administrator clarification and is now **superseded on that specific point**. Its finding of invalid PASS-logit flags and public student data was separately confirmed against GitHub. Historical QA/other-agent documents are evidence of work performed but not substitutes for rechecking live sources.
