@@ -52,6 +52,23 @@ five attendance curves, fused lasso with **100 bootstrap fits**, the requested
 **only** PPA grouping `0 | 1–3 | 4+`, and four refreshed manuscript
 Wald/Holm figures. Every stage runs in dependency order; **no failure is skipped**.
 
+**Windows single-command launcher** (the default executes *all stages* and
+asks before committing/pushing approved aggregates):
+
+```powershell
+.\papers\paper2-beyond-first-attendance\run_everything.ps1
+```
+
+For updated workbooks outside the canonical configured folders:
+
+```powershell
+.\papers\paper2-beyond-first-attendance\run_everything.ps1 -Materias "C:\path\to\Materias.xlsx" -Asesorias "C:\path\to\Asesorias.xlsx"
+```
+
+The launcher installs the pinned scientific package first, then invokes
+`run_all.py --publish`. Use `-CheckOnly` for data-free contracts, or
+`-NoPublish` for a full local-only experiment run.
+
 With Python 3.14 in the existing `cmat-research` Conda environment:
 
 ```powershell
