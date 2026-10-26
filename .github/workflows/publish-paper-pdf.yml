@@ -1,7 +1,7 @@
 name: Publish Paper 2.1 PDF to GitHub
 
-# The initial addition builds the manuscript immediately. Thereafter, builds
-# are manual (workflow_dispatch), not on every paper/code commit.
+# Pushing an edit to THIS workflow rebuilds once; subsequent manuscript
+# updates use the main-branch manual publisher (no automatic every-commit build).
 on:
   push:
     branches:
