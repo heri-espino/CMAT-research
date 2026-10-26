@@ -178,7 +178,7 @@ def run(argv=None):
     if args.check:
         verify_partition(pd.DataFrame({VISITS: [0,1,2,3,4,5,6,7,8,99]}))
         assert ppa_family_size() == 18
-        print("PASS: exclusive group boundaries and exploratory Holm family size 18")
+        print(f"PASS: exclusive visit bands; selected exploratory Holm m={18 if args.include_secondary else 6} (full optional family m=18)")
         return 0
 
     # An explicit institutional input selection avoids an accidental fall back
