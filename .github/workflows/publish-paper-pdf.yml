@@ -14,7 +14,7 @@ permissions:
   contents: write
 
 concurrency:
-  group: publish-paper2-1-pdf-${{ github.ref }}
+  group: publish-paper2-1-pdf-fastretry-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -60,12 +60,13 @@ jobs:
           }
 
       - name: Install PDF LaTeX toolchain
+        shell: bash
         run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            latexmk texlive-latex-base texlive-latex-recommended \
-            texlive-latex-extra texlive-fonts-recommended \
-            texlive-bibtex-extra texlive-science lmodern
+          set -euo pipefail
+          sudo apt-get -o Acquire::Retries=2 update -qq
+          sudo env DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+            latexmk texlive-latex-recommended texlive-latex-extra \
+            texlive-fonts-recommended texlive-bibtex-extra lmodern
 
       - name: Generate figures and compile the clean manuscript
         run: python paper/paper_build.py --figures --paper --no-auto
