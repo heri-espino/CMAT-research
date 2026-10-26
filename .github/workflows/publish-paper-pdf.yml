@@ -1,0 +1,113 @@
+name: Publish Paper 2.1 PDF to GitHub
+
+# The initial addition builds the manuscript immediately. Thereafter, builds
+# are manual (workflow_dispatch), not on every paper/code commit.
+on:
+  push:
+    branches:
+      - paper/paper2.1-visit-frequency
+    paths:
+      - .github/workflows/publish-paper-pdf.yml
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-paper2-1-pdf-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: github.ref == 'refs/heads/paper/paper2.1-visit-frequency'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+
+    steps:
+      - name: Check out Paper 2.1 source and committed aggregate data
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+          fetch-depth: 0
+          lfs: true
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14'
+          cache: pip
+          cache-dependency-path: cmat_analysis/pyproject.toml
+
+      - name: Install analysis and plotting dependencies
+        run: python -m pip install -e './cmat_analysis[dev]'
+
+      - name: Verify aggregate-only manuscript build inputs
+        shell: bash
+        run: |
+          set -euo pipefail
+          for file in \
+            paper/main.tex \
+            paper/manuscript.tex \
+            paper/references.bib \
+            results/paper21/tables/10n_zero_inclusive_7plus_descriptives.csv \
+            results/paper21/tables/10o_zero_inclusive_7plus_exact_administrative_composition.csv \
+            results/paper21/tables/10s_zero_inclusive_7plus_imputed_z_histogram.csv \
+            results/paper21/tables/26k_zero_inclusive_7plus_pairwise_pass_lpm.csv; do
+            test -s "$file"
+          done
+          test ! -f data/controlled/Materias_pseudonymized.csv || {
+            echo "::warning::Controlled data exist in checkout; they are NOT required or used by this build."
+          }
+
+      - name: Install PDF LaTeX toolchain
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            latexmk texlive-latex-base texlive-latex-recommended \
+            texlive-latex-extra texlive-fonts-recommended \
+            texlive-bibtex-extra texlive-science lmodern
+
+      - name: Generate figures and compile the clean manuscript
+        run: python paper/paper_build.py --figures --paper --no-auto
+
+      - name: Create canonical professor-facing PDF
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp paper/main.pdf paper/paper.pdf
+          test -s paper/paper.pdf
+          python - <<'PY'
+          from pathlib import Path
+          p = Path("paper/paper.pdf")
+          assert p.read_bytes().startswith(b"%PDF-"), "Not a valid PDF header"
+          print("Validated PDF header, size", p.stat().st_size)
+          PY
+          pdfinfo paper/paper.pdf | grep -E '^(Pages|Page size|File size):'
+
+      - name: Save compiled PDF as supplementary Actions artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: paper2-1-professor-copy-${{ github.sha }}
+          path: paper/paper.pdf
+          if-no-files-found: error
+          retention-days: 90
+
+      - name: Commit PDF binary directly into the paper branch
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f -- paper/paper.pdf
+          # GitHub should serve an actual PDF rather than an LFS pointer text.
+          python - <<'PY'
+          import subprocess
+          data = subprocess.check_output(["git", "show", ":paper/paper.pdf"])
+          assert data.startswith(b"%PDF-"), "Git staged an LFS pointer, not a PDF"
+          PY
+          if git diff --cached --quiet -- paper/paper.pdf; then
+            echo "paper/paper.pdf is unchanged."
+            exit 0
+          fi
+          git commit -m "Publish compiled Paper 2.1 manuscript for readers"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
