@@ -1,0 +1,5 @@
+group,n_numeric,n_all_outcomes,numeric_pass_rate,numeric_mean,numeric_p10,numeric_p25,numeric_median,numeric_p75,numeric_p90,numeric_share_within_half_point_of_7p5,conditioning
+0,4470,5393,0.8700223713646532,8.293467561521254,6.290000000000004,8.0,9.0,9.6,10.0,0.14049217002237135,received_observed_numeric_final_grade
+1,434,517,0.9654377880184332,8.887096774193548,7.7,8.3,9.2,9.775,10.0,0.15668202764976957,received_observed_numeric_final_grade
+2-6,529,616,0.9603024574669187,8.888468809073723,7.6,8.2,9.1,9.7,10.0,0.17580340264650285,received_observed_numeric_final_grade
+7+,93,101,0.967741935483871,8.822580645161292,7.7,8.3,8.9,9.6,10.0,0.1827956989247312,received_observed_numeric_final_grade

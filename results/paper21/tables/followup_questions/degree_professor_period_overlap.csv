@@ -1,0 +1,2 @@
+n_students,n_professor_period,n_mixed_professor_period,fraction_contexts_mixed,n_students_in_mixed_contexts,fraction_students_in_mixed_contexts,median_programmes_per_context,max_programmes_per_context,median_students_per_context,sample,r2_mixed_without_degree,r2_mixed_with_degree,incremental_r2_degree_mixed,status
+6627,190,190,1.0,6627,1.0,13.0,28,30.0,mixed_professor_period_only,0.020224121719474963,0.05822819493413134,0.038004073214656375,descriptive_fit_only
