@@ -1,5 +1,7 @@
 # Public GitHub publication ledger — CMAT research outputs
 
+**Superseding remote verification — 2026-10-26.** All previously missing authorized aggregate outputs were verified on the research branch: four follow-up CSVs (`results/paper21/tables/followup_questions/`), five attendance-curve CSVs (`results/paper21/tables/attendance_curves/`), four attendance-curve PNGs (`results/paper21/figures/attendance_curves/`), `notes/22_FOLLOWUP_QUESTIONS_RESULTS.md`, `notes/24_ATTENDANCE_CURVE_RESULTS.md`, and four Shapley CSVs. The **historical ledger text below describes the October 25 state and is retained for provenance, not a current missing-results claim**. Integrating these analyses into one manuscript and Marp deck is still planned: [administrator contract](https://github.com/heri-espino/CMAT-research/blob/main/docs/PAPER2_CONSOLIDATION_PLAN.md).
+
 Updated 2026-10-25. Repository: `heri-espino/CMAT-research`. This ledger tracks **which research outputs are actually on the remote**, rather than assuming that successfully running code locally uploads them.
 
 ## Included in GitHub already
