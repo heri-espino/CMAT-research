@@ -115,7 +115,7 @@ In the **complementary ten-pair model**, zero differs from each positive group. 
 
 ![Aggregate figure](figures/ppa.svg)
 
-Primary `0 | 1–3 | 4+`; four-group sensitivity `0 | 1–3 | 4 | 5+`. **Pending validated adjusted estimates**. The figure is a grouping diagram, not a plotted result.
+Only user-approved grouping: `0 | 1–3 | 4+`. **Pending validated adjusted estimates**. The figure is a grouping diagram, not a plotted result.
 
 <!-- _footer: Source: PAPER2_CONSOLIDATION_PLAN.md -->
 <!-- Speaker notes: Do not infer group effects from historical exact group coefficients. -->
@@ -211,7 +211,7 @@ Five-fold professor-period-held-out analysis: grade R² skill **1.85%**, PASS Br
 
 **Unresolved:** self-selection, PPA1 participation, preparation, functional form and prospective generalization.
 
-**Next:** validate primary and secondary PPA specifications; harmonize denominators; collect baseline readiness and visit timing; evaluate ethical prospective encouragement.
+**Next:** validate the sole three-band PPA specification; harmonize denominators; collect baseline readiness and visit timing; evaluate ethical prospective encouragement.
 
 **Release gate — DO NOT RELEASE:** independent QA PR #96 reports a critical public controlled-data exposure and invalid PASS-logit significance flags. Institutional response and renewed review are prerequisites.
 
@@ -227,7 +227,7 @@ Five-fold professor-period-held-out analysis: grade R² skill **1.85%**, PASS Br
 
 **Model diagnostics:** fused-lasso grouping; Gaussian mixtures versus skewness; Shapley in-sample attribution; retrospective held-out prediction.
 
-**PPA:** mutually exclusive 0 | 1–3 | 4+ and 0 | 1–3 | 4 | 5+ remain exploratory and **not estimated on authorized institutional microdata**.
+**PPA:** mutually exclusive 0 | 1–3 | 4+ remains exploratory and **not estimated on authorized institutional microdata**.
 
 <!-- _footer: Source: Methods claims-to-evidence matrix (PR #97); PPA PR #98 -->
 <!-- Speaker notes: These methods measure different features of the same cohort and do not constitute independent experimental replications. -->
