@@ -20,7 +20,7 @@
 - The fused manifest records execution commit `c9faa397bd0a6c7c8c67025ab94f8314e0996018`, UTC `2026-10-08T02:50:36.054293+00:00`, four specifications with `100/100` successful bootstrap retunes and **no warnings**, on a head now at `29810a86...`. The actual underlying input-file SHA-256 fingerprints are retained **only in the original manifest** and deliberately not reprinted here.
 - Mixture and skew-fit records in branch M are inherited Paper 2.1 historical analyses. The prospective Paper 2.2.2 modality extension was marked *research design only* in `PAPER_BRANCH.md`; this audit has not fabricated a Paper 2.2.2 experiment.
 - The research branch's `notes/25_PUBLICATION_LEDGER.md` now contains a 2026-10-26 supersession paragraph correcting its archived October 25 missing-results text.
-- The new three/four-group PPA result source, experiment commit and uncertainty tables had not been published to a PPA agent branch at the audit moment. No PPA effect estimate was entered into the claims matrix.
+- The PPA agent branch existed at `3c6b4dc662cbe540058291908aa4f6df97e33071` with `analysis/ppa-groups/ppa_groups.py`, `run_ppa_groups.py`, and `test_ppa_groups.py`, but no empirical three/four-group results, output manifest or uncertainty tables had been published at the audit moment. No PPA effect estimate was entered into the claims matrix.
 
 ## Verification scope and limitations
 
