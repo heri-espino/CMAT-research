@@ -62,7 +62,7 @@ def _estimate(cohort, spec, outcome):
     for frame in (pair, omnibus, info):
         frame.insert(0, "outcome", outcome)
         frame.insert(0, "specification", spec.name)
-    pair["family_role"] = "exploratory_PPA_18" if spec.exploratory_ppa else "historical_exact_28_reference"
+    pair["family_role"] = "exploratory_PPA_3_per_outcome" if spec.exploratory_ppa else "historical_exact_28_reference"
     pair["n_fixed_effect_levels"] = int(info.loc[0, "n_fixed_effect_levels"])
     pair["comparison_direction"] = "group1_minus_group2"
     descriptive = group_outcome_summary(d, group_col="PPA_VISIT_GROUP",
@@ -123,7 +123,7 @@ def _adjusted_levels(cohort, spec, outcome):
 
 def _focus(allpairs):
     rows = []
-    for spec in SPECS[:2]:
+    for spec in SPECS[:1]:
         for row in allpairs.loc[allpairs.specification == spec.name].itertuples():
             scale = 100. if row.outcome == "PASS" else 1.
             rows.append({
@@ -172,13 +172,11 @@ def run(argv=None):
     p.add_argument("--output-root", type=Path,
                    default=ROOT / "papers" / "paper2-beyond-first-attendance" / "results")
     p.add_argument("--check", action="store_true")
-    p.add_argument("--include-secondary", action="store_true",
-                   help="Additionally fit 0|1-3|4|5+ and apply a joint 18-test exploratory Holm family")
     args = p.parse_args(argv)
     if args.check:
         verify_partition(pd.DataFrame({VISITS: [0,1,2,3,4,5,6,7,8,99]}))
-        assert ppa_family_size() == 18
-        print(f"PASS: exclusive visit bands; selected exploratory Holm m={18 if args.include_secondary else 6} (full optional family m=18)")
+        assert ppa_family_size() == 3
+        print("PASS: 0 | 1–3 | 4+ only; two separate 3-pair Holm families (Z and PASS)")
         return 0
 
     # An explicit institutional input selection avoids an accidental fall back
@@ -201,7 +199,7 @@ def run(argv=None):
     if len(cohort) != 6627 or cohort[FIXED].nunique() != 190 or int((cohort[VISITS]>0).sum()) != 1234:
         raise ValueError("Cohort validation failed: expected N=6,627, 190 professor-period contexts and 1,234 recorded users")
     verify_partition(cohort)
-    exact_counts = (assign_visit_groups(cohort[VISITS], SPECS[2])
+    exact_counts = (assign_visit_groups(cohort[VISITS], SPECS[1])
                     .astype(str).value_counts().to_dict())
     if exact_counts != EXPECTED_EXACT_SUPPORT:
         raise ValueError(
@@ -214,11 +212,11 @@ def run(argv=None):
     tables = args.output_root / "tables" / "ppa-groups"
     provenance = args.output_root / "provenance" / "ppa-groups"
     allpairs, omnibus, infos, observed, overlaps, adjusted = [], [], [], [], [], []
-    active_specs = (SPECS[0], SPECS[1], SPECS[2]) if args.include_secondary else (SPECS[0], SPECS[2])
-    exploratory_specs = tuple(spec for spec in active_specs if spec.exploratory_ppa)
-    family_size = sum(len(spec.labels) * (len(spec.labels)-1) // 2 for spec in exploratory_specs) * len(OUTCOMES)
-    if family_size not in (6, 18):
-        raise AssertionError("Unexpected exploratory comparison family size")
+    active_specs = SPECS  # Primary PPA + separate historical exact-frequency reference.
+    exploratory_specs = (SPECS[0],)
+    family_size = ppa_family_size()  # 3 comparisons per outcome, NOT a pooled 6-test family.
+    if family_size != 3:
+        raise AssertionError("Unexpected primary PPA family size")
     for spec in active_specs:
         for outcome in OUTCOMES:
             a,b,c,d,e = _estimate(cohort,spec,outcome)
@@ -227,14 +225,18 @@ def run(argv=None):
             if outcome == OUTCOMES[0]:
                 observed.append(d); overlaps.append(e)
     pairs = pd.concat(allpairs,ignore_index=True)
-    mask = pairs.specification.isin([s.name for s in exploratory_specs])
-    assert int(mask.sum()) == family_size
-    _, p_holm, _, _ = multipletests(pairs.loc[mask,"p_raw"],method="holm",alpha=.05)
-    pairs["ppa_family_m"] = family_size
+    mask = pairs.specification == SPECS[0].name
+    assert int(mask.sum()) == family_size * len(OUTCOMES)
+    pairs["ppa_family_m"] = np.nan
     pairs["p_holm_ppa_family"] = np.nan
-    pairs.loc[mask,"p_holm_ppa_family"] = p_holm
     pairs["reject_holm_ppa_family"] = False
-    pairs.loc[mask,"reject_holm_ppa_family"] = p_holm <= .05
+    for outcome in OUTCOMES:
+        outcome_mask = mask & (pairs.outcome == outcome)
+        assert int(outcome_mask.sum()) == family_size
+        _, p_holm, _, _ = multipletests(pairs.loc[outcome_mask, "p_raw"], method="holm", alpha=.05)
+        pairs.loc[outcome_mask, "ppa_family_m"] = family_size
+        pairs.loc[outcome_mask, "p_holm_ppa_family"] = p_holm
+        pairs.loc[outcome_mask, "reject_holm_ppa_family"] = p_holm <= .05
     focus = _focus(pairs)
     _save(pairs,tables/"pairwise_all_models.csv")
     _save(focus,tables/"focus_target_minus_baseline.csv")
@@ -247,7 +249,7 @@ def run(argv=None):
     for outcome in ("GRADE_NUMERIC", "Z_GRADE_COMPLETE_CASE"):
         for spec in exploratory_specs:
             a,b,c,_,_ = _estimate(cohort,spec,outcome)
-            a["family_role"] = "numeric_selected_sensitivity_separate_from_PPA_18"
+            a["family_role"] = "numeric_selected_sensitivity_separate_from_main_PPA"
             sensitivity.append(a)
     _save(pd.concat(sensitivity,ignore_index=True),tables/"numeric_selected_sensitivity.csv")
     _figures(focus,args.output_root/"figures"/"ppa-groups")
@@ -262,7 +264,7 @@ def run(argv=None):
       "group_definitions_sha256":_hash(Path(__file__).with_name("ppa_groups.py")),
       "p_holm_family":family_size,
       "included_specifications":[spec.name for spec in active_specs],
-      "secondary_enabled":args.include_secondary,
+      "holm_family_definition":"Within each primary outcome separately, 3 PPA contrasts; Z and PASS not pooled",
       "source_sha256":{"materias":_hash(config.materias_path),
                        "asesorias":_hash(config.asesorias_path)},
       "source_paths":{"materias":_safe_source_label(config.materias_path),
@@ -275,7 +277,7 @@ def run(argv=None):
       "limitations":"Recorded visits are voluntary; PPA intent, eligibility, credits unobserved; not causal.",
     }
     (provenance/"run_manifest.json").write_text(json.dumps(manifest,indent=2),encoding="utf-8")
-    print(f"Completed aggregate PPA analysis N={len(cohort)}, exploratory Holm m={family_size}; outputs in {tables}")
+    print(f"Completed aggregate PPA analysis N={len(cohort)}, Holm m=3 per outcome; outputs in {tables}")
     return 0
 
 if __name__ == "__main__":
