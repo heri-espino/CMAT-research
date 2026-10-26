@@ -197,6 +197,12 @@ def main() -> None:
     for file in (materias, asesorias):
         if not file.is_file():
             parser.error(f"Input not found: {file}")
+    # Install this checkout's local analysis library without downloading raw data
+    # or resolving dependencies from the network. The Conda environment already
+    # contains the pinned scientific Python dependencies.
+    execute(sys.executable, "-m", "pip", "install", "--no-deps",
+            "-e", "./cmat_analysis")
+
     print("Found authorized candidate inputs locally; source files remain private.")
     print("Analyses must pass the established N=6,627 / 190-context cohort checks.")
 
