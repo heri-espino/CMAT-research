@@ -1,5 +1,11 @@
 # CMAT research
 
+## Manuscript — direct PDF
+
+**[Read Paper 2.1: CMAT attendance frequency and academic outcomes (PDF)](https://github.com/heri-espino/CMAT-research/blob/paper/paper2.1-visit-frequency/paper/paper.pdf)**
+
+The linked file is the clean compiled **working draft** hosted directly in the paper branch, rather than a temporary GitHub Actions artifact. [Paper source, figures and reproducibility notes](https://github.com/heri-espino/CMAT-research/tree/paper/paper2.1-visit-frequency/paper). The manuscript is observational and remains subject to the documented editorial and data-use checks.
+
 `main` is the shared upstream research branch. It contains the scientific library, controlled-data contracts, shared literature, broad research brainstorming and programme documentation; publication-specific work and large historical workspaces live on dedicated long-lived branches.
 
 ```text
