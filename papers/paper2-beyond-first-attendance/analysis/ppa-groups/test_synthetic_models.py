@@ -60,7 +60,7 @@ def test_model_standardized_levels_reproduce_shared_pairwise(synthetic_mu):
 
 def test_numeric_selected_sensitivity_defined(synthetic_mu):
     for outcome in ("GRADE_NUMERIC", "Z_GRADE_COMPLETE_CASE"):
-        for spec in SPECS[:2]:
+        for spec in SPECS[:1]:  # The only user-approved PPA categorical specification.
             pairs, omnibus, _, _, _ = _estimate(synthetic_mu,spec,outcome)
-            assert len(pairs) in (3,6)
+            assert len(pairs) == 3
             assert np.isfinite(omnibus.p_value).all()
