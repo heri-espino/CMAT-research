@@ -17,6 +17,10 @@ VISITS = "VISITS_CMAT_PERIOD"
 FIXED = "CLASSROOM_ID"
 DEGREE = "CLAVECARRERA"
 OUTCOMES = ("Z_GRADE_PRIMARY", "PASS")
+# Outcome-blind visit distribution from the locked Paper 2.1 analytic cohort.
+# Check counts, not historical means or significance values.
+EXPECTED_EXACT_SUPPORT = {"0": 5393, "1": 517, "2": 245, "3": 170,
+                          "4": 96, "5": 55, "6": 50, "7+": 101}
 
 def _save(table, filename):
     filename.parent.mkdir(parents=True, exist_ok=True)
@@ -174,6 +178,10 @@ def run(argv=None):
         print("PASS: exclusive group boundaries and exploratory Holm family size 18")
         return 0
 
+    # An explicit institutional input selection avoids an accidental fall back
+    # to publicly versioned pseudonymized student records.
+    if args.materias is None or args.asesorias is None:
+        p.error("Full runs require explicit authorized --materias and --asesorias paths; use --check for synthetic-only checks")
     from cmat_analysis.cohorts import build_study_cohorts, load_and_clean_inputs
     from cmat_analysis.config.study_config import get_study_config
     from cmat_analysis.measures import add_primary_outcomes
@@ -190,6 +198,14 @@ def run(argv=None):
     if len(cohort) != 6627 or cohort[FIXED].nunique() != 190 or int((cohort[VISITS]>0).sum()) != 1234:
         raise ValueError("Cohort validation failed: expected N=6,627, 190 professor-period contexts and 1,234 recorded users")
     verify_partition(cohort)
+    exact_counts = (assign_visit_groups(cohort[VISITS], SPECS[2])
+                    .astype(str).value_counts().to_dict())
+    if exact_counts != EXPECTED_EXACT_SUPPORT:
+        raise ValueError(
+            "Cohort visit distribution differs from the validated historical "
+            "exact-frequency support; institutional results must not be published "
+            "until this discrepancy is investigated."
+        )
     if cohort["PASS"].isna().any() or cohort["Z_GRADE_PRIMARY"].isna().any():
         raise ValueError("Unexpected missing full-cohort main outcome")
     tables = args.output_root / "tables" / "ppa-groups"
@@ -232,6 +248,9 @@ def run(argv=None):
       "utc":datetime.now(timezone.utc).isoformat(),
       "n":len(cohort), "n_contexts":int(cohort[FIXED].nunique()),
       "n_users":int((cohort[VISITS]>0).sum()),
+      "historical_exact_support_revalidated":exact_counts,
+      "analysis_script_sha256":_hash(Path(__file__)),
+      "group_definitions_sha256":_hash(Path(__file__).with_name("ppa_groups.py")),
       "p_holm_family":18,
       "source_sha256":{"materias":_hash(config.materias_path),
                        "asesorias":_hash(config.asesorias_path)},
