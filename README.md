@@ -1,5 +1,21 @@
 # CMAT research
 
+## Consolidated Paper 2 — working integration
+
+The merged methodology audit, corrected PPA three-group implementation, integrated
+LaTeX draft, Marp slides, QA reports, and all reproducibility runners are in:
+
+**[Paper 2: Beyond First Attendance — integrated project](https://github.com/heri-espino/CMAT-research/tree/paper/paper2-beyond-first-attendance/papers/paper2-beyond-first-attendance)**
+
+The [full rerun instructions](https://github.com/heri-espino/CMAT-research/blob/paper/paper2-beyond-first-attendance/papers/paper2-beyond-first-attendance/README.md)
+include one Windows command that regenerates the original Holm, EM/GMM,
+fused, Shapley, piecewise, curve, and primary PPA analyses and publishes the
+reviewed **aggregate** results to the consolidated branch. New adjusted PPA
+results and a fully validated integrated paper/Marp export remain pending
+the next authorized institutional-data run and manuscript/slide claim review.
+The historically published Paper 2.1 PDF below remains available and is
+**not** yet a representation of this new integrated article.
+
 ## Manuscript — direct PDF
 
 **[Read Paper 2.1: CMAT attendance frequency and academic outcomes (PDF)](https://github.com/heri-espino/CMAT-research/blob/paper/paper2.1-visit-frequency/paper/paper.pdf)**
