@@ -121,7 +121,7 @@ def discover_pair(source: Path, search_root: Path | None) -> tuple[Path, Path]:
         local = int(source.resolve() == p or source.resolve() in p.parents)
         lower_names = [v.casefold() for v in INPUT_NAMES[kind]]
         named = lower_names.index(p.name.casefold())
-        raw = int("data\\raw" in p_string or "data/raw" in p_string)
+        raw = int(any(part.casefold() == "raw" for part in p.parts))
         return (-local, named, -raw, p_string)
 
     academic = sorted(found["materias"], key=lambda p: priority(p, "materias"))
